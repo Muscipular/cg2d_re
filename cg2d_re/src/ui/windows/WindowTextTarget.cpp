@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -66,21 +67,6 @@ static std::int32_t WindowTextTarget_SelectRow(ElementId elementId, std::int32_t
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
-static const wchar_t* const* gTextChoiceNamesD30130 = nullptr; // 借用宽文本名单，窗口正文直接读取。 // 原全局：0x00D30130。
-
-static const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
-
-static std::int32_t gTextChoiceCountCC4CE4 = 0; // 原全局：0x00CC4CE4。
-
-static WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr; // 原全局：0x00C9A974。
-
-static WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr; // 原全局：0x00CA0AC0。
-
-static std::int32_t gTextChoiceOffsetD2D9C0 = 0; // 原全局：0x00D2D9C0。
-
-static std::uint8_t gTextChoiceEnabledCA0008 = 0; // 原全局：0x00CA0008。
-
 static WindowGraphicData gWindowGraphic56D010 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D010。
 
 static WindowGraphicData gWindowGraphic56D028 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D028。
@@ -131,22 +117,25 @@ WindowPrototype gWindowPrototypeTextTarget {0, 4, 160, 125, 320, 192, 0x80010101
 
 // 原函数：0x0049F000。
 cg::yobi::YobiAction* WindowTextTarget_Open(
-    const wchar_t* const* const names, const std::uint8_t* const colors,
+    session::ClientSession& session, const wchar_t* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
 {
-    gTextChoiceNamesD30130 = names;
-    gTextChoiceColorsCB1E18 = colors;
-    gTextChoiceCountCC4CE4 = count;
-    gTextChoicePendingC9A974 = callback;
-    return WindowRuntime_CreateAnimation(WindowId_TextTarget, 1, 0, nullptr);
+    auto& choice = session.UiFrame().native.textTarget;
+    choice.names = names;
+    choice.colors = colors;
+    choice.count = count;
+    choice.pending = callback;
+    return WindowRuntime_CreateAnimation(session, WindowId_TextTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x0049F040。
-static void WindowTextTarget_Release(WindowInstance&)
+static void WindowTextTarget_Release(WindowInstance& releasedWindow)
 {
-    const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+    auto& session = *releasedWindow.ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
+    const WindowTextChoiceCallback callback = choice.callback;
     if (callback != nullptr) {
-        static_cast<void>(callback(-1, nullptr));
+        static_cast<void>(callback(session, -1, nullptr));
     }
 }
 
@@ -154,11 +143,13 @@ static void WindowTextTarget_Release(WindowInstance&)
 static std::int32_t WindowTextTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
-        gTextChoiceOffsetD2D9C0 = 0;
+        auto& session = *gCurrentWindow->ownerSession;
+        auto& choice = session.UiFrame().native.textTarget;
+        choice.offset = 0;
         WindowTextTarget_Refresh(0);
-        const WindowTextChoiceCallback callback = gTextChoicePendingC9A974;
-        gTextChoiceEnabledCA0008 = 1;
-        gTextChoiceCallbackCA0AC0 = callback;
+        const WindowTextChoiceCallback callback = choice.pending;
+        choice.enabled = 1;
+        choice.callback = callback;
     }
     return 1;
 }
@@ -168,22 +159,24 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
-    const wchar_t* const* names = gTextChoiceNamesD30130;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
+    const wchar_t* const* names = choice.names;
     std::int32_t row = 0;
-    for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
+    for (; row < 5 && offset + row < choice.count; ++row) {
         if (names != nullptr) {
             auto* const textElement = currentWindow->FindElementById(NativeElementKey(row + 9));
             if (textElement) {
                 auto* const text = textElement->data.text;
                 text->text = names[offset + row];
             }
-            const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
+            const std::uint8_t color = choice.colors[offset + row];
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 9));
             if (indexedElement) {
                 indexedElement->data.text->style.color =
                     static_cast<std::byte>(color);
             }
-            names = gTextChoiceNamesD30130;
+            names = choice.names;
         }
     }
     for (; row < 5; ++row) {
@@ -196,7 +189,9 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
+    const std::int32_t visible = choice.count - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
     }
@@ -206,9 +201,9 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
         if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
             auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowTextTargetElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement2) {
-                gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gTextChoiceCountCC4CE4 - 5);
+                choice.offset = WindowScroll_ReadPosition(handleVerticalScrollElement2, choice.count - 5);
             }
-            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            WindowTextTarget_Refresh(choice.offset);
         }
     }
     WindowRuntime_DrawCurrent();
@@ -230,25 +225,27 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const ElementId elementId
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            if (gTextChoiceOffsetD2D9C0 > 0) {
-                --gTextChoiceOffsetD2D9C0;
+            if (choice.offset > 0) {
+                --choice.offset;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+            const std::int32_t offset = choice.offset;
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            const std::int32_t maximum = choice.count - 5;
             auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            WindowTextTarget_Refresh(choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243090;
@@ -269,24 +266,26 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const ElementId elementId, co
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
-                ++gTextChoiceOffsetD2D9C0;
+            if (choice.offset < choice.count - 5) {
+                ++choice.offset;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            const std::int32_t offset = choice.offset;
+            const std::int32_t maximum = choice.count - 5;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            WindowTextTarget_Refresh(choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243093;
@@ -307,23 +306,25 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const ElementId elementI
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
-            gTextChoiceOffsetD2D9C0 -= 5;
-            if (gTextChoiceOffsetD2D9C0 < 0) {
-                gTextChoiceOffsetD2D9C0 = 0;
+            static_cast<void>(audio::PlaySe_52C450(choice.offset > 0 ? 51 : 55, 320));
+            choice.offset -= 5;
+            if (choice.offset < 0) {
+                choice.offset = 0;
             }
-            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            const std::int32_t offset = choice.offset;
+            const std::int32_t maximum = choice.count - 5;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            WindowTextTarget_Refresh(choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243030;
@@ -344,30 +345,32 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const ElementId elementId, c
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
+            const std::int32_t oldMaximum = choice.count - 5;
             static_cast<void>(audio::PlaySe_52C450(
-                oldMaximum > 0 && gTextChoiceOffsetD2D9C0 < oldMaximum ? 51 : 55, 320));
-            std::int32_t offset = gTextChoiceOffsetD2D9C0 + 5;
-            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-            gTextChoiceOffsetD2D9C0 = offset;
+                oldMaximum > 0 && choice.offset < oldMaximum ? 51 : 55, 320));
+            std::int32_t offset = choice.offset + 5;
+            const std::int32_t maximum = choice.count - 5;
+            choice.offset = offset;
             if (offset > maximum) {
                 offset = maximum;
-                gTextChoiceOffsetD2D9C0 = offset;
+                choice.offset = offset;
             }
             if (offset < 0) {
                 offset = 0;
-                gTextChoiceOffsetD2D9C0 = offset;
+                choice.offset = offset;
             }
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            WindowTextTarget_Refresh(choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243033;
@@ -388,13 +391,15 @@ static std::int32_t WindowTextTarget_Scroll(const ElementId elementId, const std
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t count = gTextChoiceCountCC4CE4;
+        const std::int32_t count = choice.count;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        const std::int32_t offset = choice.offset;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
-            gTextChoiceOffsetD2D9C0 =
+            choice.offset =
                 WindowScroll_ApplyWheel(indexedElement, offset, count - 5, wheel);
         }
     }
@@ -406,6 +411,8 @@ static std::int32_t WindowTextTarget_ButtonCancel(const ElementId elementId, con
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -414,14 +421,14 @@ static std::int32_t WindowTextTarget_ButtonCancel(const ElementId elementId, con
             gHoverTextD68AE8 = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (gTextChoiceEnabledCA0008 != 0) {
-                const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+            if (choice.enabled != 0) {
+                const WindowTextChoiceCallback callback = choice.callback;
                 if (callback != nullptr) {
-                    if (callback(-2, nullptr) != 0) {
+                    if (callback(session, -2, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
-                    gTextChoiceEnabledCA0008 = 0;
+                    choice.enabled = 0;
                 }
             }
             consumed = 1;
@@ -444,9 +451,11 @@ static std::int32_t WindowTextTarget_SelectRow(const ElementId elementId, const 
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.textTarget;
+    const std::int32_t selected = choice.offset + index - 14;
     // 原门槛只比较行号，不将滚动偏移并入检查。
-    if (index - 14 >= gTextChoiceCountCC4CE4) {
+    if (index - 14 >= choice.count) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
@@ -457,14 +466,14 @@ static std::int32_t WindowTextTarget_SelectRow(const ElementId elementId, const 
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        if (gTextChoiceEnabledCA0008 != 0) {
-            const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+        if (choice.enabled != 0) {
+            const WindowTextChoiceCallback callback = choice.callback;
             if (callback != nullptr) {
-                if (callback(selected, gTextChoiceNamesD30130[selected]) != 0) {
+                if (callback(session, selected, choice.names[selected]) != 0) {
                     currentWindow->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
-                gTextChoiceEnabledCA0008 = 0;
+                choice.enabled = 0;
             }
         }
         return 1;

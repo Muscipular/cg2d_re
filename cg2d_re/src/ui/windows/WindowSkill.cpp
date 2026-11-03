@@ -54,13 +54,13 @@ namespace detail {
 static std::int32_t WindowSkill_ClassifyAttributeSkill(std::int32_t skillId); // 221..224分类0..3，其余-1。
 
 // 原函数：0x004F0200。
-static void WindowSkill_ReceiveTextTargets(const char* text); // ysVc完整名单生产；唯一回复调用方弃用混合返回。
+static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, const char* text); // ysVc完整名单生产；唯一回复调用方弃用混合返回。
 
 // 原函数：0x004871B0。
-static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
+static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
 
 // 原函数：0x00487020。
-static std::int32_t WindowSkill_SelectTextTarget(std::int32_t index, const wchar_t* text); // 请求属性/发送技能及释放通知。
+static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, std::int32_t index, const wchar_t* text); // 请求属性/发送技能及释放通知。
 
 // 原函数：0x00479B80。
 static void WindowSkill_ShowSkillList(session::ClientSession& session, WindowInstance* window, std::int32_t skillIndex); // 技能列表定位，不以used过滤索引查找。
@@ -162,13 +162,13 @@ static std::int32_t WindowSkill_SelectSkillType(ElementId elementId, std::int32_
 static std::int32_t WindowSkill_SelectRecipe(ElementId elementId, std::int32_t state); // 转生一致才处理配方，恒返0。
 
 // 原函数：0x004EF750。
-static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
+static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* text); // ND自身/远端属性生产，分类1跳过人物行。
 
 // 原函数：0x004874B0。
-static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(); // 同源六属性视图与46创建，不回滚计数。
+static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSession& session); // 同源六属性视图与46创建，不回滚计数。
 
 // 原函数：0x004872E0。
-static std::int32_t WindowSkill_SelectAttributeTarget(std::int32_t index, const wchar_t* unusedText); // 按属性目标编号发送技能。
+static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, std::int32_t index, const wchar_t* unusedText); // 按属性目标编号发送技能。
 
 // 原函数：0x00479820。
 static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009，按S16读取槽号。
@@ -506,10 +506,10 @@ static std::int32_t WindowSkill_MatchesCrystalLevel()
 }
 
 // 原函数：0x004872E0。
-static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const wchar_t*)
+static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
     if (index == -1) {
-        WindowRuntime_DecrementOperationCount();
+        WindowRuntime_DecrementOperationCount(session);
         const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
         const auto skillCount = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
         gSkillOperationCount_D67AFD = count;
@@ -521,7 +521,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     }
     if (index == -3) {
         const std::int32_t skill = gUsingSkillIndexD2F32C;
-        static_cast<void>(cg::network::GetGameConnection().RequestSkillTargetAttributes(skill));
+        static_cast<void>(session.Connection().RequestSkillTargetAttributes(skill));
         return 0;
     }
     if (index == -2) {
@@ -548,13 +548,13 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     const std::int32_t target = gSkillStatusTargetsCF3FD0[index];
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     const std::int32_t skill = gUsingSkillIndexD2F32C;
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, level, target, cg::text::FromGbkWide(extra)));
+    const auto networkSession = session.Connection().CaptureSession();
+    static_cast<void>(session.Connection().SendSkillUseRequest(skill + offset, level, target, cg::text::FromGbkWide(extra)));
     return 0;
 }
 
 // 原函数：0x004874B0。
-static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets()
+static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSession& session)
 {
     const std::int32_t count = gSkillStatusCountC8AA94;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -578,16 +578,16 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets()
     gSkillStatusIconReferences_D67AFE = skillReferences;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
-    return WindowAttributeTarget_Open(gSkillStatusViewsCC4BE8.data(), gSkillStatusCountC8AA94, WindowSkill_SelectAttributeTarget);
+    return WindowAttributeTarget_Open(session, gSkillStatusViewsCC4BE8.data(), gSkillStatusCountC8AA94, WindowSkill_SelectAttributeTarget);
 }
 
 // 原函数：0x004EF750。
-static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
+static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -640,7 +640,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
             gSkillStatusKindsCA0A78[output] = 4;
             gSkillStatusCountC8AA94 = count;
         }
-        return WindowSkill_OpenAttributeTargets();
+        return WindowSkill_OpenAttributeTargets(session);
     }
 
     char name[128];
@@ -679,7 +679,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
         gSkillStatusTargetsCF3FD0[output] = target++;
         gSkillStatusCountC8AA94 = count;
     }
-    return WindowSkill_OpenAttributeTargets();
+    return WindowSkill_OpenAttributeTargets(session);
 }
 
 // 原函数：0x004EF710。
@@ -2561,10 +2561,10 @@ void WindowSkill_SyncStates(session::ClientSession& session)
 }
 
 // 原函数：0x00487020。
-static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const wchar_t* const text)
+static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t* const text)
 {
     if (index == -1) {
-        WindowRuntime_DecrementOperationCount();
+        WindowRuntime_DecrementOperationCount(session);
         const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
         const auto skillCount = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
         gSkillOperationCount_D67AFD = count;
@@ -2579,7 +2579,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
     }
     if (index >= 0 && gSkillTargetPendingC8AF5F == 0) {
         if (gSkillTargetKindCF4A10 != 0 && gSkillTargetKindsD2F75C[index] != 3) {
-            static_cast<void>(cg::network::GetGameConnection().SelectSkillTextTarget(index));
+            static_cast<void>(session.Connection().SelectSkillTextTarget(index));
             gSkillSelectedTargetCC4B1C = index;
             gSkillTargetPendingC8AF5F = 1;
             return 0;
@@ -2603,14 +2603,14 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
             level = gUsingSkillLevelCA0AC4;
             skill = gUsingSkillIndexD2F32C;
         }
-        static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill, level, index, cg::text::FromGbkWide(extra)));
+        static_cast<void>(session.Connection().SendSkillUseRequest(skill, level, index, cg::text::FromGbkWide(extra)));
     }
     gSkillTargetPendingC8AF5F = 1;
     return 0;
 }
 
 // 原函数：0x004871B0。
-static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
+static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session)
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     gSkillSendModeC8A970 = 0;
@@ -2633,7 +2633,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     ++gSkillOperationCount_D67AFD;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -2641,11 +2641,11 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     const std::int32_t count = gSkillTargetCountCA0004;
     gSkillTargetPendingC8AF5F = 0;
     return WindowTextTarget_Open(
-        gSkillTargetNameViewsD45F98.data(), gSkillTargetColorsCB1DE4.data(), count, WindowSkill_SelectTextTarget);
+        session, gSkillTargetNameViewsD45F98.data(), gSkillTargetColorsCB1DE4.data(), count, WindowSkill_SelectTextTarget);
 }
 
 // 原函数：0x004F0200。
-static void WindowSkill_ReceiveTextTargets(const char* const text)
+static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -2706,7 +2706,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     }
     gSkillTargetPageCountCA0178 = (count + 4) / 5;
     if (count > 0) {
-        static_cast<void>(WindowSkill_OpenTextTargets());
+        static_cast<void>(WindowSkill_OpenTextTargets(session));
     } else if (gSkillTargetKindCF4A10 == 0) {
         world::AppendChatMessage_44B050(L"没有可变装的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2718,21 +2718,21 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
 // 窗口函数实现。
 
 // 原函数：0x0050E340。
-void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection&, const char* const text)
+void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    detail::WindowSkill_ReceiveTextTargets(text);
+    detail::WindowSkill_ReceiveTextTargets(connection.Owner(), text);
 }
 
 // 原函数：0x0050E360。
-void WindowSkill_ReceiveAttributeTargetReply(cg::network::CgConnection&, const char* const text)
+void WindowSkill_ReceiveAttributeTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    static_cast<void>(detail::WindowSkill_ReceiveAttributeTargets(text));
+    static_cast<void>(detail::WindowSkill_ReceiveAttributeTargets(connection.Owner(), text));
 }
 
 } // namespace cg::ui

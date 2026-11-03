@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -65,16 +66,6 @@ static std::int32_t WindowAttributeTarget_ButtonBack(ElementId elementId, std::i
 static std::int32_t WindowAttributeTarget_SelectRow(ElementId elementId, std::int32_t state);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static const WindowStatusChoiceRecord* gStatusChoiceRecordsCB03D0 = nullptr; // 原全局：0x00CB03D0。
-
-static std::int32_t gStatusChoiceCountCC2364 = 0; // 原全局：0x00CC2364。
-
-static WindowTextChoiceCallback gStatusChoiceCallbackCF47D4 = nullptr; // 原全局：0x00CF47D4。
-
-static std::int32_t gStatusChoiceOffsetD671D4 = 0; // 原全局：0x00D671D4。
-
-static std::uint8_t gStatusChoiceEnabledC9A970 = 0; // 原全局：0x00C9A970。
 
 static WindowGraphicData gWindowGraphic56D310 {245320, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D310。
 
@@ -149,21 +140,24 @@ WindowPrototype gWindowPrototypeAttributeTarget {0, 4, 60, 105, 520, 243, 0x8001
 
 // 原函数：0x0049F760。
 cg::yobi::YobiAction* WindowAttributeTarget_Open(
-    const WindowStatusChoiceRecord* const records, const std::int32_t count,
+    session::ClientSession& session, const WindowStatusChoiceRecord* const records, const std::int32_t count,
     const WindowTextChoiceCallback callback)
 {
-    gStatusChoiceRecordsCB03D0 = records;
-    gStatusChoiceCountCC2364 = count;
-    gStatusChoiceCallbackCF47D4 = callback;
-    return WindowRuntime_CreateAnimation(WindowId_AttributeTarget, 1, 0, nullptr);
+    auto& choice = session.UiFrame().native.attributeTarget;
+    choice.records = records;
+    choice.count = count;
+    choice.callback = callback;
+    return WindowRuntime_CreateAnimation(session, WindowId_AttributeTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x0049F790。
-static void WindowAttributeTarget_Release(WindowInstance&)
+static void WindowAttributeTarget_Release(WindowInstance& releasedWindow)
 {
-    const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
+    auto& session = *releasedWindow.ownerSession;
+    auto& choice = session.UiFrame().native.attributeTarget;
+    const WindowTextChoiceCallback callback = choice.callback;
     if (callback != nullptr) {
-        static_cast<void>(callback(-1, nullptr));
+        static_cast<void>(callback(session, -1, nullptr));
     }
 }
 
@@ -171,8 +165,10 @@ static void WindowAttributeTarget_Release(WindowInstance&)
 static std::int32_t WindowAttributeTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
-        WindowAttributeTarget_Refresh(gStatusChoiceOffsetD671D4);
-        gStatusChoiceEnabledC9A970 = 1;
+        auto& session = *gCurrentWindow->ownerSession;
+        auto& choice = session.UiFrame().native.attributeTarget;
+        WindowAttributeTarget_Refresh(choice.offset);
+        choice.enabled = 1;
     }
     return 1;
 }
@@ -182,8 +178,10 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.attributeTarget;
     std::int32_t row = 0;
-    for (; row < 6 && offset + row < gStatusChoiceCountCC2364; ++row) {
+    for (; row < 6 && offset + row < choice.count; ++row) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 4)); indexedElement) indexedElement->visible = 0;
         auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(row + 10));
         if (indexedElement2) {
@@ -197,7 +195,7 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
         if (indexedElement4) {
             indexedElement4->data.text->text.clear();
         }
-        const wchar_t* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
+        const wchar_t* const name = choice.records[offset + row].name;
         if (name != nullptr) {
             auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(row + 10));
             if (indexedElement5) {
@@ -206,21 +204,21 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
             auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(row + 10));
             if (indexedElement6) {
                 indexedElement6->data.text->style.color =
-                    static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
+                    static_cast<std::byte>(choice.records[offset + row].color);
             }
             if (auto* const indexedElement7 = currentWindow->FindElementById(NativeElementKey(row + 4)); indexedElement7) indexedElement7->visible = 1;
-            const std::int32_t imageIndex = WindowItem_HealthImageLevel(gStatusChoiceRecordsCB03D0[offset + row].injury);
+            const std::int32_t imageIndex = WindowItem_HealthImageLevel(choice.records[offset + row].injury);
             auto* const indexedElement8 = currentWindow->FindElementById(NativeElementKey(row + 4));
             if (indexedElement8) {
                 indexedElement8->data.graphic->imageNo =
                     gHealthImages57E6A4[imageIndex];
             }
-            const std::int32_t level = gStatusChoiceRecordsCB03D0[offset + row].level;
+            const std::int32_t level = choice.records[offset + row].level;
             auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(row + 22));
             if (indexedElement9) {
                 cg::text::FormatTo(indexedElement9->data.text->text, L"{:10}", level);
             }
-            const WindowStatusChoiceRecord* const record = gStatusChoiceRecordsCB03D0 + offset + row;
+            const WindowStatusChoiceRecord* const record = choice.records + offset + row;
             const std::int32_t maxFp = record->maxFp;
             const std::int32_t fp = record->fp;
             const std::int32_t maxHp = record->maxHp;
@@ -244,6 +242,8 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const ElementId elementId
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.attributeTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -252,14 +252,14 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const ElementId elementId
             gHoverTextD68AE8 = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (gStatusChoiceEnabledC9A970 != 0) {
-                const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
+            if (choice.enabled != 0) {
+                const WindowTextChoiceCallback callback = choice.callback;
                 if (callback != nullptr) {
-                    if (callback(-2, nullptr) != 0) {
+                    if (callback(session, -2, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
-                    gStatusChoiceEnabledC9A970 = 0;
+                    choice.enabled = 0;
                 }
             }
             consumed = 1;
@@ -281,6 +281,8 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const ElementId elementId, 
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.attributeTarget;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -289,14 +291,14 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const ElementId elementId, 
             gHoverTextD68AE8 = L"回到前一页视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (gStatusChoiceEnabledC9A970 != 0) {
-                const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
+            if (choice.enabled != 0) {
+                const WindowTextChoiceCallback callback = choice.callback;
                 if (callback != nullptr) {
-                    if (callback(-3, nullptr) != 0) {
+                    if (callback(session, -3, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
-                    gStatusChoiceEnabledC9A970 = 0;
+                    choice.enabled = 0;
                 }
             }
             consumed = 1;
@@ -319,8 +321,10 @@ static std::int32_t WindowAttributeTarget_SelectRow(const ElementId elementId, c
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t selected = gStatusChoiceOffsetD671D4 + index - 16;
-    if (index - 16 >= gStatusChoiceCountCC2364) {
+    auto& session = *currentWindow->ownerSession;
+    auto& choice = session.UiFrame().native.attributeTarget;
+    const std::int32_t selected = choice.offset + index - 16;
+    if (index - 16 >= choice.count) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
@@ -331,13 +335,13 @@ static std::int32_t WindowAttributeTarget_SelectRow(const ElementId elementId, c
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        if (gStatusChoiceEnabledC9A970 != 0) {
-            const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
+        if (choice.enabled != 0) {
+            const WindowTextChoiceCallback callback = choice.callback;
             if (callback != nullptr) {
-                if (callback(selected, gStatusChoiceRecordsCB03D0[selected].name) != 0) {
+                if (callback(session, selected, choice.records[selected].name) != 0) {
                     currentWindow->state |= 0x8000u;
                 }
-                gStatusChoiceEnabledC9A970 = 0;
+                choice.enabled = 0;
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
             }
         }

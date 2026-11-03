@@ -3687,11 +3687,6 @@ void WindowRuntime_IncrementOperationCount()
 }
 
 // 原函数：0x00479660。
-void WindowRuntime_DecrementOperationCount()
-{
-    WindowRuntime_DecrementOperationCount(session::GetClientHost().FirstSession());
-}
-
 void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
 {
     const std::int32_t remainingCount = gWindowOperationCount_D67AF8 - 1;

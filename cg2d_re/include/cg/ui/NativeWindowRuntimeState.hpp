@@ -14,6 +14,26 @@ using SkillWindowSelectionCallback = void (*)(
     session::ClientSession& session, std::int32_t skillIndex, std::int32_t technique);
 using PetSkillSelectionCallback = void (*)(
     session::ClientSession& session, std::int32_t technique);
+// 选择结果非零允许关闭；文本借用，返回/释放通知可为nullptr。
+using WindowTextChoiceCallback = std::int32_t (*)(
+    session::ClientSession& session, std::int32_t index, const wchar_t* text);
+
+// 原窗口46的28B属性源；仅名称地址扩宽，技能/物品目标分别生产。
+struct WindowStatusChoiceRecord {
+    const wchar_t* name; // 原成员偏移：+0x00。
+    std::int32_t level; // 原成员偏移：+0x04。
+    std::int32_t hp; // 原成员偏移：+0x08。
+    std::int32_t maxHp; // 原成员偏移：+0x0C。
+    std::int32_t fp; // 原成员偏移：+0x10。
+    std::int32_t maxFp; // 原成员偏移：+0x14。
+    std::int8_t injury; // 原成员偏移：+0x18。
+    std::uint8_t color; // 原成员偏移：+0x19。
+    std::array<std::byte, 2> bytes1A; // 原成员偏移：+0x1A。
+};
+static_assert(offsetof(WindowStatusChoiceRecord, level) == 8);
+static_assert(offsetof(WindowStatusChoiceRecord, injury) == 0x1C);
+static_assert(offsetof(WindowStatusChoiceRecord, color) == 0x1D);
+static_assert(sizeof(WindowStatusChoiceRecord) == 32);
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。
@@ -96,6 +116,26 @@ struct SkillWindowRuntimeState {
     std::array<std::int8_t, world::kSkillSlotCount> battleRows {}; // 原0xD3FABC。
 };
 
+// 窗口45借用该会话生产的名称/颜色表，待安装和当前回调保持独立。
+struct TextTargetWindowState {
+    const wchar_t* const* names = nullptr; // 原0xD30130。
+    const std::uint8_t* colors = nullptr; // 原0xCB1E18。
+    std::int32_t count = 0; // 原0xCC4CE4。
+    detail::WindowTextChoiceCallback pending = nullptr; // 原0xC9A974。
+    detail::WindowTextChoiceCallback callback = nullptr; // 原0xCA0AC0。
+    std::int32_t offset = 0; // 原0xD2D9C0。
+    std::uint8_t enabled = 0; // 原0xCA0008。
+};
+
+// 窗口46借用该会话的技能或物品属性视图，不拥有名称文本。
+struct AttributeTargetWindowState {
+    const detail::WindowStatusChoiceRecord* records = nullptr; // 原0xCB03D0。
+    std::int32_t count = 0; // 原0xCC2364。
+    detail::WindowTextChoiceCallback callback = nullptr; // 原0xCF47D4。
+    std::int32_t offset = 0; // 原0xD671D4。
+    std::uint8_t enabled = 0; // 原0xC9A970。
+};
+
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
@@ -103,6 +143,8 @@ struct NativeWindowRuntimeState {
     WindowLayoutSettings settings {};
     BattleCommandWindowState battleCommand {};
     SkillWindowRuntimeState skill {};
+    TextTargetWindowState textTarget {};
+    AttributeTargetWindowState attributeTarget {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。
 };

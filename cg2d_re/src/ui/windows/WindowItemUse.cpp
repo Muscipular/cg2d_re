@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "../../world/PlayerState.hpp"
@@ -29,22 +30,22 @@ struct ItemUseTargetRecord {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048AEA0。
-static std::int32_t WindowItemUse_SelectTextTarget(std::int32_t index, const wchar_t* unusedText); // 选择发送/释放计数；-2仅允许关闭。
+static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& session, std::int32_t index, const wchar_t* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 
 // 原函数：0x0048AF00。
-static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
+static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSession& session); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
 
 // 原函数：0x004E4860。
-static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* text); // LY完整目标名单生产，保留原Yobi返回。
+static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSession& session, const char* text); // LY完整目标名单生产，保留原Yobi返回。
 
 // 原函数：0x0048B010。
-static std::int32_t WindowItemUse_SelectAttributeTarget(std::int32_t index, const wchar_t* unusedText); // 用物品/请求回退/释放通知。
+static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& session, std::int32_t index, const wchar_t* unusedText); // 用物品/请求回退/释放通知。
 
 // 原函数：0x0048B0A0。
-static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展示源及46创建成功后的引用计数。
+static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientSession& session); // 属性展示源及46创建成功后的引用计数。
 
 // 原函数：0x004E4020。
-static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
+static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::ClientSession& session, const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -72,10 +73,10 @@ static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 
 // 窗口函数实现。
 
 // 原函数：0x0048AEA0。
-static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const wchar_t*)
+static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
     if (index >= 0) {
-        static_cast<void>(cg::network::GetGameConnection().SelectItemTextTarget(index));
+        static_cast<void>(session.Connection().SelectItemTextTarget(index));
         gItemUseTargetCB0A48 = index;
         return 0;
     }
@@ -93,7 +94,7 @@ static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, con
 }
 
 // 原函数：0x0048AF00。
-static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
+static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSession& session)
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -103,7 +104,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
     }
     constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -113,10 +114,10 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
     ++reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
     ++gItemUseTargetReferences_D67B24;
     cg::yobi::YobiAction* const result = WindowTextTarget_Open(
-        gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
+        session, gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
         gItemUseTargetCountCC40CC, WindowItemUse_SelectTextTarget);
     if (result == nullptr) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_TextTarget].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_TextTarget].window;
         if (window == nullptr || (window->state & 0x8000u) != 0) {
             const std::int32_t previous = gSelectedItemCB1DF4;
             gSelectedItemCB1DF4 = -1;
@@ -128,7 +129,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
 }
 
 // 原函数：0x004E4860。
-static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
+static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -173,14 +174,14 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
     }
     gItemUsePageCC46DC = 0;
     gItemUsePageCountCC3E70 = (count + 4) / 5;
-    return WindowItemUse_OpenTextTargets();
+    return WindowItemUse_OpenTextTargets(session);
 }
 
 // 原函数：0x0048B010。
-static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const wchar_t*)
+static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
     if (index == -3) {
-        static_cast<void>(cg::network::GetGameConnection().RequestItemTargetAttributes());
+        static_cast<void>(session.Connection().RequestItemTargetAttributes());
         return 0;
     }
     if (index >= 0) {
@@ -188,7 +189,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendItemUseRequest(x, y, item, target));
+        static_cast<void>(session.Connection().SendItemUseRequest(x, y, item, target));
     }
     if (index == -1) {
         const std::int32_t selected = gSelectedItemCB1DF4;
@@ -204,7 +205,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
 }
 
 // 原函数：0x0048B0A0。
-static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
+static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientSession& session)
 {
     const std::int32_t count = gItemUseStatusCountCC4D44;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -222,16 +223,16 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
     }
     constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
     cg::yobi::YobiAction* const result =
-        WindowAttributeTarget_Open(gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, WindowItemUse_SelectAttributeTarget);
+        WindowAttributeTarget_Open(session, gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, WindowItemUse_SelectAttributeTarget);
     bool retainReference = result != nullptr;
     if (!retainReference) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_AttributeTarget].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_AttributeTarget].window;
         retainReference = window != nullptr && (window->state & 0x8000u) == 0;
     }
     if (retainReference) {
@@ -242,7 +243,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
 }
 
 // 原函数：0x004E4020。
-static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
+static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -295,7 +296,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
             gItemUseStatusCountCC4D44 = count;
             ++target;
         }
-        return WindowItemUse_OpenAttributeTargets();
+        return WindowItemUse_OpenAttributeTargets(session);
     }
 
     char name[128];
@@ -328,7 +329,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
         gItemUseStatusRecordsCB10D8[output].target = row;
         gItemUseStatusCountCC4D44 = count;
     }
-    return WindowItemUse_OpenAttributeTargets();
+    return WindowItemUse_OpenAttributeTargets(session);
 }
 
 } // namespace detail
@@ -336,21 +337,21 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
 // 窗口函数实现。
 
 // 原函数：0x0050E380。
-void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection&, const char* const text)
+void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    static_cast<void>(detail::WindowItemUse_ReceiveTextTargets(text));
+    static_cast<void>(detail::WindowItemUse_ReceiveTextTargets(connection.Owner(), text));
 }
 
 // 原函数：0x0050E3A0。
-void WindowItemUse_ReceiveAttributeTargetReply(cg::network::CgConnection&, const char* const text)
+void WindowItemUse_ReceiveAttributeTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    static_cast<void>(detail::WindowItemUse_ReceiveAttributeTargets(text));
+    static_cast<void>(detail::WindowItemUse_ReceiveAttributeTargets(connection.Owner(), text));
 }
 
 } // namespace cg::ui

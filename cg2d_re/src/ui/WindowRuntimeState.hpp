@@ -387,8 +387,6 @@ extern input::InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
 extern input::InputContext gInputContextCA02E0;
 extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
 
-// 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
-using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const wchar_t* text); // text借用宽文本名称，取消／关闭时可为nullptr。
 // 原函数：0x0047A140。
 void WindowSkill_SyncStates(session::ClientSession& session); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 // 原函数：0x0047A490。
@@ -435,8 +433,7 @@ std::int32_t WindowSkill_Back(session::ClientSession& session); // 战斗返回�
 // 原函数：0x00479650。
 void WindowRuntime_IncrementOperationCount(); // 原窗口操作S32计数加1。
 // 原函数：0x00479660。
-void WindowRuntime_DecrementOperationCount(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
-void WindowRuntime_DecrementOperationCount(session::ClientSession& session);
+void WindowRuntime_DecrementOperationCount(session::ClientSession& session); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
 // 原函数：0x0047D170。
 std::int32_t WindowCraft_SetPreviewPositions(
     WindowInstance* window, std::int32_t anchor, std::int32_t first, std::int32_t second,
@@ -495,28 +492,12 @@ std::int32_t WindowSkill_CheckPetFp(); // 当前宠物FP的单次CryptInt比较�
 std::int32_t WindowSkill_CanUseSpecialSkill(); // 技能/晶石/宠物技术/属性/等级条件链。
 // 原函数：0x0049F000。names借用宽文本名单，刷新时直接设置正文。
 cg::yobi::YobiAction* WindowTextTarget_Open(
-    const wchar_t* const* names, const std::uint8_t* colors,
+    session::ClientSession& session, const wchar_t* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);
 
-// 原窗口46的28B属性源；仅名称地址扩宽，4874B0/48B0A0分别生产。
-struct WindowStatusChoiceRecord {
-    const wchar_t* name; // 原成员偏移：+0x00。
-    std::int32_t level; // 原成员偏移：+0x04。
-    std::int32_t hp; // 原成员偏移：+0x08。
-    std::int32_t maxHp; // 原成员偏移：+0x0C。
-    std::int32_t fp; // 原成员偏移：+0x10。
-    std::int32_t maxFp; // 原成员偏移：+0x14。
-    std::int8_t injury; // 原成员偏移：+0x18。
-    std::uint8_t color; // 原成员偏移：+0x19。
-    std::array<std::byte, 2> bytes1A; // 原成员偏移：+0x1A。
-};
-static_assert(offsetof(WindowStatusChoiceRecord, level) == 8);
-static_assert(offsetof(WindowStatusChoiceRecord, injury) == 0x1C);
-static_assert(offsetof(WindowStatusChoiceRecord, color) == 0x1D);
-static_assert(sizeof(WindowStatusChoiceRecord) == 32);
 // 原函数：0x0049F760。
 cg::yobi::YobiAction* WindowAttributeTarget_Open(
-    const WindowStatusChoiceRecord* records, std::int32_t count,
+    session::ClientSession& session, const WindowStatusChoiceRecord* records, std::int32_t count,
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x00499830。
 std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘制与九宫格尾。

@@ -448,13 +448,14 @@ static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow)
 // 原函数：0x004B6970。
 std::int32_t WindowMessageBoard_ReceiveRecords(session::ClientSession& session, const std::int32_t flags, char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& business = session.UiFrame().native.business;
     business.valueD3FAD0 = static_cast<std::uint32_t>(flags);
     input::UnescapeLegacyText_52D150(text);
     gWindow50AlternateRecordsD30138.fill(std::byte{0});
     char titleGbk[17]{};
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 1, 16, titleGbk));
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(titleGbk);
+    npcLines[0].text = cg::text::FromGbkWide(titleGbk);
     std::array<char, 3072> buffer;
     char* const fieldText = buffer.data();
     char* const copiedText = buffer.data() + 768;

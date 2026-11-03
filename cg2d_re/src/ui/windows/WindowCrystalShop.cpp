@@ -340,6 +340,7 @@ static void WindowCrystalShop_Release(WindowInstance& releasedWindow)
 // 原函数：0x004C13B0。
 cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& crystal = session.UiFrame().native.crystalShop;
     auto& shop = session.UiFrame().native.shop;
     crystal.initialized = 0;
@@ -349,14 +350,14 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, co
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     std::array<char, 2304> buffer;
     for (std::int32_t group = 0; group < 3; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 3, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[group * 4 + row + 1].text, buffer.data(), row, 20));
+            static_cast<void>(input::ExtractGbkTextLine(npcLines[group * 4 + row + 1].text, buffer.data(), row, 20));
         }
     }
     shop.itemCount = 0;
@@ -588,6 +589,7 @@ static void WindowCrystalShop_Refresh(WindowInstance& callbackWindow)
 // 原函数：0x004C1C50。
 static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -642,7 +644,7 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
         auto* const element6 = window->FindElementById(WindowCrystalShopElementId::Element6);
         if (element6) {
             auto* const title = element6->data.text;
-            title->text = gNpcDialogLinesCC24D4[0].text;
+            title->text = npcLines[0].text;
         }
         auto* const element9 = currentWindow->FindElementById(WindowCrystalShopElementId::Element9);
         if (element9) {
@@ -684,6 +686,7 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
 // 原函数：0x004C1EC0。
 static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -705,7 +708,7 @@ static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const
     }
     const std::int32_t message = crystal.message;
     gTooltipColorD67D30 = 0;
-    const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+    const WindowDialogTextLine* line = npcLines.data() + 1 + 4 * (-1 - message);
     for (std::int32_t row = 0; row < 4; ++row) {
         if (!line->text.empty()) {
             static_cast<void>(WindowItem_SplitTooltipLines(x, y, 3, 8, 0, line->text.data(), 0, 0));

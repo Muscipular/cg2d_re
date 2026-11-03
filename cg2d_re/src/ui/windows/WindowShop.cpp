@@ -585,6 +585,7 @@ static void WindowShop_Release(WindowInstance& releasedWindow)
 // 原函数：0x004B6E00。
 cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
@@ -594,13 +595,13 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     for (std::int32_t group = 0; group < 3; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 3, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            std::wstring& line = gNpcDialogLinesCC24D4[1 + group * 4 + row].text;
+            std::wstring& line = npcLines[1 + group * 4 + row].text;
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
@@ -641,6 +642,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
 // 原函数：0x004B70D0。
 cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
@@ -650,18 +652,18 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 767, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 4; ++row) {
-        std::wstring& line = gNpcDialogLinesCC24D4[row + 1].text;
+        std::wstring& line = npcLines[row + 1].text;
         static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
     }
-    gNpcDialogLinesCC24D4[5].text = L"　无法再持有";
-    gNpcDialogLinesCC24D4[6].text = L"　更高的金额了";
-    gNpcDialogLinesCC24D4[7].text = L"";
+    npcLines[5].text = L"　无法再持有";
+    npcLines[6].text = L"　更高的金额了";
+    npcLines[7].text = L"";
     shop.replyItemCount = 0;
-    gNpcDialogLinesCC24D4[8].text = L"";
+    npcLines[8].text = L"";
     shop.items.fill({});
     std::int32_t field = 4;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -732,6 +734,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
 // 原函数：0x004B74E0。
 cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
@@ -741,13 +744,13 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     for (std::int32_t group = 0; group < 3; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 3, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            std::wstring& line = gNpcDialogLinesCC24D4[1 + group * 4 + row].text;
+            std::wstring& line = npcLines[1 + group * 4 + row].text;
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
@@ -799,6 +802,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
 // 原函数：0x004B77E0。
 cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
@@ -809,14 +813,14 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     shop.detailMode = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
     for (std::int32_t group = 0; group < 4; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 4, 767, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            std::wstring& line = gNpcDialogLinesCC24D4[1 + group * 4 + row].text;
+            std::wstring& line = npcLines[1 + group * 4 + row].text;
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
@@ -857,6 +861,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     session::ClientSession& session,
     const char* const text, const char mode, const std::wstring_view prompt)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
@@ -866,16 +871,16 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
-    gNpcDialogLinesCC24D4[1].text = L"欢迎光临。";
-    gNpcDialogLinesCC24D4[2].text = prompt;
-    gNpcDialogLinesCC24D4[3].text = L"";
-    gNpcDialogLinesCC24D4[4].text = L"";
-    gNpcDialogLinesCC24D4[5].text = L"你身上的钱不够！";
-    gNpcDialogLinesCC24D4[6].text = L"";
-    gNpcDialogLinesCC24D4[7].text = L"";
+    npcLines[0].text = cg::text::FromGbkWide(title);
+    npcLines[1].text = L"欢迎光临。";
+    npcLines[2].text = prompt;
+    npcLines[3].text = L"";
+    npcLines[4].text = L"";
+    npcLines[5].text = L"你身上的钱不够！";
+    npcLines[6].text = L"";
+    npcLines[7].text = L"";
     shop.replyItemCount = 0;
-    gNpcDialogLinesCC24D4[8].text = L"";
+    npcLines[8].text = L"";
     shop.items.fill({});
     std::int32_t field = 3;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -1468,6 +1473,7 @@ static void WindowShop_CountDetailItems(WindowInstance& callbackWindow)
 // 原函数：0x004B9310。
 static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1605,7 +1611,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         auto* const element6 = currentWindow->FindElementById(WindowShopElementId::Element6);
         if (element6) {
             auto* const title = element6->data.text;
-            title->text = gNpcDialogLinesCC24D4[0].text;
+            title->text = npcLines[0].text;
         }
         auto* const element10 = currentWindow->FindElementById(WindowShopElementId::Element10);
         if (element10) {
@@ -3794,6 +3800,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
 // 原函数：0x004B99D0。
 static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -3828,7 +3835,7 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
     }
     const std::int32_t message = shop.message;
     gTooltipColorD67D30 = 0;
-    const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+    const WindowDialogTextLine* line = npcLines.data() + 1 + 4 * (-1 - message);
     for (std::int32_t row = 0; row < 4; ++row) {
         if (!line->text.empty()) {
             static_cast<void>(WindowItem_SplitTooltipLines(x, y, 3, 8, 0, line->text.data(), 0, 0));

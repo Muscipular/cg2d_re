@@ -370,9 +370,6 @@ static_assert(sizeof(WindowSavedData) == 0x521C);
 
 
 
-// CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
-std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {}; // 原全局：0x00CC24D4。
-
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 static WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}}; // 原全局：0x00561998。
 

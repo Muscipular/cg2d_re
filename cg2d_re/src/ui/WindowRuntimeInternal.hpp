@@ -196,9 +196,6 @@ std::int32_t WindowRuntime_MatchesRuntimePrefix(
 
 
 
-// CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
-extern std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4; // 原全局：0x00CC24D4。
-
 // 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
 // 原函数：0x00519680。
 std::int32_t WindowItem_HealthImageLevel(const std::int32_t health);

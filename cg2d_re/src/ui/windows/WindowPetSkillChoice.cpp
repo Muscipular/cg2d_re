@@ -163,7 +163,7 @@ struct Window54SkillRecord {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004BE3F0。
-static void WindowPetSkillChoice_RefreshLearn(WindowInstance* window); // 模式0技能栏/说明/花费，reqSlot按低S8。
+static void WindowPetSkillChoice_RefreshLearn(session::ClientSession& session, WindowInstance* window); // 模式0技能栏/说明/花费，reqSlot按低S8。
 
 // 原函数：0x004BE600。
 static void WindowPetSkillChoice_RefreshForget(WindowInstance* window); // 模式1遗忘映射/警告/回调，与原技能表同源。
@@ -556,6 +556,7 @@ static void WindowPetSkillChoice_Release(WindowInstance&)
 // 原函数：0x004BD540。
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 1536> buffer;
     gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -563,21 +564,21 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& ses
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 5; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 21));
+        static_cast<void>(input::ExtractGbkTextLine(npcLines[row + 1].text, buffer.data(), row, 21));
     }
     char headingGbkBuffer[3072]{};
     char* const heading = headingGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 4, 80, heading));
     input::UnescapeLegacyTextAndNotify_52D2F0(heading);
-    gNpcDialogLinesCC24D4[9].text = cg::text::FromGbkWide(heading);
+    npcLines[9].text = cg::text::FromGbkWide(heading);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 5, 511, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 8; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 10].text, buffer.data(), row, 32));
+        static_cast<void>(input::ExtractGbkTextLine(npcLines[row + 10].text, buffer.data(), row, 32));
     }
     gWindow54ValueCC2E68 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
     gWindow54ValueCF4A3C = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
@@ -590,6 +591,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& ses
 // 原函数：0x004BD680。
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 1536> buffer;
     gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -597,11 +599,11 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(session::ClientSession& se
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 5; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 21));
+        static_cast<void>(input::ExtractGbkTextLine(npcLines[row + 1].text, buffer.data(), row, 21));
     }
     for (std::int32_t row = 0; row < 15; ++row) {
         const std::int32_t field = 4 + row * 3;
@@ -609,7 +611,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(session::ClientSession& se
     char* const name = nameGbkBuffer;
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field, 21, name));
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-    gNpcDialogLinesCC24D4[row + 10].text = cg::text::FromGbkWide(name);
+    npcLines[row + 10].text = cg::text::FromGbkWide(name);
         std::wstring& destination = gWindow54NamesC8AAA0[row].text;
         destination = cg::text::FromGbkWide(name);
         const char first = name[0];
@@ -635,6 +637,7 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     session::ClientSession& session,
     const char* const text, const std::uint8_t mode)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 768> buffer;
     gWindow54DialogTypeCB2224 = world::gCurrentDialogType_581800;
     gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -642,13 +645,13 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     for (std::int32_t group = 0; group < 3; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 3, 255, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[1 + group * 4 + row].text, buffer.data(), row, 20));
+            static_cast<void>(input::ExtractGbkTextLine(npcLines[1 + group * 4 + row].text, buffer.data(), row, 20));
         }
     }
     gWindow54SkillsD2EAB8.fill({});
@@ -704,6 +707,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(session::ClientS
 // 原函数：0x004BDD90。
 void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
@@ -714,11 +718,11 @@ void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, 
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 255, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 4; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 20));
+        static_cast<void>(input::ExtractGbkTextLine(npcLines[row + 1].text, buffer.data(), row, 20));
     }
     gWindow54PetOptionsD67448.fill({});
     const std::int32_t threshold = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
@@ -750,6 +754,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, 
 // 原函数：0x004BDF70。
 void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
@@ -760,13 +765,13 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     for (std::int32_t group = 0; group < 3; ++group) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(
             text, '|', group + 3, 255, buffer.data()));
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         for (std::int32_t row = 0; row < 4; ++row) {
-            static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[1 + group * 4 + row].text, buffer.data(), row, 20));
+            static_cast<void>(input::ExtractGbkTextLine(npcLines[1 + group * 4 + row].text, buffer.data(), row, 20));
         }
     }
     gWindow54PetOptionsD67448.fill({});
@@ -800,6 +805,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session
 // 原函数：0x004BE200。
 void WindowPetSkillChoice_ReceiveSelectedPetSkills(session::ClientSession& session, const char* const text)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
@@ -810,11 +816,11 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(session::ClientSession& sessi
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
-    gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
+    npcLines[0].text = cg::text::FromGbkWide(title);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 5; ++row) {
-        static_cast<void>(input::ExtractGbkTextLine(gNpcDialogLinesCC24D4[row + 1].text, buffer.data(), row, 21));
+        static_cast<void>(input::ExtractGbkTextLine(npcLines[row + 1].text, buffer.data(), row, 21));
     }
     gWindow54TechniqueSlotsD66E38.fill({});
     std::int32_t field = 4;
@@ -847,8 +853,9 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(session::ClientSession& sessi
 }
 
 // 原函数：0x004BE3F0。
-static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
+static void WindowPetSkillChoice_RefreshLearn(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244384;
     if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 1;
     if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
@@ -879,10 +886,10 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = displayed > 10 ? 1 : 0;
     }
     if (auto* const element25 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element25) element25->visible = 1;
-    if (auto* const element252 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element252) element252->data.text->text = gNpcDialogLinesCC24D4[9].text;
+    if (auto* const element252 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element252) element252->data.text->text = npcLines[9].text;
     for (std::int32_t row = 0; row < 8; ++row) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 25)) : nullptr; indexedElement) indexedElement->visible = 1;
-        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 25)) : nullptr; indexedElement2) indexedElement2->data.text->text = gNpcDialogLinesCC24D4[row + 10].text;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 25)) : nullptr; indexedElement2) indexedElement2->data.text->text = npcLines[row + 10].text;
     }
     if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 1;
     auto* const element342 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr;
@@ -1323,11 +1330,12 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
 // 原函数：0x004BF7C0。
 static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
-        if (auto* const element5 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element5); element5) element5->data.text->text = gNpcDialogLinesCC24D4[0].text;
+        if (auto* const element5 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element5); element5) element5->data.text->text = npcLines[0].text;
         auto* const element9 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element9);
         if (element9) {
             auto* animation = element9->data.animation;
@@ -1339,7 +1347,7 @@ static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, 
         gWindow54SkillScrollCC31F4 = 0;
         switch (mode) {
         case 0:
-            WindowPetSkillChoice_RefreshLearn(currentWindow);
+            WindowPetSkillChoice_RefreshLearn(*callbackWindow.ownerSession, currentWindow);
             break;
         case 1:
             WindowPetSkillChoice_RefreshForget(currentWindow);
@@ -1371,6 +1379,7 @@ static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, 
 // 原函数：0x004BF950。
 static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
@@ -1461,7 +1470,7 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
             y += 10;
         }
     } else {
-        const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+        const WindowDialogTextLine* line = npcLines.data() + 1 + 4 * (-1 - message);
         for (std::int32_t row = 0; row < 4; ++row) {
             if (!line->text.empty()) {
                 static_cast<void>(WindowItem_SplitTooltipLines(x, y, 3, 8, 0, line->text.data(), 0, 0));

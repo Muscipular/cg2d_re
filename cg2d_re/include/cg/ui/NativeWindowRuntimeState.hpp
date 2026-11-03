@@ -255,6 +255,22 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
+using WindowChoiceCallback = std::int32_t (*)(session::ClientSession& session, std::int32_t index);
+
+// 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
+struct ChoiceDialogRuntimeSlots {
+    std::int32_t type;
+    std::int32_t imageNo;
+    std::wstring title;
+    std::vector<std::wstring> lines;
+    std::vector<std::wstring> choices;
+    std::uint8_t lineCount;
+    std::uint8_t choiceCount;
+    std::vector<std::wstring> hints;
+    WindowChoiceCallback callback;
+    std::uint8_t closeEnabled;
+};
+
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
     std::int32_t width;
@@ -746,6 +762,30 @@ struct CrystalExchangeShopWindowRuntimeState {
     std::wstring confirmCancel; // 原0xCC48BC。
 };
 
+// 窗口52实际配置及三类命令表；正文引用与同会话NPC行表保持同源。
+struct ShopChoiceWindowRuntimeState {
+    ShopChoiceWindowRuntimeState() noexcept;
+
+    detail::ChoiceDialogRuntimeSlots dialog {}; // 原0xC9A978..0xC9A998。
+    std::array<const std::wstring*, 5> lines {}; // 原0xD672D8。
+    std::int32_t shopImage = 0; // 原0xC9A9A0。
+    std::array<const wchar_t*, 3> shopChoices {}; // 原0xCB1DC8。
+    std::array<const wchar_t*, 3> shopHints {}; // 原0xD2F738。
+    std::array<std::int8_t, 3> shopCommands {}; // 原0xD64E10。
+    std::int32_t firstCommandImage = 0; // 原0xCB0AE4。
+    std::int32_t secondCommandImage = 0; // 原0xCF4A18。
+    std::int32_t skillImage = 0; // 原0xCC4890。
+    std::int32_t exchangeImage = 0; // 原0xC9A99C。
+    std::int32_t giveReceiveImage = 0; // 原0xD2EA74。
+    std::array<const wchar_t*, 2> firstChoices {}; // 原0xD67438。
+    std::array<const wchar_t*, 2> firstHints {}; // 原0xCC31FC。
+    std::array<std::int8_t, 2> firstCommands {}; // 原0xCB03D4。
+    std::array<const wchar_t*, 2> secondChoices {}; // 原0xD2D818。
+    std::array<const wchar_t*, 2> secondHints {}; // 原0xCA0AAC。
+    std::array<std::int8_t, 2> secondCommands {}; // 原0xCF47D8。
+    std::array<const wchar_t*, 2> giveReceiveChoices; // 原0x57E728，构造时保留原常量指针。
+};
+
 // 通用对话配置与实际借用源；图像、回复及治疗记录保留原独立清理范围。
 struct MessageDialogWindowRuntimeState {
     detail::MessageDialogRuntimeSlots message {};
@@ -992,6 +1032,8 @@ struct NativeWindowRuntimeState {
     ShopWindowRuntimeState shop {};
     CrystalShopWindowRuntimeState crystalShop {};
     CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
+    ShopChoiceWindowRuntimeState shopChoice {};
+    std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};
     AppearanceWindowRuntimeState appearance {};
     ImageDialogRuntimeState imageDialog {};

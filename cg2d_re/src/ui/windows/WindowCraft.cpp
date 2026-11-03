@@ -113,7 +113,7 @@ static void WindowCraft_ReleaseMaterialSlot(
 static std::int32_t WindowCraft_ReadRequiredSkillLevel(std::int32_t skillId, std::int32_t extraLevel); // 完整快照后查技能等级，附加值只读低U8。
 
 // 原函数：0x00488160。
-static std::int32_t WindowCraft_ReadMaxMaterialLevel(); // 前三材料占用等级与0的最大值。
+static std::int32_t WindowCraft_ReadMaxMaterialLevel(session::ClientSession& session); // 前三材料占用等级与0的最大值。
 
 // 原函数：0x00488180。
 static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& session); // 六槽中首个材料类别0/1/2对应的itemId。
@@ -290,6 +290,7 @@ std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, co
 // 原函数：0x0047DC20。
 static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session, const std::int32_t index)
 {
+    auto& materialState = session.UiFrame().native.material;
     auto& craft = session.UiFrame().native.craft;
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if (index < 6) {
@@ -303,7 +304,7 @@ static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session
         }
         const std::int32_t material = craft.materialIndices[index];
         if (material >= 0) {
-            gMaterialOccupancyCC4894.materialValues[material] = 0;
+            materialState.materialValues[material] = 0;
         }
         hover[slot + 8] = static_cast<unsigned char>(hover[slot + 8] - 1);
         craft.itemMarks[slot + 8] = 0;
@@ -494,6 +495,7 @@ static cg::yobi::YobiAction* WindowCraft_Create(session::ClientSession& session)
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
 static void WindowCraft_ResetMaterialMode(session::ClientSession& session)
 {
+    auto& materialState = session.UiFrame().native.material;
     auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
@@ -503,7 +505,7 @@ static void WindowCraft_ResetMaterialMode(session::ClientSession& session)
     craft.materialItemMarks.fill(0);
     craft.materialHoverSlots.fill(-2);
     craft.materialSingleHover = -2;
-    gMaterialOccupancyCC4894 = {};
+    materialState = {};
     craft.materialIndices.fill(-1);
     craft.selectedSlots.fill(-1);
     craft.selectionCounts.fill(0);
@@ -957,6 +959,7 @@ static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSessio
 // 原函数：0x00483EB0。
 static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1032,7 +1035,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                         if (itemId < 0) {
                             continue;
                         }
-                        const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
+                        const std::int32_t occupied = materialState.materialValues[material];
                         if (occupied == 0 && craft.itemMarks[source] == 0
                             && item->itemId == itemId && count >= materials[material].count) {
                             break;
@@ -1046,7 +1049,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     }
                     const std::int32_t itemId = item->itemId;
                     const std::int32_t imageNo = item->imageNo;
-                    gMaterialOccupancyCC4894.materialValues[material] = 1;
+                    materialState.materialValues[material] = 1;
                     craft.selectedSlots[destination] = source - 8;
                     craft.selectionImages[destination] = imageNo;
                     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
@@ -1070,11 +1073,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
-                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
+                    const std::int32_t occupied = materialState.materialValues[material];
                     if (occupied != 0) {
                         return;
                     }
-                    gMaterialOccupancyCC4894.materialValues[material] = 1;
+                    materialState.materialValues[material] = 1;
                     WindowCraft_ReleaseMaterialSlot(*callbackWindow.ownerSession, destination, source, material);
                     craft.materialItemMarks[source - 8] = 1;
                     return;
@@ -1086,11 +1089,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     if (craft.selectedSlots[destination] >= 0) {
                         static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                     }
-                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[0];
+                    const std::int32_t occupied = materialState.materialValues[0];
                     if (occupied != 0) {
                         return;
                     }
-                    gMaterialOccupancyCC4894.materialValues[0] = 1;
+                    materialState.materialValues[0] = 1;
                     craft.selectedSlots[destination] = source - 8;
                     const auto* const item = &world::gPlayerRuntimeSlots.items[source];
                     const std::int32_t itemId = item->itemId;
@@ -1281,6 +1284,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
 // 原函数：0x0047DF50。
 static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& materialState = session.UiFrame().native.material;
     auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
@@ -1289,7 +1293,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession&
     craft.itemMarks.fill(0);
     craft.materialHoverSlots.fill(-2);
     craft.materialSingleHover = -2;
-    gMaterialOccupancyCC4894 = {};
+    materialState = {};
     craft.materialIndices.fill(-1);
     craft.selectedSlots.fill(-1);
     craft.selectionCounts.fill(0);
@@ -1298,14 +1302,14 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession&
     std::int32_t row = 0;
     for (std::int32_t material = 4; material >= 0; --material) {
         const std::int32_t skill = craft.skillIndex;
-        gMaterialOccupancyCC4894.materialValues[material] = 1;
+        materialState.materialValues[material] = 1;
         const auto* const requirement =
             &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
         if (requirement->itemId < 0) {
             continue;
         }
         const std::int32_t count = requirement->count;
-        gMaterialOccupancyCC4894.materialValues[material] = 0;
+        materialState.materialValues[material] = 0;
         if (count <= 0) {
             row = 1;
         }
@@ -1397,11 +1401,12 @@ static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillI
 }
 
 // 原函数：0x00488160。
-static std::int32_t WindowCraft_ReadMaxMaterialLevel()
+static std::int32_t WindowCraft_ReadMaxMaterialLevel(session::ClientSession& session)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::int32_t maximum = 0;
     for (std::int32_t index = 0; index < 3; ++index) {
-        const std::int32_t value = gMaterialOccupancyCC4894.materialValues[index];
+        const std::int32_t value = materialState.materialValues[index];
         if (value > maximum) {
             maximum = value;
         }
@@ -1426,11 +1431,12 @@ static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& sess
 // 原函数：0x004881D0。
 static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session, const std::int32_t destination, const std::int32_t source)
 {
+    auto& materialState = session.UiFrame().native.material;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     std::int32_t flags = 0;
     std::int32_t material = 5;
-    const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel();
+    const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel(session);
     const auto* const item = &world::gPlayerRuntimeSlots.items[source];
     if (item->hasDescription == 0) {
         return;
@@ -1467,7 +1473,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
             const std::int32_t itemId = WindowCraft_ReadFirstMaterialId(session);
             if (item->itemId == itemId) {
                 for (material = 0; material < 3; ++material) {
-                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
+                    const std::int32_t occupied = materialState.materialValues[material];
                     if (occupied <= 0) {
                         break;
                     }
@@ -1512,7 +1518,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
     static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
     if (accepted) {
         WindowCraft_ReleaseMaterialSlot(session, destination, source, material);
-        gMaterialOccupancyCC4894.materialValues[material] = item->level;
+        materialState.materialValues[material] = item->level;
     }
 }
 
@@ -1577,6 +1583,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1596,7 +1603,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
     case 0:
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            if (gMaterialOccupancyCC4894.materialValues[slot] == 0) {
+            if (materialState.materialValues[slot] == 0) {
                 element->visible = 0;
                 return 0;
             }
@@ -1676,25 +1683,25 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     }
     case 6:
     case 15:
-        if (gMaterialOccupancyCC4894.materialValues[0] == 0 || gMaterialOccupancyCC4894.materialValues[1] == 0) {
+        if (materialState.materialValues[0] == 0 || materialState.materialValues[1] == 0) {
             element->visible = 0;
             return 0;
         }
         enabled = !(world::gPlayerRuntimeSlots.fp < 100);
         break;
     case 9:
-        if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
+        if (materialState.materialValues[0] == 0) {
             element->visible = 0;
             return 0;
         }
         enabled = true;
         break;
     case 12: {
-        const std::int32_t fourth = gMaterialOccupancyCC4894.materialValues[4];
-        const std::int32_t third = gMaterialOccupancyCC4894.materialValues[3];
-        const std::int32_t second = gMaterialOccupancyCC4894.materialValues[2];
-        const std::int32_t first = gMaterialOccupancyCC4894.materialValues[1];
-        const std::int32_t zeroth = gMaterialOccupancyCC4894.materialValues[0];
+        const std::int32_t fourth = materialState.materialValues[4];
+        const std::int32_t third = materialState.materialValues[3];
+        const std::int32_t second = materialState.materialValues[2];
+        const std::int32_t first = materialState.materialValues[1];
+        const std::int32_t zeroth = materialState.materialValues[0];
         if ((fourth & third & second & first & zeroth) == 0) {
             element->visible = 0;
             return 0;
@@ -1963,6 +1970,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2063,7 +2071,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         const std::int32_t itemId = item->itemId;
                         const std::int32_t imageNo = item->imageNo;
                         if (material >= 0) {
-                            gMaterialOccupancyCC4894.materialValues[material] = 1;
+                            materialState.materialValues[material] = 1;
                         }
                         craft.selectedSlots[slot] = hovered;
                         craft.selectionImages[slot] = imageNo;
@@ -2115,7 +2123,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         for (std::int32_t material = 0; material < 5; ++material) {
                             const auto* const required = &recipe->items6C[material];
                             const std::int32_t itemId = required->itemId;
-                            if (itemId >= 0 && gMaterialOccupancyCC4894.materialValues[material] == 0
+                            if (itemId >= 0 && materialState.materialValues[material] == 0
                                 && craft.itemMarks[hovered + 8] == 0
                                 && item->itemId == itemId && count >= required->count) {
                                 publishMaterial(slot, material, false);
@@ -2221,7 +2229,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         const bool special = currentMode == 6 ? type == 38 || type == 25 || type == 39
                                                               : type == 80;
                         const std::int32_t material = special ? 1 : 0;
-                        if (gMaterialOccupancyCC4894.materialValues[material] == 0) {
+                        if (materialState.materialValues[material] == 0) {
                             publishMaterial(slot, material, true);
                         }
                         return;
@@ -2235,7 +2243,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             fail();
                             return;
                         }
-                        if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
+                        if (materialState.materialValues[0] == 0) {
                             publishMaterial(slot, 0, false);
                         }
                         return;
@@ -2674,6 +2682,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
 // 原函数：0x0047EC00。
 static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& materialState = session.UiFrame().native.material;
     auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
@@ -2682,7 +2691,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSessio
     craft.itemMarks.fill(0);
     craft.materialHoverSlots.fill(-2);
     craft.materialSingleHover = -2;
-    gMaterialOccupancyCC4894 = {};
+    materialState = {};
     craft.materialIndices.fill(-1);
     craft.selectedSlots.fill(-1);
     craft.selectionCounts.fill(0);

@@ -993,10 +993,10 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShopChoice_OpenBuySell(text));
         return;
     case 6:
-        static_cast<void>(WindowShop_OpenBuy(text));
+        static_cast<void>(WindowShop_OpenBuy(session, text));
         return;
     case 7:
-        static_cast<void>(WindowShop_OpenSell(text));
+        static_cast<void>(WindowShop_OpenSell(session, text));
         return;
     case 16:
         static_cast<void>(WindowShopChoice_OpenSkillChoice(text));
@@ -1011,14 +1011,14 @@ static void WindowDialog_Route(
         static_cast<void>(WindowDialog_OpenHealing(96, 108, 448, 240, 245300, value, request, target, text));
         return;
     case 20:
-        static_cast<void>(WindowShop_OpenIdentify(text));
+        static_cast<void>(WindowShop_OpenIdentify(session, text));
         return;
     case 21:
         static_cast<void>(WindowMessageBoard_ReceiveRecords(value, text));
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MessageBoard, 1, 0, nullptr));
         return;
     case 22:
-        static_cast<void>(WindowShop_OpenRepair(text));
+        static_cast<void>(WindowShop_OpenRepair(session, text));
         return;
     case 23:
     case 33:
@@ -1043,7 +1043,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShopChoice_OpenExchangeChoice(text));
         return;
     case 28:
-        static_cast<void>(WindowShop_OpenExchange(text));
+        static_cast<void>(WindowShop_OpenExchange(session, text));
         return;
     case 29:
         static_cast<void>(WindowInventory_OpenSpecialSelection(session, text));
@@ -1052,7 +1052,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShopChoice_OpenGiveReceiveChoice(text));
         return;
     case 31:
-        static_cast<void>(WindowShop_OpenItemDetails(text));
+        static_cast<void>(WindowShop_OpenItemDetails(session, text));
         return;
     case 32:
         static_cast<void>(WindowTextList_Open(request, target, text));

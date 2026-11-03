@@ -658,12 +658,13 @@ static void WindowShop_RemoveSaleSelection(session::ClientSession& session)
 }
 
 // 原函数：0x004B6DC0。
-static void WindowShop_Release(WindowInstance&)
+static void WindowShop_Release(WindowInstance& releasedWindow)
 {
+    auto& materialState = releasedWindow.ownerSession->UiFrame().native.material;
     if (gShopDialogTypeCC3EC8 == world::gCurrentDialogType_581800) {
         world::gCurrentDialogType_581800 = -1;
     }
-    if (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode) > 0) {
+    if (std::bit_cast<std::int8_t>(materialState.shopMode) > 0) {
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         for (std::int32_t slot = 0; slot < 28; ++slot) {
             --occupancy[slot];
@@ -672,10 +673,11 @@ static void WindowShop_Release(WindowInstance&)
 }
 
 // 原函数：0x004B6E00。
-cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const char* const text)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
-    gMaterialOccupancyCC4894.shopMode = 0;
+    materialState.shopMode = 0;
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -722,14 +724,15 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
     const std::int32_t dialogType = world::gCurrentDialogType_581800;
     gShopExchangeCurrencyItemId_D2D608 = -1;
     gShopDialogTypeCC3EC8 = dialogType;
-    return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B70D0。
-cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const char* const text)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
-    gMaterialOccupancyCC4894.shopMode = 1;
+    materialState.shopMode = 1;
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -811,14 +814,15 @@ cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
-    return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B74E0。
-cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, const char* const text)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
-    gMaterialOccupancyCC4894.shopMode = 2;
+    materialState.shopMode = 2;
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -876,14 +880,15 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
-    return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B77E0。
-cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session, const char* const text)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
-    gMaterialOccupancyCC4894.shopMode = 3;
+    materialState.shopMode = 3;
     gShopDetailCC3210 = {};
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -930,15 +935,17 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
-    return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 4B7AB0/4B7EE0同一七字段流程；只区分模式字节和第二行原字节提示。
 static cg::yobi::YobiAction* WindowShop_CreateService(
+    session::ClientSession& session,
     const char* const text, const char mode, const std::wstring_view prompt)
 {
+    auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
-    gMaterialOccupancyCC4894.shopMode = mode;
+    materialState.shopMode = mode;
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -1020,20 +1027,22 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::gCurrentDialogType_581800;
-    return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B7AB0。
-cg::yobi::YobiAction* WindowShop_OpenIdentify(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenIdentify(session::ClientSession& session, const char* const text)
 {
     return WindowShop_CreateService(
+        session,
         text, 4, L"你想鉴定什么物品呢？");
 }
 
 // 原函数：0x004B7EE0。
-cg::yobi::YobiAction* WindowShop_OpenRepair(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenRepair(session::ClientSession& session, const char* const text)
 {
     return WindowShop_CreateService(
+        session,
         text, 5, L"你想修理什么物品呢？");
 }
 
@@ -1529,6 +1538,7 @@ static void WindowShop_CountDetailItems()
 // 原函数：0x004B9310。
 static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
@@ -1546,7 +1556,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
             if (auto* const indexedElement8 = currentWindow->FindElementById(NativeElementKey(52 + row)); indexedElement8) indexedElement8->visible = 1;
             if (auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(57 + row)); indexedElement9) indexedElement9->visible = 1;
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -1672,7 +1682,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         if (handleVerticalScrollElement2) {
             gShopScrollCC488C = WindowScroll_ReadPosition(handleVerticalScrollElement2, gShopItemCountCB1E10 - 5);
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -1692,7 +1702,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         }
     }
     cg::text::FormatTo(gShopMoneyTextCC1A00, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
-    if (gMaterialOccupancyCC4894.shopMode == 0) {
+    if (materialState.shopMode == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
         auto* const element8 = currentWindow->FindElementById(WindowShopElementId::Element8);
@@ -1701,7 +1711,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
                 total <= money ? 0 : 6;
         }
     }
-    if (gMaterialOccupancyCC4894.shopMode == 2) {
+    if (materialState.shopMode == 2) {
         const std::int32_t previous = gShopAvailableCF4A24;
         const std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
         gShopAvailableCF4A24 = 0;
@@ -1721,7 +1731,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         gShopMessage580848 = -1;
     }
     gShopTooltipIndex580844 = -1;
-    if (gMaterialOccupancyCC4894.shopMode == 3) {
+    if (materialState.shopMode == 3) {
         WindowShop_CountDetailItems();
         std::int32_t amount;
         if (gShopValueCAFEA4 != 0) {
@@ -1737,12 +1747,13 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
 // 原函数：0x004B9B10。
 static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t selection)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     if (static_cast<std::uint8_t>(selection) != 0) {
         return;
     }
-    const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+    const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
     if (mode < 0 || mode > 5) {
         return;
     }
@@ -1796,6 +1807,7 @@ static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t
 // 原函数：0x004B9F40。
 static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1803,7 +1815,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
     const bool hover = (state & MouseFlag_Hover) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+        const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
         if (mode >= 0 && mode <= 5) {
             gHoverTextD68AE8 = kShopConfirmHoverHints[mode];
         }
@@ -1814,7 +1826,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
-        const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+        const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
         bool overlayReady = false;
         std::int32_t textMode = mode;
         switch (mode) {
@@ -2019,7 +2031,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             const std::int32_t total = gShopTotalD2DAFC;
             left.visible = 1;
             right.value = total;
-            textMode = gMaterialOccupancyCC4894.shopMode == 4 ? 4 : 5;
+            textMode = materialState.shopMode == 4 ? 4 : 5;
             left.x = 293;
             left.value = currentMoney;
             right.visible = 1;
@@ -2068,6 +2080,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
 // 原函数：0x004BA950。
 static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -2076,7 +2089,7 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
         const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hover) {
-            const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+            const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
             if (mode >= 0 && mode <= 5) {
                 gHoverTextD68AE8 = kShopHints57E6C4[2];
             }
@@ -2108,6 +2121,7 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
 // 原函数：0x004BAA50。
 static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -2138,7 +2152,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
         if (!available) {
             gHoverTextD68AE8 = L"没有可登录的物品";
         } else {
-            switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+            switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
             case 0:
             case 2:
             case 3:
@@ -2180,7 +2194,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                     }
                     if (slot < 20) {
                         bool exceedsLimit = false;
-                        if (gMaterialOccupancyCC4894.shopMode == 1) {
+                        if (materialState.shopMode == 1) {
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
@@ -2233,12 +2247,13 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
 // 原函数：0x004BCEE0。
 static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto events = static_cast<std::uint8_t>(state);
     if ((events & MouseFlag_Hover) != 0) {
         const wchar_t* hint;
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 1:
             hint = L"把要卖的物品拖放到这里。";
             break;
@@ -2270,7 +2285,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
                     }
                     if (slot < 20) {
                         bool exceedsLimit = false;
-                        if (gMaterialOccupancyCC4894.shopMode == 1) {
+                        if (materialState.shopMode == 1) {
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
@@ -2327,6 +2342,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
 // 原函数：0x004BAD10。
 static std::int32_t WindowShop_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2347,7 +2363,7 @@ static std::int32_t WindowShop_ButtonPreviousRow(WindowInstance& callbackWindow,
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -2380,6 +2396,7 @@ static std::int32_t WindowShop_ButtonPreviousRow(WindowInstance& callbackWindow,
 // 原函数：0x004BAE10。
 static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2400,7 +2417,7 @@ static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, con
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -2433,6 +2450,7 @@ static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, con
 // 原函数：0x004BAF10。
 static std::int32_t WindowShop_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2451,7 +2469,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(WindowInstance& callbackWindow
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -2484,6 +2502,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(WindowInstance& callbackWindow
 // 原函数：0x004BB010。
 static std::int32_t WindowShop_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2509,7 +2528,7 @@ static std::int32_t WindowShop_ButtonNextPage(WindowInstance& callbackWindow, co
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -2542,6 +2561,7 @@ static std::int32_t WindowShop_ButtonNextPage(WindowInstance& callbackWindow, co
 // 原函数：0x004BB130。
 static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2554,7 +2574,7 @@ static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const Elem
             gShopScrollCC488C =
                 WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
             WindowShop_RefreshBuyQuantities();
@@ -2579,6 +2599,7 @@ static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const Elem
 // 原函数：0x004BB1D0。
 static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2590,7 +2611,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
     std::int32_t decrement; // 原模式2仅在hover许可路径赋值，不补栈残留默认值。
     if (hover) {
         permitted = 0;
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0: {
             std::int32_t selected;
             std::memcpy(&selected, &gShopItemsCF4FE0[row].selected, sizeof(selected));
@@ -2691,7 +2712,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             break;
         }
         const wchar_t* hint = nullptr;
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
         case 1:
         case 2:
@@ -2715,7 +2736,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0: {
             auto* const record = &gShopItemsCF4FE0[row];
             std::int32_t selected;
@@ -2816,6 +2837,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
 // 原函数：0x004BB6E0。
 static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2831,7 +2853,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
     bool detailSelectedRead = false;
     if (hover) {
         permitted = 0;
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0: {
             const auto* const record = &gShopItemsCF4FE0[row];
             if (record->used != 0) {
@@ -2986,7 +3008,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
     }
     if (hover) {
         const wchar_t* hint = nullptr;
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
         case 1:
         case 2:
@@ -3010,7 +3032,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+        switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0: {
             auto* const record = &gShopItemsCF4FE0[row];
             if (record->used == 0) {
@@ -3282,6 +3304,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
 // 原函数：0x004BC230。
 static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -3314,7 +3337,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     }
     const bool hover = (events & MouseFlag_Hover) != 0;
     if (hover && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]) >= 0) {
-        const char mode = gMaterialOccupancyCC4894.shopMode;
+        const char mode = materialState.shopMode;
         if (mode == 1 || mode == 4 || mode == 5) {
             gHoverTextD68AE8 = kShopHints57E6C4[2];
         }
@@ -3430,6 +3453,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
 // 原函数：0x004BC660。
 static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -3461,7 +3485,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
     // 命中下标承接原临时槽；右键空槽扫描仍覆写，后续提示不能改读hovered。
     std::int32_t scanSlot = hovered;
     const bool hover = (events & MouseFlag_Hover) != 0;
-    auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+    auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
     if (hover && hovered >= 0) {
         const wchar_t* hint = nullptr;
         switch (mode) {
@@ -3479,7 +3503,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
         }
         if (hint != nullptr) {
             gHoverTextD68AE8 = hint;
-            mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+            mode = std::bit_cast<std::int8_t>(materialState.shopMode);
         }
     }
     if (gShopInventoryHover58084C != hovered) {
@@ -3506,7 +3530,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                     } else {
                         auto* const record = &gShopItemsCF4FE0[item];
                         bool exceedsLimit = false;
-                        if (gMaterialOccupancyCC4894.shopMode == 1) {
+                        if (materialState.shopMode == 1) {
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += gShopTotalD2DAFC;
@@ -3602,7 +3626,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
         }
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
-            mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode);
+            mode = std::bit_cast<std::int8_t>(materialState.shopMode);
             if ((mode != 1 && mode != 4 && mode != 5) || gShopInventoryMapD2DAB8[scanSlot] >= 0) {
                 gShopTooltipIndex580844 = hovered + 8;
             }
@@ -3616,7 +3640,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
-    switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
+    switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
     case 0:
     case 2:
     case 3:
@@ -3796,20 +3820,21 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
 // 原函数：0x004B99D0。
 static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
     const std::int32_t x = window->x + 298;
     std::int32_t y = window->y + 50;
-    char mode = gMaterialOccupancyCC4894.shopMode;
+    char mode = materialState.shopMode;
     if (mode == 1) {
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
         const std::int32_t total = money + gShopTotalD2DAFC;
         const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
         if (total > limit) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-            mode = gMaterialOccupancyCC4894.shopMode;
+            mode = materialState.shopMode;
             gShopMessage580848 = -2;
         }
     }

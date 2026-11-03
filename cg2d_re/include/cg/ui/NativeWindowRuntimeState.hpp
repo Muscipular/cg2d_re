@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <type_traits>
 
 namespace cg::ui::detail {
 
@@ -94,6 +95,20 @@ struct WindowSavedData {
     std::int32_t version;
     std::array<WindowSavedRecord, kSavedWindowCount> records;
 };
+
+// 原CC4894材料区与CC48A8商店模式；窗口共享同一24B对象，整区清零包含尾部。
+struct WindowMaterialState {
+    std::array<std::int32_t, 5> materialValues; // 原成员偏移：+0x00；材料占用值，打包时存材料等级。
+    char shopMode; // 原成员偏移：+0x14；原全局：0x00CC48A8。 商店模式，保留原S8解释。
+    std::array<std::byte, 3> reserved15; // 原成员偏移：+0x15；未确认用途，随整区清零。
+};
+static_assert(std::is_standard_layout_v<WindowMaterialState>);
+static_assert(std::is_trivially_copyable_v<WindowMaterialState>);
+static_assert(sizeof(WindowMaterialState) == 0x18);
+static_assert(alignof(WindowMaterialState) == alignof(std::int32_t));
+static_assert(offsetof(WindowMaterialState, materialValues) == 0x00);
+static_assert(offsetof(WindowMaterialState, shopMode) == 0x14);
+static_assert(offsetof(WindowMaterialState, reserved15) == 0x15);
 
 } // namespace cg::ui::detail
 
@@ -353,6 +368,7 @@ struct NativeWindowRuntimeState {
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
     ItemTransferRuntimeState itemTransfer {};
+    detail::WindowMaterialState material {}; // 原0xCC4894，含商店模式别名。
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

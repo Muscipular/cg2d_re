@@ -629,17 +629,17 @@ using WindowDialogFrameCallback = std::int32_t (*)(
 // 原函数：0x004A0140。
 cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
 // 原函数：0x004B6E00。
-cg::yobi::YobiAction* WindowShop_OpenBuy(const char* text); // 窗口53买入商品及三组四行正文。
+cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const char* text); // 窗口53买入商品及三组四行正文。
 // 原函数：0x004B70D0。
-cg::yobi::YobiAction* WindowShop_OpenSell(const char* text); // 窗口53出售商品、库存映射及占用。
+cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const char* text); // 窗口53出售商品、库存映射及占用。
 // 原函数：0x004B74E0。
-cg::yobi::YobiAction* WindowShop_OpenExchange(const char* text); // 窗口53模式2五字段商品及指定物品文本。
+cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, const char* text); // 窗口53模式2五字段商品及指定物品文本。
 // 原函数：0x004B77E0。
-cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
+cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session, const char* text); // 窗口53模式3独立详情，保留其他商品状态。
 // 原函数：0x004B7AB0。
-cg::yobi::YobiAction* WindowShop_OpenIdentify(const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
+cg::yobi::YobiAction* WindowShop_OpenIdentify(session::ClientSession& session, const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
 // 原函数：0x004B7EE0。
-cg::yobi::YobiAction* WindowShop_OpenRepair(const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
+cg::yobi::YobiAction* WindowShop_OpenRepair(session::ClientSession& session, const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
 // 原函数：0x004BD540。
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* text); // 窗口54模式0，五行正文及八行说明。
 // 原函数：0x004BD680。
@@ -835,7 +835,6 @@ extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
 
-extern WindowMaterialState gMaterialOccupancyCC4894; // 原全局：0x00CC4894。 材料值与商店模式CC48A8共用24B对象。
 // 原函数：0x004E54E0。
 void WindowTrade_CopyOwnItem(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 // 原函数：0x004D3020。

@@ -1206,7 +1206,6 @@ std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBound
         left, top, left + width, top + height, -1);
 }
 
-std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
 
 } // namespace cg::character_select::detail
 

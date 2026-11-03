@@ -125,8 +125,4 @@ std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
 // 1B是已证读足迹对应容量，不冒称原未使用预留尾部长度。
 extern const wchar_t gVersionPayload9A5C10[1];
 
-// 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。
-// 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。
-extern std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
-
 } // namespace cg::character_select::detail

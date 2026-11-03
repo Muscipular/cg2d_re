@@ -1,5 +1,6 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/network/CgConnection.hpp"
+#include "CharacterSelectSceneState.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -164,7 +165,8 @@ std::int32_t ProcessCharacterSlot_461B30(
         style = mode + 1;
     }
 
-    cg::render::DrawText3_456560(30, 450, 0, 4, detail::gText9A4EAC, 0);
+    cg::render::DrawText3_456560(30, 450, 0, 4,
+        cg::network::GetGameConnection().CharacterSelectUi().loginNotice, 0);
 
     if (cg::network::GetGameConnection().PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {

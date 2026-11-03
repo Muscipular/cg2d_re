@@ -1109,15 +1109,15 @@ void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
         ::_localtime64(&this->time62B394);
 
     const char* const separator = const_cast<char*>(std::strstr(text, "|"));
-    character_select::detail::gText9A4EAC.clear();
+    this->characterSelectUi.loginNotice.clear();
     if (separator != nullptr) {
-        character_select::detail::gText9A4EAC = cg::text::FromGbkWide(
+        this->characterSelectUi.loginNotice = cg::text::FromGbkWide(
             std::string_view(text, static_cast<std::uint32_t>(separator - text)));
         // 原0x00404600的防护规则解析已移除（PRM01），仅保留分隔符前的登录正文。
         return;
     }
 
-    character_select::detail::gText9A4EAC = cg::text::FromGbkWide(text);
+    this->characterSelectUi.loginNotice = cg::text::FromGbkWide(text);
 }
 
 platform::ConnectionId CgConnection::Impl::BeginConnect(std::wstring host, std::uint16_t port, bool noDelay)

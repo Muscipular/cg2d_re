@@ -41,6 +41,7 @@ struct AuthenticationFailureState {
 // 角色选择场景的可变运行期状态；动作本体尚待随场景隔离。
 struct CharacterSelectSceneState {
     std::uint8_t pukVersion = 0; // 原 0x9A6E1C；网络回复生产，选角和窗口消费。
+    std::wstring loginNotice; // 原 0x9A4EAC；登录回复生产、角色选择绘制。
     yobi::YobiAction* versionUpgradeAction = nullptr; // 原 0x9A6EB4。
     yobi::YobiAction* legacyVersionUpgradeAction = nullptr; // 原 0x9A6E68。
     CharacterListProgressState listProgress {};

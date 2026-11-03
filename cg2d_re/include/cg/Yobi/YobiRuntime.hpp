@@ -355,10 +355,10 @@ std::int32_t BeginObservationTravelScene_440FE0();
 std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* action, std::uint8_t axis);
 
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
-YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);
+YobiAction* NewYobiGear_4410F0(YobiAction* source, std::int32_t imageNo);
 // 原441130：四组CryptInt与原投影的挂件创建，直接分配无载荷action。
 YobiAction* NewYobiGearPet_441130(
-    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
+    YobiAction* source, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 
 // 原 Yobi::UpdateAll@[0x404C50,0x404CF7)。
 std::int32_t YobiUpdateAll_404C50();

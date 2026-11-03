@@ -857,9 +857,10 @@ std::int32_t ShowHpBar_43DB60(
 
 // 原函数：0x00441130。
 YobiAction* NewYobiGearPet_441130(
-    const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
+    YobiAction* const source, const std::int32_t imageNo,
+    const std::int32_t mapX, const std::int32_t mapY)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -892,9 +893,9 @@ YobiAction* NewYobiGearPet_441130(
 }
 
 // 原函数：0x004410F0。
-YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
+YobiAction* NewYobiGear_4410F0(YobiAction* const source, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

@@ -197,7 +197,7 @@ void ApplyWorldActorActionCommand_444410(
         if (option2 > 0) {
             if (payload->mainGear30 == nullptr) {
                 const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
-                payload->mainGear30 = cg::yobi::NewYobiGear_4410F0(image);
+                payload->mainGear30 = cg::yobi::NewYobiGear_4410F0(action, image);
             }
             if (payload->mainGear30 != nullptr) {
                 const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
@@ -217,7 +217,7 @@ void ApplyWorldActorActionCommand_444410(
                     static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t petX =
                     static_cast<std::int32_t>(action->mapX1E0);
-                payload->firstAuxiliaryGear34 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
+                payload->firstAuxiliaryGear34 = cg::yobi::NewYobiGearPet_441130(action, image, petX, petY);
             }
             cg::yobi::YobiAction* const firstPet = payload->firstAuxiliaryGear34;
             if (firstPet != nullptr) {
@@ -231,7 +231,7 @@ void ApplyWorldActorActionCommand_444410(
                         static_cast<std::int32_t>(action->mapY1F0);
                     const std::int32_t petX =
                         static_cast<std::int32_t>(action->mapX1E0);
-                    payload->secondAuxiliaryGear38 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
+                    payload->secondAuxiliaryGear38 = cg::yobi::NewYobiGearPet_441130(action, image, petX, petY);
                 }
                 cg::yobi::YobiAction* const secondPet = payload->secondAuxiliaryGear38;
                 if (secondPet != nullptr) {
@@ -264,7 +264,7 @@ void ApplyWorldActorActionCommand_444410(
     case 70:
         if (option1 >= 0) {
             if (payload->rideActor44 == nullptr) {
-                cg::yobi::YobiAction* const ride = cg::yobi::NewYobiAction_404AE0(2, 0);
+                cg::yobi::YobiAction* const ride = cg::yobi::NewYobiAction_404AE0(*action->ownerSession, 2, 0);
                 payload->rideActor44 = ride;
                 ride->callback = nullptr;
                 payload->rideActor44->characterAction = 0;

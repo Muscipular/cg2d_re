@@ -392,7 +392,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 const std::int32_t imageNo =
                     character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
                 if (payload != nullptr) {
-                    payload->mainGear30 = NewYobiGear_4410F0(imageNo);
+                    payload->mainGear30 = NewYobiGear_4410F0(action, imageNo);
                 }
             } else if ((flags & MapAttachmentInputFlag_AuxiliaryGearEntries) != 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
@@ -405,7 +405,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                             static_cast<std::int32_t>(action->mapY1F0);
                         const std::int32_t x =
                             static_cast<std::int32_t>(action->mapX1E0);
-                        payload->firstAuxiliaryGear34 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->firstAuxiliaryGear34 = NewYobiGearPet_441130(action, imageNo, x, y);
                         payload->firstAuxiliaryGearKind3C = kind;
                     } else if (index == 1) {
                         if (kind >= MapGearKind_DirectionalBatch10 && kind <= MapGearKind_DirectionalBatch12
@@ -417,7 +417,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                             static_cast<std::int32_t>(action->mapY1F0);
                         const std::int32_t x =
                             static_cast<std::int32_t>(action->mapX1E0);
-                        payload->secondAuxiliaryGear38 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->secondAuxiliaryGear38 = NewYobiGearPet_441130(action, imageNo, x, y);
                         payload->secondAuxiliaryGearKind40 = kind;
                     }
                 }
@@ -1086,7 +1086,7 @@ void ApplyPlayerAppearanceReply(
         const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(gearImage);
         bool hasGear = payload->mainGear30 != nullptr;
         if (!hasGear) {
-            YobiAction* const gear = NewYobiGear_4410F0(mappedGear);
+            YobiAction* const gear = NewYobiGear_4410F0(world::gPlayerRuntimeSlots.action, mappedGear);
             hasGear = gear != nullptr;
             payload->mainGear30 = gear;
         }
@@ -1109,7 +1109,7 @@ void ApplyPlayerAppearanceReply(
         if (!hasPet) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapY1F0);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
-            YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
+            YobiAction* const pet = NewYobiGearPet_441130(world::gPlayerRuntimeSlots.action, mappedPet, x, y);
             hasPet = pet != nullptr;
             payload->firstAuxiliaryGear34 = pet;
         }
@@ -1125,7 +1125,7 @@ void ApplyPlayerAppearanceReply(
             if (!hasSecondPet) {
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapY1F0);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
-                YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
+                YobiAction* const pet = NewYobiGearPet_441130(world::gPlayerRuntimeSlots.action, mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
                 payload->secondAuxiliaryGear38 = pet;
             }

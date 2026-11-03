@@ -130,6 +130,8 @@ struct CgConnection::Impl {
     std::int32_t receiveLengthD69790 = 0; // 原 0xD69790，独立于连续队列。
     std::uint8_t flagsD9F2C0 = 0; // 原全局：0x00D9F2C0。
     std::uint64_t lastTickD9F2C4 = 0; // 原全局：0x00D9F2C4。
+    volatile std::uint64_t keepAliveBaselineTick = 0; // 原 0x73ED1C；随连接对象保留，重连不清。
+    volatile std::uint64_t keepAliveRecentTick = 0; // 原 0x73ED20；与基线为独立写入。
     std::int32_t errorD9F2CC = 0; // 原全局：0x00D9F2CC。
     std::uint32_t receiveResetD9F3C4 = 0; // 原全局：0x00D9F3C4。
     std::uint32_t frameModuloD9F3C8 = 0; // 原全局：0x00D9F3C8。
@@ -1377,6 +1379,31 @@ CgConnection::SessionScope CgConnection::CaptureSession() noexcept { return Sess
 bool CgConnection::IoEnabled() const noexcept { return impl_->ioEnabled; }
 void CgConnection::ResetLoginReply() noexcept { impl_->protocolModeDA3B22 = 0; }
 bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA3B22 != 0; }
+void CgConnection::UpdateKeepAlive()
+{
+    if (!Active()) {
+        return;
+    }
+
+    if (impl_->keepAliveBaselineTick == 0) {
+        const std::uint64_t tick = platform::ReadTickCount64();
+        impl_->keepAliveRecentTick = tick;
+        impl_->keepAliveBaselineTick = tick;
+        return;
+    }
+
+    const std::uint64_t tick = platform::ReadTickCount64();
+    const std::uint64_t baselineTick = impl_->keepAliveBaselineTick;
+    const std::uint64_t elapsedBits = tick - baselineTick;
+    impl_->keepAliveRecentTick = tick;
+    if (std::bit_cast<std::int64_t>(elapsedBits) < 60000) {
+        return;
+    }
+
+    const auto networkSession = CaptureSession();
+    impl_->keepAliveBaselineTick = tick;
+    static_cast<void>(SendKeepAliveRequest());
+}
 std::string CgConnection::EncodeInteger(std::int32_t value)
 { return reinterpret_cast<const char*>(impl_->FormatProtocolInteger_517670(value)); }
 std::string CgConnection::EscapeText(std::wstring_view text)

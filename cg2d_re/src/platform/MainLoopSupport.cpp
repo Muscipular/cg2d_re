@@ -25,10 +25,6 @@ static LegacyRandomEngine& SharedRandomEngine()
     return engine;
 }
 
-// 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
-static volatile std::uint64_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
-static volatile std::uint64_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
-
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
 static volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
 
@@ -91,28 +87,7 @@ std::int32_t CheckLegacyDxCapability_458DC0()
 // 原KeepAlive@[0x457AB0,0x457B03)；CTM01基线／差值64位，零哨兵与60000ms门槛保持。
 void KeepAlive_457AB0()
 {
-    if (cg::network::GetGameConnection().Active() == 0) {
-        return;
-    }
-
-    if (gKeepAliveBaselineTick == 0) {
-        const std::uint64_t tick = ReadTickCount64();
-        gKeepAliveRecentTick = tick;
-        gKeepAliveBaselineTick = tick;
-        return;
-    }
-
-    const std::uint64_t tick = ReadTickCount64();
-    const std::uint64_t baselineTick = gKeepAliveBaselineTick;
-    const std::uint64_t elapsedBits = tick - baselineTick;
-    gKeepAliveRecentTick = tick;
-    if (std::bit_cast<std::int64_t>(elapsedBits) < 60000) {
-        return;
-    }
-
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    gKeepAliveBaselineTick = tick;
-    static_cast<void>(cg::network::GetGameConnection().SendKeepAliveRequest());
+    cg::network::GetGameConnection().UpdateKeepAlive();
 }
 
 // 原函数：0x0053B4BF。

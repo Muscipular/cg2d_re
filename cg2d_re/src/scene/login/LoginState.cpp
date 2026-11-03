@@ -8,6 +8,7 @@
 #include "cg/scene/login/LoginState.hpp"
 
 #include "LoginStateDependencies.hpp"
+#include "LoginSceneState.hpp"
 #include "../../world/MailState.hpp"
 
 #include "cg/world/Blacklist.hpp"
@@ -29,35 +30,7 @@ namespace cg::login {
 
 // 原 0x55BAD8「登入中」正文 6 字节；字符串字面量隐式追加唯一 NUL。
 static constexpr wchar_t kLoginProgressText[] = L"登入中";
-// 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
-struct LoginProgressLayout {
-    std::int32_t rowCount;
-    std::int32_t columnCount;
-    std::int32_t y;
-    std::int32_t x;
-};
-
-static LoginProgressLayout gLoginProgressLayout {};
-
-// 原 0x9A4E8C、0x9A60E0、0x9A60E4、0x9A4CC0 只由 sub_45D990 读写。
-struct ServerConnectionLayout {
-    std::int32_t columnCount;
-    std::int32_t rowCount;
-    std::int32_t x;
-    std::int32_t y;
-};
-
-static ServerConnectionLayout gServerConnectionLayout {};
-
 // 原登录进度布局计算见doc/cg2d_login_progress_layout_sampling_spec.md。
-
-// 原 0x9A6E8C/0x9A6E90 的全部引用都只在 sub_45EA50/sub_45EA60 内。
-static std::uint16_t gLoginProgressPhase = 0;
-static cg::yobi::YobiAction* gLoginProgressAction = nullptr;
-
-// 原 0x9A5D6C/0x9A6E40 的全部引用都只在 sub_45D990 内。
-static std::wstring gServerConnectingText {};
-static cg::yobi::YobiAction* gServerConnectionAction = nullptr;
 
 namespace detail {
 
@@ -219,26 +192,27 @@ std::int32_t ResetValues_45D980()
 std::int32_t UpdateServerConnection()
 {
     auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::uint16_t phase = request.serverConnectionPhase;
     std::int32_t result = 0;
 
     if (phase == 0) {
-        gServerConnectingText = L"伺服器连接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
+        sceneUi.serverConnectingText = L"伺服器连接中" /* 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。 */;
 
         std::int32_t columnCount =
-            (cg::render::TextMeasure(gServerConnectingText, 0) + 111) / 64;
-        gServerConnectionLayout.columnCount = columnCount;
+            (cg::render::TextMeasure(sceneUi.serverConnectingText, 0) + 111) / 64;
+        sceneUi.serverConnectionLayout.columnCount = columnCount;
         if (columnCount < 2) {
             columnCount = 2;
-            gServerConnectionLayout.columnCount = columnCount;
+            sceneUi.serverConnectionLayout.columnCount = columnCount;
         }
 
         const std::int32_t x = ((10 - columnCount) * 64) / 2;
         const std::int32_t width = columnCount * 64;
-        gServerConnectionLayout.rowCount = 2;
-        gServerConnectionLayout.x = x;
-        gServerConnectionLayout.y = 192;
-        gServerConnectionAction = cg::yobi::CreateModalAction_5044E0(
+        sceneUi.serverConnectionLayout.rowCount = 2;
+        sceneUi.serverConnectionLayout.x = x;
+        sceneUi.serverConnectionLayout.y = 192;
+        sceneUi.serverConnectionAction = cg::yobi::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -288,23 +262,23 @@ std::int32_t UpdateServerConnection()
     }
 
     if (result != 0) {
-        if (gServerConnectionAction != nullptr) {
-            cg::yobi::MarkDeath(gServerConnectionAction);
-            gServerConnectionAction = nullptr;
+        if (sceneUi.serverConnectionAction != nullptr) {
+            cg::yobi::MarkDeath(sceneUi.serverConnectionAction);
+            sceneUi.serverConnectionAction = nullptr;
         }
         cg::world::blacklist::LoadBlacklistFile(request.selectedLoginServerGroup);
     }
 
-    cg::yobi::YobiAction* const action = gServerConnectionAction;
+    cg::yobi::YobiAction* const action = sceneUi.serverConnectionAction;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t textWidth = cg::render::TextMeasure(gServerConnectingText, 0);
-        const std::int32_t rowCount = gServerConnectionLayout.rowCount;
+        const std::int32_t textWidth = cg::render::TextMeasure(sceneUi.serverConnectingText, 0);
+        const std::int32_t rowCount = sceneUi.serverConnectionLayout.rowCount;
         const std::int32_t verticalHeight = rowCount * 48 - 16;
-        const std::int32_t y = gServerConnectionLayout.y;
+        const std::int32_t y = sceneUi.serverConnectionLayout.y;
         const std::int32_t textY = verticalHeight / 2 + y;
-        const std::int32_t columnCount = gServerConnectionLayout.columnCount;
+        const std::int32_t columnCount = sceneUi.serverConnectionLayout.columnCount;
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
-        const std::int32_t x = gServerConnectionLayout.x;
+        const std::int32_t x = sceneUi.serverConnectionLayout.x;
         const std::int32_t textX = horizontalWidth / 2 + x;
         cg::render::DrawText_456780(
             static_cast<std::int16_t>(textX),
@@ -312,7 +286,7 @@ std::int32_t UpdateServerConnection()
             2,
             0,
             0,
-            gServerConnectingText,
+            sceneUi.serverConnectingText,
             0,
             0);
     }
@@ -363,64 +337,66 @@ std::int32_t ProcessState_45E960()
 // 原函数：0x0045EA50。
 void ResetLoginProgress()
 {
-    gLoginProgressPhase = 0;
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    sceneUi.loginProgressPhase = 0;
 }
 
 // 原函数：0x0045EA60。
 std::int32_t UpdateLoginProgress()
 {
-    std::uint16_t phase = gLoginProgressPhase;
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    std::uint16_t phase = sceneUi.loginProgressPhase;
     std::int32_t result = 0;
 
     if (phase == 0) {
         const std::uint32_t textWidth =
             static_cast<std::uint32_t>(cg::render::TextMeasure(kLoginProgressText, 0));
-        gLoginProgressPhase = 1;
+        sceneUi.loginProgressPhase = 1;
         const std::int32_t columnCount =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
-        gLoginProgressLayout.rowCount = 2;
-        gLoginProgressLayout.columnCount = columnCount;
+        sceneUi.loginProgressLayout.rowCount = 2;
+        sceneUi.loginProgressLayout.columnCount = columnCount;
         const std::int32_t actionWidth = columnCount * 64;
-        const std::int32_t actionHeight = gLoginProgressLayout.rowCount * 48;
+        const std::int32_t actionHeight = sceneUi.loginProgressLayout.rowCount * 48;
         // 原45EA60按640×480居中；本场景无LegacyUiLayoutScope，改用当前画布尺寸。
         const std::int32_t actionX = (platform::gWindowWidth - actionWidth) / 2;
         const std::int32_t actionY = (platform::gWindowHeight - actionHeight) / 2;
-        gLoginProgressLayout.x = actionX;
-        gLoginProgressLayout.y = actionY;
-        gLoginProgressAction = cg::yobi::CreateModalAction_5044E0(
+        sceneUi.loginProgressLayout.x = actionX;
+        sceneUi.loginProgressLayout.y = actionY;
+        sceneUi.loginProgressAction = cg::yobi::CreateModalAction_5044E0(
             actionX,
             actionY,
             actionWidth,
             actionHeight,
             4,
             1);
-        phase = gLoginProgressPhase;
+        phase = sceneUi.loginProgressPhase;
     }
 
     if (phase == 1) {
         StartLoginRequest();
-        ++gLoginProgressPhase;
+        ++sceneUi.loginProgressPhase;
     } else if (phase == 2) {
         result = PollLoginRequest();
         if (result != 0) {
-            cg::yobi::YobiAction* const action = gLoginProgressAction;
+            cg::yobi::YobiAction* const action = sceneUi.loginProgressAction;
             if (action != nullptr) {
                 cg::yobi::MarkDeath(action);
-                gLoginProgressAction = nullptr;
+                sceneUi.loginProgressAction = nullptr;
             }
             return result;
         }
     }
 
-    cg::yobi::YobiAction* const action = gLoginProgressAction;
+    cg::yobi::YobiAction* const action = sceneUi.loginProgressAction;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t rowCount = gLoginProgressLayout.rowCount;
-        const std::int32_t y = gLoginProgressLayout.y;
+        const std::int32_t rowCount = sceneUi.loginProgressLayout.rowCount;
+        const std::int32_t y = sceneUi.loginProgressLayout.y;
         const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;
         const std::int32_t textWidth = cg::render::TextMeasure(kLoginProgressText, 0);
-        const std::int32_t columnCount = gLoginProgressLayout.columnCount;
+        const std::int32_t columnCount = sceneUi.loginProgressLayout.columnCount;
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
-        const std::int32_t x = gLoginProgressLayout.x;
+        const std::int32_t x = sceneUi.loginProgressLayout.x;
         cg::render::DrawText3_456560(
             static_cast<std::int16_t>(horizontalWidth / 2 + x),
             static_cast<std::int16_t>(textY),

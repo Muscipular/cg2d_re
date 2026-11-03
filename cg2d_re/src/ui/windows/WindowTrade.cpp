@@ -40,44 +40,7 @@ namespace detail {
 // 控件载荷、窗口状态、组件表与原型。
 
 
-// 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
-struct WindowTradeItem {
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::int16_t selection; // 原成员偏移：+0x02；负数禁止选择。
-    std::int32_t imageNo; // 原成员偏移：+0x04。
-    std::int32_t count; // 原成员偏移：+0x08。
-    std::int32_t itemId; // 原成员偏移：+0x0C。
-    std::wstring name; // 原成员偏移：+0x10。
-    std::array<std::wstring, 32> description; // 原成员偏移：+0x2D。
-    std::array<std::byte, 3> reservedC2D; // 原成员偏移：+0xC2D。
-    std::int32_t pages; // 原成员偏移：+0xC30；4E5770写完整S32。
-    std::int32_t flags; // 原成员偏移：+0xC34；本地来源为W16符号扩展。
-    std::wstring memo; // 原成员偏移：+0xC38。
-    std::array<std::byte, 3> reservedC49; // 原成员偏移：+0xC49。
-};
 
-// 原C9C108交易宠物；4E52B0按原序复制数值及技能，名称借用本记录。
-struct WindowTradePet {
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::int16_t selection; // 原成员偏移：+0x02。
-    std::uint16_t tribe; // 原成员偏移：+0x04；显示时按S16解释。
-    std::array<std::byte, 2> reserved06; // 原成员偏移：+0x06。
-    std::int32_t imageNo; // 原成员偏移：+0x08。
-    std::int32_t level; // 原成员偏移：+0x0C。
-    std::int32_t hp; // 原成员偏移：+0x10。
-    std::int32_t maxHp; // 原成员偏移：+0x14。
-    std::int32_t fp; // 原成员偏移：+0x18。
-    std::int32_t maxFp; // 原成员偏移：+0x1C。
-    std::array<std::int32_t, 6> combatStats; // 原成员偏移：+0x20；来源values70[0..4,10]。
-    std::array<std::int32_t, 5> baseStats; // 原成员偏移：+0x38；来源values70[5..9]。
-    std::array<std::int32_t, 4> elements; // 原成员偏移：+0x4C；来源values70[21..24]。
-    std::int32_t value5C; // 原成员偏移：+0x5C；来源宠物value6A4。
-    std::array<world::detail::PetTechniqueRecord, world::kPetTechniqueSlotCount> techniques; // 原成员偏移：+0x60。
-    std::wstring name; // 原成员偏移：+0x5D8；显示名称。
-    std::wstring speciesName; // 原成员偏移：+0x5E9；原始名称。
-    std::array<std::byte, 2> reserved5FA; // 原成员偏移：+0x5FA。
-    std::array<std::wstring, 6> equipmentNames; // 交易装备名称；Yq字段21—26，空槽为空字符串。
-};
 
 // 原4B1260的14参槽位回调另携所属会话；借用数值与描述符，返回值原端弃用。
 using WindowTradePanelCallback = void (*)(
@@ -91,16 +54,16 @@ using WindowTradePanelCallback = void (*)(
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048B450。
-static std::int32_t WindowItem_DrawPetTooltip(std::int32_t side, std::int32_t index, std::int32_t page);
+static std::int32_t WindowItem_DrawPetTooltip(session::ClientSession& session, std::int32_t side, std::int32_t index, std::int32_t page);
 
 // 原函数：0x004E5710。
-static std::int32_t WindowTrade_ResetRemoteItems(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
+static std::int32_t WindowTrade_ResetRemoteItems(session::ClientSession& session, std::int32_t side); // 先清侧状态，再清物品/宠物整组。
 
 // 原函数：0x004E52B0。
-static void WindowTrade_CopyOwnPet(std::int32_t side); // 同源玩家宠物属性、20项技能及6个装备名称复制。
+static void WindowTrade_CopyOwnPet(session::ClientSession& session, std::int32_t side); // 同源玩家宠物属性、20项技能及6个装备名称复制。
 
 // 原函数：0x004E5600。
-static void WindowTrade_SyncOwnItems(std::int32_t side); // 顺序同步20条交易物品。
+static void WindowTrade_SyncOwnItems(session::ClientSession& session, std::int32_t side); // 顺序同步20条交易物品。
 
 // 原函数：0x004B0110。
 static cg::yobi::YobiAction* WindowTrade_Open(session::ClientSession& session); // 清交易U8，创建窗口43动画并发布借用T*。
@@ -117,10 +80,10 @@ static void WindowTrade_SetPanelVisible(WindowInstance* window, std::int32_t ind
 static void WindowTrade_SetPanelColor(WindowInstance* window, std::int32_t index, std::uint32_t color);
 
 // 原函数：0x004AFF70。
-static std::int32_t WindowTrade_RemoveItem(std::int32_t index); // 释放物品选择，再减同源悬停字节。
+static std::int32_t WindowTrade_RemoveItem(session::ClientSession& session, std::int32_t index); // 释放物品选择，再减同源悬停字节。
 
 // 原函数：0x004B0090。
-static std::int32_t WindowTrade_RemovePet(std::int32_t index); // 只释放宠物选择及标记。
+static std::int32_t WindowTrade_RemovePet(session::ClientSession& session, std::int32_t index); // 只释放宠物选择及标记。
 
 // 原函数：0x004B0200。
 static void WindowTrade_Release(WindowInstance&); // 窗口43释放回调，原返回值弃用。
@@ -132,16 +95,16 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, std::int3
 static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 四类提示后绘制完整当前窗口。
 
 // 原函数：0x004AFF30。
-static std::int32_t WindowTrade_AddItem(std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
+static std::int32_t WindowTrade_AddItem(session::ClientSession& session, std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
 
 // 原函数：0x004AFFB0。
-static std::int32_t WindowTrade_SwapSelectedItems(std::int32_t first, std::int32_t second); // 仅交换选择槽字节。
+static std::int32_t WindowTrade_SwapSelectedItems(session::ClientSession& session, std::int32_t first, std::int32_t second); // 仅交换选择槽字节。
 
 // 原函数：0x004B0060。
-static std::int32_t WindowTrade_AddPet(std::int32_t index, std::int32_t slot); // 空槽领取并标记宠物。
+static std::int32_t WindowTrade_AddPet(session::ClientSession& session, std::int32_t index, std::int32_t slot); // 空槽领取并标记宠物。
 
 // 原函数：0x004B00C0。
-static std::int32_t WindowTrade_SwapSelectedPets(std::int32_t first, std::int32_t second);
+static std::int32_t WindowTrade_SwapSelectedPets(session::ClientSession& session, std::int32_t first, std::int32_t second);
 
 // 原函数：0x004B1940。
 static void WindowTrade_HandleOwnInventory(
@@ -209,6 +172,7 @@ static void WindowTrade_RefreshSelectedPanel(
 
 // 原函数：0x004B0F20。
 static std::int32_t WindowTrade_DrawPetRow(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer,
     const render::GraphicDescriptor16* descriptor); // 空宠物槽仍画背景。
@@ -239,10 +203,10 @@ static bool WindowTrade_HitTestOwnPetRow(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
 
 // 原函数：0x004AFFE0。
-static std::int32_t WindowTrade_ReadSelectedItem(std::int32_t index); // S8物品槽，负值归-1。
+static std::int32_t WindowTrade_ReadSelectedItem(session::ClientSession& session, std::int32_t index); // S8物品槽，负值归-1。
 
 // 原函数：0x004B00F0。
-static std::int32_t WindowTrade_ReadSelectedPet(std::int32_t index); // S8宠物槽，负值归-1。
+static std::int32_t WindowTrade_ReadSelectedPet(session::ClientSession& session, std::int32_t index); // S8宠物槽，负值归-1。
 
 // 原函数：0x004B0A50。
 static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 公开两组交易槽及数值。
@@ -263,11 +227,13 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
 
 // 原函数：0x004B45A0。
 static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t side,
     std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。
 
 // 原函数：0x004B4680。
 static std::int32_t WindowTrade_DrawSelectedPetTooltip(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t index); // 完整交易宠物提示。
 
 // 原函数：0x004B3B00。
@@ -282,107 +248,18 @@ static void WindowTrade_RequestTargetList(session::ClientSession& session, std::
 static cg::yobi::YobiAction* WindowTrade_OpenTargetList(session::ClientSession& session, const char* text); // 选择表绑定真实交易回调后打开44。
 
 // 原函数：0x004E5770。
-static void WindowTrade_BuildRemoteItemDescription(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
+static void WindowTrade_BuildRemoteItemDescription(session::ClientSession& session, std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
 
 // 原函数：0x004E5830。
-static std::int32_t WindowTrade_ReceiveRemoteItems(const char* text); // 每条14字段，返回终止字段状态1。
+static std::int32_t WindowTrade_ReceiveRemoteItems(session::ClientSession& session, const char* text); // 每条14字段，返回终止字段状态1。
 
 // 原函数：0x004E5A40。
-static std::int32_t WindowTrade_ReceiveRemotePet(std::int32_t index, const char* text); // 单宠物属性与双名称。
+static std::int32_t WindowTrade_ReceiveRemotePet(session::ClientSession& session, std::int32_t index, const char* text); // 单宠物属性与双名称。
 
 // 原函数：0x004E5CD0。
-static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const char* text); // 清空整表后接收20个技能名及6个装备名。
+static std::int32_t WindowTrade_ReceiveRemotePetSkills(session::ClientSession& session, std::int32_t index, const char* text); // 清空整表后接收20个技能名及6个装备名。
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
-
-// 原全局：0x005803D0。 借用input唯一CC21E8上下文。
-
-static std::array<WindowTradePet, 2 * 5> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
-
-static std::int32_t gTradeValueCC4224 = 0; // 原全局：0x00CC4224。
-
-static std::int32_t gTradeValueCF4688 = 0; // 原全局：0x00CF4688。
-
-static std::int32_t gTradeValueD046D0 = 0; // 原全局：0x00D046D0。
-
-static std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
-
-static std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
-
-// 原全局：0x00D67B7C。 原43窗口展开动画，仅借用。
-static cg::yobi::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
-
-static std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。 原第一个页签数值索引。
-
-static std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。 原另一页签，均为数值索引。
-
-static std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。 原四个物品/宠物计数。
-
-static std::int32_t gTradeValueC8AF68 = 0; // 原全局：0x00C8AF68。
-
-static std::int32_t gTradeValueCB03CC = 0; // 原全局：0x00CB03CC。
-
-static std::int32_t gTradeValueCF4AB8 = 0; // 原全局：0x00CF4AB8。
-
-static std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。 交易阶段相关数值，不是地址。
-
-static std::int32_t gTradeValueD67CBC = 0; // 原全局：0x00D67CBC。
-
-static std::int32_t gTradeValueCC3EC4 = 0; // 原全局：0x00CC3EC4。 所选物品数值索引，4E5620写-1。
-
-static std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。 所选图号数值。
-
-static std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。 交易选择状态。
-
-static std::wstring gTradeNameD2D654 {}; // 原全局：0x00D2D654。
-
-// 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
-static std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
-
-static std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {}; // 原全局：0x00D2D61C。
-
-// 原全局：0x00CC4D28。 末项即CC4D2C，按S8读槽号。
-static std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {}; // 原全局：0x00CC4D28。
-
-// 原全局：0x00CF3AFC。 末项即CF3B00，不拆独立标量。
-static std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {}; // 原全局：0x00CF3AFC。
-
-static std::uint8_t gTradePhaseCAFEC4 = 0; // 原全局：0x00CAFEC4。
-
-// 原全局：0x00D3040C。 位移按S8读，递减只写U8。
-static std::uint8_t gTradeStepD3040C = 0; // 原全局：0x00D3040C。
-
-static std::uint8_t gTradeValueD2EA20 = 0; // 原全局：0x00D2EA20。
-
-static std::uint8_t gTradeValueD6742C = 0; // 原全局：0x00D6742C。
-
-static std::uint8_t gTradeValueC8AF81 = 0; // 原全局：0x00C8AF81。
-
-// 原全局：0x00CC4D1A。 对方页签，不套用己方窗口初始化重置。
-static std::uint8_t gTradeTabCC4D1A = 0; // 原全局：0x00CC4D1A。
-
-// 原全局：0x00C8B314。 对方提示槽缓存，非地址。
-static std::int32_t gTradeHoverSlotC8B314 = 0; // 原全局：0x00C8B314。
-
-// 原全局：0x00C8AA78。 己方已选物品提示槽缓存。
-static std::int32_t gTradeHoverSlotC8AA78 = 0; // 原全局：0x00C8AA78。
-
-// 原全局：0x00CB0A4C。 己方自有物品提示槽缓存。
-static std::int32_t gTradeHoverSlotCB0A4C = 0; // 原全局：0x00CB0A4C。
-
-static std::int32_t gTradeScrollCF3B0C = 0; // 原全局：0x00CF3B0C。
-
-static std::int32_t gTradeScrollCC4C90 = 0; // 原全局：0x00CC4C90。
-
-static std::int32_t gTradeScrollD67430 = 0; // 原全局：0x00D67430。
-
-// 原全局：0x00CC2E64。 原预览分类数值，非地址。
-static std::int32_t gTradePreviewCC2E64 = 0; // 原全局：0x00CC2E64。
-
-// 原全局：0x00CB10D4。 物品提示页，绘制按S8读取。
-static std::uint8_t gTradeTooltipPageCB10D4 = 0; // 原全局：0x00CB10D4。
 
 // 原全局：0x005805FC。 原字节提示的借用指针表。
 static const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
@@ -446,8 +323,10 @@ WindowPrototype gWindowPrototypeTrade {0, 4, 20, 25, 567, 339, 0x80010101u, 20, 
 
 // 原函数：0x0048B450。
 static std::int32_t WindowItem_DrawPetTooltip(
+    session::ClientSession& session,
     const std::int32_t side, const std::int32_t index, const std::int32_t page)
 {
+    auto& trade = session.UiFrame().native.trade;
     const std::int32_t key = index + 200;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
@@ -464,7 +343,7 @@ static std::int32_t WindowItem_DrawPetTooltip(
     const std::int32_t sideOffset =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
     gTooltipSourceD303FC = key;
-    const auto* const record = &gTradeItemsD460D0[key + sideOffset * 20];
+    const auto* const record = &trade.items[key + sideOffset * 20];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
     const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;
@@ -478,13 +357,15 @@ static std::int32_t WindowItem_DrawPetTooltip(
 
 // 原函数：0x004E5DA0。
 void WindowTrade_SwapRemoteItems(
+    session::ClientSession& session,
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
 {
+    auto& trade = session.UiFrame().native.trade;
     if (first < 8 || first >= 28 || second < 8 || second >= 28) {
         return;
     }
-    auto* const left = &gTradeItemsD460D0[side * 20 + first - 8];
-    auto* const right = &gTradeItemsD460D0[side * 20 + second - 8];
+    auto* const left = &trade.items[side * 20 + first - 8];
+    auto* const right = &trade.items[side * 20 + second - 8];
     std::swap(*left, *right);
 }
 
@@ -503,10 +384,11 @@ void WindowTrade_SwapDisplayItems(
 // 原函数：0x004B0000。
 void WindowTrade_ResetSelection(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
+    auto& trade = session.UiFrame().native.trade;
     if (WindowRuntime_States(session)[WindowId_Trade].window == nullptr) {
         return;
     }
-    for (std::uint8_t& slot : gTradeItemSlotsCF3AE8) {
+    for (std::uint8_t& slot : trade.itemSlots) {
         const std::int32_t value = std::bit_cast<std::int8_t>(slot);
         if (value == first) {
             slot = static_cast<std::uint8_t>(second);
@@ -514,10 +396,10 @@ void WindowTrade_ResetSelection(session::ClientSession& session, const std::int3
             slot = static_cast<std::uint8_t>(first);
         }
     }
-    const std::uint8_t firstMark = gTradeItemMarksD2D61C[first];
-    const std::uint8_t secondMark = gTradeItemMarksD2D61C[second];
-    gTradeItemMarksD2D61C[first] = secondMark;
-    gTradeItemMarksD2D61C[second] = firstMark;
+    const std::uint8_t firstMark = trade.itemMarks[first];
+    const std::uint8_t secondMark = trade.itemMarks[second];
+    trade.itemMarks[first] = secondMark;
+    trade.itemMarks[second] = firstMark;
 }
 
 // 原函数：0x004AD060。
@@ -530,12 +412,13 @@ void WindowTrade_RemapTextListSelection(session::ClientSession& session, const s
 }
 
 // 原函数：0x004E54E0。
-void WindowTrade_CopyOwnItem(const std::int32_t side, const std::int32_t index)
+void WindowTrade_CopyOwnItem(session::ClientSession& session, const std::int32_t side, const std::int32_t index)
 {
+    auto& trade = session.UiFrame().native.trade;
     if (index < 0 || index >= 20) {
         return;
     }
-    auto* const record = &gTradeItemsD460D0[index + side * 20];
+    auto* const record = &trade.items[index + side * 20];
     *record = {};
     const world::PlayerItemRecord& source = world::gPlayerRuntimeSlots.items[index + 8];
     if (source.used == 0) {
@@ -560,19 +443,20 @@ void WindowTrade_CopyOwnItem(const std::int32_t side, const std::int32_t index)
 }
 
 // 原函数：0x004E5600。
-static void WindowTrade_SyncOwnItems(const std::int32_t side)
+static void WindowTrade_SyncOwnItems(session::ClientSession& session, const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
-        WindowTrade_CopyOwnItem(side, index);
+        WindowTrade_CopyOwnItem(session, side, index);
     }
 }
 
 // 原函数：0x004B0110。
 static cg::yobi::YobiAction* WindowTrade_Open(session::ClientSession& session)
 {
-    gTradeValueD67B80 = 0;
+    auto& trade = session.UiFrame().native.trade;
+    trade.valueD67B80 = 0;
     cg::yobi::YobiAction* const action = WindowRuntime_CreateAnimation(session, WindowId_Trade, 1, 0, nullptr);
-    gTradeWindowActionD67B7C = action;
+    trade.windowAction = action;
     return action;
 }
 
@@ -614,107 +498,115 @@ static void WindowTrade_SetPanelColor(
 }
 
 // 原函数：0x004AFF30。
-static std::int32_t WindowTrade_AddItem(const std::int32_t index, const std::int32_t slot)
+static std::int32_t WindowTrade_AddItem(session::ClientSession& session, const std::int32_t index, const std::int32_t slot)
 {
-    if (std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]) >= 0) {
+    auto& trade = session.UiFrame().native.trade;
+    if (std::bit_cast<std::int8_t>(trade.itemSlots[index]) >= 0) {
         return 0;
     }
-    gTradeItemSlotsCF3AE8[index] = static_cast<std::uint8_t>(slot);
+    trade.itemSlots[index] = static_cast<std::uint8_t>(slot);
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = hover[slot];
-    gTradeItemMarksD2D61C[slot] = 1;
+    trade.itemMarks[slot] = 1;
     hover[slot] = static_cast<std::uint8_t>(previous + 1);
     return 1;
 }
 
 // 原函数：0x004AFFB0。
-static std::int32_t WindowTrade_SwapSelectedItems(const std::int32_t first, const std::int32_t second)
+static std::int32_t WindowTrade_SwapSelectedItems(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    const std::uint8_t previous = gTradeItemSlotsCF3AE8[first];
-    gTradeItemSlotsCF3AE8[first] = gTradeItemSlotsCF3AE8[second];
-    gTradeItemSlotsCF3AE8[second] = previous;
+    auto& trade = session.UiFrame().native.trade;
+    const std::uint8_t previous = trade.itemSlots[first];
+    trade.itemSlots[first] = trade.itemSlots[second];
+    trade.itemSlots[second] = previous;
     return first;
 }
 
 // 原函数：0x004B0060。
-static std::int32_t WindowTrade_AddPet(const std::int32_t index, const std::int32_t slot)
+static std::int32_t WindowTrade_AddPet(session::ClientSession& session, const std::int32_t index, const std::int32_t slot)
 {
-    if (std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]) >= 0) {
+    auto& trade = session.UiFrame().native.trade;
+    if (std::bit_cast<std::int8_t>(trade.petSlots[index]) >= 0) {
         return 0;
     }
-    gTradePetSlotsCC4D28[index] = static_cast<std::uint8_t>(slot);
-    gTradePetMarksCF3AFC[slot] = 1;
+    trade.petSlots[index] = static_cast<std::uint8_t>(slot);
+    trade.petMarks[slot] = 1;
     return 1;
 }
 
 // 原函数：0x004B00C0。
-static std::int32_t WindowTrade_SwapSelectedPets(const std::int32_t first, const std::int32_t second)
+static std::int32_t WindowTrade_SwapSelectedPets(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    const std::uint8_t previous = gTradePetSlotsCC4D28[first];
-    gTradePetSlotsCC4D28[first] = gTradePetSlotsCC4D28[second];
-    gTradePetSlotsCC4D28[second] = previous;
+    auto& trade = session.UiFrame().native.trade;
+    const std::uint8_t previous = trade.petSlots[first];
+    trade.petSlots[first] = trade.petSlots[second];
+    trade.petSlots[second] = previous;
     return first;
 }
 
 // 原函数：0x004AFF70。
-static std::int32_t WindowTrade_RemoveItem(const std::int32_t index)
+static std::int32_t WindowTrade_RemoveItem(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
+    auto& trade = session.UiFrame().native.trade;
+    const std::int32_t slot = std::bit_cast<std::int8_t>(trade.itemSlots[index]);
     if (slot < 0) {
         return -1;
     }
-    gTradeItemSlotsCF3AE8[index] = 0xFF;
+    trade.itemSlots[index] = 0xFF;
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = hover[slot];
-    gTradeItemMarksD2D61C[slot] = 0;
+    trade.itemMarks[slot] = 0;
     hover[slot] = static_cast<std::uint8_t>(previous - 1);
     return slot;
 }
 
 // 原函数：0x004B0090。
-static std::int32_t WindowTrade_RemovePet(const std::int32_t index)
+static std::int32_t WindowTrade_RemovePet(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
+    auto& trade = session.UiFrame().native.trade;
+    const std::int32_t slot = std::bit_cast<std::int8_t>(trade.petSlots[index]);
     if (slot < 0) {
         return -1;
     }
-    gTradePetSlotsCC4D28[index] = 0xFF;
-    gTradePetMarksCF3AFC[slot] = 0;
+    trade.petSlots[index] = 0xFF;
+    trade.petMarks[slot] = 0;
     return slot;
 }
 
 // 原函数：0x004B0200。
 static void WindowTrade_Release(WindowInstance& releasedWindow)
 {
+    auto& trade = releasedWindow.ownerSession->UiFrame().native.trade;
     WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (window != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 43) {
         window->state |= 0x8000u;
     }
-    if (gTradeValueD67B80 == 0) {
+    if (trade.valueD67B80 == 0) {
         static_cast<void>(releasedWindow.ownerSession->Connection().SendTradeDecision(0));
-        gTradeValueD67CBC = 1;
+        trade.valueD67CBC = 1;
     }
     for (std::int32_t index = 0; index < 20; ++index) {
-        static_cast<void>(WindowTrade_RemoveItem(index));
+        static_cast<void>(WindowTrade_RemoveItem(*releasedWindow.ownerSession, index));
     }
     for (std::int32_t index = 0; index < 5; ++index) {
-        static_cast<void>(WindowTrade_RemovePet(index));
+        static_cast<void>(WindowTrade_RemovePet(*releasedWindow.ownerSession, index));
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
-    gTradeValueD67B80 = 0;
+    trade.valueD67B80 = 0;
 }
 
 // 原函数：0x004B0290。
 static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const initialWindow = currentWindow;
-        gTradeWindowActionD67B7C = nullptr;
-        gTradeValueCC4224 = 0;
-        gTradeValueD2E2B0 = 0;
-        gTradePhaseCAFEC4 = 0;
+        trade.windowAction = nullptr;
+        trade.valueCC4224 = 0;
+        trade.valueD2E2B0 = 0;
+        trade.phase = 0;
         WindowTrade_SetPanelVisible(initialWindow, 11, 1);
         WindowTrade_MovePanel(currentWindow, 11, 287, 28);
         WindowTrade_SetPanelColor(currentWindow, 11, 0xFFFFFFFFu);
@@ -728,43 +620,43 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
         if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 0;
         if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 0;
         WindowInstance* const scrollWindow = currentWindow;
-        gTradeValueD2EA20 = 0xFF;
-        gTradeValueD6742C = 0;
-        gTradeValueC8AF81 = 0;
-        gTradeScrollCF3B0C = 0;
-        gTradeScrollCC4C90 = 0;
-        gTradeScrollD67430 = 0;
+        trade.valueD2EA20 = 0xFF;
+        trade.valueD6742C = 0;
+        trade.valueC8AF81 = 0;
+        trade.scrollCF3B0C = 0;
+        trade.scrollCC4C90 = 0;
+        trade.scrollD67430 = 0;
         auto* const handleVerticalScroll_11Element = scrollWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll_11);
         if (handleVerticalScroll_11Element) {
             static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_11Element, 2, 0));
         }
-        const std::int32_t firstScroll = gTradeScrollCC4C90;
+        const std::int32_t firstScroll = trade.scrollCC4C90;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
             static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, 2, firstScroll));
         }
         WindowInstance* const lastScrollWindow = currentWindow;
-        const std::int32_t lastScroll = gTradeScrollD67430;
+        const std::int32_t lastScroll = trade.scrollD67430;
         auto* const handleVerticalScroll_14Element = lastScrollWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll_14);
         if (handleVerticalScroll_14Element) {
             static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_14Element, 2, lastScroll));
         }
-        gTradeItemMarksD2D61C.fill(0);
+        trade.itemMarks.fill(0);
         // 原W32/U8交错写入同一数组，保留4B0424的窗口快照时点。
-        std::memset(gTradePetMarksCF3AFC.data(), 0, 4);
-        std::memset(gTradeItemSlotsCF3AE8.data(), 0xFF, 4);
-        std::memset(gTradeItemSlotsCF3AE8.data() + 4, 0xFF, 4);
-        gTradePetMarksCF3AFC[4] = 0;
+        std::memset(trade.petMarks.data(), 0, 4);
+        std::memset(trade.itemSlots.data(), 0xFF, 4);
+        std::memset(trade.itemSlots.data() + 4, 0xFF, 4);
+        trade.petMarks[4] = 0;
         WindowInstance* const textWindow = currentWindow;
-        std::memset(gTradeItemSlotsCF3AE8.data() + 8, 0xFF, 4);
-        std::memset(gTradeItemSlotsCF3AE8.data() + 12, 0xFF, 4);
-        std::memset(gTradePetSlotsCC4D28.data(), 0xFF, 4);
-        std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
-        gTradePetSlotsCC4D28[4] = 0xFF;
+        std::memset(trade.itemSlots.data() + 8, 0xFF, 4);
+        std::memset(trade.itemSlots.data() + 12, 0xFF, 4);
+        std::memset(trade.petSlots.data(), 0xFF, 4);
+        std::memset(trade.itemSlots.data() + 16, 0xFF, 4);
+        trade.petSlots[4] = 0xFF;
         auto* const element16 = textWindow->FindElementById(WindowTradeElementId::Element16);
         if (element16) {
             auto* const otherName = element16->data.text;
-            otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
+            otherName->text = std::format(L"{:>16}", trade.name);
         }
         auto* elementsWindow = currentWindow;
         const wchar_t* const playerName = world::GetPlayerDisplayText(1);
@@ -788,39 +680,39 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gTradeValueD67B80 != 0) {
+    if (trade.valueD67B80 != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    switch (std::bit_cast<std::int8_t>(gTradePhaseCAFEC4)) {
+    switch (std::bit_cast<std::int8_t>(trade.phase)) {
     case 0:
-        if (gTradeValueD2E2B0 > 0) {
+        if (trade.valueD2E2B0 > 0) {
             WindowInstance* const window = currentWindow;
-            gTradePhaseCAFEC4 = 1;
+            trade.phase = 1;
             WindowTrade_SetPanelVisible(window, 14, 1);
             WindowTrade_MovePanel(currentWindow, 14, 15, 28);
             WindowTrade_SetPanelColor(currentWindow, 14, 0x00FFFFFFu);
-            gTradeStepD3040C = 23;
+            trade.step = 23;
         }
         break;
     case 1: {
         WindowInstance* const window = currentWindow;
-        const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+        const std::int32_t step = std::bit_cast<std::int8_t>(trade.step);
         auto* const handleSelectedPanelElement = window->FindElementById(WindowTradeElementId::HandleSelectedPanel);
         if (handleSelectedPanelElement) {
             if (handleSelectedPanelElement->x + step < 287) {
                 WindowTrade_SetPanelVisible(window, 8, 1);
                 WindowInstance* const moveWindow = currentWindow;
-                const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+                const std::int32_t moveStep = std::bit_cast<std::int8_t>(trade.step);
                 auto* const handleSelectedPanelElement2 = moveWindow->FindElementById(WindowTradeElementId::HandleSelectedPanel);
                 if (handleSelectedPanelElement2) {
                     const std::int32_t x = std::bit_cast<std::int16_t>(
                         static_cast<std::uint16_t>(handleSelectedPanelElement2->x));
                     WindowTrade_MovePanel(moveWindow, 8, x + moveStep, 28);
                 }
-                const std::uint8_t oldStep = gTradeStepD3040C;
+                const std::uint8_t oldStep = trade.step;
                 WindowInstance* const firstWindow = currentWindow;
-                gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+                trade.step = static_cast<std::uint8_t>(oldStep - 1);
                 auto* const handleOwnPanelElement = firstWindow->FindElementById(WindowTradeElementId::HandleOwnPanel);
                 if (handleOwnPanelElement) {
                     const auto* first = handleOwnPanelElement->data.graphic;
@@ -844,29 +736,29 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
                 if (auto* const buttonPublishElement = currentWindow->FindElementById(WindowTradeElementId::ButtonPublish); buttonPublishElement) buttonPublishElement->visible = 0;
                 if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 1;
                 if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 1;
-                gTradePhaseCAFEC4 = 3;
+                trade.phase = 3;
             }
         }
         break;
     }
     case 2: {
         WindowInstance* const window = currentWindow;
-        const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+        const std::int32_t step = std::bit_cast<std::int8_t>(trade.step);
         auto* const handleSelectedPanelElement = window->FindElementById(WindowTradeElementId::HandleSelectedPanel);
         if (handleSelectedPanelElement) {
             if (handleSelectedPanelElement->x - step > 15) {
                 WindowTrade_SetPanelVisible(window, 8, 1);
                 WindowInstance* const moveWindow = currentWindow;
-                const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+                const std::int32_t moveStep = std::bit_cast<std::int8_t>(trade.step);
                 auto* const handleSelectedPanelElement2 = moveWindow->FindElementById(WindowTradeElementId::HandleSelectedPanel);
                 if (handleSelectedPanelElement2) {
                     const std::int32_t x = std::bit_cast<std::int16_t>(
                         static_cast<std::uint16_t>(handleSelectedPanelElement2->x));
                     WindowTrade_MovePanel(moveWindow, 8, x - moveStep, 28);
                 }
-                const std::uint8_t oldStep = gTradeStepD3040C;
+                const std::uint8_t oldStep = trade.step;
                 WindowInstance* const firstWindow = currentWindow;
-                gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+                trade.step = static_cast<std::uint8_t>(oldStep - 1);
                 auto* const handleOwnPanelElement = firstWindow->FindElementById(WindowTradeElementId::HandleOwnPanel);
                 if (handleOwnPanelElement) {
                     const auto* first = handleOwnPanelElement->data.graphic;
@@ -890,50 +782,51 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
                 if (auto* const buttonPublishElement = currentWindow->FindElementById(WindowTradeElementId::ButtonPublish); buttonPublishElement) buttonPublishElement->visible = 1;
                 if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 0;
                 if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 0;
-                gTradePhaseCAFEC4 = 0;
+                trade.phase = 0;
             }
         }
         break;
     }
     case 3:
-        if (gTradeValueD2E2B0 <= 0) {
+        if (trade.valueD2E2B0 <= 0) {
             WindowInstance* const window = currentWindow;
-            gTradePhaseCAFEC4 = 2;
+            trade.phase = 2;
             WindowTrade_SetPanelVisible(window, 11, 1);
             WindowTrade_MovePanel(currentWindow, 11, 287, 28);
             WindowTrade_SetPanelColor(currentWindow, 11, 0x00FFFFFFu);
-            gTradeStepD3040C = 23;
+            trade.step = 23;
         }
         break;
     default:
         break;
     }
-    gTradePreviewCC2E64 = -1;
+    trade.preview = -1;
     return 1;
 }
 
 // 原函数：0x004B08D0。
 static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    std::int32_t preview = gTradePreviewCC2E64;
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
+    std::int32_t preview = trade.preview;
     if (preview >= 0) {
         if (preview < 300) {
             const bool ownItem = preview < 100;
             if (!ownItem) {
                 preview -= 200;
-                gTradePreviewCC2E64 = preview;
+                trade.preview = preview;
             }
             if (preview >= 0) {
-                const std::int32_t page = std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4);
+                const std::int32_t page = std::bit_cast<std::int8_t>(trade.tooltipPage);
                 if (ownItem) {
                     static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
                 } else {
-                    static_cast<void>(WindowItem_DrawPetTooltip(0, preview, page));
+                    static_cast<void>(WindowItem_DrawPetTooltip(*callbackWindow.ownerSession, 0, preview, page));
                 }
             }
         } else {
             preview -= 300;
-            gTradePreviewCC2E64 = preview;
+            trade.preview = preview;
             // 原4B0970在异常分类>=600时读未初始化字节；不补零或指定分支。
             std::uint8_t ownPet;
             if (preview < 100) {
@@ -941,16 +834,16 @@ static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::
             } else if (preview < 300) {
                 ownPet = 0;
                 preview -= 200;
-                gTradePreviewCC2E64 = preview;
+                trade.preview = preview;
             }
             if (preview >= 0) {
                 const bool left = (platform::gLegacyMouseState.mouseX < 320);
                 const std::int32_t x = left ? 413 : 0;
-                const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
+                const std::uint8_t index = static_cast<std::uint8_t>(trade.preview);
                 if (ownPet != 0) {
                     static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index, true));
                 } else {
-                    static_cast<void>(WindowTrade_DrawSelectedPetTooltip(x, 0, 0, index));
+                    static_cast<void>(WindowTrade_DrawSelectedPetTooltip(*callbackWindow.ownerSession, x, 0, 0, index));
                 }
             }
         }
@@ -961,11 +854,13 @@ static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::
 
 // 原函数：0x004B0F20。
 static std::int32_t WindowTrade_DrawPetRow(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int8_t side,
     const std::int32_t index, const std::uint8_t textLayer, const std::uint8_t graphicLayer,
     const render::GraphicDescriptor16* const descriptor)
 {
-    const auto* const record = &gTradePetsC9C108[index + side * 5];
+    auto& trade = session.UiFrame().native.trade;
+    const auto* const record = &trade.pets[index + side * 5];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0) {
@@ -1186,6 +1081,7 @@ static void WindowTrade_HandleOwnInventory(
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0x80FFFFFFu;
@@ -1196,7 +1092,7 @@ static void WindowTrade_HandleOwnInventory(
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(session) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if (gTradePhaseCAFEC4 != 0) {
+    if (trade.phase != 0) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if ((events & MouseFlag_DragFinish) != 0) {
@@ -1236,54 +1132,54 @@ static void WindowTrade_HandleOwnInventory(
                 break;
             }
         }
-        if (hovered >= 0 && gTradePhaseCAFEC4 == 0
+        if (hovered >= 0 && trade.phase == 0
             && world::gPlayerRuntimeSlots.items[hovered].used != 0) {
             if ((world::gPlayerRuntimeSlots.items[hovered].flags & 1u) == 0) {
                 uiFrame.hoverText = L"此物品无法交易。";
-            } else if (gTradeItemMarksD2D61C[hovered] == 0) {
+            } else if (trade.itemMarks[hovered] == 0) {
                 uiFrame.hoverText = L"用滑鼠拖放方式，登录此笔物品交易。";
             }
         }
     }
-    if (gTradeValueD2EA20 == 0) {
-        if (gTradeHoverSlotCB0A4C != hovered) {
-            gTradeTooltipPageCB10D4 = 0;
+    if (trade.valueD2EA20 == 0) {
+        if (trade.hoverSlotCB0A4C != hovered) {
+            trade.tooltipPage = 0;
         }
-        gTradeHoverSlotCB0A4C = hovered;
+        trade.hoverSlotCB0A4C = hovered;
     }
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
         if (world::gPlayerRuntimeSlots.items[hovered].used != 0
             && (world::gPlayerRuntimeSlots.items[hovered].flags & 1u) != 0
-            && gTradeItemMarksD2D61C[hovered] == 0) {
+            && trade.itemMarks[hovered] == 0) {
             std::int32_t target = 0;
-            while (target < 20 && WindowTrade_ReadSelectedItem(target) >= 0) {
+            while (target < 20 && WindowTrade_ReadSelectedItem(session, target) >= 0) {
                 ++target;
             }
             if (target < 20) {
-                static_cast<void>(WindowTrade_RemoveItem(target));
-                static_cast<void>(WindowTrade_AddItem(target, hovered));
+                static_cast<void>(WindowTrade_RemoveItem(session, target));
+                static_cast<void>(WindowTrade_AddItem(session, target, hovered));
                 *tab = 0;
             }
-            if (gTradeValueC8AF81 != 0) {
-                gTradeValueC8AF81 = 0;
+            if (trade.valueC8AF81 != 0) {
+                trade.valueC8AF81 = 0;
             }
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        if (gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0
+        if (trade.phase == 0 && (events & MouseFlag_LDownEvent) != 0
             && world::gPlayerRuntimeSlots.items[hovered].used != 0
-            && gTradeItemMarksD2D61C[hovered] == 0) {
+            && trade.itemMarks[hovered] == 0) {
             static_cast<void>(WindowItemDrag_Start(session, hovered, 1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((events & MouseFlag_RDownEvent) != 0 && world::gPlayerRuntimeSlots.items[hovered].used != 0) {
             const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered].pages;
-            gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
-            if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
-                gTradeTooltipPageCB10D4 = 0;
+            trade.tooltipPage = static_cast<std::uint8_t>(trade.tooltipPage + 1);
+            if (std::bit_cast<std::int8_t>(trade.tooltipPage) >= pages) {
+                trade.tooltipPage = 0;
             }
         }
     }
@@ -1309,14 +1205,14 @@ static void WindowTrade_HandleOwnInventory(
         const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[hovered];
         if (item.used != 0) {
             const std::size_t memoLength = item.memo.size();
-            gTradePreviewCC2E64 = hovered;
+            trade.preview = hovered;
             if (memoLength != 0 && (item.flags & 0x100u) != 0) {
                 uiFrame.hoverText = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
                 uiFrame.hoverText = item.memo + L"[han]";
             }
         }
-        gTradeValueD2EA20 = 0;
+        trade.valueD2EA20 = 0;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
@@ -1331,7 +1227,7 @@ static void WindowTrade_HandleOwnInventory(
         }
         const std::int32_t centerX = x + 50 * (position % 5) + 37;
         const std::int32_t centerY = y + 52 * (position / 5) + 51;
-        if (std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0) {
+        if (std::bit_cast<std::int8_t>(trade.itemMarks[slot]) > 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(centerX - 21), static_cast<std::uint16_t>(centerY - 21),
                 static_cast<std::uint16_t>(centerX + 21), static_cast<std::uint16_t>(centerY + 21),
@@ -1346,7 +1242,7 @@ static void WindowTrade_HandleOwnInventory(
             static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, 23040, 0, nullptr));
         }
         const render::GraphicDescriptor16* const mode =
-            std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0 || occupancy[slot] != 0
+            std::bit_cast<std::int8_t>(trade.itemMarks[slot]) > 0 || occupancy[slot] != 0
             ? &dimmed : descriptor;
         static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
@@ -1367,13 +1263,14 @@ static void WindowTrade_HandleOwnPets(
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     std::int16_t rowY[3] {26, 95, 164};
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(session) != 3) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if (gTradePhaseCAFEC4 != 0) {
+    if (trade.phase != 0) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if ((events & MouseFlag_DragFinish) != 0) {
@@ -1390,7 +1287,7 @@ static void WindowTrade_HandleOwnPets(
             if (position >= 0) {
                 const std::int32_t target =
                     std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
-                if (gTradePetMarksCF3AFC[target] == 0) {
+                if (trade.petMarks[target] == 0) {
                     WindowItem_RequestPetTransfer(session, 43, 11, source, target);
                 }
             }
@@ -1420,18 +1317,18 @@ static void WindowTrade_HandleOwnPets(
             if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
                 && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
                 if (world::gPetRuntimeRecords[petIndex].used != 0
-                    && gTradePetMarksCF3AFC[petIndex] == 0) {
+                    && trade.petMarks[petIndex] == 0) {
                     std::int32_t target = 0;
-                    while (target < 5 && WindowTrade_ReadSelectedPet(target) >= 0) {
+                    while (target < 5 && WindowTrade_ReadSelectedPet(session, target) >= 0) {
                         ++target;
                     }
                     if (target < 5) {
-                        static_cast<void>(WindowTrade_RemovePet(target));
-                        static_cast<void>(WindowTrade_AddPet(target, petIndex));
+                        static_cast<void>(WindowTrade_RemovePet(session, target));
+                        static_cast<void>(WindowTrade_AddPet(session, target, petIndex));
                         *tab = 1;
                     }
-                    if (gTradeValueC8AF81 != 1) {
-                        gTradeValueC8AF81 = 1;
+                    if (trade.valueC8AF81 != 1) {
+                        trade.valueC8AF81 = 1;
                     }
                 } else {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1439,9 +1336,9 @@ static void WindowTrade_HandleOwnPets(
             }
         }
     }
-    if ((events & MouseFlag_Hover) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
+    if ((events & MouseFlag_Hover) != 0 && petIndex >= 0 && trade.phase == 0
         && (events & MouseFlag_LDownEvent) != 0 && world::gPetRuntimeRecords[petIndex].used != 0
-        && gTradePetMarksCF3AFC[petIndex] == 0) {
+        && trade.petMarks[petIndex] == 0) {
         static_cast<void>(WindowPetDrag_Start(session, petIndex, 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
@@ -1467,7 +1364,7 @@ static void WindowTrade_HandleOwnPets(
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             if (world::gPetRuntimeRecords[petIndex].used != 0) {
-                gTradePreviewCC2E64 = petIndex + 300;
+                trade.preview = petIndex + 300;
             }
         }
     }
@@ -1476,7 +1373,7 @@ static void WindowTrade_HandleOwnPets(
             std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[scroll + row].index);
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
-        if (std::bit_cast<std::int8_t>(gTradePetMarksCF3AFC[slot]) > 0) {
+        if (std::bit_cast<std::int8_t>(trade.petMarks[slot]) > 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 238), static_cast<std::uint16_t>(top + 67),
@@ -1495,6 +1392,7 @@ static void WindowTrade_HandleOwnPets(
 // 原函数：0x004B2480。
 static std::int32_t WindowTrade_HandleOwnPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1510,8 +1408,8 @@ static std::int32_t WindowTrade_HandleOwnPanel(WindowInstance& callbackWindow, c
     static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
     const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
-        window, index, state, backgrounds54F530.data(), &gTradeValueD6742C,
-        10, &gTradeScrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, WindowTrade_RefreshOwnPanel);
+        window, index, state, backgrounds54F530.data(), &trade.valueD6742C,
+        10, &trade.scrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, WindowTrade_RefreshOwnPanel);
 }
 
 // 原函数：0x004B2500。
@@ -1524,21 +1422,22 @@ static void WindowTrade_RefreshOwnPanel(
     std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t*,
     std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     const bool confirmed = (numericResult & 2u) != 0;
-    if (confirmed && gTradeValueC8AF81 != 2) {
-        gTradeValueC8AF81 = 2;
+    if (confirmed && trade.valueC8AF81 != 2) {
+        trade.valueC8AF81 = 2;
     }
     WindowTrade_HandleOwnInventory(session, tab, x, y, mouseX, mouseY, state, descriptor);
     WindowTrade_HandleOwnPets(session, tab, x, y, mouseX, mouseY, state, scroll, descriptor);
     if (confirmed) {
-        gTradeValueD046D0 = std::bit_cast<std::int32_t>(*valueSlot);
+        trade.valueD046D0 = std::bit_cast<std::int32_t>(*valueSlot);
         *valueSlot = 0;
     }
     *displayAmount = std::bit_cast<std::int32_t>(*valueSlot);
     std::int32_t items = 0;
     for (std::int32_t position = 0; position < 20; ++position) {
         std::uint16_t used;
-        std::memcpy(&used, &gTradeItemsD460D0[position + 20], sizeof(used));
+        std::memcpy(&used, &trade.items[position + 20], sizeof(used));
         if (used != 0) {
             ++items;
         }
@@ -1547,7 +1446,7 @@ static void WindowTrade_RefreshOwnPanel(
     std::int32_t pets = 0;
     for (std::int32_t position = 0; position < 5; ++position) {
         std::uint16_t used;
-        std::memcpy(&used, &gTradePetsC9C108[position + 5], sizeof(used));
+        std::memcpy(&used, &trade.pets[position + 5], sizeof(used));
         if (used != 0) {
             ++pets;
         }
@@ -1566,12 +1465,12 @@ static void WindowTrade_HandleOwnItemDrag(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
-            static_cast<void>(WindowTrade_RemoveItem(sourceIndex));
+            static_cast<void>(WindowTrade_RemoveItem(session, sourceIndex));
         }
         return;
     }
-    if (WindowTrade_ReadSelectedItem(sourceIndex) < 0
-        || world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(sourceIndex)].used == 0) {
+    if (WindowTrade_ReadSelectedItem(session, sourceIndex) < 0
+        || world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
@@ -1587,7 +1486,7 @@ static void WindowTrade_HandleOwnItemDrag(
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
-        world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(sourceIndex)].imageNo;
+        world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(session, sourceIndex)].imageNo;
     const std::int32_t y =
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
@@ -1606,12 +1505,12 @@ static void WindowTrade_HandleOwnPetDrag(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
-            static_cast<void>(WindowTrade_RemovePet(sourceIndex));
+            static_cast<void>(WindowTrade_RemovePet(session, sourceIndex));
         }
         return;
     }
-    if (WindowTrade_ReadSelectedPet(sourceIndex) < 0
-        || world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(sourceIndex)].used == 0) {
+    if (WindowTrade_ReadSelectedPet(session, sourceIndex) < 0
+        || world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
@@ -1626,7 +1525,7 @@ static void WindowTrade_HandleOwnPetDrag(
         WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
-    const std::int32_t slot = WindowTrade_ReadSelectedPet(sourceIndex);
+    const std::int32_t slot = WindowTrade_ReadSelectedPet(session, sourceIndex);
     const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
         (platform::gLegacyMouseState.mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
@@ -1658,12 +1557,13 @@ static void WindowTrade_HandleSelectedItem(
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(session) != 2 && WindowDrag_ReadKind(session) != 6) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if (gTradePhaseCAFEC4 != 0) {
+    if (trade.phase != 0) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (*tab != 0) {
@@ -1671,12 +1571,12 @@ static void WindowTrade_HandleSelectedItem(
             const std::int32_t source = WindowDrag_ReadSourceIndex(session);
             if (WindowItem_ClassifyItemSlot(source) == 2) {
                 std::int32_t target = 0;
-                while (target < 20 && WindowTrade_ReadSelectedItem(target) >= 0) {
+                while (target < 20 && WindowTrade_ReadSelectedItem(session, target) >= 0) {
                     ++target;
                 }
                 if (target < 20 && (world::gPlayerRuntimeSlots.items[source].flags & 1u) != 0) {
-                    static_cast<void>(WindowTrade_RemoveItem(target));
-                    static_cast<void>(WindowTrade_AddItem(target, source));
+                    static_cast<void>(WindowTrade_RemoveItem(session, target));
+                    static_cast<void>(WindowTrade_AddItem(session, target, source));
                     *tab = 0;
                 }
             }
@@ -1704,11 +1604,11 @@ static void WindowTrade_HandleSelectedItem(
             if (kind == 2) {
                 if (WindowItem_ClassifyItemSlot(source) == 2
                     && (world::gPlayerRuntimeSlots.items[source].flags & 1u) != 0) {
-                    static_cast<void>(WindowTrade_RemoveItem(target));
-                    static_cast<void>(WindowTrade_AddItem(target, source));
+                    static_cast<void>(WindowTrade_RemoveItem(session, target));
+                    static_cast<void>(WindowTrade_AddItem(session, target, source));
                 }
             } else if (kind == 6) {
-                static_cast<void>(WindowTrade_SwapSelectedItems(source, target));
+                static_cast<void>(WindowTrade_SwapSelectedItems(session, source, target));
             }
             WindowDrag_Reset(session);
             break;
@@ -1726,39 +1626,39 @@ static void WindowTrade_HandleSelectedItem(
             }
         }
     }
-    const std::uint8_t phase = gTradePhaseCAFEC4;
+    const std::uint8_t phase = trade.phase;
     if (phase == 0 && hovered >= 0) {
         uiFrame.hoverText = L"用滑鼠拖放方式，取消此笔物品交易。";
     }
-    if (gTradeValueD2EA20 == 1) {
-        if (gTradeHoverSlotC8AA78 != hovered) {
-            gTradeTooltipPageCB10D4 = 0;
+    if (trade.valueD2EA20 == 1) {
+        if (trade.hoverSlotC8AA78 != hovered) {
+            trade.tooltipPage = 0;
         }
-        gTradeHoverSlotC8AA78 = hovered;
+        trade.hoverSlotC8AA78 = hovered;
     }
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
-                           && WindowTrade_RemoveItem(hovered) < 0))) {
+                           && WindowTrade_RemoveItem(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedItem(hovered) >= 0) {
-        if (gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedItem(session, hovered) >= 0) {
+        if (trade.phase == 0 && (events & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowTrade_StartOwnItemDrag(session, hovered));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((events & MouseFlag_RDownEvent) != 0) {
-            gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
-            const std::int32_t slot = WindowTrade_ReadSelectedItem(hovered);
-            if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4)
+            trade.tooltipPage = static_cast<std::uint8_t>(trade.tooltipPage + 1);
+            const std::int32_t slot = WindowTrade_ReadSelectedItem(session, hovered);
+            if (std::bit_cast<std::int8_t>(trade.tooltipPage)
                 >= world::gPlayerRuntimeSlots.items[slot].pages) {
-                gTradeTooltipPageCB10D4 = 0;
+                trade.tooltipPage = 0;
             }
         }
     }
     if (WindowDrag_ReadKind(session) == 6 && WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleSelectedPanel)) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
-        if (WindowTrade_ReadSelectedItem(source) >= 0
-            && world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(source)].used != 0) {
+        if (WindowTrade_ReadSelectedItem(session, source) >= 0
+            && world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(session, source)].used != 0) {
             const std::int32_t left = x + 50 * (source % 5) + 13;
             const std::int32_t top = y + 52 * (source / 5) + 26;
             cg::render::DrawGraphicHover(
@@ -1775,11 +1675,11 @@ static void WindowTrade_HandleSelectedItem(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-        const std::int32_t slot = WindowTrade_ReadSelectedItem(hovered);
+        const std::int32_t slot = WindowTrade_ReadSelectedItem(session, hovered);
         if (slot >= 0) {
             const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
             if (item.used != 0) {
-                gTradePreviewCC2E64 = slot;
+                trade.preview = slot;
                 if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
                     uiFrame.hoverText = item.name + L"[kok]";
                 } else if ((item.flags & 0x200u) != 0) {
@@ -1787,20 +1687,20 @@ static void WindowTrade_HandleSelectedItem(
                 }
             }
         }
-        gTradeValueD2EA20 = 1;
+        trade.valueD2EA20 = 1;
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        const std::int32_t slot = WindowTrade_ReadSelectedItem(position);
+        const std::int32_t slot = WindowTrade_ReadSelectedItem(session, position);
         if (slot >= 0 && world::gPlayerRuntimeSlots.items[slot].used != 0
             && (world::gPlayerRuntimeSlots.items[slot].flags & 1u) == 0) {
-            static_cast<void>(WindowTrade_RemoveItem(position));
+            static_cast<void>(WindowTrade_RemoveItem(session, position));
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
-        const std::int32_t slot = WindowTrade_ReadSelectedItem(position);
+        const std::int32_t slot = WindowTrade_ReadSelectedItem(session, position);
         if (slot < 0) {
             continue;
         }
@@ -1834,13 +1734,14 @@ static void WindowTrade_HandleSelectedPet(
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     std::int16_t rowY[3] {26, 95, 164};
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(session) != 3 && WindowDrag_ReadKind(session) != 7) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if (gTradePhaseCAFEC4 != 0) {
+    if (trade.phase != 0) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (*tab != 1) {
@@ -1848,12 +1749,12 @@ static void WindowTrade_HandleSelectedPet(
             const std::int32_t source = WindowDrag_ReadSourceIndex(session);
             if (WindowItem_ClassifyPetSlot(source) == 1) {
                 std::int32_t target = 0;
-                while (target < 5 && WindowTrade_ReadSelectedPet(target) >= 0) {
+                while (target < 5 && WindowTrade_ReadSelectedPet(session, target) >= 0) {
                     ++target;
                 }
                 if (target < 5) {
-                    static_cast<void>(WindowTrade_RemovePet(target));
-                    static_cast<void>(WindowTrade_AddPet(target, source));
+                    static_cast<void>(WindowTrade_RemovePet(session, target));
+                    static_cast<void>(WindowTrade_AddPet(session, target, source));
                     *tab = 1;
                 }
             }
@@ -1882,11 +1783,11 @@ static void WindowTrade_HandleSelectedPet(
             if (target >= 0) {
                 if (kind == 3) {
                     if (WindowItem_ClassifyPetSlot(source) == 1) {
-                        static_cast<void>(WindowTrade_RemovePet(target));
-                        static_cast<void>(WindowTrade_AddPet(target, source));
+                        static_cast<void>(WindowTrade_RemovePet(session, target));
+                        static_cast<void>(WindowTrade_AddPet(session, target, source));
                     }
                 } else if (kind == 7) {
-                    static_cast<void>(WindowTrade_SwapSelectedPets(source, target));
+                    static_cast<void>(WindowTrade_SwapSelectedPets(session, source, target));
                 }
                 WindowDrag_Reset(session);
             }
@@ -1907,24 +1808,24 @@ static void WindowTrade_HandleSelectedPet(
             }
         }
     }
-    const std::uint8_t phase = gTradePhaseCAFEC4;
+    const std::uint8_t phase = trade.phase;
     if (phase == 0 && hovered >= 0) {
         uiFrame.hoverText = L"用滑鼠拖放方式，取消此笔宠物交易。";
     }
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
-                           && WindowTrade_RemovePet(hovered) < 0))) {
+                           && WindowTrade_RemovePet(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedPet(hovered) >= 0
-        && gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedPet(session, hovered) >= 0
+        && trade.phase == 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowTrade_StartOwnPetDrag(session, hovered));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
     if (WindowDrag_ReadKind(session) == 7 && WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleSelectedPanel)) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
-        if (WindowTrade_ReadSelectedPet(source) >= 0
-            && world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(source)].used != 0) {
+        if (WindowTrade_ReadSelectedPet(session, source) >= 0
+            && world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(session, source)].used != 0) {
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
@@ -1943,16 +1844,16 @@ static void WindowTrade_HandleSelectedPet(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-            const std::int32_t slot = WindowTrade_ReadSelectedPet(hovered);
+            const std::int32_t slot = WindowTrade_ReadSelectedPet(session, hovered);
             if (slot >= 0 && world::gPetRuntimeRecords[slot].used != 0) {
-                gTradePreviewCC2E64 = slot + 300;
+                trade.preview = slot + 300;
             }
         }
     }
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
-        const std::int32_t slot = WindowTrade_ReadSelectedPet(scroll + row);
+        const std::int32_t slot = WindowTrade_ReadSelectedPet(session, scroll + row);
         if (slot >= 0 && world::gPetRuntimeRecords[slot].used != 0) {
             WindowBank_DrawOwnPetTooltip(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
@@ -1969,6 +1870,7 @@ static void WindowTrade_HandleSelectedPet(
 // 原函数：0x004B3430。
 static std::int32_t WindowTrade_HandleSelectedPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1981,14 +1883,14 @@ static std::int32_t WindowTrade_HandleSelectedPanel(WindowInstance& callbackWind
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         descriptor.color = color;
     }
-    if (gTradeValueD2E2B0 == 2) {
+    if (trade.valueD2E2B0 == 2) {
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F53C {244367, 244371, 244369};
     const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
-        window, index, state, backgrounds54F53C.data(), &gTradeValueC8AF81,
-        7, &gTradeScrollCC4C90, -1, 0, 0, 0, amount, &descriptor, WindowTrade_RefreshSelectedPanel);
+        window, index, state, backgrounds54F53C.data(), &trade.valueC8AF81,
+        7, &trade.scrollCC4C90, -1, 0, 0, 0, amount, &descriptor, WindowTrade_RefreshSelectedPanel);
 }
 
 // 原函数：0x004B34C0。
@@ -2001,32 +1903,34 @@ static void WindowTrade_RefreshSelectedPanel(
     std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t* const amount,
     std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
 {
-    if ((numericResult & 2u) != 0 && gTradeValueD6742C != 2) {
-        gTradeValueD6742C = 2;
+    auto& trade = session.UiFrame().native.trade;
+    if ((numericResult & 2u) != 0 && trade.valueD6742C != 2) {
+        trade.valueD6742C = 2;
     }
     WindowTrade_HandleSelectedItem(session, tab, x, y, mouseX, mouseY, state, descriptor);
     WindowTrade_HandleSelectedPet(session, tab, x, y, mouseX, mouseY, state, scroll, descriptor);
-    *displayAmount = gTradeValueD046D0;
+    *displayAmount = trade.valueD046D0;
     std::int32_t items = 0;
     for (std::int32_t position = 0; position < 20; ++position) {
-        if (WindowTrade_ReadSelectedItem(position) >= 0) {
+        if (WindowTrade_ReadSelectedItem(session, position) >= 0) {
             ++items;
         }
     }
     *itemCount = items;
     std::int32_t pets = 0;
     for (std::int32_t position = 0; position < 5; ++position) {
-        if (WindowTrade_ReadSelectedPet(position) >= 0) {
+        if (WindowTrade_ReadSelectedPet(session, position) >= 0) {
             ++pets;
         }
     }
     *petCount = pets;
-    *amount = gTradeValueD046D0;
+    *amount = trade.valueD046D0;
 }
 
 // 原函数：0x004B3580。
 static std::int32_t WindowTrade_HandleRemoteSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2039,14 +1943,14 @@ static std::int32_t WindowTrade_HandleRemoteSelection(WindowInstance& callbackWi
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         descriptor.color = color;
     }
-    if (gTradeValueCC4224 == 2) {
+    if (trade.valueCC4224 == 2) {
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F548 {244368, 244372, 244370};
     const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
-        window, index, state, backgrounds54F548.data(), &gTradeTabCC4D1A,
-        13, &gTradeScrollD67430, -1, 0, 0, 0, amount, &descriptor, WindowTrade_HandleRemoteItem);
+        window, index, state, backgrounds54F548.data(), &trade.tabCC4D1A,
+        13, &trade.scrollD67430, -1, 0, 0, 0, amount, &descriptor, WindowTrade_HandleRemoteItem);
 }
 
 // 原函数：0x004B3610。
@@ -2058,6 +1962,7 @@ static void WindowTrade_HandleRemoteItem(
     std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t* const amount,
     std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
 {
+    auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     const std::uint8_t page = *tab;
     std::wstring buffer;
@@ -2070,7 +1975,7 @@ static void WindowTrade_HandleRemoteItem(
                 if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                     hovered = slot;
                     std::uint16_t used;
-                    std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
+                    std::memcpy(&used, &trade.items[slot], sizeof(used));
                     if (used != 0) {
                         uiFrame.hoverText = L"以此物品向对方提出交易。";
                     }
@@ -2078,22 +1983,22 @@ static void WindowTrade_HandleRemoteItem(
                 }
             }
         }
-        if (gTradeValueD2EA20 == 2) {
-            if (gTradeHoverSlotC8B314 != hovered) {
-                gTradeTooltipPageCB10D4 = 0;
+        if (trade.valueD2EA20 == 2) {
+            if (trade.hoverSlotC8B314 != hovered) {
+                trade.tooltipPage = 0;
             }
-            gTradeHoverSlotC8B314 = hovered;
+            trade.hoverSlotC8B314 = hovered;
         }
         if (hovered >= 0 && (state & MouseFlag_RDownEvent) != 0) {
-            const auto* const record = &gTradeItemsD460D0[hovered];
+            const auto* const record = &trade.items[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
                 std::int32_t pages;
                 std::memcpy(&pages, &record->pages, sizeof(pages));
-                gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
-                if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
-                    gTradeTooltipPageCB10D4 = 0;
+                trade.tooltipPage = static_cast<std::uint8_t>(trade.tooltipPage + 1);
+                if (std::bit_cast<std::int8_t>(trade.tooltipPage) >= pages) {
+                    trade.tooltipPage = 0;
                 }
             }
         }
@@ -2104,13 +2009,13 @@ static void WindowTrade_HandleRemoteItem(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-            const auto* const record = &gTradeItemsD460D0[hovered];
+            const auto* const record = &trade.items[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
                 const auto& memo = record->memo;
                 const std::size_t memoLength = memo.size();
-                gTradePreviewCC2E64 = hovered + 200;
+                trade.preview = hovered + 200;
                 bool showName = false;
                 if (memoLength != 0) {
                     std::uint32_t flags;
@@ -2129,13 +2034,13 @@ static void WindowTrade_HandleRemoteItem(
                     }
                 }
             }
-            gTradeValueD2EA20 = 2;
+            trade.valueD2EA20 = 2;
         }
         static_cast<void>(render::ClearTextQueueTail_456D50(3));
         static_cast<void>(render::DrawText_456780(
             0, 0, 3, 1, 0, L"", 0, 0));
         for (std::int32_t slot = 0; slot < 20; ++slot) {
-            const auto* const record = &gTradeItemsD460D0[slot];
+            const auto* const record = &trade.items[slot];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used == 0) {
@@ -2172,10 +2077,10 @@ static void WindowTrade_HandleRemoteItem(
                     const std::int32_t slot = scroll + row;
                     if (slot >= 0) {
                         std::uint16_t used;
-                        std::memcpy(&used, &gTradePetsC9C108[slot], sizeof(used));
+                        std::memcpy(&used, &trade.pets[slot], sizeof(used));
                         if (used != 0) {
                             uiFrame.hoverText = L"以此宠物向对方提出交易。";
-                            gTradePreviewCC2E64 = slot + 500;
+                            trade.preview = slot + 500;
                         }
                     }
                     break;
@@ -2183,17 +2088,17 @@ static void WindowTrade_HandleRemoteItem(
             }
         }
         for (std::int32_t row = 0; row < 3; ++row) {
-            static_cast<void>(WindowTrade_DrawPetRow(
+            static_cast<void>(WindowTrade_DrawPetRow(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 11)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + rowY[row])),
                 0, scroll + row, 3, 223, descriptor));
         }
     }
-    *displayAmount = gTradeValueCF4688;
+    *displayAmount = trade.valueCF4688;
     std::int32_t items = 0;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::uint16_t used;
-        std::memcpy(&used, &gTradeItemsD460D0[slot], sizeof(used));
+        std::memcpy(&used, &trade.items[slot], sizeof(used));
         if (used != 0) {
             ++items;
         }
@@ -2202,13 +2107,13 @@ static void WindowTrade_HandleRemoteItem(
     std::int32_t pets = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         std::uint16_t used;
-        std::memcpy(&used, &gTradePetsC9C108[slot], sizeof(used));
+        std::memcpy(&used, &trade.pets[slot], sizeof(used));
         if (used != 0) {
             ++pets;
         }
     }
     *petCount = pets;
-    *amount = gTradeValueCF4688;
+    *amount = trade.valueCF4688;
 }
 
 // 原函数：0x004B1900。
@@ -2229,8 +2134,9 @@ static bool WindowTrade_HitTestOwnPetRow(
 // 原函数：0x004B09E0。
 static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
-    if (gTradeValueD6742C == 2) {
+    if (trade.valueD6742C == 2) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.tradeAmountPrototype, 0, -100, 0));
@@ -2412,9 +2318,11 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
 
 // 原函数：0x004B45A0。
 static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t side,
     const std::int32_t index, const std::int32_t skill)
 {
+    auto& trade = session.UiFrame().native.trade;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortSide =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side));
@@ -2422,7 +2330,7 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const wchar_t* const text =
-        gTradePetsC9C108[index + shortSide * 5].techniques[skill].name.data();
+        trade.pets[index + shortSide * 5].techniques[skill].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
@@ -2442,16 +2350,18 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
 
 // 原函数：0x004B4680。
 static std::int32_t WindowTrade_DrawSelectedPetTooltip(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t index)
 {
+    auto& trade = session.UiFrame().native.trade;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
     const std::int32_t shortSide =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side));
     const std::int32_t slot = shortIndex + shortSide * 5;
-    const auto* const record = &gTradePetsC9C108[slot];
+    const auto* const record = &trade.pets[slot];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -2526,7 +2436,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
                 ? record->equipmentNames[row] : std::wstring{};
             WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
         } else {
-            static_cast<void>(WindowTrade_DrawSelectedPetSkillRow(
+            static_cast<void>(WindowTrade_DrawSelectedPetSkillRow(session,
                 shortX + 10, shortY + 141 + row * 16, side, shortIndex, page * 10 + row));
         }
     }
@@ -2666,22 +2576,25 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
 }
 
 // 原函数：0x004AFFE0。
-static std::int32_t WindowTrade_ReadSelectedItem(const std::int32_t index)
+static std::int32_t WindowTrade_ReadSelectedItem(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
+    auto& trade = session.UiFrame().native.trade;
+    const std::int32_t slot = std::bit_cast<std::int8_t>(trade.itemSlots[index]);
     return slot < 0 ? -1 : slot;
 }
 
 // 原函数：0x004B00F0。
-static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
+static std::int32_t WindowTrade_ReadSelectedPet(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
+    auto& trade = session.UiFrame().native.trade;
+    const std::int32_t slot = std::bit_cast<std::int8_t>(trade.petSlots[index]);
     return slot < 0 ? -1 : slot;
 }
 
 // 原函数：0x004B0A50。
 static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2697,7 +2610,7 @@ static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, co
         std::wstring itemSource;
         std::int32_t count = 0;
         for (std::int32_t position = 0; position < 20; ++position) {
-            const std::int32_t slot = WindowTrade_ReadSelectedItem(position);
+            const std::int32_t slot = WindowTrade_ReadSelectedItem(*callbackWindow.ownerSession, position);
             if (slot >= 0) {
                 if (count != 0) {
                     itemSource += L"|";
@@ -2709,7 +2622,7 @@ static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, co
         const auto itemCopy = itemSource;
         count = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
-            const std::int32_t slot = WindowTrade_ReadSelectedPet(position);
+            const std::int32_t slot = WindowTrade_ReadSelectedPet(*callbackWindow.ownerSession, position);
             if (slot >= 0) {
                 if (count != 0) {
                     petSource += L"|";
@@ -2719,11 +2632,11 @@ static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, co
             }
         }
         const auto petCopy = petSource;
-        const std::int32_t amount = gTradeValueD046D0;
+        const std::int32_t amount = trade.valueD046D0;
         static_cast<void>(callbackWindow.ownerSession->Connection().SendTradeOffer(itemCopy, petCopy, amount));
         WindowInstance* const window = currentWindow;
-        gTradeValueD2E2B0 = 1;
-        gTradeScrollD67430 = 0;
+        trade.valueD2E2B0 = 1;
+        trade.scrollD67430 = 0;
         auto* const handleVerticalScroll_14Element = window->FindElementById(WindowTradeElementId::HandleVerticalScroll_14);
         if (handleVerticalScroll_14Element) {
             static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_14Element, 2, 0));
@@ -2744,6 +2657,7 @@ static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, co
 // 原函数：0x004B0CF0。
 static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2757,13 +2671,13 @@ static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, c
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(callbackWindow.ownerSession->Connection().WithdrawTradeConfirmation());
-            const std::int32_t previous = gTradeValueCC4224;
-            gTradeValueD2E2B0 = 0;
+            const std::int32_t previous = trade.valueCC4224;
+            trade.valueD2E2B0 = 0;
             if (previous == 2) {
-                gTradeValueCC4224 = 1;
+                trade.valueCC4224 = 1;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            gTradeStepD3040C = 23;
+            trade.step = 23;
             result = 1;
         }
         graphic->imageNo = 0x3B562;
@@ -2781,6 +2695,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, c
 // 原函数：0x004B0DB0。
 static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& trade = callbackWindow.ownerSession->UiFrame().native.trade;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2793,21 +2708,21 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
         }
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t phase = gTradeValueD2E2B0;
-            if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
+            const std::int32_t phase = trade.valueD2E2B0;
+            if ((phase == 1 && trade.valueCC4224 >= 1) || phase == 2) {
                 const std::uint64_t tick = platform::ReadTickCount64();
                 if (gWindowActionTick62B5AC + 500u < tick) {
                     if (phase == 1) {
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendTradeDecision(1));
-                        gTradeValueD2E2B0 = 2;
-                        gTradeValueD67CB8 = 1;
-                        gTradeValueD67CBC = 1;
+                        trade.valueD2E2B0 = 2;
+                        trade.valueD67CB8 = 1;
+                        trade.valueD67CBC = 1;
                     } else {
                         static_cast<void>(callbackWindow.ownerSession->Connection().WithdrawTradeConfirmation());
-                        const std::int32_t previous = gTradeValueCC4224;
-                        gTradeValueD2E2B0 = 0;
+                        const std::int32_t previous = trade.valueCC4224;
+                        trade.valueD2E2B0 = 0;
                         if (previous == 2) {
-                            gTradeValueCC4224 = 1;
+                            trade.valueCC4224 = 1;
                         }
                     }
                     gWindowActionTick62B5AC = platform::ReadTickCount64();
@@ -2822,7 +2737,7 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
         if (hover) {
             graphic->imageNo = 0x3BA8E;
         }
-        if (gTradeValueD2E2B0 == 2) {
+        if (trade.valueD2E2B0 == 2) {
             graphic->imageNo = 0x3BA8D;
         }
         return result;
@@ -2833,26 +2748,27 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
 // 原函数：0x004E5620。
 cg::yobi::YobiAction* WindowTrade_ReceiveStart(session::ClientSession& session, const std::wstring_view name)
 {
-    gTradeItemsD460D0.fill({});
-    gTradePetsC9C108.fill({});
-    gTradeValueCF4A1C = 0;
-    gTradeValueD673E0 = 0;
-    gTradeValueCC4C94 = 0;
-    gTradeValueC8AF68 = 0;
-    gTradeValueCF4688 = 0;
-    gTradeValueCB03CC = 0;
-    gTradeValueCF4AB8 = 0;
-    gTradeValueD046D0 = 0;
-    gTradeValueCC4224 = 0;
-    gTradeValueD2E2B0 = 0;
-    WindowTrade_SyncOwnItems(1);
-    WindowTrade_CopyOwnPet(1);
-    gTradeNameD2D654 = cg::text::ToGbk(name).size() <= 16 ? name : L"???";
-    gTradeValueD67CB8 = 0;
-    gTradeValueD67CBC = 0;
-    gTradeValueCC3EC4 = -1;
-    gTradeValueD66E08 = 0;
-    gTradeValueCC2344 = 0;
+    auto& trade = session.UiFrame().native.trade;
+    trade.items.fill({});
+    trade.pets.fill({});
+    trade.valueCF4A1C = 0;
+    trade.valueD673E0 = 0;
+    trade.valueCC4C94 = 0;
+    trade.valueC8AF68 = 0;
+    trade.valueCF4688 = 0;
+    trade.valueCB03CC = 0;
+    trade.valueCF4AB8 = 0;
+    trade.valueD046D0 = 0;
+    trade.valueCC4224 = 0;
+    trade.valueD2E2B0 = 0;
+    WindowTrade_SyncOwnItems(session, 1);
+    WindowTrade_CopyOwnPet(session, 1);
+    trade.name = cg::text::ToGbk(name).size() <= 16 ? name : L"???";
+    trade.valueD67CB8 = 0;
+    trade.valueD67CBC = 0;
+    trade.valueCC3EC4 = -1;
+    trade.valueD66E08 = 0;
+    trade.valueCC2344 = 0;
     return WindowTrade_Open(session);
 }
 
@@ -2903,14 +2819,15 @@ void WindowTrade_CopyDisplayItems(const std::int32_t side, const std::int32_t in
 }
 
 // 原函数：0x004E52B0。
-static void WindowTrade_CopyOwnPet(const std::int32_t side)
+static void WindowTrade_CopyOwnPet(session::ClientSession& session, const std::int32_t side)
 {
+    auto& trade = session.UiFrame().native.trade;
     for (std::int32_t index = 0; index < 5; ++index) {
         world::PetRuntimeRecord& source = world::gPetRuntimeRecords[index];
         if (source.used == 0) {
             continue;
         }
-        auto* const record = &gTradePetsC9C108[index + side * 5];
+        auto* const record = &trade.pets[index + side * 5];
         const bool hasUserName = source.name6BD[0] != '\0';
         record->used = std::uint16_t{1};
         record->name = (hasUserName ? source.name6BD : source.name6AC);
@@ -2967,23 +2884,26 @@ static void WindowTrade_CopyOwnPet(const std::int32_t side)
 }
 
 // 原函数：0x004E5710。
-static std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
+static std::int32_t WindowTrade_ResetRemoteItems(session::ClientSession& session, const std::int32_t side)
 {
+    auto& trade = session.UiFrame().native.trade;
     if (side == 0) {
-        gTradeValueCF4688 = 0;
+        trade.valueCF4688 = 0;
     } else {
-        gTradeValueD046D0 = 0;
+        trade.valueD046D0 = 0;
     }
-    std::fill_n(gTradeItemsD460D0.data() + side * 20, 20, WindowTradeItem{});
-    std::fill_n(gTradePetsC9C108.data() + side * 5, 5, WindowTradePet{});
+    std::fill_n(trade.items.data() + side * 20, 20, WindowTradeItem{});
+    std::fill_n(trade.pets.data() + side * 5, 5, WindowTradePet{});
     return 0;
 }
 
 // 原函数：0x004E5770。
 static void WindowTrade_BuildRemoteItemDescription(
+    session::ClientSession& session,
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
-    auto* const record = &gTradeItemsD460D0[index + side * 20];
+    auto& trade = session.UiFrame().native.trade;
+    auto* const record = &trade.items[index + side * 20];
     auto& rows = record->description;
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
@@ -3003,8 +2923,9 @@ static void WindowTrade_BuildRemoteItemDescription(
 }
 
 // 原函数：0x004E5830。
-static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
+static std::int32_t WindowTrade_ReceiveRemoteItems(session::ClientSession& session, const char* const text)
 {
+    auto& trade = session.UiFrame().native.trade;
     char name[256];
     char memo[256];
     char description[2304];
@@ -3013,7 +2934,7 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
     std::int32_t status =
         network::ExtractDelimitedField_52CED0(text, '|', field + 1, 255, name);
     while (status != 1) {
-        auto* const record = &gTradeItemsD460D0[index];
+        auto* const record = &trade.items[index];
         *record = {};
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         record->used = std::uint16_t{1};
@@ -3022,7 +2943,7 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
         }
         network::ExtractDelimitedField_52CED0(text, '|', field + 3, 767, description);
         input::UnescapeLegacyTextAndNotify_52D2F0(description);
-        WindowTrade_BuildRemoteItemDescription(index, 0, description);
+        WindowTrade_BuildRemoteItemDescription(session, index, 0, description);
         network::ExtractDelimitedField_52CED0(text, '|', field + 13, 255, memo);
         input::UnescapeLegacyTextAndNotify_52D2F0(memo);
         if (std::strlen(memo) <= 16) {
@@ -3040,9 +2961,10 @@ static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
 }
 
 // 原函数：0x004E5A40。
-static std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const char* const text)
+static std::int32_t WindowTrade_ReceiveRemotePet(session::ClientSession& session, const std::int32_t index, const char* const text)
 {
-    auto* const record = &gTradePetsC9C108[index];
+    auto& trade = session.UiFrame().native.trade;
+    auto* const record = &trade.pets[index];
     *record = {};
     char name[256];
     std::int32_t result =
@@ -3085,12 +3007,13 @@ static std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const
 }
 
 // 原函数：0x004E5CD0。
-static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index, const char* const text)
+static std::int32_t WindowTrade_ReceiveRemotePetSkills(session::ClientSession& session, const std::int32_t index, const char* const text)
 {
+    auto& trade = session.UiFrame().native.trade;
     if (index < 0 || index >= 5) {
         return index;
     }
-    auto* const record = &gTradePetsC9C108[index];
+    auto* const record = &trade.pets[index];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -3161,8 +3084,9 @@ void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection,
 }
 
 // 原函数：0x0050E440。
-std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection&)
+std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection& connection)
 {
+    auto& trade = connection.Owner().UiFrame().native.trade;
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
@@ -3171,13 +3095,14 @@ std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection&)
     if (gate != 0) {
         return gate;
     }
-    detail::gTradeValueCC4224 = 1;
+    trade.valueCC4224 = 1;
     return gate;
 }
 
 // 原函数：0x0050E470。
-std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection&, const std::int32_t value)
+std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection& connection, const std::int32_t value)
 {
+    auto& trade = connection.Owner().UiFrame().native.trade;
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
@@ -3186,12 +3111,12 @@ std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection&, const std
     if (gate != 0) {
         return gate;
     }
-    detail::gTradeValueCF4688 = value;
+    trade.valueCF4688 = value;
     return value;
 }
 
 // 原函数：0x0050E4A0。
-std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection&, const char* const text)
+std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection& connection, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3201,11 +3126,11 @@ std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection&, const char
     if (gate != 0) {
         return gate;
     }
-    return detail::WindowTrade_ReceiveRemoteItems(text);
+    return detail::WindowTrade_ReceiveRemoteItems(connection.Owner(), text);
 }
 
 // 原函数：0x0050E4D0。
-std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection&, const std::int32_t index, const char* const text)
+std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection& connection, const std::int32_t index, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3215,11 +3140,11 @@ std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection&, const std::
     if (gate != 0) {
         return gate;
     }
-    return detail::WindowTrade_ReceiveRemotePet(index, text);
+    return detail::WindowTrade_ReceiveRemotePet(connection.Owner(), index, text);
 }
 
 // 原函数：0x0050E500。
-std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection&, const std::int32_t index, const char* const text)
+std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection& connection, const std::int32_t index, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3229,12 +3154,13 @@ std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection&, const 
     if (gate != 0) {
         return gate;
     }
-    return detail::WindowTrade_ReceiveRemotePetSkills(index, text);
+    return detail::WindowTrade_ReceiveRemotePetSkills(connection.Owner(), index, text);
 }
 
 // 原函数：0x0050E530。
-std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection&)
+std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& connection)
 {
+    auto& trade = connection.Owner().UiFrame().native.trade;
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
         return scene;
@@ -3243,11 +3169,11 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection&)
     if (gate != 0) {
         return gate;
     }
-    detail::gTradeValueCC4224 = 0;
-    static_cast<void>(detail::WindowTrade_ResetRemoteItems(0));
-    const std::int32_t previous = detail::gTradeValueD2E2B0;
+    trade.valueCC4224 = 0;
+    static_cast<void>(detail::WindowTrade_ResetRemoteItems(connection.Owner(), 0));
+    const std::int32_t previous = trade.valueD2E2B0;
     if (previous == 2) {
-        detail::gTradeValueD2E2B0 = 1;
+        trade.valueD2E2B0 = 1;
     }
     return previous;
 }
@@ -3255,6 +3181,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection&)
 // 原函数：0x0050E570。
 void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const std::int32_t value)
 {
+    auto& trade = connection.Owner().UiFrame().native.trade;
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
@@ -3262,10 +3189,10 @@ void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const 
         return;
     }
     if (value == 1) {
-        detail::gTradeValueCC4224 = 2;
+        trade.valueCC4224 = 2;
     } else if (value == 0 || value == 2) {
         WindowInstance* const window = detail::WindowRuntime_States(connection.Owner())[WindowId_Trade].window;
-        detail::gTradeValueD67B80 = 1;
+        trade.valueD67B80 = 1;
         if (window != nullptr) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));

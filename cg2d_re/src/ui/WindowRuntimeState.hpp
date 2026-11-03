@@ -694,7 +694,7 @@ extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
 
 // 原函数：0x004E54E0。
-void WindowTrade_CopyOwnItem(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
+void WindowTrade_CopyOwnItem(session::ClientSession& session, std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 // 原函数：0x004D3020。
 std::int32_t WindowProfile_SaveOrigin(session::ClientSession& session, std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
 // 原函数：0x004D3040。
@@ -810,7 +810,7 @@ std::int32_t WindowItem_ResetItemDrag(); // 物品拖动重置，不等同窗口
 // 原函数：0x004FB920。
 std::int32_t WindowItem_CancelMatchingItemDrag(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
 // 原函数：0x004E5DA0。
-void WindowTrade_SwapRemoteItems(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
+void WindowTrade_SwapRemoteItems(session::ClientSession& session, std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
 // 原函数：0x004E1840。
 void WindowTrade_SwapDisplayItems(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 // 原函数：0x0048BA60。

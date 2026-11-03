@@ -3,6 +3,7 @@
 #include "cg/input/Input.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/PlayerSlots.hpp"
+#include "cg/world/PetTechniqueRecord.hpp"
 
 #include <array>
 #include <cstddef>
@@ -308,6 +309,45 @@ struct Window54SkillRecord {
     std::wstring name; // 原成员偏移：+0x0C。
     std::array<std::wstring, 2> description; // 原成员偏移：+0x25。
     std::byte byte5F; // 原成员偏移：+0x5F。
+};
+
+// 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
+struct WindowTradeItem {
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::int16_t selection; // 原成员偏移：+0x02；负数禁止选择。
+    std::int32_t imageNo; // 原成员偏移：+0x04。
+    std::int32_t count; // 原成员偏移：+0x08。
+    std::int32_t itemId; // 原成员偏移：+0x0C。
+    std::wstring name; // 原成员偏移：+0x10。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x2D。
+    std::array<std::byte, 3> reservedC2D; // 原成员偏移：+0xC2D。
+    std::int32_t pages; // 原成员偏移：+0xC30；4E5770写完整S32。
+    std::int32_t flags; // 原成员偏移：+0xC34；本地来源为W16符号扩展。
+    std::wstring memo; // 原成员偏移：+0xC38。
+    std::array<std::byte, 3> reservedC49; // 原成员偏移：+0xC49。
+};
+
+// 原C9C108交易宠物；4E52B0按原序复制数值及技能，名称借用本记录。
+struct WindowTradePet {
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::int16_t selection; // 原成员偏移：+0x02。
+    std::uint16_t tribe; // 原成员偏移：+0x04；显示时按S16解释。
+    std::array<std::byte, 2> reserved06; // 原成员偏移：+0x06。
+    std::int32_t imageNo; // 原成员偏移：+0x08。
+    std::int32_t level; // 原成员偏移：+0x0C。
+    std::int32_t hp; // 原成员偏移：+0x10。
+    std::int32_t maxHp; // 原成员偏移：+0x14。
+    std::int32_t fp; // 原成员偏移：+0x18。
+    std::int32_t maxFp; // 原成员偏移：+0x1C。
+    std::array<std::int32_t, 6> combatStats; // 原成员偏移：+0x20；来源values70[0..4,10]。
+    std::array<std::int32_t, 5> baseStats; // 原成员偏移：+0x38；来源values70[5..9]。
+    std::array<std::int32_t, 4> elements; // 原成员偏移：+0x4C；来源values70[21..24]。
+    std::int32_t value5C; // 原成员偏移：+0x5C；来源宠物value6A4。
+    std::array<world::detail::PetTechniqueRecord, world::kPetTechniqueSlotCount> techniques; // 原成员偏移：+0x60。
+    std::wstring name; // 原成员偏移：+0x5D8；显示名称。
+    std::wstring speciesName; // 原成员偏移：+0x5E9；原始名称。
+    std::array<std::byte, 2> reserved5FA; // 原成员偏移：+0x5FA。
+    std::array<std::wstring, 6> equipmentNames; // 交易装备名称；Yq字段21—26，空槽为空字符串。
 };
 
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
@@ -859,6 +899,48 @@ struct PetSkillChoiceWindowRuntimeState {
     std::wstring moneyText {}; // 原0xC9A9A4。
 };
 
+// 窗口43双侧交易数据和原独立槽，保留S8选择数组及全部阶段共用关系。
+struct TradeWindowRuntimeState {
+    std::array<detail::WindowTradeItem, 2 * 20> items {}; // 原0xD460D0。
+    std::array<detail::WindowTradePet, 2 * 5> pets {}; // 原0xC9C108。
+    std::int32_t valueCC4224 = 0;
+    std::int32_t valueCF4688 = 0;
+    std::int32_t valueD046D0 = 0;
+    std::int32_t valueD2E2B0 = 0;
+    std::uint8_t valueD67B80 = 0;
+    cg::yobi::YobiAction* windowAction = nullptr; // 原0xD67B7C，非拥有开窗动作。
+    std::int32_t valueCF4A1C = 0;
+    std::int32_t valueD673E0 = 0;
+    std::int32_t valueCC4C94 = 0;
+    std::int32_t valueC8AF68 = 0;
+    std::int32_t valueCB03CC = 0;
+    std::int32_t valueCF4AB8 = 0;
+    std::int32_t valueD67CB8 = 0;
+    std::int32_t valueD67CBC = 0;
+    std::int32_t valueCC3EC4 = 0;
+    std::int32_t valueD66E08 = 0;
+    std::int32_t valueCC2344 = 0;
+    std::wstring name {}; // 原0xD2D654。
+    std::array<std::uint8_t, 20> itemSlots {}; // 原0xCF3AE8。
+    std::array<std::uint8_t, 28> itemMarks {}; // 原0xD2D61C。
+    std::array<std::uint8_t, 5> petSlots {}; // 原0xCC4D28，尾项CC4D2C。
+    std::array<std::uint8_t, 5> petMarks {}; // 原0xCF3AFC，尾项CF3B00。
+    std::uint8_t phase = 0; // 原0xCAFEC4。
+    std::uint8_t step = 0; // 原0xD3040C。
+    std::uint8_t valueD2EA20 = 0;
+    std::uint8_t valueD6742C = 0;
+    std::uint8_t valueC8AF81 = 0;
+    std::uint8_t tabCC4D1A = 0;
+    std::int32_t hoverSlotC8B314 = 0;
+    std::int32_t hoverSlotC8AA78 = 0;
+    std::int32_t hoverSlotCB0A4C = 0;
+    std::int32_t scrollCF3B0C = 0;
+    std::int32_t scrollCC4C90 = 0;
+    std::int32_t scrollD67430 = 0;
+    std::int32_t preview = 0; // 原0xCC2E64。
+    std::uint8_t tooltipPage = 0; // 原0xCB10D4。
+};
+
 // 窗口44的十条交易候选及回送，名称在点击期间借用所属会话字符串。
 struct TradeTargetWindowRuntimeState {
     std::array<std::wstring, 10> names {}; // 原0xCF3F20。
@@ -1141,6 +1223,7 @@ struct NativeWindowRuntimeState {
     ShopChoiceWindowRuntimeState shopChoice {};
     PetSkillChoiceWindowRuntimeState petSkillChoice {};
     TradeTargetWindowRuntimeState tradeTarget {};
+    TradeWindowRuntimeState trade {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
     std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。

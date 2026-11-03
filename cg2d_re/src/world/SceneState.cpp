@@ -9356,7 +9356,7 @@ void HandleWorldObjectRemovalReply_50BF20(cg::network::CgConnection&, const char
 }
 
 // 原函数：0x0050BFD0。
-void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection&, const char* const payload)
+void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection& connection, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9376,13 +9376,13 @@ void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection&, const cha
             detail::ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
         }
         if (index >= 8) {
-            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
+            ui::detail::WindowTrade_CopyOwnItem(connection.Owner(), 1, index - 8);
         }
     }
 }
 
 // 原函数：0x0050C260。
-void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection&, const char* const payload)
+void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connection, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9403,7 +9403,7 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection&, const 
             detail::ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
         }
         if (index >= 8) {
-            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
+            ui::detail::WindowTrade_CopyOwnItem(connection.Owner(), 1, index - 8);
             ui::detail::WindowTrade_CopyDisplayItems(1, index - 8);
         }
         field += 14;
@@ -9438,7 +9438,7 @@ void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& connection, 
     detail::SwapPlayerInventorySlots_51B530(connection.Owner(), first, second);
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
-    ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
+    ui::detail::WindowTrade_SwapRemoteItems(connection.Owner(), 1, first, second);
     ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
 }
 

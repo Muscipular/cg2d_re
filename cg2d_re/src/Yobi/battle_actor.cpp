@@ -1132,9 +1132,9 @@ void UpdateBattleAction12_406930(YobiAction* const action)
         return;
     }
     if (payload->valueFF0 == 0) {
-        const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+        const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
         const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-        const std::int32_t randomX = platform::RandomRange_46FAF0(-10, 10);
+        const std::int32_t randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
         const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
         static_cast<void>(NewBattleCoordinateEffect_41E720(action, x, y, 110006));
     }
@@ -1172,9 +1172,9 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
         updateDirection = 0;
     } else {
         if (payload->valueFF0 == 0) {
-            const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+            const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
             const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-            const std::int32_t randomX = platform::RandomRange_46FAF0(-10, 10);
+            const std::int32_t randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
             const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
             static_cast<void>(NewBattleCoordinateEffect_41E720(action, x, y, 110006));
         }

@@ -8003,7 +8003,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         if (transition == 0) {
             return transition;
         }
-        cg::login::detail::SaveCurrentClientPreferences_520160();
+        cg::login::detail::SaveCurrentClientPreferences_520160(connection);
         logout.transitionPhase = 0;
         DestroyPlayerMapPresence_519D50();
         ResetWorldObjectTable_446470();

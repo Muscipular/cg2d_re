@@ -918,10 +918,10 @@ std::uint8_t Sub_520720()
 }
 
 // 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
-std::int32_t SaveCurrentClientPreferences_520160()
+std::int32_t SaveCurrentClientPreferences_520160(network::CgConnection& connection)
 try {
     const volatile std::int16_t& selectedCharacter =
-        cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        connection.LoginRequests().selectedCharacterIndex;
     static_cast<void>(CaptureAudioPreferences_520470());
     static_cast<void>(CaptureClientPreferenceBytes_520590());
 

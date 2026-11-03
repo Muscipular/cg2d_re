@@ -180,7 +180,7 @@ void Update(session::ClientSession& session)
         if (detail::UpdateDisconnectDialog_455C90(session) == 0) {
             goto sceneSixTail;
         }
-        cg::login::detail::SaveCurrentClientPreferences_520160();
+        cg::login::detail::SaveCurrentClientPreferences_520160(session.Connection());
         detail::DestroyPlayerMapPresence_519D50();
         detail::ResetWorldObjectTable_446470();
         session.Connection().Shutdown();

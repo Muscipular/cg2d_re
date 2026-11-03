@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace cg::network { class CgConnection; }
+
 namespace cg::login::detail {
 
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
@@ -57,7 +59,7 @@ std::uint8_t CaptureContactSortMode_5206F0();
 std::uint8_t Sub_520720();
 
 // 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
-std::int32_t SaveCurrentClientPreferences_520160();
+std::int32_t SaveCurrentClientPreferences_520160(network::CgConnection& connection);
 
 // 原函数：0x00520200。
 std::int32_t SaveCurrentLoginRecord_520200();

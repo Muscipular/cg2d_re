@@ -11,7 +11,10 @@ struct YobiAction;
 
 namespace cg::ui {
 
-using WindowValueCallback = void (*)(std::int32_t value);
+// 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
+struct WindowInstance;
+
+using WindowValueCallback = void (*)(WindowInstance& window, std::int32_t value);
 using WindowQuantityCallback = void (*)(session::ClientSession& session, std::int32_t value);
 using ElementId = std::uint32_t;
 // 原拖放消息及来源编号不变，额外携带发起会话。
@@ -130,9 +133,6 @@ bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t
     std::int32_t& x, std::int32_t& y);
 // 首次窗口初始化按已发布客户区尺寸调整原型和当前坐标，支持只指定一个轴。
 void InitializeWindowLayout();
-
-// 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
-struct WindowInstance;
 
 // G07：INVCF发布背包／银行页数及0基背包页；新增按钮在下次开窗时创建。
 void WindowRuntime_SetInventoryPages(

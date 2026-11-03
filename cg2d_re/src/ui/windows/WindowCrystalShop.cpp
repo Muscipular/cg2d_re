@@ -108,7 +108,7 @@ static void WindowCrystalShop_CountSlots(); // 二十条选中商品占槽。
 static void WindowCrystalShop_Refresh(); // 首次/分页/数量脏标刷新。
 
 // 原函数：0x004C2060。
-static void WindowCrystalShop_Submit(std::int32_t value); // 低U8为0才按实时商品组包，命令0。
+static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, std::int32_t value); // 低U8为0才按实时商品组包，命令0。
 
 // 原函数：0x004C21B0。
 static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 余额/背包门禁及确认预览生产。
@@ -746,9 +746,9 @@ static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const
 }
 
 // 原函数：0x004C2060。
-static void WindowCrystalShop_Submit(const std::int32_t value)
+static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     if (static_cast<std::uint8_t>(value) != 0) {
         return;
@@ -779,7 +779,7 @@ static void WindowCrystalShop_Submit(const std::int32_t value)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
     currentWindow->state |= 0x8000u;
 }
 
@@ -1313,7 +1313,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
             if (callback != nullptr) {
-                callback(0);
+                callback(callbackWindow, 0);
             }
             acceptImage = 245324;
             currentWindow->state &= ~2u;
@@ -1330,7 +1330,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
             if (callback != nullptr) {
-                callback(1);
+                callback(callbackWindow, 1);
             }
             cancelImage = 245327;
             currentWindow->state &= ~2u;

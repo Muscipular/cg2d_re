@@ -186,7 +186,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
 static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 背包20格命中、加入/拖动/翻页及两组绘制。
 
 // 原函数：0x004B9B10。
-static void WindowShop_Submit(std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
+static void WindowShop_Submit(WindowInstance& callbackWindow, std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
 
 // 原函数：0x004B9F40。
 static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六模式确认生产，借用同源覆盖层。
@@ -1735,9 +1735,9 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
 }
 
 // 原函数：0x004B9B10。
-static void WindowShop_Submit(const std::int32_t selection)
+static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t selection)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     if (static_cast<std::uint8_t>(selection) != 0) {
         return;
@@ -1789,7 +1789,7 @@ static void WindowShop_Submit(const std::int32_t selection)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
     currentWindow->state |= 0x8000u;
 }
 
@@ -3721,7 +3721,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gConfirmationCallbackC8B088;
             if (callback != nullptr) {
-                callback(0);
+                callback(callbackWindow, 0);
             }
             acceptImage = 245324;
             currentWindow->state &= ~2u;
@@ -3738,7 +3738,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gConfirmationCallbackC8B088;
             if (callback != nullptr) {
-                callback(1);
+                callback(callbackWindow, 1);
             }
             cancelImage = 245327;
             currentWindow->state &= ~2u;

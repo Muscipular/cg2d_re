@@ -49,16 +49,16 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00493A70。
-static void WindowSettings_RefreshLogoutPanel(std::int32_t offset); // 设置窗口登出侧栏裁剪与两按钮显隐。
+static void WindowSettings_RefreshLogoutPanel(WindowInstance& callbackWindow, std::int32_t offset); // 设置窗口登出侧栏裁剪与两按钮显隐。
 
 // 原函数：0x00493AF0。
-static void WindowSettings_RefreshInputPanel(std::int32_t offset); // 设置窗口输入侧栏裁剪与三按钮显隐。
+static void WindowSettings_RefreshInputPanel(WindowInstance& callbackWindow, std::int32_t offset); // 设置窗口输入侧栏裁剪与三按钮显隐。
 
 // 原函数：0x00493B70。
-static void WindowSettings_RefreshAudioPanel(std::int32_t offset); // 设置窗口音量侧栏，两同源数字分别测宽。
+static void WindowSettings_RefreshAudioPanel(WindowInstance& callbackWindow, std::int32_t offset); // 设置窗口音量侧栏，两同源数字分别测宽。
 
 // 原函数：0x00493CB0。
-static void WindowSettings_RefreshDisplayPanel(std::int32_t offset); // 设置窗口显示侧栏，读取当前模式S8。
+static void WindowSettings_RefreshDisplayPanel(WindowInstance& callbackWindow, std::int32_t offset); // 设置窗口显示侧栏，读取当前模式S8。
 
 // 原函数：0x00493D60。
 static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
@@ -258,9 +258,9 @@ WindowPrototype gWindowPrototypeSettings {0, 4, 409, 100, 207, 222, 0x80010101u,
 // 窗口函数实现。
 
 // 原函数：0x00493A70。
-static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
+static void WindowSettings_RefreshLogoutPanel(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Settings].window;
     if (auto* const handleSideAreaElement = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr; handleSideAreaElement) handleSideAreaElement->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideAreaElement2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr;
@@ -286,9 +286,9 @@ static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
 }
 
 // 原函数：0x00493AF0。
-static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
+static void WindowSettings_RefreshInputPanel(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Settings].window;
     if (auto* const handleSideArea_29Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr; handleSideArea_29Element) handleSideArea_29Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_29Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr;
@@ -315,9 +315,9 @@ static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
 }
 
 // 原函数：0x00493B70。
-static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
+static void WindowSettings_RefreshAudioPanel(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Settings].window;
     if (auto* const handleSideArea_30Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr; handleSideArea_30Element) handleSideArea_30Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_30Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr;
@@ -358,9 +358,9 @@ static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
 }
 
 // 原函数：0x00493CB0。
-static void WindowSettings_RefreshDisplayPanel(const std::int32_t offset)
+static void WindowSettings_RefreshDisplayPanel(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Settings].window;
     if (auto* const handleSideArea_31Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr; handleSideArea_31Element) handleSideArea_31Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_31Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr;
@@ -422,7 +422,7 @@ static std::int32_t WindowSettings_Draw(WindowInstance& callbackWindow, const st
                 offset = -146;
                 gSettingsOffsetCA02DC = offset;
             }
-            kSettingsPanelCallbacks57DF38[panel](offset);
+            kSettingsPanelCallbacks57DF38[panel](callbackWindow, offset);
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);

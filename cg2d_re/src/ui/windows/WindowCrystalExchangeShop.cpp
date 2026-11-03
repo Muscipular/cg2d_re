@@ -106,7 +106,7 @@ static void WindowCrystalExchangeShop_CountSlots(); // 二十条选中商品占�
 static void WindowCrystalExchangeShop_Refresh(); // 首次/分页/数量脏标刷新。
 
 // 原函数：0x004C4270。
-static void WindowCrystalExchangeShop_Submit(std::int32_t value); // 低U8为0才按实时商品组包，命令1。
+static void WindowCrystalExchangeShop_Submit(WindowInstance& callbackWindow, std::int32_t value); // 低U8为0才按实时商品组包，命令1。
 
 // 原函数：0x004C43C0。
 static std::int32_t WindowCrystalExchangeShop_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 交换物数量/背包门禁及确认预览。
@@ -736,9 +736,9 @@ static std::int32_t WindowCrystalExchangeShop_Draw(WindowInstance& callbackWindo
 }
 
 // 原函数：0x004C4270。
-static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
+static void WindowCrystalExchangeShop_Submit(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     if (static_cast<std::uint8_t>(value) != 0) {
         return;
@@ -769,7 +769,7 @@ static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 1, escaped));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escaped));
     currentWindow->state |= 0x8000u;
 }
 
@@ -1303,7 +1303,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {
-                callback(0);
+                callback(callbackWindow, 0);
             }
             acceptImage = 245324;
             currentWindow->state &= ~2u;
@@ -1320,7 +1320,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {
-                callback(1);
+                callback(callbackWindow, 1);
             }
             cancelImage = 245327;
             currentWindow->state &= ~2u;

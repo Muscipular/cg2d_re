@@ -35,7 +35,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
         failure.x = 64;
         failure.y = 168;
         failure.action = cg::yobi::CreateModalAction_5044E0(
-            64,
+            connection.Owner(), 64,
             168,
             512,
             144,

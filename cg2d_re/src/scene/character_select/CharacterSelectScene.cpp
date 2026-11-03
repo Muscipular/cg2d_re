@@ -206,7 +206,7 @@ std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connec
         progress.x = x;
         progress.y = 192;
         progress.action = cg::yobi::CreateModalAction_5044E0(
-            x, 192, width, 96, 4, 1);
+            connection.Owner(), x, 192, width, 96, 4, 1);
     }
     if (progress.phase == 1) {
         login::StartCharacterCreationRequest(connection);
@@ -1273,7 +1273,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
 
     auto*& action = connection.CharacterSelectUi().characterModalAction;
     if (action == nullptr) {
-        action = cg::yobi::CreateModalAction_5044E0(32, 72, 576, 336, 4, 1);
+        action = cg::yobi::CreateModalAction_5044E0(connection.Owner(), 32, 72, 576, 336, 4, 1);
         goto RET; // 创建当帧不消费人物选择的点击；失败时下一帧重试。
     }
     if (!cg::yobi::IsYobiActionReady(action, 1)) {
@@ -1484,7 +1484,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 if (result == 1) {
                     world::gCurrentSceneState = 13;
                     sceneUi.deleteConfirmationAction =
-                        cg::yobi::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
+                        cg::yobi::CreateModalAction_5044E0(connection.Owner(), 130, 300, 340, 52, 4, 1);
                 } else if (result == 2) {
                     world::gCurrentSceneState = 10;
                 }

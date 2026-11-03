@@ -439,14 +439,6 @@ YobiAction* CreateModalAction_5044E0(
     session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t width,
     std::int32_t height, std::int32_t winId, std::int32_t param6);
-YobiAction* CreateModalAction_5044E0(
-    std::int32_t x,
-    std::int32_t y,
-    std::int32_t width,
-    std::int32_t height,
-    std::int32_t winId,
-    std::int32_t param6);
-
 // action+0x170 的 LegacyCryptInt 窄访问；每次比较只解码一次。
 bool IsYobiActionReady(YobiAction* action, std::int32_t threshold);
 bool IsYobiActionStateEqual(YobiAction* action, std::int32_t expected);

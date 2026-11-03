@@ -47,7 +47,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00(network::CgConnection& conne
         const std::int32_t x = centeredWidth / 2;
         progress.x = x;
         progress.action = cg::yobi::CreateModalAction_5044E0(
-            x,
+            connection.Owner(), x,
             192,
             width,
             96,

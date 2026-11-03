@@ -212,7 +212,7 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
         sceneUi.serverConnectionLayout.x = x;
         sceneUi.serverConnectionLayout.y = 192;
         sceneUi.serverConnectionAction = cg::yobi::CreateModalAction_5044E0(
-            x,
+            connection.Owner(), x,
             192,
             width,
             96,
@@ -363,7 +363,7 @@ std::int32_t UpdateLoginProgress(network::CgConnection& connection)
         sceneUi.loginProgressLayout.x = actionX;
         sceneUi.loginProgressLayout.y = actionY;
         sceneUi.loginProgressAction = cg::yobi::CreateModalAction_5044E0(
-            actionX,
+            connection.Owner(), actionX,
             actionY,
             actionWidth,
             actionHeight,

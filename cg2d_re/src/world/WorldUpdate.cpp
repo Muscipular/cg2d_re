@@ -239,7 +239,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
         dialog.x = (platform::gWindowWidth - dialog.width) / 2;
         dialog.y = (platform::gWindowHeight - dialog.height) / 2;
         action = cg::yobi::CreateModalAction_5044E0(
-            dialog.x, dialog.y,
+            session, dialog.x, dialog.y,
             dialog.width, dialog.height, 4, 1);
         dialog.action = action;
         if (action == nullptr) {

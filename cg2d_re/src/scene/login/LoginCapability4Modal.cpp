@@ -108,7 +108,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
         modal.x = modalX;
         modal.y = modalY;
         modal.action = cg::yobi::CreateModalAction_5044E0(
-            modalX,
+            connection.Owner(), modalX,
             modalY,
             roundedWidth,
             modalHeight,

@@ -1,5 +1,4 @@
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "window.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -1033,15 +1032,6 @@ YobiAction* CreateModalAction_5044E0(
         payload->currentHalfWidth = payload->centerX - x;
     }
     return action;
-}
-
-YobiAction* CreateModalAction_5044E0(
-    const std::int32_t x, const std::int32_t y,
-    const std::int32_t width, const std::int32_t height,
-    const std::int32_t winId, const std::int32_t param6)
-{
-    return CreateModalAction_5044E0(
-        session::GetClientHost().FirstSession(), x, y, width, height, winId, param6);
 }
 
 } // namespace cg::yobi

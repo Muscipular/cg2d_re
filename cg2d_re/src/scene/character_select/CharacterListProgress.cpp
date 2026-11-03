@@ -48,7 +48,7 @@ std::int32_t UpdateCharacterListProgress_45DD60(network::CgConnection& connectio
         progress.x = x;
         progress.y = 192;
         progress.action = cg::yobi::CreateModalAction_5044E0(
-            x,
+            connection.Owner(), x,
             192,
             width,
             96,

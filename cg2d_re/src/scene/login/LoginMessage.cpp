@@ -81,7 +81,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
             message.x = (kScreenWidth - message.width) / 2;
             message.y = 144;
             message.action = cg::yobi::CreateModalAction_5044E0(
-                message.x,
+                connection.Owner(), message.x,
                 message.y,
                 message.width,
                 message.height,
@@ -147,7 +147,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
             message.x = (kScreenWidth - message.width) / 2;
             message.y = 72;
             message.action = cg::yobi::CreateModalAction_5044E0(
-                message.x,
+                connection.Owner(), message.x,
                 message.y,
                 message.width,
                 message.height,
@@ -227,7 +227,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         message.x = (kScreenWidth - message.width) / 2;
         message.y = (kScreenHeight - message.height) / 2;
         message.action = cg::yobi::CreateModalAction_5044E0(
-            message.x,
+            connection.Owner(), message.x,
             message.y,
             message.width,
             message.height,

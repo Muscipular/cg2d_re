@@ -39,7 +39,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
     cg::yobi::YobiAction* modalAction = actionSlot;
     if (modalAction == nullptr) {
         modalAction = cg::yobi::CreateModalAction_5044E0(
-            left,
+            connection.Owner(), left,
             top,
             width,
             height,
@@ -159,7 +159,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     cg::yobi::YobiAction* modalAction = actionSlot;
     if (modalAction == nullptr) {
         modalAction = cg::yobi::CreateModalAction_5044E0(
-            x - 192,
+            connection.Owner(), x - 192,
             y - 96,
             384,
             192,

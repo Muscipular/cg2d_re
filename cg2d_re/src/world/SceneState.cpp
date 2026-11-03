@@ -8068,7 +8068,7 @@ std::int32_t UpdateLogoutScene_45ED90(session::ClientSession& session)
         logout.top = top;
         logout.left = left;
         logout.action = cg::yobi::CreateModalAction_5044E0(
-            left, top, actionWidth, actionHeight, 4, 1);
+            session, left, top, actionWidth, actionHeight, 4, 1);
     }
 
     const std::uint32_t phase = logout.requestPhase;

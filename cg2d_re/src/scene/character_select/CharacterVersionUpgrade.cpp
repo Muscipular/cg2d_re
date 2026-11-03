@@ -63,7 +63,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
             columns = 2;
         }
         scene.legacyVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
-            ((10 - columns) * 64) / 2,
+            connection.Owner(), ((10 - columns) * 64) / 2,
             192,
             columns * 64,
             96,
@@ -182,7 +182,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
             columns = 2;
         }
         scene.versionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
-            ((10 - columns) * 64) / 2,
+            connection.Owner(), ((10 - columns) * 64) / 2,
             192,
             columns * 64,
             96,

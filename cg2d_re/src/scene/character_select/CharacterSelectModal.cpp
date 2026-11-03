@@ -33,7 +33,7 @@ std::int32_t ProcessCharacterModal_462090(
     cg::yobi::YobiAction* modalAction = actionSlot;
     if (modalAction == nullptr) {
         modalAction = cg::yobi::CreateModalAction_5044E0(
-            x - 192,
+            connection.Owner(), x - 192,
             y - 96,
             384,
             192,

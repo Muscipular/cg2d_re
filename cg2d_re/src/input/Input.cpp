@@ -95,15 +95,6 @@ void InputContext::setText(const std::wstring_view value)
     text.assign(value);
 }
 
-InputContext gInputContextCC46E0 {}; // 原全局：0x00CC46E0。
-InputContext gInputContextD2DFD0 {}; // 原全局：0x00D2DFD0。
-InputContext gInputContextD2E2E0 {}; // 原全局：0x00D2E2E0。
-InputContext gInputContextCB01F8 {}; // 原全局：0x00CB01F8。
-InputContext gInputContextCF47E0 {}; // 原全局：0x00CF47E0。
-InputContext gInputContext1050B80 {}; // 原全局：0x01050B80。
-InputContext gInputContext1051348 {}; // 原全局：0x01051348。
-InputContext gInputContexts1050F18[3] {}; // 原全局：0x01050F18。
-
 static constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
@@ -1068,7 +1059,7 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         context = session.UiFrame().inputState.currentContext;
     } else if (context == &inputs.mail
                || context == &inputs.contextCB03F0
-               || context == &gInputContextCC46E0
+               || context == &session.UiFrame().inputState.contextCC46E0
                || context == &inputs.messageBoard
                || context == &inputs.profileDescription
                || context == &inputs.miniMail) {

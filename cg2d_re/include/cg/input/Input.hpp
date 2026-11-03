@@ -69,6 +69,14 @@ struct InputRuntimeState {
     std::int32_t chatLogSuppressed = 0; // 原0x626C14，聊天回复与UI共用。
     std::int32_t lineOverflowRollbackMode = 0; // 原0x626C20。
     std::int32_t insertRejected = 0; // 原0x626C28。
+    InputContext contextCC46E0 {}; // 原0xCC46E0，回车分派独立身份。
+    InputContext contextD2DFD0 {}; // 原0xD2DFD0，旧22宠物改名，不含相邻计时槽。
+    InputContext contextD2E2E0 {}; // 原0xD2E2E0，旧人物称号，独立于原生窗口9。
+    InputContext contextCB01F8 {}; // 原0xCB01F8，旧物品名称，原CB0320/24为其字段别名。
+    InputContext contextCF47E0 {}; // 原0xCF47E0，旧53输入，保留虚拟零初值。
+    InputContext context1050B80 {}; // 原0x1050B80，旧公会宠物邮件输入。
+    InputContext context1051348 {}; // 原0x1051348，旧公会普通邮件输入。
+    InputContext contexts1050F18[3] {}; // 原0x1050F18，旧资料三项输入，不含原末界外状态。
 };
 
 // UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。
@@ -101,22 +109,6 @@ std::int32_t ClassifyChatSplit_44B570(std::wstring_view text, std::int32_t unuse
 // 原 sub_44B4A0@[0x44B4A0,0x44B561)：跳过旧双字节尾字节，返回可写的首个匹配位置。
 [[nodiscard]] char* FindLegacyByte_44B4A0(char* text, const char* target);
 
-// 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
-// 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
-// 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
-extern InputContext gInputContextCC46E0; // 原全局：0x00CC46E0。
-extern InputContext gInputContextD2DFD0; // 原全局：0x00D2DFD0。 旧22宠物改名输入，末尾不包含独立D2E12C计时槽。
-// 原 CC21E8：交易数值输入，末尾不包含独立的 CC2344 状态。
-// 原CB0878：窗口42数量输入，独立于交易输入与聊天输入。
-// 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
-// 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
-// 原CA02E0：通用对话36/37共享输入上下文，现由所属会话的原生对话状态持有。
-extern InputContext gInputContextD2E2E0; // 原全局：0x00D2E2E0。 旧人物501FD0称号编辑，独立于现代窗口9。
-extern InputContext gInputContextCB01F8; // 原全局：0x00CB01F8。 旧选择32物品名称输入；CB0320/24为本对象字段别名。
-extern InputContext gInputContextCF47E0; // 原全局：0x00CF47E0。 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。
-extern InputContext gInputContext1050B80; // 原全局：0x01050B80。 旧87公会宠物邮件草稿，独立15CH虚拟零对象。
-extern InputContext gInputContext1051348; // 原全局：0x01051348。 旧90公会普通邮件草稿，独立于宠物邮件输入。
-extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95三项资料输入，原15CH步长，末界不含105132C。
 // 原 Input::SetContext@[0x44B330,0x44B33A)。
 void SetContext_44B330(session::ClientSession& session, InputContext* context);
 

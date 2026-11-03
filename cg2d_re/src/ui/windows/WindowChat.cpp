@@ -222,7 +222,7 @@ WindowInstance* WindowChat_SwitchMode()
 {
     WindowInstance* result;
     if (gChatWindowModeD66E04 == 0) {
-        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         if (window == nullptr) {
             return nullptr;
         }
@@ -230,7 +230,7 @@ WindowInstance* WindowChat_SwitchMode()
         result = WindowRuntime_Open(WindowId_CompactChat);
         gChatWindowModeD66E04 = 1;
     } else {
-        WindowInstance* const window = gWindowStates[WindowId_CompactChat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
         if (window == nullptr) {
             return nullptr;
         }
@@ -297,22 +297,22 @@ static void WindowChat_RefreshGeometry()
     gChatWidthUnitsC9A930 = width;
     if (width > 37) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 12;
         window->x += 26 * fontWidth;
     }
     if (gChatWidthUnitsC9A930 < 12) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 37;
         window->x -= 26 * fontWidth;
     }
     if (gChatWidthRequestC9A934 == 1) {
-        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         window->x -= render::GetFontMetrics(9).doubleWidth;
     }
     if (gChatWidthRequestC9A934 == -1) {
-        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         window->x += render::GetFontMetrics(9).doubleWidth;
     }
     const std::int32_t currentWidth = gChatWidthUnitsC9A930;
@@ -730,7 +730,7 @@ static std::int32_t WindowChat_HandleInput(const ElementId, const std::int32_t s
                 }
             }
         }
-        auto* focusedElementsWindow = gWindowStates[WindowId_Chat].window;
+        auto* focusedElementsWindow = WindowRuntime_States()[WindowId_Chat].window;
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = focusedElementsWindow ? focusedElementsWindow->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
@@ -814,7 +814,7 @@ static std::int32_t WindowChat_Scroll(const ElementId, const std::int32_t state)
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    if (window != gWindows[WindowId_None] || (state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
+    if (window != WindowRuntime_Windows()[WindowId_None] || (state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
     }
     const std::int32_t count = world::gChatRecordCount_C9A944;
@@ -993,14 +993,14 @@ std::int32_t WindowChat_RestoreInput()
 {
     const std::int32_t mode = gChatWindowModeD66E04;
     if (mode == 1) {
-        WindowInstance* const window = gWindowStates[WindowId_CompactChat].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
         if (window == nullptr) {
             return 0;
         }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
-        auto* const handleInputElement = gWindowStates[WindowId_CompactChat].window ? gWindowStates[WindowId_CompactChat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
+        auto* const handleInputElement = WindowRuntime_States()[WindowId_CompactChat].window ? WindowRuntime_States()[WindowId_CompactChat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
             gFocusedElementDataD45F94 = handleInputElement->data.input;
         }
@@ -1010,7 +1010,7 @@ std::int32_t WindowChat_RestoreInput()
     if (mode != 0) {
         return 0;
     }
-    WindowInstance* const window = gWindowStates[WindowId_Chat].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
     if (window == nullptr) {
         return 0;
     }
@@ -1018,7 +1018,7 @@ std::int32_t WindowChat_RestoreInput()
     const std::int32_t x = window->x;
     if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
         for (;;) {
-            WindowInstance* const currentWindow = gWindowStates[WindowId_Chat].window;
+            WindowInstance* const currentWindow = WindowRuntime_States()[WindowId_Chat].window;
             gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
             gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
             gChatInputPrototype57E970.x = 8;
@@ -1038,7 +1038,7 @@ std::int32_t WindowChat_RestoreInput()
             }
         }
     }
-    auto* const handleInputElement = gWindowStates[WindowId_Chat].window ? gWindowStates[WindowId_Chat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
+    auto* const handleInputElement = WindowRuntime_States()[WindowId_Chat].window ? WindowRuntime_States()[WindowId_Chat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
     if (handleInputElement) {
         gFocusedElementDataD45F94 = handleInputElement->data.input;
     }

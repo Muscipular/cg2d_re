@@ -414,7 +414,7 @@ static std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
 // 原函数：0x0047DCD0。
 void WindowCraft_ResetSelection(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[WindowId_Craft].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Craft].window == nullptr) {
         return;
     }
     const std::int32_t firstSlot = first - 8;
@@ -563,7 +563,7 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
 static cg::yobi::YobiAction* WindowCraft_Create()
 {
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -1987,7 +1987,7 @@ static std::int32_t WindowCraft_ButtonClose(const ElementId elementId, const std
             gHoverTextD68AE8 = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gWindowStates[WindowId_Craft].window->state |= 0x8000u;
+            WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         graphic->imageNo = 0x3B565;
@@ -2462,7 +2462,7 @@ static std::int32_t WindowCraft_ButtonCloseIcon(const ElementId elementId, const
             gHoverTextD68AE8 = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gWindowStates[WindowId_Craft].window->state |= 0x8000u;
+            WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -2889,7 +2889,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         }
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {
-        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
+        WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     bool matchingCrystal = false;
@@ -3157,8 +3157,8 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
 // 原函数：0x00481010。
 static void WindowCraft_Release()
 {
-    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
-    if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 11) {
+    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
     gCraftPetAssistActive_D67B00 = 0;
@@ -3461,7 +3461,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
 // 原函数：0x0047EBE0。
 static WindowAnimationData* WindowCraft_RefreshRecipeResult()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Craft].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Craft].window;
     return window != nullptr ? WindowCraft_ShowRecipeResult(window) : nullptr;
 }
 
@@ -3711,7 +3711,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
 // 原函数：0x0047FAC0。
 static WindowAnimationData* WindowCraft_RefreshItemWorkResult()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Craft].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Craft].window;
     return window != nullptr ? WindowCraft_ShowItemWorkResult(window) : nullptr;
 }
 

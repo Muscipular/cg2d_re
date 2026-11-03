@@ -354,14 +354,14 @@ static std::int32_t WindowOwnProfile_Update(const std::int32_t)
 // 原函数：0x004744F0。
 static void WindowOwnProfile_Release()
 {
-    if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
-        WindowInstance* const window = gWindowStates[WindowId_OwnProfile].window;
-        gWindowStates[WindowId_PlayerProfile].x = window->x;
-        gWindowStates[WindowId_PlayerProfile].y = window->y;
-        gWindowStates[WindowId_PlayerAttributes].x = window->x;
-        gWindowStates[WindowId_PlayerAttributes].y = window->y;
-        gWindowStates[WindowId_PlayerTitles].x = window->x;
-        gWindowStates[WindowId_PlayerTitles].y = window->y;
+    if (WindowRuntime_States()[WindowId_PlayerTitles].window != nullptr) {
+        WindowInstance* const window = WindowRuntime_States()[WindowId_OwnProfile].window;
+        WindowRuntime_States()[WindowId_PlayerProfile].x = window->x;
+        WindowRuntime_States()[WindowId_PlayerProfile].y = window->y;
+        WindowRuntime_States()[WindowId_PlayerAttributes].x = window->x;
+        WindowRuntime_States()[WindowId_PlayerAttributes].y = window->y;
+        WindowRuntime_States()[WindowId_PlayerTitles].x = window->x;
+        WindowRuntime_States()[WindowId_PlayerTitles].y = window->y;
     }
 }
 

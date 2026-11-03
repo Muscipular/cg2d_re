@@ -75,7 +75,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
     if (!currentWindow) return 0;
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
-            WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
+            WindowInstance* const window = WindowRuntime_States()[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
             }
@@ -85,7 +85,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
             }
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GroupSelect, 1, 0, nullptr));
         }
-        WindowInstance* const petWindow = gWindowStates[WindowId_PetMailCompose].window;
+        WindowInstance* const petWindow = WindowRuntime_States()[WindowId_PetMailCompose].window;
         if (petWindow != nullptr) {
             petWindow->state |= 0x8000u;
             const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
@@ -161,7 +161,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
     static_cast<void>(WindowMailCompose_RefreshRecipients());
-    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }
@@ -190,7 +190,7 @@ void WindowMailCompose_Release()
         gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
         occupancy[oldSlot] = count;
     }
-    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
     if (groupWindow != nullptr) {
         groupWindow->state |= 0x8000u;
     }

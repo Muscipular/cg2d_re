@@ -37,7 +37,7 @@ WindowPrototype gWindowPrototypeBattleStateNotice {2, 3, 224, 162, 192, 96, 0x80
 void WindowBattleStateNotice_Open()
 {
     if ((cg::world::gBattlePlayerFlags5ABCAC & 3u) != 0
-        && cg::world::gBattleEntryNoticeAction5ABFB8 == nullptr && gWindowStates[WindowId_BattleStateNotice].window == nullptr) {
+        && cg::world::gBattleEntryNoticeAction5ABFB8 == nullptr && WindowRuntime_States()[WindowId_BattleStateNotice].window == nullptr) {
         cg::world::gBattleEntryNoticeAction5ABFB8 = WindowRuntime_CreateAnimation(WindowId_BattleStateNotice, 1, 0, nullptr);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }

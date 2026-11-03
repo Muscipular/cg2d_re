@@ -829,7 +829,7 @@ static std::int32_t WindowGuildDetails_ButtonClose(const ElementId elementId, co
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B539;
-            gWindowStates[WindowId_GuildDetails].window->state = 0x8000;
+            WindowRuntime_States()[WindowId_GuildDetails].window->state = 0x8000;
             return 1;
         }
     }
@@ -984,7 +984,7 @@ std::int32_t WindowGuildDetails_CanEditRank(const std::int32_t index, const std:
 // 原函数：0x004AFF00。
 std::int32_t WindowGuildDetails_RequestClose()
 {
-    WindowInstance* const window = detail::gWindowStates[WindowId_GuildDetails].window;
+    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_GuildDetails].window;
     if (window == nullptr) {
         return 0;
     }

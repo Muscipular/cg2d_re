@@ -88,7 +88,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        WindowInstance* const normalWindow = gWindowStates[WindowId_MailCompose].window;
+        WindowInstance* const normalWindow = WindowRuntime_States()[WindowId_MailCompose].window;
         if (normalWindow != nullptr) {
             normalWindow->state |= 0x8000u;
         }
@@ -149,7 +149,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet());
-    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }

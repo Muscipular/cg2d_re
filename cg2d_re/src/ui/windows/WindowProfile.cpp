@@ -69,16 +69,16 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
             }
         }
         const std::int32_t target = index - 12;
-        if ((state & MouseFlag_LDownEvent) != 0 && gWindowStates[target].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States()[target].window == nullptr) {
             currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(target));
             // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
             WindowInstance* const sourceForX = currentWindow;
-            WindowInstance* const targetForX = gWindowStates[target].window;
+            WindowInstance* const targetForX = WindowRuntime_States()[target].window;
             const std::int32_t x = sourceForX->x;
             targetForX->x = x;
             WindowInstance* const sourceForY = currentWindow;
-            WindowInstance* const targetForY = gWindowStates[target].window;
+            WindowInstance* const targetForY = WindowRuntime_States()[target].window;
             const std::int32_t y = sourceForY->y;
             targetForY->y = y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -104,15 +104,15 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
         const std::int32_t category = index - 23;
         if ((state & MouseFlag_LDownEvent) != 0) {
             // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
-            if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
-                gWindowStates[WindowId_OwnProfileCategory].flags |= 0x8000u;
+            if (WindowRuntime_States()[WindowId_PlayerTitles].window != nullptr) {
+                WindowRuntime_States()[WindowId_OwnProfileCategory].flags |= 0x8000u;
             }
             gProfileCategory1085DA0 = category;
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnProfileCategory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             consumed = 1;
         }
-        if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
+        if (WindowRuntime_States()[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243034;
         }
         return consumed;

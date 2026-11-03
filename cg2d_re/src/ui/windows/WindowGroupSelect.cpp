@@ -228,8 +228,8 @@ static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
         gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
         return 1;
     }
-    if (gWindowStates[WindowId_MailCompose].window == nullptr) {
-        gWindowStates[WindowId_GroupSelect].window->state |= 0x8000u;
+    if (WindowRuntime_States()[WindowId_MailCompose].window == nullptr) {
+        WindowRuntime_States()[WindowId_GroupSelect].window->state |= 0x8000u;
     }
     return 1;
 }
@@ -237,7 +237,7 @@ static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
 // 原函数：0x004B4B70。
 static void WindowGroupSelect_Release()
 {
-    WindowInstance* const window = gWindowStates[WindowId_MailCompose].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_MailCompose].window;
     if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
         window->state |= 0x8000u;
     }

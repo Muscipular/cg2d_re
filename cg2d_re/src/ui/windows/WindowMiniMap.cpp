@@ -176,17 +176,17 @@ cg::yobi::YobiAction* WindowMiniMap_Open(
     const std::uint32_t flags, const std::uint32_t mode,
     cg::yobi::YobiAction** const completionSlot)
 {
-    WindowInstance* const window = gWindowStates[WindowId_MiniMap].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_MiniMap].window;
     std::int32_t x;
     std::int32_t y;
     if (window != nullptr) {
         window->state |= 0x8000u;
-        WindowInstance* const current = gWindowStates[WindowId_MiniMap].window;
+        WindowInstance* const current = WindowRuntime_States()[WindowId_MiniMap].window;
         x = current->x;
         y = current->y;
     } else {
-        x = gWindowStates[WindowId_MiniMap].x;
-        y = gWindowStates[WindowId_MiniMap].y;
+        x = WindowRuntime_States()[WindowId_MiniMap].x;
+        y = WindowRuntime_States()[WindowId_MiniMap].y;
     }
     return cg::yobi::CreateWindowOpeningAnimation_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
 }

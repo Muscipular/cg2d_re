@@ -458,8 +458,8 @@ std::int32_t WindowInventory_OpenSpecialSelection(const char* const text)
     const unsigned char previous = occupancy[selected];
     gSelectedItemCB0A44 = selected;
     occupancy[selected] = static_cast<unsigned char>(previous + 1);
-    if (auto* const handleItemsElement = gWindowStates[WindowId_Inventory].window ? gWindowStates[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleItems) : nullptr; handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItemSelection;
-    if (auto* const handleEquipmentElement = gWindowStates[WindowId_Inventory].window ? gWindowStates[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_DrawBlockedEquipment;
+    if (auto* const handleItemsElement = WindowRuntime_States()[WindowId_Inventory].window ? WindowRuntime_States()[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleItems) : nullptr; handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItemSelection;
+    if (auto* const handleEquipmentElement = WindowRuntime_States()[WindowId_Inventory].window ? WindowRuntime_States()[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_DrawBlockedEquipment;
     gItemSelectionModeCC40D4 = 2;
     static_cast<void>(WindowDrag_Start(1, 0, nullptr));
     return WindowDrag_SetFocus(14, static_cast<ElementId>(WindowInventoryElementId::ButtonClose));
@@ -534,16 +534,16 @@ static std::int32_t WindowInventory_TabPet(const ElementId elementId, const std:
 // 原函数：0x00488510。
 static void WindowInventory_Release()
 {
-    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
-    if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 14) {
+    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14) {
         quantityWindow->state |= 0x8000u;
     }
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 1 || mode == 2) {
-        WindowInstance* const window = gWindowStates[WindowId_Inventory].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Inventory].window;
         gItemSelectionModeCC40D4 = 0;
         if (auto* const handleItemsElement = window ? window->FindElementById(WindowInventoryElementId::HandleItems) : nullptr; handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
-        if (auto* const handleEquipmentElement = gWindowStates[WindowId_Inventory].window ? gWindowStates[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
+        if (auto* const handleEquipmentElement = WindowRuntime_States()[WindowId_Inventory].window ? WindowRuntime_States()[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
@@ -565,7 +565,7 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         WindowItemSelector_BindElements(&gItemSelectorCF3B10, 0);
         WindowInstance* const window = currentWindow;
         gItemSelectorCF3B10.initialized3E8 = 0;
-        gWindowStates[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
         gItemSelectionModeCC40D4 = 0;
         if (auto* const handleItemsElement = window->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
         selected = -1;
@@ -600,13 +600,13 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         static_cast<void>(WindowDrag_ResetMouse());
     }
 updateSelector:
-    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
-    gWindowStates[WindowId_Inventory].value10 = 0xFFFFFFFFu;
+    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
+    WindowRuntime_States()[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
-        && gWindowStates[WindowId_Quantity].value20 == 14 && gWindowStates[WindowId_Quantity].value24 == 1) {
+        && WindowRuntime_States()[WindowId_Quantity].value20 == 14 && WindowRuntime_States()[WindowId_Quantity].value24 == 1) {
         const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
-        gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
-        gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
+        WindowRuntime_States()[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+        WindowRuntime_States()[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
     WindowItemSelector_Update(&gItemSelectorCF3B10);
     return 1;
@@ -625,9 +625,9 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     };
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
-        const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value10);
+        const std::int32_t selected = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value10);
         if (selected >= 0) {
-            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
+            const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
             static_cast<void>(WindowItem_DrawEquipmentTooltip(selected, page));
         }
     } else if (mode == 1 || mode == 2) {
@@ -716,8 +716,8 @@ static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const
             gHoverTextD68AE8 = L"想放钱在地面时使用此按键。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
-                && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+            if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
+                && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
@@ -726,18 +726,18 @@ static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const
             }
             consumed = 1;
         }
-        if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
-            && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+        if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
+            && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
-            gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
-            gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
+            WindowRuntime_States()[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+            WindowRuntime_States()[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
         }
         graphic->imageNo = 244291;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 244293;
         }
-        if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
-            && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+        if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
+            && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             graphic->imageNo = 244292;
         }
         return consumed;
@@ -838,7 +838,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         currentWindow->state |= 0x2000u;
     }
     if (previousHoveredSlot != hovered) {
-        gWindowStates[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
     }
     previousHoveredSlot = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
@@ -888,12 +888,12 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
-                gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States()[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[WindowId_Inventory].value14 = 0;
+                    WindowRuntime_States()[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -930,7 +930,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         }
         const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
         if (item.used != 0) {
-            gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
+            WindowRuntime_States()[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
@@ -1084,7 +1084,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
         }
     }
     if (previousHoveredSlot != hovered) {
-        gWindowStates[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
     }
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
     previousHoveredSlot = hovered;
@@ -1138,11 +1138,11 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
                 ++page;
-                gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States()[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= item->pages) {
-                    gWindowStates[WindowId_Inventory].value14 = 0;
+                    WindowRuntime_States()[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -1167,7 +1167,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (item->used != 0) {
-            gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
+            WindowRuntime_States()[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item->name + L"[kok]";
             } else if ((item->flags & 0x200u) != 0) {

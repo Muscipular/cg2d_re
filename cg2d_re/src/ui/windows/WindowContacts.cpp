@@ -992,7 +992,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(const ElementId elementId, co
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B542;
-            WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
+            WindowInstance* const window = WindowRuntime_States()[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));

@@ -596,7 +596,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets()
     gSkillStatusIconReferences_D67AFE = skillReferences;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -1289,7 +1289,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const ElementId elementId,
 // 原函数：0x0047A490。
 cg::yobi::YobiAction* WindowSkill_Open()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     const bool hasWindow = window != nullptr;
     gSkillSelectionCallbackCC4230 = nullptr;
     gSkillWindowModeD672AC = 0;
@@ -1304,7 +1304,7 @@ cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(const SkillWindowSelectionCal
 {
     gSkillWindowModeD672AC = 3;
     gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
@@ -1316,7 +1316,7 @@ cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(
     const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
 {
     gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     gSkillWindowModeD672AC = 4;
     gSkillWindowIndexD2EA60 = skillIndex;
     if (window != nullptr) {
@@ -1640,7 +1640,7 @@ cg::yobi::YobiAction* WindowSkill_OpenPetSkills(const WindowValueCallback callba
 {
     gSkillWindowModeD672AC = 5;
     gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
@@ -1652,7 +1652,7 @@ cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(const WindowValueCallback cal
 {
     gSkillWindowModeD672AC = 6;
     gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
@@ -1712,7 +1712,7 @@ static std::int32_t WindowSkill_ButtonBack(const ElementId elementId, const std:
 // 原函数：0x0047A5C0。
 std::int32_t WindowSkill_Back()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
     if (window == nullptr) {
         return 0;
     }
@@ -2304,7 +2304,7 @@ static std::int32_t WindowSkill_SelectRecipe(const ElementId elementId, const st
             allowed = world::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
             if (allowed) {
                 bool create;
-                if (gWindowStates[WindowId_Craft].window != nullptr) {
+                if (WindowRuntime_States()[WindowId_Craft].window != nullptr) {
                     create = gCraftSkillIndexCC2368 != skill
                         || gCraftRequestValueD30400 != gSkillRecipeLevelC8B1B4
                         || gCraftRecipeIndexD2D638 != recipe;
@@ -2326,7 +2326,7 @@ static std::int32_t WindowSkill_SelectRecipe(const ElementId elementId, const st
     if (clicked) {
         visualState = 1;
     }
-    if (gWindowStates[WindowId_Craft].window != nullptr
+    if (WindowRuntime_States()[WindowId_Craft].window != nullptr
         && gCraftSkillIndexCC2368 == gSkillWindowIndexD2EA60
         && gCraftRequestValueD30400 == gSkillRecipeLevelC8B1B4
         && gCraftRecipeIndexD2D638 == recipe) {
@@ -2403,7 +2403,7 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
                         fail();
                         return;
                     }
-                    if (gWindowStates[WindowId_Gather].window != nullptr) {
+                    if (WindowRuntime_States()[WindowId_Gather].window != nullptr) {
                         const std::int32_t current = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
                         const std::int32_t skill = gSkillWindowIndexD2EA60;
                         if (current != skill || gUsingSkillLevelCA0AC4 != technique) {
@@ -2433,7 +2433,7 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
                         fail();
                         return;
                     }
-                    if (gWindowStates[WindowId_Craft].window != nullptr) {
+                    if (WindowRuntime_States()[WindowId_Craft].window != nullptr) {
                         const std::int32_t skill = gSkillWindowIndexD2EA60;
                         if (gCraftSkillIndexCC2368 != skill || gCraftRequestValueD30400 != technique) {
                             gWindowActionCA0174 = WindowCraft_OpenItemWork(skill, technique);
@@ -2512,7 +2512,7 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
 // 原函数：0x0047A140。
 void WindowSkill_SyncStates()
 {
-    if (gWindowStates[WindowId_Skill].window == nullptr || gSkillWindowModeD672AC != 2) {
+    if (WindowRuntime_States()[WindowId_Skill].window == nullptr || gSkillWindowModeD672AC != 2) {
         return;
     }
     const std::int32_t index = gSkillWindowIndexD2EA60;
@@ -2596,7 +2596,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets()
     ++gSkillOperationCount_D67AFD;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }

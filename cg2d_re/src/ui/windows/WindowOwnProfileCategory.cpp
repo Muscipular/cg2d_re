@@ -166,7 +166,7 @@ static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
     if (value == -1) {
         gProfileScrollCA0444 = 0;
     }
-    if (gWindowStates[WindowId_OwnProfile].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_OwnProfile].window == nullptr) {
         currentWindow->state |= 0x8000u;
     }
     WindowOwnProfileCategory_Refresh();

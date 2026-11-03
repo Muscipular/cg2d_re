@@ -259,7 +259,7 @@ WindowPrototype gWindowPrototypeSettings {0, 4, 409, 100, 207, 222, 0x80010101u,
 // 原函数：0x00493A70。
 static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
     if (auto* const handleSideAreaElement = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr; handleSideAreaElement) handleSideAreaElement->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideAreaElement2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr;
@@ -287,7 +287,7 @@ static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
 // 原函数：0x00493AF0。
 static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
     if (auto* const handleSideArea_29Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr; handleSideArea_29Element) handleSideArea_29Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_29Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr;
@@ -316,7 +316,7 @@ static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
 // 原函数：0x00493B70。
 static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
     if (auto* const handleSideArea_30Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr; handleSideArea_30Element) handleSideArea_30Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_30Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr;
@@ -359,7 +359,7 @@ static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
 // 原函数：0x00493CB0。
 static void WindowSettings_RefreshDisplayPanel(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Settings].window;
     if (auto* const handleSideArea_31Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr; handleSideArea_31Element) handleSideArea_31Element->x = offset + 16;
     auto* elementsWindow = window;
     auto* const handleSideArea_31Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr;
@@ -694,7 +694,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(const ElementId elementId, cons
             gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
+            WindowInstance* const hotkeys = WindowRuntime_States()[WindowId_Hotkeys].window;
             if (hotkeys != nullptr) {
                 hotkeys->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -703,7 +703,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(const ElementId elementId, cons
             }
             consumed = 1;
         }
-        if (gWindowStates[WindowId_Hotkeys].window != nullptr) {
+        if (WindowRuntime_States()[WindowId_Hotkeys].window != nullptr) {
             graphic->imageNo = 0x3B8CB;
         }
         return consumed;

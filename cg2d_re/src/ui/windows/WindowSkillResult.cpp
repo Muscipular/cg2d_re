@@ -146,13 +146,13 @@ static cg::yobi::YobiAction* WindowSkillResult_Open()
     const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
     const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
     gSkillOperationCount_D67AFD = references;
-    WindowInstance* const previous = gWindowStates[WindowId_Craft].window;
+    WindowInstance* const previous = WindowRuntime_States()[WindowId_Craft].window;
     gSkillStatusIconReferences_D67AFE = skillReferences;
     if (previous != nullptr) {
         previous->state |= 0x8000u;
     }
     for (const std::int32_t id : {12, 45, 46, 13}) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -171,7 +171,7 @@ static void WindowSkillResult_Release()
     if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }
-    gWindowStates[WindowId_SkillResult].window->state |= 0x8000u;
+    WindowRuntime_States()[WindowId_SkillResult].window->state |= 0x8000u;
 }
 
 // 原函数：0x004876B0。

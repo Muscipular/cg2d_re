@@ -489,12 +489,12 @@ static std::int32_t WindowPetDetail_Update(const std::int32_t value)
 // 原函数：0x0048DCC0。
 static void WindowPetDetail_Release()
 {
-    WindowInstance* const window = gWindowStates[WindowId_PetDetail].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetDetail].window;
     if (window != nullptr) {
-        gWindowStates[WindowId_PetAttributes].x = window->x;
-        gWindowStates[WindowId_PetAttributes].y = window->y;
-        gWindowStates[WindowId_PetSkills].x = window->x;
-        gWindowStates[WindowId_PetSkills].y = window->y;
+        WindowRuntime_States()[WindowId_PetAttributes].x = window->x;
+        WindowRuntime_States()[WindowId_PetAttributes].y = window->y;
+        WindowRuntime_States()[WindowId_PetSkills].x = window->x;
+        WindowRuntime_States()[WindowId_PetSkills].y = window->y;
     }
 }
 

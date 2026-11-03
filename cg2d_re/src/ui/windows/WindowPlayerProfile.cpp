@@ -391,14 +391,14 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId,
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (targetWindow != 0) {
-            if (gWindowStates[targetWindow].window == nullptr) {
+            if (WindowRuntime_States()[targetWindow].window == nullptr) {
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_Open(targetWindow));
                 WindowInstance* const xSource = currentWindow;
-                WindowInstance* const xTarget = gWindowStates[targetWindow].window;
+                WindowInstance* const xTarget = WindowRuntime_States()[targetWindow].window;
                 xTarget->x = xSource->x;
                 WindowInstance* const ySource = currentWindow;
-                WindowInstance* const yTarget = gWindowStates[targetWindow].window;
+                WindowInstance* const yTarget = WindowRuntime_States()[targetWindow].window;
                 yTarget->y = ySource->y;
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
                 WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
@@ -593,14 +593,14 @@ static std::int32_t WindowPlayerProfile_Update(const std::int32_t)
 // 原函数：0x00474310。
 static void WindowPlayerProfile_Release()
 {
-    WindowInstance* const window = gWindowStates[WindowId_PlayerProfile].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PlayerProfile].window;
     if (window != nullptr) {
-        gWindowStates[WindowId_PlayerAttributes].x = window->x;
-        gWindowStates[WindowId_PlayerAttributes].y = window->y;
-        gWindowStates[WindowId_PlayerTitles].x = window->x;
-        gWindowStates[WindowId_PlayerTitles].y = window->y;
-        gWindowStates[WindowId_OwnProfile].x = window->x;
-        gWindowStates[WindowId_OwnProfile].y = window->y;
+        WindowRuntime_States()[WindowId_PlayerAttributes].x = window->x;
+        WindowRuntime_States()[WindowId_PlayerAttributes].y = window->y;
+        WindowRuntime_States()[WindowId_PlayerTitles].x = window->x;
+        WindowRuntime_States()[WindowId_PlayerTitles].y = window->y;
+        WindowRuntime_States()[WindowId_OwnProfile].x = window->x;
+        WindowRuntime_States()[WindowId_OwnProfile].y = window->y;
     }
 }
 

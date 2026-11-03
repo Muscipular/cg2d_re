@@ -235,7 +235,7 @@ void WindowDialog_Reset()
         image.imageNo = 0;
     }
     gMessageDialogImageCountD67B30 = 0;
-    WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Dialog].window;
     if (window != nullptr) {
         for (std::int32_t index = 8; index < 18; ++index) {
             if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
@@ -258,7 +258,7 @@ void WindowDialog_AddImage(
     image.x = x;
     image.y = y;
     image.used = used;
-    WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Dialog].window;
     if (window != nullptr) {
         auto* const element = window->FindElementById(NativeElementKey(count + 8));
         if (element) {
@@ -303,9 +303,9 @@ cg::yobi::YobiAction* WindowDialog_Open(
     gMessageDialog.firstSelectableLine = firstSelectableLine;
     gMessageDialog.inputY = inputY;
     gMessageDialog.inputCount = inputCount;
-    gWindowStates[WindowId_DialogCreate].y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    WindowRuntime_States()[WindowId_DialogCreate].y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     gMessageDialog.inputCapacity = inputCapacity;
-    gWindowStates[WindowId_DialogCreate].x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    WindowRuntime_States()[WindowId_DialogCreate].x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     gMessageDialog.imageNo = imageNo;
     gMessageDialog.distance = distance;
     gMessageDialog.lineCount = lineCount;
@@ -320,11 +320,11 @@ cg::yobi::YobiAction* WindowDialog_Open(
     if (gMessageDialog.lineCount > maximumLines) {
         gMessageDialog.lineCount = maximumLines;
     }
-    WindowInstance* const first = gWindowStates[WindowId_Dialog].window;
+    WindowInstance* const first = WindowRuntime_States()[WindowId_Dialog].window;
     if (first != nullptr) {
         first->state |= 0x8000u;
     }
-    WindowInstance* const second = gWindowStates[WindowId_DialogCreate].window;
+    WindowInstance* const second = WindowRuntime_States()[WindowId_DialogCreate].window;
     if (second != nullptr) {
         second->state |= 0x8000u;
     }
@@ -927,7 +927,7 @@ static void WindowDialog_Route(
         case 23:
         case 33:
             if (WindowBank_ReceiveStorageData(text) != 0) {
-                if (gWindowStates[WindowId_Bank].window != nullptr) {
+                if (WindowRuntime_States()[WindowId_Bank].window != nullptr) {
                     break;
                 }
                 created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
@@ -935,13 +935,13 @@ static void WindowDialog_Route(
                     break;
                 }
             }
-            if (gWindowStates[WindowId_Bank].window == nullptr) {
+            if (WindowRuntime_States()[WindowId_Bank].window == nullptr) {
                 enterNewType = true;
             }
             break;
         case 34:
             if (WindowBank_ReceiveStorageData(text) != 0) {
-                if (gWindowStates[WindowId_ItemStorage].window != nullptr) {
+                if (WindowRuntime_States()[WindowId_ItemStorage].window != nullptr) {
                     break;
                 }
                 created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
@@ -949,12 +949,12 @@ static void WindowDialog_Route(
                     break;
                 }
             }
-            if (gWindowStates[WindowId_ItemStorage].window == nullptr) {
+            if (WindowRuntime_States()[WindowId_ItemStorage].window == nullptr) {
                 enterNewType = true;
             }
             break;
         case 32:
-            if (gWindowStates[WindowId_TextList].window == nullptr) {
+            if (WindowRuntime_States()[WindowId_TextList].window == nullptr) {
                 enterNewType = true;
             } else {
                 WindowTextList_ContinueDialog(text);
@@ -1020,10 +1020,10 @@ static void WindowDialog_Route(
         return;
     case 23:
     case 33:
-        if (WindowBank_ReceiveStorageData(text) != 0 && gWindowStates[WindowId_Bank].window == nullptr) {
+        if (WindowBank_ReceiveStorageData(text) != 0 && WindowRuntime_States()[WindowId_Bank].window == nullptr) {
             created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
         }
-        if (created == nullptr && gWindowStates[WindowId_Bank].window == nullptr) {
+        if (created == nullptr && WindowRuntime_States()[WindowId_Bank].window == nullptr) {
             world::gCurrentDialogType_581800 = -1;
         }
         return;
@@ -1056,10 +1056,10 @@ static void WindowDialog_Route(
         static_cast<void>(WindowTextList_Open(request, target, text));
         return;
     case 34:
-        if (WindowBank_ReceiveStorageData(text) != 0 && gWindowStates[WindowId_ItemStorage].window == nullptr) {
+        if (WindowBank_ReceiveStorageData(text) != 0 && WindowRuntime_States()[WindowId_ItemStorage].window == nullptr) {
             created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
         }
-        if (created == nullptr && gWindowStates[WindowId_ItemStorage].window == nullptr) {
+        if (created == nullptr && WindowRuntime_States()[WindowId_ItemStorage].window == nullptr) {
             world::gCurrentDialogType_581800 = -1;
         }
         return;

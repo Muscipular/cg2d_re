@@ -260,7 +260,7 @@ void WindowTextList_ContinueDialog(const char* const text)
         return;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    WindowInstance* const window = gWindowStates[WindowId_TextList].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_TextList].window;
     gWindowTitleCC4118 = cg::text::FromGbkWide(buffer.data());
     auto* const element4 = window ? window->FindElementById(WindowTextListElementId::Element4) : nullptr;
     if (element4) {
@@ -271,7 +271,7 @@ void WindowTextList_ContinueDialog(const char* const text)
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     WindowTextList_RebuildLines(buffer.data());
-    WindowInstance* const updatedWindow = gWindowStates[WindowId_TextList].window;
+    WindowInstance* const updatedWindow = WindowRuntime_States()[WindowId_TextList].window;
     if (updatedWindow != nullptr) {
         static_cast<void>(WindowTextList_RefreshLines(updatedWindow));
     }

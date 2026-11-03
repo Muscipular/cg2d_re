@@ -108,8 +108,8 @@ void InitializeWindowLayout()
         prototype.defaultX = original[index].x;
         prototype.defaultY = original[index].y;
         AdaptWindowPosition(prototype.defaultX, prototype.defaultY, original[index].width, original[index].height);
-        detail::gWindowStates[index].x = prototype.defaultX;
-        detail::gWindowStates[index].y = prototype.defaultY;
+        detail::WindowRuntime_States()[index].x = prototype.defaultX;
+        detail::WindowRuntime_States()[index].y = prototype.defaultY;
     }
 }
 

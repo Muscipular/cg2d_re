@@ -452,12 +452,12 @@ static std::int32_t WindowPetSkills_Draw(const std::int32_t)
 // 原函数：0x0048DD40。
 static void WindowPetSkills_Release()
 {
-    WindowInstance* const window = gWindowStates[WindowId_PetSkills].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkills].window;
     if (window != nullptr) {
-        gWindowStates[WindowId_PetDetail].x = window->x;
-        gWindowStates[WindowId_PetDetail].y = window->y;
-        gWindowStates[WindowId_PetAttributes].x = window->x;
-        gWindowStates[WindowId_PetAttributes].y = window->y;
+        WindowRuntime_States()[WindowId_PetDetail].x = window->x;
+        WindowRuntime_States()[WindowId_PetDetail].y = window->y;
+        WindowRuntime_States()[WindowId_PetAttributes].x = window->x;
+        WindowRuntime_States()[WindowId_PetAttributes].y = window->y;
     }
 }
 

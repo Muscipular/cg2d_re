@@ -499,7 +499,7 @@ void WindowTrade_SwapDisplayItems(
 // 原函数：0x004B0000。
 void WindowTrade_ResetSelection(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[WindowId_Trade].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Trade].window == nullptr) {
         return;
     }
     for (std::uint8_t& slot : gTradeItemSlotsCF3AE8) {
@@ -519,7 +519,7 @@ void WindowTrade_ResetSelection(const std::int32_t first, const std::int32_t sec
 // 原函数：0x004AD060。
 void WindowTrade_RemapTextListSelection(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[WindowId_TextList].window != nullptr && gSelectedItem57EE0C == first) {
+    if (WindowRuntime_States()[WindowId_TextList].window != nullptr && gSelectedItem57EE0C == first) {
         gSelectedItem57EE0C = second;
     }
 }
@@ -681,8 +681,8 @@ static std::int32_t WindowTrade_RemovePet(const std::int32_t index)
 // 原函数：0x004B0200。
 static void WindowTrade_Release()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Quantity].window;
-    if (window != nullptr && gWindowStates[WindowId_Quantity].value20 == 43) {
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Quantity].window;
+    if (window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 43) {
         window->state |= 0x8000u;
     }
     if (gTradeValueD67B80 == 0) {
@@ -2211,7 +2211,7 @@ static std::int32_t WindowTrade_HandleAmountInput(const ElementId, const std::in
 {
     if (gTradeValueD6742C == 2) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            WindowInstance* const window = gWindowStates[WindowId_Trade].window;
+            WindowInstance* const window = WindowRuntime_States()[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
             auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
@@ -3240,7 +3240,7 @@ void WindowTrade_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_
     if (value == 1) {
         detail::gTradeValueCC4224 = 2;
     } else if (value == 0 || value == 2) {
-        WindowInstance* const window = detail::gWindowStates[WindowId_Trade].window;
+        WindowInstance* const window = detail::WindowRuntime_States()[WindowId_Trade].window;
         detail::gTradeValueD67B80 = 1;
         if (window != nullptr) {
             window->state |= 0x8000u;

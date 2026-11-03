@@ -542,7 +542,7 @@ static std::int32_t WindowBlacklist_Clear(const ElementId, const std::int32_t)
 // 原函数：0x004CD220。
 static std::int32_t WindowBlacklist_CancelClear(const ElementId, const std::int32_t)
 {
-    if (gWindowStates[WindowId_Blacklist].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Blacklist].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Blacklist, 1, 0, nullptr));
     }
     return 1;

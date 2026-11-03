@@ -126,7 +126,7 @@ static std::int32_t WindowPetEquipment_Update(const std::int32_t value)
             }
         }
     }
-    auto& state = gWindowStates[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
     if (value == -1 && input::gCurrentInputData == &gInputContextD2D4A0) {
         static_cast<void>(WindowChat_RestoreInput());
     }
@@ -181,7 +181,7 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
 {
     WindowInstance* const window = gCurrentWindow;
     if (!window) return 0;
-    auto& state = gWindowStates[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
     const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     std::int32_t hovered = -1;
@@ -239,7 +239,7 @@ static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
 {
     WindowInstance* const window = gCurrentWindow;
     if (!window) return 0;
-    auto& state = gWindowStates[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
     const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     const auto hovered = std::bit_cast<std::int32_t>(state.value10);
@@ -282,10 +282,10 @@ static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
 
 static void WindowPetEquipment_Release()
 {
-    if (const auto* const window = gWindowStates[WindowId_PetEquipment].window) {
+    if (const auto* const window = WindowRuntime_States()[WindowId_PetEquipment].window) {
         for (const auto id : {WindowId_PetDetail, WindowId_PetAttributes, WindowId_PetSkills}) {
-            gWindowStates[id].x = window->x;
-            gWindowStates[id].y = window->y;
+            WindowRuntime_States()[id].x = window->x;
+            WindowRuntime_States()[id].y = window->y;
         }
     }
 }

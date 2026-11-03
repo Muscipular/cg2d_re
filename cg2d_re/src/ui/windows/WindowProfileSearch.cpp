@@ -424,7 +424,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const ElementId elementId, 
         static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 4, packet));
         consumed = 1;
     }
-    if (gWindowStates[WindowId_ProfileView].window != nullptr) {
+    if (WindowRuntime_States()[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246058;

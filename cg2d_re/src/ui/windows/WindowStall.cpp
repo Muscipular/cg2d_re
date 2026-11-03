@@ -2620,7 +2620,7 @@ static void WindowStall_OpenBrowse(
             world::AppendChatMessage_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
             break;
         }
-        WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -2911,7 +2911,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
             break;
         }
         gStallMessageC8A978 = message;
-        WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
         world::ClearPlayerActionFlags(0x1000u);
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -2925,7 +2925,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
     std::wstring name = L"无名店铺";
     world::SetPlayerActionFlags(0x1000u);
     if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
-    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
     world::gPlayerRuntimeSlots.text15BB8 = name;
     if (window != nullptr) {
         if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
@@ -2942,7 +2942,7 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
     world::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
     gOwnStallOpenForBusiness_D67BE0 = 0;
-    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
     if (result != 0) {
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -3002,7 +3002,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
                 gStallItemPageD67BC8 = page - 1;
             }
         }
-        WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
         if (window != nullptr) {
             if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
         }
@@ -3026,7 +3026,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
     const wchar_t* const message = result >= 1 && result <= 12
         ? messages[result - 1] : L"购买失败";
     gStallMessageC8A978 = message;
-    WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
     gStallMessageModeD67C34 = 1;
     gStallMessageValueD67C38 = 0;
     if (window != nullptr) {
@@ -3081,7 +3081,7 @@ void WindowStall_ConstructBrowsePetValues()
 // 原函数：0x004CD3E0。
 WindowInstance* WindowStallBrowse_RequestClose()
 {
-    WindowInstance* const window = detail::gWindowStates[WindowId_StallBrowse].window;
+    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_StallBrowse].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -3091,7 +3091,7 @@ WindowInstance* WindowStallBrowse_RequestClose()
 // 原函数：0x004CD400。
 WindowInstance* WindowOwnStall_RequestClose()
 {
-    WindowInstance* const window = detail::gWindowStates[WindowId_OwnStall].window;
+    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_OwnStall].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }

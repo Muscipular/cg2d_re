@@ -573,7 +573,7 @@ static void WindowShop_HandleSaleDrag(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
-            WindowInstance* const target = gWindowStates[WindowId_Shop].window;
+            WindowInstance* const target = WindowRuntime_States()[WindowId_Shop].window;
             WindowInstance* const previous = gCurrentWindow;
             gCurrentWindow = target;
             WindowShop_RemoveSaleSelection();

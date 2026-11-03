@@ -67,7 +67,7 @@ inline auto& gMouseEventState = platform::gLegacyMouseState.valueD68DB4;
 inline auto& gWindowHasFocus = ui::detail::gWindowHasFocusCA0AB4;
 inline auto& gCurrentWindow = ui::detail::gCurrentWindow;
 inline auto& gCurrentWindowState = ui::detail::gCurrentWindowState;
-inline auto& gWindowState = ui::detail::gWindowStates;
+using ui::detail::WindowRuntime_States;
 inline auto& gCurrentInputData = input::gCurrentInputData;
 inline auto* const gDefaultInputData = &ui::detail::gInputContext626AA0;
 

@@ -49,6 +49,7 @@ void WindowExOpen(std::shared_ptr<WindowExtension>& window);
 void WindowRuntime_QueueWindowOpen(const WindowInstance& window);
 void CgWindowClose(session::ClientSession& session, int id);
 void CloseNonDefaultWindows(int exceptId);
+void CloseNonDefaultWindows(session::ClientSession& session, int exceptId);
 bool CloseTopmostNonDefaultWindow(session::ClientSession& session);
 void NativeWindowClosed(WindowInstance& window);
 void WindowRuntime_UpdateScene(session::ClientSession& session);

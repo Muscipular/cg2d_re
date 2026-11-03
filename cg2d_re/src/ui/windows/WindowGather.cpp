@@ -211,7 +211,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -228,7 +228,7 @@ static void WindowGather_Release()
         WindowRuntime_DecrementGatherOperationCount();
     }
     const std::uint8_t previousReferences = gSkillOperationCount_D67AFD;
-    WindowInstance* const window = gWindowStates[WindowId_Gather].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Gather].window;
     gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
     // 原4856C1..4856CD：W8减后发布，分支消费同一结果。
@@ -426,7 +426,7 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
 // 原函数：0x00486020。
 static WindowAnimationData* WindowGather_RefreshResult()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Gather].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Gather].window;
     return window != nullptr ? WindowGather_ShowResult(window) : nullptr;
 }
 

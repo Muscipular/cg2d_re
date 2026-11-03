@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -125,7 +126,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, ElementI
 static std::int32_t WindowDrag_Update(); // WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。
 
 // 原函数：0x004730A0。
-static std::int32_t WindowRuntime_CompactAndReorder(); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。
+static std::int32_t WindowRuntime_CompactAndReorder(session::ClientSession& session); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。
 
 // 原函数：0x00473E40。
 static void WindowRuntime_AdvanceMousePhase(); // 每轮窗口处理前的鼠标阶段推进。
@@ -210,9 +211,25 @@ static_assert(sizeof(WindowDragPrototype) == 16);
 
 WindowItemSelectorState gItemSelectorCF3B10 {}; // 原全局：0x00CF3B10。
 
-std::array<WindowInstance*, kWindowCount> gWindows {}; // 原全局：0x00C8B094。
+std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session)
+{
+    return session.UiFrame().native.windows;
+}
 
-std::array<WindowState, kWindowCount> gWindowStates {}; // 原全局：0x00C9A9B0。
+std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session)
+{
+    return session.UiFrame().native.states;
+}
+
+std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows()
+{
+    return WindowRuntime_Windows(session::GetClientHost().FirstSession());
+}
+
+std::array<WindowState, kWindowCount>& WindowRuntime_States()
+{
+    return WindowRuntime_States(session::GetClientHost().FirstSession());
+}
 
 WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
 
@@ -976,9 +993,9 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     if (source < 8) {
         return source;
     }
-    WindowState* windowState = &gWindowStates[WindowId_Bank];
+    WindowState* windowState = &WindowRuntime_States()[WindowId_Bank];
     if (windowState->window == nullptr) {
-        windowState = &gWindowStates[WindowId_ItemStorage];
+        windowState = &WindowRuntime_States()[WindowId_ItemStorage];
         if (windowState->window == nullptr) {
             return source;
         }
@@ -1048,14 +1065,14 @@ void WindowItem_RequestPetTransfer(
         static_cast<void>(cg::network::GetGameConnection().MovePetSlotRequest(source, target));
         return;
     }
-    if (gWindowStates[WindowId_Bank].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Bank].window == nullptr) {
         return;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"P|{}|{}", source, target);
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
-    const auto userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
-    const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
+    const auto userState = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].userState.value);
+    const auto value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
@@ -2730,8 +2747,8 @@ static std::int32_t WindowRuntime_ResetSettings()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-        gWindowStates[index].x = prototype->defaultX;
-        gWindowStates[index].y = prototype->defaultY;
+        WindowRuntime_States()[index].x = prototype->defaultX;
+        WindowRuntime_States()[index].y = prototype->defaultY;
     }
     gHotkeyLayoutMode_CF4AAC = 1;
     gInventoryActorSelectionMode_57DA28 = 0xFF;
@@ -2740,8 +2757,8 @@ static std::int32_t WindowRuntime_ResetSettings()
     gChatHeightUnitsC9A938 = 4;
     gStatusBarLayoutMode_CF4690 = 0;
     gShortcutBarCollapsed_CA0440 = 0;
-    gWindowStates[WindowId_MiniMap].marker50 = 0;
-    gWindowStates[WindowId_Emote].marker50 = 0;
+    WindowRuntime_States()[WindowId_MiniMap].marker50 = 0;
+    WindowRuntime_States()[WindowId_Emote].marker50 = 0;
     gContactsPreviewMode_D67B38 = 0;
     return 0;
 }
@@ -2778,8 +2795,8 @@ static std::int32_t WindowRuntime_RepairSettingsTail()
         for (std::uint32_t offset = 0; offset < count; ++offset) {
             const std::uint32_t index = first + offset + 1u;
             const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-            gWindowStates[index].x = prototype->defaultX;
-            gWindowStates[index].y = prototype->defaultY;
+            WindowRuntime_States()[index].x = prototype->defaultX;
+            WindowRuntime_States()[index].y = prototype->defaultY;
         }
     }
     return 1;
@@ -2792,8 +2809,8 @@ static std::int32_t WindowRuntime_ApplySettings()
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         // R02：旧分辨率的保存坐标不覆盖当前布局；下方非坐标设置仍按原流程恢复。
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-        gWindowStates[index].x = prototype->defaultX;
-        gWindowStates[index].y = prototype->defaultY;
+        WindowRuntime_States()[index].x = prototype->defaultX;
+        WindowRuntime_States()[index].y = prototype->defaultY;
     }
     static_cast<void>(WindowRuntime_RepairSettingsTail());
     const auto firstByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value08);
@@ -2816,9 +2833,9 @@ static std::int32_t WindowRuntime_ApplySettings()
     const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
     gShortcutBarCollapsed_CA0440 = valueCA0440;
     const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
-    gWindowStates[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
+    WindowRuntime_States()[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
     const std::int32_t valueD67B38 = gWindowSavedDataD40B30.records[21].value08;
-    gWindowStates[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
+    WindowRuntime_States()[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
     gContactsPreviewMode_D67B38 = valueD67B38;
     return 1;
 }
@@ -2873,8 +2890,8 @@ static std::uint32_t WindowRuntime_CaptureSettings()
     static_cast<void>(WindowRuntime_ClearSavedSettings());
     gWindowSavedDataD40B30.version = 0x13;
     for (std::size_t index = 0; index < kSavedWindowCount; ++index) {
-        gWindowSavedDataD40B30.records[index].x = gWindowStates[index].x;
-        gWindowSavedDataD40B30.records[index].y = gWindowStates[index].y;
+        gWindowSavedDataD40B30.records[index].x = WindowRuntime_States()[index].x;
+        gWindowSavedDataD40B30.records[index].y = WindowRuntime_States()[index].y;
     }
     const std::int32_t firstByte = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
     const std::int32_t secondByte = std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C);
@@ -2890,12 +2907,12 @@ static std::uint32_t WindowRuntime_CaptureSettings()
     gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
     const std::uint32_t actorBars = world::gActorBarsEnabled5AC490;
     gWindowSavedDataD40B30.records[35].value0C = height;
-    const std::uint32_t marker33 = gWindowStates[WindowId_MiniMap].marker50;
+    const std::uint32_t marker33 = WindowRuntime_States()[WindowId_MiniMap].marker50;
     gWindowSavedDataD40B30.records[35].value10 = mode;
     const std::int32_t valueCA0440 = gShortcutBarCollapsed_CA0440;
     gWindowSavedDataD40B30.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
     gWindowSavedDataD40B30.records[1].value0C = actorBars == 1 ? 1 : 0;
-    const std::uint32_t marker34 = gWindowStates[WindowId_Emote].marker50;
+    const std::uint32_t marker34 = WindowRuntime_States()[WindowId_Emote].marker50;
     gWindowSavedDataD40B30.records[4].value08 = valueCA0440;
     const std::int32_t valueD67B38 = gContactsPreviewMode_D67B38;
     gWindowSavedDataD40B30.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
@@ -2920,7 +2937,7 @@ std::int32_t WindowRuntime_SaveSettings()
 // 原函数：0x00472200。
 static void WindowRuntime_ClearSavedWindowMarkers()
 {
-    for (WindowState& state : gWindowStates) {
+    for (WindowState& state : WindowRuntime_States()) {
         state.marker50 = 0;
     }
 }
@@ -2928,7 +2945,7 @@ static void WindowRuntime_ClearSavedWindowMarkers()
 // 原函数：0x00472220。
 static void WindowRuntime_MarkExistingWindows()
 {
-    for (WindowState& state : gWindowStates) {
+    for (WindowState& state : WindowRuntime_States()) {
         if (state.window != nullptr) {
             state.marker50 = 1;
         }
@@ -2959,7 +2976,7 @@ static void WindowRuntime_ClearElementFocus()
 static void WindowRuntime_RestoreMarkedWindows()
 {
     for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
-        if (gWindowStates[index].marker50 != 1) {
+        if (WindowRuntime_States()[index].marker50 != 1) {
             continue;
         }
         switch (index) {
@@ -2967,32 +2984,32 @@ static void WindowRuntime_RestoreMarkedWindows()
         case 22:
         case 23:
         case 40:
-            if (gWindowStates[WindowId_Contacts].marker50 != 0) {
+            if (WindowRuntime_States()[WindowId_Contacts].marker50 != 0) {
                 static_cast<void>(WindowRuntime_Open(WindowId_Contacts));
-                gWindowStates[WindowId_Contacts].marker50 = 0;
+                WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
             }
-            if (gWindowStates[WindowId_MailRead].marker50 != 0) {
+            if (WindowRuntime_States()[WindowId_MailRead].marker50 != 0) {
                 const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
                 static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
                 world::detail::gViewedMailMessageIndex_D046D4 = position;
-                gWindowStates[WindowId_MailRead].marker50 = 0;
+                WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
             }
-            if (gWindowStates[WindowId_MailCompose].marker50 != 0) {
+            if (WindowRuntime_States()[WindowId_MailCompose].marker50 != 0) {
                 static_cast<void>(WindowMailCompose_Open());
-                gWindowStates[WindowId_MailCompose].marker50 = 0;
+                WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
             }
-            if (gWindowStates[WindowId_PetMailCompose].marker50 != 0) {
+            if (WindowRuntime_States()[WindowId_PetMailCompose].marker50 != 0) {
                 static_cast<void>(WindowRuntime_Open(WindowId_PetMailCompose));
-                gWindowStates[WindowId_PetMailCompose].marker50 = 0;
+                WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
             }
             break;
         case 33:
         case 34:
             static_cast<void>(WindowRuntime_Open(index));
-            gWindowStates[index].marker50 = 0;
+            WindowRuntime_States()[index].marker50 = 0;
             break;
         default:
-            gWindowStates[index].marker50 = 0;
+            WindowRuntime_States()[index].marker50 = 0;
             break;
         }
     }
@@ -3037,7 +3054,7 @@ static void WindowRuntime_ResetShortcutFlag()
 static void WindowRuntime_RestorePositions(session::ClientSession& session)
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
-        WindowState& state = gWindowStates[index];
+        WindowState& state = WindowRuntime_States()[index];
         WindowInstance* window = state.window;
         if (window == nullptr) {
             continue;
@@ -3094,7 +3111,7 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session)
 
 static void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
 {
-    WindowInstance* const window = gWindowStates[id].window;
+    WindowInstance* const window = WindowRuntime_States()[id].window;
     if (window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(id, 1, 0, nullptr));
     } else {
@@ -3138,7 +3155,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             constexpr std::int32_t ids[] {7, 8, 9, 58};
             bool found = false;
             for (const std::int32_t id : ids) {
-                WindowInstance* const window = gWindowStates[id].window;
+                WindowInstance* const window = WindowRuntime_States()[id].window;
                 if (window != nullptr) {
                     found = true;
                     window->state |= 0x8000u;
@@ -3153,7 +3170,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             if (world::gCurrentSceneType == 10) {
                 WindowBattleCommand_OpenSkills();
             } else {
-                WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+                WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
                 if (window == nullptr) {
                     static_cast<void>(WindowSkill_Open());
                 } else {
@@ -3370,8 +3387,8 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 // 三条重开共用的两轮窄清理；不释放实例，也不清记录的其他字段。
 static void WindowRuntime_ResetReferences()
 {
-    gWindows.fill(nullptr);
-    for (WindowState& state : gWindowStates) {
+    WindowRuntime_Windows().fill(nullptr);
+    for (WindowState& state : WindowRuntime_States()) {
         state.window = nullptr;
     }
     WindowRuntime_ResetMouseAndItemFlags();
@@ -3449,26 +3466,26 @@ static void WindowRuntime_OpenBattleScene()
     default:
         break;
     }
-    if (gWindowStates[WindowId_Contacts].marker50 != 0) {
+    if (WindowRuntime_States()[WindowId_Contacts].marker50 != 0) {
         static_cast<void>(WindowRuntime_Open(WindowId_Contacts));
-        gWindowStates[WindowId_Contacts].marker50 = 0;
+        WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
     }
-    if (gWindowStates[WindowId_MailRead].marker50 != 0) {
+    if (WindowRuntime_States()[WindowId_MailRead].marker50 != 0) {
         const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
         static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
         world::detail::gViewedMailMessageIndex_D046D4 = position;
-        gWindowStates[WindowId_MailRead].marker50 = 0;
+        WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
     }
-    if (gWindowStates[WindowId_MailCompose].marker50 != 0 || gWindowStates[WindowId_PetMailCompose].marker50 != 0) {
+    if (WindowRuntime_States()[WindowId_MailCompose].marker50 != 0 || WindowRuntime_States()[WindowId_PetMailCompose].marker50 != 0) {
         static_cast<void>(WindowRuntime_Open(WindowId_MailCompose));
-        gWindowStates[WindowId_MailCompose].marker50 = 0;
-        gWindowStates[WindowId_PetMailCompose].marker50 = 0;
+        WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
+        WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
     }
     WindowRuntime_ResetOperationReferences();
-    WindowInstance* const window22 = gWindowStates[WindowId_MailCompose].window;
+    WindowInstance* const window22 = WindowRuntime_States()[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
-    if (window22 == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
+    if (window22 == nullptr && WindowRuntime_States()[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
     }
 }
@@ -3476,8 +3493,8 @@ static void WindowRuntime_OpenBattleScene()
 static void WindowRuntime_MarkSceneWindows()
 {
     for (const std::int32_t id : std::array<std::int32_t, 4>{21, 40, 22, 23}) {
-        if (gWindowStates[id].window != nullptr) {
-            gWindowStates[id].marker50 = 1;
+        if (WindowRuntime_States()[id].window != nullptr) {
+            WindowRuntime_States()[id].marker50 = 1;
         }
     }
 }
@@ -3497,7 +3514,7 @@ static void WindowRuntime_OpenNormalScene()
     if (inputGate == 0) {
         input::gChatPanelVisible_C9A96C = 1;
     }
-    if (gWindowStates[WindowId_MailCompose].window == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_MailCompose].window == nullptr && WindowRuntime_States()[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
     }
 }
@@ -3544,10 +3561,10 @@ static void WindowRuntime_InitializeLogin()
         world::detail::InitializeDefaultProfiles_533950();
     }
     static_cast<void>(WindowMail_ResetSelectionState());
-    gWindowStates[WindowId_Contacts].marker50 = 0;
-    gWindowStates[WindowId_MailCompose].marker50 = 0;
-    gWindowStates[WindowId_PetMailCompose].marker50 = 0;
-    gWindowStates[WindowId_MailRead].marker50 = 0;
+    WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
+    WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
+    WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
+    WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
     static_cast<void>(WindowBlacklist_ResetState());
     WindowAdventureLog_InitializeDate();
     gLoginWindowRuntime.valueD67618 = 0;
@@ -3557,10 +3574,10 @@ static void WindowRuntime_InitializeLogin()
 // 原函数：0x00477490。
 WindowInstance* WindowRuntime_FindById(const std::int32_t id)
 {
-    for (std::size_t index = 0; index < gWindows.size(); ++index) {
-        WindowInstance* const window = gWindows[index];
+    for (std::size_t index = 0; index < WindowRuntime_Windows().size(); ++index) {
+        WindowInstance* const window = WindowRuntime_Windows()[index];
         if (window->id == id) {
-            return gWindows[index];
+            return WindowRuntime_Windows()[index];
         }
     }
     return nullptr;
@@ -4061,30 +4078,31 @@ static std::int32_t WindowDrag_Update()
 
 // WCR01：71槽整理共用原state样本分流；关闭后压紧、等层前插与计数见对应SPEC。
 // 原函数：0x004730A0。
-static std::int32_t WindowRuntime_CompactAndReorder()
+static std::int32_t WindowRuntime_CompactAndReorder(session::ClientSession& session)
 {
+    auto& windows = WindowRuntime_Windows(session);
     std::int32_t count = 0;
     for (std::size_t index = 0; index < kWindowCount;) {
-        WindowInstance* const window = gWindows[index];
+        WindowInstance* const window = windows[index];
         if (window == nullptr) {
             std::size_t source = index;
-            while (source < kWindowCount && gWindows[source] == nullptr) {
+            while (source < kWindowCount && windows[source] == nullptr) {
                 ++source;
             }
             if (source == kWindowCount) {
                 break;
             }
-            gWindows[index] = gWindows[source];
-            gWindows[source] = nullptr;
+            windows[index] = windows[source];
+            windows[source] = nullptr;
             continue;
         }
         const std::uint32_t state = window->state;
         if ((state & 0x8000u) != 0) {
             WindowRuntime_Free(window);
             for (std::size_t target = index; target + 1 < kWindowCount; ++target) {
-                gWindows[target] = gWindows[target + 1];
+                windows[target] = windows[target + 1];
             }
-            gWindows[kWindowCount - 1] = nullptr;
+            windows[kWindowCount - 1] = nullptr;
             if (index + 1 != kWindowCount) {
                 continue;
             }
@@ -4092,14 +4110,14 @@ static std::int32_t WindowRuntime_CompactAndReorder()
             if ((state & 0x2000u) != 0) {
                 std::size_t target = index;
                 while (target > 0) {
-                    WindowInstance* const previous = gWindows[target - 1];
+                    WindowInstance* const previous = windows[target - 1];
                     if (previous->layer < window->layer) {
                         break;
                     }
-                    gWindows[target] = previous;
+                    windows[target] = previous;
                     --target;
                 }
-                gWindows[target] = window;
+                windows[target] = window;
                 window->state &= ~std::uint32_t{0x2000};
             }
             ++count;
@@ -4430,6 +4448,7 @@ void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const Win
 std::int32_t WindowRuntime_Update(session::ClientSession& session)
 {
     using namespace detail;
+    auto& states = WindowRuntime_States(session);
     // 仅诊断去重，不参与字段／协议状态；失败回调结束后仍继续输入和绘制。
     auto& frame = session.UiFrame();
     bool encodingFailed = false;
@@ -4455,7 +4474,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     WindowRuntime_AdvanceMousePhase();
     PrepareWindowFrame(session);
     WindowRuntime_BeginPointerDragFrame(session);
-    const std::int32_t count = WindowRuntime_CompactAndReorder();
+    const std::int32_t count = WindowRuntime_CompactAndReorder(session);
     const auto scheduledWindows = MergeWindowOrder(session, count);
     const bool hasWindows = !scheduledWindows.empty();
     gWindowUpdateCountCC4844 = count;
@@ -4465,14 +4484,14 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             const auto& scheduled = scheduledWindows[index];
             WindowInstance* window = scheduled.window;
             const auto& extension = scheduled.extension;
-            if ((!extension && gWindowStates[scheduled.id].window != window)
+            if ((!extension && states[scheduled.id].window != window)
                 || (window->state & 0x8000u) != 0) {
                 if (++index >= static_cast<std::int32_t>(scheduledWindows.size())) break;
                 continue;
             }
             WindowPagePresentation pagePresentation(*window);
             gCurrentWindow = window;
-            gCurrentWindowState = extension ? &extension->state : &gWindowStates[window->id];
+            gCurrentWindowState = extension ? &extension->state : &states[window->id];
             gCurrentWindowIdD67A1C = window->id;
             const std::int32_t focused = WindowRuntime_PointerDragBlocksMouse(session) ? 0 : WindowDrag_Update();
             std::int32_t updateResult;
@@ -4535,7 +4554,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             }
             // 切页回调已消费点击；新页只刷新原生内容并接替旧页的绘制位置，不参与本帧输入。
             if (!extension && pagePresentation.targetId >= 0
-                && gWindowStates[pagePresentation.sourceId].window == window
+                && states[pagePresentation.sourceId].window == window
                 && window->generation == pagePresentation.sourceGeneration && (window->state & 0x8000u)) {
                 auto* const target = WindowRuntime_FindInstance(session, pagePresentation.targetId);
                 if (target && target->generation == pagePresentation.targetGeneration
@@ -4547,7 +4566,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                     const auto previousId = gCurrentWindowIdD67A1C;
                     const auto previousElementId = gCurrentElementId57C12C;
                     gCurrentWindow = target;
-                    gCurrentWindowState = &gWindowStates[target->id];
+                    gCurrentWindowState = &states[target->id];
                     gCurrentWindowIdD67A1C = target->id;
                     gCurrentElementId57C12C = 0;
                     // 宠物页的update(-1)只初始化；正常update补齐属性/技能，沿各页自己的draw。
@@ -4607,27 +4626,34 @@ std::int32_t WindowRuntime_Render(session::ClientSession& session)
 // 原函数：0x00471440。
 WindowInstance* WindowRuntime_Open(const std::int32_t id)
 {
+    return WindowRuntime_Open(session::GetClientHost().FirstSession(), id);
+}
+
+WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::int32_t id)
+{
     using namespace detail;
-    const auto existingEntry = std::find_if(gWindows.begin(), gWindows.end(),
+    auto& windows = WindowRuntime_Windows(session);
+    auto& states = WindowRuntime_States(session);
+    const auto existingEntry = std::find_if(windows.begin(), windows.end(),
         [id](const WindowInstance* window) { return window && window->id == id; });
-    const std::int8_t category = existingEntry != gWindows.end()
+    const std::int8_t category = existingEntry != windows.end()
         ? (*existingEntry)->category : kWindowCategories[id];
     if (category == 1) {
-        WindowRuntime_CloseByCategory(2);
+        WindowRuntime_CloseByCategory(session, 2);
     } else if (category == 2) {
-        WindowRuntime_CloseByCategory(3);
+        WindowRuntime_CloseByCategory(session, 3);
     }
     for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
-        WindowInstance* const existing = gWindows[index];
+        WindowInstance* const existing = windows[index];
         if (existing != nullptr && existing->id == id) {
-            gWindows[index]->state |= 0x2000u;
+            windows[index]->state |= 0x2000u;
             static_cast<void>(CenterPopupWindowPosition(id,
                 existing->width, existing->height, existing->x, existing->y));
-            return gWindows[index];
+            return windows[index];
         }
     }
     std::int32_t freeSlot = 0;
-    while (freeSlot < static_cast<std::int32_t>(kWindowCount) && gWindows[freeSlot] != nullptr) {
+    while (freeSlot < static_cast<std::int32_t>(kWindowCount) && windows[freeSlot] != nullptr) {
         ++freeSlot;
     }
     if (freeSlot == static_cast<std::int32_t>(kWindowCount)) {
@@ -4638,6 +4664,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         return nullptr;
     }
     WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    window->ownerSession = &session;
     window->id = id;
     window->category = category;
     WindowRuntime_EnsureIdentity(*window);
@@ -4702,7 +4729,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
                 auto* const data = static_cast<WindowAnimationData*>(
                     std::calloc(1, sizeof(WindowAnimationData)));
                 if (data != nullptr) {
-                    cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(2, 0);
+                    cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
                     data->action = action;
                     cg::yobi::ConfigureWindowElementAction(
                         action, data->action, source->source.animationImageNo);
@@ -4781,22 +4808,22 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
             drag = gWindowDragPrototypes57C24C[id];
         }
     }
-    gWindows[freeSlot] = window;
+    windows[freeSlot] = window;
     window->state |= 0x2000u;
-    window->x = gWindowStates[id].x;
-    window->y = gWindowStates[id].y;
+    window->x = states[id].x;
+    window->y = states[id].y;
     // 分页区在下方发布；初始化控件前即使用最终高度确定弹窗位置。
     const std::int32_t layoutHeight = window->height
         + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
     static_cast<void>(CenterPopupWindowPosition(id,
         window->width, layoutHeight, window->x, window->y));
-    const std::uint32_t flags = gWindowStates[id].flags;
+    const std::uint32_t flags = states[id].flags;
     WindowInstance* const previous = gCurrentWindow;
-    gWindowStates[id].flags = flags | 0x80u;
+    states[id].flags = flags | 0x80u;
     gCurrentWindow = window;
     window->elementCount = count;
     static_cast<void>(window->update(-1));
-    gWindowStates[id].window = window;
+    states[id].window = window;
     window->elementCount = count + pageCount;
     switch (id) {
     case WindowId_Inventory:
@@ -4830,44 +4857,53 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
     cg::yobi::YobiAction** const completionSlot)
 {
+    return WindowRuntime_CreateAnimation(session::GetClientHost().FirstSession(), id, flags, mode, completionSlot);
+}
+
+cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
+    session::ClientSession& session, const std::int32_t id,
+    const std::uint32_t flags, const std::uint32_t mode,
+    cg::yobi::YobiAction** const completionSlot)
+{
     using namespace detail;
+    auto& states = WindowRuntime_States(session);
     const WindowPrototype* const prototype = gWindowPrototypes57C130[id];
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
     if (id == 10 || id == 11 || id == 12 || id == 14 || id == 27) {
-        const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
-        gWindowStates[id].x += offsetX;
-        const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
-        gWindowStates[id].y += offsetY;
-        if (gWindowStates[id].x < 0) {
-            gWindowStates[id].x = platform::RandomRange_46FAF0(10, 20);
+        const std::int32_t offsetX = platform::RandomRange_46FAF0(session.Connection(), -15, 15);
+        states[id].x += offsetX;
+        const std::int32_t offsetY = platform::RandomRange_46FAF0(session.Connection(), -15, 15);
+        states[id].y += offsetY;
+        if (states[id].x < 0) {
+            states[id].x = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
         }
-        if (gWindowStates[id].y < 0) {
-            gWindowStates[id].y = platform::RandomRange_46FAF0(10, 20);
+        if (states[id].y < 0) {
+            states[id].y = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
         }
-        if (gWindowStates[id].x + width > platform::gWindowWidth) {
-            gWindowStates[id].x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
+        if (states[id].x + width > platform::gWindowWidth) {
+            states[id].x = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
         }
-        if (gWindowStates[id].y + height > platform::gWindowHeight) {
-            gWindowStates[id].y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
+        if (states[id].y + height > platform::gWindowHeight) {
+            states[id].y = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
         }
     }
-    WindowInstance* const window = gWindowStates[id].window;
+    WindowInstance* const window = states[id].window;
     std::int32_t x;
     std::int32_t y;
     if (window != nullptr) {
         window->state |= 0x8000u;
-        WindowInstance* const current = gWindowStates[id].window;
+        WindowInstance* const current = states[id].window;
         x = current->x;
         y = current->y;
     } else {
-        x = gWindowStates[id].x;
-        y = gWindowStates[id].y;
+        x = states[id].x;
+        y = states[id].y;
     }
     // 展开矩形计入实际分页区；位置由Sub_475950与创建入口共用的规则确定。
     const std::int32_t openingHeight = height
         + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
-    return cg::yobi::CreateWindowOpeningAnimation_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
+    return cg::yobi::CreateWindowOpeningAnimation_475950(session, x, y, width, openingHeight, id, flags, mode, completionSlot);
 }
 
 // 原函数：0x00477160。
@@ -4940,7 +4976,7 @@ void WindowRuntime_Free(WindowInstance* const window)
     window->release();
     WindowRuntime_DestroyElements(*window);
     WindowRuntime_ReleaseBindings(*window);
-    gCurrentWindowState = &gWindowStates[window->id];
+    gCurrentWindowState = &WindowRuntime_States(*window->ownerSession)[window->id];
     gCurrentWindowState->x = window->x;
     gCurrentWindowState->y = window->y;
     gCurrentWindowState->flags &= ~std::uint32_t{0x80};
@@ -4958,7 +4994,7 @@ void WindowRuntime_Free(WindowInstance* const window)
 // 原函数：0x00472160。
 void WindowRuntime_Close(WindowInstance* const window)
 {
-    detail::WindowState* const state = &detail::gWindowStates[window->id];
+    detail::WindowState* const state = &detail::WindowRuntime_States(*window->ownerSession)[window->id];
     detail::gCurrentWindowState = state;
     state->flags |= 2u;
     WindowRuntime_Free(window);
@@ -4967,12 +5003,18 @@ void WindowRuntime_Close(WindowInstance* const window)
 // 原函数：0x00472190。
 std::int32_t WindowRuntime_CloseAll()
 {
+    return WindowRuntime_CloseAll(session::GetClientHost().FirstSession());
+}
+
+std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
+{
     using namespace detail;
-    for (std::size_t index = 0; index < gWindows.size(); ++index) {
-        WindowInstance* const window = gWindows[index];
+    auto& windows = WindowRuntime_Windows(session);
+    for (std::size_t index = 0; index < windows.size(); ++index) {
+        WindowInstance* const window = windows[index];
         if (window != nullptr) {
             WindowRuntime_Close(window);
-            gWindows[index] = nullptr;
+            windows[index] = nullptr;
         }
     }
     world::gInventorySlotUseCounts_D67B08.fill(0);
@@ -4983,8 +5025,8 @@ std::int32_t WindowRuntime_CloseAll()
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    const auto result = cg::network::GetGameConnection().SendWorldActionRequest(x, y, 62);
+    const auto networkSession = session.Connection().CaptureSession();
+    const auto result = session.Connection().SendWorldActionRequest(x, y, 62);
     gSkillRebirthModeEnabled_5F9754 = 0;
     return static_cast<std::int32_t>(result);
 }
@@ -5060,9 +5102,16 @@ void WindowRuntime_ProcessScene()
 // 原函数：0x00472240。
 void WindowRuntime_CloseByCategory(const std::uint32_t mask)
 {
+    WindowRuntime_CloseByCategory(session::GetClientHost().FirstSession(), mask);
+}
+
+void WindowRuntime_CloseByCategory(session::ClientSession& session, const std::uint32_t mask)
+{
     using namespace detail;
-    for (std::size_t index = 0; index < gWindows.size(); ++index) {
-        WindowInstance* const window = gWindows[index];
+    auto& windows = WindowRuntime_Windows(session);
+    auto& states = WindowRuntime_States(session);
+    for (std::size_t index = 0; index < windows.size(); ++index) {
+        WindowInstance* const window = windows[index];
         if (window == nullptr) {
             continue;
         }
@@ -5070,10 +5119,10 @@ void WindowRuntime_CloseByCategory(const std::uint32_t mask)
         const auto category = static_cast<std::uint32_t>(
             static_cast<std::int32_t>(window->category));
         if ((mask & category) != 0) {
-            gCurrentWindowState = &gWindowStates[id];
+            gCurrentWindowState = &states[id];
             gCurrentWindowState->flags |= 2u;
-            WindowRuntime_Free(gWindows[index]);
-            gWindows[index] = nullptr;
+            WindowRuntime_Free(windows[index]);
+            windows[index] = nullptr;
         }
     }
 }

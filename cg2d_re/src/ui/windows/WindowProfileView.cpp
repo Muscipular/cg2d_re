@@ -199,7 +199,7 @@ static std::int32_t WindowProfileView_Update(const std::int32_t)
 // 原函数：0x004CB9B0。
 WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
 {
-    WindowInstance* const window = gWindowStates[59 + index].window;
+    WindowInstance* const window = WindowRuntime_States()[59 + index].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }

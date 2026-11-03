@@ -236,7 +236,7 @@ static std::int32_t WindowConfirmation_ButtonActionFive(const ElementId elementI
 // 原函数：0x004AE8C0。
 static WindowInstance* WindowConfirmation_RequestClose()
 {
-    WindowInstance* const window = gWindowStates[WindowId_Confirmation].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_Confirmation].window;
     window->state |= 0x8000u;
     return window;
 }

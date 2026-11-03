@@ -1422,7 +1422,7 @@ static void WindowBigMap_Release() { gBigMapState.reset(); }
 namespace cg::ui {
 void WindowBigMap_Open() {
     if (world::gCurrentSceneType != 9) return;
-    if (auto* existing = detail::gWindowStates[WindowId_BigMap].window) {
+    if (auto* existing = detail::WindowRuntime_States()[WindowId_BigMap].window) {
         existing->state &= ~std::uint32_t{0x8000};
         existing->state |= 0x2000u;
         script::CloseNonDefaultWindows(WindowId_BigMap);

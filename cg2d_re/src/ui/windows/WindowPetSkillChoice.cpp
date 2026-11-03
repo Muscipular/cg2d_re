@@ -670,7 +670,7 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
         }
         ++gWindow54ValueCB01E8;
     }
-    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ModeC8AF64 = mode;
     if (window != nullptr) {
@@ -702,7 +702,7 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* cons
 // 原函数：0x004BDD90。
 void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
 {
-    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
@@ -736,7 +736,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
             option.allowed = 1;
         }
     }
-    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkillChoice].window;
     gWindow54TribeCA0B2C = -1;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
@@ -748,7 +748,7 @@ void WindowPetSkillChoice_ReceivePetCandidates(const char* const text)
 // 原函数：0x004BDF70。
 void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
 {
-    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
@@ -787,7 +787,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
             option.allowed = 1;
         }
     }
-    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
     gWindow54ModeC8AF64 = 13;
@@ -798,7 +798,7 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* const text)
 // 原函数：0x004BE200。
 void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
 {
-    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 1536> buffer;
@@ -836,7 +836,7 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
                 slot.description[row], buffer.data(), row, 28));
         }
     }
-    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
+    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
     gWindow54ModeC8AF64 = 4;

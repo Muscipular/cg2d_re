@@ -206,7 +206,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     for (std::uint8_t row = 0; row < lineCount; ++row) { gChoiceDialog.lines.push_back(*lines[row]); }
     gChoiceDialog.imageNo = imageNo;
     gChoiceDialog.choiceCount = choiceCount;
-    WindowInstance* const previous = gWindowStates[WindowId_ShopChoice].window;
+    WindowInstance* const previous = WindowRuntime_States()[WindowId_ShopChoice].window;
     gChoiceDialog.lineCount = lineCount;
     gChoiceDialog.choices.clear();
     for (std::uint8_t row = 0; row < choiceCount; ++row) { gChoiceDialog.choices.push_back(choices[row]); }

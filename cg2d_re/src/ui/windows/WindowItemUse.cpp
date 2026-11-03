@@ -103,7 +103,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
     }
     constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -116,7 +116,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
         gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
         gItemUseTargetCountCC40CC, WindowItemUse_SelectTextTarget);
     if (result == nullptr) {
-        WindowInstance* const window = gWindowStates[WindowId_TextTarget].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_TextTarget].window;
         if (window == nullptr || (window->state & 0x8000u) != 0) {
             const std::int32_t previous = gSelectedItemCB1DF4;
             gSelectedItemCB1DF4 = -1;
@@ -222,7 +222,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
     }
     constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
     for (const std::int32_t id : windowIds) {
-        WindowInstance* const window = gWindowStates[id].window;
+        WindowInstance* const window = WindowRuntime_States()[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -231,7 +231,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
         WindowAttributeTarget_Open(gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, WindowItemUse_SelectAttributeTarget);
     bool retainReference = result != nullptr;
     if (!retainReference) {
-        WindowInstance* const window = gWindowStates[WindowId_AttributeTarget].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_AttributeTarget].window;
         retainReference = window != nullptr && (window->state & 0x8000u) == 0;
     }
     if (retainReference) {

@@ -328,14 +328,14 @@ static std::int32_t WindowHotkeys_Update(const std::int32_t value)
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
-        gWindowStates[WindowId_Hotkeys].value14 = 0;
+        WindowRuntime_States()[WindowId_Hotkeys].value14 = 0;
         auto* elementsWindow = window;
         auto* const element3 = elementsWindow->FindElementById(WindowHotkeysElementId::Element3);
         auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (element3 && handleVerticalScrollElement) {
             element3->y = handleVerticalScrollElement->y - (element3->height >> 1);
         }
-        const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
+        const std::uint32_t category = WindowRuntime_States()[WindowId_Hotkeys].value10;
         gHotkeySelectedCC4B20 = -1;
         const WindowElementCallback callback = category == 3 ? &WindowHotkeys_EditPresetText : &WindowElement_NoOp;
         for (std::int32_t index = 9; index <= 18; ++index) {
@@ -360,7 +360,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
         element3->visible = 1;
     }
     const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
-    const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
+    const std::uint32_t category = WindowRuntime_States()[WindowId_Hotkeys].value10;
     const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
     if (maximum <= 0) {
         auto* const element32 = currentWindow->FindElementById(WindowHotkeysElementId::Element3);
@@ -369,13 +369,13 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
         }
     }
     if (handleVerticalScrollElement && (handleVerticalScrollElement->data.mouse->flags & 1) != 0) {
-        const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
+        const std::uint32_t currentCategory = WindowRuntime_States()[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum =
             kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
         auto* const handleVerticalScrollElement2 = currentWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement2) {
-            gWindowStates[WindowId_Hotkeys].value14 = static_cast<std::uint32_t>(
+            WindowRuntime_States()[WindowId_Hotkeys].value14 = static_cast<std::uint32_t>(
                 WindowScroll_ReadPosition(handleVerticalScrollElement2, currentMaximum));
         }
     }
@@ -383,9 +383,9 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int8_t marker = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768));
-        const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
+        const std::uint32_t currentCategory = WindowRuntime_States()[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
-        const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
+        const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Hotkeys].value14);
         const wchar_t* const text = kHotkeyTextTables56AECC[currentCategory + currentMode * 4][scroll + row];
         WindowInstance* const window = currentWindow;
         const std::int16_t y = static_cast<std::int16_t>(window->y);
@@ -395,9 +395,9 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
             static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, text, 0, marker));
     }
 
-    if (gWindowStates[WindowId_Hotkeys].value10 == 3) {
+    if (WindowRuntime_States()[WindowId_Hotkeys].value10 == 3) {
         for (std::int32_t row = 0; row < 10; ++row) {
-            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
+            const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Hotkeys].value14);
             const std::int8_t selected = gHotkeySelectedCC4B20;
             const std::int32_t recordIndex = scroll + row;
             if (recordIndex == selected) {
@@ -420,7 +420,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
         }
         const std::int8_t selected = gHotkeySelectedCC4B20;
         if (selected >= 0) {
-            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
+            const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Hotkeys].value14);
             if (scroll > selected || selected >= scroll + 10) {
                 static_cast<void>(WindowInput_ActivateElement(&gHotkeyInputPrototype57DF48, 0, -100, 2));
             }

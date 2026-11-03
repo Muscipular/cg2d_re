@@ -230,7 +230,7 @@ std::int32_t WindowMail_DeleteContact(const ElementId, const std::int32_t)
     static_cast<void>(world::detail::ClearContactMailMessages_5192C0(currentIndex));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-    if (gWindowStates[WindowId_Contacts].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));
     }
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -268,7 +268,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(const ElementId, const std::int32_
 // 原函数：0x004A3760。
 static std::int32_t WindowMail_CancelDelete(const ElementId, const std::int32_t)
 {
-    if (gWindowStates[WindowId_Contacts].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));
     }
     return 1;

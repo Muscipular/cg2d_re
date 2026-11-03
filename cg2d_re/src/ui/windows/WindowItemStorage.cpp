@@ -72,11 +72,11 @@ WindowInstance* WindowItemStorage_Open(
     const std::int32_t kind, const std::int32_t value14,
     const std::int32_t userState, const std::int32_t)
 {
-    gWindowStates[WindowId_ItemStorage].value10 = static_cast<std::uint32_t>(kind);
+    WindowRuntime_States()[WindowId_ItemStorage].value10 = static_cast<std::uint32_t>(kind);
     WindowInstance* const window = WindowRuntime_Open(WindowId_ItemStorage);
-    gWindowStates[WindowId_ItemStorage].window = window;
-    gWindowStates[WindowId_ItemStorage].value14 = static_cast<std::uint32_t>(value14);
-    gWindowStates[WindowId_ItemStorage].userState.value = static_cast<std::uint32_t>(userState);
+    WindowRuntime_States()[WindowId_ItemStorage].window = window;
+    WindowRuntime_States()[WindowId_ItemStorage].value14 = static_cast<std::uint32_t>(value14);
+    WindowRuntime_States()[WindowId_ItemStorage].userState.value = static_cast<std::uint32_t>(userState);
     return window;
 }
 
@@ -86,8 +86,8 @@ static void WindowItemStorage_Release()
     if (world::gCurrentDialogType_581800 == 34) {
         world::gCurrentDialogType_581800 = -1;
     }
-    WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
-    if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
+    WindowInstance* const numberWindow = WindowRuntime_States()[WindowId_Quantity].window;
+    if (numberWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {
@@ -108,7 +108,7 @@ static std::int32_t WindowItemStorage_Update(const std::int32_t)
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    gWindowStates[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
+    WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
     return 1;
 }
 
@@ -116,9 +116,9 @@ static std::int32_t WindowItemStorage_Update(const std::int32_t)
 // 原函数：0x004AC1B0。
 static std::int32_t WindowItemStorage_Draw(const std::int32_t)
 {
-    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].actionFlags1C);
+    const std::int32_t preview = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C);
     if (preview >= 0) {
-        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
+        const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
         if (preview < 100) {
             static_cast<void>(WindowItem_DrawEquipmentTooltip(preview, page));
         } else {
@@ -203,7 +203,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
         hovered = -1;
     }
     if (gStorageOwnHover57EE04 != hovered) {
-        gWindowStates[WindowId_ItemStorage].value20 = 0;
+        WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
     }
     gStorageOwnHover57EE04 = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -216,12 +216,12 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
-                gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States()[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[WindowId_ItemStorage].value20 = 0;
+                    WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -256,7 +256,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-            gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
+            WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -382,7 +382,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
         }
     }
     if (gStorageExternalHover57EE08 != hovered) {
-        gWindowStates[WindowId_ItemStorage].value20 = 0;
+        WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
     }
     gStorageExternalHover57EE08 = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -400,13 +400,13 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
                 std::int32_t pages;
                 std::memcpy(&pages, &record->pages, sizeof(pages));
                 ++page;
-                gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States()[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[WindowId_ItemStorage].value20 = 0;
+                    WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -451,7 +451,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
-            gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
+            WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

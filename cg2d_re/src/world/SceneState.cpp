@@ -3428,7 +3428,7 @@ void SynchronizeTimedMapNoticeWindow_455FC0()
         }
         return;
     }
-    if (ui::detail::gWindowStates[cg::ui::WindowId_TimerNotice].window == nullptr
+    if (ui::detail::WindowRuntime_States()[cg::ui::WindowId_TimerNotice].window == nullptr
         && gWindow39Action62B5B8 == nullptr) {
         gWindow39Action62B5B8 = ui::WindowRuntime_CreateAnimation(
             39, 0, 0, &gWindow39Action62B5B8);
@@ -4201,7 +4201,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             }
             gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0();
             ui::detail::WindowBattleCommand_SyncActorVitals();
-            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[cg::ui::WindowId_Spectator].window == nullptr) {
+            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::WindowRuntime_States()[cg::ui::WindowId_Spectator].window == nullptr) {
                 static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
             }

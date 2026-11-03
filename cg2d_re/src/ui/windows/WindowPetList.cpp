@@ -674,13 +674,13 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
             const std::int16_t selected = petIndex(row);
             const auto& pet = world::gPetRuntimeRecords[selected];
             if (pet.used != 0) {
-                WindowInstance* const detailsWindow = gWindowStates[WindowId_PetDetail].window;
+                WindowInstance* const detailsWindow = WindowRuntime_States()[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
                 gLoginWindowRuntime.valueD673D0 = 5;
-                if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
                     equipment->state |= 0x2000u;
-                } else if (detailsWindow != nullptr || gWindowStates[WindowId_PetAttributes].window != nullptr
-                    || gWindowStates[WindowId_PetSkills].window != nullptr) {
+                } else if (detailsWindow != nullptr || WindowRuntime_States()[WindowId_PetAttributes].window != nullptr
+                    || WindowRuntime_States()[WindowId_PetSkills].window != nullptr) {
                     const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     gPetNameInputPrototype57DCF8.text = name;

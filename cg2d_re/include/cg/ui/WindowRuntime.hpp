@@ -11,6 +11,8 @@ struct YobiAction;
 
 namespace cg::ui {
 
+using WindowValueCallback = void (*)(std::int32_t value);
+
 // 原生窗口、控件及 Lua MouseFlags 共用的事件位；由底层鼠标状态映射产生。
 enum MouseFlags : std::uint32_t {
     MouseFlag_None = 0x000, // 无事件。
@@ -133,6 +135,7 @@ void WindowRuntime_SetInventoryPages(
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
 WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
+WindowInstance* WindowRuntime_Open(session::ClientSession& session, std::int32_t id);
 void WindowBigMap_Open(); // 小地图按钮唯一入口，复用原生原型与单实例生命周期。
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
@@ -140,6 +143,9 @@ WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传�
 cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     cg::yobi::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
+cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
+    session::ClientSession& session, std::int32_t id, std::uint32_t flags, std::uint32_t mode,
+    cg::yobi::YobiAction** completionSlot);
 
 // 原函数：0x004CD3E0。
 WindowInstance* WindowStallBrowse_RequestClose(); // 原窗口68的state置0x8000，返回原借用引用。
@@ -160,6 +166,7 @@ void WindowRuntime_Free(WindowInstance* window); // release回调、记录回存
 void WindowRuntime_Close(WindowInstance* window); // WCR01：同记录地址发布/置bit1再释放，不清表槽。
 // 原函数：0x00472190。
 std::int32_t WindowRuntime_CloseAll(); // 完整关闭与观察退出请求，返回0或发送结果。
+std::int32_t WindowRuntime_CloseAll(session::ClientSession& session);
 // 原函数：0x00503E80。
 void WindowRuntime_ProcessScene(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 // 原函数：0x00473F80。
@@ -168,6 +175,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session); // 完整鼠
 std::int32_t WindowRuntime_Render(session::ClientSession& session); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 // 原函数：0x00472240。
 void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
+void WindowRuntime_CloseByCategory(session::ClientSession& session, std::uint32_t mask);
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 // 原函数：0x00476410。
 void WindowDrag_Cancel(); // 回调后重读阶段，最后进入2或6，不等同通用重置。

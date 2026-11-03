@@ -168,7 +168,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, c
             if (world::gCurrentSceneType != 10) {
                 const std::uint64_t now = platform::ReadTickCount64();
                 if (gWindowActionTick62B5AC + 500u < now) {
-                    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
+                    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
                     if (window == nullptr) {
                         static_cast<void>(WindowStallBrowse_RequestClose());
                         static_cast<void>(audio::PlaySe_52C450(56, 320));

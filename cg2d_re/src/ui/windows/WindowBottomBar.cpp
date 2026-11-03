@@ -118,18 +118,18 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             if ((state & MouseFlag_Hover) != 0) {
                 consumed = 1;
             }
-            WindowInstance* first = gWindowStates[WindowId_PlayerProfile].window;
+            WindowInstance* first = WindowRuntime_States()[WindowId_PlayerProfile].window;
             WindowInstance* second;
             WindowInstance* third;
             // 短路命中后重取9/8/7；未命中时三个局部均已由条件赋值。
             if (first != nullptr
-                || (second = gWindowStates[WindowId_PlayerAttributes].window) != nullptr
-                || gWindowStates[WindowId_OwnProfile].window != nullptr
-                || (third = gWindowStates[WindowId_PlayerTitles].window) != nullptr) {
+                || (second = WindowRuntime_States()[WindowId_PlayerAttributes].window) != nullptr
+                || WindowRuntime_States()[WindowId_OwnProfile].window != nullptr
+                || (third = WindowRuntime_States()[WindowId_PlayerTitles].window) != nullptr) {
                 graphic->imageNo = 0x3B95E;
-                third = gWindowStates[WindowId_PlayerTitles].window;
-                second = gWindowStates[WindowId_PlayerAttributes].window;
-                first = gWindowStates[WindowId_PlayerProfile].window;
+                third = WindowRuntime_States()[WindowId_PlayerTitles].window;
+                second = WindowRuntime_States()[WindowId_PlayerAttributes].window;
+                first = WindowRuntime_States()[WindowId_PlayerProfile].window;
             }
             if ((state & MouseFlag_LDownEvent) == 0) {
                 return consumed;
@@ -141,21 +141,21 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             if (first != nullptr || second != nullptr) {
                 if (first != nullptr) {
                     first->state |= 0x8000u;
-                    WindowInstance* const current = gWindowStates[WindowId_PlayerProfile].window;
+                    WindowInstance* const current = WindowRuntime_States()[WindowId_PlayerProfile].window;
                     savedX = current->x;
                     savedY = current->y;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
-                    second = gWindowStates[WindowId_PlayerAttributes].window;
+                    second = WindowRuntime_States()[WindowId_PlayerAttributes].window;
                 }
                 if (second != nullptr) {
                     second->state |= 0x8000u;
-                    WindowInstance* const current = gWindowStates[WindowId_PlayerAttributes].window;
+                    WindowInstance* const current = WindowRuntime_States()[WindowId_PlayerAttributes].window;
                     savedX = current->x;
                     savedY = current->y;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
-                third = gWindowStates[WindowId_PlayerTitles].window;
-            } else if (gWindowStates[WindowId_OwnProfile].window != nullptr) {
+                third = WindowRuntime_States()[WindowId_PlayerTitles].window;
+            } else if (WindowRuntime_States()[WindowId_OwnProfile].window != nullptr) {
                 // 原47397A在仅58路径用完整state暂存坐标，后续关闭仍可覆盖。
                 savedX = state;
                 savedY = state;
@@ -165,27 +165,27 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             }
             if (third != nullptr) {
                 third->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[WindowId_PlayerTitles].window;
+                WindowInstance* const current = WindowRuntime_States()[WindowId_PlayerTitles].window;
                 savedX = current->x;
                 savedY = current->y;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
-            WindowInstance* const last = gWindowStates[WindowId_OwnProfile].window;
+            WindowInstance* const last = WindowRuntime_States()[WindowId_OwnProfile].window;
             if (last != nullptr) {
                 last->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[WindowId_OwnProfile].window;
+                WindowInstance* const current = WindowRuntime_States()[WindowId_OwnProfile].window;
                 savedX = current->x;
                 savedY = current->y;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
-            gWindowStates[WindowId_PlayerProfile].y = savedY;
-            gWindowStates[WindowId_PlayerAttributes].y = savedY;
-            gWindowStates[WindowId_PlayerTitles].y = savedY;
-            gWindowStates[WindowId_OwnProfile].y = savedY;
-            gWindowStates[WindowId_PlayerProfile].x = savedX;
-            gWindowStates[WindowId_PlayerAttributes].x = savedX;
-            gWindowStates[WindowId_PlayerTitles].x = savedX;
-            gWindowStates[WindowId_OwnProfile].x = savedX;
+            WindowRuntime_States()[WindowId_PlayerProfile].y = savedY;
+            WindowRuntime_States()[WindowId_PlayerAttributes].y = savedY;
+            WindowRuntime_States()[WindowId_PlayerTitles].y = savedY;
+            WindowRuntime_States()[WindowId_OwnProfile].y = savedY;
+            WindowRuntime_States()[WindowId_PlayerProfile].x = savedX;
+            WindowRuntime_States()[WindowId_PlayerAttributes].x = savedX;
+            WindowRuntime_States()[WindowId_PlayerTitles].x = savedX;
+            WindowRuntime_States()[WindowId_OwnProfile].x = savedX;
         }
         return 1;
     }
@@ -198,7 +198,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[WindowId_Skill].window != nullptr) {
+            if (WindowRuntime_States()[WindowId_Skill].window != nullptr) {
                 graphic->imageNo = 0x3B961;
             }
         } else {
@@ -211,7 +211,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+                WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -234,7 +234,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[WindowId_Inventory].window != nullptr) {
+            if (WindowRuntime_States()[WindowId_Inventory].window != nullptr) {
                 graphic->imageNo = 0x3B964;
             }
         } else {
@@ -247,7 +247,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[WindowId_Inventory].window;
+                WindowInstance* const window = WindowRuntime_States()[WindowId_Inventory].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -270,7 +270,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[WindowId_PetList].window != nullptr) {
+            if (WindowRuntime_States()[WindowId_PetList].window != nullptr) {
                 graphic->imageNo = 0x3B967;
             }
         } else {
@@ -283,7 +283,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[WindowId_PetList].window;
+                WindowInstance* const window = WindowRuntime_States()[WindowId_PetList].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -309,10 +309,10 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
             if ((state & MouseFlag_Hover) != 0) {
                 consumed = 1;
             }
-            WindowInstance* window = gWindowStates[windowId].window;
+            WindowInstance* window = WindowRuntime_States()[windowId].window;
             if (window != nullptr) {
                 graphic->imageNo = normalImage - 1;
-                window = gWindowStates[windowId].window;
+                window = WindowRuntime_States()[windowId].window;
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
                 if (window == nullptr) {

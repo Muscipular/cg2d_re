@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/ui/NativeWindowRuntimeState.hpp"
 #include "WindowStorageRecords.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -74,7 +75,6 @@ enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_H
 using WindowCallback = std::int32_t (*)(std::int32_t value);
 using WindowReleaseCallback = void (*)();
 using WindowElementCallback = std::int32_t (*)(ElementId elementId, std::int32_t state); // 窗口内稳定元素ID，非排序位置。
-using WindowValueCallback = void (*)(std::int32_t value);
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
@@ -290,7 +290,7 @@ struct WindowInstance {
     std::int32_t refEvent = -1;
     bool scriptHidden = false; // 旧原生state不含统一visible位，脚本显隐独立门控。
     std::int8_t category = 0; // 窗口类别位码；原生窗口创建时赋值，类别判断直接读取实例。
-    session::ClientSession* ownerSession = nullptr; // NSM01：扩展窗口与面板回调的会话身份；原生窗口归属尚未迁移。
+    session::ClientSession* ownerSession = nullptr; // NSM01：原生/扩展窗口的稳定会话 owner，生命周期内不随菜单切换。
     // 返回借用指针；跨回调或结构变更后需重新查询。
     WindowElement* FindElementById(ElementId elementId) noexcept {
         return sortedMap.FindElementById(elementId);
@@ -804,36 +804,16 @@ std::int32_t WindowPetDetail_SwitchPage(ElementId elementId, std::int32_t state)
 extern std::int32_t& gTitleModeCF4E50; // 原全局：0x00CF4E50。 借既有登录窗口状态槽0，0选择/1删除。
 extern std::int32_t& gTitlePageCF4E54; // 原全局：0x00CF4E54。 借既有登录窗口状态槽1，重置/刷新/滚动同源。
 
-union WindowUserState {
-    std::uint32_t value; // 原+18的数值路径。
-    WindowValueCallback callback; // 原窗口42的+18，禁止截成W32。
-};
-
-struct WindowState {
-    std::uint32_t flags; // 原+00，独立于实例state。
-    std::int32_t x; // 原成员偏移：+0x04。
-    std::int32_t y; // 原成员偏移：+0x08。
-    WindowInstance* window; // 原+0C；不沿用原记录0x54步长。
-    std::uint32_t value10; // 原成员偏移：+0x10。
-    std::uint32_t value14; // 原成员偏移：+0x14。
-    WindowUserState userState; // 原+18；后续生产者按实际用途激活成员。
-    std::uint32_t actionFlags1C; // 原+1C，窗口42数值面板消费低U8。
-    std::uint32_t value20; // 原成员偏移：+0x20。
-    std::uint32_t value24; // 原成员偏移：+0x24。
-    std::uint32_t value28; // 原成员偏移：+0x28。
-    std::array<std::byte, 36> bytes2C; // 原成员偏移：+0x2C。 未消费区，不据此冻结未知指针映射。
-    std::uint32_t marker50; // 原成员偏移：+0x50。
-};
-
-inline constexpr std::size_t kSavedWindowCount = 71; // 原WinSaveDate布局固定，新增窗口不扩展磁盘记录。
-inline constexpr std::size_t kWindowCount = 73; // 原71槽加大地图、宠物装备原型。
 // 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130; // 原全局：0x0057C130。
 extern WindowPrototype& gWindowPrototype54E2A0; // 原全局：0x0054E2A0。 4C93A0直接比较的原对象，不追随表槽改指向。
 extern WindowPrototype& gWindowPrototype54E240; // 原全局：0x0054E240。
 extern WindowPrototype& gWindowPrototype54E330; // 原全局：0x0054E330。
-extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
-extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
+std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session);
+std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
+// 旧无身份消费者固定借首会话，不随当前菜单项变化；完成显式迁移前不得多会话调度。
+std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows();
+std::array<WindowState, kWindowCount>& WindowRuntime_States();
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。

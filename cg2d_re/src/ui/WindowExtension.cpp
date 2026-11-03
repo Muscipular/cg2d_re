@@ -22,11 +22,11 @@ void WindowRuntime_EnsureIdentity(WindowInstance& window) {
     }
 }
 WindowInstance* WindowRuntime_FindInstance(int id) {
-    return id >= 0 && id < WIN_MAX ? gWindowState[id].window : nullptr;
+    return id >= 0 && id < WIN_MAX ? WindowRuntime_States()[id].window : nullptr;
 }
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id) {
     if (id >= 0 && id < WIN_MAX) {
-        auto* window = gWindowState[id].window;
+        auto* window = WindowRuntime_States(session)[id].window;
         return window && (!window->ownerSession || window->ownerSession == &session) ? window : nullptr;
     }
     const auto extension = GetExtWindowById(session, id);
@@ -157,12 +157,16 @@ static bool IsDefaultWindow(const WindowInstance& window)
 
 void CloseNonDefaultWindows(int exceptId)
 {
-    auto& state = session::GetClientHost().FirstSession().UiFrame().extension;
+    CloseNonDefaultWindows(session::GetClientHost().FirstSession(), exceptId);
+}
+void CloseNonDefaultWindows(session::ClientSession& session, int exceptId)
+{
+    auto& state = session.UiFrame().extension;
     const auto close = [exceptId](UIWindowInstance& window) {
         if (window.id != exceptId && !IsDefaultWindow(window))
             window.state |= WIN_STATE_CLOSE;
     };
-    for (auto* window : ui::detail::gWindows) if (window) close(*window);
+    for (auto* window : ui::detail::WindowRuntime_Windows(session)) if (window) close(*window);
     for (const auto& entry : state.windows) close(entry->window);
 }
 
@@ -182,7 +186,7 @@ bool CloseTopmostNonDefaultWindow(session::ClientSession& session)
             || (window.category & (1 | 2 | 4 | 8)) == 0) return;
         if (!target || IsWindowAbove(state, window, *target)) target = &window;
     };
-    for (auto* window : ui::detail::gWindows) if (window) consider(*window);
+    for (auto* window : ui::detail::WindowRuntime_Windows(session)) if (window) consider(*window);
     for (const auto& entry : state.windows)
         if (entry->window.state & WIN_STATE_ACTIVE) consider(entry->window);
     if (!target) return false;
@@ -211,7 +215,7 @@ void WindowRuntime_UpdateScene(session::ClientSession& session)
 void PrepareWindowFrame(session::ClientSession& session)
 {
     auto& state = session.UiFrame().extension;
-    for (auto* window : detail::gWindows) if (window) WindowRuntime_CollectElements(*window);
+    for (auto* window : detail::WindowRuntime_Windows(session)) if (window) WindowRuntime_CollectElements(*window);
     for (const auto& entry : state.windows) WindowRuntime_CollectElements(entry->window);
     WindowRuntime_UpdateScene(session);
     // 先移除再通知，关闭事件可以安全重建同ID窗口。
@@ -247,7 +251,7 @@ void PrepareWindowFrame(session::ClientSession& session)
             nextFocus = window.id;
         }
     };
-    for (auto* window : ui::detail::gWindows) if (window) track(*window);
+    for (auto* window : ui::detail::WindowRuntime_Windows(session)) if (window) track(*window);
     const auto current = state.windows;
     for (const auto& entry : current) {
         track(entry->window);
@@ -263,9 +267,10 @@ void PrepareWindowFrame(session::ClientSession& session)
 std::vector<ScheduledWindow> MergeWindowOrder(session::ClientSession& session, int nativeCount)
 {
     auto& state = session.UiFrame().extension;
+    auto& windows = detail::WindowRuntime_Windows(session);
     std::vector<ScheduledWindow> result;
     for (int i = 0; i < nativeCount; ++i)
-        if (!detail::gWindows[i]->scriptHidden) result.push_back({detail::gWindows[i]->id, detail::gWindows[i], {}});
+        if (!windows[i]->scriptHidden) result.push_back({windows[i]->id, windows[i], {}});
     for (const auto& entry : state.windows) {
         if (!(entry->window.state & WIN_STATE_CLOSE) && (entry->window.state & WIN_STATE_ACTIVE))
             result.push_back({entry->window.id, &entry->window, entry});
@@ -294,11 +299,9 @@ void ShutdownExtensionWindows(session::ClientSession& session)
     retiring.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
     state.dragOwner = -1;
     if (&session == session::GetClientHost().CurrentSession()) mouseWheelDelta = 0;
-    if (&session == &session::GetClientHost().FirstSession()) {
-        for (auto* window : detail::gWindows) if (window) {
-            delete window->binding;
-            window->binding = nullptr;
-        }
+    for (auto* window : detail::WindowRuntime_Windows(session)) if (window) {
+        delete window->binding;
+        window->binding = nullptr;
     }
     state.windowOrder.clear();
     state.orderSequence = 0;

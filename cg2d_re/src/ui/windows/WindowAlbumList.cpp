@@ -320,7 +320,7 @@ static std::int32_t WindowAlbumList_SelectEntry(const ElementId elementId, const
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         if (records[scroll + index - 58].used != 0) {
-            if (gWindowStates[WindowId_AlbumDetail].window == nullptr) {
+            if (WindowRuntime_States()[WindowId_AlbumDetail].window == nullptr) {
                 gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_AlbumDetail, 1, 0, nullptr));
                 return 1;

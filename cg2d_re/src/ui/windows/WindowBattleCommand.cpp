@@ -169,17 +169,17 @@ static void WindowBattleCommand_Open(
     const std::int32_t mode, std::int16_t x, std::int16_t y)
 {
     AdaptWindowPosition(x, y, 299, 69);
-    gWindowStates[WindowId_BattleCommand].actionFlags1C =
-        (gWindowStates[WindowId_BattleCommand].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
-    WindowInstance* const window = gWindowStates[WindowId_BattleCommand].window;
+    WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C =
+        (WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
+    WindowInstance* const window = WindowRuntime_States()[WindowId_BattleCommand].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     } else {
-        gWindowStates[WindowId_BattleCommand].window = WindowRuntime_Open(WindowId_BattleCommand);
+        WindowRuntime_States()[WindowId_BattleCommand].window = WindowRuntime_Open(WindowId_BattleCommand);
     }
-    auto* elementsWindow = gWindowStates[WindowId_BattleCommand].window;
+    auto* elementsWindow = WindowRuntime_States()[WindowId_BattleCommand].window;
     const auto currentMode = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     auto* const element14 = elementsWindow ? elementsWindow->FindElementById(WindowBattleCommandElementId::Element14) : nullptr;
     auto* const graphic = element14 ? element14->data.graphic : nullptr;
     switch (currentMode) {
@@ -188,25 +188,25 @@ static void WindowBattleCommand_Open(
     case 2:
         if (graphic) graphic->imageNo = 0x3B9C0 + currentMode;
         for (std::int32_t index = 0; index < 8; ++index) {
-            if (auto* const indexedElement = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
         }
-        if (auto* const buttonPetSkillsElement = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement) buttonPetSkillsElement->visible = 0;
-        if (auto* const buttonEscape_10Element = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element) buttonEscape_10Element->visible = 0;
-        if (auto* const element11 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element11) element11->visible = 0;
-        if (auto* const element12 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element12) element12->visible = 0;
-        if (auto* const element13 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element13) element13->visible = 0;
+        if (auto* const buttonPetSkillsElement = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement) buttonPetSkillsElement->visible = 0;
+        if (auto* const buttonEscape_10Element = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element) buttonEscape_10Element->visible = 0;
+        if (auto* const element11 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element11) element11->visible = 0;
+        if (auto* const element12 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element12) element12->visible = 0;
+        if (auto* const element13 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element13) element13->visible = 0;
         break;
     case 3: {
         if (graphic) graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            if (auto* const indexedElement = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
         }
-        if (auto* const buttonPetSkillsElement2 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement2) buttonPetSkillsElement2->visible = 1;
-        if (auto* const buttonPetSkillsElement3 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement3) buttonPetSkillsElement3->x = 216;
-        if (auto* const buttonEscape_10Element2 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element2) buttonEscape_10Element2->visible = 0;
-        if (auto* const element112 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element112) element112->visible = 1;
-        if (auto* const element122 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
-        if (auto* const element132 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
+        if (auto* const buttonPetSkillsElement2 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement2) buttonPetSkillsElement2->visible = 1;
+        if (auto* const buttonPetSkillsElement3 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement3) buttonPetSkillsElement3->x = 216;
+        if (auto* const buttonEscape_10Element2 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element2) buttonEscape_10Element2->visible = 0;
+        if (auto* const element112 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element112) element112->visible = 1;
+        if (auto* const element122 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
+        if (auto* const element132 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
         const std::int32_t namePosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[namePosition];
@@ -214,7 +214,7 @@ static void WindowBattleCommand_Open(
         if (name[0] == '\0') {
             name = cg::yobi::GetYobiName(action);
         }
-        if (auto* const element113 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
+        if (auto* const element113 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
         const std::int32_t maximumPosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
@@ -223,7 +223,7 @@ static void WindowBattleCommand_Open(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        auto* const element123 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
+        auto* const element123 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
         if (element123) {
             cg::text::FormatTo(element123->data.text->text, L"{:4}/{:4}", current, maximum);
         }
@@ -232,25 +232,25 @@ static void WindowBattleCommand_Open(
     case 4: {
         if (graphic) graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            if (auto* const indexedElement = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
         }
-        if (auto* const buttonPetSkillsElement2 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement2) buttonPetSkillsElement2->visible = 1;
-        if (auto* const buttonPetSkillsElement3 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement3) buttonPetSkillsElement3->x = 146;
-        if (auto* const buttonEscape_10Element2 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element2) buttonEscape_10Element2->visible = 1;
-        if (auto* const element112 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element112) element112->visible = 1;
-        if (auto* const element122 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
-        if (auto* const element132 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
+        if (auto* const buttonPetSkillsElement2 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement2) buttonPetSkillsElement2->visible = 1;
+        if (auto* const buttonPetSkillsElement3 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonPetSkills) : nullptr; buttonPetSkillsElement3) buttonPetSkillsElement3->x = 146;
+        if (auto* const buttonEscape_10Element2 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::ButtonEscape_10) : nullptr; buttonEscape_10Element2) buttonEscape_10Element2->visible = 1;
+        if (auto* const element112 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element112) element112->visible = 1;
+        if (auto* const element122 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
+        if (auto* const element132 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
         const std::int32_t namePosition = world::gBattleCurrentPosition5ABCA4;
         const wchar_t* const name = cg::yobi::GetYobiName(
             world::gBattleEntries59E980[namePosition]);
-        if (auto* const element113 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
+        if (auto* const element113 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
         const std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
             world::gBattleEntries59E980[maximumPosition]);
         const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        auto* const element123 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
+        auto* const element123 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
         if (element123) {
             cg::text::FormatTo(element123->data.text->text, L"{:4}/{:4}", current, maximum);
         }
@@ -259,16 +259,16 @@ static void WindowBattleCommand_Open(
     default:
         break;
     }
-    WindowInstance* const positionedWindow = gWindowStates[WindowId_BattleCommand].window;
-    gWindowStates[WindowId_BattleCommand].x = x;
-    gWindowStates[WindowId_BattleCommand].y = y;
-    gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(std::int32_t {-153});
-    gWindowStates[WindowId_BattleCommand].value14 = 17;
+    WindowInstance* const positionedWindow = WindowRuntime_States()[WindowId_BattleCommand].window;
+    WindowRuntime_States()[WindowId_BattleCommand].x = x;
+    WindowRuntime_States()[WindowId_BattleCommand].y = y;
+    WindowRuntime_States()[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(std::int32_t {-153});
+    WindowRuntime_States()[WindowId_BattleCommand].value14 = 17;
     positionedWindow->x = x;
-    const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
-    const auto offset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
-    gWindowStates[WindowId_BattleCommand].window->y = baseY + offset;
-    gWindowStates[WindowId_BattleCommand].userState.value = 1;
+    const std::int32_t baseY = WindowRuntime_States()[WindowId_BattleCommand].y;
+    const auto offset = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value10);
+    WindowRuntime_States()[WindowId_BattleCommand].window->y = baseY + offset;
+    WindowRuntime_States()[WindowId_BattleCommand].userState.value = 1;
 }
 
 // 原函数：0x00496B90。
@@ -277,57 +277,57 @@ static std::int32_t WindowBattleCommand_Update(const std::int32_t value)
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        gWindowStates[WindowId_BattleCommand].value10 = 0;
-        gWindowStates[WindowId_BattleCommand].value14 = 0;
-        gWindowStates[WindowId_BattleCommand].userState.value = 0;
+        WindowRuntime_States()[WindowId_BattleCommand].value10 = 0;
+        WindowRuntime_States()[WindowId_BattleCommand].value14 = 0;
+        WindowRuntime_States()[WindowId_BattleCommand].userState.value = 0;
         gBattleSkillTargetPendingD303F8 = 0;
         gBattleItemTargetFlagCC4D40 = 0;
         return 1;
     }
-    const std::uint32_t phase = gWindowStates[WindowId_BattleCommand].userState.value;
+    const std::uint32_t phase = WindowRuntime_States()[WindowId_BattleCommand].userState.value;
     if (phase == 1) {
-        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
-        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14);
+        const auto oldOffset = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value10);
+        const auto velocity = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value14);
         const std::int32_t offset = oldOffset + velocity;
-        gWindowStates[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(velocity - 1);
-        const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
-        gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
+        WindowRuntime_States()[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(velocity - 1);
+        const std::int32_t baseY = WindowRuntime_States()[WindowId_BattleCommand].y;
+        WindowRuntime_States()[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
         currentWindow->y = baseY + offset;
-        if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) <= 0) {
-            gWindowStates[WindowId_BattleCommand].value14 = 0;
-            gWindowStates[WindowId_BattleCommand].userState.value = 0;
+        if (std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value14) <= 0) {
+            WindowRuntime_States()[WindowId_BattleCommand].value14 = 0;
+            WindowRuntime_States()[WindowId_BattleCommand].userState.value = 0;
         }
     } else if (phase == 2) {
-        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14);
-        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
+        const auto velocity = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value14);
+        const auto oldOffset = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value10);
         const std::int32_t nextVelocity = velocity + 1;
-        gWindowStates[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(nextVelocity);
+        WindowRuntime_States()[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(nextVelocity);
         const std::int32_t offset = oldOffset - nextVelocity;
-        const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
-        gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
+        const std::int32_t baseY = WindowRuntime_States()[WindowId_BattleCommand].y;
+        WindowRuntime_States()[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
         currentWindow->y = baseY + offset;
-        if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) >= 17) {
-            gWindowStates[WindowId_BattleCommand].value14 = 17;
-            gWindowStates[WindowId_BattleCommand].window->state |= 0x8000u;
-            gWindowStates[WindowId_BattleCommand].userState.value = 3;
+        if (std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value14) >= 17) {
+            WindowRuntime_States()[WindowId_BattleCommand].value14 = 17;
+            WindowRuntime_States()[WindowId_BattleCommand].window->state |= 0x8000u;
+            WindowRuntime_States()[WindowId_BattleCommand].userState.value = 3;
         }
-        WindowInstance* window = gWindowStates[WindowId_Skill].window;
+        WindowInstance* window = WindowRuntime_States()[WindowId_Skill].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
-        window = gWindowStates[WindowId_BattleItems].window;
+        window = WindowRuntime_States()[WindowId_BattleItems].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
-        window = gWindowStates[WindowId_BattlePets].window;
+        window = WindowRuntime_States()[WindowId_BattlePets].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
-    auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
+    auto mode = static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C);
     if (mode != 3 && mode != 4) {
         if (auto* const buttonRebirthElement = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonRebirth); buttonRebirthElement) buttonRebirthElement->visible = 1;
-        mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
+        mode = static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C);
     }
     if (mode == 2) {
         if (auto* const buttonSkillElement = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonSkill); buttonSkillElement) buttonSkillElement->visible = 1;
@@ -350,7 +350,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowRuntime_DrawCurrent();
-    const auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
+    const auto mode = static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
         std::wstring_view name;
         if (world::gSelectedBattlePetTechniqueIndex_553F84 < 0) {
@@ -362,9 +362,9 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
                 && technique < world::kPetTechniqueSlotCount)
                 name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name;
         }
-        if (auto* const element13 = gWindowStates[WindowId_BattleCommand].window ? gWindowStates[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element13) element13->data.text->text = name;
+        if (auto* const element13 = WindowRuntime_States()[WindowId_BattleCommand].window ? WindowRuntime_States()[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element13) element13->data.text->text = name;
     }
-    if (gWindowStates[WindowId_BattleCommand].userState.value == 0) {
+    if (WindowRuntime_States()[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
         for (; first < 20; ++first) {
             const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[first];
@@ -414,25 +414,25 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
 // 原函数：0x00496AE0。
 static void WindowBattleCommand_Close()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr) {
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr) {
         return;
     }
-    if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10) > 0) {
-        gWindowStates[WindowId_BattleCommand].value10 = 0;
+    if (std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value10) > 0) {
+        WindowRuntime_States()[WindowId_BattleCommand].value10 = 0;
     }
-    if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) < 0) {
-        gWindowStates[WindowId_BattleCommand].value14 = 0;
+    if (std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_BattleCommand].value14) < 0) {
+        WindowRuntime_States()[WindowId_BattleCommand].value14 = 0;
     }
-    WindowInstance* window = gWindowStates[WindowId_Skill].window;
-    gWindowStates[WindowId_BattleCommand].userState.value = 2;
+    WindowInstance* window = WindowRuntime_States()[WindowId_Skill].window;
+    WindowRuntime_States()[WindowId_BattleCommand].userState.value = 2;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[WindowId_BattleItems].window;
+    window = WindowRuntime_States()[WindowId_BattleItems].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[WindowId_BattlePets].window;
+    window = WindowRuntime_States()[WindowId_BattlePets].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -457,15 +457,15 @@ static void WindowBattleCommand_Close()
 static void WindowBattleCommand_ResetSelection()
 {
     world::gBattleSelectionModes5ABC7C.fill(0);
-    WindowInstance* window = gWindowStates[WindowId_Skill].window;
+    WindowInstance* window = WindowRuntime_States()[WindowId_Skill].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[WindowId_BattleItems].window;
+    window = WindowRuntime_States()[WindowId_BattleItems].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[WindowId_BattlePets].window;
+    window = WindowRuntime_States()[WindowId_BattlePets].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -489,7 +489,7 @@ static void WindowBattleCommand_ResetSelection()
 // L05：Lua动作已发送后，沿既有战斗窗口和选择状态收尾顺序提交该回合。
 void WindowBattleCommand_FinishAutoAction()
 {
-    gWindowStates[WindowId_BattleCommand].userState.value = 0;
+    WindowRuntime_States()[WindowId_BattleCommand].userState.value = 0;
     cg::world::gBattleCountdownActive5ABCB8 = 0;
     cg::yobi::FlushBattleEntries_43C060();
     WindowBattleCommand_Close();
@@ -501,7 +501,7 @@ void WindowBattleCommand_FinishAutoAction()
     cg::world::gBattleCommandState5ABC3C = 5;
     cg::world::gBattleSnapshotPetIndex5ABBFC = -1;
     WindowBattleCommand_ResetSelection();
-    if (auto* window = gWindowStates[WindowId_BattleCommand].window) window->state |= 0x8000u;
+    if (auto* window = WindowRuntime_States()[WindowId_BattleCommand].window) window->state |= 0x8000u;
 }
 
 // 原函数：0x004972B0。
@@ -512,7 +512,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(const ElementId elementId, 
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9C4;
             if (world::gBattleSelectionModes5ABC7C[0] != 0) {
                 graphic->imageNo = 0x3B9C5;
@@ -556,7 +556,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const ElementId elementId, 
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D0;
             if (world::gBattleSelectionModes5ABC7C[1] != 0) {
                 graphic->imageNo = 0x3B9D1;
@@ -603,7 +603,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(const ElementId elementId, co
             graphic->imageNo = 0x3B9D4;
             return 0;
         }
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D3;
             if (world::gBattleSelectionModes5ABC7C[3] != 0) {
                 graphic->imageNo = 0x3B9D4;
@@ -641,7 +641,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(const ElementId elementId, co
         if (world::gBattleSelectionModes5ABC7C[3] != 0) {
             graphic->imageNo = 0x3B9D4;
         }
-        if (gWindowStates[WindowId_BattleItems].window != nullptr) {
+        if (WindowRuntime_States()[WindowId_BattleItems].window != nullptr) {
             gBattleItemWindowActionD2F790 = nullptr;
         } else if (gBattleItemWindowActionD2F790 == nullptr && gBattleItemTargetFlagCC4D40 == 0) {
             world::gBattleSelectionModes5ABC7C[3] = 0;
@@ -663,7 +663,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const ElementId elementId, con
             graphic->imageNo = 0x3B9CB;
             return 0;
         }
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9CA;
             if (world::gBattleSelectionModes5ABC7C[4] != 0) {
                 graphic->imageNo = 0x3B9CB;
@@ -688,7 +688,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const ElementId elementId, con
             }
         } else if ((*reinterpret_cast<const std::uint8_t*>(
             &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
-            WindowInstance* const window = gWindowStates[WindowId_BattlePets].window;
+            WindowInstance* const window = WindowRuntime_States()[WindowId_BattlePets].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
             }
@@ -700,7 +700,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(const ElementId elementId, con
         if (world::gBattleSelectionModes5ABC7C[4] != 0) {
             graphic->imageNo = 0x3B9CB;
         }
-        if (gWindowStates[WindowId_BattlePets].window != nullptr) {
+        if (WindowRuntime_States()[WindowId_BattlePets].window != nullptr) {
             gBattlePetWindowActionD2D60C = nullptr;
         } else if (gBattlePetWindowActionD2D60C == nullptr) {
             world::gBattleSelectionModes5ABC7C[4] = 0;
@@ -722,7 +722,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const ElementId elementI
             graphic->imageNo = 0x3B9D7;
             return 0;
         }
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D6;
             if (world::gBattleSelectionModes5ABC7C[6] != 0) {
                 graphic->imageNo = 0x3B9D7;
@@ -765,7 +765,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const ElementId elementId, 
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D9;
             if (world::gBattleSelectionModes5ABC7C[7] != 0) {
                 graphic->imageNo = 0x3B9DA;
@@ -818,7 +818,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const ElementId elementId,
             return 0;
         }
         element->visible = 1;
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9CD;
             if (world::gBattleSelectionModes5ABC7C[8] != 0) {
                 graphic->imageNo = 0x3B9CE;
@@ -870,13 +870,13 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const ElementId elementId,
 // 原函数：0x00496FB0。
 std::int32_t WindowBattleCommand_CanSelectSkill()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -887,13 +887,13 @@ std::int32_t WindowBattleCommand_CanSelectSkill()
 // 原函数：0x004970B0。
 std::int32_t WindowBattleCommand_CanSelectItem()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -904,13 +904,13 @@ std::int32_t WindowBattleCommand_CanSelectItem()
 // 原函数：0x00497100。
 void WindowBattleCommand_OpenItems()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0
         || world::gBattleSelectionModes5ABC7C[3] != 0) {
@@ -931,13 +931,13 @@ void WindowBattleCommand_OpenItems()
 // 原函数：0x004971C0。
 std::int32_t WindowBattleCommand_CanSelectPet()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        static_cast<std::uint8_t>(WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -948,13 +948,13 @@ std::int32_t WindowBattleCommand_CanSelectPet()
 // 原函数：0x00497210。
 void WindowBattleCommand_OpenPets()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0
         || world::gBattleSelectionModes5ABC7C[4] != 0) {
@@ -973,13 +973,13 @@ void WindowBattleCommand_OpenPets()
 // 原函数：0x00497000。
 void WindowBattleCommand_OpenSkills()
 {
-    if (gWindowStates[WindowId_BattleCommand].window == nullptr
-        || gWindowStates[WindowId_BattleCommand].userState.value != 0
+    if (WindowRuntime_States()[WindowId_BattleCommand].window == nullptr
+        || WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0
         || world::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::gBattleSkillUsed5ABC68 != 0
         || world::gBattleSelectionModes5ABC7C[2] != 0) {
@@ -1040,7 +1040,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(const ElementId elementId, c
             graphic->imageNo = 0x3B9C8;
             return 0;
         }
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9C7;
             if (world::gBattleSelectionModes5ABC7C[2] != 0) {
                 graphic->imageNo = 0x3B9C8;
@@ -1073,7 +1073,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(const ElementId elementId, c
                     world::gBattleSelectedSkill5ABB5C, &WindowBattleCommand_SelectSkill);
                 gBattleSkillTargetPendingD303F8 = 0;
                 cg::yobi::FlushBattleEntries_43C060();
-            } else if (gWindowStates[WindowId_Skill].window != nullptr) {
+            } else if (WindowRuntime_States()[WindowId_Skill].window != nullptr) {
                 if (WindowSkill_Back() != 0) {
                     world::gBattleSelectionModes5ABC7C[2] = 0;
                 }
@@ -1088,7 +1088,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(const ElementId elementId, c
         if (world::gBattleSelectionModes5ABC7C[2] != 0) {
             graphic->imageNo = 0x3B9C8;
         }
-        if (gWindowStates[WindowId_Skill].window != nullptr) {
+        if (WindowRuntime_States()[WindowId_Skill].window != nullptr) {
             gBattleSkillWindowActionCC1A10 = nullptr;
         } else if (gBattleSkillWindowActionCC1A10 == nullptr && gBattleSkillTargetPendingD303F8 == 0) {
             world::gBattleSelectionModes5ABC7C[2] = 0;
@@ -1203,12 +1203,12 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const ElementId elementI
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value != 0) {
             return 0;
         }
         std::int32_t consumed = 0;
         const std::int32_t entryState = state;
-        WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+        WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
         const std::int32_t hover = entryState & MouseFlag_Hover;
         if (hover != 0 && window != nullptr) {
             gHoverTextD68AE8 = L"关闭技能视窗。";
@@ -1225,7 +1225,7 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const ElementId elementI
             } else {
                 cg::yobi::FlushBattleEntries_43C060();
                 const std::uint8_t actionState =
-                    reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C)[0];
+                    reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States()[WindowId_BattleCommand].actionFlags1C)[0];
                 world::gBattlePetCommandPhase553F88 = 1;
                 const bool riding = actionState == 4;
                 world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
@@ -1238,9 +1238,9 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(const ElementId elementI
         if (hover != 0) {
             graphic->imageNo = 0x3B9C9;
         }
-        if (gWindowStates[WindowId_Skill].window != nullptr || gBattlePetSkillWindowActionCC423C != nullptr) {
+        if (WindowRuntime_States()[WindowId_Skill].window != nullptr || gBattlePetSkillWindowActionCC423C != nullptr) {
             graphic->imageNo = 0x3B9C8;
-            if (gWindowStates[WindowId_Skill].window != nullptr) {
+            if (WindowRuntime_States()[WindowId_Skill].window != nullptr) {
                 gBattlePetSkillWindowActionCC423C = nullptr;
             }
         }
@@ -1483,7 +1483,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         break;
     }
     case 2:
-        if (gWindowStates[WindowId_BattleCommand].userState.value == 3) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value == 3) {
             const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
             cg::world::gBattlePlayerActionState5ABC74 = 0;
             if (count == 1) {
@@ -1618,7 +1618,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
-                    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
+                    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
                     if (window != nullptr) {
                         window->state |= 0x8000u;
                     }
@@ -1698,7 +1698,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         break;
     }
     case 5:
-        if (gWindowStates[WindowId_BattleCommand].userState.value == 3) {
+        if (WindowRuntime_States()[WindowId_BattleCommand].userState.value == 3) {
             cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[cg::world::gBattleCurrentPosition5ABCA4];
             if (*cg::yobi::FindBattleRiderSlot(player) != nullptr && cg::world::gBattlePetActionCount5ABBBC < 2) {
                 cg::world::gBattlePlayerActionState5ABC74 = 0;

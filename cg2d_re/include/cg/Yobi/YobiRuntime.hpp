@@ -221,6 +221,10 @@ YobiAction* CreateWindowOpeningAnimation_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     YobiAction** completionSlot);
+YobiAction* CreateWindowOpeningAnimation_475950(
+    session::ClientSession& session, std::int32_t x, std::int32_t y,
+    std::int32_t width, std::int32_t height, std::int32_t id,
+    std::uint32_t flags, std::uint32_t mode, YobiAction** completionSlot);
 
 // 原48AC60完整数量展开；maximum为S32，callback为非拥有原生函数指针。
 YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(

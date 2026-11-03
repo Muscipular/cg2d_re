@@ -292,10 +292,10 @@ std::int32_t WindowStatusBar_ButtonEmote(const ElementId elementId, const std::i
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    WindowInstance* window = gWindowStates[WindowId_Emote].window;
+    WindowInstance* window = WindowRuntime_States()[WindowId_Emote].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
-        window = gWindowStates[WindowId_Emote].window;
+        window = WindowRuntime_States()[WindowId_Emote].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -314,10 +314,10 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const ElementId elementId, const std:
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
+    WindowInstance* window = WindowRuntime_States()[WindowId_MiniMap].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
-        window = gWindowStates[WindowId_MiniMap].window;
+        window = WindowRuntime_States()[WindowId_MiniMap].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -616,25 +616,25 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (candidate <= 4) {
-                WindowInstance* const details = gWindowStates[WindowId_PetDetail].window;
+                WindowInstance* const details = WindowRuntime_States()[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = candidate;
                 if (details != nullptr) {
                     details->state |= 0x8000u;
                 }
-                WindowInstance* const skills = gWindowStates[WindowId_PetSkills].window;
+                WindowInstance* const skills = WindowRuntime_States()[WindowId_PetSkills].window;
                 if (skills != nullptr) {
                     skills->state |= 0x8000u;
                 }
-                if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
                     equipment->state |= 0x8000u;
                 }
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetAttributes, 1, 0, nullptr));
             } else {
-                WindowInstance* const profile = gWindowStates[WindowId_PlayerProfile].window;
+                WindowInstance* const profile = WindowRuntime_States()[WindowId_PlayerProfile].window;
                 if (profile != nullptr) {
                     profile->state |= 0x8000u;
                 }
-                WindowInstance* const titles = gWindowStates[WindowId_PlayerTitles].window;
+                WindowInstance* const titles = WindowRuntime_States()[WindowId_PlayerTitles].window;
                 if (titles != nullptr) {
                     titles->state |= 0x8000u;
                 }
@@ -737,25 +737,25 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (target != -1) {
                 if (target == 0) {
-                    WindowInstance* const attributes = gWindowStates[WindowId_PlayerAttributes].window;
+                    WindowInstance* const attributes = WindowRuntime_States()[WindowId_PlayerAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const titles = gWindowStates[WindowId_PlayerTitles].window;
+                    WindowInstance* const titles = WindowRuntime_States()[WindowId_PlayerTitles].window;
                     if (titles != nullptr) {
                         titles->state |= 0x8000u;
                     }
                     static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerProfile, 1, 0, nullptr));
                 } else {
-                    WindowInstance* const attributes = gWindowStates[WindowId_PetAttributes].window;
+                    WindowInstance* const attributes = WindowRuntime_States()[WindowId_PetAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const skills = gWindowStates[WindowId_PetSkills].window;
+                    WindowInstance* const skills = WindowRuntime_States()[WindowId_PetSkills].window;
                     if (skills != nullptr) {
                         skills->state |= 0x8000u;
                     }
-                    if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                    if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
                         equipment->state |= 0x8000u;
                     }
                     gLoginWindowRuntime.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);

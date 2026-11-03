@@ -34,6 +34,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, E
 
 // 原函数：0x0049B670。
 static void WindowBattlePets_Refresh(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int32_t petIndex,
     std::uint8_t textLayer, std::int32_t graphicLayer,
     const render::GraphicDescriptor16* descriptor); // 快照数值与宠物属性行，唯一caller弃返回。
@@ -114,10 +115,12 @@ static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow
 
 // 原函数：0x0049B670。
 static void WindowBattlePets_Refresh(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int32_t petIndex,
     const std::uint8_t textLayer, const std::int32_t graphicLayer,
     const render::GraphicDescriptor16* const descriptor)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     std::int32_t battleImage = 0x3B58D;
     std::int32_t readyImage = 0x3B58A;
     const auto& pet = world::gPetRuntimeRecords[petIndex];
@@ -139,12 +142,12 @@ static void WindowBattlePets_Refresh(
         if (tribe >= 0 && tribe < 20) {
             drawText(gTribeNames57CB54[tribe], 130, 19);
         }
-        const std::int32_t maxHp = gBattlePetVitalsCF4B78[petIndex].maxHp;
-        const std::int32_t hp = gBattlePetVitalsCF4B78[petIndex].hp;
+        const std::int32_t maxHp = inventory.battlePetVitals[petIndex].maxHp;
+        const std::int32_t hp = inventory.battlePetVitals[petIndex].hp;
         cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         drawText(buffer, 35, 19);
-        const std::int32_t maxFp = gBattlePetVitalsCF4B78[petIndex].maxFp;
-        const std::int32_t fp = gBattlePetVitalsCF4B78[petIndex].fp;
+        const std::int32_t maxFp = inventory.battlePetVitals[petIndex].maxFp;
+        const std::int32_t fp = inventory.battlePetVitals[petIndex].fp;
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         drawText(buffer, 35, 32);
         for (std::int32_t row = 0; row < 4; ++row) {
@@ -190,6 +193,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
@@ -232,14 +236,14 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                     }
                     flags = pet.flags6AA;
                     if (flags != 2) {
-                        const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
+                        const wchar_t* const hint = inventory.battlePetVitals[selected].hp > 0
                             ? L"召唤宠物。"
                             : L"这只宠物昏倒了。";
                         uiFrame.hoverText = hint;
                     }
                 }
                 if ((state & MouseFlag_LDownEvent) != 0) {
-                    if (gBattlePetVitalsCF4B78[selected].hp <= 0 || flags == 2) {
+                    if (inventory.battlePetVitals[selected].hp <= 0 || flags == 2) {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         std::array<char, 768> buffer;
@@ -253,7 +257,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                 }
             }
         }
-        WindowBattlePets_Refresh(x, y, selected, 3, 223, &descriptor);
+        WindowBattlePets_Refresh(*callbackWindow.ownerSession, x, y, selected, 3, 223, &descriptor);
         return consumed;
     }
     return 0;

@@ -77,6 +77,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     if (value == -1) {
         if (business.prefixD2F0B8.value10 != 1) {
             WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
@@ -94,7 +95,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
             petWindow->state |= 0x8000u;
             const std::int32_t oldSlot = business.prefixD2F0B8.value0C;
             if (oldSlot != -1) {
-                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                 auto count = occupancy[oldSlot];
                 business.prefixD2F0B8.value0C = -1;
                 --count;
@@ -175,6 +176,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
 // 原函数：0x004A5650。
 void WindowMailCompose_Release(WindowInstance& releasedWindow)
 {
+    auto& inventory = releasedWindow.ownerSession->UiFrame().native.inventory;
     auto& business = releasedWindow.ownerSession->UiFrame().native.business;
     auto& inputs = releasedWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t category = business.prefixD2F0B8.value00;
@@ -189,7 +191,7 @@ void WindowMailCompose_Release(WindowInstance& releasedWindow)
     business.mailDraftCF4BC8.value0C = oldSlot;
     cg::text::StoreGbk(reinterpret_cast<char*>(business.mailDraftCF4BC8.bytes14.data()), business.mailDraftCF4BC8.bytes14.size(), input::ContextText(inputs.mail));
     if (oldSlot != -1) {
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
         auto count = occupancy[oldSlot];
         business.prefixD2F0B8.value0C = -1;
         --count;

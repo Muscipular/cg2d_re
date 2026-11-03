@@ -570,6 +570,7 @@ static void WindowShop_RemoveSaleSelection(session::ClientSession& session, Wind
 // 原函数：0x004B6DC0。
 static void WindowShop_Release(WindowInstance& releasedWindow)
 {
+    auto& inventory = releasedWindow.ownerSession->UiFrame().native.inventory;
     auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& shop = releasedWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = releasedWindow.ownerSession->UiFrame().native.material;
@@ -577,7 +578,7 @@ static void WindowShop_Release(WindowInstance& releasedWindow)
         npcDialog.type = -1;
     }
     if (std::bit_cast<std::int8_t>(materialState.shopMode) > 0) {
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
         for (std::int32_t slot = 0; slot < 28; ++slot) {
             --occupancy[slot];
         }
@@ -645,6 +646,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
 // 原函数：0x004B70D0。
 cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const char* const text)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
@@ -727,7 +729,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
     shop.selectedSlots.fill(static_cast<char>(-1));
     shop.itemCount = 20;
     shop.currencyItemId = -1;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -738,6 +740,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
 // 原函数：0x004B74E0。
 cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, const char* const text)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
@@ -796,7 +799,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
         }
         ++shop.itemCount;
     }
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -807,6 +810,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
 // 原函数：0x004B77E0。
 cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session, const char* const text)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
@@ -854,7 +858,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
     shop.detailSelected = 0;
     shop.currencyItemId = value;
     shop.valueD672D4 = 0;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
@@ -867,6 +871,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     session::ClientSession& session,
     const char* const text, const char mode, const std::wstring_view prompt)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
@@ -949,7 +954,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     shop.selectionMask = 0;
     shop.itemCount = 20;
     shop.currencyItemId = value;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }

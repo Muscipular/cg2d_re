@@ -220,6 +220,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -238,7 +239,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
             business.prefixD2F0B8.value10 = 0;
             business.prefixD2F0B8.value00 = category;
             if (oldSlot != -1) {
-                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                 auto value = occupancy[oldSlot];
                 business.prefixD2F0B8.value0C = -1;
                 --value;

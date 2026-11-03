@@ -44,6 +44,7 @@ namespace cg::world {
 // 原 [0x51C430,0x51C726)，188 条指令、13 项主分发表和 5 项次分发表。
 void Update(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     const std::int32_t pendingSceneType = gPendingSceneType;
     if (pendingSceneType >= 0) {
         gCurrentSceneType = pendingSceneType;
@@ -138,7 +139,7 @@ void Update(session::ClientSession& session)
         ClearMapName_9DAD30();
         SetCurrentSceneType(6);
         cg::audio::BeginBgmFadeOut_52B990();
-        gInventorySlotUseCounts_D67B08.fill(0);
+        inventory.slotUseCounts.fill(0);
         return;
     case 6:
         session.WorldScene().frameBackgroundMode = 0;

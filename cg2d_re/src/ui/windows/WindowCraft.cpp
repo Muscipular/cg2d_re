@@ -285,9 +285,10 @@ std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, co
 // 原函数：0x0047DC20。
 static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session, const std::int32_t index)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& materialState = session.UiFrame().native.material;
     auto& craft = session.UiFrame().native.craft;
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     if (index < 6) {
         const std::int32_t slot = craft.selectedSlots[index];
         if (slot < 0) {
@@ -960,6 +961,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1014,7 +1016,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                             craft.selectionImages[destination] = imageNo;
                             craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
                             craft.materialIndices[destination] = -1;
-                            auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                            auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                             const unsigned char previous = hover[source];
                             craft.itemMarks[source] = 1;
                             hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1050,7 +1052,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     craft.selectionImages[destination] = imageNo;
                     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
                     craft.materialIndices[destination] = material;
-                    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                     const unsigned char previous = hover[source];
                     craft.itemMarks[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1096,7 +1098,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     craft.selectionImages[destination] = item->imageNo;
                     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
                     craft.materialIndices[destination] = 0;
-                    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                     const unsigned char previous = hover[source];
                     craft.itemMarks[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
@@ -1363,6 +1365,7 @@ static void WindowCraft_ReleaseMaterialSlot(
     session::ClientSession& session,
     const std::int32_t destination, const std::int32_t source, const std::int32_t material)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& craft = session.UiFrame().native.craft;
     static_cast<void>(WindowCraft_ReleaseMaterials(session, destination));
     craft.selectedSlots[destination] = source - 8;
@@ -1371,7 +1374,7 @@ static void WindowCraft_ReleaseMaterialSlot(
     craft.selectionImages[destination] = item->imageNo;
     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(session, itemId);
     craft.materialIndices[destination] = material;
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     hover[source] = static_cast<unsigned char>(hover[source] + 1);
     craft.itemMarks[source] = 1;
 }
@@ -1978,6 +1981,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1986,7 +1990,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hoverMarks = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
@@ -2513,6 +2517,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2535,7 +2540,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
             craft.selectedImage = item->imageNo;
             craft.selectedCount = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
             const std::int32_t skill = craft.skillIndex;
-            auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+            auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const unsigned char previous = hover[source];
             const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
             hover[source] = static_cast<unsigned char>(previous + 1);

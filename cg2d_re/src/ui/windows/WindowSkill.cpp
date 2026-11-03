@@ -322,11 +322,12 @@ WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30,
 // 原函数：0x004797C0。
 void WindowSkill_AdjustSpecialHoverCount(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     if (skillOperation.rebirthEnabled == 0) {
         return;
     }
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     if (first == 7) {
         hover[7] = static_cast<unsigned char>(hover[7] + 1);
         hover[second] = static_cast<unsigned char>(hover[second] - 1);
@@ -1735,6 +1736,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     WindowInstance* const initialWindow = currentWindow;
@@ -1766,7 +1768,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(session.Connection().SendWorldActionRequest(x, y, rebirth != 0 ? 62 : 61));
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const std::uint8_t previous = occupancy[7];
             skillOperation.rebirthEnabled = rebirth != 0 ? 0 : 1;
             occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));

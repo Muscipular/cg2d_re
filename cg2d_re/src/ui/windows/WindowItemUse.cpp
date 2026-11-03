@@ -35,6 +35,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
 // 原函数：0x0048AEA0。
 static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& targets = session.UiFrame().native.itemTargets;
     if (index >= 0) {
         static_cast<void>(session.Connection().SelectItemTextTarget(index));
@@ -42,13 +43,13 @@ static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& sessi
         return 0;
     }
     if (index == -1) {
-        const std::int32_t selected = gSelectedItemCB1DF4;
+        const std::int32_t selected = inventory.selectedItem;
         if (selected >= 0) {
-            --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
+            --reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data())[selected];
         }
         --targets.references;
         if (std::bit_cast<std::int8_t>(targets.references) <= 0) {
-            gSelectedItemCB1DF4 = -1;
+            inventory.selectedItem = -1;
         }
     }
     return 1;
@@ -57,6 +58,7 @@ static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& sessi
 // 原函数：0x0048AF00。
 static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& targets = session.UiFrame().native.itemTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -71,9 +73,9 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSessio
             window->state |= 0x8000u;
         }
     }
-    const std::int32_t selected = gSelectedItemCB0A44;
-    gSelectedItemCB1DF4 = selected;
-    ++reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
+    const std::int32_t selected = inventory.currentItem;
+    inventory.selectedItem = selected;
+    ++reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data())[selected];
     ++targets.references;
     cg::yobi::YobiAction* const result = WindowTextTarget_Open(
         session, targets.names.data(), targets.colors.data(),
@@ -81,9 +83,9 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSessio
     if (result == nullptr) {
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_TextTarget].window;
         if (window == nullptr || (window->state & 0x8000u) != 0) {
-            const std::int32_t previous = gSelectedItemCB1DF4;
-            gSelectedItemCB1DF4 = -1;
-            --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[previous];
+            const std::int32_t previous = inventory.selectedItem;
+            inventory.selectedItem = -1;
+            --reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data())[previous];
             --targets.references;
         }
     }
@@ -143,26 +145,27 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSes
 // 原函数：0x0048B010。
 static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& targets = session.UiFrame().native.itemTargets;
     if (index == -3) {
         static_cast<void>(session.Connection().RequestItemTargetAttributes());
         return 0;
     }
     if (index >= 0) {
-        const std::int32_t item = gSelectedItemCB0A44;
+        const std::int32_t item = inventory.currentItem;
         const std::int32_t target = targets.attributes[index].target;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().SendItemUseRequest(x, y, item, target));
     }
     if (index == -1) {
-        const std::int32_t selected = gSelectedItemCB1DF4;
+        const std::int32_t selected = inventory.selectedItem;
         if (selected >= 0) {
-            --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
+            --reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data())[selected];
         }
         --targets.references;
         if (std::bit_cast<std::int8_t>(targets.references) <= 0) {
-            gSelectedItemCB1DF4 = -1;
+            inventory.selectedItem = -1;
         }
     }
     return 1;
@@ -171,6 +174,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& 
 // 原函数：0x0048B0A0。
 static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& targets = session.UiFrame().native.itemTargets;
     const std::int32_t count = targets.attributeCount;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -201,7 +205,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientS
         retainReference = window != nullptr && (window->state & 0x8000u) == 0;
     }
     if (retainReference) {
-        ++reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[gSelectedItemCB1DF4];
+        ++reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data())[inventory.selectedItem];
         ++targets.references;
     }
     return result;

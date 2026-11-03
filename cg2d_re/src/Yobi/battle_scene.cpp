@@ -301,7 +301,7 @@ void InitializeBattleScene_4383F0(session::ClientSession& session)
     session.Yobi().screenOffsetRising = 0;
     session.Yobi().screenOffsetAmplitude = 0;
     session.Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
-    ui::detail::WindowBattleCommand_SnapshotPetVitals();
+    ui::detail::WindowBattleCommand_SnapshotPetVitals(session);
 }
 
 

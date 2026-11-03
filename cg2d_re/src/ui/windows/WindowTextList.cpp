@@ -265,11 +265,12 @@ void WindowTextList_ContinueDialog(session::ClientSession& session, const char* 
 // 原函数：0x004AD780。
 static void WindowTextList_Release(WindowInstance& releasedWindow)
 {
+    auto& inventory = releasedWindow.ownerSession->UiFrame().native.inventory;
     auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& textList = releasedWindow.ownerSession->UiFrame().native.textList;
     WindowTextList_ReleaseLines(*releasedWindow.ownerSession);
     if (textList.selectedItem >= 0) {
-        auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+        auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
         const unsigned char value = hover[textList.selectedItem];
         if (std::bit_cast<std::int8_t>(value) >= 0) {
             hover[textList.selectedItem] = static_cast<unsigned char>(value - 1);
@@ -729,6 +730,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
     auto& textList = callbackWindow.ownerSession->UiFrame().native.textList;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     WindowInstance* const window = currentWindow;
     auto* const xElement = window->FindElementById(elementId);
     if (!xElement) { return 0; }
@@ -744,7 +746,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 8) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;

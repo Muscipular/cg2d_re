@@ -312,6 +312,15 @@ struct Window54SkillRecord {
     std::byte byte5F; // 原成员偏移：+0x5F。
 };
 
+// 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。
+struct BattlePetVitals {
+    std::int32_t hp;
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp;
+};
+static_assert(sizeof(BattlePetVitals) == 0x10);
+
 // 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
 struct WindowTradeItem {
     std::uint16_t used; // 原成员偏移：+0x00。
@@ -956,6 +965,15 @@ struct StorageWindowRuntimeState {
 };
 static_assert(sizeof(StorageWindowRuntimeState::pets) == sizeof(detail::WindowStoragePet) * 5);
 
+// 背包选择与各窗口共用的占用计数，七DWORD仍通过同一连续28字节区消费。
+struct InventoryWindowRuntimeState {
+    std::array<std::uint32_t, 7> slotUseCounts {}; // 原0xD67B08。
+    std::int32_t selectedItem = 0; // 原0xCB1DF4。
+    std::int32_t currentItem = 0; // 原0xCB0A44。
+    std::array<detail::BattlePetVitals, 5> battlePetVitals {}; // 原0xCF4B78。
+};
+static_assert(sizeof(InventoryWindowRuntimeState::slotUseCounts) == 7 * sizeof(std::uint32_t));
+
 // 同会话跨窗口共用的拖动、提示、预览和请求节流，不合并为某个业务窗的私有状态。
 struct WindowInteractionRuntimeState {
     std::int32_t dragItemIndex = -1; // 原0x584DA4。
@@ -1261,6 +1279,7 @@ struct NativeWindowRuntimeState {
     TradeWindowRuntimeState trade {};
     StorageWindowRuntimeState storage {};
     WindowInteractionRuntimeState interaction {};
+    InventoryWindowRuntimeState inventory {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
     std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。

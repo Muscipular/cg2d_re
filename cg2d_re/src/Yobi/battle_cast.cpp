@@ -3753,7 +3753,7 @@ void UpdateBattleAction223_413FE0(YobiAction* const action)
         return;
     }
     if (position == -2 && cg::world::gBattleSnapshotPetIndex5ABBFC >= 0) {
-        ui::detail::WindowBattleCommand_SyncActorVitals();
+        ui::detail::WindowBattleCommand_SyncActorVitals(*action->ownerSession);
         cg::world::gBattleSnapshotPetIndex5ABBFC = -1;
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));

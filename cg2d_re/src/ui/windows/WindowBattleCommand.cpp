@@ -1813,23 +1813,25 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
 }
 
 // 原函数：0x00496570。
-void WindowBattleCommand_SnapshotPetVitals()
+void WindowBattleCommand_SnapshotPetVitals(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     if (world::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
-    for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
+    for (std::size_t index = 0; index < inventory.battlePetVitals.size(); ++index) {
         auto& pet = world::gPetRuntimeRecords[index];
-        gBattlePetVitalsCF4B78[index].hp = static_cast<std::int32_t>(pet.values0C[0]);
-        gBattlePetVitalsCF4B78[index].maxHp = static_cast<std::int32_t>(pet.values0C[1]);
-        gBattlePetVitalsCF4B78[index].fp = static_cast<std::int32_t>(pet.values0C[2]);
-        gBattlePetVitalsCF4B78[index].maxFp = static_cast<std::int32_t>(pet.values0C[3]);
+        inventory.battlePetVitals[index].hp = static_cast<std::int32_t>(pet.values0C[0]);
+        inventory.battlePetVitals[index].maxHp = static_cast<std::int32_t>(pet.values0C[1]);
+        inventory.battlePetVitals[index].fp = static_cast<std::int32_t>(pet.values0C[2]);
+        inventory.battlePetVitals[index].maxFp = static_cast<std::int32_t>(pet.values0C[3]);
     }
 }
 
 // 原函数：0x004965D0。
-void WindowBattleCommand_SyncActorVitals()
+void WindowBattleCommand_SyncActorVitals(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
     if (position >= 20 || cg::world::gBattleSnapshotPetIndex5ABBFC < 0) {
         return;
@@ -1844,15 +1846,15 @@ void WindowBattleCommand_SyncActorVitals()
         return;
     }
     const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(cg::world::gBattleEntries59E980[petPosition]);
-    gBattlePetVitalsCF4B78[cg::world::gBattleSnapshotPetIndex5ABBFC].hp = hp;
+    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].hp = hp;
     const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(cg::world::gBattleEntries59E980[petPosition]);
     const std::int32_t maxHpIndex = cg::world::gBattleSnapshotPetIndex5ABBFC;
     cg::yobi::YobiAction* const fpAction = cg::world::gBattleEntries59E980[petPosition];
-    gBattlePetVitalsCF4B78[maxHpIndex].maxHp = maxHp;
+    inventory.battlePetVitals[maxHpIndex].maxHp = maxHp;
     const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(fpAction);
-    gBattlePetVitalsCF4B78[cg::world::gBattleSnapshotPetIndex5ABBFC].fp = fp;
+    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].fp = fp;
     const std::int32_t maxFp = cg::yobi::ReadYobiActionMaxFpOnce(cg::world::gBattleEntries59E980[petPosition]);
-    gBattlePetVitalsCF4B78[cg::world::gBattleSnapshotPetIndex5ABBFC].maxFp = maxFp;
+    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].maxFp = maxFp;
 }
 
 } // namespace detail

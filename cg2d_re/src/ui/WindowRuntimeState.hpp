@@ -393,9 +393,9 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session); // 完整六
 // 原函数：0x0043C950。
 void WindowBattleStateNotice_Open(session::ClientSession& session); // 玩家入场位且动画/窗口32均空才创建，失败也播放原音效。
 // 原函数：0x00496570。
-void WindowBattleCommand_SnapshotPetVitals(); // 五宠物四项CryptInt快照，唯一CF4B78数组生产。
+void WindowBattleCommand_SnapshotPetVitals(session::ClientSession& session); // 五宠物四项CryptInt快照，唯一CF4B78数组生产。
 // 原函数：0x004965D0。
-void WindowBattleCommand_SyncActorVitals(); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
+void WindowBattleCommand_SyncActorVitals(session::ClientSession& session); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
 // 原函数：0x0047A5C0。
 std::int32_t WindowSkill_Back(session::ClientSession& session); // 战斗返回：模式4退列表，0/3/5/6关闭。
 // 原函数：0x00479650。
@@ -672,8 +672,6 @@ extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 49
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
-extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
-extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
 extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。

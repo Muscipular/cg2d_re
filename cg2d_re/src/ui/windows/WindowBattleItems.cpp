@@ -304,6 +304,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     constexpr std::int32_t kBombType = 51;
     constexpr std::int32_t kMedicineType = 43;
     static constexpr std::int32_t levelLimits[] {
@@ -356,7 +357,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto& items = world::gPlayerRuntimeSlots.items;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::wstring countText;
@@ -756,6 +757,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     static constexpr wchar_t noSpace[] = L"物品栏位不足！";
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -770,7 +772,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorD2F338, &items, &count)) {
         return 0;
     }
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) > 0) {

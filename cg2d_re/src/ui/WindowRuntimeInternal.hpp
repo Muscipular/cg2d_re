@@ -70,14 +70,6 @@ void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const Win
 std::int32_t WindowPetSkills_GetPreviewPage(session::ClientSession& session, const void* identity, std::int32_t pageCount = 2);
 
 
-// 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。
-struct BattlePetVitals {
-    std::int32_t hp;
-    std::int32_t maxHp;
-    std::int32_t fp;
-    std::int32_t maxFp;
-};
-
 inline constexpr std::array<std::array<std::int32_t, 2>, 6> kCraftAlternateActionImages {{
     {0x186A0, 0x18A87}, {0x19A28, 0x1A130}, {0x197D0, 0x19848},
     {0x1D524, 0x1D553}, {0x1D55C, 0x1D563}, {0x1AF0E, 0x1AF25},
@@ -181,8 +173,6 @@ inline constexpr wchar_t kPetRenameHint586D38[] = L"变更宠物名字。"; // �
 
 extern std::uint8_t gItemSelectionModeCC40D4; // 原全局：0x00CC40D4。
 
-extern std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78; // 原全局：0x00CF4B78。
-
 extern std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
 extern MiniMailComposeState gMiniMailCompose105F508; // 原全局：0x0105F508。
@@ -236,8 +226,6 @@ std::int32_t WindowPetDetail_SavePetSequences(session::ClientSession& session);
 
 // 原函数：0x00492390。
 std::int32_t WindowPetDetail_HasPetSequenceChanges(session::ClientSession& session);
-
-static_assert(sizeof(BattlePetVitals) == 0x10);
 
 static_assert(offsetof(WindowMailGroupSlotsCC1A30, indices) == 8);
 

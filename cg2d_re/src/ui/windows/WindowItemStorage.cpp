@@ -137,6 +137,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -266,7 +267,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::gPlayerRuntimeSlots.items[position + 8];

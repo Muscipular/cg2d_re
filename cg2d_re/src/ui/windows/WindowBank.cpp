@@ -816,6 +816,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -825,7 +826,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.color = dimmedColor;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {

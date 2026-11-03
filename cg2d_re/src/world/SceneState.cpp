@@ -501,7 +501,6 @@ std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
-std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
 
 const std::wstring& GetMapName_9DAD30() noexcept
 {
@@ -533,8 +532,6 @@ volatile std::uint32_t gWorldCurrentXBits = 0; // 原 0x9DAD4C。
 volatile std::uint32_t gWorldCurrentYBits = 0; // 原 0x9DAD50。
 volatile std::uint32_t gWorldProjectionReferenceXBits = 0; // 原 0xC751A8。
 volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
-
-static_assert(sizeof(gInventorySlotUseCounts_D67B08) == 7 * sizeof(std::uint32_t));
 
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
@@ -4174,7 +4171,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 } while (index < 20);
             }
             gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0();
-            ui::detail::WindowBattleCommand_SyncActorVitals();
+            ui::detail::WindowBattleCommand_SyncActorVitals(session);
             if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Spectator].window == nullptr) {
                 static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));

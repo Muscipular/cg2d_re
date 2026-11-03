@@ -165,6 +165,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
@@ -174,7 +175,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const std::int32_t previous = business.prefixD2F0B8.value0C;
             if (previous != -1) {
                 --occupancy[previous];
@@ -194,7 +195,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
         if (selected >= 0) {
             static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, selected, 1));
             const std::int32_t current = business.prefixD2F0B8.value0C;
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+            auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             auto count = occupancy[current];
             business.prefixD2F0B8.value0C = -1;
             --count;

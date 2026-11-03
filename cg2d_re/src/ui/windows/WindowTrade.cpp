@@ -504,12 +504,13 @@ static void WindowTrade_SetPanelColor(
 // 原函数：0x004AFF30。
 static std::int32_t WindowTrade_AddItem(session::ClientSession& session, const std::int32_t index, const std::int32_t slot)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& trade = session.UiFrame().native.trade;
     if (std::bit_cast<std::int8_t>(trade.itemSlots[index]) >= 0) {
         return 0;
     }
     trade.itemSlots[index] = static_cast<std::uint8_t>(slot);
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     const std::uint8_t previous = hover[slot];
     trade.itemMarks[slot] = 1;
     hover[slot] = static_cast<std::uint8_t>(previous + 1);
@@ -551,13 +552,14 @@ static std::int32_t WindowTrade_SwapSelectedPets(session::ClientSession& session
 // 原函数：0x004AFF70。
 static std::int32_t WindowTrade_RemoveItem(session::ClientSession& session, const std::int32_t index)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& trade = session.UiFrame().native.trade;
     const std::int32_t slot = std::bit_cast<std::int8_t>(trade.itemSlots[index]);
     if (slot < 0) {
         return -1;
     }
     trade.itemSlots[index] = 0xFF;
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     const std::uint8_t previous = hover[slot];
     trade.itemMarks[slot] = 0;
     hover[slot] = static_cast<std::uint8_t>(previous - 1);
@@ -1085,13 +1087,14 @@ static void WindowTrade_HandleOwnInventory(
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const render::GraphicDescriptor16* const descriptor)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& trade = session.UiFrame().native.trade;
     auto& uiFrame = session.UiFrame();
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0x80FFFFFFu;
     dimmed.color = color;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(session) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));

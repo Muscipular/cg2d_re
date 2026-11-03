@@ -221,10 +221,6 @@ static_assert(0x60 + 10 * 0x8C == 0x5D8);
 
 static_assert(sizeof(WindowListSelectionCallback) == 8);
 
-std::int32_t gSelectedItemCB1DF4 = 0; // 原全局：0x00CB1DF4。
-
-std::int32_t gSelectedItemCB0A44 = 0; // 原全局：0x00CB0A44。
-
 std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
 
 std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
@@ -281,8 +277,6 @@ static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 1
 const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
 
 const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
-
-std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 
 std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
@@ -679,29 +673,30 @@ std::int32_t WindowRuntime_ReturnOne(const std::int32_t) noexcept
 // 原函数：0x0048BA60。
 void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     if (first >= 100 || second >= 100) {
         return;
     }
-    const std::int32_t selected = gSelectedItemCB1DF4;
+    const std::int32_t selected = inventory.selectedItem;
     if (selected == first) {
-        gSelectedItemCB1DF4 = second;
+        inventory.selectedItem = second;
     } else if (selected == second) {
-        gSelectedItemCB1DF4 = first;
+        inventory.selectedItem = first;
     }
     if (world::gPlayerRuntimeSlots.items[first].imageNo == 0x67C9
         || world::gPlayerRuntimeSlots.items[second].imageNo == 0x67C9) {
-        const std::int32_t previous = gSelectedItemCB0A44;
+        const std::int32_t previous = inventory.currentItem;
         if (previous == first) {
-            gSelectedItemCB0A44 = second;
+            inventory.currentItem = second;
         } else if (previous == second) {
-            gSelectedItemCB0A44 = first;
+            inventory.currentItem = first;
         }
     }
     WindowTrade_ResetSelection(session, first, second);
     WindowCraft_ResetSelection(session, first, second);
     WindowTrade_RemapTextListSelection(session, first, second);
     WindowSkill_AdjustSpecialHoverCount(session, first, second);
-    auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     const unsigned char secondValue = hover[second];
     const unsigned char firstValue = hover[first];
     hover[first] = secondValue;
@@ -1897,6 +1892,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& inventory = callbackWindow->ownerSession->UiFrame().native.inventory;
     auto* const panelElement = state->elements00[1].get();
     if (!panelElement) return;
     if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
@@ -1935,7 +1931,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
     }
     if (item->used != 0) {
         const auto* const occupancy =
-            reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+            reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
         if (occupancy[slot] != 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
@@ -2786,8 +2782,9 @@ static void WindowRuntime_MarkExistingWindows(session::ClientSession& session)
 // 原函数：0x004722A0。
 static void WindowRuntime_ResetMouseAndItemFlags(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& pointer = session.UiFrame().native.pointer;
-    world::gInventorySlotUseCounts_D67B08.fill(0);
+    inventory.slotUseCounts.fill(0);
     pointer.kind = 0;
     pointer.sourceIndex = 0;
     pointer.callback = nullptr;
@@ -3277,12 +3274,13 @@ static void WindowRuntime_OpenConfiguredWindows(session::ClientSession& session)
 // 原函数：0x004707C0。
 static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& interaction = session.UiFrame().native.interaction;
     WindowRuntime_ResetReferences(session);
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
     WindowRuntime_ClearElementFocus(session);
-    gSelectedItemCB1DF4 = -1;
+    inventory.selectedItem = -1;
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
     interaction.previewAction = nullptr;
@@ -3345,12 +3343,13 @@ static void WindowRuntime_MarkSceneWindows(session::ClientSession& session)
 // 原函数：0x00470980。
 static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& interaction = session.UiFrame().native.interaction;
     WindowRuntime_ResetReferences(session);
     WindowRuntime_ClearElementFocus(session);
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
-    gSelectedItemCB1DF4 = -1;
+    inventory.selectedItem = -1;
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
     const std::int32_t inputGate = session.UiFrame().inputState.chatLogSuppressed;
@@ -3550,6 +3549,7 @@ void WindowRuntime_IncrementOperationCount(session::ClientSession& session)
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     const std::int32_t remainingCount = operations.count - 1;
@@ -3560,7 +3560,7 @@ void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
-    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
     skillOperation.rebirthEnabled = 0;
@@ -4494,13 +4494,14 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
 // 原函数：0x00504120。
 std::int32_t WindowRuntime_Render(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
     if (skillOperation.rebirthEnabled != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
-        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+        auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
         skillOperation.rebirthEnabled = 0;
         occupancy[7] = decreased;
@@ -4897,6 +4898,7 @@ void WindowRuntime_Close(WindowInstance* const window)
 // 原函数：0x00472190。
 std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
     auto& windows = WindowRuntime_Windows(session);
@@ -4907,7 +4909,7 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
             windows[index] = nullptr;
         }
     }
-    world::gInventorySlotUseCounts_D67B08.fill(0);
+    inventory.slotUseCounts.fill(0);
     if (skillOperation.rebirthEnabled == 0) {
         return 0;
     }
@@ -4924,6 +4926,7 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
 // 原函数：0x00503E80。
 void WindowRuntime_ProcessScene(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     using namespace detail;
     switch (world::gCurrentSceneType) {
     case 5:
@@ -4963,7 +4966,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
             static_cast<void>(WindowRuntime_CloseAll(session));
             WindowRuntime_OpenNormalScene(session);
             if (world::gCurrentSceneState == 250) {
-                auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                auto* const bytes = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                 for (std::size_t index = 0; index < 8; ++index) {
                     bytes[index] = static_cast<unsigned char>(bytes[index] + 1);
                 }
@@ -5190,8 +5193,9 @@ void WindowRuntime_DrawCurrent(WindowInstance& target)
 // 原代码位置：0x00440ADB。
 void WindowRuntime_ApplyObservationInputGate(session::ClientSession& session)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
-    auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+    auto* const bytes = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     if (skillOperation.rebirthEnabled != 0) {
         const unsigned char previous = bytes[7];
         skillOperation.rebirthEnabled = 0;

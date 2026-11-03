@@ -34,7 +34,7 @@ int UpdateAudioAndSkipMciClose_52CD30(std::int32_t value);
 // 原函数：0x00507140。
 void UpdateQueuedTextAndGraphicHover_507140();
 // 原函数：0x00423640。
-void ApplyScreenShake_423640();
+void ApplyScreenShake_423640(session::ClientSession& session);
 // 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed);
 std::uint32_t SeedRandom_53B4BF(network::CgConnection& connection, std::uint32_t seed);

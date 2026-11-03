@@ -34,8 +34,6 @@ std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
 std::int32_t gRendererLost = 0; // 原全局：0x0062B064。
 std::uint16_t gPendingGraphicCount = 0; // 原全局：0x01020EB8。
 std::uint32_t gPendingGraphicCount2 = 0; // 原全局：0x0073ECB8。
-std::int32_t gForceRender = 0; // 原全局：0x0073ECE4。
-std::int32_t gFrameBackgroundMode_73ECC0 = 0; // 原全局：0x0073ECC0。
 
 double gLastRenderDt = 0; // 原全局：0x0073ECC8。
 double gFrameThreshold = 1000.0 / 60.0; // 原全局：0x005590E8。
@@ -178,7 +176,7 @@ int MainLoop(session::ClientSession& session)
         }
         ClearKeyFlags_459760();
 
-        if (gForceRender == 0) {
+        if (session.WorldScene().forceRender == 0) {
             const std::int32_t windowActiveState = gWindowActiveState;
             if (windowActiveState == 0) {
                 auto tick = getTickCount();
@@ -213,12 +211,12 @@ int MainLoop(session::ClientSession& session)
             }
         }
 
-        const std::int32_t clearMode = gFrameBackgroundMode_73ECC0;
-        gForceRender = 0;
+        const std::int32_t clearMode = session.WorldScene().frameBackgroundMode;
+        session.WorldScene().forceRender = 0;
         if (clearMode == 0) {
             render::ClearSurface_4512C0();
         } else if (clearMode == 3) {
-            ApplyScreenShake_423640();
+            ApplyScreenShake_423640(session);
         }
         UpdateFrameDiagnostics();
         render::DrawAllQueued_520DD0();

@@ -57,7 +57,7 @@ void Update(session::ClientSession& session)
     switch (sceneType) {
     case 1: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         input::ProcessKeyInput_4596D0();
         const std::int32_t capability = render::gPaletteCapability;
         switch (capability) {
@@ -85,7 +85,7 @@ void Update(session::ClientSession& session)
     }
     case 2: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         login::ProcessScene_45FEA0(session);
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
@@ -93,14 +93,14 @@ void Update(session::ClientSession& session)
     }
     case 3: {
         const ui::LegacyUiLayoutScope layout;
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         character_select::ProcessScene_460FF0(session.Connection());
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     }
     case 4:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         input::ProcessKeyInput_4596D0();
         character_select::detail::ProcessCreationScene_4626A0(session.Connection(), 1);
         cg::yobi::YobiUpdateAll_404C50();
@@ -109,7 +109,7 @@ void Update(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
     case 5:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
         detail::InitializeChatInputAndLog_449DA0();
         detail::ResetPendingPathEvent_46A9E0();
@@ -141,7 +141,7 @@ void Update(session::ClientSession& session)
         gInventorySlotUseCounts_D67B08.fill(0);
         return;
     case 6:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         login::ProcessState_45E960(session.Connection());
         goto sceneSixTail;
     case 7:
@@ -166,14 +166,14 @@ void Update(session::ClientSession& session)
             cg::yobi::ResetObservationGroupList_43F220();
             gSceneTransitionResetPending_58B6D0 = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750();
-            platform::gFrameBackgroundMode_73ECC0 = 2;
+            session.WorldScene().frameBackgroundMode = 2;
             cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;
         } else if (sceneState == 1
             && detail::ProcessSceneTransitionEffect_51FDE0(2, 0, 0x3F19999Au) == 1) {
-            platform::gFrameBackgroundMode_73ECC0 = 0;
+            session.WorldScene().frameBackgroundMode = 0;
             ++gCurrentSceneState;
         }
 
@@ -197,7 +197,7 @@ void Update(session::ClientSession& session)
     case 12:
         return;
     case 13:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         input::ProcessKeyInput_4596D0();
         if (render::gPaletteCapability < 3) {
             character_select::ProcessLegacyVersionScene_45E3D0(session.Connection());

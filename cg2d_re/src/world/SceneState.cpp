@@ -3598,7 +3598,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 101:
         if (gWorldEntryRepliesPendingMask_9A4B94 != 0) {
-            platform::gFrameBackgroundMode_73ECC0 = 0;
+            session.WorldScene().frameBackgroundMode = 0;
             return;
         }
         [[fallthrough]];
@@ -3646,7 +3646,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         gSceneTransitionResetPending_58B6D0 = 1;
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u));
@@ -3655,7 +3655,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         return;
     }
     case 103:
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         if (ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u) == 1) {
             worldScene.normalSceneInitialized = 1;
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
@@ -3671,7 +3671,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 201: {
         const std::uint32_t gate = gLogoutToTownPending_D67E78;
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         const std::int32_t selector = gate == 1 ? 14 : 16;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
@@ -3681,7 +3681,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 202:
         if (gMapTransitionReplyPending_C82210 != 0) {
-            platform::gFrameBackgroundMode_73ECC0 = 0;
+            session.WorldScene().frameBackgroundMode = 0;
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             return;
@@ -3743,7 +3743,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 204: {
         const std::uint32_t gate = gLogoutToTownPending_D67E78;
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
@@ -3792,7 +3792,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     }
     case 251:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(DrawObservationTravelBackground_440FF0());
         ApplyPendingMapPaletteReply_51D6F0();
         static_cast<void>(NextRotationValue_455C70(session));
@@ -3931,7 +3931,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             const std::uint32_t gate = gLogoutToTownPending_D67E78;
             platform::gLastRenderDt = static_cast<double>(tick);
             const std::int32_t selector = gate == 1 ? 15 : 13;
-            platform::gFrameBackgroundMode_73ECC0 = 2;
+            session.WorldScene().frameBackgroundMode = 2;
             static_cast<void>(ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u));
         } else {
             const std::int32_t state = gCurrentSceneState;
@@ -3961,12 +3961,12 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         return;
     }
     case 20:
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(CaptureMapTilesForTransition_51D640());
         gCurrentSceneState = 3;
         [[fallthrough]];
     case 3: {
-        platform::gFrameBackgroundMode_73ECC0 = 0;
+        session.WorldScene().frameBackgroundMode = 0;
         gMapSurfaceCacheEnabled_C82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0();
         ResetMapActorDrawKeys_4468F0();
@@ -4011,7 +4011,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         ResumePlayerAfterObservation_51BEF0();
-        platform::RequestRender_457010();
+        platform::RequestRender_457010(session);
         static_cast<void>(audio::PlaySe_52C450(201, 320));
         worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8();
         audio::ResetBgmPlayback_52B940();
@@ -4020,7 +4020,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 4:
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
         ++gCurrentSceneState;
@@ -4171,7 +4171,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10(session);
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         input::BrowseChatHistory_44A1B0();
         if (gMapResourceMode_9DAD68 == 1) {
             const std::int32_t image = gBattleBackgroundImage59F9F8;
@@ -4219,7 +4219,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             static_cast<void>(cg::audio::LoadAndPlayBGM(16));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render());
@@ -4231,9 +4231,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     case 1:
         if (ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U) == 1) {
             CaptureBattleBackgroundSnapshot_43CB10(session);
-            platform::gFrameBackgroundMode_73ECC0 = 3;
+            session.WorldScene().frameBackgroundMode = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
-            platform::gFrameBackgroundMode_73ECC0 = 3;
+            session.WorldScene().frameBackgroundMode = 3;
             platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
@@ -4405,7 +4405,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         if (firstEffectPresent
             || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
@@ -4449,7 +4449,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         if (firstEffectPresent
             || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
@@ -4469,7 +4469,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     }
 
-    if (platform::gFrameBackgroundMode_73ECC0 == 2) {
+    if (session.WorldScene().frameBackgroundMode == 2) {
         return;
     }
     // G02：参考43D07B前置业务；保留Sub_4990A0内部的存活与可见门禁。
@@ -4503,7 +4503,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         battleScene.sceneIndex = ++index;
     } while (index < end);
-    if (platform::gFrameBackgroundMode_73ECC0 == 2) {
+    if (session.WorldScene().frameBackgroundMode == 2) {
         return;
     }
     UpdateMapEffects_46E4A0();
@@ -6674,13 +6674,13 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
     const std::uint32_t phase = logout.transitionPhase;
     if (phase == 1) {
         if (ProcessSceneTransitionEffect_51FDE0(14, 8, 0x40000000U) == 1) {
-            platform::gFrameBackgroundMode_73ECC0 = 0;
+            session.WorldScene().frameBackgroundMode = 0;
             render::SelectPalette(0, 0);
             return 1;
         }
     } else if (phase == 0) {
         CaptureSceneAndSelectEvenVariant_51D750();
-        platform::gFrameBackgroundMode_73ECC0 = 2;
+        session.WorldScene().frameBackgroundMode = 2;
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = logout.transitionPhase + 1;

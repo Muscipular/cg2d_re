@@ -51,6 +51,8 @@ struct WorldSceneRuntimeState {
     LogoutSceneState logout {};
     BattleSceneState battle {};
     RotationState rotation {};
+    std::int32_t frameBackgroundMode = 0; // 原 0x73ECC0，世界场景生产、主循环清屏消费。
+    std::int32_t forceRender = 0; // 原 0x73ECE4，普通场景请求、主循环消费。
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。
     std::uint32_t mapBgmChangePending = 0; // 原 0xFF0D58。
     std::int32_t worldBgmResumeIndex = 0; // 原 0xFF0D68，普通场景恢复号。

@@ -29,7 +29,7 @@ static session::LegacyRandomEngine& SharedRandomEngine()
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
 static volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
 
-static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
+static std::uint32_t RandomSymmetricW32(network::CgConnection& connection, const std::uint32_t amplitudeBits)
 {
     const std::uint32_t lowerBits = std::uint32_t{0} - amplitudeBits;
     const std::uint32_t upperBits = amplitudeBits;
@@ -43,7 +43,7 @@ static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
     const std::int32_t divisor =
         std::bit_cast<std::int32_t>(divisorBits);
     const std::int32_t remainder =
-        static_cast<std::int32_t>(Rand16()) % divisor;
+        static_cast<std::int32_t>(Rand16(connection)) % divisor;
     return std::bit_cast<std::uint32_t>(remainder) + lowerBits;
 }
 
@@ -72,9 +72,9 @@ std::uint64_t ReadTickCount64() noexcept
 }
 
 // 原函数：0x00457010。
-void RequestRender_457010() noexcept
+void RequestRender_457010(session::ClientSession& session) noexcept
 {
-    gForceRender = 1;
+    session.WorldScene().forceRender = 1;
 }
 
 // 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。
@@ -135,7 +135,7 @@ std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 }
 
 // 原 sub_423640@[0x423640,0x4237D5)：更新偏移/幅度后，将共享 Temp 裁剪回拷 Back。
-void ApplyScreenShake_423640()
+void ApplyScreenShake_423640(session::ClientSession& session)
 {
     std::uint32_t offsetYBits;
     if (cg::yobi::gYobiUpdateGateMode == 1
@@ -144,12 +144,12 @@ void ApplyScreenShake_423640()
     } else {
         const std::uint32_t amplitudeX =
             cg::yobi::gYobiScreenOffsetAmplitude;
-        const std::uint32_t randomXBits = RandomSymmetricW32(amplitudeX);
+        const std::uint32_t randomXBits = RandomSymmetricW32(session.Connection(), amplitudeX);
         cg::yobi::gYobiScreenOffsetX = randomXBits;
 
         const std::uint32_t amplitudeY =
             cg::yobi::gYobiScreenOffsetAmplitude;
-        offsetYBits = RandomSymmetricW32(amplitudeY);
+        offsetYBits = RandomSymmetricW32(session.Connection(), amplitudeY);
         cg::yobi::gYobiScreenOffsetY = offsetYBits;
     }
 

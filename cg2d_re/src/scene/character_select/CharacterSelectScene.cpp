@@ -1495,10 +1495,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 7u) {
-                ResetAuthenticationFailure_45D7D0();
+                ResetAuthenticationFailure_45D7D0(connection);
                 world::gCurrentSceneState = 8;
             } else if (mainState == 8u) {
-                if (UpdateAuthenticationFailure_45D7E0() != 0) {
+                if (UpdateAuthenticationFailure_45D7E0(connection) != 0) {
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 9u) {
@@ -1563,7 +1563,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                                 cg::yobi::MarkDeath(gDeleteConfirmationAction);
                                 gDeleteConfirmationAction = nullptr;
                             }
-                            ResetCharacterDeletionProgress_45DBF0();
+                            ResetCharacterDeletionProgress_45DBF0(connection);
                             world::gCurrentSceneState = 14;
                         }
                     } else if (result == 2) {
@@ -1575,7 +1575,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     }
                 }
             } else if (mainState == 14u) {
-                const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
+                const std::int32_t result = UpdateCharacterDeletionProgress_45DC00(connection);
                 if (result == 1) {
                     cg::login::ClearCharacterSlot_51B3B0(connection, static_cast<std::uint32_t>(
                         static_cast<std::int32_t>(connection.LoginRequests().selectedCharacterIndex)));

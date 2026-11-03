@@ -21,16 +21,16 @@ void ResetCharacterListProgress_45DD50(network::CgConnection& connection);
 std::int32_t UpdateCharacterListProgress_45DD60(network::CgConnection& connection);
 
 // 原 sub_45D7D0@[0x45D7D0,0x45D7DA)；只清认证失败提示阶段。
-void ResetAuthenticationFailure_45D7D0();
+void ResetAuthenticationFailure_45D7D0(network::CgConnection& connection);
 
 // 原 sub_45D7E0@[0x45D7E0,0x45D97D)。
-std::int32_t UpdateAuthenticationFailure_45D7E0();
+std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connection);
 
 // 原 sub_45DBF0@[0x45DBF0,0x45DBFA)；只清角色删除进度阶段。
-void ResetCharacterDeletionProgress_45DBF0();
+void ResetCharacterDeletionProgress_45DBF0(network::CgConnection& connection);
 
 // 原 sub_45DC00@[0x45DC00,0x45DD45)。
-std::int32_t UpdateCharacterDeletionProgress_45DC00();
+std::int32_t UpdateCharacterDeletionProgress_45DC00(network::CgConnection& connection);
 
 // 原 sub_45DEE0@[0x45DEE0,0x45E089)。
 std::int32_t ProcessConfirmationDialog_45DEE0(

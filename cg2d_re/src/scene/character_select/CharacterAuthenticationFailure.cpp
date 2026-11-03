@@ -12,15 +12,15 @@
 namespace cg::character_select {
 
 // 原函数：0x0045D7D0。
-void ResetAuthenticationFailure_45D7D0()
+void ResetAuthenticationFailure_45D7D0(network::CgConnection& connection)
 {
-    cg::network::GetGameConnection().CharacterSelectUi().authenticationFailure.stage = 0;
+    connection.CharacterSelectUi().authenticationFailure.stage = 0;
 }
 
 // 原函数：0x0045D7E0。
-std::int32_t UpdateAuthenticationFailure_45D7E0()
+std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connection)
 {
-    auto& failure = cg::network::GetGameConnection().CharacterSelectUi().authenticationFailure;
+    auto& failure = connection.CharacterSelectUi().authenticationFailure;
     std::int32_t result = 0;
     bool hovered = false;
     const cg::render::GraphicDescriptor16 graphicDescriptor {

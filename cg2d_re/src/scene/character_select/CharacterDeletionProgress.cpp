@@ -20,15 +20,15 @@ static constexpr std::int32_t kColumnWidth = 64;
 static constexpr std::int32_t kRowHeight = 48;
 
 // 原函数：0x0045DBF0。
-void ResetCharacterDeletionProgress_45DBF0()
+void ResetCharacterDeletionProgress_45DBF0(network::CgConnection& connection)
 {
-    cg::network::GetGameConnection().CharacterSelectUi().deletionProgress.stage = 0;
+    connection.CharacterSelectUi().deletionProgress.stage = 0;
 }
 
 // 原函数：0x0045DC00。
-std::int32_t UpdateCharacterDeletionProgress_45DC00()
+std::int32_t UpdateCharacterDeletionProgress_45DC00(network::CgConnection& connection)
 {
-    auto& progress = cg::network::GetGameConnection().CharacterSelectUi().deletionProgress;
+    auto& progress = connection.CharacterSelectUi().deletionProgress;
     std::uint16_t stage = progress.stage;
     std::int32_t result = 0;
 
@@ -57,10 +57,10 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     }
 
     if (stage == 1) {
-        login::StartCharacterDeletionRequest();
+        login::StartCharacterDeletionRequest(connection);
         ++progress.stage;
     } else if (stage == 2) {
-        result = login::PollCharacterDeletionRequest();
+        result = login::PollCharacterDeletionRequest(connection);
         if (result != 0) {
             cg::yobi::YobiAction* const action = progress.action;
             if (action != nullptr) {

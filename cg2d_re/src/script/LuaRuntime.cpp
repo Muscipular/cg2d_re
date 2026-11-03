@@ -70,7 +70,7 @@ void ShutdownLua(session::ClientSession& session)
     yobi::ShutdownBattleEffects();
     stopCopilot();
     ShutdownAutoBattle();
-    ShutdownLuaUI();
+    ShutdownLuaUI(session);
     session.UiFrame().lastScene = session.UiFrame().lastSceneState = -1;
     if (runtime.battleState) { lua_close(runtime.battleState); runtime.battleState = nullptr; }
     if (runtime.uiState) { lua_close(runtime.uiState); runtime.uiState = nullptr; }

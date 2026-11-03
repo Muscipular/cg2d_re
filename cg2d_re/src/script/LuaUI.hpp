@@ -59,7 +59,7 @@ void RegisterLuaUI(lua_State* L);
 void RegUIConst(lua_State* L);
 void RegLuaIO(lua_State* L);
 void RegLuaAudio(lua_State* L); // LBG01：文件BGM及其userdata，不改旧编号接口。
-void ShutdownLuaUI();
+void ShutdownLuaUI(session::ClientSession& session);
 void LuaBridgeSetAutoBattleState(lua_State* L);
 void LuaProcessWinMgrKeyPress(session::ClientSession& session);
 void LuaProcessWinMgrSceneStateChanged(session::ClientSession& session, int type, int state);
@@ -78,7 +78,7 @@ void AutoBattleProc(session::ClientSession& session);
 void InitializeAutoBattle(session::ClientSession& session);
 void ShutdownAutoBattle();
 void LoadLuaUIEntry(session::ClientSession& session);
-void ShutdownLuaUIEvents();
+void ShutdownLuaUIEvents(session::ClientSession& session);
 bool IsLuaControlAttached(const LuaControlRef& ref);
 void ReleaseLuaElementRefs(lua_State* L, ui::WindowElement& element);
 LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& window);

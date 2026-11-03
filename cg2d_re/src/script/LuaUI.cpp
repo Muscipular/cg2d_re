@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -6,6 +7,8 @@
 #include "../world/ChatHistory.hpp"
 #include "../world/WorldMapState.hpp"
 #include <filesystem>
+#include <algorithm>
+#include <iterator>
 #include <ranges>
 #include <unordered_map>
 #include <cstring>
@@ -126,12 +129,21 @@ enum class WinMgrEventType {
 };
 
 static std::vector<std::shared_ptr<LuaEventRegistration> > gLuaEventRegistrations;
-static std::vector<std::shared_ptr<LuaBridgeEventRegistration> > gLuaBridgeEventRegistrations;
 static std::vector<WinMgrKeyPressOption> gWinMgrKeyPressOptions;
-static std::vector<WinMgrPacketRecvOption> gWinMgrPacketRecvOptions;
-static std::vector<WinMgrPacketSendOption> gWinMgrPacketSendOptions;
 static std::unordered_map<WinMgrEventType, std::vector<std::shared_ptr<LuaEventRegistration> > > gWinMgrEventOptions;
-static std::unordered_map<lua_State*, LuaBridgeStateType> gLuaBridgeStateTypes;
+
+struct LuaPacketBridgeState {
+    std::vector<std::shared_ptr<LuaBridgeEventRegistration>> bridgeEvents;
+    std::vector<WinMgrPacketRecvOption> packetRecvOptions;
+    std::vector<WinMgrPacketSendOption> packetSendOptions;
+    std::unordered_map<lua_State*, LuaBridgeStateType> bridgeStateTypes;
+};
+
+static LuaPacketBridgeState& PacketBridgeFor(lua_State* L) {
+    auto& state = GetLuaConnection(L).Owner().Lua().packetBridge;
+    if (!state) state = std::make_shared<LuaPacketBridgeState>();
+    return *state;
+}
 
 static std::vector<std::shared_ptr<LuaEventRegistration> >& WinMgrEventOptions(WinMgrEventType type) {
     return gWinMgrEventOptions[type];
@@ -270,8 +282,12 @@ static void PushEventHandle(lua_State* L, const std::shared_ptr<LuaEventRegistra
 }
 
 static LuaBridgeStateType LuaBridgeGetStateType(lua_State* L) {
-    auto it = gLuaBridgeStateTypes.find(L);
-    if (it == gLuaBridgeStateTypes.end()) {
+    const auto& state = GetLuaConnection(L).Owner().Lua().packetBridge;
+    if (!state) {
+        return LuaBridgeStateType::Unknown;
+    }
+    auto it = state->bridgeStateTypes.find(L);
+    if (it == state->bridgeStateTypes.end()) {
         return LuaBridgeStateType::Unknown;
     }
     return it->second;
@@ -281,8 +297,9 @@ static void LuaBridgeSetStateType(lua_State* L, LuaBridgeStateType stateType) {
     if (!L) {
         return;
     }
-    gLuaBridgeStateTypes[L] = stateType;
-    for (auto& event: gLuaBridgeEventRegistrations) {
+    auto& state = PacketBridgeFor(L);
+    state.bridgeStateTypes[L] = stateType;
+    for (auto& event: state.bridgeEvents) {
         if (event && event->L == L) {
             event->stateType = stateType;
         }
@@ -1973,7 +1990,7 @@ LuaFunction(Bridge_On) {
     event->stateType = stateType;
     event->header = header;
     event->callbackRef = luaL_ref(L, LUA_REGISTRYINDEX);
-    gLuaBridgeEventRegistrations.push_back(event);
+    PacketBridgeFor(L).bridgeEvents.push_back(event);
     PushBridgeHandle(L, event);
     return 1;
 }
@@ -2001,7 +2018,7 @@ LuaFunction(Bridge_Send) {
     }
 
     std::vector<std::shared_ptr<LuaBridgeEventRegistration> > events;
-    for (const auto& event: gLuaBridgeEventRegistrations) {
+    for (const auto& event: PacketBridgeFor(L).bridgeEvents) {
         if (!event || !event->active || event->callbackRef == LUA_REF_NONE || event->header != header) {
             continue;
         }
@@ -2351,7 +2368,7 @@ LuaFunction(WinMgr_onPacketRecv) {
     std::string header = luaL_checkstring(L, 1);
     luaL_checktype(L, 2, LUA_TFUNCTION);
     auto event = LuaRefEvent(L, 2);
-    gWinMgrPacketRecvOptions.push_back({header, event});
+    PacketBridgeFor(L).packetRecvOptions.push_back({header, event});
     PushEventHandle(L, event);
     return 1;
 }
@@ -2360,7 +2377,7 @@ LuaFunction(WinMgr_onPacketSend) {
     std::string header = luaL_checkstring(L, 1);
     luaL_checktype(L, 2, LUA_TFUNCTION);
     auto event = LuaRefEvent(L, 2);
-    gWinMgrPacketSendOptions.push_back({header, event});
+    PacketBridgeFor(L).packetSendOptions.push_back({header, event});
     PushEventHandle(L, event);
     return 1;
 }
@@ -2657,7 +2674,8 @@ void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* 
 {
     const auto connection = networkConnection.Id();
     // 先快照注册集合和参数，允许回调注册/注销或重入网络发送。
-    const auto options = gWinMgrPacketRecvOptions;
+    const auto& state = networkConnection.Owner().Lua().packetBridge;
+    const auto options = state ? state->packetRecvOptions : std::vector<WinMgrPacketRecvOption>{};
     std::vector<std::string> values;
     for (int i = 0; arguments && arguments[i]; ++i) values.emplace_back(arguments[i]);
     std::vector<char*> pointers;
@@ -2666,8 +2684,7 @@ void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* 
     const std::string packetHeader(header);
     for (const auto& option : options) {
         if (connection != networkConnection.Id() || !networkConnection.Active()) break;
-        if (option.header == packetHeader && option.event
-            && &GetLuaConnection(option.event->owner) == &networkConnection) {
+        if (option.header == packetHeader) {
             LuaCallPacketRecvEvent(option.event, packetHeader.c_str(), pointers.data());
         }
     }
@@ -2675,12 +2692,12 @@ void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* 
 void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_view packet)
 {
     const auto connection = networkConnection.Id();
-    const auto options = gWinMgrPacketSendOptions;
+    const auto& state = networkConnection.Owner().Lua().packetBridge;
+    const auto options = state ? state->packetSendOptions : std::vector<WinMgrPacketSendOption>{};
     std::string matched;
     bool found = false;
     for (const auto& option : options) {
-        if (option.event && &GetLuaConnection(option.event->owner) == &networkConnection
-            && packet.starts_with(option.header)) {
+        if (packet.starts_with(option.header)) {
             matched = option.header;
             found = true;
             break;
@@ -2690,24 +2707,42 @@ void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_vie
     const std::string bytes(packet.substr(matched.size()));
     for (const auto& option : options) {
         if (connection != networkConnection.Id() || !networkConnection.Active()) break;
-        if (option.header == matched && option.event
-            && &GetLuaConnection(option.event->owner) == &networkConnection) {
+        if (option.header == matched) {
             LuaCallPacketSendEvent(option.event, matched.c_str(), bytes.data(), static_cast<int>(bytes.size()));
         }
     }
 }
 void AddLuaMouseWheel(int delta) { ui::WindowAddMouseWheelDelta(delta); }
-void ShutdownLuaUIEvents()
+void ShutdownLuaUIEvents(session::ClientSession& session)
 {
-    for (const auto& event : gLuaEventRegistrations) { event->active = false; LuaUnref(event->owner, event->callbackRef); }
-    for (const auto& event : gLuaBridgeEventRegistrations) { event->active = false; LuaUnref(event->L, event->callbackRef); }
-    gWinMgrKeyPressOptions.clear();
-    gWinMgrPacketRecvOptions.clear();
-    gWinMgrPacketSendOptions.clear();
-    gWinMgrEventOptions.clear();
-    gLuaEventRegistrations.clear();
-    gLuaBridgeEventRegistrations.clear();
-    gLuaBridgeStateTypes.clear();
+    const auto belongsToSession = [&session](const auto& event) {
+        return event && &GetLuaConnection(event->owner).Owner() == &session;
+    };
+    for (const auto& event : gLuaEventRegistrations) {
+        if (belongsToSession(event)) { event->active = false; LuaUnref(event->owner, event->callbackRef); }
+    }
+    auto& state = session.Lua().packetBridge;
+    if (state) {
+        for (const auto& event : state->bridgeEvents) {
+            event->active = false;
+            LuaUnref(event->L, event->callbackRef);
+        }
+    }
+    std::erase_if(gWinMgrKeyPressOptions, [&](const auto& option) { return belongsToSession(option.event); });
+    if (state) {
+        state->packetRecvOptions.clear();
+        state->packetSendOptions.clear();
+    }
+    for (auto it = gWinMgrEventOptions.begin(); it != gWinMgrEventOptions.end();) {
+        std::erase_if(it->second, belongsToSession);
+        it = it->second.empty() ? gWinMgrEventOptions.erase(it) : std::next(it);
+    }
+    std::erase_if(gLuaEventRegistrations, belongsToSession);
+    if (state) {
+        state->bridgeEvents.clear();
+        state->bridgeStateTypes.clear();
+        state.reset();
+    }
     ui::WindowConsumeMouseWheelDelta();
 }
 } // namespace cg::script

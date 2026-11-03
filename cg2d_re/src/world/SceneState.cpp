@@ -185,10 +185,6 @@ static void DrawTransitionRectangle(
 
 static_assert(sizeof(decltype(RotationState::table)) == 0x190);
 
-// 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
-static std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
-static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
-
 // IWT01：磁盘记录仅在存取边界构造，布局继续固定为80H/3C00CH。
 struct AlbumDiskRecord {
     std::uint8_t used; // +00：记录存在标记。
@@ -2423,7 +2419,6 @@ namespace detail {
  // 原全局：0x00AF0FE8。
  // 原全局：0x00C821D8。
 std::uint32_t gPlayerMapCoordinateSum_AF10C0 = 0; // 原全局：0x00AF10C0。
-std::uint32_t gValue9EE8F8 = 0; // 原全局：0x009EE8F8。
 std::uint32_t gPlayerMovementStepXBits_9EE8FC = 0; // 原全局：0x009EE8FC。
 std::uint32_t gPlayerMovementStepYBits_9EE900 = 0; // 原全局：0x009EE900。
 
@@ -2473,8 +2468,6 @@ std::uint16_t gDirectionalMapTransitionPending_9FB92E = 0; // 原全局：0x009F
 std::uint16_t gMapMovementInputBlocked_C82220 = 0; // 原全局：0x00C82220。
 
 namespace detail {
-std::uint64_t gLastCursorFacingRequestTick_C82238 = 0; // 原全局：0x00C82238。
-std::uint64_t gLastExplicitFacingRequestTick_C8223C = 0; // 原全局：0x00C8223C。 原转向发送的独立GetTickCount位槽。
 std::uint32_t gMapLeftButtonSuppressed_C8A774 = 0; // 原全局：0x00C8A774。
 std::uint64_t gMapLeftHoldDurationMs_C8A778 = 0; // 原全局：0x00C8A778。
 
@@ -4961,7 +4954,7 @@ void __cdecl QueueNextMovementDirections_46ABD0()
 }
 
 // 原函数：0x0046AC10。
-std::uint16_t SendPendingMovementDirections_46AC10()
+std::uint16_t SendPendingMovementDirections_46AC10(session::ClientSession& session)
 {
     const std::uint16_t count = gPendingDirectionCount_C82202;
     if (std::bit_cast<std::int16_t>(count) <= 0) {
@@ -4973,7 +4966,7 @@ std::uint16_t SendPendingMovementDirections_46AC10()
             gPendingDirections9A86D4[static_cast<std::size_t>(index)]);
         const std::uint32_t encoded = EncodeMovementDirectionByte_46BD20(direction, 0);
         const std::int16_t remaining = std::bit_cast<std::int16_t>(gPendingDirectionCount_C82202);
-        gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] =
+        session.WorldScene().moveDirectionText[static_cast<std::size_t>(index)] =
             std::bit_cast<char>(static_cast<std::uint8_t>(encoded));
         ++index;
         if (index >= remaining) {
@@ -4986,11 +4979,11 @@ std::uint16_t SendPendingMovementDirections_46AC10()
             return static_cast<std::uint16_t>(flags);
         }
     }
-    gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
+    session.WorldScene().moveDirectionText[static_cast<std::size_t>(index)] = '\0';
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     return static_cast<std::uint16_t>(
-        SendCurrentPlayerMovementPath_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
+        SendCurrentPlayerMovementPath_50C8D0(session, x, y, session.WorldScene().moveDirectionText.data()));
 }
 
 // 原 [0x46BCF0,0x46BD1D)：正数量减一后将剩余方向原地左移。
@@ -5446,13 +5439,14 @@ std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     return (static_cast<std::uint32_t>(mode) & 0xFFFFFF00U) | result;
 }
 
-// 原 [0x50C8D0,0x50C8F5)：先采独立 W32，再传文本、Y、X 与当前 socket。
+// 原 [0x50C8D0,0x50C8F5)：先采独立 W32，再传文本、Y、X 与所属 socket。
 network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const char* const text)
 {
-    const std::int32_t fourth = std::bit_cast<std::int32_t>(gValue9EE8F8);
-    return cg::network::GetGameConnection().SendPlayerMovementPath(x, y, cg::text::FromGbkWide(text), fourth);
+    const std::int32_t fourth = std::bit_cast<std::int32_t>(session.WorldScene().movementPathFourth);
+    return session.Connection().SendPlayerMovementPath(x, y, cg::text::FromGbkWide(text), fourth);
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
@@ -5817,7 +5811,7 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& ses
 }
 
 // 原函数：0x0046B370。
-void TurnPlayerTowardCursorTarget_46B370()
+void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session)
 {
     if (gPlayerRuntimeSlots.action == nullptr) {
         return;
@@ -5845,7 +5839,7 @@ void TurnPlayerTowardCursorTarget_46B370()
     const std::int32_t direction = static_cast<std::int32_t>(
         GetEightWayMapDirection_46CDF0(differenceX, differenceY));
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gLastCursorFacingRequestTick_C82238 + 500u >= now) {
+    if (session.WorldScene().lastCursorFacingRequestTick + 500u >= now) {
         return;
     }
     static_cast<void>(SetPlayerFacingDirection_51A040(direction));
@@ -5855,8 +5849,8 @@ void TurnPlayerTowardCursorTarget_46B370()
     };
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(x, y, text));
-    gLastCursorFacingRequestTick_C82238 = platform::ReadTickCount64();
+    static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(session, x, y, text));
+    session.WorldScene().lastCursorFacingRequestTick = platform::ReadTickCount64();
 }
 
 // 原函数：0x00469C90。
@@ -5879,7 +5873,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
             static_cast<void>(ui::WindowOwnStall_RequestClose());
             static_cast<void>(session.Connection().RequestStallContents(objectIndex));
         }
-        TurnPlayerTowardCursorTarget_46B370();
+        TurnPlayerTowardCursorTarget_46B370(session);
         static_cast<void>(RequestAdjacentWorldInteraction_51B3E0(session));
         const std::int32_t secondY = gPlayerMoveTargetY;
         const std::int32_t secondX = gPlayerMoveTargetX;
@@ -5968,7 +5962,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
                     static_cast<void>(BuildPlayerMovementPath_46B6F0());
                 }
                 // 原两次非零队列分支复用刚比较的W16，回调后才重新取样。
-                const std::int16_t queuedCount = []() -> std::int16_t {
+                const std::int16_t queuedCount = [&session]() -> std::int16_t {
                     std::int16_t pathCount = std::bit_cast<std::int16_t>(gMovePathCount_C82200);
                     if (pathCount == 0) {
                         const std::int16_t pendingCount =
@@ -5976,7 +5970,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
                         if (pendingCount != 0) {
                             return pendingCount;
                         }
-                        TurnPlayerAndSendDirection_46B4B0(std::bit_cast<std::int16_t>(gPlayerPathFinalFacingDirection_55D9FC));
+                        TurnPlayerAndSendDirection_46B4B0(session, std::bit_cast<std::int16_t>(gPlayerPathFinalFacingDirection_55D9FC));
                         pathCount = std::bit_cast<std::int16_t>(gMovePathCount_C82200);
                         gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu;
                     }
@@ -5991,7 +5985,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
                             static_cast<void>(DetectPendingPathEvents_46AA00());
                         }
                         static_cast<void>(ui::WindowStallBrowse_RequestClose());
-                        static_cast<void>(SendPendingMovementDirections_46AC10());
+                        static_cast<void>(SendPendingMovementDirections_46AC10(session));
                     }
                     return std::bit_cast<std::int16_t>(gPendingDirectionCount_C82202);
                 }();
@@ -10421,7 +10415,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
         connection.Owner().WorldScene().pendingMapBgmIndex = static_cast<std::uint32_t>(a11);
         connection.Owner().WorldScene().mapBgmChangePending = 1;
     }
-    detail::gValue9EE8F8 = static_cast<std::uint32_t>(a13);
+    connection.Owner().WorldScene().movementPathFourth = static_cast<std::uint32_t>(a13);
     return a11 > 0 ? a13 : a11;
 }
 

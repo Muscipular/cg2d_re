@@ -244,7 +244,6 @@ extern std::uint32_t gMapHeight_C821D4; // 原全局：0x00C821D4。
 extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
 extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
 extern std::uint32_t gPlayerMapCoordinateSum_AF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
-extern std::uint32_t gValue9EE8F8; // 原全局：0x009EE8F8。 原 509460 写入、50C8D0 读取的独立 W32。
 extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
 extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
 
@@ -260,8 +259,6 @@ extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
 extern std::uint32_t gWaitingForMapRectangleData_9EE8B8; // 原全局：0x009EE8B8。
 extern std::uint16_t gRequestedMapRectangleDirection_9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
 extern std::uint16_t gContinuousMapMovementActive_C8A79C; // 原全局：0x00C8A79C。
-extern std::uint64_t gLastCursorFacingRequestTick_C82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
-extern std::uint64_t gLastExplicitFacingRequestTick_C8223C; // 原全局：0x00C8223C。 CTM01转向发送的本地64位毫秒。
 extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
 extern std::uint64_t gMapLeftHoldDurationMs_C8A778; // 原全局：0x00C8A778。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
@@ -398,9 +395,9 @@ void __cdecl PopPlayerMovementPath_46BC90();                // 原 [0x46BC90,0x4
 // 原函数：0x0046ABD0。
 void __cdecl QueueNextMovementDirections_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
 // 原函数：0x0046AC10。
-std::uint16_t SendPendingMovementDirections_46AC10(); // 方向文本生成/发送，仅承接原AX返回位型。
+std::uint16_t SendPendingMovementDirections_46AC10(session::ClientSession& session); // 方向文本生成/发送，仅承接原AX返回位型。
 // 原函数：0x0046B370。
-void TurnPlayerTowardCursorTarget_46B370(); // 目标格转向，保留重复CryptInt读取与独立500ms节流。
+void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session); // 目标格转向，保留重复CryptInt读取与独立500ms节流。
 // 原函数：0x0046BCF0。
 void __cdecl PopPendingMovementDirection_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
 // 原函数：0x00467F30。
@@ -478,6 +475,7 @@ std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。
 // 原函数：0x0050C8D0。
 network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。

@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include <string>
 #include <string_view>
@@ -105,7 +106,7 @@ namespace detail {
 // 原函数：0x00521F20。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 // 原函数：0x0046B4B0。
-void TurnPlayerAndSendDirection_46B4B0(std::int32_t direction); // 原完整转向门禁、发布与节流发送。
+void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 // 原函数：0x00444FA0。
 std::int32_t FindWorldObjectSlot_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
 // 原函数：0x00449C90。

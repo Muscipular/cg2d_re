@@ -58,6 +58,10 @@ struct WorldSceneRuntimeState {
     std::int32_t normalSceneWaitFrames = 0; // 原 0xFF0D54，普通场景等待帧数。
     std::uint32_t observationTravelTransitionCount = 0; // 原 0xFF0D74，观察转场次数。
     std::uint64_t lastAdjacentInteractionTick = 0; // 原 0xFF0D38，邻格交互节流。
+    std::uint32_t movementPathFourth = 0; // 原 0x9EE8F8，地图回复生产、zA 发送消费。
+    std::uint64_t lastCursorFacingRequestTick = 0; // 原 0xC82238，目标格转向节流。
+    std::uint64_t lastExplicitFacingRequestTick = 0; // 原 0xC8223C，显式转向节流。
+    std::array<char, 100> moveDirectionText {}; // 原 0x9E03D0，先写前缀，发送门禁后才写 NUL。
 };
 
 } // namespace cg::world

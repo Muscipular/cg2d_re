@@ -7,6 +7,7 @@
 namespace cg::yobi {
 
 struct YobiAction;
+namespace detail { struct BattleAppendEffectNode; }
 
 inline constexpr std::size_t kMapRegistryRows = 399;
 inline constexpr std::size_t kMapRegistryColumns = 399;
@@ -28,6 +29,7 @@ struct YobiSessionState {
     std::uint8_t mapEffectSpawnCounter = 0; // 原 0x5F9755。
     std::int32_t drawBattleActionCount = 0; // 原 0x59E578。
     std::array<YobiAction*, 257> drawBattleActions {}; // 原 0x59E57C，非拥有，排序范围外尾部不清。
+    detail::BattleAppendEffectNode* battleAppendEffects = nullptr; // 原 0x5ABA8C，清理函数释放链。
     std::array<std::uint8_t, kMapRegistryEntries> mapRegistryFlags {}; // 原 0xB65A80。
     std::array<YobiAction*, kMapRegistryEntries> mapRegistryActions {}; // 原 0xB8C864，非拥有。
 };

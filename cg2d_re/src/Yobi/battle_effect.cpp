@@ -821,7 +821,7 @@ YobiAction* NewBattleEffect_41CD00(
                 break;
             case BattleEffectType_ItemUse: action->imageNo = 110104; break;
             case BattleEffectType_CrossCounter:
-                action->imageNo = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_CrossCounter, sourcePayload->battlePosition18) >= 12
+                action->imageNo = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_CrossCounter, sourcePayload->battlePosition18) >= 12
                     ? 111053 : 110153;
                 break;
             case BattleEffectType_PhysicalReflect:
@@ -841,7 +841,7 @@ YobiAction* NewBattleEffect_41CD00(
                 case BattleEffectType_MagicAbsorb: skill = BattleSkill_AbsorbMagic; lowImage = 110121; highImage = 110121; break;
                 default: skill = BattleSkill_IneffectiveMagic; lowImage = 110129; highImage = 111022; break;
                 }
-                const std::int32_t technique = FindBattleAppendEffectTechnique_43BEA0(
+                const std::int32_t technique = FindBattleAppendEffectTechnique_43BEA0(action,
                     skill, source->payload.battleActor->battlePosition18);
                 action->imageNo = technique >= 12 ? highImage : lowImage;
                 deviceBlend = true;

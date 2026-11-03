@@ -159,7 +159,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             const std::int32_t appendTargetPosition = gBattleMTargetPosition5AAA40;
             const std::int32_t appendLevel = gBattleMSkillLevel5A4A2C;
             const std::int32_t appendSkill = gBattleMSkill5AAA78;
-            AddBattleAppendEffect_43BE00(appendSkill, appendLevel, appendTargetPosition);
+            AddBattleAppendEffect_43BE00(scene, appendSkill, appendLevel, appendTargetPosition);
             flags = gBattleMResultFlags5A4A20;
         }
         const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;

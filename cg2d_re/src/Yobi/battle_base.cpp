@@ -54,8 +54,6 @@ struct BattleAppendEffectNode {
     BattleAppendEffectNode* next;
 };
 
-static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr; // 原全局：0x005ABA8C。
-
 // 原函数：0x00404D90。
 std::int32_t SelectIntValue_404D90(
     const std::int32_t* const values, const std::int32_t count, const std::int32_t index)
@@ -132,12 +130,13 @@ std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)
 
 // 原函数：0x0043BE00。
 void AddBattleAppendEffect_43BE00(
-    const std::int32_t skill, const std::int32_t technique, const std::int32_t position)
+    YobiAction* const scene, const std::int32_t skill,
+    const std::int32_t technique, const std::int32_t position)
 {
     if (IsBattleAppendEffectSkill_43BD00(skill) == 0) {
         return;
     }
-    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
+    BattleAppendEffectNode* node = scene->ownerSession->Yobi().battleAppendEffects;
     if (node == nullptr) {
         auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));
         created->skill = skill;
@@ -145,7 +144,7 @@ void AddBattleAppendEffect_43BE00(
         created->previous = nullptr;
         created->position = position;
         created->technique = technique;
-        gBattleAppendEffects5ABA8C = created;
+        scene->ownerSession->Yobi().battleAppendEffects = created;
         return;
     }
     for (;;) {
@@ -170,9 +169,9 @@ void AddBattleAppendEffect_43BE00(
 
 // 原函数：0x0043BEA0。
 std::int32_t FindBattleAppendEffectTechnique_43BEA0(
-    const std::int32_t skill, const std::int32_t position)
+    YobiAction* const action, const std::int32_t skill, const std::int32_t position)
 {
-    const BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
+    const BattleAppendEffectNode* node = action->ownerSession->Yobi().battleAppendEffects;
     while (node != nullptr) {
         if (node->position == position && node->skill == skill) {
             return node->technique;
@@ -803,16 +802,16 @@ std::int32_t CheckBattleTurnReady_4394A0(
 } // namespace detail
 
 // 原函数：0x0043BED0。
-void ClearBattleAppendEffects_43BED0()
+void ClearBattleAppendEffects_43BED0(session::ClientSession& session)
 {
-    detail::BattleAppendEffectNode* node = detail::gBattleAppendEffects5ABA8C;
+    detail::BattleAppendEffectNode* node = session.Yobi().battleAppendEffects;
     while (node != nullptr) {
         detail::BattleAppendEffectNode* const current = node;
-        detail::gBattleAppendEffects5ABA8C = current;
+        session.Yobi().battleAppendEffects = current;
         node = current->next;
         std::free(current);
     }
-    detail::gBattleAppendEffects5ABA8C = nullptr;
+    session.Yobi().battleAppendEffects = nullptr;
 }
 
 // 原函数：0x00405C30。

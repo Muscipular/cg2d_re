@@ -1629,9 +1629,9 @@ static void ProcessBattleMDataHeader(
         const bool appendEight = flags == BattleAppendSkillSelector_SpecialGuard;
         gBattleMTechnique5A4A38 = technique;
         if (appendEight) {
-            AddBattleAppendEffect_43BE00(BattleSkill_SpecialGuard, technique, gBattleMCasterPosition5AAA64);
+            AddBattleAppendEffect_43BE00(scene, BattleSkill_SpecialGuard, technique, gBattleMCasterPosition5AAA64);
         } else if (flags == BattleAppendSkillSelector_CrossCounter) {
-            AddBattleAppendEffect_43BE00(BattleSkill_CrossCounter, technique, gBattleMCasterPosition5AAA64);
+            AddBattleAppendEffect_43BE00(scene, BattleSkill_CrossCounter, technique, gBattleMCasterPosition5AAA64);
         }
         if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);

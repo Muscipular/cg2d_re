@@ -4380,7 +4380,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         gBattleExitRequested_5ABB20 = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
-        cg::yobi::ClearBattleAppendEffects_43BED0();
+        cg::yobi::ClearBattleAppendEffects_43BED0(session);
         battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());

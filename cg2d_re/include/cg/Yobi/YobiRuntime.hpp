@@ -381,7 +381,7 @@ void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；
 // 原函数：0x004238F0。
 void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清FE0 bit0，再按本人/宠物/相册置位。
 // 原函数：0x0043BED0。
-void ClearBattleAppendEffects_43BED0(); // 每次发布当前节点、取next再释放，最后清首指针。
+void ClearBattleAppendEffects_43BED0(session::ClientSession& session); // 每次发布当前节点、取next再释放，最后清首指针。
 // 原函数：0x004990A0。
 void DrawBattleActorHpBar_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
 

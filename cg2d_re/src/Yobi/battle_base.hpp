@@ -974,10 +974,10 @@ void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用
 std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原54项技能准入集合，返回0/1；不查询链，见追加效果链SPEC。
 // 原函数：0x0043BE00。
 void AddBattleAppendEffect_43BE00(
-    std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。
+    YobiAction* scene, std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。
 // 原函数：0x0043BEA0。
 std::int32_t FindBattleAppendEffectTechnique_43BEA0(
-    std::int32_t skill, std::int32_t position); // 按位置/技能查首节点，未命中-1。
+    YobiAction* action, std::int32_t skill, std::int32_t position); // 按位置/技能查首节点，未命中-1。
 // 原函数：0x00405CB0。
 void UpdateBattleDirectionFromAngle_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
 // 原函数：0x00405E60。

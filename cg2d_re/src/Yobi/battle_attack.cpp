@@ -46,7 +46,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
         if ((initialFlags & BattleResultFlag_Guard) != 0) {
             image = 110000;
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-            image = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, payload->effects1C[initialIndex].position) < 12
+            image = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, payload->effects1C[initialIndex].position) < 12
                 ? 110098 : 111048;
         } else {
             const std::int32_t skill = payload->castSkill103C;
@@ -910,7 +910,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_MagicGuard) != 0) {
             image = 110099;
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-            image = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
+            image = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
         } else {
             const std::int32_t skill = payload->castSkill103C;
             switch (skill) {
@@ -1274,7 +1274,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
         if ((initialFlags & BattleResultFlag_Guard) != 0) {
             image = 110000;
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-            image = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
+            image = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
         } else {
             image = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
@@ -1415,7 +1415,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
             if ((imageFlags & BattleResultFlag_Guard) != 0) {
                 image = 110000;
             } else if ((imageFlags & BattleResultFlag_SpecialGuard) != 0) {
-                image = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, payload->effects1C[imageIndex].position) < 12
+                image = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, payload->effects1C[imageIndex].position) < 12
                     ? 110098 : 111048;
             } else {
                 const std::int32_t skill = payload->castSkill103C;
@@ -2641,7 +2641,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         if ((initialFlags & BattleResultFlag_Guard) != 0) {
             imageNo = 110000;
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-            imageNo = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
+            imageNo = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
         } else {
             const std::int32_t skill = payload->castSkill103C;
             if (skill == BattleSkill_MagicMissile || skill == BattleSkill_ConfusionShockwave) {
@@ -2859,7 +2859,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_MagicGuard) != 0) {
             imageNo = 110099;
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-            imageNo = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
+            imageNo = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
         } else {
             const std::int32_t skill = payload->castSkill103C;
             switch (skill) {
@@ -3127,7 +3127,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
             if ((initialFlags & BattleResultFlag_Guard) != 0) {
                 imageNo = 110000;
             } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
-                imageNo = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_SpecialGuard, effect.position) < 12 ? 110098 : 111048;
+                imageNo = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, effect.position) < 12 ? 110098 : 111048;
             } else if ((initialFlags & BattleResultFlag_Bodyguard) != 0) {
                 imageNo = 110135;
             } else if (payload->effectRunningC9C == 0) {

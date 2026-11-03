@@ -561,15 +561,15 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
 }
 
 // 五创建入口的原关闭顺序；只标关闭，不同步释放或撤回已递增计数。
-static cg::yobi::YobiAction* WindowCraft_Create()
+static cg::yobi::YobiAction* WindowCraft_Create(session::ClientSession& session)
 {
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
-    return WindowRuntime_CreateAnimation(WindowId_Craft, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Craft, 1, 0, nullptr);
 }
 
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
@@ -817,8 +817,9 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
 
 // 原函数：0x0047D5F0。
 cg::yobi::YobiAction* WindowCraft_OpenRecipe(
-    const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)
+    session::ClientSession& session, const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)
 {
+    auto& operations = session.UiFrame().native.operations;
     gCraftSkillIndexCC2368 = skill;
     gCraftRequestValueD30400 = request;
     gCraftRecipeIndexD2D638 = recipe;
@@ -827,42 +828,44 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
     const std::int32_t skillId = world::gSkillsF1BAFC[currentSkill].skillId;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    operations.statusIconReferences = skillReferences;
     WindowCraft_SelectState(skillId);
-    return WindowCraft_Create();
+    return WindowCraft_Create(session);
 }
 
 // 原函数：0x0047D780。
-cg::yobi::YobiAction* WindowCraft_OpenItemWork(const std::int32_t skill, const std::int32_t request)
+cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& operations = session.UiFrame().native.operations;
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    gSkillOperationCount_D67AFD = references;
+    operations.skillCount = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
-    return WindowCraft_Create();
+    return WindowCraft_Create(session);
 }
 
 // 原函数：0x0047D8F0。
 cg::yobi::YobiAction* WindowCraft_OpenDecoration(
-    const std::int32_t skill, const std::int32_t request, const std::int32_t kind)
+    session::ClientSession& session, const std::int32_t skill, const std::int32_t request, const std::int32_t kind)
 {
+    auto& operations = session.UiFrame().native.operations;
     gCraftSkillIndexCC2368 = skill;
     gCraftRequestValueD30400 = request;
     gSelectionModeD2D650 = 6;
@@ -872,55 +875,57 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
-    gSkillOperationCount_D67AFD = references;
+    operations.skillCount = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
-    return WindowCraft_Create();
+    return WindowCraft_Create(session);
 }
 
 // 原函数：0x0047DA70。
-cg::yobi::YobiAction* WindowCraft_OpenRefining(const std::int32_t skill, const std::int32_t request)
+cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& operations = session.UiFrame().native.operations;
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
+    operations.statusIconReferences = skillReferences;
     if (world::GetPlayerStatusIcon_51BEC0() != 9) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
     }
-    return WindowCraft_Create();
+    return WindowCraft_Create(session);
 }
 
 // 原函数：0x0047DB50。
-cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const std::int32_t request)
+cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& operations = session.UiFrame().native.operations;
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
+    operations.statusIconReferences = skillReferences;
     static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
-    return WindowCraft_Create();
+    return WindowCraft_Create(session);
 }
 
 // 原函数：0x0047FAE0。
@@ -2834,6 +2839,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const auto initializeMode = [currentWindow](const std::uint8_t mode) {
@@ -2849,7 +2855,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     };
     if (value == -1) {
         gItemMarksD67290.fill(0);
-        gWindowActionCA0174 = nullptr;
+        operations.craftOpening = nullptr;
         gMaterialHoverSlotsCB0A8C.fill(-2);
         gMaterialHoveredItemD67424 = -1;
         gMaterialIndicesCA0458.fill(-1);
@@ -3158,20 +3164,21 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
 // 原函数：0x00481010。
 static void WindowCraft_Release(WindowInstance& releasedWindow)
 {
+    auto& operations = releasedWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const quantityWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (quantityWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
     gCraftPetAssistActive_D67B00 = 0;
     WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
-    WindowRuntime_DecrementGatherOperationCount();
-    --gSkillOperationCount_D67AFD;
+    WindowRuntime_DecrementGatherOperationCount(*releasedWindow.ownerSession);
+    --operations.skillCount;
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
     }
     static_cast<void>(WindowCraft_ReleaseMaterials(6));
-    --gSkillStatusIconReferences_D67AFE;
-    if (gSkillStatusIconReferences_D67AFE == 0) {
+    --operations.statusIconReferences;
+    if (operations.statusIconReferences == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if (state >= 9 && state <= 12) {
             static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));

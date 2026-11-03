@@ -121,12 +121,13 @@ std::int32_t WindowSkillResult_ReadPreviewImage(const std::int32_t imageNo, cons
 // 原函数：0x004875E0。
 static cg::yobi::YobiAction* WindowSkillResult_Open(session::ClientSession& session)
 {
-    WindowRuntime_IncrementOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
+    auto& operations = session.UiFrame().native.operations;
+    WindowRuntime_IncrementOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
     WindowInstance* const previous = WindowRuntime_States(session)[WindowId_Craft].window;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    operations.statusIconReferences = skillReferences;
     if (previous != nullptr) {
         previous->state |= 0x8000u;
     }
@@ -142,11 +143,12 @@ static cg::yobi::YobiAction* WindowSkillResult_Open(session::ClientSession& sess
 // 原函数：0x00487660。
 static void WindowSkillResult_Release(WindowInstance& releasedWindow)
 {
+    auto& operations = releasedWindow.ownerSession->UiFrame().native.operations;
     WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
-    gSkillOperationCount_D67AFD = references;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    const auto references = static_cast<std::uint8_t>(operations.skillCount - 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
+    operations.skillCount = references;
+    operations.statusIconReferences = skillReferences;
     if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }

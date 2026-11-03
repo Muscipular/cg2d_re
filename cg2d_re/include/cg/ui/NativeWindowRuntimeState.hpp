@@ -229,6 +229,16 @@ struct GatherWindowRuntimeState {
     std::wstring details {}; // 原0xCC190C。
 };
 
+// 同一会话内制作、采集和技能选择共用，保留原计数宽度与两独立借用槽。
+struct WindowOperationRuntimeState {
+    std::int32_t count = 0; // 原0xD67AF8。
+    std::uint8_t gatherCount = 0; // 原0xD67AFC。
+    std::uint8_t skillCount = 0; // 原0xD67AFD。
+    std::uint8_t statusIconReferences = 0; // 原0xD67AFE。
+    yobi::YobiAction* craftOpening = nullptr; // 原0xCA0174，非拥有。
+    yobi::YobiAction* gatherOpening = nullptr; // 原0xD2E928，非拥有。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -257,6 +267,7 @@ struct NativeWindowRuntimeState {
     SkillRequestRuntimeState skillRequest {};
     SkillResultRuntimeState skillResult {};
     GatherWindowRuntimeState gather {};
+    WindowOperationRuntimeState operations {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

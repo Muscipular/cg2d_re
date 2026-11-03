@@ -468,14 +468,15 @@ static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& sess
 // 原函数：0x004872E0。
 static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
-        const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
-        const auto skillCount = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
-        gSkillOperationCount_D67AFD = count;
-        gSkillStatusIconReferences_D67AFE = skillCount;
+        const auto count = static_cast<std::uint8_t>(operations.skillCount - 1);
+        const auto skillCount = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
+        operations.skillCount = count;
+        operations.statusIconReferences = skillCount;
         if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
             static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
@@ -518,6 +519,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
 // 原函数：0x004874B0。
 static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSession& session)
 {
+    auto& operations = session.UiFrame().native.operations;
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t count = targets.attributeCount;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -534,11 +536,11 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSes
         view.injury = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(targets.injuries[index]));
         view.color = static_cast<std::uint8_t>(colors[targets.attributeKinds[index]]);
     }
-    WindowRuntime_IncrementOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
+    operations.statusIconReferences = skillReferences;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
         WindowInstance* const window = WindowRuntime_States(session)[id].window;
@@ -728,6 +730,7 @@ static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
 // 原函数：0x0047B820。
 static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -760,11 +763,11 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
     if (clicked) {
         if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
             WindowSkill_ShowTechniques(session, currentWindow, pairIndex);
-            WindowRuntime_IncrementOperationCount();
+            WindowRuntime_IncrementOperationCount(*callbackWindow.ownerSession);
             static_cast<void>(WindowDrag_ResetMouse());
             consumed = 1;
         }
-    } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0 && gSkillOperationCount_D67AFD == 0) {
+    } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0 && operations.skillCount == 0) {
         static_cast<void>(WindowSkill_StartDrag(pairIndex));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -980,14 +983,15 @@ static void WindowSkill_ShowTechniques(session::ClientSession& session, WindowIn
 // 原函数：0x0047B0E0。
 static void WindowSkill_Release(WindowInstance& releasedWindow)
 {
+    auto& operations = releasedWindow.ownerSession->UiFrame().native.operations;
     auto& session = *releasedWindow.ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t mode = skillState.mode;
     if (mode == 1 || mode == 2) {
         WindowRuntime_DecrementOperationCount(session);
         if (skillState.mode == 2) {
-            WindowRuntime_DecrementGatherOperationCount();
-            --gSkillOperationCount_D67AFD;
+            WindowRuntime_DecrementGatherOperationCount(*releasedWindow.ownerSession);
+            --operations.skillCount;
         }
     }
 }
@@ -1637,6 +1641,7 @@ cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(
 // 原函数：0x0047B110。
 static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1664,8 +1669,8 @@ static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const
             break;
         case 2:
             WindowSkill_ShowTechniques(session, window, -1);
-            WindowRuntime_DecrementGatherOperationCount();
-            --gSkillOperationCount_D67AFD;
+            WindowRuntime_DecrementGatherOperationCount(*callbackWindow.ownerSession);
+            --operations.skillCount;
             break;
         case 4:
             WindowSkill_ShowBattleSkills(session, window, skillState.index);
@@ -1713,6 +1718,7 @@ std::int32_t WindowSkill_Back(session::ClientSession& session)
 // 原函数：0x0047B210。
 static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1738,7 +1744,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
                 ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
         }
         std::int32_t consumed = 0;
-        if (gGatherOperationCount_D67AFC != 0) {
+        if (operations.gatherCount != 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
@@ -1760,7 +1766,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B57B;
         }
-        if (gGatherOperationCount_D67AFC != 0) {
+        if (operations.gatherCount != 0) {
             graphic->imageNo = 0x3B57B;
         }
         return consumed;
@@ -1840,6 +1846,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
 // 原函数：0x0047A620。
 static std::int32_t WindowSkill_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1874,8 +1881,8 @@ static std::int32_t WindowSkill_Update(WindowInstance& callbackWindow, const std
     if ((mode == 1 || mode == 2 || mode == 4)
         && world::gSkillsF1BAFC[skillState.index].name[0] == '\0') {
         if (mode == 2) {
-            WindowRuntime_DecrementGatherOperationCount();
-            --gSkillOperationCount_D67AFD;
+            WindowRuntime_DecrementGatherOperationCount(*callbackWindow.ownerSession);
+            --operations.skillCount;
         }
         if (mode == 1 || mode == 2) {
             WindowRuntime_DecrementOperationCount(session);
@@ -2281,6 +2288,7 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
 // 原函数：0x0047C3A0。
 static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2308,10 +2316,10 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
                         || gCraftRequestValueD30400 != skillState.recipeLevel
                         || gCraftRecipeIndexD2D638 != recipe;
                 } else {
-                    create = gWindowActionCA0174 == nullptr;
+                    create = operations.craftOpening == nullptr;
                 }
                 if (create) {
-                    gWindowActionCA0174 = WindowCraft_OpenRecipe(skill, recipe, skillState.recipeLevel);
+                    operations.craftOpening = WindowCraft_OpenRecipe(*callbackWindow.ownerSession, skill, recipe, skillState.recipeLevel);
                 }
             }
         }
@@ -2345,6 +2353,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
 // 原函数：0x0047BC00。
 static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2409,10 +2418,10 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         const std::int32_t current = std::bit_cast<std::int8_t>(session.UiFrame().native.gather.skillIndex);
                         const std::int32_t skill = skillState.index;
                         if (current != skill || request.level != technique) {
-                            gWindowActionD2E928 = WindowGather_Open(session, skill, technique);
+                            operations.gatherOpening = WindowGather_Open(session, skill, technique);
                         }
-                    } else if (gWindowActionD2E928 == nullptr) {
-                        gWindowActionD2E928 = WindowGather_Open(session, skillState.index, technique);
+                    } else if (operations.gatherOpening == nullptr) {
+                        operations.gatherOpening = WindowGather_Open(session, skillState.index, technique);
                     }
                     return;
                 case 3: {
@@ -2438,10 +2447,10 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     if (WindowRuntime_States(session)[WindowId_Craft].window != nullptr) {
                         const std::int32_t skill = skillState.index;
                         if (gCraftSkillIndexCC2368 != skill || gCraftRequestValueD30400 != technique) {
-                            gWindowActionCA0174 = WindowCraft_OpenItemWork(skill, technique);
+                            operations.craftOpening = WindowCraft_OpenItemWork(*callbackWindow.ownerSession, skill, technique);
                         }
-                    } else if (gWindowActionCA0174 == nullptr) {
-                        gWindowActionCA0174 = WindowCraft_OpenItemWork(skillState.index, technique);
+                    } else if (operations.craftOpening == nullptr) {
+                        operations.craftOpening = WindowCraft_OpenItemWork(*callbackWindow.ownerSession, skillState.index, technique);
                     }
                     return;
                 case 1: {
@@ -2453,18 +2462,18 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         }
                         const std::int32_t skill = skillState.index;
                         if (skillId == 255 || skillId == 606) {
-                            static_cast<void>(WindowCraft_OpenDecoration(skill, technique, skillId == 606 ? 1 : 0));
+                            static_cast<void>(WindowCraft_OpenDecoration(*callbackWindow.ownerSession, skill, technique, skillId == 606 ? 1 : 0));
                         } else if (skillId == 2025) {
-                            static_cast<void>(WindowCraft_OpenRefining(skill, technique));
+                            static_cast<void>(WindowCraft_OpenRefining(*callbackWindow.ownerSession, skill, technique));
                         } else {
-                            static_cast<void>(WindowCraft_OpenMaterials(skill, technique));
+                            static_cast<void>(WindowCraft_OpenMaterials(*callbackWindow.ownerSession, skill, technique));
                         }
                         return;
                     }
-                    WindowRuntime_IncrementGatherOperationCount();
-                    const std::uint8_t previous = gSkillOperationCount_D67AFD;
+                    WindowRuntime_IncrementGatherOperationCount(*callbackWindow.ownerSession);
+                    const std::uint8_t previous = operations.skillCount;
                     const std::int32_t skill = skillState.index;
-                    gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previous + 1);
+                    operations.skillCount = static_cast<std::uint8_t>(previous + 1);
                     const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
                     const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
                     if ((rebirth != 0) != enabled) {
@@ -2529,14 +2538,15 @@ void WindowSkill_SyncStates(session::ClientSession& session)
 // 原函数：0x00487020。
 static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t* const text)
 {
+    auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
-        const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
-        const auto skillCount = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
-        gSkillOperationCount_D67AFD = count;
-        gSkillStatusIconReferences_D67AFE = skillCount;
+        const auto count = static_cast<std::uint8_t>(operations.skillCount - 1);
+        const auto skillCount = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
+        operations.skillCount = count;
+        operations.statusIconReferences = skillCount;
         if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
             static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
         }
@@ -2580,6 +2590,7 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
 // 原函数：0x004871B0。
 static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session)
 {
+    auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -2590,7 +2601,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
         targets.colors[index] = static_cast<std::uint8_t>(colors[kind]);
     }
     const std::int32_t skillIndex = request.index;
-    ++gSkillStatusIconReferences_D67AFE;
+    ++operations.statusIconReferences;
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
         if (world::GetPlayerStatusIcon_51BEC0() != 13) {
@@ -2599,8 +2610,8 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
     } else {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }
-    WindowRuntime_IncrementOperationCount();
-    ++gSkillOperationCount_D67AFD;
+    WindowRuntime_IncrementOperationCount(session);
+    ++operations.skillCount;
     constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
     for (const std::int32_t id : windowIds) {
         WindowInstance* const window = WindowRuntime_States(session)[id].window;

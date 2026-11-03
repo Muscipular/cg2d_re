@@ -431,7 +431,7 @@ void WindowBattleCommand_SyncActorVitals(); // 战斗对象四值更新，保留
 // 原函数：0x0047A5C0。
 std::int32_t WindowSkill_Back(session::ClientSession& session); // 战斗返回：模式4退列表，0/3/5/6关闭。
 // 原函数：0x00479650。
-void WindowRuntime_IncrementOperationCount(); // 原窗口操作S32计数加1。
+void WindowRuntime_IncrementOperationCount(session::ClientSession& session); // 原窗口操作S32计数加1。
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount(session::ClientSession& session); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
 // 原函数：0x0047D170。
@@ -444,16 +444,16 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     std::int32_t flag, std::int32_t actionId, std::int32_t direction); // 返回第二个借用载荷。
 // 原函数：0x0047D5F0。
 cg::yobi::YobiAction* WindowCraft_OpenRecipe(
-    std::int32_t skill, std::int32_t recipe, std::int32_t request); // 制造开窗，保存同源配方id。
+    session::ClientSession& session, std::int32_t skill, std::int32_t recipe, std::int32_t request); // 制造开窗，保存同源配方id。
 // 原函数：0x0047D780。
-cg::yobi::YobiAction* WindowCraft_OpenItemWork(std::int32_t skill, std::int32_t request); // 单选加工开窗。
+cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, std::int32_t skill, std::int32_t request); // 单选加工开窗。
 // 原函数：0x0047D8F0。
 cg::yobi::YobiAction* WindowCraft_OpenDecoration(
-    std::int32_t skill, std::int32_t request, std::int32_t kind); // 装饰开窗，kind严格1为宠物装备。
+    session::ClientSession& session, std::int32_t skill, std::int32_t request, std::int32_t kind); // 装饰开窗，kind严格1为宠物装备。
 // 原函数：0x0047DA70。
-cg::yobi::YobiAction* WindowCraft_OpenRefining(std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
+cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
 // 原函数：0x0047DB50。
-cg::yobi::YobiAction* WindowCraft_OpenMaterials(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
+cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session, std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
 // 原函数：0x004F4430。
 std::int32_t WindowCraft_ClassifySpecialMaterial(std::int32_t itemType, std::int32_t skillId); // 技能分类对应的特殊材料类别。
 // 原函数：0x00482F70。
@@ -463,9 +463,9 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(std::int32_t result, const 
 // 原函数：0x004F1800。
 WindowAnimationData* WindowCraft_ReceiveItemWorkResult(std::int32_t result, const char* text); // JgO第二分支七字段及独立摘要。
 // 原函数：0x004796E0。
-void WindowRuntime_DecrementGatherOperationCount(); // 只递减既有D67AFC低U8，不清其他操作计数。
+void WindowRuntime_DecrementGatherOperationCount(session::ClientSession& session); // 只递减既有D67AFC低U8，不清其他操作计数。
 // 原函数：0x004796D0。
-void WindowRuntime_IncrementGatherOperationCount(); // 仅递增既有D67AFC低U8。
+void WindowRuntime_IncrementGatherOperationCount(session::ClientSession& session); // 仅递增既有D67AFC低U8。
 // 原函数：0x004854A0。
 cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
 // 原函数：0x0047D2E0。
@@ -808,12 +808,7 @@ extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C�
 extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
-extern cg::yobi::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
-extern cg::yobi::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
-extern std::uint8_t gGatherOperationCount_D67AFC; // 原全局：0x00D67AFC。
-extern std::uint8_t gSkillOperationCount_D67AFD; // 原全局：0x00D67AFD。
-extern std::uint8_t gSkillStatusIconReferences_D67AFE; // 原全局：0x00D67AFE。
 extern std::uint8_t gSkillRebirthModeEnabled_5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。

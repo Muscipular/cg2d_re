@@ -110,6 +110,7 @@ WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 1
 // 原函数：0x004854A0。
 cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const std::int32_t skill, const std::int32_t level)
 {
+    auto& operations = session.UiFrame().native.operations;
     auto& gather = session.UiFrame().native.gather;
     const auto skillByte = static_cast<std::uint8_t>(skill);
     gather.skillIndex = skillByte;
@@ -142,12 +143,12 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     gSkillExtraDelayCF46C4 = 2000;
-    WindowRuntime_IncrementOperationCount();
-    WindowRuntime_IncrementGatherOperationCount();
-    const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE + 1);
-    gSkillOperationCount_D67AFD = references;
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    WindowRuntime_IncrementOperationCount(session);
+    WindowRuntime_IncrementGatherOperationCount(session);
+    const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
+    operations.skillCount = references;
+    operations.statusIconReferences = skillReferences;
     std::int32_t mode = 0;
     switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gather.skillIndex)].skillId) {
         case 225:
@@ -184,20 +185,21 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
 // 原函数：0x00485690。
 static void WindowGather_Release(WindowInstance& releasedWindow)
 {
+    auto& operations = releasedWindow.ownerSession->UiFrame().native.operations;
     auto& session = *releasedWindow.ownerSession;
     auto& gather = session.UiFrame().native.gather;
     WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
     const std::uint8_t mode = gather.mode;
     if (mode == 1 || mode == 2) {
-        WindowRuntime_DecrementGatherOperationCount();
+        WindowRuntime_DecrementGatherOperationCount(*releasedWindow.ownerSession);
     }
-    const std::uint8_t previousReferences = gSkillOperationCount_D67AFD;
+    const std::uint8_t previousReferences = operations.skillCount;
     WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Gather].window;
-    gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previousReferences - 1);
+    operations.skillCount = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
     // 原4856C1..4856CD：W8减后发布，分支消费同一结果。
-    const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
-    gSkillStatusIconReferences_D67AFE = skillReferences;
+    const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
+    operations.statusIconReferences = skillReferences;
     if (skillReferences == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {
@@ -212,7 +214,7 @@ static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session,
     auto& gather = session.UiFrame().native.gather;
     const std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
-        WindowRuntime_DecrementGatherOperationCount();
+        WindowRuntime_DecrementGatherOperationCount(session);
     }
     gather.mode = 0;
     for (std::int32_t index = 4; index <= 7; ++index) {
@@ -243,7 +245,7 @@ static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession
 {
     auto& gather = session.UiFrame().native.gather;
     if (gather.mode != 1) {
-        WindowRuntime_IncrementGatherOperationCount();
+        WindowRuntime_IncrementGatherOperationCount(session);
     }
     const std::int32_t previousValue = gather.extra;
     gather.mode = 1;
@@ -302,7 +304,7 @@ static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& sess
     auto& gather = session.UiFrame().native.gather;
     std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
-        WindowRuntime_DecrementGatherOperationCount();
+        WindowRuntime_DecrementGatherOperationCount(session);
         mode = gather.mode;
     }
     gather.mode = mode == 0 ? 4 : 3;
@@ -458,14 +460,15 @@ WindowAnimationData* WindowGather_ReceiveResult(session::ClientSession& session,
 // 原函数：0x00486040。
 static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     auto& session = *callbackWindow.ownerSession;
     auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        gWindowActionD2E928 = nullptr;
+        operations.gatherOpening = nullptr;
         gather.mode = 0;
-        WindowRuntime_DecrementGatherOperationCount();
+        WindowRuntime_DecrementGatherOperationCount(*callbackWindow.ownerSession);
         static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
         return 1;
     }

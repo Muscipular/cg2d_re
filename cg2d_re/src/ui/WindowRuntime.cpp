@@ -156,16 +156,16 @@ static void WindowRuntime_ClearElementFocus(); // 只清异型元素焦点引用
 static void WindowRuntime_RestoreMarkedWindows(session::ClientSession& session); // marker严格1才分派，四个特殊窗口按原序恢复。
 
 // 原函数：0x00479640。
-static void WindowRuntime_ResetOperationCount(); // 只清窗口操作S32计数。
+static void WindowRuntime_ResetOperationCount(session::ClientSession& session); // 只清窗口操作S32计数。
 
 // 原函数：0x004796C0。
-static void WindowRuntime_ResetGatherOperationCount(); // 只清D67AFC。
+static void WindowRuntime_ResetGatherOperationCount(session::ClientSession& session); // 只清D67AFC。
 
 // 原函数：0x004796F0。
-static void WindowRuntime_ResetSkillOperationCount(); // 只清D67AFD。
+static void WindowRuntime_ResetSkillOperationCount(session::ClientSession& session); // 只清D67AFD。
 
 // 原函数：0x00479610。
-static void WindowRuntime_ResetOperationReferences(); // 清两借用Yobi槽与计数/三个字节，不释放对象。
+static void WindowRuntime_ResetOperationReferences(session::ClientSession& session); // 清两借用Yobi槽与计数/三个字节，不释放对象。
 
 // 原函数：0x004C7AD0。
 static void WindowRuntime_ResetShortcutFlag(session::ClientSession& session); // 只清CF4AAC。
@@ -399,20 +399,7 @@ const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165
 
 const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
 
-cg::yobi::YobiAction* gWindowActionCA0174 = nullptr; // 原全局：0x00CA0174。
-
-cg::yobi::YobiAction* gWindowActionD2E928 = nullptr; // 原全局：0x00D2E928。
-
 cg::yobi::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
-
-// 原全局：0x00D67AF8。 原窗口操作计数，不随指针扩宽。
-static std::int32_t gWindowOperationCount_D67AF8 = 0; // 原全局：0x00D67AF8。
-
-std::uint8_t gGatherOperationCount_D67AFC = 0; // 原全局：0x00D67AFC。
-
-std::uint8_t gSkillOperationCount_D67AFD = 0; // 原全局：0x00D67AFD。
-
-std::uint8_t gSkillStatusIconReferences_D67AFE = 0; // 原全局：0x00D67AFE。
 
 std::int32_t gSkillSendModeC8A970 = 0; // 原全局：0x00C8A970。
 
@@ -2992,32 +2979,36 @@ static void WindowRuntime_RestoreMarkedWindows(session::ClientSession& session)
 }
 
 // 原函数：0x00479640。
-static void WindowRuntime_ResetOperationCount()
+static void WindowRuntime_ResetOperationCount(session::ClientSession& session)
 {
-    gWindowOperationCount_D67AF8 = 0;
+    auto& operations = session.UiFrame().native.operations;
+    operations.count = 0;
 }
 
 // 原函数：0x004796C0。
-static void WindowRuntime_ResetGatherOperationCount()
+static void WindowRuntime_ResetGatherOperationCount(session::ClientSession& session)
 {
-    gGatherOperationCount_D67AFC = 0;
+    auto& operations = session.UiFrame().native.operations;
+    operations.gatherCount = 0;
 }
 
 // 原函数：0x004796F0。
-static void WindowRuntime_ResetSkillOperationCount()
+static void WindowRuntime_ResetSkillOperationCount(session::ClientSession& session)
 {
-    gSkillOperationCount_D67AFD = 0;
+    auto& operations = session.UiFrame().native.operations;
+    operations.skillCount = 0;
 }
 
 // 原函数：0x00479610。
-static void WindowRuntime_ResetOperationReferences()
+static void WindowRuntime_ResetOperationReferences(session::ClientSession& session)
 {
-    gWindowActionCA0174 = nullptr;
-    gWindowActionD2E928 = nullptr;
-    WindowRuntime_ResetOperationCount();
-    WindowRuntime_ResetGatherOperationCount();
-    WindowRuntime_ResetSkillOperationCount();
-    gSkillStatusIconReferences_D67AFE = 0;
+    auto& operations = session.UiFrame().native.operations;
+    operations.craftOpening = nullptr;
+    operations.gatherOpening = nullptr;
+    WindowRuntime_ResetOperationCount(session);
+    WindowRuntime_ResetGatherOperationCount(session);
+    WindowRuntime_ResetSkillOperationCount(session);
+    operations.statusIconReferences = 0;
 }
 
 // 原函数：0x004C7AD0。
@@ -3419,7 +3410,7 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
     WindowRuntime_ClearElementFocus();
     gSelectedItemCB1DF4 = -1;
     session.UiFrame().native.itemTargets.references = 0;
-    WindowRuntime_ResetOperationReferences();
+    WindowRuntime_ResetOperationReferences(session);
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
     static_cast<void>(WindowChat_RestoreInput());
@@ -3458,7 +3449,7 @@ static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
         states[WindowId_MailCompose].marker50 = 0;
         states[WindowId_PetMailCompose].marker50 = 0;
     }
-    WindowRuntime_ResetOperationReferences();
+    WindowRuntime_ResetOperationReferences(session);
     WindowInstance* const window22 = states[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
@@ -3485,7 +3476,7 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
     WindowRuntime_RestoreMarkedWindows(session);
     gSelectedItemCB1DF4 = -1;
     session.UiFrame().native.itemTargets.references = 0;
-    WindowRuntime_ResetOperationReferences();
+    WindowRuntime_ResetOperationReferences(session);
     const std::int32_t inputGate = input::gChatLogSuppressed_626C14;
     gPreviewActionD67B84 = nullptr;
     if (inputGate == 0) {
@@ -3657,28 +3648,32 @@ std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x004796D0。
-void WindowRuntime_IncrementGatherOperationCount()
+void WindowRuntime_IncrementGatherOperationCount(session::ClientSession& session)
 {
-    ++gGatherOperationCount_D67AFC;
+    auto& operations = session.UiFrame().native.operations;
+    ++operations.gatherCount;
 }
 
 // 原函数：0x004796E0。
-void WindowRuntime_DecrementGatherOperationCount()
+void WindowRuntime_DecrementGatherOperationCount(session::ClientSession& session)
 {
-    --gGatherOperationCount_D67AFC;
+    auto& operations = session.UiFrame().native.operations;
+    --operations.gatherCount;
 }
 
 // 原函数：0x00479650。
-void WindowRuntime_IncrementOperationCount()
+void WindowRuntime_IncrementOperationCount(session::ClientSession& session)
 {
-    ++gWindowOperationCount_D67AF8;
+    auto& operations = session.UiFrame().native.operations;
+    ++operations.count;
 }
 
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
 {
-    const std::int32_t remainingCount = gWindowOperationCount_D67AF8 - 1;
-    gWindowOperationCount_D67AF8 = remainingCount;
+    auto& operations = session.UiFrame().native.operations;
+    const std::int32_t remainingCount = operations.count - 1;
+    operations.count = remainingCount;
     if (remainingCount != 0 || gSkillRebirthModeEnabled_5F9754 == 0) {
         return;
     }

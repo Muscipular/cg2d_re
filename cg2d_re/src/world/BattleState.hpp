@@ -131,7 +131,6 @@ std::int32_t ShouldPlayBattleResultSound_4ED670(); // 四角色/宠物与十五�
 void OpenPendingBattleResultWindow_504A50(); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
 // 原函数：0x0043C8F0。
 std::int32_t ResetBattleCommandSelection_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
-extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 原全局：0x005ABC6C。 50D3C0的A消息严格1时消费。
 extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
 // 原函数：0x0043C4E0。
 void BeginBattleCommandSelection_43C4E0(session::ClientSession& session); // 完整命令计时初始化、对象标志与技能选择同步。

@@ -2197,7 +2197,6 @@ std::uint32_t gBattleExitRequested_5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB
 std::uint32_t gBattleTurnMessagesExhausted_5ABB28 = 0; // 原全局：0x005ABB28。
 
 namespace detail {
-std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
 
 } // namespace detail
 std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
@@ -10083,7 +10082,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
             battleScene.cQueue[offset] = '\0';
             battleScene.mQueue[offset] = '\0';
         }
-        detail::gBattleFirstTurnPending5ABC6C = 1;
+        battleScene.firstTurnPending = 1;
         return;
     }
     gPlayerCoordinateSyncPending_C821D8 = std::int32_t{0};
@@ -10120,9 +10119,10 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
     if (kind == 'A') {
         static_cast<void>(std::sscanf(text + 2, "%X|%X",
             &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
-        if (detail::gBattleFirstTurnPending5ABC6C == 1) {
+        auto& battleScene = connection.Owner().WorldScene().battle;
+        if (battleScene.firstTurnPending == 1) {
             const std::uint32_t turn = gBattleTurn5ABB74;
-            detail::gBattleFirstTurnPending5ABC6C = 0;
+            battleScene.firstTurnPending = 0;
             gBattleTurnSnapshot5ABC08 = turn;
         }
         cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0();

@@ -3,6 +3,7 @@
 #include "cg/text/Encoding.hpp"
 
 #include "../character_select/CharacterSelectState.hpp"
+#include "../character_select/CharacterSelectSceneState.hpp"
 
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -91,7 +92,7 @@ void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection& connectio
     const std::int16_t selected = request.selectedCharacterIndex;
     request.characterCreationReplyCode = 1;
     const std::int32_t previewToggle =
-        character_select::state::gPreviewToggleState;
+        connection.CharacterSelectUi().previewToggleState;
     CharacterRecord* const record = request.characters.data() + selected;
     record->registNumber = registNumber;
     record->previewState = previewToggle;

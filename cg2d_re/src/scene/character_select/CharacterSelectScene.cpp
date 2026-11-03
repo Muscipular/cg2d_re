@@ -316,7 +316,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
                 RestoreCharacterCreationDraftSnapshot_464380();
                 sceneUi.creationRestore = 0;
             }
-            gate = UpdateCharacterCreationAttributes_4631D0();
+            gate = UpdateCharacterCreationAttributes_4631D0(connection);
             if (gate == 1) {
                 const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
                 world::gCurrentSceneState = 30;
@@ -690,7 +690,7 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
 }
 
 // 原函数：0x004631D0。
-std::int32_t UpdateCharacterCreationAttributes_4631D0()
+std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& connection)
 {
     auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationAttributePointBytes_9A5FD4);
     const std::array<std::uint8_t*, 5> attributes {{
@@ -908,7 +908,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
                         } else {
                             state::gCreationNameFF0D18 = utf16Name;
                             const auto& name = state::gCreationNameFF0D18;
-                            if (login::CharacterNameExists_51B140(name) != 0) {
+                            if (login::CharacterNameExists_51B140(connection, name) != 0) {
                                 state::gCreationAttributePhase_9A5AFC = 102;
                             } else if (name.find(L' ') != std::wstring::npos
                                 || stored->find("\x81\x40") != std::string::npos
@@ -953,11 +953,11 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
             const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
             state::gCreationAttributePhase_9A5AFC = 11;
             if (mode == 0) {
-                state::gPreviewToggleState = 0;
+                connection.CharacterSelectUi().previewToggleState = 0;
                 state::gCreationSubmittedMotionImage_DE0AFC = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
             } else {
                 state::gCreationSubmittedMotionImage_DE0AFC = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
-                state::gPreviewToggleState = 1;
+                connection.CharacterSelectUi().previewToggleState = 1;
             }
             // 原ESI沿用上方四项互斥循环终值，未知模式不是零图号。
             std::int32_t graphic = 4;
@@ -1000,12 +1000,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
         for (std::size_t index = 0; index < kCreationErrors.size(); ++index) {
             const std::int32_t phase = 100 + 2 * static_cast<std::int32_t>(index);
             if (state::gCreationAttributePhase_9A5AFC == phase) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 ++state::gCreationAttributePhase_9A5AFC;
                 audio::PlaySe_52C450(55, 320);
             }
             if (state::gCreationAttributePhase_9A5AFC == phase + 1
-                && login::UpdateLoginMessage(kCreationErrors[index]) != 0) {
+                && login::UpdateLoginMessage(connection, kCreationErrors[index]) != 0) {
                 state::gCreationAttributePhase_9A5AFC = 1;
                 break;
             }
@@ -1230,7 +1230,6 @@ std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC
 std::wstring gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
 std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
-std::int32_t gPreviewToggleState = 0; // 原全局：0x009A6E14。
 std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
 std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
 
@@ -1691,7 +1690,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 } else if (value == 1) {
                     record.previewState = 0;
                 }
-                state::gPreviewToggleState =
+                sceneUi.previewToggleState =
                     record.previewState;
                 ProcessCharacterPreview_460D00(connection, slot);
                 login::detail::PlaySe(51, 320, 240);

@@ -51,7 +51,12 @@ std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, const 
 // 原函数：0x0051B140。
 std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
 {
-    for (const CharacterRecord& record : cg::network::GetGameConnection().LoginRequests().characters) {
+    return CharacterNameExists_51B140(cg::network::GetGameConnection(), name);
+}
+
+std::int32_t CharacterNameExists_51B140(network::CgConnection& connection, const std::wstring_view name)
+{
+    for (const CharacterRecord& record : connection.LoginRequests().characters) {
         if (record.name == name) { return 1; }
     }
     return 0;

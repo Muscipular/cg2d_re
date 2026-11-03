@@ -78,7 +78,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(); // 创建角色选择�
 // 原函数：0x00463100。
 std::uint32_t InitializeCharacterCreationAttributes_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
 // 原函数：0x004631D0。
-std::int32_t UpdateCharacterCreationAttributes_4631D0(); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
+std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& connection); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
 // 原函数：0x004642C0。
 std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
 // 原函数：0x00464380。

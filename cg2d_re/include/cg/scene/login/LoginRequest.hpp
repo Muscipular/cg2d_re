@@ -52,6 +52,7 @@ std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, std::u
 
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
 std::int32_t CharacterNameExists_51B140(std::wstring_view name);
+std::int32_t CharacterNameExists_51B140(network::CgConnection& connection, std::wstring_view name);
 
 // NSM01：登录/角色/登出请求共用的状态随连接实例保留，重连不清。
 struct LoginRequestState {

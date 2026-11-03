@@ -62,6 +62,7 @@ struct CharacterSelectSceneState {
     std::uint8_t creationRestore = 0; // 原 0x9A6EB8，创建场景同次调用的恢复回边。
     std::int16_t pendingCharacterCount = 0; // 原 0xF7CA06。
     std::uint16_t characterEntryState = 0; // 原 0x9A6E10。
+    std::int32_t previewToggleState = 0; // 原 0x9A6E14，创建回复和选角预览共用。
     CharacterListProgressState listProgress {};
     CharacterDeletionProgressState deletionProgress {};
     AuthenticationFailureState authenticationFailure {};

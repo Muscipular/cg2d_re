@@ -12,8 +12,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
-
 struct MailStatusTextTable {
     const wchar_t* prefixes[25];
     const wchar_t* suffixes[20];

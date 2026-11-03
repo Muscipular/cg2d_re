@@ -85,7 +85,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
 
 
 // 回调与内部函数前置声明。
@@ -116,10 +115,6 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, std::
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gBlacklistInputPrototype580EF0 { // 原全局：0x00580EF0。
-    {{&cg::ui::detail::gInputContextC8B1B8}, WindowInputReferenceKind::Context},
-    75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
-};
 
 static WindowGraphicData gWindowGraphic57A310 {243001, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057A310。
 
@@ -246,6 +241,7 @@ static void WindowBlacklist_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     render::GraphicDescriptor16 descriptor {};
     for (std::int32_t row = 0; row < 10; ++row) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(9 + row * 3)); indexedElement) indexedElement->visible = 0;
@@ -289,12 +285,12 @@ static void WindowBlacklist_Refresh()
         if (destination) destination->text = text;
         if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(39 + row)); indexedElement4) indexedElement4->visible = 0;
     }
-    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextC8B1B8) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &inputs.blacklist) {
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gBlacklistInputPrototype580EF0, x, y, 1));
-        render::DrawInputText_4568A0(*currentWindow->ownerSession, &cg::ui::detail::gInputContextC8B1B8);
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.blacklistPrototype, x, y, 1));
+        render::DrawInputText_4568A0(*currentWindow->ownerSession, &inputs.blacklist);
     }
 }
 
@@ -347,7 +343,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
     const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
     if (currentRecord[0] != L'\0') {
-        cg::ui::detail::gInputContextC8B1B8.reset();
+        inputs.blacklist.reset();
         input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.chat);
         world::AppendChatMessage_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
@@ -362,11 +358,11 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     if (!yElement) { return 0; }
     const std::int32_t y = yElement->y;
     const bool changeFocus = focused != target;
-    gBlacklistInputPrototype580EF0.y = y + 1;
+    inputs.blacklistPrototype.y = y + 1;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gBlacklistInputPrototype580EF0, windowX, windowY, 0));
-    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextC8B1B8);
+    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.blacklistPrototype, windowX, windowY, 0));
+    input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.blacklist);
     if (changeFocus) {
         auto* const buttonCloseElement2 = currentWindow->FindElementById(WindowBlacklistElementId::ButtonClose);
         if (buttonCloseElement2) {

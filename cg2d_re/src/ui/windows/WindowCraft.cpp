@@ -52,7 +52,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 
 // 回调与内部函数前置声明。
 
@@ -192,10 +191,6 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, std::int32_
 // 控件载荷、窗口状态、组件表与原型。
 
 // 原57D7F8：单选加工输入原型，只借用Input拥有的D2DE70。
-static WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
-    {{&cg::ui::detail::gInputContextD2DE70}, WindowInputReferenceKind::Context},
-    0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
-};
 
 static constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{ // 原常量参考：0x0057D7D0。
     {30, -45, 0}, {-30, -45, 7}, {-50, -20, 6},
@@ -1583,6 +1578,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
@@ -1755,7 +1751,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else if (world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(*callbackWindow.ownerSession, currentWindow));
-            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextD2DE70) {
+            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
                 static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1763,7 +1759,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             std::wstring trimmed;
             std::wstring buffer;
             const auto trimInput = [&] {
-                trimmed = input::ContextText(cg::ui::detail::gInputContextD2DE70);
+                trimmed = input::ContextText(inputs.engraving);
                 static_cast<void>(std::erase(trimmed, L' '));
                 // 原删除集合字节仍按GBK解码，直接处理宽正文。
                 for (const wchar_t character : cg::text::FromGbkWide("\x81\x40")) {
@@ -1774,22 +1770,22 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             std::int32_t notice = -1;
             const auto flags = world::gPlayerRuntimeSlots.items[craft.selectedItem].flags;
             if ((flags & 0x400u) != 0) {
-                if (input::ContainsPipeOrBackslash_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
+                if (input::ContainsPipeOrBackslash_45E770(input::ContextText(inputs.engraving)) == 1) {
                     notice = 0;
                 } else {
                     trimInput();
                     if (trimmed.empty()
-                        && cg::ui::detail::gInputContextD2DE70.length() != 0) {
+                        && inputs.engraving.length() != 0) {
                         notice = 1;
                     } else {
                         send = true;
                     }
                 }
-            } else if (!cg::ui::detail::gInputContextD2DE70.empty()) {
+            } else if (!inputs.engraving.empty()) {
                 trimInput();
                 if (trimmed.empty()) {
                     notice = 1;
-                } else if (input::ContainsPipeOrBackslash_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
+                } else if (input::ContainsPipeOrBackslash_45E770(input::ContextText(inputs.engraving)) == 1) {
                     notice = 0;
                 } else {
                     send = true;
@@ -1797,13 +1793,13 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             }
             if (notice >= 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(notice)); indexedElement) indexedElement->visible = 1;
-                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextD2DE70) {
+                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
                     static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
                 if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
-                    buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
+                    buffer = input::ContextText(inputs.engraving);
                 } else {
                     buffer.clear();
                 }
@@ -1821,10 +1817,10 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill + offset, request, selected, buffer));
                 input::InputContext* const current = callbackWindow.ownerSession->UiFrame().inputState.currentContext;
                 craft.selectionMode = 5;
-                if (current == &cg::ui::detail::gInputContextD2DE70) {
+                if (current == &inputs.engraving) {
                     static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
-                cg::ui::detail::gInputContextD2DE70.clearText();
+                inputs.engraving.clearText();
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
@@ -1970,6 +1966,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
@@ -2206,7 +2203,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                 const WindowElement* const inputElement = element12;
                                 const std::int32_t y = inputElement->y + window->y;
                                 const std::int32_t x = inputElement->x + window->x;
-                                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gCraftInputPrototype57D7F8, x, y, 0));
+                                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.engravingPrototype, x, y, 0));
                             }
                         }
                         return;
@@ -2379,6 +2376,7 @@ static std::int32_t WindowCraft_DrawResultImage(WindowInstance& callbackWindow, 
 // 原函数：0x00485030。
 static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2401,10 +2399,10 @@ static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWin
         auto* const element122 = window->FindElementById(WindowCraftElementId::Element12);
         if (element122) {
             const std::int32_t x = element122->x + window->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gCraftInputPrototype57D7F8, x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.engravingPrototype, x, y, 1));
         }
     }
-    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2DE70);
+    input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.engraving);
     WindowInstance* const current = currentWindow;
     auto* const element82 = current->FindElementById(WindowCraftElementId::Element8);
     if (element82) {
@@ -2413,7 +2411,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWin
     auto* const element83 = current->FindElementById(WindowCraftElementId::Element8);
     if (element83) {
         element83->data.input->context =
-            &cg::ui::detail::gInputContextD2DE70;
+            &inputs.engraving;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
@@ -2503,6 +2501,7 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbac
 // 原函数：0x004847C0。
 static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2541,7 +2540,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                     const WindowElement* const element = element12;
                     const std::int32_t y = element->y + window->y;
                     const std::int32_t x = element->x + window->x;
-                    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gCraftInputPrototype57D7F8, x, y, 0));
+                    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.engravingPrototype, x, y, 0));
                 }
             }
         }
@@ -2812,6 +2811,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(session::ClientSess
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
@@ -3011,7 +3011,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         hideControls = true;
     } else if (craft.selectionMode == 4 && expired()) {
         if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
-            buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
+            buffer = input::ContextText(inputs.engraving);
         } else {
             buffer.clear();
         }
@@ -3092,7 +3092,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                 if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"刻印的物品";
                 if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"　请选择。";
-                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextD2DE70) {
+                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.engraving) {
                     if (auto* const buttonExecuteElement = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute); buttonExecuteElement) buttonExecuteElement->visible = 1;
                     if (auto* const handleEngravingInputElement = currentWindow->FindElementById(WindowCraftElementId::HandleEngravingInput); handleEngravingInputElement) handleEngravingInputElement->visible = 1;
                     if (auto* const element8 = currentWindow->FindElementById(WindowCraftElementId::Element8); element8) element8->visible = 0;
@@ -3122,14 +3122,14 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         cg::yobi::SetYobiActionField2B8(
             element52->data.animation->action, cg::yobi::YobiDirection_Down);
     }
-    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextD2DE70) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
         WindowInstance* const window = currentWindow;
         auto* const handleEngravingInputElement = window->FindElementById(WindowCraftElementId::HandleEngravingInput);
         if (handleEngravingInputElement) {
             const WindowElement* const element = handleEngravingInputElement;
             const std::int32_t y = element->y + window->y;
             const std::int32_t x = element->x + window->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gCraftInputPrototype57D7F8, x, y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.engravingPrototype, x, y, 2));
         }
     }
     craft.materialHoveredItem = -1;
@@ -3165,6 +3165,7 @@ static void WindowCraft_Release(WindowInstance& releasedWindow)
 // 原函数：0x00482000。
 static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -3221,7 +3222,7 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::
             const auto y = static_cast<std::int16_t>(element->y + window->y);
             const auto x = static_cast<std::int16_t>(element->x + window->x);
             static_cast<void>(render::DrawText_456780(
-                x, y, 3, 12, 127, cg::ui::detail::gInputContextD2DE70.text, 0, 0));
+                x, y, 3, 12, 127, inputs.engraving.text, 0, 0));
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);

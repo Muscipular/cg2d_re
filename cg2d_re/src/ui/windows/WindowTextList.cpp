@@ -43,7 +43,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
 
 // 回调与内部函数前置声明。
 
@@ -106,10 +105,6 @@ static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, std::int
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gTitleInputPrototype57EE10 { // 原全局：0x0057EE10。
-    {{&cg::ui::detail::gInputContextCC49C0}, WindowInputReferenceKind::Context},
-    0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
-};
 
 // 窗口51拥有行表/行文本；其他载荷仅复制或借用，不另建文本owner。
 static std::vector<std::wstring> gWindowLinesD67B70; // 原全局：0x00D67B70。
@@ -305,6 +300,7 @@ static void WindowTextList_Release(WindowInstance& releasedWindow)
 // 原函数：0x004AD800。
 static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
@@ -332,7 +328,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCC49C0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.textListTitle) {
         if (auto* const editTitleElement = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement) editTitleElement->visible = 1;
         if (auto* const element4 = currentWindow->FindElementById(WindowTextListElementId::Element4); element4) element4->visible = 1;
         if (auto* const element5 = currentWindow->FindElementById(WindowTextListElementId::Element5); element5) element5->visible = 0;
@@ -366,6 +362,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
 // 原函数：0x004AD9F0。
 static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const element15 = currentWindow->FindElementById(WindowTextListElementId::Element15); element15) element15->visible = 1;
@@ -392,7 +389,7 @@ static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, const st
         auto* const element52 = window->FindElementById(WindowTextListElementId::Element5);
         if (element52) {
             const std::int32_t x = window->x + element52->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57EE10, x, y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.textListTitlePrototype, x, y, 2));
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -592,6 +589,7 @@ static std::int32_t WindowTextList_Scroll(WindowInstance& callbackWindow, const 
 // 原函数：0x004ADF40。
 static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
@@ -605,7 +603,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
                 gHoverTextD68AE8 = L"变更家族兽名称。";
             }
             if ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
-                const std::wstring proposedTitle = input::ContextText(cg::ui::detail::gInputContextCC49C0);
+                const std::wstring proposedTitle = input::ContextText(inputs.textListTitle);
                 const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
                 const std::wstring packet = input::EscapeText(L"N|" + name, 255);
                 gWindowTitleCC4118 = proposedTitle;
@@ -636,7 +634,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 244217;
     }
-    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCC49C0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.textListTitle) {
         if (graphic) graphic->imageNo = 244216;
     }
     return consumed;
@@ -684,6 +682,7 @@ static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindo
 // 原函数：0x004AE260。
 static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
@@ -704,17 +703,17 @@ static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, con
         auto* const element53 = window->FindElementById(WindowTextListElementId::Element5);
         if (element53) {
             const std::int32_t x = window->x + element53->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57EE10, x, y, 0));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.textListTitlePrototype, x, y, 0));
         }
     }
-    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCC49C0);
+    input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.textListTitle);
     input::LoadInitialText_44A160(*callbackWindow.ownerSession, gWindowTitleCC4118);
     WindowInstance* const focusedWindow = currentWindow;
     auto* const element54 = focusedWindow->FindElementById(WindowTextListElementId::Element5);
     if (element54) {
         callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element54->data.input;
     }
-    if (auto* const element55 = focusedWindow->FindElementById(WindowTextListElementId::Element5); element55) element55->data.input->context = &cg::ui::detail::gInputContextCC49C0;
+    if (auto* const element55 = focusedWindow->FindElementById(WindowTextListElementId::Element5); element55) element55->data.input->context = &inputs.textListTitle;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }

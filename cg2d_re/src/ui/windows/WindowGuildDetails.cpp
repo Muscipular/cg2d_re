@@ -89,8 +89,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
-
 struct GuildRankDraft {
     std::int32_t flags;
     std::wstring text; // 原成员偏移：+0x04。
@@ -136,7 +134,7 @@ static void WindowGuildDetails_RefreshEditor(); // 管理模式焦点/草稿/按
 static std::int32_t WindowGuildDetails_RefreshRanks(); // 七职级与三附加文本刷新，返回末行Y推进值304。
 
 // 原函数：0x004AFA00。
-static void WindowGuildDetails_SaveInputDraft(std::int32_t index); // 输入原型正文写入当前编辑号对应的同源草稿。
+static void WindowGuildDetails_SaveInputDraft(session::ClientSession& session, std::int32_t index); // 输入原型正文写入当前编辑号对应的同源草稿。
 
 // 原函数：0x004AFA60。
 static void WindowGuildDetails_ScrollRow(); // 页码原范围0..25与音效、滑块同步。
@@ -181,27 +179,6 @@ static GuildWindowDraft gGuildDraftCF4018 {}; // 原全局：0x00CF4018。
 static std::int32_t gGuildPageD67B78 = 0; // 原全局：0x00D67B78。
 
 static std::int32_t gGuildEditing57F03C = -1; // 原全局：0x0057F03C。
-
-static std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{ // 原全局：0x0057F040。
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        116, 31, 3, 12, 6, {}, 1, 24, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        116, 49, 3, 12, 6, {}, 1, 24, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 165, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 184, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 203, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 222, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 241, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 260, 3, 12, 6, {}, 1, 16, 0, 0},
-    {{{&cg::ui::detail::gInputContextD2E130}, WindowInputReferenceKind::Context},
-        38, 279, 3, 12, 6, {}, 1, 16, 0, 0},
-}};
 
 static const wchar_t* const kGuildPermissionHints[] {
     L"变更此家族称号所属的加入权限。" /* 原常量参考：0x00587AA8。 */, L"变更此家族称号所属的除名权限。" /* 原常量参考：0x00587A88。 */,
@@ -390,6 +367,7 @@ static void WindowGuildDetails_RefreshEditor()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     if (auto* const handleActionButtonElement = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement) handleActionButtonElement->visible = 1;
     if (auto* const handleActionButton_66Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_66); handleActionButton_66Element) handleActionButton_66Element->visible = 1;
     if (auto* const handleActionButton_73Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element) handleActionButton_73Element->visible = 1;
@@ -408,13 +386,13 @@ static void WindowGuildDetails_RefreshEditor()
     if (handleInputElement) {
         if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInputElement->data.input) {
             char fieldBytes[41]{};
-            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
-            gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.guildPrototypes[0].input.context));
+            gGuildDraftCF4018.name604 = input::ContextText(*inputs.guildPrototypes[0].input.context);
             if (auto* const element10 = window->FindElementById(WindowGuildDetailsElementId::Element10); element10) element10->visible = 0;
             WindowInstance* const current = currentWindow;
             const std::int32_t y = current->y;
             const std::int32_t x = current->x;
-            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gGuildInputs57F040[0], x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.guildPrototypes[0], x, y, 1));
         } else {
             if (auto* const element10 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element10); element10) element10->visible = 1;
             auto* const element102 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
@@ -440,12 +418,12 @@ static void WindowGuildDetails_RefreshEditor()
         if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInput_2Element->data.input) {
             if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 0;
             char fieldBytes[41]{};
-            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
-            gGuildDraftCF4018.secondText634 = input::ContextText(*gGuildInputs57F040[1].input.context);
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.guildPrototypes[1].input.context));
+            gGuildDraftCF4018.secondText634 = input::ContextText(*inputs.guildPrototypes[1].input.context);
             WindowInstance* const current = currentWindow;
             const std::int32_t y = current->y;
             const std::int32_t x = current->x;
-            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gGuildInputs57F040[1], x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.guildPrototypes[1], x, y, 1));
         } else {
             if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 1;
             auto* const element112 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
@@ -471,13 +449,13 @@ static void WindowGuildDetails_RefreshEditor()
         if (indexedElement) {
             if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == indexedElement->data.input) {
                 if (auto* const indexedElement2 = elementsWindow->FindElementById(NativeElementKey(row + 11)); indexedElement2) indexedElement2->visible = 0;
-                WindowGuildDetails_SaveInputDraft(row + 2);
+                WindowGuildDetails_SaveInputDraft(*currentWindow->ownerSession, row + 2);
                 WindowInstance* const current = currentWindow;
                 // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
                 auto* const indexedElement3 = current->FindElementById(NativeElementKey(row + 11));
                 if (indexedElement3) {
                     indexedElement3->data.text->text =
-                        input::ContextText(*gGuildInputs57F040[row].input.context);
+                        input::ContextText(*inputs.guildPrototypes[row].input.context);
                 }
             }
         }
@@ -551,8 +529,9 @@ static std::int32_t WindowGuildDetails_RefreshRanks()
 }
 
 // 原函数：0x004AFA00。
-static void WindowGuildDetails_SaveInputDraft(const std::int32_t index)
+static void WindowGuildDetails_SaveInputDraft(session::ClientSession& session, const std::int32_t index)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     const std::int32_t editing = gGuildEditing57F03C;
     if (editing < 0 || editing > 33 || index < 0 || index >= 9) {
         return;
@@ -560,7 +539,7 @@ static void WindowGuildDetails_SaveInputDraft(const std::int32_t index)
     // 原4+48*editing：0..31为职级，32为名称，33为会馆名称。
     std::wstring& destination = editing < 32 ? gGuildDraftCF4018.ranks[editing].text
         : editing == 32 ? gGuildDraftCF4018.name604 : gGuildDraftCF4018.secondText634;
-    const auto& text = input::ContextText(*gGuildInputs57F040[index].input.context);
+    const auto& text = input::ContextText(*inputs.guildPrototypes[index].input.context);
     char fieldBytes[41]{};
     cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), text);
     destination = text;
@@ -684,6 +663,7 @@ static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callba
 // 原函数：0x004AEE00。
 static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -698,7 +678,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData == indexedElement->data.input) {
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[index], x, y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.guildPrototypes[index], x, y, 2));
             return 0;
         }
     }
@@ -711,12 +691,12 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         world::AppendChatMessage_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
         break;
     case WindowGuildDetailsElementId::HandleInput_2: {
-        gGuildInputs57F040[1].text = gGuildDraftCF4018.secondText634;
+        inputs.guildPrototypes[1].text = gGuildDraftCF4018.secondText634;
         WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[1], x, y, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2E130);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.guildPrototypes[1], x, y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.guild);
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
@@ -725,7 +705,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
             indexedElement4->data.input->context =
-                &cg::ui::detail::gInputContextD2E130;
+                &inputs.guild;
         }
         gGuildEditing57F03C = 33;
         break;
@@ -734,13 +714,13 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         auto* const sourceElement = currentWindow->FindElementById(NativeElementKey(index + 9));
         if (sourceElement) {
             const std::wstring& source = sourceElement->data.text->text;
-            gGuildInputs57F040[index].text = source;
+            inputs.guildPrototypes[index].text = source;
         }
         WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[index], x, y, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2E130);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.guildPrototypes[index], x, y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.guild);
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
@@ -749,7 +729,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
             indexedElement4->data.input->context =
-                &cg::ui::detail::gInputContextD2E130;
+                &inputs.guild;
         }
         gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
         break;

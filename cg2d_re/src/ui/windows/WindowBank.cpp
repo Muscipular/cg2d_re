@@ -58,7 +58,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
 
 // 回调与内部函数前置声明。
 
@@ -130,10 +129,6 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, std::int32_t
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gStorageInputPrototype57EBA0 { // 原全局：0x0057EBA0。
-    {{&cg::ui::detail::gInputContextCA0018}, WindowInputReferenceKind::Context},
-    0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
-};
 
 // 原全局：0x00CC4218。 存放窗口41每帧清零、元素13绘制的数值。
 static std::int32_t gStorageValueCC4218 = 0; // 原全局：0x00CC4218。
@@ -525,6 +520,7 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
 // 原函数：0x004A92D0。
 static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
@@ -532,7 +528,7 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
     auto* const handleAmount_32Element = elementsWindow->FindElementById(WindowBankElementId::HandleAmount_32);
     if (handleAmountElement && handleAmount_32Element) {
         if (handleAmountElement->visible == 0 && handleAmount_32Element->visible == 0) {
-            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018) {
+            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.storageAmount) {
                 static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             }
             return 0;
@@ -540,13 +536,13 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].window;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStorageInputPrototype57EBA0, 0, -100, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0018);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.storagePrototype, 0, -100, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.storageAmount);
         auto* const focusAmountInputElement = window ? window->FindElementById(WindowBankElementId::FocusAmountInput) : nullptr;
         if (focusAmountInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = focusAmountInputElement->data.input;
         }
-        if (auto* const focusAmountInputElement2 = window ? window->FindElementById(WindowBankElementId::FocusAmountInput) : nullptr; focusAmountInputElement2) focusAmountInputElement2->data.input->context = &cg::ui::detail::gInputContextCA0018;
+        if (auto* const focusAmountInputElement2 = window ? window->FindElementById(WindowBankElementId::FocusAmountInput) : nullptr; focusAmountInputElement2) focusAmountInputElement2->data.input->context = &inputs.storageAmount;
     }
     return 0;
 }
@@ -1619,6 +1615,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
 // 原函数：0x004ABB20。
 static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
@@ -1648,7 +1645,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
+            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.storageAmount ? 2 : 0;
         result = WindowInput_HandleNumber(currentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
@@ -1662,7 +1659,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
+            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.storageAmount ? 2 : 0;
         result = WindowInput_HandleNumber(currentWindow, 31, state, maximum, 223,
             gStorageWithdrawHints57EDEC.data(), keyboard, 0xFFFFFFFFu);
     }

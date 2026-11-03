@@ -714,6 +714,25 @@ struct NativeInputRuntimeState {
     std::array<input::InputContext, 24> hotkeys {}; // 原0x5F9758，末项visibleStartOffset另供聊天借用。
     input::InputContext mail {}; // 原0xD66CA8，普通/宠物邮件共用。
     input::InputContext petName {}; // 原0xD2D4A0，多宠物页共用。
+    input::InputContext contextCB03F0 {}; // 原0xCB03F0，独立回车分派身份。
+    input::InputContext messageBoard {}; // 原0xCC2080。
+    input::InputContext profileDescription {}; // 原0xD2D828。
+    input::InputContext miniMail {}; // 原0xCA0180。
+    input::InputContext profileSearch {}; // 原0xCB0610。
+    input::InputContext stallName {}; // 原0xCB0028。
+    input::InputContext stallDescription {}; // 原0xCC2378。
+    input::InputContext stallPrice {}; // 原0xCF4E60。
+    input::InputContext engraving {}; // 原0xD2DE70，不含相邻结果经验槽。
+    input::InputContext playerTitle {}; // 原0xD2DC10。
+    input::InputContext profileFirst {}; // 原0xD64CB0。
+    input::InputContext profileSecond {}; // 原0xD2D670。
+    input::InputContext profileThird {}; // 原0xCAFEC8。
+    input::InputContext blacklist {}; // 原0xC8B1B8。
+    input::InputContext tradeAmount {}; // 原0xCC21E8。
+    input::InputContext quantity {}; // 原0xCB0878。
+    input::InputContext storageAmount {}; // 原0xCA0018。
+    input::InputContext textListTitle {}; // 原0xCC49C0。
+    input::InputContext guild {}; // 原0xD2E130，九个公会输入原型共用。
     std::int8_t hotkeySelected = 0; // 原0xCC4B20，窗口初始化另写-1。
     detail::WindowInputPrototype chatPrototype { // 原0x57E970。
         {{&chat}, detail::WindowInputReferenceKind::Context},
@@ -730,6 +749,94 @@ struct NativeInputRuntimeState {
     detail::WindowInputPrototype hotkeyPrototype { // 原0x57DF48，编辑时借当前快捷文字项。
         {{nullptr}, detail::WindowInputReferenceKind::Context},
         0, 0, 3, 8, 0, {}, 1, 24, 0, 0,
+    };
+    detail::WindowInputPrototype storagePrototype { // 原0x57EBA0。
+        {{&storageAmount}, detail::WindowInputReferenceKind::Context},
+        0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
+    };
+    detail::WindowInputPrototype engravingPrototype { // 原0x57D7F8。
+        {{&engraving}, detail::WindowInputReferenceKind::Context},
+        0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
+    };
+    detail::WindowInputPrototype blacklistPrototype { // 原0x580EF0。
+        {{&blacklist}, detail::WindowInputReferenceKind::Context},
+        75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
+    };
+    std::array<detail::WindowInputPrototype, 9> guildPrototypes {{ // 原0x57F040。
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            116, 31, 3, 12, 6, {}, 1, 24, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            116, 49, 3, 12, 6, {}, 1, 24, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 165, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 184, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 203, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 222, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 241, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 260, 3, 12, 6, {}, 1, 16, 0, 0},
+        {{{&guild}, detail::WindowInputReferenceKind::Context},
+            38, 279, 3, 12, 6, {}, 1, 16, 0, 0},
+    }};
+    detail::WindowInputPrototype miniMailPrototype { // 原0x580CB0。
+        {{&miniMail}, detail::WindowInputReferenceKind::Context},
+        22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
+    };
+    detail::WindowInputPrototype messageBoardPrototype { // 原0x580618。
+        {{&messageBoard}, detail::WindowInputReferenceKind::Context},
+        33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
+    };
+    detail::WindowInputPrototype profileFirstPrototype { // 原0x57CEE8。
+        {{&profileFirst}, detail::WindowInputReferenceKind::Context},
+        97, 108, 3, 12, 6, {}, 1, 26, 0, 0,
+    };
+    detail::WindowInputPrototype profileSecondPrototype { // 原0x57D118。
+        {{&profileSecond}, detail::WindowInputReferenceKind::Context},
+        97, 130, 3, 12, 6, {}, 1, 26, 0, 0,
+    };
+    detail::WindowInputPrototype profileThirdPrototype { // 原0x57D348。
+        {{&profileThird}, detail::WindowInputReferenceKind::Context},
+        97, 152, 3, 12, 6, {}, 1, 26, 0, 0,
+    };
+    detail::WindowInputPrototype profileDescriptionPrototype { // 原0x57D578。
+        {{&profileDescription}, detail::WindowInputReferenceKind::Context},
+        97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
+    };
+    detail::WindowInputPrototype playerTitlePrototype { // 原0x57CCB8。
+        {{&playerTitle}, detail::WindowInputReferenceKind::Context},
+        105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
+    };
+    detail::WindowInputPrototype quantityPrototype { // 原0x57DA70。
+        {{&quantity}, detail::WindowInputReferenceKind::Context},
+        0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
+    };
+    detail::WindowInputPrototype profileSearchPrototype { // 原0x580A80。
+        {{&profileSearch}, detail::WindowInputReferenceKind::Context},
+        20, 370, 3, 12, 6, {}, 1, 26, 0, 0,
+    };
+    detail::WindowInputPrototype stallNamePrototype { // 原0x581130。
+        {{&stallName}, detail::WindowInputReferenceKind::Context},
+        230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
+    };
+    detail::WindowInputPrototype stallDescriptionPrototype { // 原0x581360。
+        {{&stallDescription}, detail::WindowInputReferenceKind::Context},
+        299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
+    };
+    detail::WindowInputPrototype stallPricePrototype { // 原0x581590。
+        {{&stallPrice}, detail::WindowInputReferenceKind::Context},
+        0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
+    };
+    detail::WindowInputPrototype textListTitlePrototype { // 原0x57EE10。
+        {{&textListTitle}, detail::WindowInputReferenceKind::Context},
+        0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
+    };
+    detail::WindowInputPrototype tradeAmountPrototype { // 原0x5803D0。
+        {{&tradeAmount}, detail::WindowInputReferenceKind::Context},
+        0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
     };
 };
 

@@ -85,7 +85,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCB0610 {}; // 原全局：0x00CB0610。
 
 // 回调与内部函数前置声明。
 
@@ -113,10 +112,6 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gProfileSearchInputPrototype580A80 { // 原全局：0x00580A80。
-    {{&cg::ui::detail::gInputContextCB0610}, WindowInputReferenceKind::Context},
-    20, 370, 3, 12, 6, {}, 1, 26, 0, 0,
-};
 
 static WindowGraphicData gWindowGraphic578BE8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578BE8。
 
@@ -270,13 +265,14 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCB0610) {
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &inputs.profileSearch) {
         if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 0;
         WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(
             *currentWindow->ownerSession,
-            &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
-        const std::wstring& text = input::ContextText(*gProfileSearchInputPrototype580A80.input.context);
+            &inputs.profileSearchPrototype, window->x, window->y, 1));
+        const std::wstring& text = input::ContextText(*inputs.profileSearchPrototype.input.context);
         const auto length = static_cast<std::uint32_t>(text.size() + 1);
         gProfileSearchKeyword1075988 = text;
         return length;
@@ -320,6 +316,7 @@ static void WindowProfileSearch_Release(WindowInstance& releasedWindow)
 // 原函数：0x004CAB90。
 static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -332,11 +329,11 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
         auto* const editKeywordElement = window->FindElementById(WindowProfileSearchElementId::EditKeyword);
         if (editKeywordElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editKeywordElement->data.input) {
-                gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
+                inputs.profileSearchPrototype.text = gProfileSearchKeyword1075988;
                 static_cast<void>(WindowInput_ActivateElement(
                     *callbackWindow.ownerSession,
-                    &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
-                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCB0610);
+                    &inputs.profileSearchPrototype, window->x, window->y, 0));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.profileSearch);
                 auto* const editKeywordElement2 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
                 if (editKeywordElement2) {
                     callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = editKeywordElement2->data.input;
@@ -344,7 +341,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
                 auto* const editKeywordElement3 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
                 if (editKeywordElement3) {
                     editKeywordElement3->data.input->context =
-                        &cg::ui::detail::gInputContextCB0610;
+                        &inputs.profileSearch;
                 }
             }
         }

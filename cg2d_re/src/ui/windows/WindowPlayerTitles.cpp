@@ -51,7 +51,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
 
 // 回调与内部函数前置声明。
 
@@ -83,10 +82,6 @@ static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, st
 static std::wstring gTitleDraftD45FC0 {}; // 原全局：0x00D45FC0。
 
 // 原全局：0x0057CCB8。 原型当前context为编辑正文来源。
-static WindowInputPrototype gTitleInputPrototype57CCB8 { // 原全局：0x0057CCB8。
-    {{&cg::ui::detail::gInputContextD2DC10}, WindowInputReferenceKind::Context},
-    105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
-};
 
 static WindowGraphicData gWindowGraphic560DA0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DA0。
 
@@ -186,6 +181,7 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 // 原函数：0x00477540。
 static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -198,11 +194,11 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
     auto* const editDraftElement = window->FindElementById(WindowPlayerTitlesElementId::EditDraft);
     if (editDraftElement) {
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editDraftElement->data.input) {
-            gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
+            inputs.playerTitlePrototype.text = gTitleDraftD45FC0;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57CCB8, x, y, 0));
-            input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2DC10);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.playerTitlePrototype, x, y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.playerTitle);
             WindowInstance* const focused = currentWindow;
             auto* const editDraftElement2 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
             if (editDraftElement2) {
@@ -211,7 +207,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
             auto* const editDraftElement3 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
             if (editDraftElement3) {
                 editDraftElement3->data.input->context =
-                    &cg::ui::detail::gInputContextD2DC10;
+                    &inputs.playerTitle;
             }
         }
     }
@@ -494,6 +490,7 @@ static void WindowPlayerTitles_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto* const element7 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element7);
     if (element7) {
         auto* const nameData = element7->data.text;
@@ -517,7 +514,7 @@ static void WindowPlayerTitles_Refresh()
         titleData->text = title;
     }
 
-    if (currentWindow->ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextD2DC10) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext != &inputs.playerTitle) {
         if (auto* const element9 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9); element9) element9->visible = 1;
         auto* const element92 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
         if (element92) {
@@ -531,12 +528,12 @@ static void WindowPlayerTitles_Refresh()
             colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
         }
     } else {
-        gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
+        gTitleDraftD45FC0 = input::ContextText(*inputs.playerTitlePrototype.input.context);
         if (auto* const element9 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9); element9) element9->visible = 0;
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gTitleInputPrototype57CCB8, x, y, 1));
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.playerTitlePrototype, x, y, 1));
     }
 
     const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;

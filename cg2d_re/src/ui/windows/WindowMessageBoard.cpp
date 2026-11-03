@@ -53,7 +53,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
 
 // 回调与内部函数前置声明。
 
@@ -78,10 +77,6 @@ static void WindowMessageBoard_Release(WindowInstance&);
 // 控件载荷、窗口状态、组件表与原型。
 
 // 原全局：0x00580618。 借Input唯一CC2080，供更新与编辑交互。
-static WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
-    {{&cg::ui::detail::gInputContextCC2080}, WindowInputReferenceKind::Context},
-    33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
-};
 
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
 static std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {}; // 原全局：0x00D30138。
@@ -179,13 +174,14 @@ void WindowMessageBoard_ResetRecords()
 // 原函数：0x004B5AD0。
 static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        gWindow50InputPrototype580618.input.context->clearText();
+        inputs.messageBoardPrototype.input.context->clearText();
         WindowInstance* const window = currentWindow;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, gWindow50InputPrototype580618.input.context);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.messageBoardPrototype, window->x, window->y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, inputs.messageBoardPrototype.input.context);
         auto* const handleInputElement = currentWindow->FindElementById(WindowMessageBoardElementId::HandleInput);
         if (handleInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
@@ -193,7 +189,7 @@ static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, co
         auto* const handleInputElement2 = currentWindow->FindElementById(WindowMessageBoardElementId::HandleInput);
         if (handleInputElement2) {
             handleInputElement2->data.input->context =
-                gWindow50InputPrototype580618.input.context;
+                inputs.messageBoardPrototype.input.context;
         }
     }
     WindowMessageBoard_RefreshRecords();
@@ -214,9 +210,10 @@ static void WindowMessageBoard_Release(WindowInstance&)
 // 原函数：0x004B5B70。
 static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if ((state & MouseFlag_Hover) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
+    if ((state & MouseFlag_Hover) != 0 && !inputs.messageBoardPrototype.input.context->empty()) {
         gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
@@ -226,8 +223,8 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
     auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != indexedElement->data.input) {
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 0));
-            input::SetContext_44B330(*callbackWindow.ownerSession, gWindow50InputPrototype580618.input.context);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.messageBoardPrototype, window->x, window->y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, inputs.messageBoardPrototype.input.context);
             auto* const indexedElement2 = currentWindow->FindElementById(elementId);
             if (indexedElement2) {
                 callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement2->data.input;
@@ -235,7 +232,7 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
             auto* const indexedElement3 = currentWindow->FindElementById(elementId);
             if (indexedElement3) {
                 indexedElement3->data.input->context =
-                    gWindow50InputPrototype580618.input.context;
+                    inputs.messageBoardPrototype.input.context;
             }
         }
     }
@@ -245,6 +242,7 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
 // 原函数：0x004B5C30。
 static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -318,7 +316,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
-        input::InputContext* const context = gWindow50InputPrototype580618.input.context;
+        input::InputContext* const context = inputs.messageBoardPrototype.input.context;
         if (!context->empty()) {
             const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 256);
             const std::int32_t target = world::gDialogTargetD2DE6C;
@@ -328,7 +326,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escapedText));
-            gWindow50InputPrototype580618.input.context->clearText();
+            inputs.messageBoardPrototype.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close());
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -379,6 +377,7 @@ static void WindowMessageBoard_RefreshRecords()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     std::wstring buffer;
     for (std::int32_t index = 0; index < 4; ++index) {
         const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
@@ -425,7 +424,7 @@ static void WindowMessageBoard_RefreshRecords()
     auto* const handleInputElement = window->FindElementById(WindowMessageBoardElementId::HandleInput);
     if (handleInputElement) {
         if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInputElement->data.input) {
-            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.messageBoardPrototype, window->x, window->y, 2));
         }
     }
     return;

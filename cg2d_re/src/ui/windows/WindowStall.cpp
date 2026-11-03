@@ -118,11 +118,8 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
 
-input::InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
 
-input::InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
@@ -313,20 +310,8 @@ static std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8�
 
 static std::wstring gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
 
-static WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
-    {{&cg::ui::detail::gInputContextCB0028}, WindowInputReferenceKind::Context},
-    230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
-};
 
-static WindowInputPrototype gStallDescriptionInput581360 { // 原全局：0x00581360。
-    {{&cg::ui::detail::gInputContextCC2378}, WindowInputReferenceKind::Context},
-    299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
-};
 
-static WindowInputPrototype gStallPriceInput581590 { // 原全局：0x00581590。
-    {{&cg::ui::detail::gInputContextCF4E60}, WindowInputReferenceKind::Context},
-    0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
-};
 
 static std::int32_t gStallPriceD67C40 = 0; // 原全局：0x00D67C40。
 
@@ -876,15 +861,16 @@ static WindowElement* WindowStall_EditItemPrice()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return nullptr;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     gStallPriceD67C40 = 0;
-    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gStallPriceInput581590, 0, -100, 0));
-    input::SetContext_44B330(*currentWindow->ownerSession, &cg::ui::detail::gInputContextCF4E60);
+    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.stallPricePrototype, 0, -100, 0));
+    input::SetContext_44B330(*currentWindow->ownerSession, &inputs.stallPrice);
     WindowInstance* const window = currentWindow;
     auto* const handlePriceInputElement = window->FindElementById(WindowStallElementId::HandlePriceInput);
     if (handlePriceInputElement) {
         currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData = handlePriceInputElement->data.input;
     }
-    if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &cg::ui::detail::gInputContextCF4E60;
+    if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &inputs.stallPrice;
     auto* elementsWindow = currentWindow;
     if (auto* const handlePriceInputElement3 = elementsWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement3) handlePriceInputElement3->visible = 1;
     return elementsWindow->FindElementById(WindowStallElementId::DrawTooltipOverlay);
@@ -895,6 +881,7 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
@@ -904,14 +891,14 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
         }
     }
     gStallPriceD67C40 = 0;
-    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gStallPriceInput581590, 0, -100, 0));
-    input::SetContext_44B330(*currentWindow->ownerSession, &cg::ui::detail::gInputContextCF4E60);
+    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.stallPricePrototype, 0, -100, 0));
+    input::SetContext_44B330(*currentWindow->ownerSession, &inputs.stallPrice);
     WindowInstance* const window = currentWindow;
     auto* const handlePriceInputElement = window->FindElementById(WindowStallElementId::HandlePriceInput);
     if (handlePriceInputElement) {
         currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData = handlePriceInputElement->data.input;
     }
-    if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &cg::ui::detail::gInputContextCF4E60;
+    if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &inputs.stallPrice;
     if (auto* const handlePriceInputElement3 = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement3) handlePriceInputElement3->visible = 1;
 }
 
@@ -961,6 +948,7 @@ static std::int32_t WindowStall_RemoveListing()
 // 原函数：0x004CF940。
 static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1092,7 +1080,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         input::InputContext* const context = callbackWindow.ownerSession->UiFrame().inputState.currentContext;
-        if (context == &cg::ui::detail::gInputContextCB0028 || context == &cg::ui::detail::gInputContextCC2378) {
+        if (context == &inputs.stallName || context == &inputs.stallDescription) {
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
         }
         gStallButtonStateD67C44 = state;
@@ -1107,6 +1095,7 @@ static std::int32_t WindowStall_SubmitListings()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     std::wstring buffer;
     std::wstring name = L"无名店铺";
     std::wstring description = L"老板没什么可介绍的";
@@ -1167,10 +1156,10 @@ static std::int32_t WindowStall_SubmitListings()
     description = cg::text::FromGbkWide(descriptionBytes.substr(0, 112));
     const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     static_cast<void>(cg::network::GetGameConnection().PublishStallRequest(name, description, offers));
-    if (!gStallNameInput581130.input.context->empty()) {
+    if (!inputs.stallNamePrototype.input.context->empty()) {
         login::detail::GetCurrentSavedStallNameFF4D18() = name;
     }
-    if (!gStallDescriptionInput581360.input.context->empty()) {
+    if (!inputs.stallDescriptionPrototype.input.context->empty()) {
         login::detail::GetCurrentSavedStallDescriptionFF4D28() = description;
     }
     gStallMessageC8A978 = L"摆摊请求中";
@@ -1916,20 +1905,21 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
 // 原函数：0x004D2260。
 static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStallPriceInput581590, 0, -100, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCF4E60);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallPricePrototype, 0, -100, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.stallPrice);
         WindowInstance* const window = currentWindow;
         auto* const handlePriceInputElement = window->FindElementById(WindowStallElementId::HandlePriceInput);
         if (handlePriceInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handlePriceInputElement->data.input;
         }
-        if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &cg::ui::detail::gInputContextCF4E60;
+        if (auto* const handlePriceInputElement2 = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement2) handlePriceInputElement2->data.input->context = &inputs.stallPrice;
     }
-    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCF4E60) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {
             if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
                 || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
@@ -1956,7 +1946,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     const std::int32_t x = window->x + 206;
     if (cg::ui::HitTestMouseRect_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
         if (clicked) {
-            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCF4E60) {
+            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
                 WindowChat_RestoreInput(*callbackWindow.ownerSession);
             }
             if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
@@ -2013,7 +2003,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
         if (cg::ui::HitTestMouseRect_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
             if (clicked) {
                 static_cast<void>(WindowStall_AddListing(gStallPriceD67C40));
-                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCF4E60) {
+                if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
                     WindowChat_RestoreInput(*callbackWindow.ownerSession);
                 }
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
@@ -2199,6 +2189,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
 // 原函数：0x004CD4F0。
 static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     if (value == -1) {
@@ -2270,13 +2261,13 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
         }
         if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = world::GetPlayerDisplayText(1);
         if (auto* const element8 = activeWindow->FindElementById(WindowStallElementId::Element8); element8) element8->visible = 0;
-        if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCC2378
+        if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallDescription
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = activeWindow;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStallDescriptionInput581360, window->x, window->y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallDescriptionPrototype, window->x, window->y, 1));
             char fieldBytes[57]{};
-            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gStallDescriptionInput581360.input.context));
-            gStallDescriptionD67BF8 = input::ContextText(*gStallDescriptionInput581360.input.context);
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.stallDescriptionPrototype.input.context));
+            gStallDescriptionD67BF8 = input::ContextText(*inputs.stallDescriptionPrototype.input.context);
         } else if (!gStallDescriptionD67BF8.empty()) {
             for (std::int32_t line = 0; line < 3; ++line) {
                 static_cast<void>(input::ExtractTextLine(lineText, gStallDescriptionD67BF8, line, 28));
@@ -2301,13 +2292,13 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
             if (auto* const element82 = window->FindElementById(WindowStallElementId::Element8); element82) element82->visible = 1;
         }
         if (auto* const element6 = activeWindow->FindElementById(WindowStallElementId::Element6); element6) element6->visible = 0;
-        if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCB0028
+        if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallName
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = activeWindow;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStallNameInput581130, window->x, window->y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallNamePrototype, window->x, window->y, 1));
             char fieldBytes[17]{};
-            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gStallNameInput581130.input.context));
-            gStallNameD67BE4 = input::ContextText(*gStallNameInput581130.input.context);
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.stallNamePrototype.input.context));
+            gStallNameD67BE4 = input::ContextText(*inputs.stallNamePrototype.input.context);
         } else if (!gStallNameD67BE4.empty()) {
             WindowInstance* const window = activeWindow;
             auto* currentWindow = window;
@@ -2397,6 +2388,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
 // 原函数：0x004D2080。
 static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
@@ -2410,11 +2402,11 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
         auto* const editDescriptionElement = window->FindElementById(WindowStallElementId::EditDescription);
         if (editDescriptionElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editDescriptionElement->data.input) {
-                gStallDescriptionInput581360.text = gStallDescriptionD67BF8;
+                inputs.stallDescriptionPrototype.text = gStallDescriptionD67BF8;
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
-                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStallDescriptionInput581360, x, y, 0));
-                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCC2378);
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallDescriptionPrototype, x, y, 0));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.stallDescription);
                 WindowInstance* const current = currentWindow;
                 auto* const editDescriptionElement2 = current->FindElementById(WindowStallElementId::EditDescription);
                 if (editDescriptionElement2) {
@@ -2423,7 +2415,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
                 auto* const editDescriptionElement3 = current->FindElementById(WindowStallElementId::EditDescription);
                 if (editDescriptionElement3) {
                     editDescriptionElement3->data.input->context =
-                        &cg::ui::detail::gInputContextCC2378;
+                        &inputs.stallDescription;
                 }
             }
         }
@@ -2435,6 +2427,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
 // 原函数：0x004D2170。
 static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
@@ -2448,11 +2441,11 @@ static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const E
         auto* const editNameElement = window->FindElementById(WindowStallElementId::EditName);
         if (editNameElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editNameElement->data.input) {
-                gStallNameInput581130.text = gStallNameD67BE4;
+                inputs.stallNamePrototype.text = gStallNameD67BE4;
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
-                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStallNameInput581130, x, y, 0));
-                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCB0028);
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallNamePrototype, x, y, 0));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.stallName);
                 WindowInstance* const current = currentWindow;
                 auto* const editNameElement2 = current->FindElementById(WindowStallElementId::EditName);
                 if (editNameElement2) {
@@ -2461,7 +2454,7 @@ static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const E
                 auto* const editNameElement3 = current->FindElementById(WindowStallElementId::EditName);
                 if (editNameElement3) {
                     editNameElement3->data.input->context =
-                        &cg::ui::detail::gInputContextCB0028;
+                        &inputs.stallName;
                 }
             }
         }

@@ -1067,17 +1067,17 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         session.UiFrame().inputState.currentContext->clearText();
         context = session.UiFrame().inputState.currentContext;
     } else if (context == &inputs.mail
-               || context == &cg::ui::detail::gInputContextCB03F0
+               || context == &inputs.contextCB03F0
                || context == &gInputContextCC46E0
-               || context == &cg::ui::detail::gInputContextCC2080
-               || context == &cg::ui::detail::gInputContextD2D828
-               || context == &cg::ui::detail::gInputContextCA0180) {
+               || context == &inputs.messageBoard
+               || context == &inputs.profileDescription
+               || context == &inputs.miniMail) {
         AppendChar_44ADB0(session, L'\r');
         context = session.UiFrame().inputState.currentContext;
     }
-    if (context == &cg::ui::detail::gInputContextC8B1B8) {
+    if (context == &inputs.blacklist) {
         std::wstring message;
-        const std::wstring text = ContextText(cg::ui::detail::gInputContextC8B1B8);
+        const std::wstring text = ContextText(inputs.blacklist);
         const std::wstring playerName = world::GetPlayerDisplayText(1);
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
@@ -1089,9 +1089,9 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
                 ? std::format(L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */, text)
                 : std::format(L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, text);
         }
-        cg::ui::detail::gInputContextC8B1B8.clearText();
-        cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
-        cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
+        inputs.blacklist.clearText();
+        inputs.blacklist.caretByteOffset = 0;
+        inputs.blacklist.totalByteLength = 0;
         world::AppendChatMessage_44B050(message, 4, 3);
         SetContext_44B330(session, &inputs.chat);
     }

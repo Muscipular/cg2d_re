@@ -46,17 +46,6 @@ enum class WindowOwnProfileElementId : ElementId {
 
 namespace detail {
 
-// 控件载荷、窗口状态、组件表与原型。
-
-input::InputContext gInputContextD2D828 {}; // 原全局：0x00D2D828。
-
-input::InputContext gInputContextD64CB0 {}; // 原全局：0x00D64CB0。
-
-input::InputContext gInputContextD2D670 {}; // 原全局：0x00D2D670。
-
-input::InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
-
-
 // 回调与内部函数前置声明。
 
 // 原函数：0x004792D0。
@@ -69,27 +58,6 @@ static void WindowOwnProfile_Release(WindowInstance&);
 static std::int32_t WindowOwnProfile_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-// 原全局：0x0057CEE8。 窗口58三项/正文的可写输入原型。
-static WindowInputPrototype gOwnProfileInputPrototype57CEE8 { // 原全局：0x0057CEE8。
-    {{&cg::ui::detail::gInputContextD64CB0}, WindowInputReferenceKind::Context},
-    97, 108, 3, 12, 6, {}, 1, 26, 0, 0,
-};
-
-static WindowInputPrototype gOwnProfileInputPrototype57D118 { // 原全局：0x0057D118。
-    {{&cg::ui::detail::gInputContextD2D670}, WindowInputReferenceKind::Context},
-    97, 130, 3, 12, 6, {}, 1, 26, 0, 0,
-};
-
-static WindowInputPrototype gOwnProfileInputPrototype57D348 { // 原全局：0x0057D348。
-    {{&cg::ui::detail::gInputContextCAFEC8}, WindowInputReferenceKind::Context},
-    97, 152, 3, 12, 6, {}, 1, 26, 0, 0,
-};
-
-static WindowInputPrototype gOwnProfileInputPrototype57D578 { // 原全局：0x0057D578。
-    {{&cg::ui::detail::gInputContextD2D828}, WindowInputReferenceKind::Context},
-    97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
-};
 
 static WindowGraphicData gWindowGraphic5613F0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005613F0。
 
@@ -246,6 +214,7 @@ static void WindowOwnProfile_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto& current = world::detail::gCurrentProfile10738E8;
     auto* portraitElementsWindow = currentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
@@ -301,19 +270,19 @@ static void WindowOwnProfile_Refresh()
         const std::int32_t image = current.entries410[index].value04;
         if (auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index + 26)); indexedElement) indexedElement->data.graphic->imageNo = image;
     }
-    WindowOwnProfile_RefreshEntry(0, &cg::ui::detail::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
-    WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
-    WindowOwnProfile_RefreshEntry(2, &cg::ui::detail::gInputContextCAFEC8, &gOwnProfileInputPrototype57D348);
+    WindowOwnProfile_RefreshEntry(0, &inputs.profileFirst, &inputs.profileFirstPrototype);
+    WindowOwnProfile_RefreshEntry(1, &inputs.profileSecond, &inputs.profileSecondPrototype);
+    WindowOwnProfile_RefreshEntry(2, &inputs.profileThird, &inputs.profileThirdPrototype);
 
-    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextD2D828) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &inputs.profileDescription) {
         for (std::int32_t index = 12; index < 16; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gOwnProfileInputPrototype57D578, x, y, 1));
-        const auto& text = input::ContextText(*gOwnProfileInputPrototype57D578.input.context);
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.profileDescriptionPrototype, x, y, 1));
+        const auto& text = input::ContextText(*inputs.profileDescriptionPrototype.input.context);
         char fileBytes[256]{};
         cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
         current.text728 = text;
@@ -369,6 +338,7 @@ static void WindowOwnProfile_Release(WindowInstance& releasedWindow)
 // 原函数：0x004792D0。
 static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -376,20 +346,20 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
     input::InputContext* context;
     switch (static_cast<WindowOwnProfileElementId>(elementId)) {
     case WindowOwnProfileElementId::EditField:
-        prototype = &gOwnProfileInputPrototype57CEE8;
-        context = &cg::ui::detail::gInputContextD64CB0;
+        prototype = &inputs.profileFirstPrototype;
+        context = &inputs.profileFirst;
         break;
     case WindowOwnProfileElementId::EditField_7:
-        prototype = &gOwnProfileInputPrototype57D118;
-        context = &cg::ui::detail::gInputContextD2D670;
+        prototype = &inputs.profileSecondPrototype;
+        context = &inputs.profileSecond;
         break;
     case WindowOwnProfileElementId::EditField_8:
-        prototype = &gOwnProfileInputPrototype57D348;
-        context = &cg::ui::detail::gInputContextCAFEC8;
+        prototype = &inputs.profileThirdPrototype;
+        context = &inputs.profileThird;
         break;
     case WindowOwnProfileElementId::EditField_9:
-        prototype = &gOwnProfileInputPrototype57D578;
-        context = &cg::ui::detail::gInputContextD2D828;
+        prototype = &inputs.profileDescriptionPrototype;
+        context = &inputs.profileDescription;
         break;
     default:
         return 0;

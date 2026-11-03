@@ -20,7 +20,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
 
 
 // 回调与内部函数前置声明。
@@ -45,10 +44,6 @@ static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, std::i
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gNumberInputPrototype57DA70 { // 原全局：0x0057DA70。
-    {{&cg::ui::detail::gInputContextCB0878}, WindowInputReferenceKind::Context},
-    0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
-};
 
 // 原CC4D1C至宠物槽CC4D28前的文本区。
 static std::wstring gNumberWindowTextCC4D1C {}; // 原全局：0x00CC4D1C。
@@ -138,17 +133,18 @@ static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, const 
 // 原函数：0x0048A900。
 static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gNumberInputPrototype57DA70, 0, -100, 0));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCB0878);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.quantityPrototype, 0, -100, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.quantity);
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowQuantityElementId::HandleInput);
         if (handleInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
-        if (auto* const handleInputElement2 = window->FindElementById(WindowQuantityElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextCB0878;
+        if (auto* const handleInputElement2 = window->FindElementById(WindowQuantityElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &inputs.quantity;
     }
     return 0;
 }
@@ -157,13 +153,14 @@ static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, c
 // 原函数：0x0048A950。
 static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const input::InputContext* const currentInput = callbackWindow.ownerSession->UiFrame().inputState.currentContext;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
         &WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].actionFlags1C)[0]
-        | (currentInput == &cg::ui::detail::gInputContextCB0878 ? 2u : 0u);
+        | (currentInput == &inputs.quantity ? 2u : 0u);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14);
     WindowInstance* const numericWindow = currentWindow;
     const std::uint8_t numeric = WindowInput_HandleNumber(

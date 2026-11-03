@@ -39,7 +39,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
 
 // 原D460D0交易物品；4E54E0生产、4E5830接收，GBK文本容量保持。
 struct WindowTradeItem {
@@ -298,10 +297,6 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const
 static std::array<WindowTradeItem, 2 * 20> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
 
 // 原全局：0x005803D0。 借用input唯一CC21E8上下文。
-static WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
-    {{&cg::ui::detail::gInputContextCC21E8}, WindowInputReferenceKind::Context},
-    0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
-};
 
 static std::array<WindowTradePet, 2 * 5> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
 
@@ -1022,6 +1017,7 @@ static std::int32_t WindowTrade_HandlePanel(
     std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
     render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)
 {
+    auto& inputs = window->ownerSession->UiFrame().native.inputs;
     if (!window) return 0;
     auto* elementsWindow = window;
     auto* const panelElement = window->FindElementById(NativeElementKey(index));
@@ -1110,7 +1106,7 @@ static std::int32_t WindowTrade_HandlePanel(
         std::uint32_t color;
         color = descriptor->color;
         const std::uint8_t flags =
-            window->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCC21E8 ? 3 : 1;
+            window->ownerSession->UiFrame().inputState.currentContext == &inputs.tradeAmount ? 3 : 1;
         numericResult = WindowInput_HandleNumber(
             window, numericElement, state, maximum, 223, gTradeNumberHints5805FC.data(),
             flags, color);
@@ -2225,11 +2221,12 @@ static bool WindowTrade_HitTestOwnPetRow(
 // 原函数：0x004B09E0。
 static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     if (gTradeValueD6742C == 2) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Trade].window;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTradeInputPrototype5803D0, 0, -100, 0));
-            input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCC21E8);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.tradeAmountPrototype, 0, -100, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.tradeAmount);
             auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
             if (handleAmountInputElement) {
                 callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleAmountInputElement->data.input;
@@ -2237,10 +2234,10 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
             auto* const handleAmountInputElement2 = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
             if (handleAmountInputElement2) {
                 auto* const data = handleAmountInputElement2->data.input;
-                data->context = &cg::ui::detail::gInputContextCC21E8;
+                data->context = &inputs.tradeAmount;
             }
         }
-    } else if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCC21E8) {
+    } else if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.tradeAmount) {
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     return 0;

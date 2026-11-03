@@ -34,7 +34,6 @@ namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
-input::InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
 
 // 回调与内部函数前置声明。
 
@@ -52,10 +51,6 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, E
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0。
-    {{&cg::ui::detail::gInputContextCA0180}, WindowInputReferenceKind::Context},
-    22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
-};
 
 static WindowGraphicData gWindowGraphic5799D0 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799D0。
 
@@ -102,9 +97,10 @@ static void WindowMiniMail_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = gMiniMailCompose105F508.name;
     WindowInstance* const window = currentWindow;
-    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gMiniMailInputPrototype580CB0, window->x, window->y, 2));
+    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.miniMailPrototype, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
         const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
@@ -123,14 +119,15 @@ static void WindowMiniMail_Refresh()
 // 原函数：0x004CB550。
 static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode =
             gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
         WindowInstance* const window = currentWindow;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMiniMailInputPrototype580CB0, window->x, window->y, mode));
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.miniMailPrototype, window->x, window->y, mode));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.miniMail);
         auto* const handleInputElement = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
@@ -138,10 +135,10 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
         auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement2) {
             handleInputElement2->data.input->context =
-                &cg::ui::detail::gInputContextCA0180;
+                &inputs.miniMail;
         }
         const std::int32_t target = gMiniMailCompose105F508.target;
-        gMiniMailInputPrototype580CB0.text.clear();
+        inputs.miniMailPrototype.text.clear();
         world::detail::gMiniMailSelectionD673E4 = target;
     }
     WindowMiniMail_Refresh();
@@ -151,6 +148,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
 // 原函数：0x004CB920。
 static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -161,8 +159,8 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != handleInputElement->data.input) {
                 static_cast<void>(WindowInput_ActivateElement(
                     *callbackWindow.ownerSession,
-                    &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
-                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
+                    &inputs.miniMailPrototype, window->x, window->y, 1));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.miniMail);
                 auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
                 if (handleInputElement2) {
                     callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement2->data.input;
@@ -170,15 +168,15 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
                 auto* const handleInputElement3 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
                 if (handleInputElement3) {
                     handleInputElement3->data.input->context =
-                        &cg::ui::detail::gInputContextCA0180;
+                        &inputs.miniMail;
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
         consumed = 1;
     }
-    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCA0180) {
-        render::DrawInputText_4568A0(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.miniMail) {
+        render::DrawInputText_4568A0(*callbackWindow.ownerSession, &inputs.miniMail);
     }
     return consumed;
 }
@@ -186,6 +184,7 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
 // 原函数：0x004CB6A0。
 static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowMiniMailElementId::Send)) {
@@ -207,12 +206,12 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
         if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
-        if (cg::ui::detail::gInputContextCA0180.empty()) {
+        if (inputs.miniMail.empty()) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return consumed;
         }
     }
-    const std::wstring text = input::ContextText(cg::ui::detail::gInputContextCA0180);
+    const std::wstring text = input::ContextText(inputs.miniMail);
     std::wstring storedText; // 内部正文；写文件前仍执行原300字节容量预检。
     {
         char fileBytes[300]{};
@@ -246,7 +245,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 4));
     static_cast<void>(audio::PlaySe_52C450(78, 320));
-    cg::ui::detail::gInputContextCA0180.clearText();
+    inputs.miniMail.clearText();
     world::detail::gMiniMailSelectionD673E4 = -1;
     return 1;
 }

@@ -183,7 +183,7 @@ static std::int32_t WindowSkill_FindPetTechnique(std::int32_t petIndex); // 宠�
 static std::int32_t WindowSkill_CheckPetLevel(std::int32_t petIndex, std::int32_t crystalLevel); // 宠物等级闭区间。
 
 // 原函数：0x00486FE0。
-static std::int32_t WindowSkill_MatchesCrystalLevel(); // 当前技能技术value90与重读晶石等级等值。
+static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& session); // 当前技能技术value90与重读晶石等级等值。
 
 // 原函数：0x0047A620。
 static std::int32_t WindowSkill_Update(std::int32_t value);
@@ -456,17 +456,19 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
 }
 
 // 原函数：0x00486FE0。
-static std::int32_t WindowSkill_MatchesCrystalLevel()
+static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& session)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-    const std::int32_t skill = gUsingSkillIndexD2F32C;
-    const std::int32_t level = gUsingSkillLevelCA0AC4;
+    const std::int32_t skill = request.index;
+    const std::int32_t level = request.level;
     return world::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x004872E0。
 static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
@@ -480,7 +482,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
         return 1;
     }
     if (index == -3) {
-        const std::int32_t skill = gUsingSkillIndexD2F32C;
+        const std::int32_t skill = request.index;
         static_cast<void>(session.Connection().RequestSkillTargetAttributes(skill));
         return 0;
     }
@@ -488,16 +490,16 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
         return 1;
     }
     gSkillSendModeC8A970 = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowSkill_MatchesCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowSkill_MatchesCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
         gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
     }
-    if (gSkillTargetKindCF4A10 <= 1) {
+    if (request.targetKind <= 1) {
         gSkillSendModeC8A970 = 0;
     }
     char extra[256];
     extra[0] = '\0';
-    gSkillTargetNameD2F748 = targets.attributeNames[index];
+    request.targetName = targets.attributeNames[index];
     // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
     std::int32_t offset = 0;
     if (gSkillRebirthModeEnabled_5F9754 != 0) {
@@ -506,8 +508,8 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
         offset = 200;
     }
     const std::int32_t target = targets.targetIndices[index];
-    const std::int32_t level = gUsingSkillLevelCA0AC4;
-    const std::int32_t skill = gUsingSkillIndexD2F32C;
+    const std::int32_t level = request.level;
+    const std::int32_t skill = request.index;
     const auto networkSession = session.Connection().CaptureSession();
     static_cast<void>(session.Connection().SendSkillUseRequest(skill + offset, level, target, cg::text::FromGbkWide(extra)));
     return 0;
@@ -550,6 +552,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSes
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -559,7 +562,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
     targets.attributeCount = 0;
     if (kind == 0) {
         std::int32_t count = 0;
-        if (gSkillTargetKindCF4A10 != 1) {
+        if (request.targetKind != 1) {
             const wchar_t* const name = world::GetPlayerDisplayText(1);
             targets.levels[0] = world::gPlayerRuntimeSlots.level;
             targets.attributeNames[0] = name;
@@ -612,7 +615,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 127, name) == 1) {
             break;
         }
-        if (gSkillTargetKindCF4A10 == 1 && row == 0) {
+        if (request.targetKind == 1 && row == 0) {
             field += 6;
             ++target;
             continue;
@@ -2346,6 +2349,7 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
+    auto& request = session.UiFrame().native.skillRequest;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t technique = skillState.scroll + index - 17;
     const auto* record = &world::gSkillsF1BAFC[skillState.index];
@@ -2404,7 +2408,7 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
                     if (WindowRuntime_States(session)[WindowId_Gather].window != nullptr) {
                         const std::int32_t current = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
                         const std::int32_t skill = skillState.index;
-                        if (current != skill || gUsingSkillLevelCA0AC4 != technique) {
+                        if (current != skill || request.level != technique) {
                             gWindowActionD2E928 = WindowGather_Open(skill, technique);
                         }
                     } else if (gWindowActionD2E928 == nullptr) {
@@ -2421,8 +2425,8 @@ static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const
                     }
                     const std::int32_t skill = skillState.index;
                     const auto networkSession = session.Connection().CaptureSession();
-                    gUsingSkillIndexD2F32C = skill;
-                    gUsingSkillLevelCA0AC4 = technique;
+                    request.index = skill;
+                    request.level = technique;
                     static_cast<void>(session.Connection().RequestSkillTargetAttributes(skill));
                     return;
                 }
@@ -2525,6 +2529,7 @@ void WindowSkill_SyncStates(session::ClientSession& session)
 // 原函数：0x00487020。
 static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t* const text)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
@@ -2541,7 +2546,7 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
         return 1;
     }
     if (index >= 0 && targets.pending == 0) {
-        if (gSkillTargetKindCF4A10 != 0 && targets.kinds[index] != 3) {
+        if (request.targetKind != 0 && targets.kinds[index] != 3) {
             static_cast<void>(session.Connection().SelectSkillTextTarget(index));
             targets.selected = index;
             targets.pending = 1;
@@ -2550,21 +2555,21 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
         gSkillSendModeC8A970 = 0;
         char extra[256];
         extra[0] = '\0';
-        gSkillTargetNameD2F748 = text;
+        request.targetName = text;
         // 原509080只有ret；保留调用前的文本和状态写入，不伪造文本生产。
         std::int32_t skill;
         std::int32_t level;
         if (gSkillRebirthModeEnabled_5F9754 != 0) {
-            skill = gUsingSkillIndexD2F32C;
-            level = gUsingSkillLevelCA0AC4;
+            skill = request.index;
+            level = request.level;
             skill += 100;
         } else if (gSkillSendModeC8A970 != 0) {
-            skill = gUsingSkillIndexD2F32C;
-            level = gUsingSkillLevelCA0AC4;
+            skill = request.index;
+            level = request.level;
             skill += 200;
         } else {
-            level = gUsingSkillLevelCA0AC4;
-            skill = gUsingSkillIndexD2F32C;
+            level = request.level;
+            skill = request.index;
         }
         static_cast<void>(session.Connection().SendSkillUseRequest(skill, level, index, cg::text::FromGbkWide(extra)));
     }
@@ -2575,6 +2580,7 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
 // 原函数：0x004871B0。
 static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     gSkillSendModeC8A970 = 0;
@@ -2583,7 +2589,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
         targets.nameViews[index] = targets.names[index].data();
         targets.colors[index] = static_cast<std::uint8_t>(colors[kind]);
     }
-    const std::int32_t skillIndex = gUsingSkillIndexD2F32C;
+    const std::int32_t skillIndex = request.index;
     ++gSkillStatusIconReferences_D67AFE;
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
@@ -2611,12 +2617,13 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
 // 原函数：0x004F0200。
 static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
+    auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
-    gSkillTargetKindCF4A10 = kind;
+    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[request.index].skillId);
+    request.targetKind = kind;
     targets.count = 0;
     targets.page = 0;
     targets.pageCount = 1;
@@ -2655,7 +2662,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
             break;
         }
         const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        if (gSkillTargetKindCF4A10 == 0 && flag == 1) {
+        if (request.targetKind == 0 && flag == 1) {
             count = targets.count;
             break;
         }
@@ -2672,7 +2679,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
     targets.pageCount = (count + 4) / 5;
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets(session));
-    } else if (gSkillTargetKindCF4A10 == 0) {
+    } else if (request.targetKind == 0) {
         world::AppendChatMessage_44B050(L"没有可变装的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }

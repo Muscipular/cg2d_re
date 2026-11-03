@@ -414,15 +414,7 @@ std::uint8_t gSkillOperationCount_D67AFD = 0; // 原全局：0x00D67AFD。
 
 std::uint8_t gSkillStatusIconReferences_D67AFE = 0; // 原全局：0x00D67AFE。
 
-std::int32_t gUsingSkillIndexD2F32C = 0; // 原全局：0x00D2F32C。
-
-std::int32_t gUsingSkillLevelCA0AC4 = 0; // 原全局：0x00CA0AC4。
-
-std::int32_t gSkillTargetKindCF4A10 = 0; // 原全局：0x00CF4A10。
-
 std::int32_t gSkillSendModeC8A970 = 0; // 原全局：0x00C8A970。
-
-std::wstring gSkillTargetNameD2F748 {}; // 原全局：0x00D2F748。
 
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 

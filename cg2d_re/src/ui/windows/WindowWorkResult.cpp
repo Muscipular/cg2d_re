@@ -6,7 +6,7 @@ namespace cg::ui {
 // 窗口函数实现。
 
 // 原函数：0x0050C7F0。
-void WindowWorkResult_ReceiveReply(cg::network::CgConnection&, const std::int32_t result,
+void WindowWorkResult_ReceiveReply(cg::network::CgConnection& connection, const std::int32_t result,
     const std::int32_t kind, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {
@@ -20,7 +20,7 @@ void WindowWorkResult_ReceiveReply(cg::network::CgConnection&, const std::int32_
             static_cast<void>(detail::WindowCraft_ReceiveItemWorkResult(result, text));
             break;
         case 3:
-            static_cast<void>(detail::WindowSkillResult_ReceiveResult(result, text));
+            static_cast<void>(detail::WindowSkillResult_ReceiveResult(connection.Owner(), result, text));
             break;
         case 4:
             static_cast<void>(detail::WindowGather_ReceiveResult(result, text));

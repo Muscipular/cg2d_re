@@ -181,6 +181,29 @@ struct SkillTargetRuntimeState {
     std::array<detail::WindowStatusChoiceRecord, 6> attributeViews {}; // 原0xCC4BE8。
 };
 
+// 已提交技能请求，与技能窗口当前浏览页/所选槽分离。
+struct SkillRequestRuntimeState {
+    std::int32_t index = 0; // 原0xD2F32C。
+    std::int32_t level = 0; // 原0xCA0AC4。
+    std::int32_t targetKind = 0; // 原0xCF4A10。
+    std::wstring targetName {}; // 原0xD2F748。
+};
+
+// JgO第三分支由连接生产，窗口13及其文本只借同一会话的数据。
+struct SkillResultRuntimeState {
+    std::int32_t result = 0; // 原0xD66E2C。
+    std::int32_t experience = 0; // 原0xCC2E5C。
+    std::int32_t value = 0; // 原0xCC3E8C。
+    std::int32_t levelUp = 0; // 原0xCF468C。
+    std::int32_t endurance = 0; // 原0xCC421C。
+    std::int32_t dexterity = 0; // 原0xD2D644。
+    std::int32_t intelligence = 0; // 原0xCC19FC。
+    std::int32_t extra = 0; // 原0xD2DBF0。
+    std::wstring summary {}; // 原0xCC18CC。
+    std::wstring title {}; // 原0xCC18EC。
+    std::wstring details {}; // 原0xCB0FDC。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -206,6 +229,8 @@ struct NativeWindowRuntimeState {
     TextTargetWindowState textTarget {};
     AttributeTargetWindowState attributeTarget {};
     SkillTargetRuntimeState skillTargets {};
+    SkillRequestRuntimeState skillRequest {};
+    SkillResultRuntimeState skillResult {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

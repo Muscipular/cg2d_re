@@ -481,7 +481,7 @@ std::int32_t WindowCraft_SetPreviewImages(
 // 原函数：0x00487F30。
 std::int32_t WindowSkillResult_ReadPreviewImage(std::int32_t imageNo, std::int32_t offset); // 技能预览分组图号转换。
 // 原函数：0x004EEA40。
-cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
+cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(session::ClientSession& session, std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
 // 原函数：0x00479860。
 std::int32_t WindowSkill_ReadCrystalLevel(); // 玩家物品槽7的晶石等级，未用/未知返回0。
 // 原函数：0x004799D0。
@@ -815,11 +815,7 @@ extern std::uint8_t gGatherOperationCount_D67AFC; // 原全局：0x00D67AFC。
 extern std::uint8_t gSkillOperationCount_D67AFD; // 原全局：0x00D67AFD。
 extern std::uint8_t gSkillStatusIconReferences_D67AFE; // 原全局：0x00D67AFE。
 extern std::uint8_t gSkillRebirthModeEnabled_5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
-extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能请求索引，不与窗口当前选中槽合并。
-extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。
-extern std::int32_t gSkillTargetKindCF4A10; // 原全局：0x00CF4A10。
 extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
-extern std::wstring gSkillTargetNameD2F748; // 原全局：0x00D2F748。 选择发送前复制；后续属性/技能消费者共享。
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。

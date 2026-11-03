@@ -2,6 +2,7 @@
 
 #include "cg/input/Input.hpp"
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/ui/WindowStorageRecords.hpp"
 #include "cg/world/PlayerSlots.hpp"
 #include "cg/world/PetTechniqueRecord.hpp"
 
@@ -941,6 +942,20 @@ struct TradeWindowRuntimeState {
     std::uint8_t tooltipPage = 0; // 原0xCB10D4。
 };
 
+// 银行/仓库与旧展示副本共用同会话记录，数字实例借用稳定金额文本。
+struct StorageWindowRuntimeState {
+    std::array<detail::WindowStoragePet, 5> pets {}; // 原0xD64E18。
+    std::array<detail::WindowItemDetailGroup, 2> groups {}; // 原0xCC4D58。
+    std::int32_t value = 0; // 原0xCC4218。
+    std::int32_t bankOwnHover = -2; // 原0x57EDCC。
+    std::int32_t bankExternalHover = -2; // 原0x57EDD0。
+    std::array<std::int32_t, 2> lastAmounts {}; // 原0xD67B68。
+    std::array<std::wstring, 2> amountTexts {}; // 原0xCB1DF8。
+    std::int32_t itemOwnHover = -2; // 原0x57EE04。
+    std::int32_t itemExternalHover = -2; // 原0x57EE08。
+};
+static_assert(sizeof(StorageWindowRuntimeState::pets) == sizeof(detail::WindowStoragePet) * 5);
+
 // 窗口44的十条交易候选及回送，名称在点击期间借用所属会话字符串。
 struct TradeTargetWindowRuntimeState {
     std::array<std::wstring, 10> names {}; // 原0xCF3F20。
@@ -1224,6 +1239,7 @@ struct NativeWindowRuntimeState {
     PetSkillChoiceWindowRuntimeState petSkillChoice {};
     TradeTargetWindowRuntimeState tradeTarget {};
     TradeWindowRuntimeState trade {};
+    StorageWindowRuntimeState storage {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
     std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。

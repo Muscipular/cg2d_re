@@ -40,10 +40,6 @@ static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, std::
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::int32_t gStorageOwnHover57EE04 = -2; // 原全局：0x0057EE04。
-
-static std::int32_t gStorageExternalHover57EE08 = -2; // 原全局：0x0057EE08。
-
 static WindowGraphicData gWindowGraphic5716C8 {245221, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716C8。
 
 static WindowGraphicData gWindowGraphic5716E0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716E0。
@@ -127,7 +123,7 @@ static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, const
         if (preview < 100) {
             static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
         } else {
-            static_cast<void>(WindowItem_DrawDescriptionTooltip(preview - 100, page));
+            static_cast<void>(WindowItem_DrawDescriptionTooltip(*callbackWindow.ownerSession, preview - 100, page));
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -141,6 +137,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -208,10 +205,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
-    if (gStorageOwnHover57EE04 != hovered) {
+    if (storage.itemOwnHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
     }
-    gStorageOwnHover57EE04 = hovered;
+    storage.itemOwnHover = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
@@ -317,6 +314,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -387,12 +385,12 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             hovered = -1;
         }
     }
-    if (gStorageExternalHover57EE08 != hovered) {
+    if (storage.itemExternalHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
     }
-    gStorageExternalHover57EE08 = hovered;
+    storage.itemExternalHover = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        const auto* const record = &gItemDetailStorageCC4D58[0].items[hovered];
+        const auto* const record = &storage.groups[0].items[hovered];
         if ((events & MouseFlag_LDownEvent) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -455,7 +453,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         std::uint16_t used;
-        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
+        std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
         if (used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
@@ -466,7 +464,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
     descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const record = &gItemDetailStorageCC4D58[0].items[position];
+        const auto* const record = &storage.groups[0].items[position];
         std::uint16_t used;
         std::memcpy(&used, record, sizeof(used));
         if (used == 0) {

@@ -222,6 +222,7 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
 
 // 原函数：0x004B4070。
 static std::int32_t WindowTrade_DrawRemotePetSkillRow(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。
 
@@ -371,13 +372,15 @@ void WindowTrade_SwapRemoteItems(
 
 // 原函数：0x004E1840。
 void WindowTrade_SwapDisplayItems(
+    session::ClientSession& session,
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
 {
+    auto& storage = session.UiFrame().native.storage;
     if (first < 8 || first >= 28 || second < 8 || second >= 28) {
         return;
     }
-    auto* const left = &gItemDetailStorageCC4D58[side].items[first - 8];
-    auto* const right = &gItemDetailStorageCC4D58[side].items[second - 8];
+    auto* const left = &storage.groups[side].items[first - 8];
+    auto* const right = &storage.groups[side].items[second - 8];
     std::swap(*left, *right);
 }
 
@@ -2159,14 +2162,16 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
 
 // 原函数：0x004B4070。
 static std::int32_t WindowTrade_DrawRemotePetSkillRow(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t skill)
 {
+    auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const wchar_t* const text = gPetStorageD64E18[index].techniques[skill].name.data();
+    const wchar_t* const text = storage.pets[index].techniques[skill].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
@@ -2217,12 +2222,14 @@ static void WindowTrade_DrawPetPageHint(
 
 // 原函数：0x004B4140。
 std::int32_t WindowTrade_DrawRemotePetTooltip(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
+    auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
-    const auto* const record = &gPetStorageD64E18[shortIndex];
+    const auto* const record = &storage.pets[shortIndex];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -2308,6 +2315,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
             WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
         } else {
             static_cast<void>(WindowTrade_DrawRemotePetSkillRow(
+                session,
                 shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
         }
     }
@@ -2786,14 +2794,15 @@ static cg::yobi::YobiAction* WindowTrade_OpenTargetList(session::ClientSession& 
 }
 
 // 原函数：0x004E0100。
-void WindowTrade_CopyDisplayItems(const std::int32_t side, const std::int32_t index)
+void WindowTrade_CopyDisplayItems(session::ClientSession& session, const std::int32_t side, const std::int32_t index)
 {
+    auto& storage = session.UiFrame().native.storage;
     if (index < 0 || index >= 20) {
         return;
     }
     const world::PlayerItemRecord& source = world::gPlayerRuntimeSlots.items[index + 8];
     const bool used = source.used != 0;
-    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
+    auto* const record = &storage.groups[side].items[index];
     *record = {};
     if (!used) {
         return;

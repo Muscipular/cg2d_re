@@ -676,9 +676,6 @@ extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C�
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
 
-// 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
-extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
-extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
@@ -737,6 +734,7 @@ void WindowBank_DrawOwnPetTooltip(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x004AB400。
 void WindowBank_DrawStoredPetTooltip(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x004EA670。
 std::int32_t WindowPet_HasSkill25600(std::int32_t index); // 原25600技能检查，返回0/1。
@@ -764,7 +762,7 @@ std::int32_t WindowItem_DrawTooltip(
 // 原函数：0x0048B1A0。
 std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 // 原函数：0x0048B350。
-std::int32_t WindowItem_DrawDescriptionTooltip(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
+std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
 // 原函数：0x0048B750。
 std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, std::int32_t page); // CC3210独立详情提示，缓存数值键400。
 // 原函数：0x004AC200。
@@ -773,6 +771,7 @@ std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, ElementI
 std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口38/41共用关闭按钮。
 // 原函数：0x004B4140。
 std::int32_t WindowTrade_DrawRemotePetTooltip(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t index); // 外部宠物提示，重量行固定Y=31。
 // 原函数：0x004B3BF0。
 std::int32_t WindowTrade_DrawOwnPetTooltip(
@@ -793,7 +792,7 @@ std::int32_t WindowScroll_ApplyWheel(
     WindowElement* element, std::int32_t position, std::int32_t maximum,
     std::int32_t wheel); // WWS01：原滚轮像素余量、坐标持样/字节载荷，宿主数学图保持。
 // 原函数：0x004E0100。
-void WindowTrade_CopyDisplayItems(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
+void WindowTrade_CopyDisplayItems(session::ClientSession& session, std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 // 原函数：0x004A84A0。
 std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, const char* text); // SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。
 // 原函数：0x004A83A0。
@@ -812,7 +811,7 @@ std::int32_t WindowItem_CancelMatchingItemDrag(std::int32_t index); // 仅清与
 // 原函数：0x004E5DA0。
 void WindowTrade_SwapRemoteItems(session::ClientSession& session, std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
 // 原函数：0x004E1840。
-void WindowTrade_SwapDisplayItems(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
+void WindowTrade_SwapDisplayItems(session::ClientSession& session, std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 // 原函数：0x0048BA60。
 void WindowItemDrag_RemapHover(session::ClientSession& session, std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 // 原函数：0x004B0F10。

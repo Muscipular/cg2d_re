@@ -62,7 +62,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004E02B0。
-static void WindowItem_BuildStorageDescription(std::int32_t index, std::int32_t side, const char* text); // IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。
+static void WindowItem_BuildStorageDescription(session::ClientSession& session, std::int32_t index, std::int32_t side, const char* text); // IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。
 
 // 原函数：0x004A92D0。
 static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 存取数值输入焦点。
@@ -130,13 +130,6 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, std::int32_t
 // 控件载荷、窗口状态、组件表与原型。
 
 
-// 原全局：0x00CC4218。 存放窗口41每帧清零、元素13绘制的数值。
-static std::int32_t gStorageValueCC4218 = 0; // 原全局：0x00CC4218。
-
-static std::int32_t gBankOwnHover57EDCC = -2; // 原全局：0x0057EDCC。
-
-static std::int32_t gBankExternalHover57EDD0 = -2; // 原全局：0x0057EDD0。
-
 static const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320}; // 原全局：0x0054F4E8。
 
 static const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321}; // 原全局：0x0054F4F0。
@@ -144,11 +137,6 @@ static const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 2443
 static const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323}; // 原全局：0x0054F4F8。
 
 static const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322}; // 原全局：0x0054F500。
-
-static std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：0x00D67B68。
-
-// 原全局：0x00CB1DF8。 动态宽文本，控件借稳定owner。
-static std::array<std::wstring, 2> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
 
 static const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
     L"指定金额。",
@@ -196,9 +184,9 @@ static WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"",
 };
 
-static WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
+static WindowNumberData gWindowNumber571150 {nullptr, 0, 3, 1, 0}; // 原全局：0x00571150。
 
-static WindowNumberData gWindowNumber571158 {&gStorageAmountTextsCB1DF8[1], 0, 3, 1, 0}; // 原全局：0x00571158。
+static WindowNumberData gWindowNumber571158 {nullptr, 0, 3, 1, 0}; // 原全局：0x00571158。
 
 static std::uint32_t gWindowMouseFlagsD67880 = 0; // 原全局：0x00D67880。
 
@@ -253,9 +241,11 @@ WindowPrototype gWindowPrototypeBank {0, 4, 20, 25, 567, 339, 0x80010101u, 38, g
 // IDR01：原4E02B0完整83条；32行提取、仅行首清零及从last前一行回扫/S32页数发布保持。
 // 原函数：0x004E02B0。
 static void WindowItem_BuildStorageDescription(
+    session::ClientSession& session,
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
-    auto* const record = &gItemDetailStorageCC4D58[side].items[index];
+    auto& storage = session.UiFrame().native.storage;
+    auto* const record = &storage.groups[side].items[index];
     auto& rows = record->description;
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
@@ -323,10 +313,12 @@ void WindowBank_DrawOwnPetTooltip(
 
 // 原函数：0x004AB400。
 void WindowBank_DrawStoredPetTooltip(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    const auto* const record = &gPetStorageD64E18[index];
+    auto& storage = session.UiFrame().native.storage;
+    const auto* const record = &storage.pets[index];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used == 0) {
@@ -416,7 +408,14 @@ static std::int32_t WindowBank_Update(WindowInstance& callbackWindow, const std:
     auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     if (value == -1) {
+        if (auto* const element = currentWindow->FindElementById(WindowBankElementId::Element33); element) {
+            element->data.number->text = &storage.amountTexts[0];
+        }
+        if (auto* const element = currentWindow->FindElementById(WindowBankElementId::Element34); element) {
+            element->data.number->text = &storage.amountTexts[1];
+        }
         auto* const drawCountsElement = currentWindow->FindElementById(WindowBankElementId::DrawCounts);
         if (drawCountsElement) {
             auto* const title = drawCountsElement->data.graphic;
@@ -452,7 +451,7 @@ static std::int32_t WindowBank_Update(WindowInstance& callbackWindow, const std:
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    gStorageValueCC4218 = 0;
+    storage.value = 0;
     WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = 0xFFFFFFFFu;
     return 1;
 }
@@ -463,8 +462,9 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
+    cg::text::FormatTo(buffer, L"{:10}", storage.value);
     auto* const element14 = currentWindow->FindElementById(WindowBankElementId::Element14);
     if (element14) {
         auto* const text = element14->data.text;
@@ -505,12 +505,12 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
             } else {
                 const std::uint8_t externalIndex = static_cast<std::uint8_t>(
                     static_cast<std::uint8_t>(index) - 100);
-                static_cast<void>(WindowTrade_DrawRemotePetTooltip(x, 0, externalIndex));
+                static_cast<void>(WindowTrade_DrawRemotePetTooltip(*callbackWindow.ownerSession, x, 0, externalIndex));
             }
         } else {
             const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20);
             if (preview >= 100) {
-                static_cast<void>(WindowItem_DrawDescriptionTooltip(preview - 100, page));
+                static_cast<void>(WindowItem_DrawDescriptionTooltip(*callbackWindow.ownerSession, preview - 100, page));
             } else {
                 static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
             }
@@ -816,6 +816,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -888,17 +889,17 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
-    if (gBankOwnHover57EDCC != hovered) {
+    if (storage.bankOwnHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
-    gBankOwnHover57EDCC = hovered;
+    storage.bankOwnHover = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t target = 0;
             for (; target < 20; ++target) {
                 std::uint16_t used;
-                std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[target], sizeof(used));
+                std::memcpy(&used, &storage.groups[0].items[target], sizeof(used));
                 if (used == 0) {
                     break;
                 }
@@ -962,7 +963,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100) {
-                ++gStorageValueCC4218;
+                ++storage.value;
             }
         }
     }
@@ -1015,6 +1016,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1081,15 +1083,15 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         std::uint16_t used;
-        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
+        std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
         if (used != 0) {
             uiFrame.hoverText = L"用滑鼠拖放来提领物品。";
         }
     }
-    if (gBankExternalHover57EDD0 != hovered) {
+    if (storage.bankExternalHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
-    gBankExternalHover57EDD0 = hovered;
+    storage.bankExternalHover = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
@@ -1101,7 +1103,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 std::uint16_t used;
-                std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
+                std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
                 if (used == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -1111,7 +1113,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
         }
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        const auto* const record = &gItemDetailStorageCC4D58[0].items[hovered];
+        const auto* const record = &storage.groups[0].items[hovered];
         if ((events & MouseFlag_LDownEvent) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -1174,7 +1176,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         std::uint16_t used;
-        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
+        std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
         if (used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
@@ -1185,7 +1187,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
     descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const record = &gItemDetailStorageCC4D58[0].items[position];
+        const auto* const record = &storage.groups[0].items[position];
         std::uint16_t used;
         std::memcpy(&used, record, sizeof(used));
         if (used == 0) {
@@ -1319,13 +1321,14 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[index + scroll - 14].index);
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     // 原4AAEEC/4AB245各执行一次，三次索引查询和费用累计都不能复用前次结果。
-    const auto drawDragSource = [elementId, currentWindow]() {
+    const auto drawDragSource = [elementId, currentWindow, &callbackWindow, &storage]() {
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             if (source < 100 && WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 && WindowDrag_ReadFocusElement(*callbackWindow.ownerSession) == elementId) {
@@ -1356,7 +1359,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
                     }
                 }
                 const std::int32_t level = world::gPlayerRuntimeSlots.level;
-                gStorageValueCC4218 += level;
+                storage.value += level;
             }
         }
     };
@@ -1406,7 +1409,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
             std::int32_t target = 0;
             for (; target < 5; ++target) {
                 std::uint16_t targetUsed;
-                std::memcpy(&targetUsed, &gPetStorageD64E18[target], sizeof(targetUsed));
+                std::memcpy(&targetUsed, &storage.pets[target], sizeof(targetUsed));
                 if (targetUsed == 0) {
                     break;
                 }
@@ -1458,7 +1461,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         }
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100) {
             const std::int32_t level = world::gPlayerRuntimeSlots.level;
-            gStorageValueCC4218 += level;
+            storage.value += level;
         }
     }
     const WindowInstance* const window = currentWindow;
@@ -1481,6 +1484,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value28);
     const std::int32_t petIndex = scroll + index - 17;
     std::int32_t consumed = 0;
@@ -1518,12 +1522,12 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
     const bool hover = (events & MouseFlag_Hover) != 0;
     if (hover) {
         std::uint16_t used;
-        std::memcpy(&used, &gPetStorageD64E18[petIndex], sizeof(used));
+        std::memcpy(&used, &storage.pets[petIndex], sizeof(used));
         if (used != 0) {
             uiFrame.hoverText = L"用滑鼠拖放来提领宠物。";
         }
     }
-    const auto* const record = &gPetStorageD64E18[petIndex];
+    const auto* const record = &storage.pets[petIndex];
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0 && (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
@@ -1621,7 +1625,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
             static_cast<std::uint16_t>(element.y + window->y));
         const std::int16_t x = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(element.x + window->x));
-        WindowBank_DrawStoredPetTooltip(x, y, petIndex, 3);
+        WindowBank_DrawStoredPetTooltip(*callbackWindow.ownerSession, x, y, petIndex, 3);
     }
     return consumed;
 }
@@ -1634,6 +1638,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
     std::int32_t maximum;
     std::uint8_t result;
@@ -1646,12 +1651,12 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
                     const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
                     std::int32_t amount;
                     std::memcpy(&amount,
-                        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
+                        &storage.groups[side].amount, sizeof(amount));
                     maximum = limit - amount;
                 } else {
                     std::int32_t amount;
                     std::memcpy(&amount,
-                        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
+                        &storage.groups[side].amount, sizeof(amount));
                     maximum = 1000000 - amount;
                 }
             }
@@ -1670,7 +1675,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
-            &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
+            &storage.groups[side].amount, sizeof(amount));
         if (maximum > amount) {
             maximum = amount;
         }
@@ -1715,7 +1720,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             if (confirmedElement) {
                 const std::int32_t confirmed = std::bit_cast<std::int32_t>(confirmedElement->state);
                 const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
-                gStorageLastAmountsD67B68[side] = confirmed;
+                storage.lastAmounts[side] = confirmed;
             }
         }
         if (auto* const indexedElement = window->FindElementById(elementId); indexedElement) indexedElement->state = 0;
@@ -1724,17 +1729,17 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
     if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount)) {
         auto* const handleAmountElement = window->FindElementById(WindowBankElementId::HandleAmount);
         if (handleAmountElement) {
-            cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", std::bit_cast<std::int32_t>(handleAmountElement->state));
+            cg::text::FormatTo(storage.amountTexts[0], L"{:9}", std::bit_cast<std::int32_t>(handleAmountElement->state));
         }
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
-        cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", gStorageLastAmountsD67B68[side]);
+        cg::text::FormatTo(storage.amountTexts[1], L"{:9}", storage.lastAmounts[side]);
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
         auto* const handleAmount_32Element = window->FindElementById(WindowBankElementId::HandleAmount_32);
         if (handleAmount_32Element) {
-            cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", std::bit_cast<std::int32_t>(handleAmount_32Element->state));
+            cg::text::FormatTo(storage.amountTexts[1], L"{:9}", std::bit_cast<std::int32_t>(handleAmount_32Element->state));
         }
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
-        cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", gStorageLastAmountsD67B68[side]);
+        cg::text::FormatTo(storage.amountTexts[0], L"{:9}", storage.lastAmounts[side]);
     }
     return 0;
 }
@@ -1745,6 +1750,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
@@ -1776,7 +1782,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         std::uint16_t used;
-        std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[index], sizeof(used));
+        std::memcpy(&used, &storage.groups[0].items[index], sizeof(used));
         if (used != 0) {
             ++count;
         }
@@ -1789,7 +1795,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         std::uint16_t used;
-        std::memcpy(&used, &gPetStorageD64E18[index], sizeof(used));
+        std::memcpy(&used, &storage.pets[index], sizeof(used));
         if (used != 0) {
             ++count;
         }
@@ -1802,7 +1808,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
     std::int32_t amount;
     std::memcpy(&amount,
-        &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
+        &storage.groups[side].amount, sizeof(amount));
     cg::text::FormatTo(buffer, L"{:10}", amount);
     window = currentWindow;
     y = window->y + 285;
@@ -1871,6 +1877,7 @@ std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const Elemen
 // 原函数：0x004A84A0。
 std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, const char* const text)
 {
+    auto& storage = session.UiFrame().native.storage;
     auto& business = session.UiFrame().native.business;
     char buffer[3072];
     if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer) != 0) {
@@ -1908,7 +1915,7 @@ std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, cons
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-        WindowItem_BuildStorageDescription(index, 0, buffer);
+        WindowItem_BuildStorageDescription(session, index, 0, buffer);
     };
     const auto readPet = [&](WindowStoragePet* const record, const std::int32_t field) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field, 1023, buffer) != 0) {
@@ -1955,30 +1962,30 @@ std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, cons
     constexpr std::int32_t petFieldCount = 25 + world::kPetTechniqueSlotCount + 6;
     switch (buffer[0]) {
     case 'A': {
-        gItemDetailStorageCC4D58[0].items.fill({});
+        storage.groups[0].items.fill({});
         for (std::int32_t index = 0; index < 20; ++index) {
-            readItem(&gItemDetailStorageCC4D58[0].items[index], index, 2 + index * 6, true);
+            readItem(&storage.groups[0].items[index], index, 2 + index * 6, true);
         }
-        gPetStorageD64E18.fill({});
+        storage.pets.fill({});
         for (std::int32_t index = 0; index < 5; ++index) {
-            readPet(&gPetStorageD64E18[index], 122 + index * petFieldCount);
+            readPet(&storage.pets[index], 122 + index * petFieldCount);
         }
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 122 + 5 * petFieldCount);
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
-        gItemDetailStorageCC4D58[side].amount = amount;
+        storage.groups[side].amount = amount;
         return 1;
     }
     case 'G': {
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
-        gItemDetailStorageCC4D58[side].amount = amount;
+        storage.groups[side].amount = amount;
         return 0;
     }
     case 'I': {
         std::int32_t field = 2;
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
-            auto* const record = &gItemDetailStorageCC4D58[0].items[index];
+            auto* const record = &storage.groups[0].items[index];
             *record = {};
             readItem(record, index, field + 1, false);
             field += 7;
@@ -1990,7 +1997,7 @@ std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, cons
         std::int32_t field = 2;
         std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
         while (index >= 0) {
-            auto* const record = &gPetStorageD64E18[index];
+            auto* const record = &storage.pets[index];
             *record = {};
             readPet(record, field + 1);
             field += 1 + petFieldCount;

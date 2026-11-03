@@ -9404,7 +9404,7 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connect
         }
         if (index >= 8) {
             ui::detail::WindowTrade_CopyOwnItem(connection.Owner(), 1, index - 8);
-            ui::detail::WindowTrade_CopyDisplayItems(1, index - 8);
+            ui::detail::WindowTrade_CopyDisplayItems(connection.Owner(), 1, index - 8);
         }
         field += 14;
         index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
@@ -9439,7 +9439,7 @@ void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& connection, 
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
     ui::detail::WindowTrade_SwapRemoteItems(connection.Owner(), 1, first, second);
-    ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
+    ui::detail::WindowTrade_SwapDisplayItems(connection.Owner(), 1, first, second);
 }
 
 // 原函数：0x0051B630。

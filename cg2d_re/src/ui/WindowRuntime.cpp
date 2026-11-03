@@ -225,13 +225,7 @@ std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
 
 std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
 
-std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
-
-std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
-
 std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
-
-static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原10技能时总大小0x1E00。
 
 // IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
 
@@ -847,6 +841,7 @@ void WindowItem_RequestTransfer(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t source, const std::int32_t target)
 {
+    auto& storage = session.UiFrame().native.storage;
     auto& transfer = session.UiFrame().native.itemTransfer;
     if (source < 0 || target < 0 || source == target) {
         return;
@@ -860,14 +855,14 @@ void WindowItem_RequestTransfer(
         count = world::gPlayerRuntimeSlots.items[source].count;
     } else {
         std::memcpy(
-            &count, &gItemDetailStorageCC4D58[0].items[source - 100].count, sizeof(count));
+            &count, &storage.groups[0].items[source - 100].count, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
         used = std::bit_cast<std::int16_t>(world::gPlayerRuntimeSlots.items[target].used);
     } else {
         std::memcpy(
-            &used, &gItemDetailStorageCC4D58[0].items[target - 100], sizeof(used));
+            &used, &storage.groups[0].items[target - 100], sizeof(used));
     }
     if (source < 8 || target < 8 || count <= 0 || used != 0 || !split) {
         transfer.source = source;
@@ -999,6 +994,7 @@ static void WindowPetDrag_Handle(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
@@ -1013,7 +1009,7 @@ static void WindowPetDrag_Handle(
         }
     } else if (kind == 2) {
         std::uint16_t used;
-        std::memcpy(&used, &gPetStorageD64E18[sourceIndex - 100], sizeof(used));
+        std::memcpy(&used, &storage.pets[sourceIndex - 100], sizeof(used));
         if (used == 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
@@ -1058,7 +1054,7 @@ static void WindowPetDrag_Handle(
                 (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
                 (platform::gLegacyMouseState.mouseX - 120)));
-            WindowBank_DrawStoredPetTooltip(x, y, slot, 5);
+            WindowBank_DrawStoredPetTooltip(session, x, y, slot, 5);
         } else {
             return;
         }
@@ -1089,6 +1085,7 @@ static void WindowItemDrag_Handle(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
@@ -1127,7 +1124,7 @@ static void WindowItemDrag_Handle(
     } else if (kind == 3) {
         std::uint16_t used;
         std::memcpy(
-            &used, &gItemDetailStorageCC4D58[0].items[sourceIndex - 100], sizeof(used));
+            &used, &storage.groups[0].items[sourceIndex - 100], sizeof(used));
         if (used == 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
@@ -1162,7 +1159,7 @@ static void WindowItemDrag_Handle(
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
-            &gItemDetailStorageCC4D58[0].items[sourceIndex - 100].imageNo, sizeof(imageNo));
+            &storage.groups[0].items[sourceIndex - 100].imageNo, sizeof(imageNo));
     } else {
         return;
     }
@@ -2501,8 +2498,9 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
 
 // SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。
 // 原函数：0x0048B350。
-std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const std::int32_t page)
+std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, const std::int32_t index, const std::int32_t page)
 {
+    auto& storage = session.UiFrame().native.storage;
     const std::int32_t key = index + 100;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
@@ -2517,7 +2515,7 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
-    const auto* const record = &gItemDetailStorageCC4D58[0].items[index];
+    const auto* const record = &storage.groups[0].items[index];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
     const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;

@@ -155,7 +155,7 @@ InputContext* SetInputPositionAndStyle_45D760(
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(wchar_t character);
 // 原函数：0x0044A1B0。
-void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
+void BrowseChatHistory_44A1B0(session::ClientSession& session); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
 std::int32_t IsValidDelimitedFieldText_476740(std::wstring_view text);

@@ -92,7 +92,7 @@ void ResetCurrentDialogType_4D3170();                         // 原 [0x4D3170,0
 // 原函数：0x00455BD0。
 std::int32_t InitializeWorldSceneFlags_455BD0();                 // GVC01保留有效状态重置及返回0，已清理原无消费者槽。
 // 原函数：0x00504A30。
-std::int32_t InitializeGameplayNotifications_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
+std::int32_t InitializeGameplayNotifications_504A30(session::ClientSession& session); // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 // 原函数：0x00504100。
 std::int32_t ResetSceneUiState_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
 // 原函数：0x0045EBB0。

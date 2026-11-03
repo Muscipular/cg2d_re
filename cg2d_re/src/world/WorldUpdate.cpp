@@ -122,7 +122,7 @@ void Update(session::ClientSession& session)
         ResetMapDrawCacheCounts_46BD40();
         session.WorldScene().battle.entryPending = 0;
         gGameplayRepliesSuppressed_9A6E0C = 0;
-        detail::InitializeGameplayNotifications_504A30();
+        detail::InitializeGameplayNotifications_504A30(session);
         detail::ResetBattleCommandSelection_43C8F0();
         detail::ResetSceneUiState_504100();
         detail::ClearContactAndGuildMailStorage_518C80();

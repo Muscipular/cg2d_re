@@ -3619,7 +3619,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         DrawMapSceneWithMarkers_469020();
         static_cast<void>(ui::WindowRuntime_Render(session));
         input::ProcessKeyInput_4596D0(session);
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         RenderInput_4590E0();
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
@@ -3714,7 +3714,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gMapCharaSceneSlots.valueC8A75C = 0;
         gMapCharaSceneSlots.valueC8A758 = 0;
         input::ProcessKeyInput_4596D0(session);
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
         ClearDirectionalMapEffects_46F160();
@@ -3796,7 +3796,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RenderChara_521F20();
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0(session);
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -3903,7 +3903,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gMapCharaSceneSlots.valueC8A75C = 0;
             gMapCharaSceneSlots.valueC8A758 = 0;
             input::ProcessKeyInput_4596D0(session);
-            input::BrowseChatHistory_44A1B0();
+            input::BrowseChatHistory_44A1B0(session);
             RenderInput_4590E0();
             render::SortTextures_520790();
             static_cast<void>(render::ClearSurface_4512C0());
@@ -3978,7 +3978,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0(session);
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4168,7 +4168,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10(session);
         session.WorldScene().frameBackgroundMode = 2;
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         if (gMapResourceMode_9DAD68 == 1) {
             const std::int32_t image = gBattleBackgroundImage59F9F8;
             const bool specialBackground = image >= 238607 && image <= 238618;
@@ -4232,7 +4232,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             session.WorldScene().frameBackgroundMode = 3;
             platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0(session);
-            input::BrowseChatHistory_44A1B0();
+            input::BrowseChatHistory_44A1B0(session);
             static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
             cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4254,7 +4254,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -4315,7 +4315,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
         cg::yobi::DrawBattleActorNames_43CA80();
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -4336,7 +4336,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         cg::yobi::DrawBattleActorNames_43CA80();
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -4351,7 +4351,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
         cg::yobi::DrawBattleActorNames_43CA80();
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -4382,7 +4382,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
-        input::BrowseChatHistory_44A1B0();
+        input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -6637,9 +6637,9 @@ std::int32_t InitializeWorldSceneFlags_455BD0()
 }
 
 // 原 [0x504A30,0x504A43)：先加载记录，弃返回，再清两槽并返回完整零。
-std::int32_t InitializeGameplayNotifications_504A30()
+std::int32_t InitializeGameplayNotifications_504A30(session::ClientSession& session)
 {
-    LoadChatInputHistory_44A090();
+    LoadChatInputHistory_44A090(session);
     gPlayerUnspentAttributePoints_D2F788 = 0;
     gPendingResultWindowMode_FF0C10 = 0;
     return 0;

@@ -1,4 +1,5 @@
 #include "ChatHistory.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
@@ -67,9 +68,6 @@ std::wstring gLogFileName554648 = L"chat_000000.txt"; // 原全局：0x00554648�
 
 namespace cg::world::detail {
 
-ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
-std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
-
 // 文件边界：64项GBK记录和尾索引保持原磁盘布局。
 struct ChatHistoryDisk {
     char records[64][0x121];
@@ -79,35 +77,36 @@ static_assert(std::is_trivially_copyable_v<ChatHistoryDisk>);
 static_assert(offsetof(ChatHistoryDisk, tail) == 0x4840);
 static_assert(sizeof(ChatHistoryDisk) == 0x4844);
 
-static ChatHistoryDisk EncodeChatHistory()
+static ChatHistoryDisk EncodeChatHistory(const ChatInputHistoryState& history)
 {
     ChatHistoryDisk disk{};
-    for (std::size_t i = 0; i < gChatHistory621FF8.records.size(); ++i)
-        text::StoreGbk(disk.records[i], sizeof(disk.records[i]), gChatHistory621FF8.records[i]);
-    disk.tail = gChatHistory621FF8.tail626838;
+    for (std::size_t i = 0; i < history.records.size(); ++i)
+        text::StoreGbk(disk.records[i], sizeof(disk.records[i]), history.records[i]);
+    disk.tail = history.tail626838;
     return disk;
 }
 
-static void DecodeChatHistory(const ChatHistoryDisk& disk)
+static void DecodeChatHistory(const ChatHistoryDisk& disk, ChatInputHistoryState& history)
 {
-    for (std::size_t i = 0; i < gChatHistory621FF8.records.size(); ++i)
-        gChatHistory621FF8.records[i] = text::FromGbkWide(disk.records[i]);
-    gChatHistory621FF8.tail626838 = disk.tail;
+    for (std::size_t i = 0; i < history.records.size(); ++i)
+        history.records[i] = text::FromGbkWide(disk.records[i]);
+    history.tail626838 = disk.tail;
 }
 
 // 原 [0x44A090,0x44A15B)：保留短读已写入的字节及 rb 失败后创建文件的顺序。
-std::int32_t LoadChatInputHistory_44A090()
+std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 {
-    gCursor62683C = -1;
+    auto& history = session.WorldScene().chatInputHistory;
+    history.cursor62683C = -1;
     const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
 
-    auto disk = EncodeChatHistory(); // 先保存旧值，短读仍保留未覆盖的历史。
+    auto disk = EncodeChatHistory(history); // 先保存旧值，短读仍保留未覆盖的历史。
     std::FILE* const readStream = _wfopen(path.c_str(), L"rb");
     if (readStream != nullptr) {
         const std::uint32_t count =
             static_cast<std::uint32_t>(std::fread(&disk, sizeof(disk), 1, readStream));
         std::fclose(readStream);
-        DecodeChatHistory(disk);
+        DecodeChatHistory(disk, history);
         return count >= 1 ? 1 : 0;
     }
 
@@ -116,7 +115,7 @@ std::int32_t LoadChatInputHistory_44A090()
         std::fwrite(&disk, sizeof(disk), 1, writeStream);
         std::fclose(writeStream);
     }
-    gCursor62683C = 63;
+    history.cursor62683C = 63;
     return 0;
 }
 
@@ -212,7 +211,7 @@ std::int32_t IncrementChatRecordCount_4A76E0()
 namespace cg::world {
 
 // 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
-std::int32_t SaveChatInputHistoryEntry_449FA0(const std::int32_t index)
+std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, const std::int32_t index)
 {
     const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
 
@@ -223,7 +222,7 @@ std::int32_t SaveChatInputHistoryEntry_449FA0(const std::int32_t index)
 
     ::_fseeki64(stream, static_cast<std::int64_t>(static_cast<std::uint32_t>(index * 0x121)), SEEK_SET);
     char diskRecord[0x121]{};
-    text::StoreGbk(diskRecord, sizeof(diskRecord), detail::gChatHistory621FF8.records[index]);
+    text::StoreGbk(diskRecord, sizeof(diskRecord), session.WorldScene().chatInputHistory.records[index]);
     if (static_cast<std::uint32_t>(std::fwrite(diskRecord, sizeof(diskRecord), 1, stream)) < 1) {
         std::fclose(stream);
         return 0;

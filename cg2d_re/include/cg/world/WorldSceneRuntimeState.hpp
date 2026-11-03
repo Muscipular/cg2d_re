@@ -53,6 +53,13 @@ struct ChatSendState {
     std::int32_t replyGate = 0; // 原 0xDA3B54。
 };
 
+// 64 条聊天输入历史、磁盘尾索引与当前浏览游标，运行期由会话持有。
+struct ChatInputHistoryState {
+    std::array<std::wstring, 64> records {}; // 原 0x621FF8。
+    std::uint32_t tail626838 = 0; // 原 0x626838。
+    std::int32_t cursor62683C = 0; // 原 0x62683C。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -60,6 +67,7 @@ struct WorldSceneRuntimeState {
     BattleSceneState battle {};
     RotationState rotation {};
     ChatSendState chat {};
+    ChatInputHistoryState chatInputHistory {};
     std::int32_t frameBackgroundMode = 0; // 原 0x73ECC0，世界场景生产、主循环清屏消费。
     std::int32_t forceRender = 0; // 原 0x73ECE4，普通场景请求、主循环消费。
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。

@@ -959,10 +959,9 @@ void InitializeContext_449CF0(
 
 // HBN01：原历史选择/独立游标与现场context清写、字节滚动尾，正确正文保持。
 // 原函数：0x0044A1B0。
-void BrowseChatHistory_44A1B0()
+void BrowseChatHistory_44A1B0(session::ClientSession& session)
 {
-    using world::detail::gChatHistory621FF8;
-    using world::detail::gCursor62683C;
+    auto& history = session.WorldScene().chatInputHistory;
     cg::core::NullSub_509080();
     InputContext* const initialContext = gCurrentInputData;
     if (initialContext != &cg::ui::detail::gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
@@ -971,17 +970,17 @@ void BrowseChatHistory_44A1B0()
     const std::uint8_t control = platform::gKeyStates[17] & 2u;
     if (control == 0 && (platform::gKeyStates[16] & 2u) == 0
         && (platform::gKeyStates[38] & 0x10u) != 0) {
-        const std::int32_t previous = gCursor62683C;
-        const auto tail = std::bit_cast<std::int32_t>(gChatHistory621FF8.tail626838);
+        const std::int32_t previous = history.cursor62683C;
+        const auto tail = std::bit_cast<std::int32_t>(history.tail626838);
         std::int32_t selected = previous == -1 ? tail : previous - 1;
-        gCursor62683C = selected;
+        history.cursor62683C = selected;
         if (selected < 0) {
             selected = 63;
-            gCursor62683C = selected;
+            history.cursor62683C = selected;
         }
-        if (gChatHistory621FF8.records[selected].empty()
+        if (history.records[selected].empty()
             || (selected == tail && previous != -1)) {
-            gCursor62683C = previous;
+            history.cursor62683C = previous;
             return;
         }
     } else {
@@ -989,27 +988,27 @@ void BrowseChatHistory_44A1B0()
         if (control != 0 || (platform::gKeyStates[40] & 0x10u) == 0) {
             return;
         }
-        const std::int32_t selected = gCursor62683C;
+        const std::int32_t selected = history.cursor62683C;
         if (selected == -1) {
             return;
         }
-        if (selected == std::bit_cast<std::int32_t>(gChatHistory621FF8.tail626838)) {
-            gCursor62683C = -1;
+        if (selected == std::bit_cast<std::int32_t>(history.tail626838)) {
+            history.cursor62683C = -1;
             initialContext->totalByteLength = 0;
             gCurrentInputData->clearText();
             gCurrentInputData->caretByteOffset = 0;
             return;
         }
         const std::int32_t next = selected + 1;
-        gCursor62683C = next;
+        history.cursor62683C = next;
         if (next >= 64) {
-            gCursor62683C = 0;
+            history.cursor62683C = 0;
         }
     }
     initialContext->totalByteLength = 0;
     gCurrentInputData->clearText();
     gCurrentInputData->caretByteOffset = 0;
-    LoadInitialText_44A160(gChatHistory621FF8.records[gCursor62683C].c_str());
+    LoadInitialText_44A160(history.records[history.cursor62683C].c_str());
     const std::wstring contents = ContextText(*gCurrentInputData);
     const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth());
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
@@ -1043,7 +1042,7 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
             m_log_iw(L"这项文字无法保存为GBK，或超过字段容量。");
             return;
         }
-        auto& history = world::detail::gChatHistory621FF8;
+        auto& history = session.WorldScene().chatInputHistory;
         const std::uint32_t oldTail = history.tail626838;
         const std::int32_t oldIndex = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(oldTail));
@@ -1059,11 +1058,11 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         } else {
             history.records[nextIndex] = ContextText(*context);
             static_cast<void>(world::SaveChatInputHistoryEntry_449FA0(
-                std::bit_cast<std::int32_t>(history.tail626838)));
+                session, std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
         }
         const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
-        world::detail::gCursor62683C = -1;
+        history.cursor62683C = -1;
         static_cast<void>(world::SendPlayerChatInput_50C940(session, context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;

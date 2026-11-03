@@ -16,20 +16,6 @@ namespace cg::input {
 class InputContext;
 }
 
-namespace cg::world::detail {
-
-// 原 [0x621FF8,0x62683C)：64 项记录与尾槽一次传输，游标不在文件块内。
-struct ChatHistory621FF8 {
-    std::array<std::wstring, 64> records; // 磁盘记录在ChatHistory.cpp边界转换。
-    std::uint32_t tail626838; // 原全局：0x00626838。
-};
-
-// 聊天历史的唯一存储与游标，输入逻辑借用。
-extern ChatHistory621FF8 gChatHistory621FF8;
-extern std::int32_t gCursor62683C;
-
-} // namespace cg::world::detail
-
 namespace cg::world {
 
 // 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
@@ -67,7 +53,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
 // 原函数：0x0043D860。
 void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
 // 原函数：0x00449FA0。
-std::int32_t SaveChatInputHistoryEntry_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
+std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
 
 namespace detail {
 extern std::wstring gLogPath62699C; // 原全局：0x0062699C。
@@ -87,7 +73,7 @@ void SetPlayerChatBubble_51A6A0(
     std::int32_t duration, std::wstring_view text, std::int32_t color,
     std::int32_t font); // 同源玩家头顶文本生产。
 // 原函数：0x0044A090。
-std::int32_t LoadChatInputHistory_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
+std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session); // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
 
 } // namespace detail
 

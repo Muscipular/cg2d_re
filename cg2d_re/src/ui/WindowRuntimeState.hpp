@@ -456,7 +456,7 @@ std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, std::i
 extern const std::array<std::int32_t, 6> gSelectorPetX54F5C4;
 extern const std::array<std::int32_t, 6> gSelectorPetY54F5DC;
 // 原函数：0x004C61B0。
-WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* state, std::int32_t previewIndex); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
+WindowItemSelectorState* WindowItemSelector_ConstructPreview(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t previewIndex); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
 // 原函数：0x004C71B0。
 std::int32_t WindowItemSelector_ReadSelectedPet(const WindowItemSelectorState* state); // 原+70同源S32。

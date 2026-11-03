@@ -1,5 +1,4 @@
 #include "cg/session/ClientSession.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -1411,18 +1410,18 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
 
 // 窗口函数实现。
 
-// 原488400固定CF3B10；原内嵌+78预览沿已有唯一静态对象绑定。
+// 原488400固定CF3B10；原内嵌+78预览借所属会话的固定对象。
 // 原函数：0x00488400。
 static detail::WindowItemSelectorState* WindowInventory_ConstructSelector(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
-    return detail::WindowItemSelector_ConstructPreview(&inventory.normalSelector, 0);
+    return detail::WindowItemSelector_ConstructPreview(session, &inventory.normalSelector, 0);
 }
 
 // 原函数：0x004883F0；LCI01启动拥有者替代CRT构造／退出登记。
-FirstItemSelectorStartup::FirstItemSelectorStartup()
+FirstItemSelectorStartup::FirstItemSelectorStartup(session::ClientSession& session)
 {
-    WindowInventory_ConstructSelector(session::GetClientHost().FirstSession());
+    WindowInventory_ConstructSelector(session);
 }
 
 } // namespace cg::ui

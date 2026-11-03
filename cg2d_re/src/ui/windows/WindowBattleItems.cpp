@@ -1,5 +1,4 @@
 #include "cg/session/ClientSession.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -1020,18 +1019,18 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
 
 // 窗口函数实现。
 
-// 原499900固定D2F338；原内嵌+78预览沿已有唯一静态对象绑定。
+// 原499900固定D2F338；原内嵌+78预览借所属会话的固定对象。
 // 原函数：0x00499900。
 static detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
-    return detail::WindowItemSelector_ConstructPreview(&inventory.battleSelector, 1);
+    return detail::WindowItemSelector_ConstructPreview(session, &inventory.battleSelector, 1);
 }
 
 // 原函数：0x004998F0；LCI01启动拥有者替代CRT构造／退出登记。
-SecondItemSelectorStartup::SecondItemSelectorStartup()
+SecondItemSelectorStartup::SecondItemSelectorStartup(session::ClientSession& session)
 {
-    WindowBattleItems_ConstructSelector(session::GetClientHost().FirstSession());
+    WindowBattleItems_ConstructSelector(session);
 }
 
 } // namespace cg::ui

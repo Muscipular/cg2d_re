@@ -340,7 +340,7 @@ struct WindowItemSelectorState {
     std::int32_t step6C; // 原成员偏移：+0x6C。
     std::int32_t selectedPet70; // 原成员偏移：+0x70。
     std::int32_t previousPet74; // 原成员偏移：+0x74。
-    cg::yobi::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
+    cg::yobi::YobiAction* preview; // 借用所属会话持有的固定预览，不负责释放。
     std::int32_t hoverCount3A8; // 原成员偏移：+0x3A8。
     std::array<std::byte, 4> bytes3AC; // 原成员偏移：+0x3AC。
     std::int32_t hoverIndex3B0; // 原成员偏移：+0x3B0。

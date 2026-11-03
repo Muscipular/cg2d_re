@@ -13,6 +13,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "../world/PlayerState.hpp"
 #include "../world/WorldMapState.hpp"
@@ -233,10 +234,12 @@ static const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInit
 
 // 原55309C/5530A0相邻，两对象各十CryptInt；各自构造／析构。
 // 原函数：0x004883F0；同一中央位置构造，MSVC按完成逆序析构。
-static const cg::ui::FirstItemSelectorStartup gFirstItemSelectorStartup;
+static const cg::ui::FirstItemSelectorStartup gFirstItemSelectorStartup {
+    cg::session::GetClientHost().FirstSession()};
 
 // 原函数：0x004998F0；同一中央位置构造，MSVC按完成逆序析构。
-static const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
+static const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup {
+    cg::session::GetClientHost().FirstSession()};
 
 // 原CRT 5530A4；浏览宠物拥有者接管构析，不与玩家宠物共享。
 // 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。

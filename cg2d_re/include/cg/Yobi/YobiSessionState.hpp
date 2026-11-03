@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 namespace cg::yobi {
 
@@ -13,8 +14,20 @@ inline constexpr std::size_t kMapRegistryRows = 399;
 inline constexpr std::size_t kMapRegistryColumns = 399;
 inline constexpr std::size_t kMapRegistryEntries = kMapRegistryRows * kMapRegistryColumns;
 
+// 两个固定选择器预览独立于普通动作链；完整类型边界在preview.cpp构造/析构。
+struct WindowSelectorPreviewRuntimeState {
+    WindowSelectorPreviewRuntimeState();
+    ~WindowSelectorPreviewRuntimeState();
+    WindowSelectorPreviewRuntimeState(const WindowSelectorPreviewRuntimeState&) = delete;
+    WindowSelectorPreviewRuntimeState& operator=(const WindowSelectorPreviewRuntimeState&) = delete;
+    WindowSelectorPreviewRuntimeState(WindowSelectorPreviewRuntimeState&&) = delete;
+    WindowSelectorPreviewRuntimeState& operator=(WindowSelectorPreviewRuntimeState&&) = delete;
+    std::array<std::unique_ptr<YobiAction>, 2> actions {};
+};
+
 // 每个会话持有其动作链；节点及载荷由 Yobi 生命周期函数分配和释放。
 struct YobiSessionState {
+    WindowSelectorPreviewRuntimeState selectorPreviews {};
     YobiAction* start = nullptr;
     YobiAction* end = nullptr;
     std::int32_t gateMode = 0; // 原 0x59E570，初值为 FullRate。

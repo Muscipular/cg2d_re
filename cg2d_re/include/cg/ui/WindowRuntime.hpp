@@ -202,13 +202,12 @@ void WindowNumber_InitializeLegacySpacing();
 // WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x00477170。
 void WindowNumber_InitializeSpacing(); // 477160尾跳的四种数字图片步进业务初始化。
-// 原CRT 55309C/5530A0：两启动入口分别创建固定静态预览，退出由实际对象自动逆序析构。
-// 启动类型只负责原位置调用；登记与异常规则由MSVC承接。
+// 原CRT 55309C/5530A0：两启动入口显式初始化所属会话固定预览，首会话仍在原位置调用。
 // 原函数：0x004883F0。
 class FirstItemSelectorStartup final {
 public:
     // 原函数：0x004883F0；只接管同组原始载荷的启动寿命。
-    FirstItemSelectorStartup();
+    explicit FirstItemSelectorStartup(session::ClientSession& session);
     FirstItemSelectorStartup(const FirstItemSelectorStartup&) = delete;
     FirstItemSelectorStartup& operator=(const FirstItemSelectorStartup&) = delete;
 };
@@ -217,7 +216,7 @@ public:
 class SecondItemSelectorStartup final {
 public:
     // 原函数：0x004998F0；只接管同组原始载荷的启动寿命。
-    SecondItemSelectorStartup();
+    explicit SecondItemSelectorStartup(session::ClientSession& session);
     SecondItemSelectorStartup(const SecondItemSelectorStartup&) = delete;
     SecondItemSelectorStartup& operator=(const SecondItemSelectorStartup&) = delete;
 };

@@ -2,6 +2,7 @@
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/PlayerState.hpp"
 
 #include <array>
@@ -79,17 +80,20 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
 }
 
 
-// SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。
-// SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
-// 原退出0x00488420／0x00488430／0x00499920：固定预览由各实际静态对象自动析构。
-YobiAction* ConstructWindowSelectorPreview(const std::int32_t index, std::uint32_t& flags)
+WindowSelectorPreviewRuntimeState::WindowSelectorPreviewRuntimeState() = default;
+WindowSelectorPreviewRuntimeState::~WindowSelectorPreviewRuntimeState() = default;
+
+// SIC01/NSM01：首次仍在原索引0/1入口按声明顺序构造十CryptInt，不进入普通动作链。
+// 原退出0x00488420／0x00488430／0x00499920：改由实际会话owner逆序析构独占对象。
+YobiAction* ConstructWindowSelectorPreview(
+    session::ClientSession& session, const std::int32_t index, std::uint32_t& flags)
 {
-    // 两个lambda各拥有一个静态预览，分别在原索引0／1调用位置构造和登记退出。
-    static constexpr std::array<YobiAction* (*)(), 2> initialize {
-        +[]() -> YobiAction* { static YobiAction preview{}; return &preview; },
-        +[]() -> YobiAction* { static YobiAction preview{}; return &preview; },
-    };
-    YobiAction& action = *initialize[index]();
+    auto& slot = session.Yobi().selectorPreviews.actions[index];
+    if (slot == nullptr) {
+        slot = std::make_unique<YobiAction>();
+        slot->ownerSession = &session;
+    }
+    YobiAction& action = *slot;
     flags = action.flags | YobiActionFlag_Hidden;
     return &action;
 }

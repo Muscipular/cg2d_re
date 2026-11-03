@@ -1474,10 +1474,10 @@ std::int32_t WindowItem_DrawTooltip(
 
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // 原函数：0x004C61B0。
-WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* const state, const std::int32_t previewIndex)
+WindowItemSelectorState* WindowItemSelector_ConstructPreview(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t previewIndex)
 {
     std::uint32_t flags;
-    cg::yobi::YobiAction* const preview = cg::yobi::ConstructWindowSelectorPreview(previewIndex, flags);
+    cg::yobi::YobiAction* const preview = cg::yobi::ConstructWindowSelectorPreview(session, previewIndex, flags);
     state->preview = preview;
     state->initialized3E8 = 0;
     state->value64 = 0;

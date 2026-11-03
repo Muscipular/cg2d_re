@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -511,7 +512,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const ElementId elementI
         if (elementId < static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons) || elementId > static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23)) {
             return consumed;
         }
-        if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && character_select::state::gPukVersion < 7u) {
+        if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && network::GetGameConnection().PukVersion() < 7u) {
             if (hover) {
                 graphic->imageNo = 0x3B93E;
                 gHoverTextD68AE8 = kStatusGuildUnavailable586270;

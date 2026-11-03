@@ -1394,6 +1394,7 @@ login::LoginRequestState& CgConnection::LoginRequests() noexcept { return impl_-
 login::LoginMessageState& CgConnection::LoginMessages() noexcept { return impl_->loginMessages; }
 login::LoginSceneState& CgConnection::LoginSceneUi() noexcept { return impl_->loginSceneUi; }
 character_select::CharacterSelectSceneState& CgConnection::CharacterSelectUi() noexcept { return impl_->characterSelectUi; }
+std::uint8_t& CgConnection::PukVersion() noexcept { return impl_->characterSelectUi.pukVersion; }
 void CgConnection::UpdateKeepAlive()
 {
     if (!Active()) {

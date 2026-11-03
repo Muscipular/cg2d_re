@@ -48,7 +48,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
-            const std::uint8_t pukVersion = state::gPukVersion;
+            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
             if (pukVersion == 0 || pukVersion == 2) {
                 static_cast<void>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2,
                     L"abcdefg" /* 原 0x55C910。 */));
@@ -151,7 +151,7 @@ std::int32_t ProcessScene_462330()
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
-            const std::uint8_t pukVersion = state::gPukVersion;
+            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
             switch (pukVersion) {
             case 7:
                 cg::network::GetGameConnection().SendVersionUpgradeRequest(5,

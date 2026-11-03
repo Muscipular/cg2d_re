@@ -314,7 +314,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId element
         hint = L"切换成玩家称号视窗。";
         break;
     case WindowPlayerAttributesElementId::HandleButtons_39:
-        if (character_select::state::gPukVersion < 8u) {
+        if (network::GetGameConnection().PukVersion() < 8u) {
             auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =

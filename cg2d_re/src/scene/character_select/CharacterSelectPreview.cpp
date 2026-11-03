@@ -237,7 +237,7 @@ std::int32_t ResolveCompatibleCharacterGraphic_51BC50(const std::int32_t imageNo
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
-        version = state::gPukVersion;
+        version = cg::network::GetGameConnection().PukVersion();
     }
     const std::int32_t category = ClassifyCharacterGraphicFamily_51BA10(imageNo);
     const std::int32_t allowedCategory = version >= 7 ? 6 : (version >= 3 ? 3 : 0);
@@ -271,7 +271,7 @@ std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
-        version = state::gPukVersion;
+        version = cg::network::GetGameConnection().PukVersion();
     }
     const std::int32_t category = detail::ClassifyCharacterAnimationFamily_51B7D0(imageNo);
     std::int32_t allowedCategory;

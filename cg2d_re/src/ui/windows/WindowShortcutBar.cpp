@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -211,7 +212,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, c
             return consumed;
         }
         if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_6)) {
-            if (character_select::state::gPukVersion < 7u) {
+            if (network::GetGameConnection().PukVersion() < 7u) {
                 if (hover) {
                     graphic->imageNo = 0x3B91D;
                     gHoverTextD68AE8 = kStatusGuildUnavailable586270;

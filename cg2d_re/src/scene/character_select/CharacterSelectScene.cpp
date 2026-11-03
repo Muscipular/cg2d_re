@@ -200,10 +200,10 @@ static std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 }
 
 // 原函数：0x0050E770。
-std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection&, const std::int32_t pukVersion)
+std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection& networkConnection, const std::int32_t pukVersion)
 {
     const std::uint8_t version = static_cast<std::uint8_t>(pukVersion);
-    state::gPukVersion = version;
+    networkConnection.PukVersion() = version;
     return version;
 }
 
@@ -402,7 +402,7 @@ void AdvanceCharacterCreationScene_462870()
 void InitializeCharacterAppearanceSelection_462880(const std::uint8_t resetSelection)
 {
     if (resetSelection != 0) {
-        const std::uint8_t pukVersion = state::gPukVersion;
+        const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
         state::gCreationCharacterFamily_9A57E0 = 0;
         if (pukVersion >= 5) {
             state::gCreationCharacterFamily_9A57E0 = 1;
@@ -486,11 +486,11 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
             result = 2;
         }
     }
-    if (state::gPukVersion >= 5) {
+    if (cg::network::GetGameConnection().PukVersion() >= 5) {
         if (HitTestCharacterCreationControl_464290(&kCreationVersionHit54E020[0]) != 0) {
             versionPlus = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-                const std::uint8_t puk = state::gPukVersion;
+                const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
                 const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
                 const std::int32_t limit = puk >= 8 ? 2 : 1;
                 if (version < limit) {
@@ -593,17 +593,17 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         138, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[1])[4 + cancelState], 0, nullptr);
     cg::render::DrawGraphic(
         289, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[0])[4 + confirmState], 0, nullptr);
-    if (state::gPukVersion >= 5) {
+    if (cg::network::GetGameConnection().PukVersion() >= 5) {
         cg::render::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
         cg::render::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
     }
     cg::render::DrawGraphic(
         203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0)], 0, nullptr);
-    const std::uint8_t labelPuk = state::gPukVersion;
+    const std::uint8_t labelPuk = cg::network::GetGameConnection().PukVersion();
     cg::render::DrawGraphic(
         221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
 
-    const std::uint8_t listPuk = state::gPukVersion;
+    const std::uint8_t listPuk = cg::network::GetGameConnection().PukVersion();
     const std::int32_t* const graphicTable = listPuk >= 7 ? kCreationGraphic55C354.data()
         : (listPuk >= 5 ? kCreationGraphic55C3FC.data() : kCreationGraphic55C46C.data());
     for (std::int32_t index = 0; index < 14; ++index) {
@@ -627,7 +627,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
         cg::yobi::SetYobiActionField2A8(state::gCreateActions[1], motion);
         cg::yobi::AdvanceYobiAnimationFrame_517880(state::gCreateActions[1], 100, 1, 0);
-        if (state::gPukVersion >= 5 && state::gCreationCharacterFamily_9A57E0 == 0) {
+        if (cg::network::GetGameConnection().PukVersion() >= 5 && state::gCreationCharacterFamily_9A57E0 == 0) {
             const std::int32_t graphic = cg::yobi::GetYobiActionField20(state::gCreateActions[1]);
             render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
         }
@@ -635,7 +635,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
     cg::yobi::YobiAction* const first = state::gCreateActions[0];
     if (first != nullptr) {
         cg::yobi::SetYobiActionField15(first, 2);
-        const std::uint8_t puk = state::gPukVersion;
+        const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
         const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
         const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
         std::int32_t motion;
@@ -683,7 +683,7 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
     state::gCreationAttributePointBytes_9A5FD4 = 0;
     state::gCreationElementPointBytes_9A50D0 = 0;
     state::gCreationFifthAttributePoints_9A5FD8 = 0;
-    const std::uint32_t version = state::gPukVersion;
+    const std::uint32_t version = cg::network::GetGameConnection().PukVersion();
     state::gCreationStyleIndex_9A5668 = 0;
     state::gCreationColorIndex_9A4B80 = 0;
     state::gCreationRemainingAttributePoints_9A4D04 = 30;
@@ -724,7 +724,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0()
     total += static_cast<std::int8_t>(*attributes[0]);
     total += static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04);
     const std::int32_t attributeLimit = total >> 1;
-    const std::uint8_t puk = state::gPukVersion;
+    const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
     const std::uint8_t maxVersion = puk >= 7 ? 2 : (puk >= 5 ? 1 : 0);
     const bool showVersionControls = maxVersion != state::gCreationCharacterFamily_9A57E0;
 
@@ -1212,7 +1212,6 @@ std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
 
 namespace cg::character_select::state {
 
-std::uint8_t gPukVersion = 0; // 原全局：0x009A6E1C。
 std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF; // 原全局：0x0058B6A0。
 std::uint8_t gCreationCharacterFamily_9A57E0 = 0; // 原全局：0x009A57E0。
 std::uint8_t gCreationCharacterIndex_9A4CFC = 0; // 原全局：0x009A4CFC。
@@ -1369,7 +1368,7 @@ static void UpdateCharacterGraphic(
     login::CharacterRecord& record,
     std::int32_t action)
 {
-    const std::uint8_t pukVersion = state::gPukVersion;
+    const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
     if (pukVersion >= 7u) {
         const std::int32_t imageNo = record.graphicNo;
         if (imageNo == 33100 || imageNo == 33101) {
@@ -1459,7 +1458,7 @@ std::int32_t ProcessScene_460FF0()
         if (mainState <= 22u) {
             if (mainState == 0u) {
                 world::gCurrentSceneState = 1;
-                state::gPukVersion = 0;
+                cg::network::GetGameConnection().PukVersion() = 0;
                 ResetCharacterListProgress_45DD50();
                 gUpdateAvailable = 0;
                 render::SelectPalette(0, 0);
@@ -1505,7 +1504,7 @@ std::int32_t ProcessScene_460FF0()
                 }
             } else if (mainState == 9u) {
                 const std::int32_t capability = resource::ProbePaletteCapability_45C970();
-                const std::uint8_t pukVersion = state::gPukVersion;
+                const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
                 render::gPaletteCapability = capability;
                 if (pukVersion == 1u) {
                     world::gCurrentSceneState = 10;
@@ -1749,7 +1748,7 @@ std::int32_t ProcessScene_460FF0()
 
         sceneResult = gUpdateAvailable;
         if (sceneResult != 0) {
-            const std::uint8_t pukVersion = state::gPukVersion;
+            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
             sceneResult = static_cast<std::int32_t>(pukVersion);
             if (pukVersion == 0u || pukVersion == 2u) {
                 sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2, state::kVersion20));

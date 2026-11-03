@@ -270,7 +270,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
     case WindowPlayerTitlesElementId::HandleButtons_18:
     case WindowPlayerTitlesElementId::HandleButtons_19:
     case WindowPlayerTitlesElementId::HandleButtons_21: {
-        if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21) && character_select::state::gPukVersion < 8u) {
+        if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21) && network::GetGameConnection().PukVersion() < 8u) {
             setImage(0x3C111);
             return 0;
         }

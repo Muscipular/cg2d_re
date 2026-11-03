@@ -713,7 +713,7 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
 
     if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_231)) {
         const std::int32_t row = index - 226;
-        if (character_select::state::gPukVersion < 7u) {
+        if (network::GetGameConnection().PukVersion() < 7u) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }

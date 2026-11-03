@@ -178,7 +178,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
     }
     std::int32_t version = character_select::state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
-        version = character_select::state::gPukVersion;
+        version = network::GetGameConnection().PukVersion();
     }
     const std::int32_t converted = character_select::detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
         character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(world::gPlayerRuntimeSlots.value17C));

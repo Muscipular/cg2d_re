@@ -84,7 +84,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         }
 
         std::int8_t color;
-        const std::uint8_t pukVersion = state::gPukVersion;
+        const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
         if (pukVersion == 1u || pukVersion == 2u) {
             color = 3;
         } else if (pukVersion < 5u) {
@@ -166,13 +166,13 @@ std::int32_t ProcessCharacterSlot_461B30(
 
     cg::render::DrawText3_456560(30, 450, 0, 4, detail::gText9A4EAC, 0);
 
-    if (state::gPukVersion >= 5u && cg::login::HasCharacterInSlot_51B110(slot) != 0) {
+    if (cg::network::GetGameConnection().PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {
             const std::uint32_t toggle = static_cast<std::uint32_t>(
                 record.previewState);
             const bool enabled = item < 5
                 ? toggle < 2u
-                    || (state::gPukVersion >= 7u && toggle != 3u)
+                    || (cg::network::GetGameConnection().PukVersion() >= 7u && toggle != 3u)
                 : toggle <= 1u;
             if (!enabled) {
                 continue;

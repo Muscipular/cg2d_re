@@ -19,22 +19,23 @@ static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原函数：0x00508E00。
 std::uint32_t StartCharacterCreationRequest(network::CgConnection& connection)
 {
-    const std::int32_t element3 = character_select::state::gCreationSubmittedElement3_DE0B04;
-    const std::int32_t element2 = character_select::state::gCreationSubmittedElement2_F633F4;
-    const std::int32_t element1 = character_select::state::gCreationSubmittedElement1_FF03D0;
-    const std::int32_t element0 = character_select::state::gCreationSubmittedElement0_F7C948;
-    const std::int32_t attribute4 = character_select::state::gCreationSubmittedAttribute4_F7CA00;
-    const std::int32_t attribute3 = character_select::state::gCreationSubmittedAttribute3_DE0AF8;
-    const std::int32_t attribute2 = character_select::state::gCreationSubmittedAttribute2_DE03F4;
-    const std::int32_t attribute1 = character_select::state::gCreationSubmittedAttribute1_F633F0;
-    const std::int32_t attribute0 = character_select::state::gCreationSubmittedAttribute0_F633EC;
+    auto& submission = connection.CharacterSelectUi().creationSubmission;
+    const std::int32_t element3 = submission.element3DE0B04;
+    const std::int32_t element2 = submission.element2F633F4;
+    const std::int32_t element1 = submission.element1FF03D0;
+    const std::int32_t element0 = submission.element0F7C948;
+    const std::int32_t attribute4 = submission.attribute4F7CA00;
+    const std::int32_t attribute3 = submission.attribute3DE0AF8;
+    const std::int32_t attribute2 = submission.attribute2DE03F4;
+    const std::int32_t attribute1 = submission.attribute1F633F0;
+    const std::int32_t attribute0 = submission.attribute0F633EC;
     const std::int32_t graphic = connection.CharacterSelectUi().selectedGraphicNo;
-    const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
+    const std::int32_t motion = submission.motionImageDE0AFC;
     const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
     request.characterCreationReplyCode = 0;
-    connection.SendCharacterCreationRequest(selected, character_select::state::gCreationNameFF0D18,
+    connection.SendCharacterCreationRequest(selected, submission.nameFF0D18,
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
     request.status = 1;

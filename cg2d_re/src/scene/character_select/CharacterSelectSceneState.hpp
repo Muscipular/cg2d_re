@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/input/Input.hpp"
+
 #include <array>
 #include <cstdint>
 #include <string>
@@ -49,6 +51,40 @@ struct CharacterCreationProgressState {
     yobi::YobiAction* action = nullptr; // 原 0x9A6E88，非拥有。
 };
 
+// 创建页确认后供请求发送及草稿快照读取的原十项独立数值与名称。
+struct CharacterCreationSubmissionState {
+    std::int32_t attribute0F633EC = 0;
+    std::int32_t attribute1F633F0 = 0;
+    std::int32_t attribute2DE03F4 = 0;
+    std::int32_t attribute3DE0AF8 = 0;
+    std::int32_t attribute4F7CA00 = 0;
+    std::int32_t element0F7C948 = 0;
+    std::int32_t element1FF03D0 = 0;
+    std::int32_t element2F633F4 = 0;
+    std::int32_t element3DE0B04 = 0;
+    std::int32_t motionImageDE0AFC = 0;
+    std::wstring nameFF0D18;
+};
+
+// 原十四项离散备份及输入上下文，创建失败返回编辑页时恢复。
+struct CharacterCreationDraftSnapshotState {
+    std::int32_t value9A50A4 = 0;
+    std::int32_t value9A4B98 = 0;
+    std::int32_t value9A50A0 = 0;
+    std::int32_t value9A5670 = 0;
+    std::int32_t value9A4E98 = 0;
+    std::int32_t value9A4E84 = 0;
+    std::int32_t value9A50E4 = 0;
+    std::int32_t value9A60E8 = 0;
+    std::int32_t value9A5094 = 0;
+    std::int32_t value9A57E8 = 0;
+    std::int32_t value9A61F4 = 0;
+    std::int32_t value9A554C = 0;
+    std::int32_t value9A5664 = 0;
+    std::int32_t value9A5954 = 0;
+    input::InputContext input9A4F38;
+};
+
 // 角色选择场景的可变运行期状态；动作本体尚待随场景隔离。
 struct CharacterSelectSceneState {
     std::uint8_t pukVersion = 0; // 原 0x9A6E1C；网络回复生产，选角和窗口消费。
@@ -59,6 +95,8 @@ struct CharacterSelectSceneState {
     yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
     std::array<yobi::YobiAction*, 2> previewActions {}; // 原 0x9A6E44、0x9A6E48。
     CharacterCreationProgressState creationProgress {};
+    CharacterCreationSubmissionState creationSubmission {};
+    CharacterCreationDraftSnapshotState creationSnapshot {};
     std::uint8_t creationRestore = 0; // 原 0x9A6EB8，创建场景同次调用的恢复回边。
     std::int16_t pendingCharacterCount = 0; // 原 0xF7CA06。
     std::uint16_t characterEntryState = 0; // 原 0x9A6E10。

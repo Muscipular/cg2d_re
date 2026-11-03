@@ -4,6 +4,7 @@
 #include "cg/script/LuaRuntime.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/platformTool.hpp"
@@ -1371,9 +1372,9 @@ void CgConnection::RegisterSend(const char* header, ProtocolSendHandler handler)
 void CgConnection::Close() { impl_->Close(); }
 void CgConnection::StopIo() { impl_->StopIo(); }
 
-// 唯一对象跨重连/Shutdown保留，身份序列不重置。
-static CgConnection gGameConnection;
-CgConnection& GetGameConnection() noexcept { return gGameConnection; }
+// 旧单会话入口暂借首个 owner；全部业务显式迁移前不得创建第二会话。
+static session::ClientSession gFirstSession;
+CgConnection& GetGameConnection() noexcept { return gFirstSession.Connection(); }
 
 CgConnection::SessionScope::SessionScope(CgConnection& owner) noexcept
     : owner_(owner), previousBound_(owner.impl_->contextBound), previousId_(owner.impl_->contextId)

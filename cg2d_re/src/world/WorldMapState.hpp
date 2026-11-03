@@ -544,7 +544,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session); 
 void SetPlayerMovementTarget_46A410(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。
 // 原函数：0x0046A700。
-void AdvancePlayerWorldMovement_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。
+void AdvancePlayerWorldMovement_46A700(session::ClientSession& session); // 原完整玩家移动推进、到达计数及MIS动作请求。
 
 } // namespace detail
 

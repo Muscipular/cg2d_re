@@ -5929,7 +5929,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
     }
     RebuildPartyFollowOrder_46A990();
     if (gPartyActive_FF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
-        return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190());
+        return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190(session));
     }
     return static_cast<std::uint8_t>(UpdatePlayerPathMovement_469FC0(session));
 }
@@ -6019,7 +6019,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
     if (stoppedAfterFollow != 0) {
         return static_cast<std::uint16_t>(stoppedAfterFollow);
     }
-    AdvancePlayerWorldMovement_46A700();
+    AdvancePlayerWorldMovement_46A700(session);
     AdvancePlayerLeaderFollowers_46A940();
     const std::uint16_t result = UpdatePlayerMapWindow_468200();
     const std::uint32_t worldXBits = gWorldCurrentXBits;
@@ -6074,7 +6074,7 @@ void SetPlayerMovementTarget_46A410(
 }
 
 // 原函数：0x0046A700。
-void AdvancePlayerWorldMovement_46A700()
+void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
 {
     static_cast<void>(GetPlayerMapCoordinateSum_46CEC0());
     const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
@@ -6147,7 +6147,7 @@ void AdvancePlayerWorldMovement_46A700()
                         static_cast<std::int32_t>(gPlayerSnapshotY);
                     const std::int32_t snapshotX =
                         static_cast<std::int32_t>(gPlayerSnapshotX);
-                    static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(snapshotX, snapshotY, 70));
+                    static_cast<void>(session.Connection().SendWorldActionRequest(snapshotX, snapshotY, 70));
                 }
             }
         }

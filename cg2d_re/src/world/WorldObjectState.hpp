@@ -210,7 +210,7 @@ void DetachWorldObjectActions_446610(); // WBR01：全表仅占用项清action/v
 // 原函数：0x0046A5F0。
 void AdvanceFollowersBehindPlayerLeader_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 // 原函数：0x0046A190。
-std::uint32_t UpdatePartyFollowMovement_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
+std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
 // 原函数：0x0046B1B0。
 void MovePlayerOneStep_46B1B0(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 普通移动：先通知跟随对象，再快照/计算速度。

@@ -674,7 +674,7 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
 }
 
 // 原函数：0x0046A190。
-std::uint32_t UpdatePartyFollowMovement_46A190()
+std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
 {
     for (std::size_t position = 0; position < 5; ++position) {
         const std::int16_t index = ReadPetFollowIndex(position);
@@ -757,7 +757,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190()
         }
         const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
         if (ReadPetMapObjectIndex(index) == playerIndex) {
-            AdvancePlayerWorldMovement_46A700();
+            AdvancePlayerWorldMovement_46A700(session);
         } else {
             cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(index));
         }

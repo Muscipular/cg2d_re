@@ -2198,12 +2198,6 @@ std::uint32_t gBattleTurnMessagesExhausted_5ABB28 = 0; // 原全局：0x005ABB28
 
 namespace detail {
 std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
-std::int32_t gBattleCWriteIndex5AAA6C = 0; // 原全局：0x005AAA6C。
-std::int32_t gBattleCReadIndex5AAA44 = 0; // 原全局：0x005AAA44。
-std::int32_t gBattleMWriteIndex5A3A1C = 0; // 原全局：0x005A3A1C。
-std::int32_t gBattleMReadIndex5AAA68 = 0; // 原全局：0x005AAA68。
-std::array<char, 0x4000> gBattleCQueue5A4A3C {}; // 原全局：0x005A4A3C。
-std::array<char, 0x4000> gBattleMQueue59FA18 {}; // 原全局：0x0059FA18。
 
 } // namespace detail
 std::array<char, 0x1000> gBattleCText5A3A20 {}; // 原全局：0x005A3A20。
@@ -2292,8 +2286,6 @@ std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 namespace detail {
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
-static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
-static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
 static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
 static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 
@@ -4206,18 +4198,18 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             ui::detail::gHoverTextD68AE8 = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
         }
-        const std::int32_t readIndex = gBattleCReadIndex5AAA44;
-        if (readIndex != gBattleCWriteIndex5AAA6C) {
-            const char* const source = gBattleCQueue5A4A3C.data() + readIndex * 0x1000;
+        const std::int32_t readIndex = battleScene.cReadIndex;
+        if (readIndex != battleScene.cWriteIndex) {
+            const char* const source = battleScene.cQueue.data() + readIndex * 0x1000;
             const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
             const std::uint32_t wordBytes = size & ~3U;
             std::memcpy(gBattleCText5A3A20.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
             const bool consumedLastSlot = nextIndex >= 4;
-            gBattleCReadIndex5AAA44 = nextIndex;
+            battleScene.cReadIndex = nextIndex;
             std::memcpy(gBattleCText5A3A20.data() + wordBytes, source + wordBytes, size & 3U);
             if (consumedLastSlot) {
-                gBattleCReadIndex5AAA44 = 0;
+                battleScene.cReadIndex = 0;
             }
             cg::yobi::ParseBattleC_438550();
             if ((*reinterpret_cast<const unsigned char*>(&gBattleFieldFlags5ABB58) & 0x20U) != 0) {
@@ -4301,18 +4293,18 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
-        const std::int32_t readIndex = gBattleMReadIndex5AAA68;
-        if (readIndex != gBattleMWriteIndex5A3A1C) {
-            const char* const source = gBattleMQueue59FA18.data() + readIndex * 0x1000;
+        const std::int32_t readIndex = battleScene.mReadIndex;
+        if (readIndex != battleScene.mWriteIndex) {
+            const char* const source = battleScene.mQueue.data() + readIndex * 0x1000;
             const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
             const std::uint32_t wordBytes = size & ~3U;
             std::memcpy(gBattleMText5AAA7C.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
             const bool consumedLastSlot = nextIndex >= 4;
-            gBattleMReadIndex5AAA68 = nextIndex;
+            battleScene.mReadIndex = nextIndex;
             std::memcpy(gBattleMText5AAA7C.data() + wordBytes, source + wordBytes, size & 3U);
             if (consumedLastSlot) {
-                gBattleMReadIndex5AAA68 = 0;
+                battleScene.mReadIndex = 0;
             }
             gBattleMScanOffset5A8A3C = 2;
             gCurrentSceneState = 6;
@@ -10084,15 +10076,16 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         gBattleEventDispatchBusy_5ABB1C = 0;
         networkConnection.Owner().WorldScene().battle.backgroundImage = imageNo;
         gBattleTurnMessagesExhausted_5ABB28 = 0;
-        detail::gBattleCWriteIndex5AAA6C = 0;
-        detail::gBattleCReadIndex5AAA44 = 0;
-        detail::gBattleMWriteIndex5A3A1C = 0;
-        detail::gBattleMReadIndex5AAA68 = 0;
+        auto& battleScene = networkConnection.Owner().WorldScene().battle;
+        battleScene.cWriteIndex = 0;
+        battleScene.cReadIndex = 0;
+        battleScene.mWriteIndex = 0;
+        battleScene.mReadIndex = 0;
         gBattleCText5A3A20[0] = '\0';
         gBattleMText5AAA7C[0] = '\0';
         for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
-            detail::gBattleCQueue5A4A3C[offset] = '\0';
-            detail::gBattleMQueue59FA18[offset] = '\0';
+            battleScene.cQueue[offset] = '\0';
+            battleScene.mQueue[offset] = '\0';
         }
         detail::gBattleFirstTurnPending5ABC6C = 1;
         return;
@@ -10105,8 +10098,9 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
 {
     const char kind = text[0];
     if (kind == 'C') {
-        const std::int32_t index = detail::gBattleCWriteIndex5AAA6C;
-        char* const destination = detail::gBattleCQueue5A4A3C.data()
+        auto& battleScene = connection.Owner().WorldScene().battle;
+        const std::int32_t index = battleScene.cWriteIndex;
+        char* const destination = battleScene.cQueue.data()
             + static_cast<std::ptrdiff_t>(index) * 0x1000;
         const std::size_t byteCount = std::strlen(text) + 1;
         const std::size_t wordBytes = byteCount & ~std::size_t{3};
@@ -10114,9 +10108,9 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
         const std::int32_t next = index + 1;
         std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
         const bool wrap = next >= 4;
-        detail::gBattleCWriteIndex5AAA6C = next;
+        battleScene.cWriteIndex = next;
         if (wrap) {
-            detail::gBattleCWriteIndex5AAA6C = 0;
+            battleScene.cWriteIndex = 0;
         }
         return;
     }
@@ -10143,8 +10137,9 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
         return;
     }
     if (kind == 'M') {
-        const std::int32_t index = detail::gBattleMWriteIndex5A3A1C;
-        char* const destination = detail::gBattleMQueue59FA18.data()
+        auto& battleScene = connection.Owner().WorldScene().battle;
+        const std::int32_t index = battleScene.mWriteIndex;
+        char* const destination = battleScene.mQueue.data()
             + static_cast<std::ptrdiff_t>(index) * 0x1000;
         const std::size_t byteCount = std::strlen(text) + 1;
         const std::size_t wordBytes = byteCount & ~std::size_t{3};
@@ -10152,9 +10147,9 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
         const std::int32_t next = index + 1;
         std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
         const bool wrap = next >= 4;
-        detail::gBattleMWriteIndex5A3A1C = next;
+        battleScene.mWriteIndex = next;
         if (wrap) {
-            detail::gBattleMWriteIndex5A3A1C = 0;
+            battleScene.mWriteIndex = 0;
         }
     }
 }

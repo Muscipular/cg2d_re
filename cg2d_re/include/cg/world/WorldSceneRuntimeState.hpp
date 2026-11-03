@@ -40,7 +40,15 @@ struct BattleSceneState {
     std::int32_t backgroundSnapshot = 0; // 原 0x5ABCD8，绘制后重读的背景图号。
     std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。
     std::uint32_t entryPending = 0; // 原 0x5ABFC4，入战回复与世界场景共用。
+    std::int32_t cWriteIndex = 0; // 原 0x5AAA6C，C 四槽写索引。
+    std::int32_t cReadIndex = 0; // 原 0x5AAA44，C 四槽读索引。
+    std::int32_t mWriteIndex = 0; // 原 0x5A3A1C，M 四槽写索引。
+    std::int32_t mReadIndex = 0; // 原 0x5AAA68，M 四槽读索引。
+    std::array<char, 0x4000> cQueue {}; // 原 0x5A4A3C，四槽各 0x1000。
+    std::array<char, 0x4000> mQueue {}; // 原 0x59FA18，四槽各 0x1000。
 };
+static_assert(sizeof(BattleSceneState::cQueue) == 4 * 0x1000);
+static_assert(sizeof(BattleSceneState::mQueue) == 4 * 0x1000);
 
 // 100 项随机旋转表及跨场景消费游标，表初始化不重置游标。
 struct RotationState {

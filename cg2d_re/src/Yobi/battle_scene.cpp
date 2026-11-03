@@ -97,7 +97,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             return;
         }
         std::array<char, 4> header;
-        if (GetBattleMHeader_439070(header.data()) == 1) {
+        if (GetBattleMHeader_439070(battle, header.data()) == 1) {
             battle.turnMessagesExhausted = 1;
             return;
         }
@@ -107,7 +107,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             const std::uint32_t eventMask = payload->entryMaskA8;
             payload->remainingMessages5C = messages + 1;
             payload->entryMaskA8 = eventMask | participants;
-            cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
+            battle.mScanOffset = battle.mPreviewOffset;
         } else {
             std::int32_t kind = 0;
             while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
@@ -125,7 +125,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                     const std::uint32_t combinedMask = eventMask | participants;
                     YobiAction* const mergedEvent = lastCreated;
                     payload->entryMaskA8 = combinedMask;
-                    cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
+                    battle.mScanOffset = battle.mPreviewOffset;
                     previousSource = source;
                     previousEvent = mergedEvent;
                 } else {
@@ -139,7 +139,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                             ++slot;
                         }
                         lastCreated->payload.battleScene->remainingMessages5C = 1;
-                        cg::world::gBattleMScanOffset5A8A3C = cg::world::gBattleMPreviewOffset5AAA60;
+                        battle.mScanOffset = battle.mPreviewOffset;
                         previousSource = source;
                         previousEvent = lastCreated;
                     }
@@ -171,7 +171,7 @@ YobiAction* NewBattleEvent_43B610(
     scene->phase = kind;
     payload->packetSubState58 = 0;
     payload->eventSlot60 = slot;
-    const std::int32_t offset = cg::world::gBattleMScanOffset5A8A3C;
+    const std::int32_t offset = battle.mScanOffset;
     payload->entryMaskA8 = participants;
     payload->packetOffset64 = offset;
     for (std::int32_t position = 0; position < 22; ++position) {
@@ -212,7 +212,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         for (;;) {
             const std::int32_t offset = payload->packetOffset64;
             const auto value = std::bit_cast<std::int8_t>(
-                static_cast<std::uint8_t>(cg::world::gBattleMText5AAA7C[offset]));
+                static_cast<std::uint8_t>(battle.mText[offset]));
             if (value == 0 || (value >= 'A' && value <= 'Z')) {
                 break;
             }
@@ -220,7 +220,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         }
         // 原43B6FD在NUL处也复制并推进，不复用带NUL早退的423960。
         std::array<char, 4> header;
-        std::strncpy(header.data(), cg::world::gBattleMText5AAA7C.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
+        std::strncpy(header.data(), battle.mText.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
         const std::int32_t next = payload->packetOffset64 + 4;
         header[3] = '\0';
         payload->packetOffset64 = next;

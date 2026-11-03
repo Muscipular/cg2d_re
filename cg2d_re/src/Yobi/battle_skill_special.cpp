@@ -8,6 +8,7 @@
 #include "battle_actor.hpp"
 #include "battle_scene.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 
 #include <algorithm>
@@ -2433,6 +2434,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
 [[maybe_unused]] void ProcessBattleMSkill404Family(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
+    auto& battle = scene->ownerSession->WorldScene().battle;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -2450,32 +2452,32 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     std::int32_t previewCasterPosition;
     std::array<char, 256> previewName;
     for (;;) {
-        previewPosition = GetBattlePosition_4237E0(TakeBattleMIntegerAt_43B940(&previewOffset));
+        previewPosition = GetBattlePosition_4237E0(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
         previewCasterPosition = gBattleMCasterPosition5AAA64;
         if (previewPosition == 255 || previewPosition != previewCasterPosition) {
             break;
         }
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        TakeBattleMStringAt_43B8C0(&previewOffset, previewName.data(), 29);
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        TakeBattleMStringAt_43B8C0(battle, &previewOffset, previewName.data(), 29);
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
         for (std::int32_t index = 0; index < 2; ++index) {
-            static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+            static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
         }
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        TakeBattleMStringAt_43B8C0(&previewOffset, previewName.data(), 29);
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
-        static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        TakeBattleMStringAt_43B8C0(battle, &previewOffset, previewName.data(), 29);
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
+        static_cast<void>(TakeBattleMIntegerAt_43B940(battle, &previewOffset));
     }
     YobiAction* const previewCaster = cg::world::gBattleAllEntries59E980[previewCasterPosition];
     AppendBattleEffectList_4393A0(previewCaster, previewPosition, 0, 0);

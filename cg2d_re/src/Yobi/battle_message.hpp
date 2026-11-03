@@ -101,28 +101,28 @@ enum class BattleMStatusHeader : std::int32_t {
 
 
 // 原函数：0x00439070。
-std::int32_t GetBattleMHeader_439070(char* destination); // 独立头游标，读3B并补NUL，结束返回1。
+std::int32_t GetBattleMHeader_439070(world::BattleSceneState& battle, char* destination); // 独立头游标，读3B并补NUL，结束返回1。
 // 原函数：0x00438F70。
 std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游标读取大写十六进制。
 // 原函数：0x00438FE0。
 void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);
 // 原函数：0x00439600。
-std::int32_t TakeBattleMPreviewInteger_439600(); // 局部扫描，仅结束时发布5AAA60。
+std::int32_t TakeBattleMPreviewInteger_439600(world::BattleSceneState& battle); // 局部扫描，仅结束时发布5AAA60。
 // 原函数：0x00439670。
-void TakeBattleMPreviewString_439670(char* destination, std::int32_t capacity);
+void TakeBattleMPreviewString_439670(world::BattleSceneState& battle, char* destination, std::int32_t capacity);
 // 原函数：0x00439700。
-std::int32_t GetBattleMPreviewHeader_439700(char* destination); // 预扫描头，不推进5A8A3C。
+std::int32_t GetBattleMPreviewHeader_439700(world::BattleSceneState& battle, char* destination); // 预扫描头，不推进5A8A3C。
 // 原函数：0x0043B940。
-std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* offset); // 显式游标，逐字节发布。
+std::int32_t TakeBattleMIntegerAt_43B940(world::BattleSceneState& battle, std::int32_t* offset); // 显式游标，逐字节发布。
 // 原函数：0x0043B8C0。
-void TakeBattleMStringAt_43B8C0(std::int32_t* offset, char* destination, std::int32_t capacity);
+void TakeBattleMStringAt_43B8C0(world::BattleSceneState& battle, std::int32_t* offset, char* destination, std::int32_t capacity);
 // 原函数：0x00439770。
-void ScanBattleMRideParticipants_439770(std::uint8_t* participants); // 22槽计数，RID试读成功才推进游标。
+void ScanBattleMRideParticipants_439770(world::BattleSceneState& battle, std::uint8_t* participants); // 22槽计数，RID试读成功才推进游标。
 // 原函数：0x00439920。
-std::int32_t ScanBattleMAttackParticipants_439920(std::int32_t skill, std::uint8_t* participants);
+std::int32_t ScanBattleMAttackParticipants_439920(YobiAction* scene, std::int32_t skill, std::uint8_t* participants);
 // 原函数：0x00439B30。
 void ScanBattleMParticipants_439B30(
-    std::int32_t kind, std::uint8_t* participants, std::int32_t* source, std::int32_t* flag);
+    YobiAction* scene, std::int32_t kind, std::uint8_t* participants, std::int32_t* source, std::int32_t* flag);
 // 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
 std::int32_t CheckBattleMParticipants_43B290(
     YobiAction* scene, std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);

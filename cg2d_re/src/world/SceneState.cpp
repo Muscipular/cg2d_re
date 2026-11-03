@@ -2194,12 +2194,6 @@ std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
 std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
 std::uint32_t gBattleExitRequested_5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
 
-namespace detail {
-
-} // namespace detail
-std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
-std::int32_t gBattleMScanOffset5A8A3C = 0; // 原全局：0x005A8A3C。
-std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 
 std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
@@ -2273,7 +2267,6 @@ std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 namespace detail {
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
-static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 
 } // namespace detail
 
@@ -4284,15 +4277,15 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             const char* const source = battleScene.mQueue.data() + readIndex * 0x1000;
             const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
             const std::uint32_t wordBytes = size & ~3U;
-            std::memcpy(gBattleMText5AAA7C.data(), source, wordBytes);
+            std::memcpy(battleScene.mText.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
             const bool consumedLastSlot = nextIndex >= 4;
             battleScene.mReadIndex = nextIndex;
-            std::memcpy(gBattleMText5AAA7C.data() + wordBytes, source + wordBytes, size & 3U);
+            std::memcpy(battleScene.mText.data() + wordBytes, source + wordBytes, size & 3U);
             if (consumedLastSlot) {
                 battleScene.mReadIndex = 0;
             }
-            gBattleMScanOffset5A8A3C = 2;
+            battleScene.mScanOffset = 2;
             gCurrentSceneState = 6;
         } else if (cg::yobi::Sub_43CA50() >= 2) {
             ui::detail::gHoverTextD68AE8 = L"等待其他玩家的输入指令。" /* 原常量参考：0x005541A0。 */;
@@ -10068,7 +10061,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         battleScene.mWriteIndex = 0;
         battleScene.mReadIndex = 0;
         battleScene.cText[0] = '\0';
-        gBattleMText5AAA7C[0] = '\0';
+        battleScene.mText[0] = '\0';
         for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
             battleScene.cQueue[offset] = '\0';
             battleScene.mQueue[offset] = '\0';

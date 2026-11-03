@@ -134,6 +134,7 @@ struct CgConnection::Impl {
     volatile std::uint64_t keepAliveBaselineTick = 0; // 原 0x73ED1C；随连接对象保留，重连不清。
     volatile std::uint64_t keepAliveRecentTick = 0; // 原 0x73ED20；与基线为独立写入。
     std::int32_t errorD9F2CC = 0; // 原全局：0x00D9F2CC。
+    std::uint8_t disconnectStateD9F2CA = 0; // 原 0xD9F2CA，主循环断线阶段。
     std::uint32_t receiveResetD9F3C4 = 0; // 原全局：0x00D9F3C4。
     std::uint32_t frameModuloD9F3C8 = 0; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
@@ -1345,6 +1346,7 @@ platform::ConnectionSnapshot CgConnection::PollConnection() { return impl_->Poll
 platform::ConnectionId CgConnection::Id() const noexcept { return impl_->connectionId; }
 bool CgConnection::Active() const noexcept { return impl_->active != 0; }
 std::int32_t CgConnection::Error() const noexcept { return impl_->errorD9F2CC; }
+std::uint8_t& CgConnection::DisconnectState() noexcept { return impl_->disconnectStateD9F2CA; }
 void CgConnection::SetIoEnabled(bool enabled)
 {
     impl_->ioEnabled = enabled;

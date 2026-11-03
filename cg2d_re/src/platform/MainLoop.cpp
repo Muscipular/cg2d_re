@@ -149,14 +149,14 @@ int MainLoop()
         render::ResetGraphicCache_456D30();
         auto& connection = network::GetGameConnection();
         if (connection.Active()) {
-            const auto disconnect = world::gNetworkDisconnectState_D9F2CA;
+            const auto disconnect = connection.DisconnectState();
             if (disconnect == 1) {
                 world::SetCurrentSceneType(11);
-                world::gNetworkDisconnectState_D9F2CA = 2;
+                connection.DisconnectState() = 2;
             } else if (disconnect == 0) {
                 const auto result = connection.Pump();
                 if (result.terminated) {
-                    world::gNetworkDisconnectState_D9F2CA = 1;
+                    connection.DisconnectState() = 1;
                     const auto diagnostic = std::format(L"NETWORK CLOSED PHASE={} ERROR={} ENDPOINT={}",
                         static_cast<int>(result.terminal.phase), result.terminal.error, result.terminal.endpoint);
                     static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));

@@ -55,7 +55,7 @@ int ShutdownClient_457A40()
     ShutdownIme_459040();
     cg::yobi::ShutdownYobiActionList_404D60();
     cg::network::GetGameConnection().Shutdown();
-    cg::world::gNetworkDisconnectState_D9F2CA = 0;
+    cg::network::GetGameConnection().DisconnectState() = 0;
 
     const INT element = COLOR_BACKGROUND;
     const COLORREF color = static_cast<COLORREF>(gDesktopColor);

@@ -182,14 +182,14 @@ void Update()
         detail::DestroyPlayerMapPresence_519D50();
         detail::ResetWorldObjectTable_446470();
         cg::network::GetGameConnection().Shutdown();
-        cg::world::gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
         cg::yobi::YobiClearUp_404D30();
-        gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         return;
     }
     case 12:

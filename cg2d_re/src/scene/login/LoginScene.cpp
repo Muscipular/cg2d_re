@@ -356,7 +356,7 @@ std::int32_t ProcessScene_45FEA0()
     if (world::gCurrentSceneState == 0) {
         world::gCurrentSceneState = 1;
         SetBaseWindowTitle(title);
-        world::gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         world::gSceneTransitionResetPending_58B6D0 = 1;
         gSelectedServerGroup = 0;
         static_cast<void>(render::SelectPalette(27, 0));
@@ -449,7 +449,7 @@ std::int32_t ProcessScene_45FEA0()
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             break;
         case -2: {
             world::gCurrentSceneState = 100;
@@ -568,20 +568,20 @@ std::int32_t ProcessScene_45FEA0()
                 }
             }
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             break;
         }
         case -3:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             break;
         case -4:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             break;
         default:
             break;

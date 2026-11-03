@@ -50,6 +50,8 @@ public:
     [[nodiscard]] platform::ConnectionId Id() const noexcept;
     [[nodiscard]] bool Active() const noexcept;
     [[nodiscard]] std::int32_t Error() const noexcept;
+    // 原 0xD9F2CA；主循环的断线阶段随连接实例保留。
+    [[nodiscard]] std::uint8_t& DisconnectState() noexcept;
     void SetIoEnabled(bool enabled);
     // 完整明文消息，不添加LF、不识别协议；会话身份由对象捕获并在回调后校验。
     // replacePending由业务选择是否替换旧待发字节，默认追加。

@@ -572,7 +572,6 @@ std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
 std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
 std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
 std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
-std::uint8_t gNetworkDisconnectState_D9F2CA = 0; // 原全局：0x00D9F2CA。
 
 const std::wstring& GetMapName_9DAD30() noexcept
 {
@@ -8032,7 +8031,7 @@ std::int32_t ProcessLogoutScene_45EBB0()
         const std::int32_t result = UpdateLogoutScene_45ED90();
         if (result == 1) {
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             cg::yobi::YobiClearUp_404D30();
             SetCurrentSceneType(2);
         } else if (result == 2) {
@@ -8044,13 +8043,13 @@ std::int32_t ProcessLogoutScene_45EBB0()
             resetMaintenance = true;
         } else if (result == -1) {
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             gCurrentSceneState = 100;
             gLogoutText9A5B08 = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
             resetFailure = true;
         } else if (result == -2) {
             cg::network::GetGameConnection().Shutdown();
-            cg::world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             gCurrentSceneState = 100;
             gLogoutText9A5B08 = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
             resetFailure = true;
@@ -8079,7 +8078,7 @@ std::int32_t ProcessLogoutScene_45EBB0()
             return result;
         }
         cg::network::GetGameConnection().Shutdown();
-        cg::world::gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         cg::yobi::YobiClearUp_404D30();
         return SetCurrentSceneType(2);
     }

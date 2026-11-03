@@ -95,7 +95,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             return -2;
         }
 
-        world::gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         if (cg::network::GetGameConnection().BeginConnect(serverAddress, port, platform::gNoDelay != 0) == 0) {
             static_cast<void>((request.message = L"网路通讯协定（TCP）错误。"));
             return -3;
@@ -258,10 +258,10 @@ std::int32_t UpdateServerConnection()
 
     if (phase == 2) {
         cg::network::GetGameConnection().Shutdown();
-        cg::world::gNetworkDisconnectState_D9F2CA = 0;
+        cg::network::GetGameConnection().DisconnectState() = 0;
         cg::world::blacklist::PersistAndReset_401000(gSelectedLoginServerGroup_55A054);
         if (cg::network::GetGameConnection().Initialize()) {
-            world::gNetworkDisconnectState_D9F2CA = 0;
+            cg::network::GetGameConnection().DisconnectState() = 0;
             gServerConnectionPhase_9A6E3C = 3;
             ResetServerConnectionState_508350();
             gServerConnectionPhase_9A6E3C = 4;

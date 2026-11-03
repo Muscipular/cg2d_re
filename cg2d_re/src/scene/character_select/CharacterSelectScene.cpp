@@ -1676,8 +1676,10 @@ std::int32_t ProcessScene_460FF0()
             } else if (actionIndex == 1u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
+                const std::int16_t selectedServerIndex =
+                    cg::network::GetGameConnection().LoginRequests().selectedServerIndex;
                 const wchar_t* const serverAddress = login::gLoginServerRecords_D69798[
-                    static_cast<std::size_t>(login::gSelectedServerIndex)].address.data();
+                    static_cast<std::size_t>(selectedServerIndex)].address.data();
                 if (std::wstring_view(serverAddress) == L"taomoli") {
                     EnterSelectedCharacter();
                 } else {

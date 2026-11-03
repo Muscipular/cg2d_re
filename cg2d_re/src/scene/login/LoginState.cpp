@@ -88,7 +88,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
         std::wstring serverAddress;
         std::uint16_t port;
         if (GetServerAddressInfo_507D90(
-                static_cast<std::int32_t>(gSelectedServerIndex),
+                static_cast<std::int32_t>(request.selectedServerIndex),
                 serverAddress,
                 &port) < 0) {
             static_cast<void>((request.message = L"伺服器的名称不正确。"));
@@ -150,9 +150,9 @@ std::int32_t AdvanceServerLoginConnection_508360()
             std::wstring passwordCopy;
             std::wstring adapterId;
             static_cast<void>(platform::GetMacAddress_534EF0(adapterScratch));
-            passwordCopy = gPassword;
+            passwordCopy = request.password;
             adapterId = adapterScratch;
-            gPassword = passwordCopy;
+            request.password = passwordCopy;
             auto& connection = network::GetGameConnection();
             const auto networkSession = connection.CaptureSession();
             // 登录业务先发XCNY并替换旧待发内容，成功后才追加账号登录请求。
@@ -162,7 +162,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             if (queued == network::SendResult::Queued) {
                 queued = connection.SendAccountLoginRequest(gExecutableDigest,
                     passwordCopy,
-                    gAccount,
+                    request.account,
                     adapterId);
             }
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。

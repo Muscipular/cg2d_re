@@ -1,9 +1,11 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/core/m_log.hpp"
 
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/resource/ResourceNames.hpp"
 #include "cg/resource/ResourcePaths.hpp"
@@ -143,9 +145,10 @@ static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
         login::detail::CacheAutoLoginInputValues(account, password);
         world::gCurrentSceneState = 2;
         world::gCurrentSceneType = 2;
-        login::gPassword = password;
-        login::gAccount = account;
-        login::gSelectedServerIndex = std::bit_cast<std::int16_t>(
+        auto& request = network::GetGameConnection().LoginRequests();
+        request.password = password;
+        request.account = account;
+        request.selectedServerIndex = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(serverIndex));
         gAutoLoginPending = true;
     }

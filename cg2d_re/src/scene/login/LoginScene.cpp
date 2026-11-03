@@ -10,6 +10,7 @@
 
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/scene/login/LoginState.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -314,10 +315,7 @@ static bool ReadServerAvailability(std::int32_t category, std::int32_t page, std
 
 std::array<LoginServerRecord, 800> gLoginServerRecords_D69798 {}; // 原全局：0x00D69798。
 std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4 {}; // 原全局：0x00D9F2D4。
-std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。
-std::wstring gPassword {}; // 原全局：0x00DA38DC。
 std::wstring gExecutableDigest {}; // 原全局：0x00DA3A1C。
-std::wstring gAccount {}; // 原全局：0x00DA3A5C。
 
 static_assert(sizeof(gLoginServerGroupCounts_D9F2D4) == 60 * sizeof(std::int32_t));
 
@@ -349,6 +347,7 @@ std::int32_t GetServerAddressInfo_507D90(
 // 原函数：0x0045FEA0。
 std::int32_t ProcessScene_45FEA0()
 {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
     std::int32_t interactiveTail = 0;
     std::wstring title;
 
@@ -418,12 +417,12 @@ std::int32_t ProcessScene_45FEA0()
                             category * 20 + page * 10 + slot;
                         if (gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)].available != 0) {
                             SetServerWindowTitle(title, serverIndex, page, slot);
-                            gSelectedServerIndex = static_cast<std::int16_t>(serverIndex);
+                            request.selectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             gSelectedServerGroup = slot;
                             detail::PlaySe(53, 320, 240);
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
-                            ReadInputValueFF494F_5203E0(gPassword);
-                            ReadInputValueFF4982_520440(gAccount);
+                            ReadInputValueFF494F_5203E0(request.password);
+                            ReadInputValueFF4982_520440(request.account);
                             IncrementSceneState();
                             break;
                         }
@@ -452,7 +451,6 @@ std::int32_t ProcessScene_45FEA0()
             break;
         case -2: {
             world::gCurrentSceneState = 100;
-            auto& request = cg::network::GetGameConnection().LoginRequests();
             const std::int16_t error = request.loginErrorCode;
             if (error > 1234) {
                 CopyText(gLoginSceneMessage, kCannotConnect);

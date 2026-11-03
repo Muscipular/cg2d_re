@@ -67,6 +67,9 @@ struct LoginRequestState {
     std::uint16_t logoutReplyCode = 0; // 原 0xDA3B2E，独立于登录回复码。
     std::int32_t connectionStep = 0; // 原 0xDA3B50，服务器连接步骤/轮询计数。
     std::int16_t loginErrorCode = 0; // 原 0xDA3B24，账号登录回复错误码。
+    std::int16_t selectedServerIndex = -1; // 原 0x58AD94，登录服务器索引。
+    std::wstring password; // 原 0xDA38DC，账号登录第2文本。
+    std::wstring account; // 原 0xDA3A5C，账号登录第3文本。
 };
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。

@@ -139,7 +139,7 @@ static void DrawActorPhaseEffect(
     const ActorAttachmentReadOrder readOrder)
 {
     if (payload->transitionEffect08 == nullptr) {
-        YobiAction* const created = NewYobiAction_404AE0(2, 0);
+        YobiAction* const created = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
         payload->transitionEffect08 = created;
         created->callback = nullptr;
         payload->transitionEffect08->imageNo = imageNo;
@@ -447,7 +447,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 payload->rideActor44->imageNo = imageNo;
                 mapMainImage();
             } else {
-                YobiAction* const ride = NewYobiAction_404AE0(2, 0);
+                YobiAction* const ride = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
                 payload->rideActor44 = ride;
                 if (ride != nullptr) {
                     ride->callback = nullptr;
@@ -1158,7 +1158,7 @@ void ApplyPlayerRideReply(
     if (imageNo >= 0) {
         auto* const payload = action->payload.mapActor;
         if (payload->rideActor44 == nullptr) {
-            YobiAction* const ride = NewYobiAction_404AE0(2, 0);
+            YobiAction* const ride = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
             payload->rideActor44 = ride;
             ride->callback = nullptr;
             payload->rideActor44->characterAction = CharacterAnimation_Stand;

@@ -2581,7 +2581,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     second->phase = BattleAction_Idle;
     second->flags |= YobiActionFlag_Hidden;
     second->callback = nullptr;
-    YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
+    YobiAction* const carrierAction = NewYobiAction_404AE0(*scene->ownerSession, 2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
     casterPayload->effect1060 = carrierAction;
     auto* const carrier = carrierAction->payload.battleRideCarrier;
     carrier->first00 = first;

@@ -1542,7 +1542,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     const std::int32_t lifetime, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

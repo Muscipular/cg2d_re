@@ -2788,7 +2788,7 @@ static void ProcessBattleMRideHeader(
                 ++payload->packetSubState58;
                 return;
             }
-            YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
+            YobiAction* const carrierAction = NewYobiAction_404AE0(*scene->ownerSession, 2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
             auto* const carrier = carrierAction->payload.battleRideCarrier;
             {
                 char nameBytes[29]{};
@@ -2823,7 +2823,7 @@ static void ProcessBattleMRideHeader(
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceFormation);
         } else {
             const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
-            YobiAction* const effect = NewYobiAction_404AE0(2, 0);
+            YobiAction* const effect = NewYobiAction_404AE0(*scene->ownerSession, 2, 0);
             existingPayload->effect1060 = effect;
             effect->origin_x_offset40 = static_cast<float>(
                 cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
@@ -2851,7 +2851,7 @@ static void ProcessBattleMRideHeader(
             }
         }
     } else {
-        YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
+        YobiAction* const carrierAction = NewYobiAction_404AE0(*scene->ownerSession, 2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
         auto* const carrier = carrierAction->payload.battleRideCarrier;
         existingPayload->effect1060 = carrierAction;
         const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
@@ -3281,7 +3281,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         secondActor->flags = secondFlags;
         secondActor->callback = nullptr;
 
-        YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
+        YobiAction* const carrierAction = NewYobiAction_404AE0(*action->ownerSession, 2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
         existingPayload->effect1060 = carrierAction;
         auto* const carrier = carrierAction->payload.battleRideCarrier;
         carrier->first00 = firstActor;

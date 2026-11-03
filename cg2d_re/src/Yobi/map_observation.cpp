@@ -240,7 +240,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
     if (source == nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 3, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -272,7 +272,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
     if (source == nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 3, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -956,7 +956,7 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
         }
 
         payload->objectIds00[index] = static_cast<std::uint32_t>(value);
-        YobiAction* const child = NewYobiAction_404AE0(2, 0);
+        YobiAction* const child = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
         payload->partyActions[index] = child;
         if (child != nullptr) {
             child->imageNo = gMapImages5AC4A0[index];

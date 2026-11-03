@@ -24,6 +24,7 @@
 #include "cg/world/GuildState.hpp"
 #include "cg/scene/login/LoginConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
+#include "cg/scene/login/LoginMessage.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -138,6 +139,7 @@ struct CgConnection::Impl {
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
     std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
     login::LoginRequestState loginRequests;
+    login::LoginMessageState loginMessages;
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
@@ -1381,6 +1383,7 @@ bool CgConnection::IoEnabled() const noexcept { return impl_->ioEnabled; }
 void CgConnection::ResetLoginReply() noexcept { impl_->protocolModeDA3B22 = 0; }
 bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA3B22 != 0; }
 login::LoginRequestState& CgConnection::LoginRequests() noexcept { return impl_->loginRequests; }
+login::LoginMessageState& CgConnection::LoginMessages() noexcept { return impl_->loginMessages; }
 void CgConnection::UpdateKeepAlive()
 {
     if (!Active()) {

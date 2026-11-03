@@ -76,7 +76,7 @@ std::vector<std::pair<int,int>> getAutoCopliotRoute();
 void CopilotProc();
 void AutoBattleProc(session::ClientSession& session);
 void InitializeAutoBattle(session::ClientSession& session);
-void ShutdownAutoBattle();
+void ShutdownAutoBattle(session::ClientSession& session);
 void LoadLuaUIEntry(session::ClientSession& session);
 void ShutdownLuaUIEvents(session::ClientSession& session);
 bool IsLuaControlAttached(const LuaControlRef& ref);

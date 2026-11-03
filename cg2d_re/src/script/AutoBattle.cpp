@@ -134,7 +134,6 @@ static struct {
 
 static bool clicked = false;
 static short lastX = 0, lastY = 0;
-static int autoBattleActionCount = 0;
 enum {
     SIMPLE_MODE_OFF = 0,
     SIMPLE_MODE_FULL = 1,
@@ -142,38 +141,6 @@ enum {
 };
 static int simpleMode = SIMPLE_MODE_FULL;
 static bool enableAutoBattle = false;
-static bool requireAction = false;
-static bool actionSetup = false;
-
-
-enum B_ACTION {
-    B_ACTION_SKILL,
-    B_ACTION_ITEM,
-    B_ACTION_ATTACK,
-    B_ACTION_DEF,
-    B_ACTION_ESCAPE,
-    B_ACTION_MOVE,
-    B_ACTION_PET,
-    B_ACTION_NONE,
-    B_ACTION_EQUIP,
-    B_ACTION_REBIRTH,
-    B_ACTION_PET_SKILL,
-};
-
-struct Action {
-    B_ACTION type;
-    int skillId;
-    int target;
-    int techId;
-    int itemId;
-};
-
-struct AutoBattleContext {
-    Action actionSet[2];
-    Action action[2];
-    Action actionNew[2];
-};
-static AutoBattleContext gAutoBattleContext{};
 
 static void MakeAutoBattle();
 
@@ -283,12 +250,13 @@ static int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
 
 static int SendBattleAction(lua_State* L)
 {
-    if (autoBattleActionCount >= 2) {
+    auto& connection = GetLuaConnection(L);
+    auto& runtime = connection.Owner().Lua();
+    if (runtime.autoBattleActionCount >= 2) {
         LuaPush(L, false);
         return 1;
     }
-    auto& connection = GetLuaConnection(L);
-    autoBattleActionCount++;
+    runtime.autoBattleActionCount++;
     const auto param1 = static_cast<B_ACTION>(luaL_optinteger(L, 1, B_ACTION_ATTACK));
     int param2 = static_cast<int>(luaL_optinteger(L, 2, -1));
     int param3 = static_cast<int>(luaL_optinteger(L, 3, -1));
@@ -431,7 +399,8 @@ static void PushAction(lua_State* L, const Action& action) {
 }
 
 static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
-    autoBattleActionCount = 0;
+    auto& runtime = session.Lua();
+    runtime.autoBattleActionCount = 0;
     lua_newtable(L);
     lua_pushinteger(L, session.WorldScene().battle.turn);
     lua_setfield(L, -2, "battleTurn");
@@ -449,7 +418,7 @@ static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     lua_setfield(L, -2, "partyCount");
     if (checkboxList[CHK_TYPE_SIMPLE].value) {
         lua_createtable(L, 2, 0);
-        for (int i = 0; i < 2; ++i) { PushAction(L, gAutoBattleContext.action[i]); lua_rawseti(L, -2, i + 1); }
+        for (int i = 0; i < 2; ++i) { PushAction(L, runtime.autoBattleContext.action[i]); lua_rawseti(L, -2, i + 1); }
         lua_setfield(L, -2, "lastAction");
     }
     lua_pushboolean(L, checkboxList[CHK_TYPE_SIMPLE].value);
@@ -502,7 +471,7 @@ static bool EmitAutoBattle(session::ClientSession& session) {
 
 static void DoAutoBattle(session::ClientSession& session) {
     if (world::gCurrentSceneType == SCENE_BATTLE && world::gCurrentSceneState == 4) {
-        if (actionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction();
+        if (session.Lua().autoBattleActionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction();
         else enableAutoBattle = false;
     }
 }
@@ -694,15 +663,20 @@ void InitializeAutoBattle(session::ClientSession& session) {
     lua_settop(L, top);
 }
 
-void ShutdownAutoBattle() {
-    autobattle_detail::enableAutoBattle = autobattle_detail::requireAction = autobattle_detail::actionSetup = autobattle_detail::clicked = false;
-    autobattle_detail::autoBattleActionCount = 0; autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
-    autobattle_detail::gAutoBattleContext = {};
+void ShutdownAutoBattle(session::ClientSession& session) {
+    autobattle_detail::enableAutoBattle = autobattle_detail::clicked = false;
+    autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
+    auto& runtime = session.Lua();
+    runtime.autoBattleRequireAction = false;
+    runtime.autoBattleActionSetup = false;
+    runtime.autoBattleActionCount = 0;
+    runtime.autoBattleContext = {};
 }
 
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::string_view packet) {
     if (!GetBattleLuaState(networkConnection.Owner()) || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
+    auto& runtime = networkConnection.Owner().Lua();
     switch (networkConnection.Owner().WorldScene().battle.battleType) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
@@ -737,12 +711,13 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     case 'E': action.type = autobattle_detail::B_ACTION_ESCAPE; break;
     default: return;
     }
-    autobattle_detail::gAutoBattleContext.actionNew[count] = action;
-    autobattle_detail::autoBattleActionCount = count + 1;
-    if (autobattle_detail::autoBattleActionCount == 2) autobattle_detail::requireAction = true;
+    runtime.autoBattleContext.actionNew[count] = action;
+    runtime.autoBattleActionCount = count + 1;
+    if (runtime.autoBattleActionCount == 2) runtime.autoBattleRequireAction = true;
 }
 
 void AutoBattleProc(session::ClientSession& session) {
+    auto& runtime = session.Lua();
     auto winAutoBattle = GetExtWindowById(WIN_AUTOBATTLE);
     auto winAutoBattleSimple = GetExtWindowById(WIN_AUTOBATTLE_SIMPLE);
     bool isOpen = winAutoBattle || winAutoBattleSimple;
@@ -750,11 +725,11 @@ void AutoBattleProc(session::ClientSession& session) {
         if (world::gCurrentSceneState == 1) {
             autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
         }
-        if (autobattle_detail::requireAction) {
-            autobattle_detail::gAutoBattleContext.action[0] = autobattle_detail::gAutoBattleContext.actionNew[0];
-            autobattle_detail::gAutoBattleContext.action[1] = autobattle_detail::gAutoBattleContext.actionNew[1];
-            autobattle_detail::actionSetup = true;
-            autobattle_detail::requireAction = false;
+        if (runtime.autoBattleRequireAction) {
+            runtime.autoBattleContext.action[0] = runtime.autoBattleContext.actionNew[0];
+            runtime.autoBattleContext.action[1] = runtime.autoBattleContext.actionNew[1];
+            runtime.autoBattleActionSetup = true;
+            runtime.autoBattleRequireAction = false;
         }
         if (!isOpen && world::gCurrentSceneState >= 3 && world::gCurrentSceneState < 7) {
             if (autobattle_detail::simpleMode) {

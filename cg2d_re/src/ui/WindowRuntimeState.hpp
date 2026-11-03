@@ -582,28 +582,6 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
-// 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，文本采用宽字符串。
-struct WindowConfirmationItem {
-    std::int32_t imageNo; // +00。
-    std::int32_t quantity; // +04，数量文本第二项。
-    std::int32_t factor; // +08，非零时显示乘数前缀。
-    std::int32_t color; // +0C，绘制只读低S8。
-    std::wstring name; // 原+10；内部宽文本。
-    std::uint8_t visible; // +2F，不与名称分配另一份重叠存储。
-};
-
-// 普通/晶石商店各两条确认数值，不持有指针。
-struct WindowConfirmationAmount {
-    std::int32_t value;
-    std::int16_t x; // 原成员偏移：+0x04。
-    std::int16_t y; // 原成员偏移：+0x06。
-    std::int32_t visible; // 原成员偏移：+0x08。
-};
-static_assert(sizeof(WindowConfirmationAmount) == 12);
-static_assert(offsetof(WindowConfirmationAmount, x) == 4);
-static_assert(offsetof(WindowConfirmationAmount, y) == 6);
-static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
-
 // 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
 struct WindowCrystalItem {
     std::uint8_t used; // 原成员偏移：+0x00。

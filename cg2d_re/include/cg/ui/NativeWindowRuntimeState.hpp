@@ -121,6 +121,47 @@ struct Window47RuntimeSlots {
     std::wstring textCC426C; // 原全局：0x00CC426C。
 };
 
+// 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
+struct WindowShopItem {
+    char used; // 原成员偏移：+0x00；按原字节判非零。
+    std::wstring name; // 原成员偏移：+0x01。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x1E。
+    std::array<std::byte, 2> reservedC1E; // 原成员偏移：+0xC1E。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t price; // 原成员偏移：+0xC24。
+    std::int32_t selected; // 原成员偏移：+0xC28；所选数量。
+    std::int32_t inventoryIndex; // 原成员偏移：+0xC2C。
+    std::int32_t count; // 原成员偏移：+0xC30。
+    std::int32_t maximum; // 原成员偏移：+0xC34；保留单字节来源的S8扩展。
+    std::int32_t valueC38; // 原成员偏移：+0xC38；回复数值，业务含义未定。
+    char allowed; // 原成员偏移：+0xC3C；原U8／S8转换由使用方保留。
+    std::array<std::byte, 3> reservedC3D; // 原成员偏移：+0xC3D。
+    std::int32_t flags; // 原成员偏移：+0xC40；位标志按原位型读取。
+    std::wstring memo; // 原成员偏移：+0xC44；内部附文。
+};
+
+// 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，文本采用宽字符串。
+struct WindowConfirmationItem {
+    std::int32_t imageNo; // +00。
+    std::int32_t quantity; // +04，数量文本第二项。
+    std::int32_t factor; // +08，非零时显示乘数前缀。
+    std::int32_t color; // +0C，绘制只读低S8。
+    std::wstring name; // 原+10；内部宽文本。
+    std::uint8_t visible; // +2F，不与名称分配另一份重叠存储。
+};
+
+// 普通/晶石商店各两条确认数值，不持有指针。
+struct WindowConfirmationAmount {
+    std::int32_t value;
+    std::int16_t x; // 原成员偏移：+0x04。
+    std::int16_t y; // 原成员偏移：+0x06。
+    std::int32_t visible; // 原成员偏移：+0x08。
+};
+static_assert(sizeof(WindowConfirmationAmount) == 12);
+static_assert(offsetof(WindowConfirmationAmount, x) == 4);
+static_assert(offsetof(WindowConfirmationAmount, y) == 6);
+static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
+
 } // namespace cg::ui::detail
 
 namespace cg::ui {
@@ -353,6 +394,40 @@ struct ItemTransferRuntimeState {
     std::int32_t target = 0; // 原0xD2DBF8。
 };
 
+// 窗口53的商品、选择、五行数字文本及确认覆盖层；控件仅借本会话的稳定成员。
+struct ShopWindowRuntimeState {
+    std::array<detail::WindowShopItem, 20> items {}; // 原0xCF4FE0。
+    std::int32_t replyItemCount = 0; // 原0xCF4B58。
+    std::int32_t dialogType = 0; // 原0xCC3EC8。
+    std::int32_t selectionMask = 0; // 原0xCF467C。
+    std::array<std::int8_t, 20> inventoryMap {}; // 原0xD2DAB8，背包8..27到首匹配商品。
+    std::array<char, 20> selectedSlots {}; // 原0xCB03DC，保留S8槽读取。
+    std::wstring exchangeText; // 原0xCB0184，模式2字段7反转义文本。
+    std::int32_t detailMode = 0; // 原0xCAFEA4。
+    std::int32_t detailSelected = 0; // 原0xD046C4。
+    std::int32_t valueD672D4 = 0; // 原0xD672D4。
+    std::int32_t tooltipIndex = -1; // 原0x580844。
+    std::int32_t message = -1; // 原0x580848。
+    std::int32_t inventoryHover = -2; // 原0x58084C，父初始化不重置。
+    std::int32_t tooltipPage = 0; // 原0xD67B8C。
+    std::int32_t total = 0; // 原0xD2DAFC。
+    std::int32_t quantity = 0; // 原0xC8AF74，不与总金额合并。
+    std::int32_t scroll = 0; // 原0xCC488C。
+    std::array<std::wstring, 5> priceTexts {}; // 原0xD673EC。
+    std::array<std::wstring, 5> countTexts {}; // 原0xD2D988。
+    std::wstring totalText; // 原0xCC4B2C。
+    std::wstring moneyText; // 原0xCC1A00。
+    std::wstring valueText; // 原0xCF4A28。
+    std::uint8_t dragFlag = 0; // 原0xD67B90。
+    WindowValueCallback confirmationCallback = nullptr; // 原0xC8B088，确认/取消各自重读。
+    std::array<detail::WindowConfirmationItem, 20> confirmationItems {}; // 原0xCB1E40。
+    std::array<detail::WindowConfirmationAmount, 2> confirmationAmounts {}; // 原0xCB0F90。
+    std::wstring confirmationHeading; // 原0xCB1320。
+    std::wstring confirmationQuestion; // 原0xCB1210。
+    std::array<std::uint64_t, 2> pressedTicks {}; // G08：加减各自计时。
+};
+static_assert(sizeof(ShopWindowRuntimeState::selectedSlots) == 20);
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -387,6 +462,7 @@ struct NativeWindowRuntimeState {
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
     ItemTransferRuntimeState itemTransfer {};
+    ShopWindowRuntimeState shop {};
     detail::WindowMaterialState material {}; // 原0xCC4894，含商店模式别名。
     detail::Window47RuntimeSlots confirmation {};
     ItemTargetRuntimeState itemTargets {};

@@ -50,13 +50,23 @@ static std::int32_t RoundMessageWidth(std::int32_t textWidth)
 // 原函数：0x0045CE00。
 void ResetLoginMessage()
 {
-    cg::network::GetGameConnection().LoginMessages().phase = 0;
+    ResetLoginMessage(cg::network::GetGameConnection());
+}
+
+void ResetLoginMessage(network::CgConnection& connection)
+{
+    connection.LoginMessages().phase = 0;
 }
 
 // 原函数：0x0045CE10。
 std::int32_t UpdateLoginMessage(const std::wstring_view text)
 {
-    auto& message = cg::network::GetGameConnection().LoginMessages();
+    return UpdateLoginMessage(cg::network::GetGameConnection(), text);
+}
+
+std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::wstring_view text)
+{
+    auto& message = connection.LoginMessages();
     std::vector<std::wstring_view> lines;
     std::int32_t maximumTextWidth = 0;
     std::size_t start = 0;

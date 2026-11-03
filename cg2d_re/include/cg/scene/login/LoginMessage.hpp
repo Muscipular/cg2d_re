@@ -6,6 +6,7 @@
 #include <string_view>
 
 namespace cg::yobi { struct YobiAction; }
+namespace cg::network { class CgConnection; }
 
 namespace cg::login {
 
@@ -24,9 +25,11 @@ struct LoginMessageState {
 
 // 原 sub_45CE00@0x45CE00；只清消息内部的 16 位状态。
 void ResetLoginMessage();
+void ResetLoginMessage(network::CgConnection& connection);
 
 // 原 sub_45CE10@0x45CE10。
 // UWF01：消息入口只接收UTF-16正文。
 std::int32_t UpdateLoginMessage(std::wstring_view text);
+std::int32_t UpdateLoginMessage(network::CgConnection& connection, std::wstring_view text);
 
 } // namespace cg::login

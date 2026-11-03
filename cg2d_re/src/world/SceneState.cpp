@@ -3489,7 +3489,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
@@ -3565,7 +3565,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().transitionResetPending = 1;
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         gCurrentSceneState = 201;
         [[fallthrough]];
     case 201: {
@@ -3646,7 +3646,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, steps, 0x40000000u) == 1) {
-            ui::WindowRuntime_ProcessScene();
+            ui::WindowRuntime_ProcessScene(session);
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
             gCurrentSceneState = 20;
@@ -3665,7 +3665,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         goto inputTail;
     }
     case 250: {
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
@@ -3708,7 +3708,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 252: {
         cg::core::NullSub_509080();
         session.WorldScene().observationTravelTransitionCount = 0;
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
         ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
@@ -3767,7 +3767,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetTimedMapNotice_455C60();
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         if (worldScene.normalSceneInitialized == 1) {
@@ -3907,7 +3907,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gDirectionalMapTransitionPending_9FB92E = 0;
         gContinuousMapMovementActive_C8A79C = 0;
         session.WorldScene().transitionResetPending = 1;
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ResumePlayerAfterObservation_51BEF0();
         platform::RequestRender_457010(session);
@@ -3920,7 +3920,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 4:
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         session.WorldScene().frameBackgroundMode = 2;
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ++gCurrentSceneState;
         goto inputTail;
@@ -4141,7 +4141,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             RenderInput_4590E0();
             cg::input::DrawAndAdvanceInputCaret_44A410();
             cg::core::NullSub_509080();
-            ui::WindowRuntime_ProcessScene();
+            ui::WindowRuntime_ProcessScene(session);
             ++gCurrentSceneState;
         } else {
             static_cast<void>(ui::WindowRuntime_Render(session));
@@ -4329,7 +4329,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000U) != 1) {
             break;
         }
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         render::ClearSurfaceTransformCache_44D490();
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         cg::yobi::YobiClearUp_404D30(session);
@@ -6588,7 +6588,7 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
         session.WorldScene().transitionResetPending = 1;
         logout.transitionPhase = next;
         platform::gLastRenderDt = static_cast<double>(tick);
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ClearObservationGroups_43F230(session);
     }
     return 0;

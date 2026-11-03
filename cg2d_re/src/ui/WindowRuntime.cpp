@@ -144,7 +144,7 @@ static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& sessi
 static void WindowRuntime_ClearSavedWindowMarkers(session::ClientSession& session); // 仅清71个marker50，不释放窗口。
 
 // 原函数：0x00472220。
-static void WindowRuntime_MarkExistingWindows(); // 只将现存窗口marker写1，空窗口保留旧值。
+static void WindowRuntime_MarkExistingWindows(session::ClientSession& session); // 只将现存窗口marker写1，空窗口保留旧值。
 
 // 原函数：0x004722A0。
 static void WindowRuntime_ResetMouseAndItemFlags(); // 完整鼠标/拖动重置，先清D67B08七W32。
@@ -153,7 +153,7 @@ static void WindowRuntime_ResetMouseAndItemFlags(); // 完整鼠标/拖动重置
 static void WindowRuntime_ClearElementFocus(); // 只清异型元素焦点引用。
 
 // 原函数：0x004722F0。
-static void WindowRuntime_RestoreMarkedWindows(); // marker严格1才分派，四个特殊窗口按原序恢复。
+static void WindowRuntime_RestoreMarkedWindows(session::ClientSession& session); // marker严格1才分派，四个特殊窗口按原序恢复。
 
 // 原函数：0x00479640。
 static void WindowRuntime_ResetOperationCount(); // 只清窗口操作S32计数。
@@ -168,7 +168,7 @@ static void WindowRuntime_ResetSkillOperationCount(); // 只清D67AFD。
 static void WindowRuntime_ResetOperationReferences(); // 清两借用Yobi槽与计数/三个字节，不释放对象。
 
 // 原函数：0x004C7AD0。
-static void WindowRuntime_ResetShortcutFlag(); // 只清CF4AAC。
+static void WindowRuntime_ResetShortcutFlag(session::ClientSession& session); // 只清CF4AAC。
 
 // 原函数：0x00475C10。
 static void WindowRuntime_RestorePositions(session::ClientSession& session); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
@@ -177,7 +177,7 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session); // 
 static void WindowRuntime_ProcessShortcuts(session::ClientSession& session); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
 
 // 原函数：0x00470980。
-static void WindowRuntime_OpenNormalScene(); // 普通场景完整重开，保持626C14与22/23门禁。
+static void WindowRuntime_OpenNormalScene(session::ClientSession& session); // 普通场景完整重开，保持626C14与22/23门禁。
 
 // 原函数：0x004923D0。
 static std::int32_t WindowRuntime_ResetAlbumState(); // 三个UI数值依序写5/0/0。
@@ -186,7 +186,7 @@ static std::int32_t WindowRuntime_ResetAlbumState(); // 三个UI数值依序写5
 static std::int32_t WindowScroll_ResetPosition(); // 只清CF4E50/54。
 
 // 原函数：0x00470600。
-static void WindowRuntime_InitializeLogin(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
+static void WindowRuntime_InitializeLogin(session::ClientSession& session); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -2907,11 +2907,6 @@ static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& sessi
 }
 
 // 原函数：0x004C9130。
-std::int32_t WindowRuntime_SaveSettings()
-{
-    return WindowRuntime_SaveSettings(session::GetClientHost().FirstSession());
-}
-
 std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session)
 {
     auto& savedData = session.UiFrame().native.savedData;
@@ -2935,9 +2930,9 @@ static void WindowRuntime_ClearSavedWindowMarkers(session::ClientSession& sessio
 }
 
 // 原函数：0x00472220。
-static void WindowRuntime_MarkExistingWindows()
+static void WindowRuntime_MarkExistingWindows(session::ClientSession& session)
 {
-    for (WindowState& state : WindowRuntime_States()) {
+    for (WindowState& state : WindowRuntime_States(session)) {
         if (state.window != nullptr) {
             state.marker50 = 1;
         }
@@ -2965,10 +2960,11 @@ static void WindowRuntime_ClearElementFocus()
 }
 
 // 原函数：0x004722F0。
-static void WindowRuntime_RestoreMarkedWindows()
+static void WindowRuntime_RestoreMarkedWindows(session::ClientSession& session)
 {
+    auto& states = WindowRuntime_States(session);
     for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
-        if (WindowRuntime_States()[index].marker50 != 1) {
+        if (states[index].marker50 != 1) {
             continue;
         }
         switch (index) {
@@ -2976,32 +2972,32 @@ static void WindowRuntime_RestoreMarkedWindows()
         case 22:
         case 23:
         case 40:
-            if (WindowRuntime_States()[WindowId_Contacts].marker50 != 0) {
-                static_cast<void>(WindowRuntime_Open(WindowId_Contacts));
-                WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
+            if (states[WindowId_Contacts].marker50 != 0) {
+                static_cast<void>(WindowRuntime_Open(session, WindowId_Contacts));
+                states[WindowId_Contacts].marker50 = 0;
             }
-            if (WindowRuntime_States()[WindowId_MailRead].marker50 != 0) {
+            if (states[WindowId_MailRead].marker50 != 0) {
                 const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
-                static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
+                static_cast<void>(WindowRuntime_Open(session, WindowId_MailRead));
                 world::detail::gViewedMailMessageIndex_D046D4 = position;
-                WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
+                states[WindowId_MailRead].marker50 = 0;
             }
-            if (WindowRuntime_States()[WindowId_MailCompose].marker50 != 0) {
-                static_cast<void>(WindowMailCompose_Open());
-                WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
+            if (states[WindowId_MailCompose].marker50 != 0) {
+                static_cast<void>(WindowMailCompose_Open(session));
+                states[WindowId_MailCompose].marker50 = 0;
             }
-            if (WindowRuntime_States()[WindowId_PetMailCompose].marker50 != 0) {
-                static_cast<void>(WindowRuntime_Open(WindowId_PetMailCompose));
-                WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
+            if (states[WindowId_PetMailCompose].marker50 != 0) {
+                static_cast<void>(WindowRuntime_Open(session, WindowId_PetMailCompose));
+                states[WindowId_PetMailCompose].marker50 = 0;
             }
             break;
         case 33:
         case 34:
-            static_cast<void>(WindowRuntime_Open(index));
-            WindowRuntime_States()[index].marker50 = 0;
+            static_cast<void>(WindowRuntime_Open(session, index));
+            states[index].marker50 = 0;
             break;
         default:
-            WindowRuntime_States()[index].marker50 = 0;
+            states[index].marker50 = 0;
             break;
         }
     }
@@ -3037,16 +3033,16 @@ static void WindowRuntime_ResetOperationReferences()
 }
 
 // 原函数：0x004C7AD0。
-static void WindowRuntime_ResetShortcutFlag()
+static void WindowRuntime_ResetShortcutFlag(session::ClientSession& session)
 {
-    WindowRuntime_Settings().hotkeyLayoutMode = 0;
+    WindowRuntime_Settings(session).hotkeyLayoutMode = 0;
 }
 
 // 原函数：0x00475C10。
 static void WindowRuntime_RestorePositions(session::ClientSession& session)
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
-        WindowState& state = WindowRuntime_States()[index];
+        WindowState& state = WindowRuntime_States(session)[index];
         WindowInstance* window = state.window;
         if (window == nullptr) {
             continue;
@@ -3377,10 +3373,10 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 }
 
 // 三条重开共用的两轮窄清理；不释放实例，也不清记录的其他字段。
-static void WindowRuntime_ResetReferences()
+static void WindowRuntime_ResetReferences(session::ClientSession& session)
 {
-    WindowRuntime_Windows().fill(nullptr);
-    for (WindowState& state : WindowRuntime_States()) {
+    WindowRuntime_Windows(session).fill(nullptr);
+    for (WindowState& state : WindowRuntime_States(session)) {
         state.window = nullptr;
     }
     WindowRuntime_ResetMouseAndItemFlags();
@@ -3388,38 +3384,38 @@ static void WindowRuntime_ResetReferences()
     gCurrentElementId57C12C = 0;
 }
 
-static void WindowRuntime_OpenConfiguredWindows()
+static void WindowRuntime_OpenConfiguredWindows(session::ClientSession& session)
 {
-    static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
-    switch (WindowRuntime_Settings().statusBarMode) {
+    static_cast<void>(WindowRuntime_Open(session, WindowId_BottomBar));
+    switch (WindowRuntime_Settings(session).statusBarMode) {
     case 0:
-        static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_StatusBar));
         break;
     case 1:
-        static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_CompactStatusBar));
         break;
     case 2:
-        static_cast<void>(WindowRuntime_Open(WindowId_CollapsedStatusBar));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_CollapsedStatusBar));
         break;
     default:
         break;
     }
-    switch (WindowRuntime_Settings().shortcutBarCollapsed) {
+    switch (WindowRuntime_Settings(session).shortcutBarCollapsed) {
     case 0:
-        static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_ShortcutBar));
         break;
     case 1:
-        static_cast<void>(WindowRuntime_Open(WindowId_CollapsedShortcutBar));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_CollapsedShortcutBar));
         break;
     default:
         break;
     }
-    switch (WindowRuntime_Settings().chatMode) {
+    switch (WindowRuntime_Settings(session).chatMode) {
     case 0:
-        static_cast<void>(WindowRuntime_Open(WindowId_Chat));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_Chat));
         break;
     case 1:
-        static_cast<void>(WindowRuntime_Open(WindowId_CompactChat));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_CompactChat));
         break;
     default:
         break;
@@ -3427,11 +3423,11 @@ static void WindowRuntime_OpenConfiguredWindows()
 }
 
 // 原函数：0x004707C0。
-static void WindowRuntime_OpenLoginScene()
+static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
 {
-    WindowRuntime_ResetReferences();
-    WindowRuntime_OpenConfiguredWindows();
-    WindowRuntime_RestoreMarkedWindows();
+    WindowRuntime_ResetReferences(session);
+    WindowRuntime_OpenConfiguredWindows(session);
+    WindowRuntime_RestoreMarkedWindows(session);
     WindowRuntime_ClearElementFocus();
     gSelectedItemCB1DF4 = -1;
     gItemUseTargetReferences_D67B24 = 0;
@@ -3442,62 +3438,63 @@ static void WindowRuntime_OpenLoginScene()
 }
 
 // 原函数：0x00471170。
-static void WindowRuntime_OpenBattleScene()
+static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
 {
-    WindowRuntime_ResetReferences();
+    auto& states = WindowRuntime_States(session);
+    WindowRuntime_ResetReferences(session);
     WindowRuntime_ClearElementFocus();
-    static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
-    static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-    switch (WindowRuntime_Settings().chatMode) {
+    static_cast<void>(WindowRuntime_Open(session, WindowId_BottomBar));
+    static_cast<void>(WindowRuntime_Open(session, WindowId_CompactStatusBar));
+    switch (WindowRuntime_Settings(session).chatMode) {
     case 0:
-        static_cast<void>(WindowRuntime_Open(WindowId_Chat));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_Chat));
         break;
     case 1:
-        static_cast<void>(WindowRuntime_Open(WindowId_CompactChat));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_CompactChat));
         break;
     default:
         break;
     }
-    if (WindowRuntime_States()[WindowId_Contacts].marker50 != 0) {
-        static_cast<void>(WindowRuntime_Open(WindowId_Contacts));
-        WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
+    if (states[WindowId_Contacts].marker50 != 0) {
+        static_cast<void>(WindowRuntime_Open(session, WindowId_Contacts));
+        states[WindowId_Contacts].marker50 = 0;
     }
-    if (WindowRuntime_States()[WindowId_MailRead].marker50 != 0) {
+    if (states[WindowId_MailRead].marker50 != 0) {
         const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
-        static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
+        static_cast<void>(WindowRuntime_Open(session, WindowId_MailRead));
         world::detail::gViewedMailMessageIndex_D046D4 = position;
-        WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
+        states[WindowId_MailRead].marker50 = 0;
     }
-    if (WindowRuntime_States()[WindowId_MailCompose].marker50 != 0 || WindowRuntime_States()[WindowId_PetMailCompose].marker50 != 0) {
-        static_cast<void>(WindowRuntime_Open(WindowId_MailCompose));
-        WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
-        WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
+    if (states[WindowId_MailCompose].marker50 != 0 || states[WindowId_PetMailCompose].marker50 != 0) {
+        static_cast<void>(WindowRuntime_Open(session, WindowId_MailCompose));
+        states[WindowId_MailCompose].marker50 = 0;
+        states[WindowId_PetMailCompose].marker50 = 0;
     }
     WindowRuntime_ResetOperationReferences();
-    WindowInstance* const window22 = WindowRuntime_States()[WindowId_MailCompose].window;
+    WindowInstance* const window22 = states[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
-    if (window22 == nullptr && WindowRuntime_States()[WindowId_PetMailCompose].window == nullptr) {
+    if (window22 == nullptr && states[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
     }
 }
 
-static void WindowRuntime_MarkSceneWindows()
+static void WindowRuntime_MarkSceneWindows(session::ClientSession& session)
 {
     for (const std::int32_t id : std::array<std::int32_t, 4>{21, 40, 22, 23}) {
-        if (WindowRuntime_States()[id].window != nullptr) {
-            WindowRuntime_States()[id].marker50 = 1;
+        if (WindowRuntime_States(session)[id].window != nullptr) {
+            WindowRuntime_States(session)[id].marker50 = 1;
         }
     }
 }
 
 // 原函数：0x00470980。
-static void WindowRuntime_OpenNormalScene()
+static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
 {
-    WindowRuntime_ResetReferences();
+    WindowRuntime_ResetReferences(session);
     WindowRuntime_ClearElementFocus();
-    WindowRuntime_OpenConfiguredWindows();
-    WindowRuntime_RestoreMarkedWindows();
+    WindowRuntime_OpenConfiguredWindows(session);
+    WindowRuntime_RestoreMarkedWindows(session);
     gSelectedItemCB1DF4 = -1;
     gItemUseTargetReferences_D67B24 = 0;
     WindowRuntime_ResetOperationReferences();
@@ -3506,7 +3503,7 @@ static void WindowRuntime_OpenNormalScene()
     if (inputGate == 0) {
         input::gChatPanelVisible_C9A96C = 1;
     }
-    if (WindowRuntime_States()[WindowId_MailCompose].window == nullptr && WindowRuntime_States()[WindowId_PetMailCompose].window == nullptr) {
+    if (WindowRuntime_States(session)[WindowId_MailCompose].window == nullptr && WindowRuntime_States(session)[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput());
     }
 }
@@ -3538,9 +3535,10 @@ static std::int32_t WindowScroll_ResetPosition()
 }
 
 // 原函数：0x00470600。
-static void WindowRuntime_InitializeLogin()
+static void WindowRuntime_InitializeLogin(session::ClientSession& session)
 {
-    static_cast<void>(WindowRuntime_LoadSettings(session::GetClientHost().FirstSession()));
+    auto& states = WindowRuntime_States(session);
+    static_cast<void>(WindowRuntime_LoadSettings(session));
     static_cast<void>(WindowRuntime_ResetAlbumState());
     WindowMessageBoard_ResetRecords();
     static_cast<void>(WindowChat_ResetScrollRequests());
@@ -3553,10 +3551,10 @@ static void WindowRuntime_InitializeLogin()
         world::detail::InitializeDefaultProfiles_533950();
     }
     static_cast<void>(WindowMail_ResetSelectionState());
-    WindowRuntime_States()[WindowId_Contacts].marker50 = 0;
-    WindowRuntime_States()[WindowId_MailCompose].marker50 = 0;
-    WindowRuntime_States()[WindowId_PetMailCompose].marker50 = 0;
-    WindowRuntime_States()[WindowId_MailRead].marker50 = 0;
+    states[WindowId_Contacts].marker50 = 0;
+    states[WindowId_MailCompose].marker50 = 0;
+    states[WindowId_PetMailCompose].marker50 = 0;
+    states[WindowId_MailRead].marker50 = 0;
     static_cast<void>(WindowBlacklist_ResetState());
     WindowAdventureLog_InitializeDate();
     gLoginWindowRuntime.valueD67618 = 0;
@@ -4993,11 +4991,6 @@ void WindowRuntime_Close(WindowInstance* const window)
 }
 
 // 原函数：0x00472190。
-std::int32_t WindowRuntime_CloseAll()
-{
-    return WindowRuntime_CloseAll(session::GetClientHost().FirstSession());
-}
-
 std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
 {
     using namespace detail;
@@ -5024,20 +5017,20 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
 }
 
 // 原函数：0x00503E80。
-void WindowRuntime_ProcessScene()
+void WindowRuntime_ProcessScene(session::ClientSession& session)
 {
     using namespace detail;
     switch (world::gCurrentSceneType) {
     case 5:
-        WindowRuntime_ResetShortcutFlag();
-        WindowRuntime_InitializeLogin();
-        WindowRuntime_OpenLoginScene();
+        WindowRuntime_ResetShortcutFlag(session);
+        WindowRuntime_InitializeLogin(session);
+        WindowRuntime_OpenLoginScene(session);
         return;
     case 7:
     case 11:
-        WindowRuntime_MarkExistingWindows();
-        static_cast<void>(WindowRuntime_CloseAll());
-        static_cast<void>(WindowRuntime_SaveSettings());
+        WindowRuntime_MarkExistingWindows(session);
+        static_cast<void>(WindowRuntime_CloseAll(session));
+        static_cast<void>(WindowRuntime_SaveSettings(session));
         world::SaveAlbumData_5186A0();
         static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
         static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
@@ -5047,23 +5040,23 @@ void WindowRuntime_ProcessScene()
     case 9:
         switch (world::gCurrentSceneState) {
         case 1:
-            WindowRuntime_MarkSceneWindows();
-            static_cast<void>(WindowRuntime_CloseAll());
-            WindowRuntime_OpenNormalScene();
+            WindowRuntime_MarkSceneWindows(session);
+            static_cast<void>(WindowRuntime_CloseAll(session));
+            WindowRuntime_OpenNormalScene(session);
             return;
         case 4:
         case 200:
-            WindowRuntime_MarkExistingWindows();
-            static_cast<void>(WindowRuntime_CloseAll());
+            WindowRuntime_MarkExistingWindows(session);
+            static_cast<void>(WindowRuntime_CloseAll(session));
             return;
         case 204:
-            WindowRuntime_OpenNormalScene();
+            WindowRuntime_OpenNormalScene(session);
             return;
         case 250:
         case 252:
-            WindowRuntime_MarkExistingWindows();
-            static_cast<void>(WindowRuntime_CloseAll());
-            WindowRuntime_OpenNormalScene();
+            WindowRuntime_MarkExistingWindows(session);
+            static_cast<void>(WindowRuntime_CloseAll(session));
+            WindowRuntime_OpenNormalScene(session);
             if (world::gCurrentSceneState == 250) {
                 auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                 for (std::size_t index = 0; index < 8; ++index) {
@@ -5077,11 +5070,11 @@ void WindowRuntime_ProcessScene()
     case 10:
         switch (world::gCurrentSceneState) {
         case 1:
-            WindowRuntime_OpenBattleScene();
+            WindowRuntime_OpenBattleScene(session);
             return;
         case 8:
-            WindowRuntime_MarkSceneWindows();
-            static_cast<void>(WindowRuntime_CloseAll());
+            WindowRuntime_MarkSceneWindows(session);
+            static_cast<void>(WindowRuntime_CloseAll(session));
             return;
         default:
             return;

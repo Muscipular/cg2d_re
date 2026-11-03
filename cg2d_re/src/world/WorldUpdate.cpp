@@ -132,7 +132,7 @@ void Update(session::ClientSession& session)
         gLogoutToTownPending_D67E78 = 0;
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
-        ui::WindowRuntime_ProcessScene();
+        ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         session.WorldScene().observationTravelTransitionCount = 0;
         ClearMapName_9DAD30();
@@ -162,7 +162,7 @@ void Update(session::ClientSession& session)
             detail::DestroyPlayerMapPresence_519D50();
             detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30(session);
-            ui::WindowRuntime_ProcessScene();
+            ui::WindowRuntime_ProcessScene(session);
             cg::yobi::ResetObservationGroupList_43F220(session);
             session.WorldScene().transitionResetPending = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750(session);

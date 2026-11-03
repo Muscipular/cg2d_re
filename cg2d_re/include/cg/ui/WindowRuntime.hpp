@@ -165,10 +165,9 @@ void WindowRuntime_Free(WindowInstance* window); // release回调、记录回存
 // 原函数：0x00472160。
 void WindowRuntime_Close(WindowInstance* window); // WCR01：同记录地址发布/置bit1再释放，不清表槽。
 // 原函数：0x00472190。
-std::int32_t WindowRuntime_CloseAll(); // 完整关闭与观察退出请求，返回0或发送结果。
-std::int32_t WindowRuntime_CloseAll(session::ClientSession& session);
+std::int32_t WindowRuntime_CloseAll(session::ClientSession& session); // 完整关闭与观察退出请求，返回0或发送结果。
 // 原函数：0x00503E80。
-void WindowRuntime_ProcessScene(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
+void WindowRuntime_ProcessScene(session::ClientSession& session); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 // 原函数：0x00473F80。
 std::int32_t WindowRuntime_Update(session::ClientSession& session); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
 // 原函数：0x00504120。

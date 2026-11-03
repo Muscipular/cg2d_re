@@ -1067,10 +1067,9 @@ std::int32_t WindowRuntime_CycleNameMode(); // 73ECBC先减后负值归2，返�
 // 原函数：0x004A6D80。
 std::int32_t WindowChat_ResetState(); // 聊天初始范围、回看、数量、调整请求和颜色。
 // 原函数：0x004C9130。
-std::int32_t WindowRuntime_SaveSettings(); // 打开成功才捕获并保存；原打开失败同样返回1。
-std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session);
+std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session); // 打开成功才捕获并保存；原打开失败同样返回1。
 // 原函数：0x004A53D0。
-WindowInstance* WindowMailCompose_Open(); // 先写D2F0B8.+26C，再真实打开22，返回借用窗口。
+WindowInstance* WindowMailCompose_Open(session::ClientSession& session); // 先写D2F0B8.+26C，再真实打开22，返回借用窗口。
 // 原函数：0x004705D0。
 std::int32_t WindowRuntime_Initialize(session::ClientSession& session); // 启动UI完整初始化，返回category加载结果。
 // 原函数：0x004B5A90。

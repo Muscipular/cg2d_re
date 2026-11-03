@@ -62,10 +62,10 @@ WindowPrototype gWindowPrototypeMailCompose {0, 4, 383, 81, 211, 210, 0x80010101
 // 窗口函数实现。
 
 // 原函数：0x004A53D0。
-WindowInstance* WindowMailCompose_Open()
+WindowInstance* WindowMailCompose_Open(session::ClientSession& session)
 {
     gLoginWindowRuntime.prefixD2F0B8.value26C = 1;
-    return WindowRuntime_Open(WindowId_MailCompose);
+    return WindowRuntime_Open(session, WindowId_MailCompose);
 }
 
 // 原函数：0x004A53F0。

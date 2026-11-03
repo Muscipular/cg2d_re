@@ -23,9 +23,6 @@
 
 namespace cg::login {
 
-// 原 0x9A5FE0：本函数私有的 256 字节消息缓冲，映像初值为零。
-static std::wstring gLoginModeMessage {};
-
 // 原函数：0x0045C5A0。
 void ProcessModeScene_45C5A0()
 {
@@ -91,7 +88,7 @@ void ProcessModeScene_45C5A0()
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 100;
-        gLoginModeMessage = L"请输入ＩＤ和ＰＡＳＳＷＯＲＤ" /* 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。 */;
+        sceneUi.loginModeMessage = L"请输入ＩＤ和ＰＡＳＳＷＯＲＤ" /* 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。 */;
     }
 
     if (result < 0 || world::gCurrentSceneState == 100) {
@@ -100,7 +97,7 @@ void ProcessModeScene_45C5A0()
         ++world::gCurrentSceneState;
     }
     if (world::gCurrentSceneState == 101
-        && UpdateLoginMessage(gLoginModeMessage) != 0) {
+        && UpdateLoginMessage(sceneUi.loginModeMessage) != 0) {
         world::gCurrentSceneState = 1;
     }
 }

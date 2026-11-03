@@ -51,6 +51,8 @@ struct LoginSceneState {
     std::int32_t capability4IntroAlpha = 0; // 原 0x9A4D00。
     std::int32_t capability4IntroPhase = 0; // 原 0x9A4B7C。
     std::wstring capability4Message; // 原 0x9A4A78。
+    std::wstring outerLoginErrorMessage; // 原 0x9A4BA0。
+    std::wstring loginModeMessage; // 原 0x9A5FE0。
     std::array<input::InputContext*, 3> inputFocusTable {
         &context9A5960, &context9A5678, &context9A5960,
     }; // 原 0x559FFC；借用本实例的两个上下文。

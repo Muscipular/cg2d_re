@@ -129,7 +129,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                     previousSource = source;
                     previousEvent = mergedEvent;
                 } else {
-                    lastCreated = NewBattleEvent_43B610(
+                    lastCreated = NewBattleEvent_43B610(scene,
                         static_cast<std::int32_t>(kind), static_cast<std::int32_t>(slot),
                         participants, gBattlePendingGroupCount5ABB24);
                     if (lastCreated != nullptr) {
@@ -154,10 +154,11 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
 
 // 原函数：0x0043B610。
 YobiAction* NewBattleEvent_43B610(
+    YobiAction* const source,
     const std::int32_t kind, const std::int32_t slot,
     const std::uint32_t participants, const std::int32_t group)
 {
-    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
+    YobiAction* const scene = NewYobiAction_404AE0(*source->ownerSession, 1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
     }
@@ -184,9 +185,9 @@ YobiAction* NewBattleEvent_43B610(
 }
 
 // 原函数：0x004383B0。
-YobiAction* NewBattleScene_4383B0()
+YobiAction* NewBattleScene_4383B0(session::ClientSession& session)
 {
-    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
+    YobiAction* const scene = NewYobiAction_404AE0(session, 1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
     }
@@ -288,7 +289,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0(session::ClientSession& session)
 {
-    cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
+    cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0(session);
     cg::world::gBattleEventActions5ABA9C.fill(nullptr);
     cg::world::gBattleAllEntries59E980.fill(nullptr);
     cg::world::gBattleActiveEventMask5AAA74 = 0;

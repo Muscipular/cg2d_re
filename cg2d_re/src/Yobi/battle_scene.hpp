@@ -15,9 +15,9 @@ extern std::int32_t gBattlePendingGroupCount5ABB24;
 void DispatchBattleEvents_43B360(YobiAction* scene);
 // 原43B610：绑定完整427470、原序初始化22位置并发布32槽事件T*。
 YobiAction* NewBattleEvent_43B610(
-    std::int32_t kind, std::int32_t slot, std::uint32_t participants, std::int32_t group);
+    YobiAction* source, std::int32_t kind, std::int32_t slot, std::uint32_t participants, std::int32_t group);
 // 原函数：0x004383B0。
-YobiAction* NewBattleScene_4383B0(); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。
+YobiAction* NewBattleScene_4383B0(session::ClientSession& session); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。
 // 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 // 原函数：0x0043C0A0。

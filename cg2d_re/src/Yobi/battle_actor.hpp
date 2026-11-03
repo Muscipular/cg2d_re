@@ -6,7 +6,7 @@
 
 namespace cg::yobi::detail {
 // 原函数：0x00438290。
-YobiAction* NewBattleActor_438290(std::int32_t position); // 基础创建与404DB0绑定；完整角色属性由各caller生产。
+YobiAction* NewBattleActor_438290(YobiAction* source, std::int32_t position); // 基础创建与404DB0绑定；完整角色属性由各caller生产。
 // 原函数：0x00423800。
 std::int32_t MatchBattleAlbum_423800(const YobiAction* action); // 名称原字节与四W16零/非零状态。
 // 原函数：0x00404DB0。

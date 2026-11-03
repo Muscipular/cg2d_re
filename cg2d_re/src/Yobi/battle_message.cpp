@@ -2114,7 +2114,7 @@ static void ProcessBattleMMonsterHeader(
         const std::int32_t monsterPosition = gBattleMDefenderPosition5A4A24;
         YobiAction** const defenderSlot = &cg::world::gBattleAllEntries59E980[monsterPosition];
         if (*defenderSlot == nullptr) {
-            *defenderSlot = NewBattleActor_438290(monsterPosition);
+            *defenderSlot = NewBattleActor_438290(scene, monsterPosition);
         }
         YobiAction* const defender = *defenderSlot;
         auto* const defenderPayload = defender->payload.battleActor;
@@ -2616,7 +2616,7 @@ static void ProcessBattleMGmnHeader(
     if (previous != nullptr) {
         static_cast<void>(MarkDeath(previous));
     }
-    YobiAction* const created = NewBattleActor_438290(position);
+    YobiAction* const created = NewBattleActor_438290(scene, position);
     *slot = created;
     auto* const actorPayload = created->payload.battleActor;
     {
@@ -2855,7 +2855,7 @@ static void ProcessBattleMRideHeader(
         auto* const carrier = carrierAction->payload.battleRideCarrier;
         existingPayload->effect1060 = carrierAction;
         const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
-        YobiAction* const first = NewBattleActor_438290(firstPosition);
+        YobiAction* const first = NewBattleActor_438290(scene, firstPosition);
         auto* const firstPayload = first->payload.battleActor;
         {
             char nameBytes[29]{};
@@ -2926,7 +2926,7 @@ static void ProcessBattleMRideHeader(
         YobiAction* const sourceY = cg::world::gBattleAllEntries59E980[casterPositionY];
         riderY->origin_y_offset44 = sourceY->origin_y_offset44;
 
-        YobiAction* const second = NewBattleActor_438290(secondPosition);
+        YobiAction* const second = NewBattleActor_438290(scene, secondPosition);
         auto* const secondPayload = second->payload.battleActor;
         {
             char nameBytes[29]{};
@@ -3145,7 +3145,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         }
         auto* const existingPayload = existing->payload.battleActor;
         static_cast<void>(TakeBattleMInteger_438F70(action));
-        YobiAction* const firstActor = NewBattleActor_438290(first);
+        YobiAction* const firstActor = NewBattleActor_438290(action, first);
         auto* const firstPayload = firstActor->payload.battleActor;
         {
             char nameBytes[29]{};
@@ -3220,7 +3220,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         YobiAction* const riderY = existingPayload->rider13C8;
         riderY->origin_y_offset44 = sourceY->origin_y_offset44;
 
-        YobiAction* const secondActor = NewBattleActor_438290(second);
+        YobiAction* const secondActor = NewBattleActor_438290(action, second);
         auto* const secondPayload = secondActor->payload.battleActor;
         {
             char nameBytes[29]{};
@@ -3422,7 +3422,7 @@ void ParseBattleC_438550()
         present |= 1u << position;
         YobiAction** const slot = &cg::world::gBattleAllEntries59E980[position];
         if (*slot == nullptr) {
-            *slot = detail::NewBattleActor_438290(position);
+            *slot = detail::NewBattleActor_438290(cg::world::gBattleSceneAction5ABA94, position);
             detail::ResetBattleCastList_4391E0(position);
         }
         YobiAction* const actor = *slot;

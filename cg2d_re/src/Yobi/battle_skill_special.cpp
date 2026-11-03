@@ -666,7 +666,7 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
             break;
         }
         static_cast<void>(MarkDeath(cg::world::gBattleAllEntries59E980[targetPosition]));
-        YobiAction* const created = NewBattleActor_438290(gBattleMTargetPosition5AAA40);
+        YobiAction* const created = NewBattleActor_438290(scene, gBattleMTargetPosition5AAA40);
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] = created;
         auto* const actorPayload = created->payload.battleActor;
         {
@@ -2546,7 +2546,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveAlongEffectPath);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceTargetFormationPoint);
     std::int32_t firstPosition = 0;
-    YobiAction* const first = NewBattleActor_438290(0);
+    YobiAction* const first = NewBattleActor_438290(scene, 0);
     auto* const firstPayload = first->payload.battleActor;
     std::int32_t secondPosition = 0;
     firstPayload->stateFE0 = 0;
@@ -2564,7 +2564,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     first->phase = BattleAction_Idle;
     first->flags |= YobiActionFlag_Hidden;
     first->callback = nullptr;
-    YobiAction* const second = NewBattleActor_438290(0);
+    YobiAction* const second = NewBattleActor_438290(scene, 0);
     auto* const secondPayload = second->payload.battleActor;
     secondPayload->stateFE0 = 0;
     second->fields288[3] = 0;

@@ -2104,7 +2104,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
             std::uint8_t allowed;
             if (item == -1) {
                 // 原4BAA95读取CF4FC4，与表情选择首字节同源。
-                allowed = gEmoteSelectionCF4FC4[0];
+                allowed = callbackWindow.ownerSession->UiFrame().native.emoteSelection[0];
             } else if (item == 20) {
                 // 原D052FC对应description[30][72]；旧行最多32B，此零初值尾字节没有写入者。
                 allowed = 0;

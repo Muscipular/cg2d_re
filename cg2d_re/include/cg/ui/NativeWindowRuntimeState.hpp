@@ -258,6 +258,8 @@ struct WindowDialogTextLine {
 };
 
 using WindowChoiceCallback = std::int32_t (*)(session::ClientSession& session, std::int32_t index);
+using WindowListSelectionCallback = void (*)(
+    session::ClientSession& session, std::int32_t index, const wchar_t* text);
 
 // 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
 struct ChoiceDialogRuntimeSlots {
@@ -857,6 +859,14 @@ struct PetSkillChoiceWindowRuntimeState {
     std::wstring moneyText {}; // 原0xC9A9A4。
 };
 
+// 窗口44的十条交易候选及回送，名称在点击期间借用所属会话字符串。
+struct TradeTargetWindowRuntimeState {
+    std::array<std::wstring, 10> names {}; // 原0xCF3F20。
+    std::int32_t count = 0; // 原0xCF46A8。
+    detail::WindowListSelectionCallback callback = nullptr; // 原0xCB1E14。
+    std::int32_t offset = 0; // 原0xCC3EF4。
+};
+
 // 窗口51自有正文、请求与选择，选择在背包换位时保留原单向重映射。
 struct TextListWindowRuntimeState {
     std::vector<std::wstring> lines; // 原0xD67B70。
@@ -1130,8 +1140,10 @@ struct NativeWindowRuntimeState {
     CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
     ShopChoiceWindowRuntimeState shopChoice {};
     PetSkillChoiceWindowRuntimeState petSkillChoice {};
+    TradeTargetWindowRuntimeState tradeTarget {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
+    std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。
     std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};
     AppearanceWindowRuntimeState appearance {};
@@ -1142,5 +1154,6 @@ struct NativeWindowRuntimeState {
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。
 };
+static_assert(sizeof(NativeWindowRuntimeState::emoteSelection) == 18);
 
 } // namespace cg::ui

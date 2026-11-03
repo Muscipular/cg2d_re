@@ -64,15 +64,6 @@ static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, 
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::array<std::wstring, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
-
-static std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
-
-// 原全局：0x00CB1E14。 49EF60借用名单文本并弃返回。
-static WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原全局：0x00CB1E14。
-
-static std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
-
 
 static WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CCF0。
 
@@ -131,8 +122,9 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
     session::ClientSession& session,
     const char* const text, const WindowListSelectionCallback callback)
 {
-    gWindowListCountCF46A8 = 0;
-    for (auto& name : gWindowListNamesCF3F20) {
+    auto& targets = session.UiFrame().native.tradeTarget;
+    targets.count = 0;
+    for (auto& name : targets.names) {
         name.clear();
     }
     std::array<char, 768> buffer;
@@ -143,11 +135,11 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
             break;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-        count = gWindowListCountCF46A8;
-        gWindowListNamesCF3F20[count] = cg::text::FromGbkWide(buffer.data());
-        gWindowListCountCF46A8 = ++count;
+        count = targets.count;
+        targets.names[count] = cg::text::FromGbkWide(buffer.data());
+        targets.count = ++count;
     }
-    gWindowListCallbackCB1E14 = callback;
+    targets.callback = callback;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
@@ -161,11 +153,12 @@ static void WindowTradeTarget_Refresh(WindowInstance* callbackWindow, const std:
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& targets = callbackWindow->ownerSession->UiFrame().native.tradeTarget;
     for (std::int32_t line = 0; line < 5; ++line) {
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(9 + line));
         if (dataElement) {
             auto* const data = dataElement->data.text;
-            data->text = gWindowListNamesCF3F20[offset + line];
+            data->text = targets.names[offset + line];
         }
     }
 }
@@ -173,15 +166,16 @@ static void WindowTradeTarget_Refresh(WindowInstance* callbackWindow, const std:
 // 原函数：0x0049E8F0。
 static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
-        gWindowListOffsetCC3EF4 = 0;
+        const std::int32_t visible = targets.count > 5 ? 1 : 0;
+        targets.offset = 0;
         for (std::int32_t index = 0; index < 6; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
         }
-        WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+        WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
@@ -193,10 +187,11 @@ static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, con
 // 原函数：0x0049EAA0。
 static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const element1 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element1) element1->visible = 1;
-    if (gWindowListCountCF46A8 - 5 <= 0) {
+    if (targets.count - 5 <= 0) {
         if (auto* const element12 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element12) element12->visible = 0;
     }
     auto* elementsWindow = currentWindow;
@@ -206,9 +201,9 @@ static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const
         if ((mouse->flags & 1u) != 0) {
             auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowTradeTargetElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement2) {
-                gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gWindowListCountCF46A8 - 5);
+                targets.offset = WindowScroll_ReadPosition(handleVerticalScrollElement2, targets.count - 5);
             }
-            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -227,6 +222,7 @@ static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x0049EB50。
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -235,20 +231,20 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callback
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            if (gWindowListOffsetCC3EF4 > 0) {
-                --gWindowListOffsetCC3EF4;
+            if (targets.offset > 0) {
+                --targets.offset;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const std::int32_t position = gWindowListOffsetCC3EF4;
+            const std::int32_t position = targets.offset;
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            const std::int32_t maximum = targets.count - 5;
             auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
             result = 1;
         }
         graphic->imageNo = 0x3B592;
@@ -266,6 +262,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callback
 // 原函数：0x0049EC00。
 static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -274,19 +271,19 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWind
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
-                ++gWindowListOffsetCC3EF4;
+            if (targets.offset < targets.count - 5) {
+                ++targets.offset;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const std::int32_t position = gWindowListOffsetCC3EF4;
-            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            const std::int32_t position = targets.offset;
+            const std::int32_t maximum = targets.count - 5;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
             result = 1;
         }
         graphic->imageNo = 0x3B595;
@@ -304,6 +301,7 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWind
 // 原函数：0x0049ECC0。
 static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -312,18 +310,18 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbac
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
-            gWindowListOffsetCC3EF4 -= 5;
-            if (gWindowListOffsetCC3EF4 < 0) {
-                gWindowListOffsetCC3EF4 = 0;
+            static_cast<void>(audio::PlaySe_52C450(targets.offset > 0 ? 51 : 55, 320));
+            targets.offset -= 5;
+            if (targets.offset < 0) {
+                targets.offset = 0;
             }
-            const std::int32_t position = gWindowListOffsetCC3EF4;
-            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            const std::int32_t position = targets.offset;
+            const std::int32_t maximum = targets.count - 5;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
             result = 1;
         }
         graphic->imageNo = 0x3B556;
@@ -341,6 +339,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbac
 // 原函数：0x0049ED80。
 static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -349,25 +348,25 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
-            const bool canMove = oldMaximum > 0 && gWindowListOffsetCC3EF4 < oldMaximum;
+            const std::int32_t oldMaximum = targets.count - 5;
+            const bool canMove = oldMaximum > 0 && targets.offset < oldMaximum;
             static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
-            std::int32_t position = gWindowListOffsetCC3EF4 + 5;
-            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-            gWindowListOffsetCC3EF4 = position;
+            std::int32_t position = targets.offset + 5;
+            const std::int32_t maximum = targets.count - 5;
+            targets.offset = position;
             if (position > maximum) {
                 position = maximum;
-                gWindowListOffsetCC3EF4 = position;
+                targets.offset = position;
             }
             if (position < 0) {
                 position = 0;
-                gWindowListOffsetCC3EF4 = position;
+                targets.offset = position;
             }
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, targets.offset);
             result = 1;
         }
         graphic->imageNo = 0x3B559;
@@ -385,16 +384,17 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWin
 // 原函数：0x0049EE60。
 static std::int32_t WindowTradeTarget_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t count = gWindowListCountCF46A8;
+        const std::int32_t count = targets.count;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        const std::int32_t position = gWindowListOffsetCC3EF4;
+        const std::int32_t position = targets.offset;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
-            gWindowListOffsetCC3EF4 =
+            targets.offset =
                 WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
     }
@@ -435,10 +435,11 @@ static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindo
 // 原函数：0x0049EF60。
 static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& targets = callbackWindow.ownerSession->UiFrame().native.tradeTarget;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (index - 14 >= gWindowListCountCF46A8) {
+    if (index - 14 >= targets.count) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
@@ -451,10 +452,10 @@ static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, 
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    const WindowListSelectionCallback callback = gWindowListCallbackCB1E14;
+    const WindowListSelectionCallback callback = targets.callback;
     if (callback != nullptr) {
-        const std::int32_t selected = gWindowListOffsetCC3EF4 + index - 14;
-        callback(selected, gWindowListNamesCF3F20[selected].data());
+        const std::int32_t selected = targets.offset + index - 14;
+        callback(*callbackWindow.ownerSession, selected, targets.names[selected].data());
     }
     currentWindow->state |= 0x8000u;
     static_cast<void>(audio::PlaySe_52C450(57, 320));

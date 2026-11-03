@@ -318,11 +318,6 @@ cg::yobi::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84�
 
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 
-// 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
-std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
-
-static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
-
 std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
 MiniMailComposeState gMiniMailCompose105F508 {}; // 原全局：0x0105F508。

@@ -34,7 +34,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00495FC0。
-static std::int32_t WindowEmote_ResetSelection(); // 清零唯一18B选择区，返回0。
+static std::int32_t WindowEmote_ResetSelection(session::ClientSession& session); // 清零唯一18B选择区，返回0。
 
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
@@ -137,16 +137,16 @@ WindowPrototype gWindowPrototypeEmote {0, 4, 575, 97, 61, 260, 0x80010101u, 20, 
 
 // 窗口函数实现。
 
-static void WindowEmote_ClearSelection()
+static void WindowEmote_ClearSelection(session::ClientSession& session)
 {
-    gEmoteSelectionCF4FC4.fill(0);
+    session.UiFrame().native.emoteSelection.fill(0);
 }
 
 // 原函数：0x00495F50。
 static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
-        static_cast<void>(WindowEmote_ResetSelection());
+        static_cast<void>(WindowEmote_ResetSelection(*callbackWindow.ownerSession));
     }
     return 1;
 }
@@ -154,8 +154,8 @@ static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, const std
 // 原函数：0x00495F70。
 std::int32_t WindowEmote_Select(session::ClientSession& session, const std::int32_t index)
 {
-    WindowEmote_ClearSelection();
-    gEmoteSelectionCF4FC4[index] = 1;
+    WindowEmote_ClearSelection(session);
+    session.UiFrame().native.emoteSelection[index] = 1;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
@@ -164,9 +164,9 @@ std::int32_t WindowEmote_Select(session::ClientSession& session, const std::int3
 }
 
 // 原函数：0x00495FC0。
-static std::int32_t WindowEmote_ResetSelection()
+static std::int32_t WindowEmote_ResetSelection(session::ClientSession& session)
 {
-    WindowEmote_ClearSelection();
+    WindowEmote_ClearSelection(session);
     return 0;
 }
 
@@ -186,7 +186,7 @@ static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, cons
             graphic->imageNo = 0x3B987 + index * 3;
             consumed = 1;
         } else {
-            const bool selected = gEmoteSelectionCF4FC4[index] == 1;
+            const bool selected = callbackWindow.ownerSession->UiFrame().native.emoteSelection[index] == 1;
             graphic->imageNo = (selected ? 0x3B985 : 0x3B986) + index * 3;
         }
         if (static_cast<std::uint32_t>(index) > 17u) {

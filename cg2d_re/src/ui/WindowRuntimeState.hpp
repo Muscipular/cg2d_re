@@ -71,7 +71,6 @@ static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
 enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
 
-using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
 // 原type1的24B前缀保留；NEU01在宿主载荷末尾扩充图态配置。
 struct WindowGraphicData {
@@ -780,7 +779,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index,
     bool showEquipmentPage = false); // 完整己方宠物提示；银行／交易开启第三页装备名称。
 // 原函数：0x004E5620。
-cg::yobi::YobiAction* WindowTrade_ReceiveStart(std::wstring_view name); // 全量清交易双侧后复制己方，最后打开43。
+cg::yobi::YobiAction* WindowTrade_ReceiveStart(session::ClientSession& session, std::wstring_view name); // 全量清交易双侧后复制己方，最后打开43。
 // 原函数：0x0049E800。
 cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(session::ClientSession& session, const char* text, WindowListSelectionCallback callback);
 // 原函数：0x00485110。

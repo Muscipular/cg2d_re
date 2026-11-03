@@ -56,6 +56,7 @@ static void DrawCutTile(
 
 // 原 46D207：原始 obj 索引 .cut；注册标志与发布地址的两次索引分别计算。
 static void DrawCutObject(
+    session::ClientSession& session,
     const std::uint16_t object, const std::int32_t column, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY,
     render::GraphicDescriptor16& descriptor)
@@ -70,25 +71,25 @@ static void DrawCutObject(
         const std::int32_t startY = gMapYStart;
         const std::int32_t mapX = startX + column;
         const std::int32_t index = 399 * mapX + startY + row;
-        if (cg::yobi::MapYobiRegistryFlagAt(index) != 0) {
-            cg::yobi::YobiAction* const action = cg::yobi::MapYobiRegistryActionAt(index);
+        if (cg::yobi::MapYobiRegistryFlagAt(session, index) != 0) {
+            cg::yobi::YobiAction* const action = cg::yobi::MapYobiRegistryActionAt(session, index);
             cg::yobi::UpdateRegisteredMapGraphicAction_46DD90(action);
             return;
         }
         const std::int32_t mapY = startY + row;
-        cg::yobi::MapYobiRegistryFlagAt(index) = 1;
+        cg::yobi::MapYobiRegistryFlagAt(session, index) = 1;
         const std::int32_t imageNo = cut.value00;
-        cg::yobi::YobiAction* const action = cg::yobi::CreateRegisteredMapGraphicAction_46DE50(imageNo, mapX, mapY);
+        cg::yobi::YobiAction* const action = cg::yobi::CreateRegisteredMapGraphicAction_46DE50(session, imageNo, mapX, mapY);
         const std::int32_t publishX = gMapXStart + column;
         const std::int32_t publishY = gMapYStart;
         const std::int32_t offsetX = cut.value0E;
-        cg::yobi::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
+        cg::yobi::MapYobiRegistryActionAt(session, 399 * publishX + row + publishY) = action;
         cg::yobi::SetYobiMapOffsetX(action, offsetX);
         const std::int32_t offsetIndexX = gMapXStart + column;
         const std::int32_t offsetY = cut.value10;
         const std::int32_t offsetIndexY = gMapYStart;
         cg::yobi::YobiAction* const offsetAction =
-            cg::yobi::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
+            cg::yobi::MapYobiRegistryActionAt(session, 399 * offsetIndexX + row + offsetIndexY);
         cg::yobi::SetYobiMapOffsetY(offsetAction, offsetY);
         return;
     }
@@ -196,9 +197,9 @@ static void DrawNormalMapCell(
 }
 
 // 原函数：0x00469020。
-void DrawMapSceneWithMarkers_469020()
+void DrawMapSceneWithMarkers_469020(session::ClientSession& session)
 {
-    DrawMapScene_46CF60(1);
+    DrawMapScene_46CF60(session, 1);
 }
 
 // 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
@@ -209,7 +210,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(ResetMapDrawCacheCounts_46BD40());
-    DrawMapScene_46CF60(0);
+    DrawMapScene_46CF60(session, 0);
     const std::int32_t imageNo = session.WorldScene().battle.backgroundImage;
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
@@ -229,7 +230,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 namespace cg::world {
 
 // 原函数：0x0046CF60。
-void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
+void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t mode = gMapResourceMode_9DAD68;
@@ -301,7 +302,7 @@ void __cdecl DrawMapScene_46CF60(const std::int32_t markers)
             const std::int32_t index = gMapSpanX * row + column;
             if (cutMode) {
                 detail::DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
-                detail::DrawCutObject(gMapObjArray[index], column, row, drawX, drawY, descriptor);
+                detail::DrawCutObject(session, gMapObjArray[index], column, row, drawX, drawY, descriptor);
             } else {
                 detail::DrawNormalMapCell(index, diagonal, row, drawX, drawY, markers);
             }

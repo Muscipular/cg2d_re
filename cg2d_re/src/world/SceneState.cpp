@@ -3312,7 +3312,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const st
 // 原 [0x467F30,0x4681AB)：八次独立临时构造，末尾透传表的一过尾指针。
 std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
 {
-    SetWorldMapMetadata_4682E0(0, 0, 0, 0, 0, 0, 0, 0);
+    SetWorldMapMetadata_4682E0(session, 0, 0, 0, 0, 0, 0, 0, 0);
     static_cast<void>(SetPlayerMapPosition_468330(0, 0));
 
     std::optional<platform::LegacyCryptInt> first;
@@ -3601,7 +3601,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
         audio::ResetBgmPlayback_52B940();
-        DrawMapSceneWithMarkers_469020();
+        DrawMapSceneWithMarkers_469020(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
@@ -3689,7 +3689,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
         InvalidateMapDrawPosition_4691D0();
-        DrawMapSceneWithMarkers_469020();
+        DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
         if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
@@ -3803,7 +3803,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
         InvalidateMapDrawPosition_4691D0();
-        DrawMapSceneWithMarkers_469020();
+        DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render(session));
         render::gRenderQueueMode103CF10 = 0;
@@ -3817,7 +3817,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
-        DrawMapSceneWithMarkers_469020();
+        DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render(session));
         const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
@@ -3862,7 +3862,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             audio::ResetBgmPlayback_52B940();
             static_cast<void>(UpdatePlayerMapWindow_468200());
             InvalidateMapDrawPosition_4691D0();
-            DrawMapSceneWithMarkers_469020();
+            DrawMapSceneWithMarkers_469020(session);
             if (audio::gBgmRequest1050810 == 0) {
                 if (worldScene.mapBgmChangePending != 0) {
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
@@ -3960,7 +3960,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
         UpdateMapEffects_46E4A0();
-        DrawMapSceneWithMarkers_469020();
+        DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
@@ -4776,6 +4776,7 @@ std::int32_t __cdecl IsMapTransitionCellActive_46AD00(const std::int32_t x, cons
 
 // 原 [0x4682E0, 0x468330)；GVC01去掉两次无消费者写入，保留参数与资源初始化顺序。
 void __cdecl SetWorldMapMetadata_4682E0(
+    session::ClientSession& session,
     std::uint32_t a1,
     std::int32_t a2,
     std::uint32_t a3,
@@ -4789,11 +4790,12 @@ void __cdecl SetWorldMapMetadata_4682E0(
     gMapHeight_C821D4 = a4;
     gCurrentMapId_9A86DC = a1;
     gMapFloor = a2;
-    InitializeMapSceneResources_46DA80(a1, a2, a8, a7);
+    InitializeMapSceneResources_46DA80(session, a1, a2, a8, a7);
 }
 
 // 原 [0x46DA80, 0x46DAF5)；模式 1 的加载器必须保留调用次序。
 void __cdecl InitializeMapSceneResources_46DA80(
+    session::ClientSession& session,
     std::uint32_t a1,
     std::int32_t a2,
     std::int32_t a3,
@@ -4812,7 +4814,7 @@ void __cdecl InitializeMapSceneResources_46DA80(
     gMapSceneSelectedResourceMirror_9DAD64 = selected;
     LoadCutMapData_46DB00(selected);
     LoadAutoMapColorData_46DC90(selected);
-    cg::yobi::ClearRegisteredMapActions_46DD40();
+    cg::yobi::ClearRegisteredMapActions_46DD40(session);
 }
 
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
@@ -10375,7 +10377,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
 
     static_cast<void>(detail::EnsureMapCacheFile_468570(
         gMapCachePathKey_9E0434, a2, a3, a4, a5, a8, a9));
-    detail::SetWorldMapMetadata_4682E0(
+    detail::SetWorldMapMetadata_4682E0(connection.Owner(),
         static_cast<std::uint32_t>(a2), a3,
         static_cast<std::uint32_t>(a4), static_cast<std::uint32_t>(a5),
         static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),

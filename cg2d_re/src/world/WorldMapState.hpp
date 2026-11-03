@@ -138,7 +138,7 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& networ
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
 std::int32_t DrawCurrentAutoMap_46C760(std::int32_t x, std::int32_t y);
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
-void __cdecl DrawMapScene_46CF60(std::int32_t value);
+void __cdecl DrawMapScene_46CF60(session::ClientSession& session, std::int32_t value);
 // 原函数：0x0046CF00。
 std::int32_t __cdecl ResolveMapGraphicNumber_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
 // 原函数：0x0046F8F0。
@@ -355,6 +355,7 @@ extern std::int32_t gValuesC35010[65536]; // 原全局：0x00C35010。
 
 // 原函数：0x004682E0。
 void __cdecl SetWorldMapMetadata_4682E0(
+    session::ClientSession& session,
     std::uint32_t a1,
     std::int32_t a2,
     std::uint32_t a3,
@@ -365,6 +366,7 @@ void __cdecl SetWorldMapMetadata_4682E0(
     std::int32_t a8); // 原 [0x4682E0,0x468330)，六槽赋值与参数分发。
 // 原函数：0x0046DA80。
 void __cdecl InitializeMapSceneResources_46DA80(
+    session::ClientSession& session,
     std::uint32_t a1,
     std::int32_t a2,
     std::int32_t a3,
@@ -429,7 +431,7 @@ extern std::uint32_t gAutoMapWindowDirty_55DA88; // 原全局：0x0055DA88。 �
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
 std::int32_t LoadAutoMapWindow_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。
-void DrawMapSceneWithMarkers_469020();
+void DrawMapSceneWithMarkers_469020(session::ClientSession& session);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl BuildGraphicMapWalkability_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,

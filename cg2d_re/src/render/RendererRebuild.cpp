@@ -42,7 +42,7 @@ void RebuildRenderer_466B80(session::ClientSession& session)
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(ResetGraphicCache_456D30());
         static_cast<void>(world::ResetMapDrawCacheCounts_46BD40());
-        world::DrawMapScene_46CF60(0);
+        world::DrawMapScene_46CF60(session, 0);
         static_cast<void>(cg::render::DrawBattleBackgroundScaled(
             200, session.WorldScene().battle.backgroundImage));
         SortTextures_520790();

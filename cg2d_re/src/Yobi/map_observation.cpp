@@ -6,6 +6,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "../world/PlayerState.hpp"
 #include "../world/WorldMapState.hpp"
@@ -16,7 +17,6 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <tuple>
 #include <type_traits>
 
 namespace cg::yobi {
@@ -69,26 +69,6 @@ static_assert(offsetof(MapCharaPayload, frame) == 0x40);
 static_assert(offsetof(MapCharaPayload, next) == 0x48);
 
 static_assert(sizeof(MapCharaPayload) == 0x50);
-
-static constexpr std::size_t kYobiRegistryRowCount = 399;
-
-static constexpr std::size_t kYobiRegistryColumnCount = 399;
-
-static constexpr std::size_t kYobiRegistryEntryCount =
-    kYobiRegistryRowCount * kYobiRegistryColumnCount;
-
-// 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
-static std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
-
-static std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
-
-static_assert(
-    std::tuple_size_v<decltype(gYobiRegistryFlags)>
-    == std::size_t{399} * std::size_t{399});
-
-static_assert(
-    std::tuple_size_v<decltype(gYobiRegistryActions)>
-    == std::size_t{399} * std::size_t{399});
 
 static YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
 
@@ -995,31 +975,32 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
 } // namespace detail
 
 // 原函数：0x0046DD40。
-void ClearRegisteredMapActions_46DD40()
+void ClearRegisteredMapActions_46DD40(session::ClientSession& session)
 {
-    for (std::size_t row = 0; row < detail::kYobiRegistryRowCount; ++row) {
-        const std::size_t rowOffset = row * detail::kYobiRegistryColumnCount;
+    auto& registry = session.Yobi();
+    for (std::size_t row = 0; row < kMapRegistryRows; ++row) {
+        const std::size_t rowOffset = row * kMapRegistryColumns;
         for (std::size_t column = 0;
-             column < detail::kYobiRegistryColumnCount;
+             column < kMapRegistryColumns;
              ++column) {
             const std::size_t index = rowOffset + column;
-            if (detail::gYobiRegistryFlags[index] == std::uint8_t{1}) {
-                detail::gYobiRegistryFlags[index] = std::uint8_t{0};
-                YobiAction* const action = detail::gYobiRegistryActions[index];
+            if (registry.mapRegistryFlags[index] == std::uint8_t{1}) {
+                registry.mapRegistryFlags[index] = std::uint8_t{0};
+                YobiAction* const action = registry.mapRegistryActions[index];
                 MarkDeath(action);
             }
         }
     }
 }
 
-std::uint8_t& MapYobiRegistryFlagAt(const std::int32_t index) noexcept
+std::uint8_t& MapYobiRegistryFlagAt(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    return detail::gYobiRegistryFlags.data()[index];
+    return session.Yobi().mapRegistryFlags.data()[index];
 }
 
-YobiAction*& MapYobiRegistryActionAt(const std::int32_t index) noexcept
+YobiAction*& MapYobiRegistryActionAt(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    return detail::gYobiRegistryActions.data()[index];
+    return session.Yobi().mapRegistryActions.data()[index];
 }
 
 void SetYobiMapOffsetX(YobiAction* const action, const std::int32_t value) noexcept
@@ -1095,9 +1076,10 @@ std::int32_t HandleMapObservationActionReply_440920(
 
 // 原函数：0x0046DE50。
 YobiAction* CreateRegisteredMapGraphicAction_46DE50(
+    session::ClientSession& session,
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(session, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

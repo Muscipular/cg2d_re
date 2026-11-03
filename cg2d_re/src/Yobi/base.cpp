@@ -367,7 +367,7 @@ YobiAction* MarkDeath(YobiAction* const action)
 void YobiClearUp_404D30(session::ClientSession& session)
 {
     YobiAction* current = session.Yobi().start->next;
-    ClearRegisteredMapActions_46DD40();
+    ClearRegisteredMapActions_46DD40(session);
     while (current != session.Yobi().end) {
         current->deathFlag = 1;
         current = current->next;

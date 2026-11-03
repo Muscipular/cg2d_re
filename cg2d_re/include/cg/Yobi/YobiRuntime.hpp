@@ -174,7 +174,7 @@ enum class YobiPayloadKind : std::uint8_t {
 
 
 // 原46DD40：清除地图注册标记并给对应动作标死。
-void ClearRegisteredMapActions_46DD40();
+void ClearRegisteredMapActions_46DD40(session::ClientSession& session);
 
 
 // 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
@@ -334,12 +334,12 @@ void SetMapActorAnimationState_43EFC0(
     std::int32_t restart); // characterAction见CharacterAnimationId；主对象／坐骑映射及附件播放重置。
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
-YobiAction* CreateRegisteredMapGraphicAction_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
+YobiAction* CreateRegisteredMapGraphicAction_46DE50(session::ClientSession& session, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 // 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。
 void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* action);
-// 46CF60 同步借用唯一 399x399 注册表槽；指针不拥有对象，不新增索引门禁。
-std::uint8_t& MapYobiRegistryFlagAt(std::int32_t index) noexcept;
-YobiAction*& MapYobiRegistryActionAt(std::int32_t index) noexcept;
+// 46CF60 同步借用当前会话的 399x399 注册表槽；指针不拥有对象，不新增索引门禁。
+std::uint8_t& MapYobiRegistryFlagAt(session::ClientSession& session, std::int32_t index) noexcept;
+YobiAction*& MapYobiRegistryActionAt(session::ClientSession& session, std::int32_t index) noexcept;
 // 原 +314/+318 分别写入；父函数两次独立索引/借用，不合并成对象快照。
 void SetYobiMapOffsetX(YobiAction* action, std::int32_t value) noexcept;
 void SetYobiMapOffsetY(YobiAction* action, std::int32_t value) noexcept;

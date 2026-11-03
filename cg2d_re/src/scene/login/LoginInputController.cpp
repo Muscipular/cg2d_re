@@ -54,9 +54,9 @@ static constexpr Capability4InputButton32 kCapability4ExitButton {
 };
 
 // 原函数：0x00464E30。
-std::int32_t ProcessCapability4Input_464E30()
+std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     Capability4InputButton32 loginButton = kCapability4LoginButton;
     Capability4InputButton32 exitButton = kCapability4ExitButton;
     std::int32_t result = 0;

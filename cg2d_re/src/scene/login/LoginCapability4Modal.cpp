@@ -53,15 +53,15 @@ static std::int32_t MultiplyW32(
 }
 
 // 原函数：0x00464440。
-void ResetCapability4Modal_464440()
+void ResetCapability4Modal_464440(network::CgConnection& connection)
 {
-    cg::network::GetGameConnection().LoginSceneUi().capability4Modal.initialized = 0;
+    connection.LoginSceneUi().capability4Modal.initialized = 0;
 }
 
 // 原函数：0x00464450。
-std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
+std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, const std::wstring_view text)
 {
-    auto& modal = cg::network::GetGameConnection().LoginSceneUi().capability4Modal;
+    auto& modal = connection.LoginSceneUi().capability4Modal;
     std::wstring splitText(text);
 
     std::int32_t lineCount = 1;

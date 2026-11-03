@@ -72,7 +72,7 @@ void Update(session::ClientSession& session)
             UpdateCapability3LoginScene_45F190(session.Connection());
             break;
         case 4:
-            UpdateCapability4LoginScene_464840();
+            UpdateCapability4LoginScene_464840(session.Connection());
             break;
         default:
             break;

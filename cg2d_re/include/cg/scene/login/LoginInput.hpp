@@ -38,7 +38,7 @@ inline constexpr std::size_t LoginInputValueCapacity = 51;
 
 // 登录旧GBK字段按密码、账号成组保存；失败提示并保留当前输入／存档。
 bool SaveInputValues(std::wstring_view first, std::wstring_view second);
-bool SaveCapability4InputSlot();
+bool SaveCapability4InputSlot(network::CgConnection& connection);
 
 // 原 sub_5203B0@[0x5203B0,0x5203D6)，写入 0xFF494F 的51字节密码槽。
 const wchar_t* WriteInputValueFF494F_5203B0(const wchar_t* source);
@@ -68,19 +68,19 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection);
 void InitializeCapabilityInput_45F970(network::CgConnection& connection);
 
 // 原 sub_465320@[0x465320,0x465429)：能力 4 登录输入初始化。
-void InitializeCapability4Input_465320();
+void InitializeCapability4Input_465320(network::CgConnection& connection);
 
 // 原 sub_465740@[0x465740,0x465788)：保存能力 4 输入并切换持久槽。
-void SaveAndSwitchCapability4InputSlot_465740(std::int32_t newSlot);
+void SaveAndSwitchCapability4InputSlot_465740(network::CgConnection& connection, std::int32_t newSlot);
 
 // 原 sub_465430@[0x465430,0x46573D)：能力 4 持久槽选择器。
-std::int32_t ProcessCapability4SavedSlotSelector_465430();
+std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& connection);
 
 // 原 sub_45FA70@[0x45FA70,0x45FE9C)：能力 3 登录输入控制器。
 std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, std::int32_t mode);
 
 // 原 sub_464E30@[0x464E30,0x46531E)：能力 4 登录输入控制器。
-std::int32_t ProcessCapability4Input_464E30();
+std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection);
 
 // 原 sub_45CA20@[0x45CA20,0x45CDF6)：登录输入与两个提交控件控制器。
 std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, std::int32_t mode);

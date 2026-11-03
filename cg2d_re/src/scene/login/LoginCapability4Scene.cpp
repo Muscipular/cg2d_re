@@ -31,18 +31,18 @@ static std::int32_t DrawCapability4Base()
     return cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99657, 0, -1));
 }
 
-static std::int32_t ProcessCapability4CommonTail()
+static std::int32_t ProcessCapability4CommonTail(network::CgConnection& connection)
 {
     static_cast<void>(DrawCapability4Base());
     static_cast<void>(
         cg::render::QueueOriginalPaletteGraphic_45F090(69, 350, 206, 246680, 0, -1));
-    return cg::login::ProcessCapability4SavedSlotSelector_465430();
+    return cg::login::ProcessCapability4SavedSlotSelector_465430(connection);
 }
 
 // 原函数：0x00464840。
-std::int32_t UpdateCapability4LoginScene_464840()
+std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     const std::int32_t sampledState = world::gCurrentSceneState;
     const std::uint32_t state =
         std::bit_cast<std::uint32_t>(sampledState);
@@ -137,7 +137,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
     case 2:
         sceneUi.capability4FrameCounter = 0;
         static_cast<void>(cg::login::detail::InitializeSavedState_533300());
-        login::InitializeCapability4Input_465320();
+        login::InitializeCapability4Input_465320(connection);
         world::gCurrentSceneState = 3;
         return DrawCapability4Base();
 
@@ -148,9 +148,9 @@ std::int32_t UpdateCapability4LoginScene_464840()
         }
 
         const std::int32_t result =
-            login::ProcessCapability4Input_464E30();
+            login::ProcessCapability4Input_464E30(connection);
         if (result == 1) {
-            if (!login::SaveCapability4InputSlot()) {
+            if (!login::SaveCapability4InputSlot(connection)) {
                 return DrawCapability4Base();
             }
             login::detail::SaveCredentialRecordsWithoutPasswords_533730();
@@ -181,7 +181,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
                     newPhysical == mappedPhysical ? 5 : 7;
             }
         }
-        return ProcessCapability4CommonTail();
+        return ProcessCapability4CommonTail(connection);
     }
 
     case 4: {
@@ -197,7 +197,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
     }
 
     case 5: {
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         world::gCurrentSceneState = 6;
@@ -206,13 +206,13 @@ std::int32_t UpdateCapability4LoginScene_464840()
 
     case 6:
         sceneUi.capability4Message = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
-        if (login::UpdateLoginMessage(sceneUi.capability4Message) != 0) {
+        if (login::UpdateLoginMessage(connection, sceneUi.capability4Message) != 0) {
             world::gCurrentSceneState = 2;
         }
-        return ProcessCapability4CommonTail();
+        return ProcessCapability4CommonTail(connection);
 
     case 7: {
-        login::detail::ResetCapability4Modal_464440();
+        login::detail::ResetCapability4Modal_464440(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         world::gCurrentSceneState = 8;
@@ -222,13 +222,13 @@ std::int32_t UpdateCapability4LoginScene_464840()
     case 8: {
         sceneUi.capability4Message = L"确定要删除这帐号记录吗？" /* 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。 */;
         const std::int32_t result =
-            login::detail::UpdateCapability4Modal_464450(sceneUi.capability4Message);
+            login::detail::UpdateCapability4Modal_464450(connection, sceneUi.capability4Message);
         if (result == 1) {
             world::gCurrentSceneState = 9;
         } else if (result == 2) {
             world::gCurrentSceneState = 2;
         }
-        return ProcessCapability4CommonTail();
+        return ProcessCapability4CommonTail(connection);
     }
 
     case 9: {
@@ -237,7 +237,7 @@ std::int32_t UpdateCapability4LoginScene_464840()
         const std::int32_t physicalSlot =
             login::detail::ReadMappedSavedPhysicalSlot105C36C(selected);
         static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(physicalSlot));
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         world::gCurrentSceneState = 10;
@@ -246,10 +246,10 @@ std::int32_t UpdateCapability4LoginScene_464840()
 
     case 10:
         sceneUi.capability4Message = L"帐号记录已成功删除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
-        if (login::UpdateLoginMessage(sceneUi.capability4Message) != 0) {
+        if (login::UpdateLoginMessage(connection, sceneUi.capability4Message) != 0) {
             world::gCurrentSceneState = 2;
         }
-        return ProcessCapability4CommonTail();
+        return ProcessCapability4CommonTail(connection);
     }
 
     return sampledState;

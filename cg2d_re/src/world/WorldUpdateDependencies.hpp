@@ -25,7 +25,7 @@ extern std::uint64_t gMapNoticeStartTick_62B5B0; // 原全局：0x0062B5B0。
 // 原函数：0x0045F190。
 std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connection); // 原 0x45F190。
 // 原函数：0x00464840。
-std::int32_t UpdateCapability4LoginScene_464840();                 // 原 0x464840。
+std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connection); // 原 0x464840。
 // 原函数：0x00476680。
 void DrawChatRangeOverlay_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 // 原函数：0x0050C870。

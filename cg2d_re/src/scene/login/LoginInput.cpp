@@ -111,9 +111,9 @@ bool SaveInputValues(const std::wstring_view first, const std::wstring_view seco
 }
 
 // 原0x00533570/0x005335B0/0x00533640：三个51字节字段先全组校验，再发布。
-bool SaveCapability4InputSlot()
+bool SaveCapability4InputSlot(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::array<std::array<char, kStoredInputValueSize>, 3> stored;
     try {
         cg::text::StoreGbk(stored[0].data(), stored[0].size(), input::ContextText(sceneUi.context9A4D20));
@@ -449,9 +449,9 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
 }
 
 // 原函数：0x00465320。
-void InitializeCapability4Input_465320()
+void InitializeCapability4Input_465320(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::wstring initialText;
 
     render::gPaletteCapability =
@@ -512,19 +512,19 @@ void InitializeCapability4Input_465320()
 
 // 原函数：0x00465740。
 void SaveAndSwitchCapability4InputSlot_465740(
-    const std::int32_t newSlot)
+    network::CgConnection& connection, const std::int32_t newSlot)
 {
-    if (!SaveCapability4InputSlot()) {
+    if (!SaveCapability4InputSlot(connection)) {
         return;
     }
 
     detail::SaveCredentialRecordsWithoutPasswords_533730();
     detail::gSelectedSavedSlot105C394 = newSlot;
-    InitializeCapability4Input_465320();
+    InitializeCapability4Input_465320(connection);
 }
 
 // 原函数：0x00465430。
-std::int32_t ProcessCapability4SavedSlotSelector_465430()
+std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& connection)
 {
     std::int32_t visibleCount =
         detail::gVisibleSavedSlotCount105C364;
@@ -548,7 +548,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
             hoveredSlot = slotIndex;
             if ((click & 0x01U) != 0) {
                 detail::PlaySe(51, 320, 240);
-                SaveAndSwitchCapability4InputSlot_465740(slotIndex);
+                SaveAndSwitchCapability4InputSlot_465740(connection, slotIndex);
             }
         }
 

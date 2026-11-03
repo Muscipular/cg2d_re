@@ -688,7 +688,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
                     WindowInstance* const window = currentWindow;
                     const std::int32_t y = window->y;
                     const std::int32_t x = window->x;
-                    static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
+                    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
                 } else {
                     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }

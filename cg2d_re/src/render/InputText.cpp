@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -14,7 +15,7 @@
 namespace cg::render {
 
 // 原函数：0x004568A0。
-void DrawInputText_4568A0(input::InputContext* const context)
+void DrawInputText_4568A0(session::ClientSession& session, input::InputContext* const context)
 {
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     if (std::bit_cast<std::int32_t>(initialCountBits) >= MAX_QUEUE_SIZE) {
@@ -84,7 +85,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         }
         ++platform::gPendingGraphicCount2;
     }
-    if (input::gCurrentInputData != context) {
+    if (session.UiFrame().inputState.currentContext != context) {
         return;
     }
     if (context->maxCharPerLine > 0 && context->maxLine >= 2) {

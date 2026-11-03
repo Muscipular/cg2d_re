@@ -407,8 +407,8 @@ static void WindowBank_Release(WindowInstance& releasedWindow)
     if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
-    if (input::IsCurrentContext_503E40(nullptr)) {
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+    if (input::IsCurrentContext_503E40(*releasedWindow.ownerSession, nullptr)) {
+        input::SetContext_44B330(*releasedWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
     }
 }
 
@@ -531,7 +531,7 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
     auto* const handleAmount_32Element = elementsWindow->FindElementById(WindowBankElementId::HandleAmount_32);
     if (handleAmountElement && handleAmount_32Element) {
         if (handleAmountElement->visible == 0 && handleAmount_32Element->visible == 0) {
-            if (input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018) {
+            if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018) {
                 static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             }
             return 0;
@@ -539,8 +539,8 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].window;
-        static_cast<void>(WindowInput_ActivateElement(&gStorageInputPrototype57EBA0, 0, -100, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextCA0018);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gStorageInputPrototype57EBA0, 0, -100, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0018);
         auto* const focusAmountInputElement = window ? window->FindElementById(WindowBankElementId::FocusAmountInput) : nullptr;
         if (focusAmountInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = focusAmountInputElement->data.input;
@@ -1647,7 +1647,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
+            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
         result = WindowInput_HandleNumber(currentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
@@ -1661,7 +1661,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             maximum = amount;
         }
         const std::uint8_t keyboard =
-            input::gCurrentInputData == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
+            callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCA0018 ? 2 : 0;
         result = WindowInput_HandleNumber(currentWindow, 31, state, maximum, 223,
             gStorageWithdrawHints57EDEC.data(), keyboard, 0xFFFFFFFFu);
     }

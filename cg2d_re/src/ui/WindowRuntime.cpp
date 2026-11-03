@@ -3211,7 +3211,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
-            static_cast<void>(WindowChat_SwitchMode());
+            static_cast<void>(WindowChat_SwitchMode(session));
         }
         return;
     }
@@ -3221,12 +3221,12 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
-            if (input::gChatPanelVisible_C9A96C == 1) {
-                input::gChatPanelVisible_C9A96C = 0;
-                input::gChatLogSuppressed_626C14 = 1;
+            if (session.UiFrame().inputState.chatPanelVisible == 1) {
+                session.UiFrame().inputState.chatPanelVisible = 0;
+                session.UiFrame().inputState.chatLogSuppressed = 1;
             } else {
-                input::gChatPanelVisible_C9A96C = 1;
-                input::gChatLogSuppressed_626C14 = 0;
+                session.UiFrame().inputState.chatPanelVisible = 1;
+                session.UiFrame().inputState.chatLogSuppressed = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -3352,7 +3352,7 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
     gPreviewActionD67B84 = nullptr;
-    input::gChatPanelVisible_C9A96C = 1;
+    session.UiFrame().inputState.chatPanelVisible = 1;
     static_cast<void>(WindowChat_RestoreInput(session));
 }
 
@@ -3392,7 +3392,7 @@ static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
     WindowRuntime_ResetOperationReferences(session);
     WindowInstance* const window22 = states[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
-    input::gChatPanelVisible_C9A96C = 1;
+    session.UiFrame().inputState.chatPanelVisible = 1;
     if (window22 == nullptr && states[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput(session));
     }
@@ -3417,10 +3417,10 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
     gSelectedItemCB1DF4 = -1;
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
-    const std::int32_t inputGate = input::gChatLogSuppressed_626C14;
+    const std::int32_t inputGate = session.UiFrame().inputState.chatLogSuppressed;
     gPreviewActionD67B84 = nullptr;
     if (inputGate == 0) {
-        input::gChatPanelVisible_C9A96C = 1;
+        session.UiFrame().inputState.chatPanelVisible = 1;
     }
     if (WindowRuntime_States(session)[WindowId_MailCompose].window == nullptr && WindowRuntime_States(session)[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput(session));
@@ -4283,6 +4283,7 @@ std::int32_t WindowElement_HandleVerticalScroll(WindowInstance& callbackWindow, 
 // WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
 // 原函数：0x00476570。
 std::uint8_t WindowInput_ActivateElement(
+    session::ClientSession& session,
     WindowInputPrototype* const prototype, const std::int32_t x,
     const std::int32_t y, const std::uint32_t mode)
 {
@@ -4306,6 +4307,7 @@ std::uint8_t WindowInput_ActivateElement(
         const std::int32_t inputY = prototype->y + y;
         const std::int32_t inputX = prototype->x + x;
         input::InitializeContext_449CF0(
+            session,
             context, inputX, inputY, renderMode, fontType, color, text,
             maxLine, maxCharPerLine, value224, encrypt);
         return 1;
@@ -4397,7 +4399,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
         try { return callback(); }
         catch (const cg::text::GbkStorageError&) {
             encodingFailed = true;
-            input::InputContext* const context = input::gCurrentInputData;
+            input::InputContext* const context = session.UiFrame().inputState.currentContext;
             const std::wstring contents = context != nullptr ? input::ContextText(*context) : std::wstring{};
             if (!frame.reportedFailure || frame.reportedContext != context || frame.reportedText != contents) {
                 frame.reportedContext = context;
@@ -4531,7 +4533,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
         }
     }
     WindowRuntime_ProcessShortcuts(session);
-    static_cast<void>(input::ProcessPresetHotkeys_44B340());
+    static_cast<void>(input::ProcessPresetHotkeys_44B340(session));
     const std::int32_t phase = pointer.phase;
     pointer.currentWindowId = 0;
     if (phase == 1
@@ -5184,17 +5186,17 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
         WindowElement_PrepareInput(*element, ox, oy, clip);
         const auto* const data = element->data.input;
         if (data == window.ownerSession->UiFrame().native.pointer.focusedElementData) {
-            if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
-                if (input::gChatPanelVisible_C9A96C == 1) {
-                    WindowChat_DrawInput(data->context);
+            if (window.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContext626AA0) {
+                if (window.ownerSession->UiFrame().inputState.chatPanelVisible == 1) {
+                    WindowChat_DrawInput(*window.ownerSession, data->context);
                 }
             } else if (data != nullptr && data->ownedInput != nullptr) {
                 // Lua输入沿原生正文/光标坐标计算，但独立入队并使用控件实际宽度。
                 render::ClearTextQueueTail_456D50(3);
-                render::DrawInputText_4568A0(data->context);
+                render::DrawInputText_4568A0(*window.ownerSession, data->context);
                 render::ClearTextQueueTail_456D50(3);
             } else if (data != nullptr) {
-                WindowChat_DrawFixedWidthInput(data->context);
+                WindowChat_DrawFixedWidthInput(*window.ownerSession, data->context);
             }
         }
         break;

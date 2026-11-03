@@ -876,6 +876,7 @@ std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, st
 // WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
 // 原函数：0x00476570。
 std::uint8_t WindowInput_ActivateElement(
+    session::ClientSession& session,
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);
 // 原函数：0x004A7B00。
@@ -884,10 +885,10 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session);
 WindowInstance* WindowRuntime_FindById(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7590。
-void WindowChat_DrawInput(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
+void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
 // CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7640。
-void WindowChat_DrawFixedWidthInput(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
+void WindowChat_DrawFixedWidthInput(session::ClientSession& session, input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
 // CLD01：日志分行/字体回写与尺寸合同；见doc/cg2d_chat_log_line_drawing_spec.md。
 // 原函数：0x004A7750。
 void WindowChat_DrawHistory(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
@@ -1009,7 +1010,7 @@ std::int32_t WindowBlacklist_ResetState(); // 三个UI数值依序写5/0/0。
 // 原函数：0x004CBD30。
 void WindowAdventureLog_InitializeDate(); // 首次借用原localtime对象并写同源日志文件名。
 // 原函数：0x004A8330。
-WindowInstance* WindowChat_SwitchMode(); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
+WindowInstance* WindowChat_SwitchMode(session::ClientSession& session); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
 // 原函数：0x004A6DB0。
 std::int32_t WindowChat_ResetScrollRequests(); // 仅重置回看、两调整请求与数量。
 // 原函数：0x0044B170。

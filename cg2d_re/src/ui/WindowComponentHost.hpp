@@ -68,15 +68,14 @@ inline auto& gWindowHasFocus = ui::detail::gWindowHasFocusCA0AB4;
 inline auto& gCurrentWindow = ui::detail::gCurrentWindow;
 inline auto& gCurrentWindowState = ui::detail::gCurrentWindowState;
 using ui::detail::WindowRuntime_States;
-inline auto& gCurrentInputData = input::gCurrentInputData;
 inline auto* const gDefaultInputData = &ui::detail::gInputContext626AA0;
 
 inline bool MouseIsInRect(int x, int y, int w, int h) {
     const int mx = static_cast<std::int32_t>(gMouseX), my = static_cast<std::int32_t>(gMouseY);
     return mx >= x && mx < x + w && my >= y && my < y + h;
 }
-inline void InputSetContext(InputContext* context) { input::SetContext_44B330(context); }
-inline void RendererDrawInputText(InputContext* context) { render::DrawInputText_4568A0(context); }
+inline void InputSetContext(session::ClientSession& session, InputContext* context) { input::SetContext_44B330(session, context); }
+inline void RendererDrawInputText(session::ClientSession& session, InputContext* context) { render::DrawInputText_4568A0(session, context); }
 inline int FontMeasure(std::wstring_view value, int font) {
     return render::TextMeasure(value, font);
 }

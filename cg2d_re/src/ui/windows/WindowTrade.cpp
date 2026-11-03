@@ -1110,7 +1110,7 @@ static std::int32_t WindowTrade_HandlePanel(
         std::uint32_t color;
         color = descriptor->color;
         const std::uint8_t flags =
-            input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8 ? 3 : 1;
+            window->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCC21E8 ? 3 : 1;
         numericResult = WindowInput_HandleNumber(
             window, numericElement, state, maximum, 223, gTradeNumberHints5805FC.data(),
             flags, color);
@@ -2228,8 +2228,8 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
     if (gTradeValueD6742C == 2) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Trade].window;
-            static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTradeInputPrototype5803D0, 0, -100, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCC21E8);
             auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
             if (handleAmountInputElement) {
                 callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleAmountInputElement->data.input;
@@ -2240,7 +2240,7 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
                 data->context = &cg::ui::detail::gInputContextCC21E8;
             }
         }
-    } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
+    } else if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCC21E8) {
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     return 0;

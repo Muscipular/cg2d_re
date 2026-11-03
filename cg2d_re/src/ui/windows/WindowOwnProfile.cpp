@@ -198,14 +198,14 @@ static void WindowOwnProfile_RefreshEntry(
     if (!currentWindow) return;
     auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
     const std::int32_t element = index + 9;
-    const bool editing = input::gCurrentInputData == context;
+    const bool editing = currentWindow->ownerSession->UiFrame().inputState.currentContext == context;
     auto* elementsWindow = currentWindow;
     if (editing) {
         if (auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 1));
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, prototype, x, y, 1));
         const auto& text = input::ContextText(*prototype->input.context);
         char fileBytes[256]{};
         cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
@@ -305,14 +305,14 @@ static void WindowOwnProfile_Refresh()
     WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
     WindowOwnProfile_RefreshEntry(2, &cg::ui::detail::gInputContextCAFEC8, &gOwnProfileInputPrototype57D348);
 
-    if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2D828) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextD2D828) {
         for (std::int32_t index = 12; index < 16; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gOwnProfileInputPrototype57D578, x, y, 1));
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gOwnProfileInputPrototype57D578, x, y, 1));
         const auto& text = input::ContextText(*gOwnProfileInputPrototype57D578.input.context);
         char fileBytes[256]{};
         cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
@@ -410,8 +410,8 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
             prototype->text = source;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
-            input::SetContext_44B330(context);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, prototype, x, y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, context);
             WindowInstance* const focused = currentWindow;
             auto* const indexedElement2 = focused->FindElementById(elementId);
             if (indexedElement2) {

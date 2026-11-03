@@ -128,7 +128,7 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
         }
     }
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    if (value == -1 && input::gCurrentInputData == &gInputContextD2D4A0) {
+    if (value == -1 && callbackWindow.ownerSession->UiFrame().inputState.currentContext == &gInputContextD2D4A0) {
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     const auto petIndex = std::bit_cast<std::int16_t>(

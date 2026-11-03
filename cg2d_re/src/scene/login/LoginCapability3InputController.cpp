@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
@@ -65,11 +66,11 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
 
     if (mode < 2) {
         const std::int32_t measureFontType =
-            input::gCurrentInputData->fontType;
+            connection.Owner().UiFrame().inputState.currentContext->fontType;
         const std::int32_t compositionWidth = cg::render::TextMeasure(
             platform::gImeComposition,
             measureFontType);
-        input::InputContext* const drawContext = input::gCurrentInputData;
+        input::InputContext* const drawContext = connection.Owner().UiFrame().inputState.currentContext;
         const std::int32_t drawY = drawContext->y;
         const std::int32_t drawX = drawContext->x;
         const std::int32_t drawFontType = drawContext->fontType;
@@ -84,9 +85,9 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
             211,
             0,
             1);
-        render::DrawInputText_4568A0(&sceneUi.context9A4D20);
-        render::DrawInputText_4568A0(&sceneUi.context9A5960);
-        render::DrawInputText_4568A0(&sceneUi.context9A5678);
+        render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A4D20);
+        render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5960);
+        render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5678);
     }
 
     std::int32_t requestedFocus = -1;
@@ -147,7 +148,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
     }
 
     if (mode > 0) {
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         sceneUi.capability3InputPending = 1;
     } else {
         std::int32_t selectedFocus = requestedFocus;
@@ -159,6 +160,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
 
         if (applyFocus) {
             input::SetContext_44B330(
+                connection.Owner(),
                 sceneUi.inputFocusTable[selectedFocus]);
             sceneUi.capability3InputPending = 0;
             sceneUi.capability3InputFocus = selectedFocus;

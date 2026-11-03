@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -75,12 +76,13 @@ static std::wstring CandidateText(
 }
 
 static void DrawCandidateEntry(
+    session::ClientSession& session,
     const std::uint32_t pageIndex,
     const std::int32_t targetStart,
     std::int32_t& units)
 {
     const std::int32_t oldUnits = units; // UTL01：本地累计值现在是实际像素，非旧GBK字节列。
-    input::InputContext* const context = input::gCurrentInputData;
+    input::InputContext* const context = session.UiFrame().inputState.currentContext;
     const std::int32_t fontType = render::ResolveFontId(context->fontType);
     const std::int32_t height = render::GetFontMetrics(fontType).doubleHeight;
     const std::wstring number = std::to_wstring(std::bit_cast<std::int32_t>(pageIndex + 1U));
@@ -101,6 +103,7 @@ static void DrawCandidateEntry(
 }
 
 static void DrawCandidates(
+    session::ClientSession& session,
     const std::int32_t targetStart,
     const CANDIDATELIST* candidateList)
 {
@@ -112,7 +115,7 @@ static void DrawCandidates(
         const std::uint32_t count = candidateList->dwCount;
         const std::uint32_t candidateIndex = pageStart + pageIndex;
         if (candidateIndex < count) {
-            DrawCandidateEntry(pageIndex, targetStart, units);
+            DrawCandidateEntry(session, pageIndex, targetStart, units);
             // 原459556只在有效项绘框后重读；跳过项沿本轮表。
             candidateList = CurrentCandidateList();
         }
@@ -122,7 +125,7 @@ static void DrawCandidates(
 }
 
 // 原 World::RenderInput@[0x4590E0,0x45957E)。
-void RenderInput_4590E0()
+void RenderInput_4590E0(session::ClientSession& session)
 {
     const wchar_t initialCompositionUnit = platform::gImeComposition[0];
     std::size_t compositionOffset = 0;
@@ -139,7 +142,7 @@ void RenderInput_4590E0()
 
     const std::int32_t descriptionGate = gInputAndHoverSuppressed_D460C8;
     const std::uint8_t capsState = keyboardState[VK_CAPITAL];
-    input::InputContext* context = input::gCurrentInputData;
+    input::InputContext* context = session.UiFrame().inputState.currentContext;
     if (descriptionGate == 0 && context != nullptr) {
         if (isIme != 0) {
             const HKL keyboardLayout = GetKeyboardLayout(0);
@@ -175,7 +178,7 @@ void RenderInput_4590E0()
             platform::gImeDescription,
             0,
             0));
-        context = input::gCurrentInputData;
+        context = session.UiFrame().inputState.currentContext;
     }
 
     if (isIme == 0
@@ -195,10 +198,10 @@ void RenderInput_4590E0()
         static_cast<std::int16_t>(compositionX), static_cast<std::int16_t>(compositionY), compositionMode,
         static_cast<std::int8_t>(compositionFontType), 0, platform::gImeComposition, 0));
 
-    input::InputContext* const measureContext = input::gCurrentInputData;
+    input::InputContext* const measureContext = session.UiFrame().inputState.currentContext;
     const std::int32_t compositionWidth = cg::render::TextMeasure(
         platform::gImeComposition, measureContext->fontType);
-    input::InputContext* const boxContext = input::gCurrentInputData;
+    input::InputContext* const boxContext = session.UiFrame().inputState.currentContext;
     const std::int32_t boxY = boxContext->y;
     const std::int32_t boxX = boxContext->x;
     const std::int32_t boxFontType = boxContext->fontType;
@@ -223,12 +226,12 @@ void RenderInput_4590E0()
             }
         }
         compositionOffset = text::Next(composition, compositionOffset);
-        scannedWidth = render::Font::measure(platform::gImeComposition, input::gCurrentInputData->fontType,
+        scannedWidth = render::Font::measure(platform::gImeComposition, session.UiFrame().inputState.currentContext->fontType,
             static_cast<std::int32_t>(compositionOffset));
     }
 
     if (foundTarget) {
-        input::InputContext* const highlightContext = input::gCurrentInputData;
+        input::InputContext* const highlightContext = session.UiFrame().inputState.currentContext;
         const std::int32_t highlightY = highlightContext->y;
         const std::int32_t highlightX = highlightContext->x;
         const std::int32_t highlightFontType = highlightContext->fontType;
@@ -243,7 +246,7 @@ void RenderInput_4590E0()
 
     const CANDIDATELIST* const candidateList = CurrentCandidateList();
     if (candidateList != nullptr && candidateList->dwPageSize != 0U) {
-        DrawCandidates(targetStart, candidateList);
+        DrawCandidates(session, targetStart, candidateList);
     }
 }
 

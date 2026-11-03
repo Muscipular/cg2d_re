@@ -73,7 +73,7 @@ int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
 }
 
 // CTM01/A07：复制后释放剪贴板，再交给既有输入上下文按完整Unicode字符插入。
-static void PasteClipboard(HWND window)
+static void PasteClipboard(session::ClientSession& session, HWND window)
 {
     if (::OpenClipboard(window) == FALSE) {
         return;
@@ -108,7 +108,7 @@ static void PasteClipboard(HWND window)
             contents = text::FromLegacyDisplayWide(static_cast<const char*>(data));
         }
     }
-    input::AppendText(contents);
+    input::AppendText(session, contents);
 }
 
 static inline constexpr UINT kResizeWindowFlags = 0x26u;
@@ -283,7 +283,9 @@ LRESULT CALLBACK WindowProcedure(
     case WM_KEYDOWN:
         if ((wParam32 == 'V' && (::GetKeyState(VK_CONTROL) & 0x8000) != 0)
             || (wParam32 == VK_INSERT && (::GetKeyState(VK_SHIFT) & 0x8000) != 0)) {
-            PasteClipboard(window);
+            if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
+                PasteClipboard(*currentSession, window);
+            }
             return 0;
         }
         RebuildRendererIfGraphicDirty();
@@ -298,7 +300,9 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_PASTE:
-        PasteClipboard(window);
+        if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
+            PasteClipboard(*currentSession, window);
+        }
         return 0;
 
     case WM_SYSKEYDOWN:
@@ -319,6 +323,8 @@ LRESULT CALLBACK WindowProcedure(
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_CHAR: {
+        auto* const currentSession = session::GetClientHost().CurrentSession();
+        if (currentSession == nullptr) return 0;
         const wchar_t unit = static_cast<wchar_t>(wParam);
         if (unit == L'\r' || GetAsyncKeyState(VK_MENU) != 0) {
             return 0;
@@ -331,9 +337,9 @@ LRESULT CALLBACK WindowProcedure(
         }
         const wchar_t units[2] {highSurrogate, unit};
         if (highSurrogate != 0 && unit >= 0xDC00 && unit <= 0xDFFF) {
-            input::AppendText(std::wstring_view(units, 2));
+            input::AppendText(*currentSession, std::wstring_view(units, 2));
         } else {
-            input::AppendText(std::wstring_view(&unit, 1));
+            input::AppendText(*currentSession, std::wstring_view(&unit, 1));
         }
         highSurrogate = 0;
         return 0;
@@ -347,8 +353,10 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_IME_COMPOSITION:
-        static_cast<void>(HandleImeCompositionFlags_459580(std::bit_cast<std::int16_t>(
-            static_cast<std::uint16_t>(lParam32))));
+        if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
+            static_cast<void>(HandleImeCompositionFlags_459580(*currentSession, std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(lParam32))));
+        }
         return 0;
 
     case WM_SYSCOMMAND:

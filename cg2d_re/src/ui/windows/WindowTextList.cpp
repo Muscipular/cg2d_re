@@ -332,7 +332,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCC49C0) {
         if (auto* const editTitleElement = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement) editTitleElement->visible = 1;
         if (auto* const element4 = currentWindow->FindElementById(WindowTextListElementId::Element4); element4) element4->visible = 1;
         if (auto* const element5 = currentWindow->FindElementById(WindowTextListElementId::Element5); element5) element5->visible = 0;
@@ -392,7 +392,7 @@ static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, const st
         auto* const element52 = window->FindElementById(WindowTextListElementId::Element5);
         if (element52) {
             const std::int32_t x = window->x + element52->x;
-            static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57EE10, x, y, 2));
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -636,7 +636,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 244217;
     }
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCC49C0) {
         if (graphic) graphic->imageNo = 244216;
     }
     return consumed;
@@ -704,11 +704,11 @@ static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, con
         auto* const element53 = window->FindElementById(WindowTextListElementId::Element5);
         if (element53) {
             const std::int32_t x = window->x + element53->x;
-            static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 0));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57EE10, x, y, 0));
         }
     }
-    input::SetContext_44B330(&cg::ui::detail::gInputContextCC49C0);
-    input::LoadInitialText_44A160(gWindowTitleCC4118);
+    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCC49C0);
+    input::LoadInitialText_44A160(*callbackWindow.ownerSession, gWindowTitleCC4118);
     WindowInstance* const focusedWindow = currentWindow;
     auto* const element54 = focusedWindow->FindElementById(WindowTextListElementId::Element5);
     if (element54) {

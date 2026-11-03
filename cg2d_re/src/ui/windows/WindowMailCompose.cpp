@@ -107,7 +107,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
         const WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        if (WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0) == 0) {
+        if (WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMailInputPrototype57E740, x, y, 0) == 0) {
             gMailInputPrototype57E740.input.context = &cg::ui::detail::gInputContextD66CA8;
             gMailInputPrototype57E740.input.kind = WindowInputReferenceKind::Context;
         }
@@ -119,7 +119,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
         gMailInputPrototype57E740.value224 = 12;
         cg::ui::detail::gInputContextD66CA8.encrypt = 0;
         gMailInputPrototype57E740.encrypt = 0;
-        input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = currentWindow;
         gMailInputPrototype57E740.text.clear();
         auto* const handleInputElement = focused->FindElementById(WindowMailComposeElementId::HandleInput);
@@ -210,8 +210,8 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != handleInputElement->data.input) {
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
-                static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
-                input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMailInputPrototype57E740, x, y, 1));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD66CA8);
                 WindowInstance* const focused = currentWindow;
                 auto* const handleInputElement2 = focused->FindElementById(WindowMailComposeElementId::HandleInput);
                 if (handleInputElement2) {
@@ -223,8 +223,8 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
         }
         consumed = 1;
     }
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContextD66CA8) {
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextD66CA8);
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextD66CA8) {
+        render::DrawInputText_4568A0(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD66CA8);
     }
     return consumed;
 }
@@ -462,7 +462,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
     const WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    return WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 2);
+    return WindowInput_ActivateElement(*currentWindow->ownerSession, &gMailInputPrototype57E740, x, y, 2);
 }
 
 } // namespace detail

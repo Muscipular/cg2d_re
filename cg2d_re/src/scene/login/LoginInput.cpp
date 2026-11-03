@@ -315,6 +315,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
         input::InitializeContext_449CF0(
+            connection.Owner(),
             &sceneUi.context9A5960,
             sceneUi.context9A5960X,
             sceneUi.context9A5960Y,
@@ -335,6 +336,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
         input::InitializeContext_449CF0(
+            connection.Owner(),
             &sceneUi.context9A5678,
             sceneUi.context9A5678X,
             sceneUi.context9A5678Y,
@@ -354,6 +356,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
         input::InitializeContext_449CF0(
+            connection.Owner(),
             &sceneUi.context9A5960,
             sceneUi.context9A5960X,
             sceneUi.context9A5960Y,
@@ -374,6 +377,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
         input::InitializeContext_449CF0(
+            connection.Owner(),
             &sceneUi.context9A5678,
             sceneUi.context9A5678X,
             sceneUi.context9A5678Y,
@@ -390,7 +394,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
     input::InputContext* const initialContext =
         sceneUi.inputFocusTable[1];
     sceneUi.inputFocusIndex = 1;
-    input::SetContext_44B330(initialContext);
+    input::SetContext_44B330(connection.Owner(), initialContext);
 }
 
 // 原函数：0x0045F970。
@@ -410,6 +414,7 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
     sceneUi.context9A5960.caretByteOffset = 0;
     ReadInputValueFF4982_520440(firstInitialText);
     input::InitializeContext_449CF0(
+        connection.Owner(),
         &sceneUi.context9A5960,
         sceneUi.context9A5960X,
         sceneUi.context9A5960Y,
@@ -430,6 +435,7 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
     sceneUi.context9A5678.caretByteOffset = 0;
     ReadInputValueFF494F_5203E0(secondInitialText);
     input::InitializeContext_449CF0(
+        connection.Owner(),
         &sceneUi.context9A5678,
         sceneUi.context9A5678X,
         sceneUi.context9A5678Y,
@@ -444,7 +450,7 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
     sceneUi.context9A5678.encrypt = 1;
 
     sceneUi.inputFocusIndex = 0;
-    input::SetContext_44B330(sceneUi.inputFocusTable[0]);
+    input::SetContext_44B330(connection.Owner(), sceneUi.inputFocusTable[0]);
     sceneUi.capability3OverlayAlpha = 255;
 }
 
@@ -468,6 +474,7 @@ void InitializeCapability4Input_465320(network::CgConnection& connection)
     const std::int32_t firstY = sceneUi.context9A5678Y;
     const std::int32_t firstX = sceneUi.context9A5678X;
     input::InitializeContext_449CF0(
+        connection.Owner(),
         &sceneUi.context9A5678,
         firstX + 2,
         firstY + 2,
@@ -491,6 +498,7 @@ void InitializeCapability4Input_465320(network::CgConnection& connection)
     const std::int32_t secondY = sceneUi.context9A5960Y;
     const std::int32_t secondX = sceneUi.context9A5960X;
     input::InitializeContext_449CF0(
+        connection.Owner(),
         &sceneUi.context9A5960,
         secondX + 2,
         secondY + 2,
@@ -506,7 +514,7 @@ void InitializeCapability4Input_465320(network::CgConnection& connection)
     input::InputContext* const initialContext =
         sceneUi.inputFocusTable[1];
     sceneUi.inputFocusIndex = 1;
-    input::SetContext_44B330(initialContext);
+    input::SetContext_44B330(connection.Owner(), initialContext);
     sceneUi.capability3OverlayAlpha = 255;
 }
 

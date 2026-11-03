@@ -306,7 +306,7 @@ static std::uint32_t WindowPetDetail_Refresh()
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
         }
         const bool customName = selectedPet().name6BD[0] != '\0';
-        input::InputContext* const activeInput = input::gCurrentInputData;
+        input::InputContext* const activeInput = currentWindow->ownerSession->UiFrame().inputState.currentContext;
         if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
             if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
@@ -314,7 +314,7 @@ static std::uint32_t WindowPetDetail_Refresh()
             gLoginWindowRuntime.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
             if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 1;
             if (customName) {
@@ -475,7 +475,7 @@ static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, const
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -609,7 +609,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
             WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
             static_cast<void>(WindowPetDetail_Update(*currentWindow, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -655,8 +655,8 @@ std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, const Elem
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
-    input::SetContext_44B330(&cg::ui::detail::gInputContextD2D4A0);
+    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
+    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2D4A0);
     WindowInstance* const focused = currentWindow;
     auto* const indexedElement = focused->FindElementById(elementId);
     if (indexedElement) {

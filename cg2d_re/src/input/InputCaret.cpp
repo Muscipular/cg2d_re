@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "../platform/imeImpl.hpp"
 #include "../platform/WindowProcedureState.hpp"
@@ -14,9 +15,9 @@ namespace cg::input {
 // 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
 static inline constexpr wchar_t kCaretText[] = L"|";
 
-static void DrawBasicCaret()
+static void DrawBasicCaret(session::ClientSession& session)
 {
-    input::InputContext* const context = input::gCurrentInputData;
+    input::InputContext* const context = session.UiFrame().inputState.currentContext;
     const std::int32_t color = context->color;
     const std::int32_t fontType = render::ResolveFontId(context->fontType);
     const std::int8_t renderMode = static_cast<std::int8_t>(
@@ -37,10 +38,10 @@ static void DrawBasicCaret()
         0));
 }
 
-static void DrawImeCaret()
+static void DrawImeCaret(session::ClientSession& session)
 {
     input::InputContext* const preMeasureContext =
-        input::gCurrentInputData;
+        session.UiFrame().inputState.currentContext;
     const std::int32_t color = preMeasureContext->color;
     const std::int32_t fontType = render::ResolveFontId(preMeasureContext->fontType);
     const std::int8_t renderMode = static_cast<std::int8_t>(
@@ -55,7 +56,7 @@ static void DrawImeCaret()
         cursorPosition);
 
     input::InputContext* const postMeasureContext =
-        input::gCurrentInputData;
+        session.UiFrame().inputState.currentContext;
     const std::int32_t postMeasureFontType =
         postMeasureContext->fontType;
     const std::int32_t postMeasureX = postMeasureContext->x;
@@ -73,48 +74,48 @@ static void DrawImeCaret()
         0));
 }
 
-static void AdvanceCaretPhase()
+static void AdvanceCaretPhase(session::ClientSession& session)
 {
-    const std::int32_t nextPhase = input::gInputCaretBlinkPhase_626C0C + 1;
+    const std::int32_t nextPhase = session.UiFrame().inputState.caretBlinkPhase + 1;
     const bool resetPhase = nextPhase >= 40;
-    input::gInputCaretBlinkPhase_626C0C = nextPhase;
+    session.UiFrame().inputState.caretBlinkPhase = nextPhase;
     if (resetPhase) {
-        input::gInputCaretBlinkPhase_626C0C = 0;
+        session.UiFrame().inputState.caretBlinkPhase = 0;
     }
 }
 
 // 原 sub_44A410@[0x44A410,0x44A535)。
-void DrawAndAdvanceInputCaret_44A410()
+void DrawAndAdvanceInputCaret_44A410(session::ClientSession& session)
 {
-    input::InputContext* const initialContext = input::gCurrentInputData;
+    input::InputContext* const initialContext = session.UiFrame().inputState.currentContext;
     if (initialContext == nullptr) {
         return;
     }
     if (initialContext == &cg::ui::detail::gInputContext626AA0
-        && input::gChatPanelVisible_C9A96C == 0) {
+        && session.UiFrame().inputState.chatPanelVisible == 0) {
         return;
     }
 
-    if (input::gInputCaretBlinkPhase_626C0C >= 20) {
+    if (session.UiFrame().inputState.caretBlinkPhase >= 20) {
         const std::int32_t isIme = platform::IsImeKeyboardLayout_459090();
         if (isIme == 0) {
-            DrawBasicCaret();
+            DrawBasicCaret(session);
         } else {
             const wchar_t firstCompositionByte =
                 platform::gImeComposition[0];
             if (firstCompositionByte == '\0') {
-                DrawBasicCaret();
+                DrawBasicCaret(session);
             } else {
                 const std::uint8_t firstAttribute =
                     platform::gImeAttributes.empty() ? 0 : platform::gImeAttributes[0];
                 if (firstAttribute == 0) {
-                    DrawImeCaret();
+                    DrawImeCaret(session);
                 }
             }
         }
     }
 
-    AdvanceCaretPhase();
+    AdvanceCaretPhase(session);
 }
 
 } // namespace cg::input

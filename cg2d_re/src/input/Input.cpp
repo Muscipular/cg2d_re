@@ -103,12 +103,6 @@ InputContext gInputContextCF47E0 {}; // 原全局：0x00CF47E0。
 InputContext gInputContext1050B80 {}; // 原全局：0x01050B80。
 InputContext gInputContext1051348 {}; // 原全局：0x01051348。
 InputContext gInputContexts1050F18[3] {}; // 原全局：0x01050F18。
-InputContext* gCurrentInputData = nullptr; // 原全局：0x00626C04。
-std::int32_t gChatPanelVisible_C9A96C = 0; // 原全局：0x00C9A96C。
-std::int32_t gInputCaretBlinkPhase_626C0C = 0; // 原全局：0x00626C0C。
-std::int32_t gChatLogSuppressed_626C14 = 0; // 原全局：0x00626C14。
-std::int32_t gInputLineOverflowRollbackMode_626C20 = 0; // 原全局：0x00626C20。
-std::int32_t gInputInsertRejected_626C28 = 0; // 原全局：0x00626C28。
 
 static constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
@@ -177,13 +171,13 @@ std::vector<TextLine> SplitLines(const InputContext& context)
     return lines;
 }
 
-void MoveCaretLine(const std::int32_t direction)
+void MoveCaretLine(session::ClientSession& session, const std::int32_t direction)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* const context = session.UiFrame().inputState.currentContext;
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return;
     }
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
     if (context->maxLine <= 1) {
         return;
     }
@@ -211,7 +205,7 @@ void MoveCaretLine(const std::int32_t direction)
     static_cast<void>(edit.commit());
 }
 
-void AppendText(const std::wstring_view utf16)
+void AppendText(session::ClientSession& session, const std::wstring_view utf16)
 {
     const std::wstring source(utf16); // 源可与当前上下文重叠；先取得一次完整Unicode文字。
     for (std::size_t begin = 0; begin < source.size();) {
@@ -222,7 +216,7 @@ void AppendText(const std::wstring_view utf16)
         if (first == 0 || (first <= 0x1F && first != '\r')) {
             continue;
         }
-        InputContext* const context = gCurrentInputData;
+        InputContext* const context = session.UiFrame().inputState.currentContext;
         if (context == nullptr) {
             return;
         }
@@ -233,7 +227,7 @@ void AppendText(const std::wstring_view utf16)
         edit.caret += unit.size();
         try {
             if (!edit.commit()) {
-                gInputInsertRejected_626C28 = 1;
+                session.UiFrame().inputState.insertRejected = 1;
                 return;
             }
         } catch (const std::system_error&) {
@@ -242,7 +236,7 @@ void AppendText(const std::wstring_view utf16)
         }
         const auto lines = SplitLines(*context);
         if (context->maxLine > 0 && lines.size() > static_cast<std::size_t>(context->maxLine)) {
-            if (gInputLineOverflowRollbackMode_626C20 == 0) {
+            if (session.UiFrame().inputState.lineOverflowRollbackMode == 0) {
                 edit.contents.resize(lines[static_cast<std::size_t>(context->maxLine - 1)].end);
                 edit.caret = (std::min)(edit.caret, edit.contents.size());
                 static_cast<void>(edit.commit());
@@ -250,10 +244,10 @@ void AppendText(const std::wstring_view utf16)
                 edit.contents = old;
                 edit.caret = oldCaret;
                 static_cast<void>(edit.commit());
-                gInputInsertRejected_626C28 = 1;
+                session.UiFrame().inputState.insertRejected = 1;
             }
         }
-        gInputCaretBlinkPhase_626C0C = 20;
+        session.UiFrame().inputState.caretBlinkPhase = 20;
     }
 }
 
@@ -364,15 +358,15 @@ char* FindLegacyByte_44B4A0(char* const text, const char* const target)
 namespace detail {
 
 // 原 [0x44A5D0,0x44A7CD)：按 CR 和最大字节宽度扫描行后上移光标。
-void MoveInputCaretUp_44A5D0()
+void MoveInputCaretUp_44A5D0(session::ClientSession& session)
 {
-    MoveCaretLine(-1);
+    MoveCaretLine(session, -1);
 }
 
 // 原 [0x44A540,0x44A580)：未移动时返回上下文指针，移动时返回边界分类。
-std::uintptr_t MoveInputCaretLeft_44A540()
+std::uintptr_t MoveInputCaretLeft_44A540(session::ClientSession& session)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* const context = session.UiFrame().inputState.currentContext;
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
@@ -384,14 +378,14 @@ std::uintptr_t MoveInputCaretLeft_44A540()
     const std::size_t width = edit.caret - next;
     edit.caret = next;
     static_cast<void>(edit.commit());
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
     return width;
 }
 
 // 原 [0x44A580,0x44A5C8)：按光标处字节的最高位移动一或两字节。
-std::uintptr_t MoveInputCaretRight_44A580()
+std::uintptr_t MoveInputCaretRight_44A580(session::ClientSession& session)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* const context = session.UiFrame().inputState.currentContext;
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
@@ -403,20 +397,20 @@ std::uintptr_t MoveInputCaretRight_44A580()
     const std::size_t width = next - edit.caret;
     edit.caret = next;
     static_cast<void>(edit.commit());
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
     return width;
 }
 
 // 原 [0x44A7D0,0x44A989)：按 CR 和最大字节宽度扫描行后下移光标。
-void MoveInputCaretDown_44A7D0()
+void MoveInputCaretDown_44A7D0(session::ClientSession& session)
 {
-    MoveCaretLine(1);
+    MoveCaretLine(session, 1);
 }
 
 // 原 [0x44A990,0x44AA8D)：删除光标前一个旧 ANSI 单元。
-void DeleteCharacterBeforeInputCaret_44A990()
+void DeleteCharacterBeforeInputCaret_44A990(session::ClientSession& session)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* const context = session.UiFrame().inputState.currentContext;
     if (context == nullptr || context->caretByteOffset <= 0) {
         return;
     }
@@ -425,20 +419,20 @@ void DeleteCharacterBeforeInputCaret_44A990()
     edit.contents.erase(previous, edit.caret - previous);
     edit.caret = previous;
     static_cast<void>(edit.commit());
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
 }
 
 // 原 [0x44AA90,0x44AB59)：删除光标处一个旧 ANSI 单元，返回当前上下文。
-InputContext* DeleteCharacterAtInputCaret_44AA90()
+InputContext* DeleteCharacterAtInputCaret_44AA90(session::ClientSession& session)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* const context = session.UiFrame().inputState.currentContext;
     if (context == nullptr || context->caretByteOffset >= context->totalByteLength) {
         return context;
     }
     EditText edit(*context);
     edit.contents.erase(edit.caret, text::Next(edit.contents, edit.caret) - edit.caret);
     static_cast<void>(edit.commit());
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
     return context;
 }
 
@@ -772,19 +766,19 @@ char RemoveLegacyBytes_52D570(
 }
 
 // 原函数：0x0044A160。
-void LoadInitialText_44A160(const std::wstring_view initialText)
+void LoadInitialText_44A160(session::ClientSession& session, const std::wstring_view initialText)
 {
-    if (gCurrentInputData != nullptr) { AppendText(initialText); }
+    if (session.UiFrame().inputState.currentContext != nullptr) { AppendText(session, initialText); }
 }
 
 // 原函数：0x0044ADB0。
-void AppendChar_44ADB0(const wchar_t character)
+void AppendChar_44ADB0(session::ClientSession& session, const wchar_t character)
 {
-    AppendText(std::wstring_view(&character, 1));
+    AppendText(session, std::wstring_view(&character, 1));
 }
 
 // 原函数：0x0044B340。
-std::int32_t ProcessPresetHotkeys_44B340()
+std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session)
 {
     std::int32_t base = 0;
     if ((platform::gKeyStates[0x10] & 2u) != 0) {
@@ -801,22 +795,22 @@ std::int32_t ProcessPresetHotkeys_44B340()
         }
     }
     if (selected >= 0) {
-        LoadInitialText_44A160(ContextText(cg::ui::detail::gInputContexts5F9758[selected]).c_str());
+        LoadInitialText_44A160(session, ContextText(cg::ui::detail::gInputContexts5F9758[selected]).c_str());
         return audio::PlaySe_52C450(51, 320);
     }
     return result;
 }
 
 // 原函数：0x0044B330。
-void SetContext_44B330(InputContext* const context)
+void SetContext_44B330(session::ClientSession& session, InputContext* const context)
 {
-    gCurrentInputData = context;
+    session.UiFrame().inputState.currentContext = context;
 }
 
 // 原函数：0x00503E40。
-std::int32_t IsCurrentContext_503E40(const InputContext* const context)
+std::int32_t IsCurrentContext_503E40(session::ClientSession& session, const InputContext* const context)
 {
-    return gCurrentInputData == context ? 1 : 0;
+    return session.UiFrame().inputState.currentContext == context ? 1 : 0;
 }
 
 // 原0x00503AB0显示分行：动态UTF-16正文，完整代理对及原逻辑列预算。
@@ -922,6 +916,7 @@ std::int32_t ExtractDialogTextLine(
 
 // 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(
+    session::ClientSession& session,
     InputContext* const context,
     const std::int32_t textX,
     const std::int32_t textY,
@@ -950,10 +945,10 @@ void InitializeContext_449CF0(
     context->visibleStartOffset = 0;
 
     if (!initialText.empty()) {
-        InputContext* const savedContext = gCurrentInputData;
-        SetContext_44B330(context);
-        LoadInitialText_44A160(initialText);
-        SetContext_44B330(savedContext);
+        InputContext* const savedContext = session.UiFrame().inputState.currentContext;
+        SetContext_44B330(session, context);
+        LoadInitialText_44A160(session, initialText);
+        SetContext_44B330(session, savedContext);
     }
 }
 
@@ -963,7 +958,7 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
 {
     auto& history = session.WorldScene().chatInputHistory;
     cg::core::NullSub_509080();
-    InputContext* const initialContext = gCurrentInputData;
+    InputContext* const initialContext = session.UiFrame().inputState.currentContext;
     if (initialContext != &cg::ui::detail::gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
         return;
     }
@@ -995,8 +990,8 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
         if (selected == std::bit_cast<std::int32_t>(history.tail626838)) {
             history.cursor62683C = -1;
             initialContext->totalByteLength = 0;
-            gCurrentInputData->clearText();
-            gCurrentInputData->caretByteOffset = 0;
+            session.UiFrame().inputState.currentContext->clearText();
+            session.UiFrame().inputState.currentContext->caretByteOffset = 0;
             return;
         }
         const std::int32_t next = selected + 1;
@@ -1006,14 +1001,14 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
         }
     }
     initialContext->totalByteLength = 0;
-    gCurrentInputData->clearText();
-    gCurrentInputData->caretByteOffset = 0;
-    LoadInitialText_44A160(history.records[history.cursor62683C].c_str());
-    const std::wstring contents = ContextText(*gCurrentInputData);
+    session.UiFrame().inputState.currentContext->clearText();
+    session.UiFrame().inputState.currentContext->caretByteOffset = 0;
+    LoadInitialText_44A160(session, history.records[history.cursor62683C].c_str());
+    const std::wstring contents = ContextText(*session.UiFrame().inputState.currentContext);
     const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth());
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
     offset = text::Prefix(contents, offset);
-    SetVisibleUtf16Offset(*gCurrentInputData, offset);
+    SetVisibleUtf16Offset(*session.UiFrame().inputState.currentContext, offset);
 }
 
 namespace detail {
@@ -1024,7 +1019,7 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
     if (platform::gImeComposition[0] != '\0') {
         return;
     }
-    InputContext* context = gCurrentInputData;
+    InputContext* context = session.UiFrame().inputState.currentContext;
     if (context == &cg::ui::detail::gInputContext626AA0) {
         if (context->totalByteLength == 0) {
             return;
@@ -1059,23 +1054,23 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
             history.records[nextIndex] = ContextText(*context);
             static_cast<void>(world::SaveChatInputHistoryEntry_449FA0(
                 session, std::bit_cast<std::int32_t>(history.tail626838)));
-            context = gCurrentInputData;
+            context = session.UiFrame().inputState.currentContext;
         }
         const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
         history.cursor62683C = -1;
         static_cast<void>(world::SendPlayerChatInput_50C940(session, context, color));
-        gCurrentInputData->totalByteLength = 0;
-        gCurrentInputData->caretByteOffset = 0;
-        gCurrentInputData->clearText();
-        context = gCurrentInputData;
+        session.UiFrame().inputState.currentContext->totalByteLength = 0;
+        session.UiFrame().inputState.currentContext->caretByteOffset = 0;
+        session.UiFrame().inputState.currentContext->clearText();
+        context = session.UiFrame().inputState.currentContext;
     } else if (context == &cg::ui::detail::gInputContextD66CA8
                || context == &cg::ui::detail::gInputContextCB03F0
                || context == &gInputContextCC46E0
                || context == &cg::ui::detail::gInputContextCC2080
                || context == &cg::ui::detail::gInputContextD2D828
                || context == &cg::ui::detail::gInputContextCA0180) {
-        AppendChar_44ADB0(L'\r');
-        context = gCurrentInputData;
+        AppendChar_44ADB0(session, L'\r');
+        context = session.UiFrame().inputState.currentContext;
     }
     if (context == &cg::ui::detail::gInputContextC8B1B8) {
         std::wstring message;
@@ -1095,9 +1090,9 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
         cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
         world::AppendChatMessage_44B050(message, 4, 3);
-        SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
     }
-    gInputCaretBlinkPhase_626C0C = 20;
+    session.UiFrame().inputState.caretBlinkPhase = 20;
 }
 
 } // namespace detail

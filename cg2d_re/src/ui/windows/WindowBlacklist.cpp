@@ -289,12 +289,12 @@ static void WindowBlacklist_Refresh()
         if (destination) destination->text = text;
         if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(39 + row)); indexedElement4) indexedElement4->visible = 0;
     }
-    if (input::gCurrentInputData == &cg::ui::detail::gInputContextC8B1B8) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextC8B1B8) {
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gBlacklistInputPrototype580EF0, x, y, 1));
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextC8B1B8);
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gBlacklistInputPrototype580EF0, x, y, 1));
+        render::DrawInputText_4568A0(*currentWindow->ownerSession, &cg::ui::detail::gInputContextC8B1B8);
     }
 }
 
@@ -347,7 +347,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
     if (currentRecord[0] != L'\0') {
         cg::ui::detail::gInputContextC8B1B8.reset();
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
         world::AppendChatMessage_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
     }
@@ -364,8 +364,8 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     gBlacklistInputPrototype580EF0.y = y + 1;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    static_cast<void>(WindowInput_ActivateElement(&gBlacklistInputPrototype580EF0, windowX, windowY, 0));
-    input::SetContext_44B330(&cg::ui::detail::gInputContextC8B1B8);
+    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gBlacklistInputPrototype580EF0, windowX, windowY, 0));
+    input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextC8B1B8);
     if (changeFocus) {
         auto* const buttonCloseElement2 = currentWindow->FindElementById(WindowBlacklistElementId::ButtonClose);
         if (buttonCloseElement2) {

@@ -9,6 +9,8 @@
 #include <string>
 #include <string_view>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::input {
 
 class InputContext;
@@ -103,6 +105,6 @@ std::int32_t DrawText_456780(
     std::int8_t marker);
 
 // 原 Renderer::DrawInputText@[0x4568A0,0x456D27)。
-void DrawInputText_4568A0(input::InputContext* context);
+void DrawInputText_4568A0(session::ClientSession& session, input::InputContext* context);
 
 } // namespace cg::render

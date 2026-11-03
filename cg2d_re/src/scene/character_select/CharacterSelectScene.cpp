@@ -305,7 +305,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
                 cg::login::detail::SaveCurrentLoginRecord_520200();
-                input::SetContext_44B330(nullptr);
+                input::SetContext_44B330(connection.Owner(), nullptr);
                 sceneState = world::gCurrentSceneState;
             } else if (gate == 2) {
                 sceneState = gate;
@@ -400,7 +400,7 @@ void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connec
         cg::yobi::SetYobiActionField34(draft.createActions[1], 396);
         cg::yobi::SetYobiActionField2B8(draft.createActions[1], cg::yobi::YobiDirection_Down);
     }
-    input::SetContext_44B330(nullptr);
+    input::SetContext_44B330(connection.Owner(), nullptr);
 }
 
 // 原函数：0x00462930。
@@ -652,8 +652,9 @@ std::uint32_t InitializeCharacterCreationAttributes_463100(network::CgConnection
         cg::yobi::MarkDeath(second);
     }
     input::InitializeContext_449CF0(
+        connection.Owner(),
         &draft.input9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
-    input::SetContext_44B330(&draft.input9A51E8);
+    input::SetContext_44B330(connection.Owner(), &draft.input9A51E8);
     draft.attributePointBytes9A5FD4 = 0;
     draft.elementPointBytes9A50D0 = 0;
     draft.fifthAttributePoints9A5FD8 = 0;
@@ -1083,7 +1084,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         graphic = static_cast<std::int8_t>(draft.characterIndex9A4CFC) >= 14 ? 33101 : 33100;
     }
     cg::render::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
-    render::DrawInputText_4568A0(&draft.input9A51E8);
+    render::DrawInputText_4568A0(connection.Owner(), &draft.input9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04)));
     render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);

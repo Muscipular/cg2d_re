@@ -184,8 +184,8 @@ static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, co
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();
         WindowInstance* const window = currentWindow;
-        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
-        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, gWindow50InputPrototype580618.input.context);
         auto* const handleInputElement = currentWindow->FindElementById(WindowMessageBoardElementId::HandleInput);
         if (handleInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
@@ -226,8 +226,8 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
     auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != indexedElement->data.input) {
-            static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
-            input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, gWindow50InputPrototype580618.input.context);
             auto* const indexedElement2 = currentWindow->FindElementById(elementId);
             if (indexedElement2) {
                 callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement2->data.input;
@@ -425,7 +425,7 @@ static void WindowMessageBoard_RefreshRecords()
     auto* const handleInputElement = window->FindElementById(WindowMessageBoardElementId::HandleInput);
     if (handleInputElement) {
         if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInputElement->data.input) {
-            static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gWindow50InputPrototype580618, window->x, window->y, 2));
         }
     }
     return;

@@ -47,7 +47,7 @@ input::InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
 
 // 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
 // CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
-static void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width);
+static void WindowInput_ScrollAndDraw(session::ClientSession& session, input::InputContext* const context, const std::int32_t width);
 
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A6EA0。
@@ -171,7 +171,7 @@ WindowPrototype gWindowPrototypeCompactChat {0, 4, 0, 428, 0, 0, 0x80010101u, 2,
 
 // 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
 // CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
-static void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width)
+static void WindowInput_ScrollAndDraw(session::ClientSession& session, input::InputContext* const context, const std::int32_t width)
 {
     const std::wstring contents = input::ContextText(*context);
     const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
@@ -183,7 +183,7 @@ static void WindowInput_ScrollAndDraw(input::InputContext* const context, const 
             static_cast<std::int32_t>(caret - offset)) > context->visibleWidth) { offset = cg::text::Next(contents, offset); }
     }
     input::SetVisibleUtf16Offset(*context, offset);
-    render::DrawInputText_4568A0(context);
+    render::DrawInputText_4568A0(session, context);
 }
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
@@ -219,28 +219,28 @@ std::int32_t WindowChat_ResetScrollRequests()
 }
 
 // 原函数：0x004A8330。
-WindowInstance* WindowChat_SwitchMode()
+WindowInstance* WindowChat_SwitchMode(session::ClientSession& session)
 {
     WindowInstance* result;
-    if (WindowRuntime_Settings().chatMode == 0) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
+    if (WindowRuntime_Settings(session).chatMode == 0) {
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_Chat].window;
         if (window == nullptr) {
             return nullptr;
         }
         window->state |= 0x8000u;
-        result = WindowRuntime_Open(WindowId_CompactChat);
-        WindowRuntime_Settings().chatMode = 1;
+        result = WindowRuntime_Open(session, WindowId_CompactChat);
+        WindowRuntime_Settings(session).chatMode = 1;
     } else {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_CompactChat].window;
         if (window == nullptr) {
             return nullptr;
         }
         window->state |= 0x8000u;
-        result = WindowRuntime_Open(WindowId_Chat);
-        WindowRuntime_Settings().chatMode = 0;
+        result = WindowRuntime_Open(session, WindowId_Chat);
+        WindowRuntime_Settings(session).chatMode = 0;
     }
-    input::gChatLogSuppressed_626C14 = 0;
-    input::gChatPanelVisible_C9A96C = 1;
+    session.UiFrame().inputState.chatLogSuppressed = 0;
+    session.UiFrame().inputState.chatPanelVisible = 1;
     return result;
 }
 
@@ -448,7 +448,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
         }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement) {
@@ -459,7 +459,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
             handleInputElement2->data.input->context =
                 &cg::ui::detail::gInputContext626AA0;
         }
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
         return 1;
     }
     if (render::HasLegacy3DDevice_44B610() == 1) {
@@ -473,7 +473,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 2));
+    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, x, y, 2));
     return 1;
 }
 
@@ -483,7 +483,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (input::gChatPanelVisible_C9A96C == 0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.chatPanelVisible == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -701,7 +701,7 @@ static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (input::gChatPanelVisible_C9A96C == 0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.chatPanelVisible == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -709,7 +709,7 @@ static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
+        if (WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, x, y, 3) == 0) {
             for (;;) {
                 WindowInstance* const current = currentWindow;
                 gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
@@ -726,7 +726,7 @@ static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const
                 gChatInputPrototype57E970.encrypt = 0;
                 const std::int32_t currentY = current->y;
                 const std::int32_t currentX = current->x;
-                if (WindowInput_ActivateElement(&gChatInputPrototype57E970, currentX, currentY, 3) != 0) {
+                if (WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, currentX, currentY, 3) != 0) {
                     break;
                 }
             }
@@ -742,11 +742,11 @@ static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const
             handleInputElement2->data.input->context =
                 &cg::ui::detail::gInputContext626AA0;
         }
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
         consumed = 1;
     }
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContext626AA0) {
-        WindowChat_DrawInput(&cg::ui::detail::gInputContext626AA0);
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContext626AA0) {
+        WindowChat_DrawInput(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
     }
     return consumed;
 }
@@ -760,7 +760,7 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, con
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
     if (value == -1) {
-        static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement) {
@@ -771,9 +771,9 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, con
             handleInputElement2->data.input->context =
                 &cg::ui::detail::gInputContext626AA0;
         }
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
     } else {
-        static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 2));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gChatInputPrototype57E970, x, y, 2));
         static_cast<void>(WindowChat_RefreshCompactHeight());
     }
     return 1;
@@ -783,7 +783,7 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, con
 // 原函数：0x004A82C0。
 static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    if (input::gChatPanelVisible_C9A96C != 0) {
+    if (callbackWindow.ownerSession->UiFrame().inputState.chatPanelVisible != 0) {
         WindowRuntime_DrawCurrent(callbackWindow);
     }
     return 1;
@@ -894,23 +894,23 @@ static std::int32_t WindowChat_RefreshCompactHeight()
 
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7590。
-void WindowChat_DrawInput(input::InputContext* const context)
+void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* const context)
 {
-    const std::int32_t font = input::gCurrentInputData->fontType;
+    const std::int32_t font = session.UiFrame().inputState.currentContext->fontType;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t widthUnits = WindowRuntime_Settings().chatWidthUnits;
+    const std::int32_t widthUnits = WindowRuntime_Settings(session).chatWidthUnits;
     const std::int32_t width = fontWidth * widthUnits;
-    WindowInput_ScrollAndDraw(context, width);
+    WindowInput_ScrollAndDraw(session, context, width);
 }
 
 // CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7640。
-void WindowChat_DrawFixedWidthInput(input::InputContext* const context)
+void WindowChat_DrawFixedWidthInput(session::ClientSession& session, input::InputContext* const context)
 {
-    const std::int32_t font = input::gCurrentInputData->fontType;
+    const std::int32_t font = session.UiFrame().inputState.currentContext->fontType;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
-    WindowInput_ScrollAndDraw(context, 1024);
+    WindowInput_ScrollAndDraw(session, context, 1024);
 }
 
 // CLD01：原字节分行/逆序绘制与现场尺寸取样；见doc/cg2d_chat_log_line_drawing_spec.md。
@@ -1000,12 +1000,12 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
         }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
+        static_cast<void>(WindowInput_ActivateElement(session, &gChatInputPrototype57E970, x, y, 3));
         auto* const handleInputElement = WindowRuntime_States(session)[WindowId_CompactChat].window ? WindowRuntime_States(session)[WindowId_CompactChat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
             session.UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
         return 1;
     }
     if (mode != 0) {
@@ -1017,7 +1017,7 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
     }
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
+    if (WindowInput_ActivateElement(session, &gChatInputPrototype57E970, x, y, 3) == 0) {
         for (;;) {
             WindowInstance* const currentWindow = WindowRuntime_States(session)[WindowId_Chat].window;
             gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
@@ -1034,7 +1034,7 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
             gChatInputPrototype57E970.encrypt = 0;
             const std::int32_t currentY = currentWindow->y;
             const std::int32_t currentX = currentWindow->x;
-            if (WindowInput_ActivateElement(&gChatInputPrototype57E970, currentX, currentY, 3) != 0) {
+            if (WindowInput_ActivateElement(session, &gChatInputPrototype57E970, currentX, currentY, 3) != 0) {
                 break;
             }
         }
@@ -1043,7 +1043,7 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
     if (handleInputElement) {
         session.UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
     }
-    input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+    input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
     return 1;
 }
 

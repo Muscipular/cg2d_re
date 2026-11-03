@@ -79,8 +79,8 @@ void Update(session::ClientSession& session)
         }
         cg::yobi::YobiUpdateAll_404C50(session);
         detail::RenderChara_521F20(session);
-        detail::RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        detail::RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         return;
     }
     case 2: {
@@ -105,13 +105,13 @@ void Update(session::ClientSession& session)
         character_select::detail::ProcessCreationScene_4626A0(session.Connection(), 1);
         cg::yobi::YobiUpdateAll_404C50(session);
         detail::RenderChara_521F20(session);
-        detail::RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        detail::RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         return;
     case 5:
         session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
-        detail::InitializeChatInputAndLog_449DA0();
+        detail::InitializeChatInputAndLog_449DA0(session);
         detail::ResetPendingPathEvent_46A9E0();
         detail::InitializeWorldMapState_467F30(session);
         detail::InitializePlayerRuntimeState_5199A0(session.Connection());
@@ -206,8 +206,8 @@ void Update(session::ClientSession& session)
         }
         cg::yobi::YobiUpdateAll_404C50(session);
         detail::RenderChara_521F20(session);
-        detail::RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        detail::RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         return;
     default:
         return;

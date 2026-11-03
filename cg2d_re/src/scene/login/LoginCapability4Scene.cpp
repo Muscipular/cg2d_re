@@ -52,7 +52,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     switch (state) {
     case 0:
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         sceneUi.capability4FrameCounter = 0;
         sceneUi.capability4IntroAlpha = 0;
         sceneUi.capability4IntroPhase = 0;

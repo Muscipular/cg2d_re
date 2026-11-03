@@ -201,8 +201,8 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
             gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gTitleInputPrototype57CCB8, x, y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2DC10);
             WindowInstance* const focused = currentWindow;
             auto* const editDraftElement2 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
             if (editDraftElement2) {
@@ -517,7 +517,7 @@ static void WindowPlayerTitles_Refresh()
         titleData->text = title;
     }
 
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextD2DC10) {
         if (auto* const element9 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9); element9) element9->visible = 1;
         auto* const element92 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
         if (element92) {
@@ -536,7 +536,7 @@ static void WindowPlayerTitles_Refresh()
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 1));
+        static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gTitleInputPrototype57CCB8, x, y, 1));
     }
 
     const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;

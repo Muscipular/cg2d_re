@@ -406,6 +406,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(
+                    *callbackWindow.ownerSession,
                     &gHotkeyInputPrototype57DF48, x + 96, y + row * 16 + 58, 2));
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
@@ -423,12 +424,12 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
         if (selected >= 0) {
             const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Hotkeys].value14);
             if (scroll > selected || selected >= scroll + 10) {
-                static_cast<void>(WindowInput_ActivateElement(&gHotkeyInputPrototype57DF48, 0, -100, 2));
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gHotkeyInputPrototype57DF48, 0, -100, 2));
             }
         }
     } else {
         // 原比较上界是最后一项起点，不是整个数组末端。
-        const auto currentInput = reinterpret_cast<std::uintptr_t>(input::gCurrentInputData);
+        const auto currentInput = reinterpret_cast<std::uintptr_t>(callbackWindow.ownerSession->UiFrame().inputState.currentContext);
         const auto firstInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[0]);
         const auto lastInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[23]);
         if (currentInput >= firstInput && currentInput <= lastInput) {
@@ -872,9 +873,9 @@ static std::int32_t WindowHotkeys_EditPresetText(WindowInstance& callbackWindow,
         input::InputContext* const context = &cg::ui::detail::gInputContexts5F9758[selected];
         gHotkeyInputPrototype57DF48.input = {{context}, WindowInputReferenceKind::Context};
         const std::wstring savedText = input::ContextText(*context);
-        static_cast<void>(WindowInput_ActivateElement(&gHotkeyInputPrototype57DF48, 0, 0, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20]);
-        input::LoadInitialText_44A160(savedText);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gHotkeyInputPrototype57DF48, 0, 0, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20]);
+        input::LoadInitialText_44A160(*callbackWindow.ownerSession, savedText);
         WindowInstance* const window = currentWindow;
         auto* const element1 = window->FindElementById(WindowHotkeysElementId::Element1);
         if (element1) {

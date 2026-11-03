@@ -141,8 +141,8 @@ static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, c
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gNumberInputPrototype57DA70, 0, -100, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCB0878);
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowQuantityElementId::HandleInput);
         if (handleInputElement) {
@@ -160,7 +160,7 @@ static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, cons
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const input::InputContext* const currentInput = input::gCurrentInputData;
+    const input::InputContext* const currentInput = callbackWindow.ownerSession->UiFrame().inputState.currentContext;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
         &WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].actionFlags1C)[0]
         | (currentInput == &cg::ui::detail::gInputContextCB0878 ? 2u : 0u);

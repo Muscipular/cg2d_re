@@ -47,9 +47,10 @@ struct ExtensionWindowState {
     std::vector<std::pair<int, std::uint32_t>> pendingWindowOpens;
 };
 
-// 扩展窗口、Lua 场景通知及输入编码诊断的会话帧状态；尚不拥有原生输入上下文。
+// 原生/扩展窗口、输入选择、Lua 场景通知及输入编码诊断的会话帧状态。
 struct UiFrameRuntimeState {
     NativeWindowRuntimeState native {};
+    input::InputRuntimeState inputState {};
     ExtensionWindowState extension {};
     ElementPointerDragState pointerDrag {};
     bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。

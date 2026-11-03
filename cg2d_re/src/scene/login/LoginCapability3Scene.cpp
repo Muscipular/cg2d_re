@@ -148,7 +148,7 @@ static std::int32_t ProcessCapability3CommonDispatch(
             static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((clickState & 1U) != 0U) {
             cg::world::gCurrentSceneState = 5;
-            cg::input::SetContext_44B330(nullptr);
+            cg::input::SetContext_44B330(connection.Owner(), nullptr);
             return DrawCapability3CommonTail(connection);
         }
     }
@@ -157,7 +157,7 @@ static std::int32_t ProcessCapability3CommonDispatch(
         return ProcessCapability3InputAndDraw(connection);
     }
 
-    cg::input::SetContext_44B330(nullptr);
+    cg::input::SetContext_44B330(connection.Owner(), nullptr);
     return DrawCapability3CommonTail(connection);
 }
 
@@ -392,20 +392,20 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         }
         static_cast<void>(render::SelectPalette(19, 60));
         world::gCurrentSceneState = 10;
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         return DrawCapability3CommonTail(connection);
 
     case 8:
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         world::gCurrentSceneState = 9;
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         return DrawCapability3CommonTail(connection);
 
     case 9:
         if (login::UpdateLoginMessage(connection, intro.message9A50E8) != 0) {
             world::gCurrentSceneState = 5;
-            input::SetContext_44B330(nullptr);
+            input::SetContext_44B330(connection.Owner(), nullptr);
             return DrawCapability3CommonTail(connection);
         }
         return DispatchCapability3FromCurrentState(connection);

@@ -120,11 +120,12 @@ std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 }
 
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
-void __cdecl InitializeChatInputAndLog_449DA0()
+void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
 {
     for (auto& record : gRecords5FB7F8) record = {};
     cg::ui::detail::gInputContext626AA0.reset();
     input::InitializeContext_449CF0(
+        session,
         &cg::ui::detail::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
     gInputContext626840 = cg::ui::detail::gInputContext626AA0;
 

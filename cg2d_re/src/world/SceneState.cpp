@@ -3469,7 +3469,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
         gCurrentSceneState = 101;
         [[fallthrough]];
     case 101:
@@ -3500,7 +3500,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(ui::WindowRuntime_Render(session));
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
         render::gRenderQueueMode103CF10 = 0;
@@ -3559,7 +3559,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if (session.WorldScene().mapTransitionReplyPending != 0) {
             session.WorldScene().frameBackgroundMode = 0;
             static_cast<void>(ui::WindowRuntime_Render(session));
-            RenderInput_4590E0();
+            RenderInput_4590E0(session);
             return;
         }
         session.WorldScene().mapTransitionReplyPending = 0;
@@ -3678,8 +3678,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         UpdateDayPeriodPaletteAndTimers_458F00();
         return;
     case 252: {
@@ -3784,7 +3784,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gMapCharaSceneSlots.valueC8A758 = 0;
             input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0(session);
-            RenderInput_4590E0();
+            RenderInput_4590E0(session);
             render::SortTextures_520790();
             static_cast<void>(render::ClearSurface_4512C0());
             ClearDirectionalMapEffects_46F160();
@@ -3815,9 +3815,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gCurrentSceneState = state + 1;
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
         ++gCurrentSceneState;
         return;
@@ -3830,9 +3830,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gLogoutToTownPending_D67E78 = 0;
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
         return;
     }
@@ -3860,8 +3860,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         UpdateDayPeriodPaletteAndTimers_458F00();
         if (worldScene.battle.entryPending != 1) {
             return;
@@ -3918,9 +3918,9 @@ waitFrame:
 // 原函数：0x004596D0。
 inputTail:
     input::ProcessKeyInput_4596D0(session);
-    render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
-    RenderInput_4590E0();
-    cg::input::DrawAndAdvanceInputCaret_44A410();
+    render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+    RenderInput_4590E0(session);
+    cg::input::DrawAndAdvanceInputCaret_44A410(session);
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
@@ -4046,7 +4046,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().transitionResetPending = 1;
         gBattleCommandAction5ABC00 = nullptr;
         session.WorldScene().battleResult.pendingMode = 3;
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10(session);
         session.WorldScene().frameBackgroundMode = 2;
         input::BrowseChatHistory_44A1B0(session);
@@ -4100,7 +4100,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 13, 8, 0x40000000U));
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         cg::core::NullSub_509080();
         ++gCurrentSceneState;
         break;
@@ -4115,20 +4115,20 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0(session);
             static_cast<void>(ui::WindowRuntime_Render(session));
-            RenderInput_4590E0();
-            cg::input::DrawAndAdvanceInputCaret_44A410();
+            RenderInput_4590E0(session);
+            cg::input::DrawAndAdvanceInputCaret_44A410(session);
             cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene(session);
             ++gCurrentSceneState;
         } else {
             static_cast<void>(ui::WindowRuntime_Render(session));
-            RenderInput_4590E0();
+            RenderInput_4590E0(session);
             cg::core::NullSub_509080();
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         break;
     case 2: {
         input::ProcessKeyInput_4596D0(session);
@@ -4136,9 +4136,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
         RenderChara_521F20(session);
         input::BrowseChatHistory_44A1B0(session);
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             ui::detail::gHoverTextD68AE8 = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
@@ -4197,9 +4197,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderChara_521F20(session);
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         if (cg::yobi::ReturnBattleActorsToFormation_43C910() == 1) {
             if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
@@ -4218,9 +4218,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         ui::detail::WindowBattleCommand_Dispatch(session);
         RenderChara_521F20(session);
@@ -4233,9 +4233,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderChara_521F20(session);
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
         const std::int32_t readIndex = battleScene.mReadIndex;
@@ -4264,9 +4264,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
         RenderChara_521F20(session);
         input::BrowseChatHistory_44A1B0(session);
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
-        RenderInput_4590E0();
+        RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
         break;
@@ -4299,9 +4299,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 8: {
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
-        RenderInput_4590E0();
-        cg::input::DrawAndAdvanceInputCaret_44A410();
+        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        RenderInput_4590E0(session);
+        cg::input::DrawAndAdvanceInputCaret_44A410(session);
         const std::int32_t selector = gLogoutToTownPending_D67E78 == 1 ? 14 : 12;
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000U) != 1) {
             break;
@@ -8718,7 +8718,7 @@ std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection&, co
 }
 
 // PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
-std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection&, const std::int32_t seconds,
+std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection& connection, const std::int32_t seconds,
     const std::int32_t mode)
 {
     const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
@@ -8731,7 +8731,7 @@ std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection&, const st
     gPlayerRuntimeSlots.timerRemaining0C = firstScale * 5 * 5 * 8;
     const std::uint64_t tick = platform::ReadTickCount64();
     gPlayerRuntimeSlots.timerTick14 = tick;
-    input::gChatLogSuppressed_626C14 = 0;
+    connection.Owner().UiFrame().inputState.chatLogSuppressed = 0;
     return static_cast<std::uint32_t>(tick);
 }
 
@@ -8885,7 +8885,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
     const std::wstring snapshot = cg::text::FromGbkWide(source);
     std::int32_t drawColor = color;
     std::int32_t drawFont = font;
-    if (input::gChatLogSuppressed_626C14 == 0) {
+    if (networkConnection.Owner().UiFrame().inputState.chatLogSuppressed == 0) {
         std::wstring name;
         auto& chat = networkConnection.Owner().WorldScene().chat;
         chat.replyGate = 0;

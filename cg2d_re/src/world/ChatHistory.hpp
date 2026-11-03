@@ -61,7 +61,7 @@ extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
 // 原函数：0x004A76E0。
 std::int32_t IncrementChatRecordCount_4A76E0();
 // 原函数：0x00449DA0。
-void __cdecl InitializeChatInputAndLog_449DA0();                 // 原 [0x449DA0,0x449F9C)。
+void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session); // 原 [0x449DA0,0x449F9C)。
 void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
 // 原函数：0x00442DC0。
 void SetWorldActorChatBubble_442DC0(

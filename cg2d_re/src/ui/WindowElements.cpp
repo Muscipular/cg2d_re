@@ -133,7 +133,7 @@ bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id) {
             WindowRuntime_RemoveElement(window, child->elementId);
     }
     if (element->type == WindowElementType_Input && element->data.input
-        && component_detail::gCurrentInputData == element->data.input->context)
+        && window.ownerSession->UiFrame().inputState.currentContext == element->data.input->context)
         detail::WindowChat_RestoreInput(*window.ownerSession);
     return true;
 }

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../script/BigMapSurface.hpp"
 #include "../../script/LuaUI.hpp"
@@ -1191,7 +1192,7 @@ struct BigMapWindowState final {
                 const UIClipRect inputClip{static_cast<short>(window.x + element.x), static_cast<short>(window.y + element.y),
                     static_cast<short>(window.x + element.x + element.width), static_cast<short>(window.y + element.y + element.height)};
                 RendererBreakWindowTextBatch();
-                if (input::gCurrentInputData == context) render::DrawInputText_4568A0(context);
+                if (window.ownerSession->UiFrame().inputState.currentContext == context) render::DrawInputText_4568A0(*window.ownerSession, context);
                 else RendererDrawTextClipped(window.x + element.x + 3, window.y + element.y + 2,
                     FONT_LAYER_WINDOW, kMapFont, 3, input::ContextText(*context), 0, 0, &inputClip);
                 RendererBreakWindowTextBatch();

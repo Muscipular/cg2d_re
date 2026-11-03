@@ -3,10 +3,9 @@
 
 namespace cg::ui {
 using namespace component_detail;
-static WindowElementRef& FocusedInputFor(const WindowElement& element) {
-    auto& owner = element.owner->ownerSession ? *element.owner->ownerSession
+static session::ClientSession& InputOwnerFor(const WindowElement& element) {
+    return element.owner->ownerSession ? *element.owner->ownerSession
         : session::GetClientHost().FirstSession();
-    return owner.UiFrame().focusedInput;
 }
 int ClampTextInputMaxLength(int length) { return length <= 0 || length > TEXT_INPUT_MAX_LENGTH ? TEXT_INPUT_MAX_LENGTH : length; }
 static std::size_t GbkPrefixLength(std::string_view value, int limit)
@@ -67,7 +66,8 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
     }
 }
 void WindowElement_ForgetInputRestore(const WindowElement& element) {
-    auto& focusedInput = FocusedInputFor(element);
+    auto& owner = InputOwnerFor(element);
+    auto& focusedInput = owner.UiFrame().focusedInput;
     auto* window = focusedInput.ownerSession ? WindowRuntime_FindInstance(*focusedInput.ownerSession, focusedInput.winId)
         : WindowRuntime_FindInstance(focusedInput.winId);
     if (!window || window->generation != focusedInput.generation) return;
@@ -85,31 +85,37 @@ void WindowElement_ForgetInputRestore(const WindowElement& element) {
 }
 void WindowElement_BlurInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
-    auto& focusedInput = FocusedInputFor(element);
+    auto& owner = InputOwnerFor(element);
+    auto& focusedInput = owner.UiFrame().focusedInput;
+    auto& inputState = owner.UiFrame().inputState;
+    auto& pointer = owner.UiFrame().native.pointer;
     auto& data = *element.data.input->ownedInput;
-    if (!data.focused && gCurrentInputData != &data.context) return;
+    if (!data.focused && inputState.currentContext != &data.context) return;
     auto* restoreInput = data.previousInput ? data.previousInput : gDefaultInputData;
     data.focused = false;
     data.previousInput = nullptr;
     if (focusedInput.winId == element.owner->id && focusedInput.elementId == element.elementId) focusedInput = {};
-    if (element.owner->ownerSession->UiFrame().native.pointer.focusedElementData == element.data.input) element.owner->ownerSession->UiFrame().native.pointer.focusedElementData = data.previousElement;
+    if (pointer.focusedElementData == element.data.input) pointer.focusedElementData = data.previousElement;
     data.previousElement = nullptr;
-    if (gCurrentInputData == &data.context || !gCurrentInputData) InputSetContext(restoreInput);
+    if (inputState.currentContext == &data.context || !inputState.currentContext) InputSetContext(owner, restoreInput);
 }
 void WindowElement_FocusInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
-    auto& focusedInput = FocusedInputFor(element);
+    auto& owner = InputOwnerFor(element);
+    auto& focusedInput = owner.UiFrame().focusedInput;
+    auto& inputState = owner.UiFrame().inputState;
+    auto& pointer = owner.UiFrame().native.pointer;
     if (auto* previous = WindowRuntime_ResolveElement(focusedInput); previous && previous != &element) WindowElement_BlurInput(*previous);
     auto& data = *element.data.input->ownedInput;
     if (!data.focused) {
-        data.previousInput = gCurrentInputData && gCurrentInputData != &data.context ? gCurrentInputData : gDefaultInputData;
-        data.previousElement = element.owner->ownerSession->UiFrame().native.pointer.focusedElementData;
+        data.previousInput = inputState.currentContext && inputState.currentContext != &data.context ? inputState.currentContext : gDefaultInputData;
+        data.previousElement = pointer.focusedElementData;
         data.focused = true;
     }
     focusedInput = WindowRuntime_ElementRef(element);
     ClampInputContextText(data.context, data.maxLength);
-    element.owner->ownerSession->UiFrame().native.pointer.focusedElementData = element.data.input;
-    InputSetContext(&data.context);
+    pointer.focusedElementData = element.data.input;
+    InputSetContext(owner, &data.context);
 }
 void WindowInput_SetText(WindowInputData& input, std::wstring_view text) {
     if (!input.context) return;
@@ -123,9 +129,10 @@ void WindowInput_SetText(WindowInputData& input, std::wstring_view text) {
 void WindowElement_SyncInputText(WindowElement& element) {
     auto* data = element.data.input ? element.data.input->ownedInput : nullptr;
     if (!data) return;
+    auto& owner = InputOwnerFor(element);
     bool enter = RemoveInputContextLineBreaks(data->context);
     ClampInputContextText(data->context, data->maxLength);
-    if (data->focused && gCurrentInputData == &data->context && (platform::gKeyStates[0x0D] & KSF_TRIGGER)) enter = true;
+    if (data->focused && owner.UiFrame().inputState.currentContext == &data->context && (platform::gKeyStates[0x0D] & KSF_TRIGGER)) enter = true;
     const std::wstring value = data->context.text;
     const auto ref = WindowRuntime_ElementRef(element);
     if (value != data->lastText) {

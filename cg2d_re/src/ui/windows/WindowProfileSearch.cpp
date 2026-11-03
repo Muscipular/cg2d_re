@@ -270,10 +270,11 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0610) {
+    if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContextCB0610) {
         if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 0;
         WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(
+            *currentWindow->ownerSession,
             &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
         const std::wstring& text = input::ContextText(*gProfileSearchInputPrototype580A80.input.context);
         const auto length = static_cast<std::uint32_t>(text.size() + 1);
@@ -333,8 +334,9 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editKeywordElement->data.input) {
                 gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
                 static_cast<void>(WindowInput_ActivateElement(
+                    *callbackWindow.ownerSession,
                     &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
-                input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
+                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCB0610);
                 auto* const editKeywordElement2 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
                 if (editKeywordElement2) {
                     callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = editKeywordElement2->data.input;

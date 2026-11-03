@@ -1265,7 +1265,7 @@ LuaFunctionEx(LuaControlRef, Set) {
         if (control->visible != 1) {
             ui::WindowRuntime_BlurElement(*control);
             if (control->type == ui::WindowElementType_Input && control->data.input
-                && !control->data.input->ownedInput && gCurrentInputData == control->data.input->context)
+                && !control->data.input->ownedInput && control->owner->ownerSession->UiFrame().inputState.currentContext == control->data.input->context)
                 ui::detail::WindowChat_RestoreInput(*control->owner->ownerSession);
         }
     }

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
@@ -86,11 +87,11 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
     }
 
     const std::int32_t measureFontType =
-        input::gCurrentInputData->fontType;
+        connection.Owner().UiFrame().inputState.currentContext->fontType;
     const std::int32_t compositionWidth = cg::render::TextMeasure(
         platform::gImeComposition,
         measureFontType);
-    input::InputContext* const drawContext = input::gCurrentInputData;
+    input::InputContext* const drawContext = connection.Owner().UiFrame().inputState.currentContext;
     const std::int32_t drawY = drawContext->y;
     const std::int32_t drawX = drawContext->x;
     const std::int32_t drawFontType = drawContext->fontType;
@@ -106,8 +107,8 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         211,
         0,
         1);
-    render::DrawInputText_4568A0(&sceneUi.context9A5960);
-    render::DrawInputText_4568A0(&sceneUi.context9A5678);
+    render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5960);
+    render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5678);
 
     bool keyTriggered = platform::ReadKeyPressFlag_4597B0(9) != 0;
     if (!keyTriggered) {
@@ -168,6 +169,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         }
 
         input::SetContext_44B330(
+            connection.Owner(),
             sceneUi.inputFocusTable[sceneUi.inputFocusIndex]);
 
         const std::int32_t accountTop = static_cast<std::int32_t>(sceneUi.context9A5678Y) - 4;
@@ -238,8 +240,8 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
     }
 
     if (mode < 2) {
-        render::DrawInputText_4568A0(&sceneUi.context9A5960);
-        render::DrawInputText_4568A0(&sceneUi.context9A5678);
+        render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5960);
+        render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5678);
     }
 
     std::int32_t candidate = -1;
@@ -324,7 +326,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
     }
 
     if (mode > 0) {
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         sceneUi.loginInputPending = 1;
     } else {
         std::int32_t selectedFocus = candidate;
@@ -340,6 +342,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
                 ? static_cast<std::size_t>(selectedFocus)
                 : std::size_t{0};
             input::SetContext_44B330(
+                connection.Owner(),
                 sceneUi.inputFocusTable[focusIndex]);
             sceneUi.loginInputPending = 0;
             sceneUi.loginInputFocus = selectedFocus;

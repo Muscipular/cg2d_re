@@ -104,7 +104,7 @@ static void WindowMiniMail_Refresh()
     if (!currentWindow) return;
     if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = gMiniMailCompose105F508.name;
     WindowInstance* const window = currentWindow;
-    static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
+    static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gMiniMailInputPrototype580CB0, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
         const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
@@ -129,8 +129,8 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
         const std::int32_t mode =
             gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
         WindowInstance* const window = currentWindow;
-        static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMiniMailInputPrototype580CB0, window->x, window->y, mode));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
         auto* const handleInputElement = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement) {
             callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
@@ -160,8 +160,9 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
         if (handleInputElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != handleInputElement->data.input) {
                 static_cast<void>(WindowInput_ActivateElement(
+                    *callbackWindow.ownerSession,
                     &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
-                input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
+                input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
                 auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
                 if (handleInputElement2) {
                     callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement2->data.input;
@@ -176,8 +177,8 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
         }
         consumed = 1;
     }
-    if (input::gCurrentInputData != &cg::ui::detail::gInputContextCA0180) {
-        render::DrawInputText_4568A0(&cg::ui::detail::gInputContextCA0180);
+    if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &cg::ui::detail::gInputContextCA0180) {
+        render::DrawInputText_4568A0(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextCA0180);
     }
     return consumed;
 }

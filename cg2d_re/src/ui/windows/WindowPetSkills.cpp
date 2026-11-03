@@ -231,7 +231,7 @@ static WindowElement* WindowPetSkills_Refresh()
     std::wstring buffer;
     if (initialPet.used != 0) {
         const bool customName = initialPet.name6BD[0] != '\0';
-        input::InputContext* const activeInput = input::gCurrentInputData;
+        input::InputContext* const activeInput = currentWindow->ownerSession->UiFrame().inputState.currentContext;
         if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
             if (auto* const element12 = currentWindow->FindElementById(WindowPetSkillsElementId::Element12); element12) element12->visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
@@ -245,7 +245,7 @@ static WindowElement* WindowPetSkills_Refresh()
             }
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
             if (auto* const element12 = currentWindow->FindElementById(WindowPetSkillsElementId::Element12); element12) element12->visible = 1;
             auto* const element122 = currentWindow->FindElementById(WindowPetSkillsElementId::Element12);
@@ -430,7 +430,7 @@ static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const
         gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -580,7 +580,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const window = currentWindow;
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
-                static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
                 static_cast<void>(WindowPetSkills_Update(*currentWindow, -1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;

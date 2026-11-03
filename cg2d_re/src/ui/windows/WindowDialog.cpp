@@ -310,8 +310,8 @@ static std::int32_t WindowDialog_Update(WindowInstance& callbackWindow, const st
             window = currentWindow;
             const std::int32_t y = window->y + inputY;
             const std::int32_t inputX = window->x + 24;
-            static_cast<void>(WindowInput_ActivateElement(&dialog.inputPrototype, inputX, y, 0));
-            input::SetContext_44B330(&dialog.input);
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &dialog.inputPrototype, inputX, y, 0));
+            input::SetContext_44B330(*callbackWindow.ownerSession, &dialog.input);
             window = currentWindow;
             auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
             if (element82) {
@@ -429,7 +429,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     if (inputCount > 0) {
         const std::int32_t inputX = window->x + 24;
         std::int32_t selected = dialog.message.selectedInput;
-        if (selected >= 0 && input::gCurrentInputData != &dialog.input) {
+        if (selected >= 0 && callbackWindow.ownerSession->UiFrame().inputState.currentContext != &dialog.input) {
             dialog.message.inputTexts[selected] = input::ContextText(dialog.input);
             selected = -1;
             window = currentWindow;
@@ -439,7 +439,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
         std::int32_t row = 0;
         while (row < inputCount) {
             if (row == selected) {
-                render::DrawInputText_4568A0(input::gCurrentInputData);
+                render::DrawInputText_4568A0(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().inputState.currentContext);
             } else {
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(inputX),
@@ -606,8 +606,8 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
                 if (auto* const element8 = currentWindow->FindElementById(WindowDialogElementId::Element8); element8) element8->visible = 1;
                 const std::int16_t inputY = dialog.message.inputY[selected];
                 const std::int32_t y = inputY + currentWindow->y;
-                static_cast<void>(WindowInput_ActivateElement(&dialog.inputPrototype, inputX, y, 0));
-                input::SetContext_44B330(&dialog.input);
+                static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &dialog.inputPrototype, inputX, y, 0));
+                input::SetContext_44B330(*callbackWindow.ownerSession, &dialog.input);
                 window = currentWindow;
                 auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
                 if (element82) {
@@ -616,7 +616,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
                 if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &dialog.input;
                 const std::wstring* const texts = dialog.message.inputTexts.data();
                 dialog.message.selectedInput = selected;
-                input::LoadInitialText_44A160(texts[selected]);
+                input::LoadInitialText_44A160(*callbackWindow.ownerSession, texts[selected]);
                 consumed = 1;
             }
         }

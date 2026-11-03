@@ -60,7 +60,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
                     static_cast<void>(render::SelectPalette(19, 60));
                 }
                 world::gCurrentSceneState = 10;
-                input::SetContext_44B330(nullptr);
+                input::SetContext_44B330(connection.Owner(), nullptr);
                 return;
             }
             break;
@@ -68,7 +68,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             ResetLoginMessage(connection);
             static_cast<void>(detail::PlaySe(56, 320, 240));
             world::gCurrentSceneState = 9;
-            input::SetContext_44B330(nullptr);
+            input::SetContext_44B330(connection.Owner(), nullptr);
             return;
         case 9:
             if (UpdateLoginMessage(connection, sceneUi.outerLoginErrorMessage) != 0) {
@@ -106,7 +106,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
     }
 
     if (!processLoginInput) {
-        input::SetContext_44B330(nullptr);
+        input::SetContext_44B330(connection.Owner(), nullptr);
         return;
     }
 

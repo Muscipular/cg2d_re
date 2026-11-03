@@ -70,7 +70,7 @@ namespace detail {
 extern std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA; // 原全局：0x0062B5AA。
 extern std::uint32_t gMapTargetInputAndDrawOverride_62B308; // 原全局：0x0062B308。
 // 原函数：0x004590E0。
-void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
+void RenderInput_4590E0(session::ClientSession& session); // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00458F40。
 void __cdecl UpdatePlayerCountdown_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
 // 原函数：0x00458F00。

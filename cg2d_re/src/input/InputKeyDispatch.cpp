@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "InputKeyDispatchDependencies.hpp"
 #include "cg/core/m_log.hpp"
@@ -16,24 +17,24 @@ void ProcessKeyInput_4596D0(session::ClientSession& session)
         if ((platform::gKeyStates[17] & 0x02u) == 0
             && (platform::gKeyStates[16] & 0x02u) == 0) {
             if ((platform::gKeyStates[38] & 0x10u) != 0) {
-                detail::MoveInputCaretUp_44A5D0();
+                detail::MoveInputCaretUp_44A5D0(session);
             }
             if ((platform::gKeyStates[40] & 0x10u) != 0) {
-                detail::MoveInputCaretDown_44A7D0();
+                detail::MoveInputCaretDown_44A7D0(session);
             }
             if ((platform::gKeyStates[37] & 0x10u) != 0) {
-                detail::MoveInputCaretLeft_44A540();
+                detail::MoveInputCaretLeft_44A540(session);
             }
             if ((platform::gKeyStates[39] & 0x10u) != 0) {
-                detail::MoveInputCaretRight_44A580();
+                detail::MoveInputCaretRight_44A580(session);
             }
         }
 
         if ((platform::gKeyStates[8] & 0x10u) != 0) {
-            detail::DeleteCharacterBeforeInputCaret_44A990();
+            detail::DeleteCharacterBeforeInputCaret_44A990(session);
         }
         if ((platform::gKeyStates[46] & 0x10u) != 0) {
-            detail::DeleteCharacterAtInputCaret_44AA90();
+            detail::DeleteCharacterAtInputCaret_44AA90(session);
         }
         if ((platform::gKeyStates[9] & 0x10u) != 0) {
             cg::core::NullSub_509080();

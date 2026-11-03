@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "imeImpl.hpp"
 
 #include "StartupNative.hpp"
@@ -122,13 +123,13 @@ std::wstring_view QueryWindowImeDescription_4734F0() noexcept
 }
 
 // 原 sub_459580@[0x459580,0x4596C8)。四个标志分支彼此独立，顺序与旧端一致。
-char HandleImeCompositionFlags_459580(const std::int16_t flags)
+char HandleImeCompositionFlags_459580(session::ClientSession& session, const std::int16_t flags)
 {
     const std::uint16_t flagBits = std::bit_cast<std::uint16_t>(flags);
     std::uint8_t returnByte = static_cast<std::uint8_t>(flagBits);
     if ((flagBits & GCS_RESULTSTR) != 0u) {
         if (const auto result = ReadImeString(GCS_RESULTSTR)) {
-            input::AppendText(*result);
+            input::AppendText(session, *result);
         }
     }
     if ((flagBits & GCS_COMPSTR) != 0u) {
@@ -153,7 +154,7 @@ char HandleImeCompositionFlags_459580(const std::int16_t flags)
         const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(gImeContext), GCS_CURSORPOS, nullptr, 0);
         if (cursor >= 0) {
             gImeCompositionCursorPosition = static_cast<std::int32_t>(text::Prefix(gImeComposition, static_cast<std::size_t>(cursor)));
-            input::gInputCaretBlinkPhase_626C0C = 20;
+            session.UiFrame().inputState.caretBlinkPhase = 20;
             returnByte = static_cast<std::uint8_t>(gImeCompositionCursorPosition);
         }
     }

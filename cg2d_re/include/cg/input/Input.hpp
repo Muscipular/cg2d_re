@@ -61,6 +61,16 @@ public:
     std::int32_t& visibleStartOffset; // 原+0x158；单行可见起点，UTF-16码元偏移；聊天日志借用见WindowChat_PreviousFont。
 };
 
+// 当前输入为非拥有借用；切换会话不改变该会话的输入选择、光标及控制门禁。
+struct InputRuntimeState {
+    InputContext* currentContext = nullptr; // 原0x626C04，可显式设空。
+    std::int32_t chatPanelVisible = 0; // 原0xC9A96C。
+    std::int32_t caretBlinkPhase = 0; // 原0x626C0C，接受字符后写20。
+    std::int32_t chatLogSuppressed = 0; // 原0x626C14，聊天回复与UI共用。
+    std::int32_t lineOverflowRollbackMode = 0; // 原0x626C20。
+    std::int32_t insertRejected = 0; // 原0x626C28。
+};
+
 // UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。
 struct TextLine {
     std::size_t start;
@@ -68,13 +78,13 @@ struct TextLine {
     std::size_t nextStart;
 };
 [[nodiscard]] std::vector<TextLine> SplitLines(const InputContext& context);
-void AppendText(std::wstring_view utf16);
+void AppendText(session::ClientSession& session, std::wstring_view utf16);
 [[nodiscard]] std::wstring ContextText(const InputContext& context);
 [[nodiscard]] std::size_t ContextUtf16Offset(const InputContext& context, std::int32_t unitOffset);
 void SetVisibleUtf16Offset(InputContext& context, std::size_t utf16Offset);
 
 // 原函数：0x0044A160。
-void LoadInitialText_44A160(std::wstring_view initialText);
+void LoadInitialText_44A160(session::ClientSession& session, std::wstring_view initialText);
 
 // 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
 [[nodiscard]] bool IsRejectedInputText_404060(std::wstring_view text);
@@ -90,9 +100,6 @@ std::int32_t ClassifyChatSplit_44B570(std::wstring_view text, std::int32_t unuse
 
 // 原 sub_44B4A0@[0x44B4A0,0x44B561)：跳过旧双字节尾字节，返回可写的首个匹配位置。
 [[nodiscard]] char* FindLegacyByte_44B4A0(char* text, const char* target);
-
-// 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
-extern InputContext* gCurrentInputData;
 
 // 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
@@ -110,25 +117,17 @@ extern InputContext gInputContextCF47E0; // 原全局：0x00CF47E0。 旧53输�
 extern InputContext gInputContext1050B80; // 原全局：0x01050B80。 旧87公会宠物邮件草稿，独立15CH虚拟零对象。
 extern InputContext gInputContext1051348; // 原全局：0x01051348。 旧90公会普通邮件草稿，独立于宠物邮件输入。
 extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95三项资料输入，原15CH步长，末界不含105132C。
-// 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
-extern std::int32_t gChatPanelVisible_C9A96C;
-
-// 下列状态只保留当前已取证的读写语义，不扩展业务命名。
-extern std::int32_t gInputCaretBlinkPhase_626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
-extern std::int32_t gChatLogSuppressed_626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
-extern std::int32_t gInputLineOverflowRollbackMode_626C20; // 原全局：0x00626C20。 超过 maxLine 时选择截断或回滚分支。
-extern std::int32_t gInputInsertRejected_626C28; // 原全局：0x00626C28。 特定回滚路径写 1。
-
 // 原 Input::SetContext@[0x44B330,0x44B33A)。
-void SetContext_44B330(InputContext* context);
+void SetContext_44B330(session::ClientSession& session, InputContext* context);
 
 // 原 503E40/503E60：当前上下文地址比较，返回完整 W32 的 0 或 1。
-std::int32_t IsCurrentContext_503E40(const InputContext* context);
+std::int32_t IsCurrentContext_503E40(session::ClientSession& session, const InputContext* context);
 // 原44B340：Shift优先于Ctrl，扫描F1..F8并追加最后命中的同源预设文本。
-std::int32_t ProcessPresetHotkeys_44B340();
+std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session);
 
 // 原 sub_449CF0@[0x449CF0,0x449D92)。
 void InitializeContext_449CF0(
+    session::ClientSession& session,
     InputContext* context,
     std::int32_t textX,
     std::int32_t textY,
@@ -153,7 +152,7 @@ InputContext* SetInputPositionAndStyle_45D760(
     std::int32_t color, std::int32_t renderMode, std::int32_t fontType);
 
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
-void AppendChar_44ADB0(wchar_t character);
+void AppendChar_44ADB0(session::ClientSession& session, wchar_t character);
 // 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0(session::ClientSession& session); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
@@ -199,6 +198,6 @@ char RemoveLegacyBytes_52D570(std::wstring& text, std::wstring_view excluded);
 void ProcessKeyInput_4596D0(session::ClientSession& session);
 
 // 原44A410：输入光标及IME光标绘制。
-void DrawAndAdvanceInputCaret_44A410();
+void DrawAndAdvanceInputCaret_44A410(session::ClientSession& session);
 
 } // namespace cg::input

@@ -112,8 +112,8 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         const WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMailInputPrototype57E740, x, y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = currentWindow;
         gMailInputPrototype57E740.text.clear();
         auto* const handleInputElement = focused->FindElementById(WindowPetMailComposeElementId::HandleInput);
@@ -441,7 +441,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
     const WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
-    return WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 2);
+    return WindowInput_ActivateElement(*callbackWindow.ownerSession, &gMailInputPrototype57E740, x, y, 2);
 }
 
 } // namespace detail

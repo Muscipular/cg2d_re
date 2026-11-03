@@ -91,8 +91,8 @@ static void WindowItemStorage_Release(WindowInstance& releasedWindow)
     if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
-    if (input::IsCurrentContext_503E40(nullptr)) {
-        input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
+    if (input::IsCurrentContext_503E40(*releasedWindow.ownerSession, nullptr)) {
+        input::SetContext_44B330(*releasedWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
     }
 }
 

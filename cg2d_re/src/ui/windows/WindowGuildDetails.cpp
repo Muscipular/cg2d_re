@@ -414,7 +414,7 @@ static void WindowGuildDetails_RefreshEditor()
             WindowInstance* const current = currentWindow;
             const std::int32_t y = current->y;
             const std::int32_t x = current->x;
-            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[0], x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gGuildInputs57F040[0], x, y, 1));
         } else {
             if (auto* const element10 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element10); element10) element10->visible = 1;
             auto* const element102 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
@@ -445,7 +445,7 @@ static void WindowGuildDetails_RefreshEditor()
             WindowInstance* const current = currentWindow;
             const std::int32_t y = current->y;
             const std::int32_t x = current->x;
-            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gGuildInputs57F040[1], x, y, 1));
         } else {
             if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 1;
             auto* const element112 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
@@ -698,7 +698,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData == indexedElement->data.input) {
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[index], x, y, 2));
             return 0;
         }
     }
@@ -715,8 +715,8 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[1], x, y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
@@ -739,8 +739,8 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gGuildInputs57F040[index], x, y, 0));
+        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {

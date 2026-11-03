@@ -121,7 +121,8 @@ std::int32_t ProcessSceneSlideOut_51D790(
 std::int32_t ProcessSceneSlideIn_51E0D0(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 // 原函数：0x0051EC10。
-std::int32_t ProcessSceneQuadrantTransition_51EC10(std::int32_t index, std::int32_t value);
+std::int32_t ProcessSceneQuadrantTransition_51EC10(
+    session::ClientSession& session, std::int32_t index, std::int32_t value);
 // 原函数：0x0051EF80。
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
     session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits);

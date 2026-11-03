@@ -374,8 +374,8 @@ std::int32_t ProcessSceneTransitionEffect_51FDE0(
     case 15: return ProcessSceneSlideIn_51E0D0(7, value, payloadBits);
     case 16: return ProcessSceneSlideOut_51D790(8, value, payloadBits);
     case 17: return ProcessSceneSlideIn_51E0D0(8, value, payloadBits);
-    case 18: return ProcessSceneQuadrantTransition_51EC10(0, value);
-    case 19: return ProcessSceneQuadrantTransition_51EC10(1, value);
+    case 18: return ProcessSceneQuadrantTransition_51EC10(session, 0, value);
+    case 19: return ProcessSceneQuadrantTransition_51EC10(session, 1, value);
     case 20: return ProcessSceneRandomTileTransition_51EF80(session, 0, value, 0);
     case 21: return ProcessSceneRandomTileTransition_51EF80(session, 1, value, 0);
     case 22: return ProcessSceneRandomTileTransition_51EF80(session, 2, value, payloadBits);

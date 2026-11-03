@@ -69,6 +69,15 @@ struct MapActorDrawKey {
 };
 static_assert(sizeof(MapActorDrawKey) == 12);
 
+// 四象限转场的阶段及坐标；同一场景会话内四块连续推进。
+struct QuadrantTransitionState {
+    std::int32_t phase = -1; // 原 0x58B6D8，加载区初值 -1。
+    std::array<std::int32_t, 4> x {}; // 原 0xFF275C。
+    std::array<std::int32_t, 4> y {}; // 原 0xFF47D0。
+};
+static_assert(sizeof(QuadrantTransitionState::x) == 16);
+static_assert(sizeof(QuadrantTransitionState::y) == 16);
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -77,6 +86,7 @@ struct WorldSceneRuntimeState {
     RotationState rotation {};
     ChatSendState chat {};
     ChatInputHistoryState chatInputHistory {};
+    QuadrantTransitionState quadrantTransition {};
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。
     std::uint8_t worldEntryRepliesPendingMask = 0; // 原 0x9A4B94，入场等待与地图回复的两位。

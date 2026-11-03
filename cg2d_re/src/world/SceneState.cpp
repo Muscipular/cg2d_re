@@ -94,11 +94,6 @@ static float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
 static float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
 static float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
 static float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
-static std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原全局：0x0058B6D8。 原加载区初值FFFFFFFF。
-static std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {}; // 原全局：0x00FF275C。
-static std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {}; // 原全局：0x00FF47D0。
-static_assert(sizeof(gQuadrantTransitionXFF275C) == 16);
-static_assert(sizeof(gQuadrantTransitionYFF47D0) == 16);
 // 原51EF80的64画块同源状态；阶段加载初值-1，其余为未加载区零初值。
 // 状态1/2的含义随显隐/下落模式变化，源坐标与运动坐标不可合并。
 static std::int32_t gTileTransitionPhase58B6DC = -1; // 原全局：0x0058B6DC。
@@ -7415,8 +7410,12 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
 }
 
 // 原[51EC10,51EF75)：四块画面分离/合拢，坐标发布和阈值清零沿原序。
-std::int32_t ProcessSceneQuadrantTransition_51EC10(const std::int32_t mode, const std::int32_t value)
+std::int32_t ProcessSceneQuadrantTransition_51EC10(
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
 {
+    auto& gQuadrantTransitionPhase58B6D8 = session.WorldScene().quadrantTransition.phase;
+    auto& gQuadrantTransitionXFF275C = session.WorldScene().quadrantTransition.x;
+    auto& gQuadrantTransitionYFF47D0 = session.WorldScene().quadrantTransition.y;
     std::array<std::array<std::int32_t, 4>, 4> rectangles {{
         {0, 0, 320, 240},
         {320, 0, 640, 240},

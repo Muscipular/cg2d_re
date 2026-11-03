@@ -134,9 +134,9 @@ WindowPrototype gWindowPrototypePetAttributes {0, 4, 365, 83, 245, 306, 0x800101
 
 // 窗口17完整属性刷新；显示逐项取号，加点判断单独固定宠物，见window_17.md。
 // 原函数：0x00490780。
-static std::uint32_t WindowPetAttributes_Refresh()
+static std::uint32_t WindowPetAttributes_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
@@ -275,17 +275,17 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
     if (!currentWindow) return 0;
     if (value == -1) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         return 1;
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
     if (WindowPetDetail_HasPetSequenceChanges() != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         WindowPetDetail_ResetDraftFlag();
         WindowInstance* const window = currentWindow;
         inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
@@ -299,7 +299,7 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    static_cast<void>(WindowPetAttributes_Refresh());
+    static_cast<void>(WindowPetAttributes_Refresh(&callbackWindow));
     return 1;
 }
 

@@ -504,9 +504,9 @@ WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorS
 // 原函数：0x004C71B0。
 std::int32_t WindowItemSelector_ReadSelectedPet(const WindowItemSelectorState* state); // 原+70同源S32。
 // 原函数：0x004C6EC0。
-void WindowItemSelector_BindElements(WindowItemSelectorState* state, std::uint8_t mode); // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
+void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemSelectorState* state, std::uint8_t mode); // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
 // 原函数：0x004C7380。
-bool WindowItemSelector_HandleTab(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events); // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
+bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow, WindowItemSelectorState* state, std::int32_t tab, std::int32_t events); // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
 // 原函数：0x004C78A0。
 bool WindowItemSelector_TogglePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
 // 原函数：0x004C7910。
@@ -514,15 +514,15 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* state, std::int3
 // 原函数：0x004C7A10。
 bool WindowItemSelector_RotatePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 // 原函数：0x004C7A90。
-void WindowItemSelector_Update(WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
+void WindowItemSelector_Update(WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 // 原函数：0x004C7240。
-std::int32_t WindowItemSelector_ReadScreenX(
+std::int32_t WindowItemSelector_ReadScreenX(WindowInstance* callbackWindow,
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // X；负局部坐标不读取窗口。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
 // 原函数：0x004C7280。
-std::int32_t WindowItemSelector_ReadScreenY(
+std::int32_t WindowItemSelector_ReadScreenY(WindowInstance* callbackWindow,
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // Y；与X分开采样模式和当前窗口。
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
@@ -544,7 +544,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, Element
 // 原函数：0x00489760。
 std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // IER01：库存装备完整原根，四读取合同对齐；原S32返回/全部callee与运行待。
 // 原函数：0x004C75A0。
-bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* selector, std::int32_t state); // SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。
+bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, WindowItemSelectorState* selector, std::int32_t state); // SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。
 // 原函数：0x00499C30。
 std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // BIP01：完整战斗背包/目标生产，六BYTE及六坐标取序明确；旧格式/CAB30保持，全生命周期与运行待。
 // 原函数：0x0049AC40。
@@ -673,8 +673,6 @@ WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows();
 std::array<WindowState, kWindowCount>& WindowRuntime_States();
 WindowLayoutSettings& WindowRuntime_Settings();
-extern WindowInstance* gCurrentWindow; // 原CF4694。
-extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
 extern std::int32_t gDragItemIndex584DA4; // 原全局：0x00584DA4。 4FB8F0重置与旧14的4FAEF0拖动生产共用。
 extern std::int32_t gDragImageNoD67D24; // 原全局：0x00D67D24。

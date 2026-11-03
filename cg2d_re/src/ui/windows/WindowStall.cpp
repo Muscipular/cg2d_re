@@ -163,7 +163,7 @@ static void WindowStall_ReceivePurchaseResult(std::int32_t result); // 购买结
 static void WindowStall_BuildItemDescription(world::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
 
 // 原函数：0x004CECB0。
-static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
+static std::int32_t WindowStall_RequestPurchase(WindowInstance* callbackWindow); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
 
 // 原函数：0x004CD420。
 static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
@@ -208,7 +208,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWind
 static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 类别页签及七项候选控件原序显隐。
 
 // 原函数：0x004CFE70。
-static std::int32_t WindowStall_SubmitListings(); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
+static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
 
 // 原函数：0x004D0230。
 static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共用提示覆盖层，只返回hover位。
@@ -220,7 +220,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, El
 static network::SendResult WindowStall_RequestClose(); // 收摊请求，透传发送结果。
 
 // 原函数：0x004CED50。
-static WindowInstance* WindowStall_ShowPurchaseConfirmation(); // 显示购买确认，返回入口窗口。
+static WindowInstance* WindowStall_ShowPurchaseConfirmation(WindowInstance* callbackWindow); // 显示购买确认，返回入口窗口。
 
 // 原函数：0x004CED60。
 static void WindowStall_OpenBrowse(
@@ -229,10 +229,10 @@ static void WindowStall_OpenBrowse(
     const char* description, const char* itemPayload, const char* petPayload); // 浏览区完整生产后打开68。
 
 // 原函数：0x004CFC40。
-static WindowElement* WindowStall_EditItemPrice(); // 物品定价输入初始化，返回末次取得的元素表。
+static WindowElement* WindowStall_EditItemPrice(WindowInstance* callbackWindow); // 物品定价输入初始化，返回末次取得的元素表。
 
 // 原函数：0x004CFCA0。
-static void WindowStall_EditPetPrice(std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
+static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
 
 // 原函数：0x004CFD70。
 static std::int32_t WindowStall_RemoveListing(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
@@ -848,9 +848,9 @@ static network::SendResult WindowStall_RequestClose()
 }
 
 // 原函数：0x004CED50。
-static WindowInstance* WindowStall_ShowPurchaseConfirmation()
+static WindowInstance* WindowStall_ShowPurchaseConfirmation(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
     WindowInstance* const window = currentWindow;
     if (auto* const handlePriceInputElement = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 1;
@@ -858,9 +858,9 @@ static WindowInstance* WindowStall_ShowPurchaseConfirmation()
 }
 
 // 原函数：0x004CFC40。
-static WindowElement* WindowStall_EditItemPrice()
+static WindowElement* WindowStall_EditItemPrice(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     gStallPriceD67C40 = 0;
@@ -878,9 +878,9 @@ static WindowElement* WindowStall_EditItemPrice()
 }
 
 // 原函数：0x004CFCA0。
-static void WindowStall_EditPetPrice(const std::int32_t petIndex)
+static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, const std::int32_t petIndex)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto& pet = world::gPetRuntimeRecords[petIndex];
@@ -970,7 +970,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
                 gOwnStallOpenForBusiness_D67BE0 = gate == 0 ? 1 : 0;
                 gStallItemSelection581124 = -1;
                 gStallPetSelection581128 = -1;
-                static_cast<void>(WindowStall_SubmitListings());
+                static_cast<void>(WindowStall_SubmitListings(&callbackWindow));
             }
             break;
         case WindowStallElementId::HandleButtons_32:
@@ -1021,14 +1021,14 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
                 if (selected < 0 || selected >= 20) {
                     disabled = true;
                 } else if (gStallItemUsedCC31AC[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
-                    static_cast<void>(WindowStall_EditItemPrice());
+                    static_cast<void>(WindowStall_EditItemPrice(&callbackWindow));
                 }
             } else if (mode == 1) {
                 const std::int32_t selected = gStallPetSelection581128;
                 if (selected < 0 || selected >= 5) {
                     disabled = true;
                 } else if (gStallPetUsedCF400C[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
-                    WindowStall_EditPetPrice(selected);
+                    WindowStall_EditPetPrice(&callbackWindow, selected);
                 }
             }
             break;
@@ -1050,7 +1050,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
                 if (petCount <= 0 && mode == 1) {
                     disabled = true;
                 } else if ((state & MouseFlag_LDownEvent) != 0) {
-                    static_cast<void>(WindowStall_ShowPurchaseConfirmation());
+                    static_cast<void>(WindowStall_ShowPurchaseConfirmation(&callbackWindow));
                 }
             }
         }
@@ -1092,9 +1092,9 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
 }
 
 // 原函数：0x004CFE70。
-static std::int32_t WindowStall_SubmitListings()
+static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     std::wstring buffer;
@@ -1420,7 +1420,7 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
             if (currentOwn) {
                 static_cast<void>(WindowStall_RemoveListing());
             } else {
-                static_cast<void>(WindowStall_ShowPurchaseConfirmation());
+                static_cast<void>(WindowStall_ShowPurchaseConfirmation(&callbackWindow));
             }
         }
         const std::int32_t current = gStallPetPageD67BD0 + row;
@@ -1592,7 +1592,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
                 gStallPetSelection581128 = gStallPetCandidatePageD67BD8 + row;
             }
             if ((state & MouseFlag_LDblClickEvent) != 0) {
-                WindowStall_EditPetPrice(gStallPetSelection581128);
+                WindowStall_EditPetPrice(&callbackWindow, gStallPetSelection581128);
             }
         }
         if ((offered || own) && gStallOwn58111C != 0
@@ -1736,7 +1736,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
             if (currentOwn) {
                 static_cast<void>(WindowStall_RemoveListing());
             } else {
-                static_cast<void>(WindowStall_ShowPurchaseConfirmation());
+                static_cast<void>(WindowStall_ShowPurchaseConfirmation(&callbackWindow));
             }
         }
         const std::int32_t current = gStallItemPageD67BC8 + row;
@@ -1866,7 +1866,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
                                 gStallItemSelection581124 = slot;
                             }
                             if ((state & MouseFlag_LDblClickEvent) != 0) {
-                                static_cast<void>(WindowStall_EditItemPrice());
+                                static_cast<void>(WindowStall_EditItemPrice(&callbackWindow));
                             }
                         }
                     }
@@ -2060,7 +2060,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     if (cg::ui::HitTestMouseRect_5049A0(
         acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(WindowStall_RequestPurchase());
+            static_cast<void>(WindowStall_RequestPurchase(&callbackWindow));
             if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
         }
         imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
@@ -2819,9 +2819,9 @@ static void WindowStall_BuildItemDescription(world::PlayerItemRecord* const item
 }
 
 // 原函数：0x004CECB0。
-static std::int32_t WindowStall_RequestPurchase()
+static std::int32_t WindowStall_RequestPurchase(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t mode = gStallModeD67BDC;
     std::int32_t value;

@@ -33,7 +33,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049E990。
-static void WindowTradeTarget_Refresh(std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
+static void WindowTradeTarget_Refresh(WindowInstance* callbackWindow, std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
 
 // 原函数：0x0049E8F0。
 static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口44初始化与移动关闭。
@@ -156,9 +156,9 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
 }
 
 // 原函数：0x0049E990。
-static void WindowTradeTarget_Refresh(const std::int32_t offset)
+static void WindowTradeTarget_Refresh(WindowInstance* callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     for (std::int32_t line = 0; line < 5; ++line) {
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(9 + line));
@@ -180,7 +180,7 @@ static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, con
         for (std::int32_t index = 0; index < 6; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
         }
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+        WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {
         currentWindow->state |= 0x8000u;
@@ -207,7 +207,7 @@ static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const
             if (handleVerticalScrollElement2) {
                 gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gWindowListCountCF46A8 - 5);
             }
-            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -247,7 +247,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callback
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
             result = 1;
         }
         graphic->imageNo = 0x3B592;
@@ -285,7 +285,7 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWind
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
             result = 1;
         }
         graphic->imageNo = 0x3B595;
@@ -322,7 +322,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbac
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
             result = 1;
         }
         graphic->imageNo = 0x3B556;
@@ -366,7 +366,7 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWin
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
-            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
             result = 1;
         }
         graphic->imageNo = 0x3B559;

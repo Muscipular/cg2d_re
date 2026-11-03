@@ -542,6 +542,8 @@ struct WindowPointerRuntimeState {
     std::int32_t phase = 0; // 原0x57C128。
     ElementId currentElementId = 0; // 原0x57C12C，MEI01以0表示无当前元素。
     std::int32_t currentWindowId = 0; // 原0xD67A1C。
+    WindowInstance* currentWindow = nullptr; // 原0xCF4694，帧派发和嵌套开窗的非拥有游标。
+    detail::WindowState* currentWindowState = nullptr; // 原0xCF4684，派发/关闭共用记录游标。
     void* focusedElementData = nullptr; // 原0xD45F94，异型元素载荷借用，不是InputContext。
 };
 

@@ -60,7 +60,7 @@ static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, Ele
 static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
 
 // 原函数：0x004A4540。
-static std::uint32_t WindowGuildRank_Refresh(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
+static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
 
 // 原函数：0x004A45E0。
 static std::int32_t WindowGuildRank_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 非零滚轮推进，恒返回0。
@@ -144,7 +144,7 @@ static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const s
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    static_cast<void>(WindowGuildRank_Refresh());
+    static_cast<void>(WindowGuildRank_Refresh(&callbackWindow));
     WindowRuntime_DrawCurrent(callbackWindow);
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
@@ -286,9 +286,9 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callback
 }
 
 // 原函数：0x004A4540。
-static std::uint32_t WindowGuildRank_Refresh()
+static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;

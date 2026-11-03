@@ -245,9 +245,9 @@ WindowPrototype gWindowPrototypeAlbumDetail {0, 4, 357, 90, 256, 289, 0x80010101
 
 // 原评级参数是S32，不是反编译的载荷指针；五个caller均不消费混合返回。
 // 原函数：0x004939A0。
-static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::int32_t base)
+static void WindowAlbumDetail_DrawRating(WindowInstance* callbackWindow, const std::int32_t rating, const std::int32_t base)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + slot)); indexedElement) indexedElement->visible = 0;
@@ -270,9 +270,9 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
 
 // 唯一caller492410不消费原混合返回；保留各消费点独立的角色/记录取样。
 // 原函数：0x00492F70。
-static void WindowAlbumDetail_Refresh()
+static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const auto selectedRecord = []() {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
@@ -370,9 +370,9 @@ static void WindowAlbumDetail_Refresh()
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
         const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords();
-        WindowAlbumDetail_DrawRating(firstRatingRecords[firstRatingIndex].ratings[0], 53);
+        WindowAlbumDetail_DrawRating(callbackWindow, firstRatingRecords[firstRatingIndex].ratings[0], 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
-            WindowAlbumDetail_DrawRating(selectedRecord()->ratings[rating], 53 + rating * 5);
+            WindowAlbumDetail_DrawRating(callbackWindow, selectedRecord()->ratings[rating], 53 + rating * 5);
         }
         const auto showSegment = [currentWindow](const std::int32_t element, const std::int32_t graphic) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = graphic;
@@ -430,7 +430,7 @@ static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, con
     if (value == -1) {
         gLoginWindowRuntime.valueCF4A00 = 5;
     }
-    WindowAlbumDetail_Refresh();
+    WindowAlbumDetail_Refresh(&callbackWindow);
     return 1;
 }
 

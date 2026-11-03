@@ -204,9 +204,9 @@ void WindowMail_WriteContactStatus(
     }
 }
 
-void WindowMail_SetUnreadGraphic(const std::int32_t index)
+void WindowMail_SetUnreadGraphic(WindowInstance* callbackWindow, const std::int32_t index)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     WindowInstance* const window = currentWindow;
     auto* elementsWindow = window;

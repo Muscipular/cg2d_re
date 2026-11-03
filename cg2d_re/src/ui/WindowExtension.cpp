@@ -63,7 +63,7 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
                 if (element->type == WindowElementType_Input && element->data.input
                     && window.ownerSession->UiFrame().inputState.currentContext == element->data.input->context) detail::WindowChat_RestoreInput(*window.ownerSession);
             }
-            if (gCurrentWindow == &window) WindowDrag_Cancel(*window.ownerSession);
+            if (window.ownerSession->UiFrame().native.pointer.currentWindow == &window) WindowDrag_Cancel(*window.ownerSession);
         }
         return;
     }

@@ -158,11 +158,11 @@ WindowPrototype gWindowPrototypeOwnProfile {0, 4, 15, 97, 315, 261, 0x80000080u,
 // 窗口函数实现。
 
 // 原478A10三项正文共享分支；第一项在求长度后才取data，另两项在此前取。
-static void WindowOwnProfile_RefreshEntry(
+static void WindowOwnProfile_RefreshEntry(WindowInstance* callbackWindow,
     const std::int32_t index, input::InputContext* const context,
     WindowInputPrototype* const prototype)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
     const std::int32_t element = index + 9;
@@ -210,9 +210,9 @@ static void WindowOwnProfile_RefreshEntry(
 
 // 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
 // 原函数：0x00478A10。
-static void WindowOwnProfile_Refresh()
+static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto& current = world::detail::gCurrentProfile10738E8;
@@ -270,9 +270,9 @@ static void WindowOwnProfile_Refresh()
         const std::int32_t image = current.entries410[index].value04;
         if (auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index + 26)); indexedElement) indexedElement->data.graphic->imageNo = image;
     }
-    WindowOwnProfile_RefreshEntry(0, &inputs.profileFirst, &inputs.profileFirstPrototype);
-    WindowOwnProfile_RefreshEntry(1, &inputs.profileSecond, &inputs.profileSecondPrototype);
-    WindowOwnProfile_RefreshEntry(2, &inputs.profileThird, &inputs.profileThirdPrototype);
+    WindowOwnProfile_RefreshEntry(callbackWindow, 0, &inputs.profileFirst, &inputs.profileFirstPrototype);
+    WindowOwnProfile_RefreshEntry(callbackWindow, 1, &inputs.profileSecond, &inputs.profileSecondPrototype);
+    WindowOwnProfile_RefreshEntry(callbackWindow, 2, &inputs.profileThird, &inputs.profileThirdPrototype);
 
     if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &inputs.profileDescription) {
         for (std::int32_t index = 12; index < 16; ++index) {
@@ -317,7 +317,7 @@ static void WindowOwnProfile_Refresh()
 // 原函数：0x00478320。
 static std::int32_t WindowOwnProfile_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowOwnProfile_Refresh();
+    WindowOwnProfile_Refresh(&callbackWindow);
     return 1;
 }
 

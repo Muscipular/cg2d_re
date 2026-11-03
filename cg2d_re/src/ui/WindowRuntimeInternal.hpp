@@ -309,7 +309,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
 void WindowMail_WriteContactStatus(
     const MailContactView& record, WindowTextData* const data, const std::int16_t status);
 
-void WindowMail_SetUnreadGraphic(const std::int32_t index);
+void WindowMail_SetUnreadGraphic(WindowInstance* callbackWindow, const std::int32_t index);
 
 // MC01-C8：两邮件索引域共用std::sort；三向COMP<0表示在前，同键等价。
 void WindowMail_SortIndices(
@@ -326,7 +326,7 @@ void WindowPetDetail_ResetDraftFlag();
 std::int32_t WindowPetDetail_ReadDraftFlag();
 
 // 原函数：0x00492280。
-void WindowPetDetail_InitializeDraft();
+void WindowPetDetail_InitializeDraft(WindowInstance* callbackWindow);
 
 // 原函数：0x00492350。
 std::int32_t WindowPetDetail_SavePetSequences();

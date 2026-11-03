@@ -887,13 +887,13 @@ static void WindowPetList_RefreshStates()
 }
 
 // 原48C920四段同构属性条：先逐格隐藏，再取S16宠物索引，图号/显隐分别重取窗口。
-static void WindowPetList_RefreshAttributeBar(
+static void WindowPetList_RefreshAttributeBar(WindowInstance* callbackWindow,
     const std::int32_t row, const world::PetPairRecord* const pair,
     const std::int32_t attribute, const std::int32_t singleImage,
     const std::int32_t middleImage, const std::int32_t firstImage,
     const std::int32_t lastImage)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const std::int32_t base = 26 + row * 40 + attribute * 10;
     for (std::int32_t segment = 0; segment < 10; ++segment) {
@@ -922,9 +922,9 @@ static void WindowPetList_RefreshAttributeBar(
 }
 
 // 原函数：0x0048C920。
-static void WindowPetList_Refresh()
+static void WindowPetList_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     WindowPetList_RefreshStates();
     std::wstring buffer;
@@ -1039,10 +1039,10 @@ static void WindowPetList_Refresh()
         } else {
             if (auto* const indexedElement7 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement7) indexedElement7->visible = 0;
         }
-        WindowPetList_RefreshAttributeBar(row, pair, 0, 0x3B5D2, 0x3B5D0, 0x3B5CF, 0x3B5D1);
-        WindowPetList_RefreshAttributeBar(row, pair, 1, 0x3B5D7, 0x3B5D5, 0x3B5D4, 0x3B5D6);
-        WindowPetList_RefreshAttributeBar(row, pair, 2, 0x3B5DC, 0x3B5DA, 0x3B5D9, 0x3B5DB);
-        WindowPetList_RefreshAttributeBar(row, pair, 3, 0x3B5E1, 0x3B5DF, 0x3B5DE, 0x3B5E0);
+        WindowPetList_RefreshAttributeBar(callbackWindow, row, pair, 0, 0x3B5D2, 0x3B5D0, 0x3B5CF, 0x3B5D1);
+        WindowPetList_RefreshAttributeBar(callbackWindow, row, pair, 1, 0x3B5D7, 0x3B5D5, 0x3B5D4, 0x3B5D6);
+        WindowPetList_RefreshAttributeBar(callbackWindow, row, pair, 2, 0x3B5DC, 0x3B5DA, 0x3B5D9, 0x3B5DB);
+        WindowPetList_RefreshAttributeBar(callbackWindow, row, pair, 3, 0x3B5E1, 0x3B5DF, 0x3B5DE, 0x3B5E0);
     }
     for (std::int32_t row = 0; row < 5; ++row) {
         const bool selected = gLoginWindowRuntime.valuesD2EAA0[0] == 1
@@ -1060,7 +1060,7 @@ static std::int32_t WindowPetList_Update(WindowInstance& callbackWindow, const s
         gLoginWindowRuntime.valuesD2EAA0[1] = -1;
         gLoginWindowRuntime.valuesD2EAA0[2] = -1;
     }
-    WindowPetList_Refresh();
+    WindowPetList_Refresh(&callbackWindow);
     return 1;
 }
 

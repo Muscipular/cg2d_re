@@ -63,10 +63,10 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
 static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 删除/写入/取消/翻页完整交互。
 
 // 原函数：0x004B62A0。
-static void WindowMessageBoard_RefreshRecords(); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
+static void WindowMessageBoard_RefreshRecords(WindowInstance* callbackWindow); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
 
 // 原函数：0x004B6C20。
-static std::int32_t WindowMessageBoard_Close(); // 清对话类型、关闭入口时实例并透传SE57结果。
+static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow); // 清对话类型、关闭入口时实例并透传SE57结果。
 
 // 原函数：0x004B5AD0。
 static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -192,9 +192,9 @@ static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, co
                 inputs.messageBoardPrototype.input.context;
         }
     }
-    WindowMessageBoard_RefreshRecords();
+    WindowMessageBoard_RefreshRecords(&callbackWindow);
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        static_cast<void>(WindowMessageBoard_Close());
+        static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
     }
     return 1;
 }
@@ -267,7 +267,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(WindowMessageBoard_Close());
+            static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
         }
         return consumed;
     }
@@ -298,7 +298,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 64, escaped));
-        static_cast<void>(WindowMessageBoard_Close());
+        static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
         return 1;
     }
     case WindowMessageBoardElementId::HandleButtons_31: {
@@ -327,7 +327,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escapedText));
             inputs.messageBoardPrototype.input.context->clearText();
-            static_cast<void>(WindowMessageBoard_Close());
+            static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -358,7 +358,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33) ? 32 : 16, escaped));
-                static_cast<void>(WindowMessageBoard_Close());
+                static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
                 consumed = 1;
             }
             if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -373,9 +373,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
 }
 
 // 原函数：0x004B62A0。
-static void WindowMessageBoard_RefreshRecords()
+static void WindowMessageBoard_RefreshRecords(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     std::wstring buffer;
@@ -431,9 +431,9 @@ static void WindowMessageBoard_RefreshRecords()
 }
 
 // 原函数：0x004B6C20。
-static std::int32_t WindowMessageBoard_Close()
+static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     world::gCurrentDialogType_581800 = -1;

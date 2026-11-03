@@ -41,7 +41,7 @@ namespace detail {
 static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
 
 // 原函数：0x004CB5D0。
-static void WindowMiniMail_Refresh(); // 同源收件人与八位费用刷新，原混合返回无人消费。
+static void WindowMiniMail_Refresh(WindowInstance* callbackWindow); // 同源收件人与八位费用刷新，原混合返回无人消费。
 
 // 原函数：0x004CB6A0。
 static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
@@ -93,9 +93,9 @@ WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 
 // 窗口函数实现。
 
 // 原函数：0x004CB5D0。
-static void WindowMiniMail_Refresh()
+static void WindowMiniMail_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = gMiniMailCompose105F508.name;
@@ -141,7 +141,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
         inputs.miniMailPrototype.text.clear();
         world::detail::gMiniMailSelectionD673E4 = target;
     }
-    WindowMiniMail_Refresh();
+    WindowMiniMail_Refresh(&callbackWindow);
     return 1;
 }
 

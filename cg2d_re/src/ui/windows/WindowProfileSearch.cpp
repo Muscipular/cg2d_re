@@ -93,10 +93,10 @@ namespace detail {
 static std::int32_t WindowProfileSearch_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
 
 // 原函数：0x004CA450。
-static std::uint32_t WindowProfileSearch_DrawKeyword(); // 活动输入与关键词显示互斥，返回含NUL的UTF-16码元数。
+static std::uint32_t WindowProfileSearch_DrawKeyword(WindowInstance* callbackWindow); // 活动输入与关键词显示互斥，返回含NUL的UTF-16码元数。
 
 // 原函数：0x004CA500。
-static void WindowProfileSearch_RefreshResults(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
+static void WindowProfileSearch_RefreshResults(WindowInstance* callbackWindow); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
 
 // 原函数：0x004CA6F0。
 static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 搜索/上页/下页双层转义请求。
@@ -225,9 +225,9 @@ WindowPrototype gWindowPrototypeProfileSearch {0, 4, 5, 20, 305, 398, 0x80000080
 // 窗口函数实现。
 
 // 原函数：0x004CA500。
-static void WindowProfileSearch_RefreshResults()
+static void WindowProfileSearch_RefreshResults(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const auto& search = world::detail::gProfileSearch105C398;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -261,9 +261,9 @@ static void WindowProfileSearch_RefreshResults()
 }
 
 // 原函数：0x004CA450。
-static std::uint32_t WindowProfileSearch_DrawKeyword()
+static std::uint32_t WindowProfileSearch_DrawKeyword(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     if (currentWindow->ownerSession->UiFrame().inputState.currentContext == &inputs.profileSearch) {
@@ -296,12 +296,12 @@ static std::int32_t WindowProfileSearch_Update(WindowInstance& callbackWindow, c
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        WindowProfileSearch_RefreshResults();
+        WindowProfileSearch_RefreshResults(&callbackWindow);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
-    static_cast<void>(WindowProfileSearch_DrawKeyword());
+    static_cast<void>(WindowProfileSearch_DrawKeyword(&callbackWindow));
     return 1;
 }
 

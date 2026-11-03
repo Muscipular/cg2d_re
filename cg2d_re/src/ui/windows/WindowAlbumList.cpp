@@ -211,9 +211,9 @@ WindowPrototype gWindowPrototypeAlbumList {0, 4, 38, 95, 225, 220, 0x80010101u, 
 
 // 原末行分支分别返回窗口或元素指针；不截断成原x86整数。
 // 原函数：0x00492C80。
-static void* WindowAlbumList_Refresh()
+static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
@@ -299,7 +299,7 @@ static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const
     if (value == -1) {
         gLoginWindowRuntime.valueC8A95C = 0;
     }
-    static_cast<void>(WindowAlbumList_Refresh());
+    static_cast<void>(WindowAlbumList_Refresh(&callbackWindow));
     return 1;
 }
 

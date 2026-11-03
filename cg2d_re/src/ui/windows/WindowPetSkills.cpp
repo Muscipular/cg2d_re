@@ -218,9 +218,9 @@ std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity, const st
 }
 
 // 原函数：0x00491AA0。
-static WindowElement* WindowPetSkills_Refresh()
+static WindowElement* WindowPetSkills_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
@@ -344,7 +344,7 @@ static std::int32_t WindowPetSkills_HandleMouseWheel(WindowInstance& callbackWin
     const std::int32_t step = wheel / 120 != 0 ? wheel / 120 : wheel > 0 ? 1 : -1;
     gPetTechniqueScroll = std::clamp(gPetTechniqueScroll - step, 0, std::max(0, slotCount - 10));
     WindowConsumeMouseWheelDelta();
-    static_cast<void>(WindowPetSkills_Refresh());
+    static_cast<void>(WindowPetSkills_Refresh(&callbackWindow));
     return 1;
 }
 
@@ -362,7 +362,7 @@ static std::int32_t WindowPetSkills_HandleScroll(WindowInstance& callbackWindow,
                 world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
             const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
             gPetTechniqueScroll = WindowScroll_ReadPosition(&track, std::max(0, slotCount - 10));
-            static_cast<void>(WindowPetSkills_Refresh());
+            static_cast<void>(WindowPetSkills_Refresh(&callbackWindow));
         }
     }
     return consumed;
@@ -414,19 +414,19 @@ static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const
     if (value == -1) {
         gPetTechniqueScroll = 0;
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         return 1;
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
         gPetTechniqueScroll = 0;
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(kPetTechniqueScrollTrackElement)); indexedElement) indexedElement->data.mouse->flags = 0;
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
     if (WindowPetDetail_HasPetSequenceChanges() != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         WindowPetDetail_ResetDraftFlag();
         WindowInstance* const window = currentWindow;
         inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
@@ -440,7 +440,7 @@ static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    static_cast<void>(WindowPetSkills_Refresh());
+    static_cast<void>(WindowPetSkills_Refresh(&callbackWindow));
     return 1;
 }
 

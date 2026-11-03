@@ -225,9 +225,9 @@ std::int32_t WindowPetDetail_ReadDraftFlag()
 }
 
 // 原函数：0x00492280。
-void WindowPetDetail_InitializeDraft()
+void WindowPetDetail_InitializeDraft(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     WindowInstance* const window = currentWindow;
     // 九处caller均属于详情页16/17/18；异常ID的原未写栈下标不专项模拟。
@@ -268,9 +268,9 @@ std::int32_t WindowPetDetail_HasPetSequenceChanges()
 
 // 窗口16完整刷新；复制取样和空宠物显隐差异见window_16.md。
 // 原函数：0x0048F8F0。
-static std::uint32_t WindowPetDetail_Refresh()
+static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
@@ -457,19 +457,19 @@ static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, const
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         gLoginWindowRuntime.petTechniqueD2D66C = -1;
         gLoginWindowRuntime.petTechniqueValueD2F784 = -1;
         gLoginWindowRuntime.petTechniqueDragD460CC = 0;
         return 1;
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
     if (WindowPetDetail_HasPetSequenceChanges() != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
-        WindowPetDetail_InitializeDraft();
+        WindowPetDetail_InitializeDraft(&callbackWindow);
         WindowPetDetail_ResetDraftFlag();
         inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
         WindowInstance* const window = currentWindow;
@@ -483,7 +483,7 @@ static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, const
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    static_cast<void>(WindowPetDetail_Refresh());
+    static_cast<void>(WindowPetDetail_Refresh(&callbackWindow));
     return 1;
 }
 

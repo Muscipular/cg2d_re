@@ -486,9 +486,9 @@ static std::int32_t WindowPlayerTitles_DragScroll(WindowInstance& callbackWindow
 
 // 原478010：草稿比较分别控制颜色与确认显隐，六行固定表起点、逐行重取窗口。
 // 原函数：0x00478010。
-static void WindowPlayerTitles_Refresh()
+static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto* const element7 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element7);
@@ -572,7 +572,7 @@ static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, co
             data->text = displayTitle;
         }
     }
-    WindowPlayerTitles_Refresh();
+    WindowPlayerTitles_Refresh(&callbackWindow);
     return 1;
 }
 

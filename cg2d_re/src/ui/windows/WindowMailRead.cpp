@@ -60,7 +60,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, E
 static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
 
 // 原函数：0x004A49B0。
-static std::uint32_t WindowMailRead_Refresh(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
+static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
 
 // 原函数：0x004A4FC0。
 static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 悬停双图，区分三类头像采样序。
@@ -140,7 +140,7 @@ static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, const 
 // 原函数：0x004A4650。
 static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    static_cast<void>(WindowMailRead_Refresh());
+    static_cast<void>(WindowMailRead_Refresh(&callbackWindow));
     WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
@@ -304,9 +304,9 @@ static void WindowMailRead_FindUnread()
 }
 
 // 原函数：0x004A49B0。
-static std::uint32_t WindowMailRead_Refresh()
+static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
     if (category != 0 && category != 1 && category != 2) {

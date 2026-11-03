@@ -30,7 +30,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, std
 static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
 
 // 原函数：0x004A6160。
-static std::uint8_t WindowMailCompose_RefreshRecipients(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
+static std::uint8_t WindowMailCompose_RefreshRecipients(WindowInstance* callbackWindow); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
 
 // 原函数：0x004A53F0。
 static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -162,7 +162,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
         }
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
-    static_cast<void>(WindowMailCompose_RefreshRecipients());
+    static_cast<void>(WindowMailCompose_RefreshRecipients(&callbackWindow));
     WindowInstance* const groupWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
@@ -419,9 +419,9 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
 }
 
 // 原函数：0x004A6160。
-static std::uint8_t WindowMailCompose_RefreshRecipients()
+static std::uint8_t WindowMailCompose_RefreshRecipients(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;

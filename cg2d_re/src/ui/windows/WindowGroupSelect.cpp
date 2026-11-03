@@ -65,13 +65,13 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callback
 static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // bit400单行滚动，发声后修正位置。
 
 // 原函数：0x004B4DB0。
-static std::int32_t WindowGroupSelect_ClampScroll(); // 顺序修正上下界，保留count<7时负上界。
+static std::int32_t WindowGroupSelect_ClampScroll(WindowInstance* callbackWindow); // 顺序修正上下界，保留count<7时负上界。
 
 // 原函数：0x004B4DF0。
-static std::int32_t WindowGroupSelect_DragScroll(std::int32_t unused); // 非负最大值反求并发布滚动位置。
+static std::int32_t WindowGroupSelect_DragScroll(WindowInstance* callbackWindow, std::int32_t unused); // 非负最大值反求并发布滚动位置。
 
 // 原函数：0x004B4E20。
-static void WindowGroupSelect_Refresh(); // 三种标题和七行显隐，不改选择标志。
+static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow); // 三种标题和七行显隐，不改选择标志。
 
 // 原函数：0x004B5210。
 static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 切换三模式后清滚动位置。
@@ -247,8 +247,8 @@ static void WindowGroupSelect_Release(WindowInstance& releasedWindow)
 // 原函数：0x004B4B90。
 static std::int32_t WindowGroupSelect_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    static_cast<void>(WindowGroupSelect_DragScroll(value));
-    WindowGroupSelect_Refresh();
+    static_cast<void>(WindowGroupSelect_DragScroll(&callbackWindow, value));
+    WindowGroupSelect_Refresh(&callbackWindow);
     WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
@@ -275,7 +275,7 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callback
             graphic->imageNo = idle + 1;
             const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
             gLoginWindowRuntime.mailGroupScrollD67B88 = position + (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? -7 : 7);
-            static_cast<void>(WindowGroupSelect_ClampScroll());
+            static_cast<void>(WindowGroupSelect_ClampScroll(&callbackWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -324,7 +324,7 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callba
                 }
             }
             static_cast<void>(audio::PlaySe_52C450(sound, 320));
-            static_cast<void>(WindowGroupSelect_ClampScroll());
+            static_cast<void>(WindowGroupSelect_ClampScroll(&callbackWindow));
             result = 1;
         }
         return result;
@@ -333,9 +333,9 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callba
 }
 
 // 原函数：0x004B4DB0。
-static std::int32_t WindowGroupSelect_ClampScroll()
+static std::int32_t WindowGroupSelect_ClampScroll(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
     if (position < 0) {
@@ -355,9 +355,9 @@ static std::int32_t WindowGroupSelect_ClampScroll()
 }
 
 // 原函数：0x004B4DF0。
-static std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
+static std::int32_t WindowGroupSelect_DragScroll(WindowInstance* callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
     WindowInstance* const window = currentWindow;
@@ -372,9 +372,9 @@ static std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
 }
 
 // 原函数：0x004B4E20。
-static void WindowGroupSelect_Refresh()
+static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
     if (mode != 0 && mode != 1 && mode != 2) {

@@ -65,10 +65,10 @@ namespace detail {
 static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
 
 // 原函数：0x00470AC0。
-static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
+static void WindowStatusBar_Refresh(WindowInstance* callbackWindow); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
 
 // 原函数：0x004718F0。
-static void WindowCompactStatusBar_Refresh(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
+static void WindowCompactStatusBar_Refresh(WindowInstance* callbackWindow); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 
 // 原函数：0x00471CD0。
 static std::int32_t WindowStatusBar_ButtonCompact(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
@@ -234,9 +234,9 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 }
 
 // TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
-static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
+static void WindowStatusBar_DrawTimer(WindowInstance* callbackWindow, const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const std::int32_t duration = world::gPlayerRuntimeSlots.timerRemaining0C;
     const std::int32_t hours = duration / 3600000;
@@ -342,22 +342,22 @@ static std::int32_t WindowStatusBar_Update(WindowInstance& callbackWindow, const
         currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
     }
-    WindowStatusBar_Refresh();
+    WindowStatusBar_Refresh(&callbackWindow);
     return 1;
 }
 
 // 原函数：0x00470AB0。
 static std::int32_t WindowCompactStatusBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowCompactStatusBar_Refresh();
+    WindowCompactStatusBar_Refresh(&callbackWindow);
     return 1;
 }
 
 // TUC01：原窗口1完整根；描述符原零初始化、HP/FP/时钟/提示生产保持，四位消费见共用 helper。
 // 原函数：0x00470AC0。
-static void WindowStatusBar_Refresh()
+static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
@@ -377,7 +377,7 @@ static void WindowStatusBar_Refresh()
         timeGraphic->width = 100;
         timeGraphic->height = 9;
     }
-    WindowStatusBar_DrawTimer(8, &descriptor);
+    WindowStatusBar_DrawTimer(callbackWindow, 8, &descriptor);
 
     const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
     const std::int32_t initialInjury = world::gPlayerRuntimeSlots.valueF4;
@@ -431,13 +431,13 @@ static void WindowStatusBar_Refresh()
 
 // TUC01：原窗口2完整根；直接FP复制/原零描述符保持，仅消费四位倒计时。
 // 原函数：0x004718F0。
-static void WindowCompactStatusBar_Refresh()
+static void WindowCompactStatusBar_Refresh(WindowInstance* callbackWindow)
 {
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
     WindowStatusBar_FormatVitals(buffer);
     gStatusFpTextD45D50 = buffer;
-    WindowStatusBar_DrawTimer(2, &descriptor);
+    WindowStatusBar_DrawTimer(callbackWindow, 2, &descriptor);
 }
 
 // 原函数：0x00471CD0。

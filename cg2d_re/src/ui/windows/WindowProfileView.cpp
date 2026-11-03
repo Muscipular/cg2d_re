@@ -43,7 +43,7 @@ namespace detail {
 static std::int32_t WindowProfileView_Update(WindowInstance& callbackWindow, std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
 
 // 原函数：0x004CAFA0。
-static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
+static std::uint32_t WindowProfileView_Refresh(WindowInstance* callbackWindow); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
 
 // 原函数：0x004CB530。
 static void WindowProfileView_Release(WindowInstance&); // 先清对话类型，再标记关联窗口63。
@@ -140,9 +140,9 @@ std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 }
 
 // 原函数：0x004CAFA0。
-static std::uint32_t WindowProfileView_Refresh()
+static std::uint32_t WindowProfileView_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gViewedProfile105ECE0;
@@ -193,7 +193,7 @@ static std::int32_t WindowProfileView_Update(WindowInstance& callbackWindow, con
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
-    static_cast<void>(WindowProfileView_Refresh());
+    static_cast<void>(WindowProfileView_Refresh(&callbackWindow));
     return 1;
 }
 

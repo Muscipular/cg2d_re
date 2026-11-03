@@ -125,25 +125,25 @@ static std::int32_t WindowGuildDetails_SubmitDescription(session::ClientSession&
 static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& session); // 先验证全体变化文本，再逐条GY发送并恢复聊天。
 
 // 原函数：0x004AF180。
-static void WindowGuildDetails_RefreshReadOnly(); // 权限分流与只读刷新，原混合返回由caller弃用。
+static void WindowGuildDetails_RefreshReadOnly(WindowInstance* callbackWindow); // 权限分流与只读刷新，原混合返回由caller弃用。
 
 // 原函数：0x004AF250。
-static void WindowGuildDetails_RefreshEditor(); // 管理模式焦点/草稿/按钮与颜色刷新。
+static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow); // 管理模式焦点/草稿/按钮与颜色刷新。
 
 // 原函数：0x004AF650。
-static std::int32_t WindowGuildDetails_RefreshRanks(); // 七职级与三附加文本刷新，返回末行Y推进值304。
+static std::int32_t WindowGuildDetails_RefreshRanks(WindowInstance* callbackWindow); // 七职级与三附加文本刷新，返回末行Y推进值304。
 
 // 原函数：0x004AFA00。
 static void WindowGuildDetails_SaveInputDraft(session::ClientSession& session, std::int32_t index); // 输入原型正文写入当前编辑号对应的同源草稿。
 
 // 原函数：0x004AFA60。
-static void WindowGuildDetails_ScrollRow(); // 页码原范围0..25与音效、滑块同步。
+static void WindowGuildDetails_ScrollRow(WindowInstance* callbackWindow); // 页码原范围0..25与音效、滑块同步。
 
 // 原函数：0x004AFAE0。
-static void WindowGuildDetails_DragScroll(std::int32_t unused); // 拖动反求页码；保留主绘制转发的未用实参。
+static void WindowGuildDetails_DragScroll(WindowInstance* callbackWindow, std::int32_t unused); // 拖动反求页码；保留主绘制转发的未用实参。
 
 // 原函数：0x004AFED0。
-static std::int32_t WindowGuildDetails_CommitFocusedInput(); // 固定窗口/焦点，扫描九个输入载荷。
+static std::int32_t WindowGuildDetails_CommitFocusedInput(WindowInstance* callbackWindow); // 固定窗口/焦点，扫描九个输入载荷。
 
 // 原函数：0x004AEC30。
 static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
@@ -304,7 +304,7 @@ static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, co
         gGuildPageD67B78 = 0;
         gGuildEditing57F03C = -1;
         static_cast<void>(WindowGuildDetails_RefreshDraft());
-        WindowGuildDetails_RefreshReadOnly();
+        WindowGuildDetails_RefreshReadOnly(&callbackWindow);
         gGuildDraftCF4018.name604 = cg::world::GetGuildName();
         gGuildDraftCF4018.secondText634 = cg::world::GetGuildSecondText();
         for (std::int32_t index = 0; index < 32; ++index) {
@@ -322,7 +322,7 @@ static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, co
             second->text = cg::world::GetGuildSecondText();
         }
     }
-    if (WindowGuildDetails_CommitFocusedInput() == 0) {
+    if (WindowGuildDetails_CommitFocusedInput(&callbackWindow) == 0) {
         gGuildEditing57F03C = -1;
     }
     return 1;
@@ -331,19 +331,19 @@ static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, co
 // 原函数：0x004AEC10。
 static std::int32_t WindowGuildDetails_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowGuildDetails_DragScroll(value);
-    WindowGuildDetails_RefreshReadOnly();
+    WindowGuildDetails_DragScroll(&callbackWindow, value);
+    WindowGuildDetails_RefreshReadOnly(&callbackWindow);
     WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 
 // 原函数：0x004AF180。
-static void WindowGuildDetails_RefreshReadOnly()
+static void WindowGuildDetails_RefreshReadOnly(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     if (WindowGuildDetails_ReadRankPermissions() != 0) {
-        WindowGuildDetails_RefreshEditor();
+        WindowGuildDetails_RefreshEditor(callbackWindow);
         return;
     }
     if (auto* const handleActionButtonElement = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement) handleActionButtonElement->visible = 0;
@@ -359,13 +359,13 @@ static void WindowGuildDetails_RefreshReadOnly()
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->mouseCallback = &WindowElement_NoOp;
     }
     if (auto* const handleActionButton_73Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element2) handleActionButton_73Element2->visible = 0;
-    static_cast<void>(WindowGuildDetails_RefreshRanks());
+    static_cast<void>(WindowGuildDetails_RefreshRanks(callbackWindow));
 }
 
 // 原函数：0x004AF250。
-static void WindowGuildDetails_RefreshEditor()
+static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     if (auto* const handleActionButtonElement = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement) handleActionButtonElement->visible = 1;
@@ -379,7 +379,7 @@ static void WindowGuildDetails_RefreshEditor()
         if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->width = 15;
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->mouseCallback = &WindowGuildDetails_ToggleRankPermission;
     }
-    static_cast<void>(WindowGuildDetails_RefreshRanks());
+    static_cast<void>(WindowGuildDetails_RefreshRanks(callbackWindow));
     WindowInstance* window = currentWindow;
     auto* elementsWindow = window;
     auto* const handleInputElement = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleInput);
@@ -473,9 +473,9 @@ static void WindowGuildDetails_RefreshEditor()
 }
 
 // 原函数：0x004AF650。
-static std::int32_t WindowGuildDetails_RefreshRanks()
+static std::int32_t WindowGuildDetails_RefreshRanks(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     if (auto* const element54 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element54) element54->visible = 0;
@@ -546,9 +546,9 @@ static void WindowGuildDetails_SaveInputDraft(session::ClientSession& session, c
 }
 
 // 原函数：0x004AFED0。
-static std::int32_t WindowGuildDetails_CommitFocusedInput()
+static std::int32_t WindowGuildDetails_CommitFocusedInput(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     void* const focused = currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData;
@@ -565,9 +565,9 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
 }
 
 // 原函数：0x004AFAE0。
-static void WindowGuildDetails_DragScroll(const std::int32_t)
+static void WindowGuildDetails_DragScroll(WindowInstance* callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto* elementsWindow = currentWindow;
     auto* const handleScrollFocusElement = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
@@ -584,9 +584,9 @@ static void WindowGuildDetails_DragScroll(const std::int32_t)
 }
 
 // 原函数：0x004AFA60。
-static void WindowGuildDetails_ScrollRow()
+static void WindowGuildDetails_ScrollRow(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const std::int32_t page = gGuildPageD67B78;
     std::int32_t sound = 51;
@@ -625,7 +625,7 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& call
             return 0;
         }
         gGuildDraftCF4018.ranks[rank].flags ^= 1 << column;
-        WindowGuildDetails_RefreshEditor();
+        WindowGuildDetails_RefreshEditor(&callbackWindow);
         return 1;
     }
     return 0;
@@ -757,7 +757,7 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(WindowInstance& callb
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         gGuildPageD67B78 += elementId == static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons) ? -1 : 1;
-        WindowGuildDetails_ScrollRow();
+        WindowGuildDetails_ScrollRow(&callbackWindow);
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
         return 1;
     }

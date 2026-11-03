@@ -132,9 +132,9 @@ WindowPrototype gWindowPrototypeOwnProfileCategory {0, 4, 38, 95, 225, 220, 0x80
 // 窗口函数实现。
 
 // 原函数：0x004C9C70。
-static void WindowOwnProfileCategory_Refresh()
+static void WindowOwnProfileCategory_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     const std::int32_t mode = gProfileCategory1085DA0;
     std::int32_t image;
@@ -170,7 +170,7 @@ static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWind
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfile].window == nullptr) {
         currentWindow->state |= 0x8000u;
     }
-    WindowOwnProfileCategory_Refresh();
+    WindowOwnProfileCategory_Refresh(&callbackWindow);
     return 1;
 }
 

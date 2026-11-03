@@ -181,7 +181,7 @@ namespace detail {
 static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
 
 // 原函数：0x004C9F20。
-static void WindowProfileCategory_Refresh(); // 固定32/32/15项分类的显隐、文本和选择颜色。
+static void WindowProfileCategory_Refresh(WindowInstance* callbackWindow); // 固定32/32/15项分类的显隐、文本和选择颜色。
 
 // 原函数：0x004CA1A0。
 static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类点击发送后复制共享默认关键词。
@@ -377,9 +377,9 @@ WindowPrototype gWindowPrototypeProfileCategory {0, 4, 5, 20, 634, 424, 0x800000
 // 窗口函数实现。
 
 // 原函数：0x004C9F20。
-static void WindowProfileCategory_Refresh()
+static void WindowProfileCategory_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     constexpr std::array<std::int32_t, 3> counts {32, 32, 15};
     constexpr std::array<std::int32_t, 3> textBases {0, 32, 64};
@@ -411,7 +411,7 @@ static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow,
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        WindowProfileCategory_Refresh();
+        WindowProfileCategory_Refresh(&callbackWindow);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;

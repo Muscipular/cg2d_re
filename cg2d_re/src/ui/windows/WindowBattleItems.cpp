@@ -177,7 +177,7 @@ static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callback
 // 原函数：0x00499B40。
 static std::int32_t WindowBattleItems_TabEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, 0, state));
+    static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorD2F338, 0, state));
     return 0;
 }
 
@@ -208,7 +208,7 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
     }
     if (found) {
         if (ordinal >= 0) {
-            static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, ordinal + 1, state));
+            static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorD2F338, ordinal + 1, state));
             return 0;
         }
     } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) == ordinal + 1) {
@@ -227,12 +227,12 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
 static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
-        WindowItemSelector_BindElements(&gItemSelectorD2F338, 1);
+        WindowItemSelector_BindElements(&callbackWindow, &gItemSelectorD2F338, 1);
         gItemSelectorD2F338.initialized3E8 = 0;
         gBattleItemPageCB01E0 = 0;
     }
     gBattleItemHoverCF49B0 = -1;
-    WindowItemSelector_Update(&gItemSelectorD2F338);
+    WindowItemSelector_Update(&callbackWindow, &gItemSelectorD2F338);
     return 1;
 }
 
@@ -744,7 +744,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
 // 原函数：0x0049B610。
 static std::int32_t WindowBattleItems_ShowExtraAttributes(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorD2F338, state) ? 1 : 0;
+    return WindowItemSelector_HandlePlayerAttributes(&callbackWindow, &gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
@@ -776,8 +776,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
             if (item.used == 0) {
                 continue;
             }
@@ -851,8 +851,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             if (occupancy[position] != 0) {
                 continue;
             }
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
             if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
@@ -936,8 +936,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < count) {
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, source, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, source, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, source, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, source, -24);
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -945,8 +945,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, hovered, -24);
-        const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, hovered, -24);
+        const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, hovered, -24);
+        const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, hovered, -24);
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -983,8 +983,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     }
     for (std::int32_t position = 0; position < count; ++position) {
         const auto& record = items[position];
-        const std::int32_t x = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, position, 0);
-        const std::int32_t y = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, position, 0);
+        const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, 0);
+        const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, 0);
         if (record.used == 0) {
             continue;
         }

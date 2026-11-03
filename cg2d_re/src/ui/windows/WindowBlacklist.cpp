@@ -90,7 +90,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004CCED0。
-static void WindowBlacklist_Refresh(); // 窗口65十行序号/名称与活动输入刷新。
+static void WindowBlacklist_Refresh(WindowInstance* callbackWindow); // 窗口65十行序号/名称与活动输入刷新。
 
 // 原函数：0x004CC6E0。
 static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 删除后重读行，再决定提示或编辑。
@@ -237,9 +237,9 @@ std::int32_t WindowBlacklist_ResetState()
 }
 
 // 原函数：0x004CCED0。
-static void WindowBlacklist_Refresh()
+static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     render::GraphicDescriptor16 descriptor {};
@@ -300,7 +300,7 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const
     if (value == -1) {
         gLoginWindowRuntime.valueD2E444 = 0;
     }
-    WindowBlacklist_Refresh();
+    WindowBlacklist_Refresh(&callbackWindow);
     return 1;
 }
 

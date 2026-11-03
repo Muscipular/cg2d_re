@@ -36,7 +36,7 @@ namespace detail {
 static std::int32_t WindowProfileReply_Update(WindowInstance& callbackWindow, std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 
 // 原函数：0x004CB9F0。
-static std::uint32_t WindowProfileReply_Refresh(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
+static std::uint32_t WindowProfileReply_Refresh(WindowInstance* callbackWindow); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -112,9 +112,9 @@ WindowPrototype gWindowPrototypeProfileReply {0, 4, 15, 97, 317, 250, 0x80000080
 // 窗口函数实现。
 
 // 原函数：0x004CB9F0。
-static std::uint32_t WindowProfileReply_Refresh()
+static std::uint32_t WindowProfileReply_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gReceivedProfile1074110;
@@ -156,7 +156,7 @@ static std::uint32_t WindowProfileReply_Refresh()
 // 原函数：0x004CB9E0。
 static std::int32_t WindowProfileReply_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    static_cast<void>(WindowProfileReply_Refresh());
+    static_cast<void>(WindowProfileReply_Refresh(&callbackWindow));
     return 1;
 }
 

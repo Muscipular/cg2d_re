@@ -280,12 +280,12 @@ WindowPrototype gWindowPrototypePlayerProfile {0, 4, 15, 97, 315, 261, 0x8000008
 // 窗口函数实现。
 
 // 原474FD1..4753A6：每组先清显隐后读属性，图号与显隐各自重取窗口。
-static void WindowPlayerProfile_RefreshAttributeBar(
+static void WindowPlayerProfile_RefreshAttributeBar(WindowInstance* callbackWindow,
     const std::int32_t attribute, const std::int32_t firstElement,
     const std::int32_t middleImage, const std::int32_t firstImage,
     const std::int32_t lastImage, const std::int32_t singleImage)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     for (std::int32_t index = 0; index < 10; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement + index)); indexedElement) indexedElement->visible = 0;
@@ -415,17 +415,17 @@ static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWi
 
 // 原474FB0：窗口7完整刷新，复制阶段的elements/data快照差异见window_7.md。
 // 原函数：0x00474FB0。
-static void WindowPlayerProfile_Refresh()
+static void WindowPlayerProfile_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto* portraitElementsWindow = currentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
     if (auto* const element15 = portraitElementsWindow->FindElementById(WindowPlayerProfileElementId::Element15); element15) element15->data.graphic->imageNo = portrait;
-    WindowPlayerProfile_RefreshAttributeBar(0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
-    WindowPlayerProfile_RefreshAttributeBar(1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
-    WindowPlayerProfile_RefreshAttributeBar(2, 45, 0x3BAD1, 0x3BAD4, 0x3BAD2, 0x3BAD3);
-    WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
+    WindowPlayerProfile_RefreshAttributeBar(callbackWindow, 0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
+    WindowPlayerProfile_RefreshAttributeBar(callbackWindow, 1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
+    WindowPlayerProfile_RefreshAttributeBar(callbackWindow, 2, 45, 0x3BAD1, 0x3BAD4, 0x3BAD2, 0x3BAD3);
+    WindowPlayerProfile_RefreshAttributeBar(callbackWindow, 3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
     auto* const element1 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element1);
     if (element1) {
@@ -587,7 +587,7 @@ static void WindowPlayerProfile_Refresh()
 // 原函数：0x00474540。
 static std::int32_t WindowPlayerProfile_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowPlayerProfile_Refresh();
+    WindowPlayerProfile_Refresh(&callbackWindow);
     return 1;
 }
 

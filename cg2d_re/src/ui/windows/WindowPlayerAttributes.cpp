@@ -362,9 +362,9 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
 
 // 原4767E0：逐项格式化后重取元素；点数门槛阶段独立读取，见window_8.md。
 // 原函数：0x004767E0。
-static void WindowPlayerAttributes_Refresh()
+static void WindowPlayerAttributes_Refresh(WindowInstance* callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto* const element1 = currentWindow->FindElementById(WindowPlayerAttributesElementId::Element1);
     if (element1) {
@@ -435,7 +435,7 @@ static void WindowPlayerAttributes_Refresh()
 // 原函数：0x00475DF0。
 static std::int32_t WindowPlayerAttributes_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowPlayerAttributes_Refresh();
+    WindowPlayerAttributes_Refresh(&callbackWindow);
     return 1;
 }
 

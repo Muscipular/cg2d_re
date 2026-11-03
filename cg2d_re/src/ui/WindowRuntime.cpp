@@ -59,7 +59,7 @@ static void WindowItemSelector_HidePageElements(WindowItemSelectorState* state);
 static void WindowItemSelector_SelectPage(WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 
 // 原函数：0x004C6790。
-static void WindowItemSelector_UpdatePage(WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
+static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 
 // 原函数：0x004C6990。
 static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* state); // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
@@ -72,10 +72,10 @@ static void WindowItemSelector_MoveElements(WindowItemSelectorState* state, std:
 
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 // 原函数：0x004C6B10。
-static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
+static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
 
 // 原函数：0x004C6D90。
-static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
+static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindow, WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 
 // 原函数：0x004C71C0。
 static std::int32_t WindowItemSelector_FindPetIndex(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
@@ -225,10 +225,6 @@ WindowLayoutSettings& WindowRuntime_Settings()
 {
     return WindowRuntime_Settings(session::GetClientHost().FirstSession());
 }
-
-WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
-
-WindowState* gCurrentWindowState = nullptr; // 原全局：0x00CF4684。
 
 std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
 
@@ -1567,9 +1563,9 @@ std::int32_t WindowItemSelector_ReadSelectedPet(const WindowItemSelectorState* c
 
 // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
 // 原函数：0x004C6EC0。
-void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const std::uint8_t mode)
+void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemSelectorState* const state, const std::uint8_t mode)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = callbackWindow;
     if (!window) return;
     state->value64 = mode;
     if (mode != 0) {
@@ -1803,9 +1799,9 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
 
 // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 // 原函数：0x004C6790。
-static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
+static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, WindowItemSelectorState* const state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     // 原常量参考：0x0054F564。
     static constexpr std::int32_t kPreviewToggleImages[] {98133, 98133, 98135, 98134};
@@ -1844,7 +1840,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
             WindowItemSelector_SelectPage(state, 3);
         } else {
-            WindowItemSelector_DrawTooltip(state);
+            WindowItemSelector_DrawTooltip(callbackWindow, state);
         }
         break;
     case 3: {
@@ -1857,7 +1853,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
             WindowItemSelector_SelectPage(state, 2);
             break;
         }
-        WindowItemSelector_DrawTooltip(state);
+        WindowItemSelector_DrawTooltip(callbackWindow, state);
         WindowItemSelector_RefreshPetHeader(state);
         const std::int32_t firstIndex = state->imageIndex3F0;
         const WindowElement* const firstElement = state->elements00[1].get();
@@ -1885,7 +1881,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         const std::int32_t secondX = secondElementX + secondWindowX + 118;
         static_cast<void>(cg::render::DrawGraphic(
             secondX, secondY, 223, secondImage, 0, descriptor));
-        static_cast<void>(WindowItemSelector_DrawPreview(state));
+        static_cast<void>(WindowItemSelector_DrawPreview(callbackWindow, state));
         break;
     }
     case 4:
@@ -1955,9 +1951,9 @@ static void WindowItemSelector_MoveElements(WindowItemSelectorState* const state
 
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 // 原函数：0x004C6B10。
-static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
+static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, WindowItemSelectorState* const state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto* const panelElement = state->elements00[1].get();
     if (!panelElement) return;
@@ -2037,9 +2033,9 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 
 // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 // 原函数：0x004C6D90。
-static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state)
+static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindow, WindowItemSelectorState* const state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     auto* const panelElement = state->elements00[1].get();
     if (!panelElement) return 0;
@@ -2113,10 +2109,10 @@ static bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, con
 
 // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
 // 原函数：0x004C7380。
-bool WindowItemSelector_HandleTab(
+bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return false;
     // 原常量参考：0x0054F5F4。
     static constexpr std::int32_t kEquipmentTabImages[] {
@@ -2270,7 +2266,7 @@ bool WindowItemSelector_RotatePreview(WindowItemSelectorState* const state, cons
 
 // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // 原函数：0x004C7A90。
-void WindowItemSelector_Update(WindowItemSelectorState* const state)
+void WindowItemSelector_Update(WindowInstance* callbackWindow, WindowItemSelectorState* const state)
 {
     if (state->initialized3E8 == 0) {
         const std::uint8_t* const mode = state->mode68;
@@ -2278,16 +2274,16 @@ void WindowItemSelector_Update(WindowItemSelectorState* const state)
         WindowItemSelector_SelectPage(state, *mode == 0xFFu ? 0 : 1);
         state->initialized3E8 = 1;
     }
-    WindowItemSelector_UpdatePage(state);
+    WindowItemSelector_UpdatePage(callbackWindow, state);
 }
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 // 原函数：0x004C7240。
-std::int32_t WindowItemSelector_ReadScreenX(
+std::int32_t WindowItemSelector_ReadScreenX(WindowInstance* callbackWindow,
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t local = WindowItemSelector_ReadSlotX(state, slot);
     if (local < 0) {
@@ -2305,11 +2301,11 @@ std::int32_t WindowItemSelector_ReadScreenX(
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
 // 原函数：0x004C7280。
-std::int32_t WindowItemSelector_ReadScreenY(
+std::int32_t WindowItemSelector_ReadScreenY(WindowInstance* callbackWindow,
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t local = WindowItemSelector_ReadSlotY(state, slot);
     if (local < 0) {
@@ -2347,9 +2343,9 @@ bool WindowItemSelector_GetItemList_4C72C0(
 
 // SAP01：原391条三根有据；本根完整239条，图形与三种文字坐标按原读取序；格式/GBK与低AL边界保持，运行待。
 // 原函数：0x004C75A0。
-bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const selector, const std::int32_t state)
+bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, WindowItemSelectorState* const selector, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return false;
     auto* const panelElement = selector->elements00[1].get();
     if (!panelElement) return false;
@@ -3749,7 +3745,7 @@ void WindowElement_DrawHoverFrame(
     if ((state & MouseFlag_Hover) == 0) {
         return;
     }
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = element->owner;
     const std::int32_t left = window->x + element->x - 1;
     const std::int32_t top = window->y + element->y - 1;
     const std::int32_t bottom = element->height + top + 2;
@@ -4423,8 +4419,8 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                 continue;
             }
             WindowPagePresentation pagePresentation(*window);
-            gCurrentWindow = window;
-            gCurrentWindowState = extension ? &extension->state : &states[window->id];
+            pointer.currentWindow = window;
+            pointer.currentWindowState = extension ? &extension->state : &states[window->id];
             pointer.currentWindowId = window->id;
             const std::int32_t focused = WindowRuntime_PointerDragBlocksMouse(session) ? 0 : WindowDrag_Update(*window);
             std::int32_t updateResult;
@@ -4434,7 +4430,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                     : invoke([&] { return extension->update(carried, focused); });
             } else {
                 updateResult = invoke([&] { return window->update(*window, carried); });
-                window = gCurrentWindow;
+                window = pointer.currentWindow;
                 if (window->binding && !(window->state & 0x8000u)) window->binding->update();
                 // WEO01：update维护排序缓存，分页的前景顺序由创建时的seqNo表达。
                 WindowRuntime_UpdateElementOrder(*window);
@@ -4467,7 +4463,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                         callback(session, 4, MouseFlag_None, pointer.sourceIndex);
                     }
                     static_cast<void>(WindowDrag_ResetMouse(session));
-                    window = gCurrentWindow;
+                    window = pointer.currentWindow;
                 }
                 updateResult = 0;
             }
@@ -4494,12 +4490,12 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                     && !(target->state & 0x8000u) && !target->scriptHidden
                     && std::none_of(scheduledWindows.begin(), scheduledWindows.end(),
                         [target](const ScheduledWindow& entry) { return entry.window == target; })) {
-                    auto* const previousWindow = gCurrentWindow;
-                    auto* const previousState = gCurrentWindowState;
+                    auto* const previousWindow = pointer.currentWindow;
+                    auto* const previousState = pointer.currentWindowState;
                     const auto previousId = pointer.currentWindowId;
                     const auto previousElementId = pointer.currentElementId;
-                    gCurrentWindow = target;
-                    gCurrentWindowState = &states[target->id];
+                    pointer.currentWindow = target;
+                    pointer.currentWindowState = &states[target->id];
                     pointer.currentWindowId = target->id;
                     pointer.currentElementId = 0;
                     // 宠物页的update(-1)只初始化；正常update补齐属性/技能，沿各页自己的draw。
@@ -4509,8 +4505,8 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                         && !(target->state & 0x8000u) && !target->scriptHidden) {
                         carried = invoke([&] { return target->draw(*target, targetResult); });
                     }
-                    gCurrentWindow = previousWindow;
-                    gCurrentWindowState = previousState;
+                    pointer.currentWindow = previousWindow;
+                    pointer.currentWindowState = previousState;
                     pointer.currentWindowId = previousId;
                     pointer.currentElementId = previousElementId;
                 }
@@ -4565,6 +4561,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
 
 WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::int32_t id)
 {
+    auto& pointer = session.UiFrame().native.pointer;
     using namespace detail;
     auto& windows = WindowRuntime_Windows(session);
     auto& states = WindowRuntime_States(session);
@@ -4752,9 +4749,9 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     static_cast<void>(CenterPopupWindowPosition(id,
         window->width, layoutHeight, window->x, window->y));
     const std::uint32_t flags = states[id].flags;
-    WindowInstance* const previous = gCurrentWindow;
+    WindowInstance* const previous = pointer.currentWindow;
     states[id].flags = flags | 0x80u;
-    gCurrentWindow = window;
+    pointer.currentWindow = window;
     window->elementCount = count;
     static_cast<void>(window->update(*window, -1));
     states[id].window = window;
@@ -4781,7 +4778,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     static_cast<void>(CenterPopupWindowPosition(id,
         window->width, window->height, window->x, window->y));
     WindowRuntime_UpdateElementOrder(*window);
-    gCurrentWindow = previous;
+    pointer.currentWindow = previous;
     WindowRuntime_QueueWindowOpen(*window);
     return window;
 }
@@ -4914,12 +4911,12 @@ void WindowRuntime_Free(WindowInstance* const window)
     window->release(*window);
     WindowRuntime_DestroyElements(*window);
     WindowRuntime_ReleaseBindings(*window);
-    gCurrentWindowState = &WindowRuntime_States(*window->ownerSession)[window->id];
-    gCurrentWindowState->x = window->x;
-    gCurrentWindowState->y = window->y;
-    gCurrentWindowState->flags &= ~std::uint32_t{0x80};
-    gCurrentWindowState->flags |= 1u;
-    gCurrentWindowState->window = nullptr;
+    pointer.currentWindowState = &WindowRuntime_States(*window->ownerSession)[window->id];
+    pointer.currentWindowState->x = window->x;
+    pointer.currentWindowState->y = window->y;
+    pointer.currentWindowState->flags &= ~std::uint32_t{0x80};
+    pointer.currentWindowState->flags |= 1u;
+    pointer.currentWindowState->window = nullptr;
     const std::int32_t focusWindowId = pointer.focusWindowId;
     const std::int32_t windowId = window->id;
     if (focusWindowId == windowId) {
@@ -4932,8 +4929,9 @@ void WindowRuntime_Free(WindowInstance* const window)
 // 原函数：0x00472160。
 void WindowRuntime_Close(WindowInstance* const window)
 {
+    auto& pointer = window->ownerSession->UiFrame().native.pointer;
     detail::WindowState* const state = &detail::WindowRuntime_States(*window->ownerSession)[window->id];
-    detail::gCurrentWindowState = state;
+    pointer.currentWindowState = state;
     state->flags |= 2u;
     WindowRuntime_Free(window);
 }
@@ -5041,6 +5039,7 @@ void WindowRuntime_CloseByCategory(const std::uint32_t mask)
 
 void WindowRuntime_CloseByCategory(session::ClientSession& session, const std::uint32_t mask)
 {
+    auto& pointer = session.UiFrame().native.pointer;
     using namespace detail;
     auto& windows = WindowRuntime_Windows(session);
     auto& states = WindowRuntime_States(session);
@@ -5053,8 +5052,8 @@ void WindowRuntime_CloseByCategory(session::ClientSession& session, const std::u
         const auto category = static_cast<std::uint32_t>(
             static_cast<std::int32_t>(window->category));
         if ((mask & category) != 0) {
-            gCurrentWindowState = &states[id];
-            gCurrentWindowState->flags |= 2u;
+            pointer.currentWindowState = &states[id];
+            pointer.currentWindowState->flags |= 2u;
             WindowRuntime_Free(windows[index]);
             windows[index] = nullptr;
         }

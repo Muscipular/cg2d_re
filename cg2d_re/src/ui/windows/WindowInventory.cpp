@@ -431,8 +431,8 @@ std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow
     while (slot < currentCount) {
         const world::PlayerItemRecord* const item = items + slot;
         if (item->used != 0) {
-            const std::int32_t x = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, slot, 0);
-            const std::int32_t y = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, slot, 0);
+            const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, slot, 0);
+            const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, slot, 0);
             static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
             if (occupancy[slot] != 0) {
                 cg::render::DrawGraphicHover(
@@ -488,7 +488,7 @@ static std::int32_t WindowInventory_RotatePreview(WindowInstance& callbackWindow
 // 原函数：0x00488EA0。
 static std::int32_t WindowInventory_TabEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
+    return WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorCF3B10, 0, state) ? 1 : 0;
 }
 
 // SAP01：原81条；五对used/索引/flags与S8模式保持，成功低AL归一、无效图/声效按原，运行待。
@@ -518,7 +518,7 @@ static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, const
     }
     if (found) {
         if (ordinal >= 0) {
-            return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, ordinal + 1, state) ? 1 : 0;
+            return WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorCF3B10, ordinal + 1, state) ? 1 : 0;
         }
     } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) == ordinal + 1) {
         --WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection;
@@ -563,7 +563,7 @@ static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const
     if (!currentWindow) return 0;
     std::int32_t selected;
     if (value == -1) {
-        WindowItemSelector_BindElements(&gItemSelectorCF3B10, 0);
+        WindowItemSelector_BindElements(&callbackWindow, &gItemSelectorCF3B10, 0);
         WindowInstance* const window = currentWindow;
         gItemSelectorCF3B10.initialized3E8 = 0;
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
@@ -609,7 +609,7 @@ updateSelector:
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
-    WindowItemSelector_Update(&gItemSelectorCF3B10);
+    WindowItemSelector_Update(&callbackWindow, &gItemSelectorCF3B10);
     return 1;
 }
 
@@ -1028,8 +1028,8 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             if (occupancy[position] != 0) {
                 continue;
             }
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, position, -24);
             if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
                 continue;
             }
@@ -1056,8 +1056,8 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             if (occupancy[position] != 0) {
                 continue;
             }
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, position, -24);
             if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 gItemSelectorCF3B10.hoverIndex3F8 = position;
@@ -1152,8 +1152,8 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < count) {
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, source, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, source, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, source, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, source, -24);
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -1161,8 +1161,8 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         }
     }
     if (hovered >= 0) {
-        const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, hitIndex, -24);
-        const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, hitIndex, -24);
+        const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, hitIndex, -24);
+        const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, hitIndex, -24);
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -1181,8 +1181,8 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         if (record.used == 0) {
             continue;
         }
-        const std::int32_t x = WindowItemSelector_ReadScreenX(&gItemSelectorCF3B10, index, position, 0);
-        const std::int32_t y = WindowItemSelector_ReadScreenY(&gItemSelectorCF3B10, index, position, 0);
+        const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorCF3B10, index, position, 0);
+        const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorCF3B10, index, position, 0);
         if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
             static_cast<void>(cg::render::DrawGraphic(
                 x + 105, y + 93, 223, 22739, 0, &descriptor));
@@ -1203,7 +1203,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
 // 原函数：0x00489EE0。
 static std::int32_t WindowInventory_TabPlayerAttributes(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorCF3B10, state) ? 1 : 0;
+    return WindowItemSelector_HandlePlayerAttributes(&callbackWindow, &gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。

@@ -1,8 +1,13 @@
 #include "../WindowComponents.hpp"
+#include "cg/session/ClientHost.hpp"
 
 namespace cg::ui {
 using namespace component_detail;
-static WindowElementRef focusedInput;
+static WindowElementRef& FocusedInputFor(const WindowElement& element) {
+    auto& owner = element.owner->ownerSession ? *element.owner->ownerSession
+        : session::GetClientHost().FirstSession();
+    return owner.UiFrame().focusedInput;
+}
 int ClampTextInputMaxLength(int length) { return length <= 0 || length > TEXT_INPUT_MAX_LENGTH ? TEXT_INPUT_MAX_LENGTH : length; }
 static std::size_t GbkPrefixLength(std::string_view value, int limit)
 {
@@ -62,6 +67,7 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
     }
 }
 void WindowElement_ForgetInputRestore(const WindowElement& element) {
+    auto& focusedInput = FocusedInputFor(element);
     auto* window = focusedInput.ownerSession ? WindowRuntime_FindInstance(*focusedInput.ownerSession, focusedInput.winId)
         : WindowRuntime_FindInstance(focusedInput.winId);
     if (!window || window->generation != focusedInput.generation) return;
@@ -79,6 +85,7 @@ void WindowElement_ForgetInputRestore(const WindowElement& element) {
 }
 void WindowElement_BlurInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
+    auto& focusedInput = FocusedInputFor(element);
     auto& data = *element.data.input->ownedInput;
     if (!data.focused && gCurrentInputData != &data.context) return;
     auto* restoreInput = data.previousInput ? data.previousInput : gDefaultInputData;
@@ -91,6 +98,7 @@ void WindowElement_BlurInput(WindowElement& element) {
 }
 void WindowElement_FocusInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
+    auto& focusedInput = FocusedInputFor(element);
     if (auto* previous = WindowRuntime_ResolveElement(focusedInput); previous && previous != &element) WindowElement_BlurInput(*previous);
     auto& data = *element.data.input->ownedInput;
     if (!data.focused) {

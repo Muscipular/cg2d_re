@@ -8,10 +8,32 @@
 #include <vector>
 
 namespace cg::input { class InputContext; }
+namespace cg::session { class ClientSession; }
 
 namespace cg::ui {
 
 struct WindowExtension;
+
+// 控件跨回调身份；实例代次和创建序号防止同 ID 新对象冒充旧对象。
+struct WindowElementRef {
+    int winId = -1;
+    std::uint32_t generation = 0;
+    std::uint32_t elementId = 0;
+    std::uint64_t creationSerial = 0;
+    session::ClientSession* ownerSession = nullptr;
+};
+
+// 控件拖动捕获只保存身份，窗口/控件的实际寿命仍由 UI 实例管理。
+struct ElementPointerDragState {
+    int windowId = -1;
+    std::uint32_t generation = 0;
+    std::uint32_t elementId = 0;
+    std::uint64_t creationSerial = 0;
+    int lastX = 0;
+    int lastY = 0;
+    bool moved = false;
+    bool startedThisFrame = false;
+};
 
 // 扩展窗口的活动注册、排序和焦点只在所属会话内有效。
 struct ExtensionWindowState {
@@ -26,6 +48,9 @@ struct ExtensionWindowState {
 // 扩展窗口、Lua 场景通知及输入编码诊断的会话帧状态；尚不拥有原生输入上下文。
 struct UiFrameRuntimeState {
     ExtensionWindowState extension {};
+    ElementPointerDragState pointerDrag {};
+    bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。
+    WindowElementRef focusedInput {};
     std::int32_t lastScene = -1;
     std::int32_t lastSceneState = -1;
     input::InputContext* reportedContext = nullptr;

@@ -4163,7 +4163,7 @@ static void WindowRuntime_AdvanceMousePhase()
 // 原函数：0x00473560。
 static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const ElementId elementId, int ox, int oy, const UIClipRect* clip)
 {
-    if (WindowRuntime_PointerDragBlocksMouse()) return 0;
+    if (WindowRuntime_PointerDragBlocksMouse(target)) return 0;
     WindowInstance* const window = &target;
     WindowElementCursor lease(target);
     WindowElement* const element = window->FindElementById(elementId);
@@ -4454,7 +4454,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
     PrepareWindowFrame(session);
-    WindowRuntime_BeginPointerDragFrame();
+    WindowRuntime_BeginPointerDragFrame(session);
     const std::int32_t count = WindowRuntime_CompactAndReorder();
     const auto scheduledWindows = MergeWindowOrder(session, count);
     const bool hasWindows = !scheduledWindows.empty();
@@ -4474,7 +4474,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             gCurrentWindow = window;
             gCurrentWindowState = extension ? &extension->state : &gWindowStates[window->id];
             gCurrentWindowIdD67A1C = window->id;
-            const std::int32_t focused = WindowRuntime_PointerDragBlocksMouse() ? 0 : WindowDrag_Update();
+            const std::int32_t focused = WindowRuntime_PointerDragBlocksMouse(session) ? 0 : WindowDrag_Update();
             std::int32_t updateResult;
             if (extension) {
                 if (window->binding && !(window->state & 0x8000u)) window->binding->update();

@@ -4,6 +4,7 @@
 #include <string_view>
 #include <memory>
 #include <vector>
+#include "cg/ui/UiFrameRuntimeState.hpp"
 #include "../WindowComponentHost.hpp"
 
 namespace cg::ui {
@@ -14,14 +15,6 @@ using component_detail::PngTexture;
 using component_detail::CanvasShape;
 using component_detail::YobiAction;
 struct UIClipRect { short left = 0; short top = 0; short right = 0; short bottom = 0; };
-// 跨回调仅借身份；创建序号防止同ID新对象被当作旧对象。
-struct WindowElementRef {
-    int winId = -1;
-    std::uint32_t generation = 0;
-    ElementId elementId = 0;
-    std::uint64_t creationSerial = 0;
-    session::ClientSession* ownerSession = nullptr;
-};
 WindowElementRef WindowRuntime_ElementRef(const WindowElement& element);
 WindowElement* WindowRuntime_ResolveElement(const WindowElementRef& ref);
 // 动画配置仅保存资源参数，真实action仍由WindowAnimationData拥有。

@@ -55,7 +55,7 @@ int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int 
     }
     const int maximum = data.MaxScrollY(element);
     bool handled = false;
-    if (maximum > 0 && !WindowRuntime_PointerDragBlocksMouse()) {
+    if (maximum > 0 && !WindowRuntime_PointerDragBlocksMouse(window)) {
         const int wheel = WindowPeekMouseWheelDelta();
         if ((events & MouseFlag_Hover) && wheel != 0) {
             int step = wheel / 120;

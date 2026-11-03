@@ -1,22 +1,13 @@
 #include "WindowComponents.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/session/ClientHost.hpp"
 
 namespace cg::ui {
 using namespace component_detail;
 
-// 捕获只保存身份，动态数组发布/排序不会使捕获引用悬空。
-static struct ElementPointerDrag {
-    int windowId = -1;
-    std::uint32_t generation = 0;
-    session::ClientSession* ownerSession = nullptr;
-    ElementId elementId = 0;
-    std::uint64_t creationSerial = 0;
-    int lastX = 0;
-    int lastY = 0;
-    bool moved = false;
-    bool startedThisFrame = false;
-} pointerDrag;
-static bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。
+static session::ClientSession& WindowOwner(const WindowInstance& window) {
+    return window.ownerSession ? *window.ownerSession : session::GetClientHost().FirstSession();
+}
 
 bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const WindowElement& element) {
     if (element.removed || element.detaching || !element.hitable || (window.state & WIN_STATE_CLOSE)
@@ -29,49 +20,58 @@ bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const Wind
     return true;
 }
 
-static WindowElement* ResolvePointerDrag(WindowInstance*& window) {
-    window = pointerDrag.ownerSession ? WindowRuntime_FindInstance(*pointerDrag.ownerSession, pointerDrag.windowId)
-        : WindowRuntime_FindInstance(pointerDrag.windowId);
+static WindowElement* ResolvePointerDrag(session::ClientSession& session, WindowInstance*& window) {
+    const auto& pointerDrag = session.UiFrame().pointerDrag;
+    window = WindowRuntime_FindInstance(session, pointerDrag.windowId);
     if (!window || window->generation != pointerDrag.generation || (window->state & WIN_STATE_CLOSE)
         || window->scriptHidden || platform::gWindowActiveState != 2) return nullptr;
     WindowElement* element = window->FindElementById(static_cast<ElementId>(pointerDrag.elementId));
     return element && element->creationSerial == pointerDrag.creationSerial && element->refDrag >= 0 && WindowRuntime_IsElementInteractive(*window, *element) ? element : nullptr;
 }
 
-static void CancelPointerDrag() {
+static void CancelPointerDrag(session::ClientSession& session) {
     WindowInstance* window = nullptr;
-    if (auto* element = ResolvePointerDrag(window)) element->mouseState = WindowMouseState_None;
-    pointerDrag = {};
+    if (auto* element = ResolvePointerDrag(session, window)) element->mouseState = WindowMouseState_None;
+    session.UiFrame().pointerDrag = {};
 }
 
-static void ConsumePointerDragMouse() {
-    pointerDragReserved = true;
+static void ConsumePointerDragMouse(session::ClientSession& session) {
+    session.UiFrame().pointerDragReserved = true;
     gMouseEventState = MES_CAPTURED;
     gWindowHasFocus = 1;
 }
 
-void WindowRuntime_BeginPointerDragFrame() {
+void WindowRuntime_BeginPointerDragFrame(session::ClientSession& session) {
+    auto& pointerDrag = session.UiFrame().pointerDrag;
+    auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     pointerDragReserved = pointerDrag.windowId >= 0;
     pointerDrag.startedThisFrame = false;
     if (WindowDrag_ReadMousePhase() != 0) {
-        CancelPointerDrag();
+        CancelPointerDrag(session);
         pointerDragReserved = false; // 原生物品拖放保持其既有调度。
         return;
     }
     WindowInstance* window = nullptr;
-    if (!ResolvePointerDrag(window)) CancelPointerDrag();
-    if (pointerDragReserved) ConsumePointerDragMouse();
+    if (!ResolvePointerDrag(session, window)) CancelPointerDrag(session);
+    if (pointerDragReserved) ConsumePointerDragMouse(session);
 }
 
-bool WindowRuntime_PointerDragBlocksMouse() { return pointerDragReserved; }
+bool WindowRuntime_PointerDragBlocksMouse(session::ClientSession& session) {
+    return session.UiFrame().pointerDragReserved;
+}
+bool WindowRuntime_PointerDragBlocksMouse(const WindowInstance& window) {
+    return WindowRuntime_PointerDragBlocksMouse(WindowOwner(window));
+}
 
 bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& element, int events) {
+    auto& session = WindowOwner(window);
+    auto& pointerDrag = session.UiFrame().pointerDrag;
+    auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (pointerDragReserved || element.refDrag < 0 || !(events & MouseFlag_LDownEvent)
         || !(gMouseBtnDown2 & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase() != 0
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
-    pointerDrag.ownerSession = window.ownerSession;
     pointerDrag.elementId = element.elementId;
     pointerDrag.creationSerial = element.creationSerial;
     pointerDrag.lastX = platform::gLegacyMouseState.buttonCoordinates[0];
@@ -79,7 +79,7 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
     pointerDrag.moved = false;
     pointerDrag.startedThisFrame = true;
     window.state &= ~std::uint32_t{0x800}; // 已命中的控件接管本次UI窗口位置拖动。
-    ConsumePointerDragMouse();
+    ConsumePointerDragMouse(session);
     return true;
 }
 
@@ -92,16 +92,19 @@ static void EmitPointerDrag(WindowInstance& window, WindowElement& element, int 
 }
 
 int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
+    auto& session = WindowOwner(window);
+    auto& pointerDrag = session.UiFrame().pointerDrag;
+    const bool pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (!pointerDragReserved) return 0;
     WindowElementCursor lease(window);
-    ConsumePointerDragMouse();
+    ConsumePointerDragMouse(session);
     if (pointerDrag.windowId != window.id || pointerDrag.generation != window.generation) return 1;
     WindowInstance* owner = nullptr;
-    auto* element = ResolvePointerDrag(owner);
-    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(); return 1; }
+    auto* element = ResolvePointerDrag(session, owner);
+    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(session); return 1; }
     const bool released = (gMouseClickState & platform::LegacyMouseEdge_LUp) != 0;
     const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
-    if (!held && !released) { CancelPointerDrag(); return 1; }
+    if (!held && !released) { CancelPointerDrag(session); return 1; }
     const int x = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[2]) : static_cast<int>(gMouseX);
     const int y = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[3]) : static_cast<int>(gMouseY);
     const bool moved = x != pointerDrag.lastX || y != pointerDrag.lastY;
@@ -114,23 +117,26 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     if (moved) flags |= MouseFlag_Dragging;
     if (flags) EmitPointerDrag(window, *element, flags);
     // 回调可隐藏、清空、关闭或取消onDrag；重新解析，不持有旧元素地址。
-    element = ResolvePointerDrag(owner);
-    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(); return 1; }
+    element = ResolvePointerDrag(session, owner);
+    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(session); return 1; }
     if (released) {
         const bool finish = pointerDrag.moved;
-        CancelPointerDrag(); // 先释放捕获，回调不能导致第二次结束。
+        CancelPointerDrag(session); // 先释放捕获，回调不能导致第二次结束。
         if (finish) EmitPointerDrag(window, *element, MouseFlag_DragFinish);
     }
     return 1;
 }
 
 void WindowRuntime_CancelPointerDrag(WindowInstance& window) {
-    if (pointerDrag.windowId == window.id && pointerDrag.generation == window.generation) CancelPointerDrag();
+    auto& session = WindowOwner(window);
+    const auto& pointerDrag = session.UiFrame().pointerDrag;
+    if (pointerDrag.windowId == window.id && pointerDrag.generation == window.generation)
+        CancelPointerDrag(session);
 }
 
-void WindowRuntime_EndPointerDragFrame() {
+void WindowRuntime_EndPointerDragFrame(session::ClientSession& session) {
     WindowInstance* window = nullptr;
-    if (!ResolvePointerDrag(window) || WindowDrag_ReadMousePhase() != 0) CancelPointerDrag();
+    if (!ResolvePointerDrag(session, window) || WindowDrag_ReadMousePhase() != 0) CancelPointerDrag(session);
 }
 
 

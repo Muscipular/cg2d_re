@@ -87,7 +87,7 @@ int WindowExtension::update(int, int hasFocused) {
     WindowRuntime_UpdateElementOrder(window);
     const int captured = WindowRuntime_ProcessElements(window);
     if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
-        && dragMove == 1 && (gMouseBtnDown2 & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse()) {
+        && dragMove == 1 && (gMouseBtnDown2 & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse(window)) {
         if (dragMoving && dragOwner == window.id) {
             window.x += gMouseX - dragMoveLastX; window.y += gMouseY - dragMoveLastY;
             dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
@@ -279,7 +279,7 @@ std::vector<ScheduledWindow> MergeWindowOrder(session::ClientSession& session, i
 void FinishWindowFrame(session::ClientSession& session)
 {
     script::LuaProcessWinMgrKeyPress(session);
-    WindowRuntime_EndPointerDragFrame();
+    WindowRuntime_EndPointerDragFrame(session);
     WindowConsumeMouseWheelDelta();
     script::AutoBattleProc(session);
     script::CopilotProc();

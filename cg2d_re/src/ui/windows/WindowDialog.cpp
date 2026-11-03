@@ -1125,12 +1125,13 @@ static std::int32_t WindowDialog_DrawHealing(
     session::ClientSession& session, WindowInstance* const window, const std::int32_t button,
     std::int32_t row, const std::int32_t)
 {
+    auto& uiFrame = session.UiFrame();
     auto& dialog = session.UiFrame().native.dialog;
     static_cast<void>(cg::yobi::CalculateDialogTextColumns_49C5C0(static_cast<std::int16_t>(window->width)));
     const std::int32_t visibleLines = cg::yobi::CalculateDialogVisibleLines_49C5E0(
         static_cast<std::int16_t>(window->height), 1, 16);
     if (button != 0) {
-        gHoverTextD68AE8 = L"不治疗了。";
+        uiFrame.hoverText = L"不治疗了。";
     }
     std::wstring buffer;
     for (std::int32_t index = 0; index < 7; ++index) {
@@ -1172,7 +1173,7 @@ static std::int32_t WindowDialog_DrawHealing(
                 ? L"请求治疗此人物的伤势。"
                 : L"此人物没有受伤。";
         }
-        gHoverTextD68AE8 = text;
+        uiFrame.hoverText = text;
     }
     return 0;
 }

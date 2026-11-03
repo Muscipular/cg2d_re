@@ -166,13 +166,14 @@ static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const s
 // 原函数：0x004A4220。
 static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
+        uiFrame.hoverText = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
         consumed = 1;
     }
     const std::int32_t scroll = business.mailRankScrollCA0474;
@@ -192,6 +193,7 @@ static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, co
 // 原函数：0x004A42C0。
 static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -199,7 +201,7 @@ static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = kSettingsClose55331C;
+            uiFrame.hoverText = kSettingsClose55331C;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -222,6 +224,7 @@ static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, 
 // 原函数：0x004A4370。
 static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -231,7 +234,7 @@ static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, con
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B570;
-            gHoverTextD68AE8 = L"设定已选择的称号。" /* 原常量参考：0x00587704。 */;
+            uiFrame.hoverText = L"设定已选择的称号。" /* 原常量参考：0x00587704。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3B56E;

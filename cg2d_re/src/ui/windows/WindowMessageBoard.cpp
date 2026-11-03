@@ -211,11 +211,12 @@ static void WindowMessageBoard_Release(WindowInstance&)
 // 原函数：0x004B5B70。
 static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0 && !inputs.messageBoardPrototype.input.context->empty()) {
-        gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
+        uiFrame.hoverText = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -243,6 +244,7 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
 // 原函数：0x004B5C30。
 static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -261,7 +263,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 const wchar_t* const hint = elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons)
                     ? L"关闭这个视窗。"
                     : kShopHints57E6C4[2];
-                gHoverTextD68AE8 = hint;
+                uiFrame.hoverText = hint;
                 consumed = 1;
             } else {
                 graphic->imageNo = elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons) ? 243001 : 244545;
@@ -281,7 +283,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 36818;
-                gHoverTextD68AE8 = L"删除此讯息。";
+                uiFrame.hoverText = L"删除此讯息。";
                 consumed = 1;
             } else {
                 graphic->imageNo = 36816;
@@ -308,7 +310,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             auto* const graphic = handleButtons_31Element->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 244544;
-                gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
+                uiFrame.hoverText = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
                 consumed = 1;
             } else {
                 graphic->imageNo = 244542;
@@ -345,7 +347,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 const wchar_t* const hint = elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33)
                     ? L"切换至下一页视窗。"
                     : L"回到上一页视窗。";
-                gHoverTextD68AE8 = hint;
+                uiFrame.hoverText = hint;
                 consumed = 1;
             } else {
                 graphic->imageNo = baseImage;

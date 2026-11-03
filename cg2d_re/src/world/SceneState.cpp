@@ -4004,6 +4004,7 @@ std::int32_t __cdecl SetPlayerObjectIndex_519EB0(const std::int32_t value)
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     auto& inputs = session.UiFrame().native.inputs;
     auto& battleScene = session.WorldScene().battle;
     std::int32_t state = gCurrentSceneState;
@@ -4143,7 +4144,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            ui::detail::gHoverTextD68AE8 = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
+            uiFrame.hoverText = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
         }
         const std::int32_t readIndex = battleScene.cReadIndex;
         if (readIndex != battleScene.cWriteIndex) {
@@ -4187,7 +4188,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             gCurrentSceneState = 3;
         }
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            ui::detail::gHoverTextD68AE8 = L"等待回合结束。" /* 原常量参考：0x005541BC。 */;
+            uiFrame.hoverText = L"等待回合结束。" /* 原常量参考：0x005541BC。 */;
         }
         break;
     }
@@ -4256,7 +4257,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             battleScene.mScanOffset = 2;
             gCurrentSceneState = 6;
         } else if (cg::yobi::Sub_43CA50() >= 2) {
-            ui::detail::gHoverTextD68AE8 = L"等待其他玩家的输入指令。" /* 原常量参考：0x005541A0。 */;
+            uiFrame.hoverText = L"等待其他玩家的输入指令。" /* 原常量参考：0x005541A0。 */;
         }
         break;
     }
@@ -4396,7 +4397,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         const std::int32_t y = cg::yobi::GetYobiActionField34(action);
         const std::int32_t x = cg::yobi::GetYobiActionField30(action);
         if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
-            ui::detail::gHoverTextD68AE8 = L"结束观战。" /* 原常量参考：0x00554194。 */;
+            uiFrame.hoverText = L"结束观战。" /* 原常量参考：0x00554194。 */;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
                 &platform::gLegacyMouseState.edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;

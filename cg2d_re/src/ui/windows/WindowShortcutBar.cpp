@@ -144,6 +144,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(WindowInstance& callbackWindo
 // 原函数：0x0046FC60。
 static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -154,7 +155,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
         std::int32_t consumed = hover ? 1 : 0;
         if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_9)) {
             if (hover) {
-                gHoverTextD68AE8 = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
+                uiFrame.hoverText = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
                 graphic->imageNo = 0x18224;
             } else {
                 graphic->imageNo = 0x18225;
@@ -204,7 +205,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                 &world::RequestNearbyPlayerTrade_4704A0,
             };
             if (hover) {
-                gHoverTextD68AE8 = hints[index];
+                uiFrame.hoverText = hints[index];
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
                 requests[index](*callbackWindow.ownerSession);
@@ -216,12 +217,12 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
             if (callbackWindow.ownerSession->Connection().PukVersion() < 7u) {
                 if (hover) {
                     graphic->imageNo = 0x3B91D;
-                    gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+                    uiFrame.hoverText = kStatusGuildUnavailable586270;
                 }
                 return consumed;
             }
             if (hover) {
-                gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
+                uiFrame.hoverText = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
                 world::RequestFacingPlayerGuildInvitation_470670(*callbackWindow.ownerSession);
@@ -231,12 +232,12 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
         }
         if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_7)) {
             if (hover) {
-                gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
+                uiFrame.hoverText = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
             }
             return WindowStatusBar_ButtonEmote(callbackWindow, NativeElementKey(6), state);
         }
         if (hover) {
-            gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
+            uiFrame.hoverText = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
         }
     }
     return WindowStatusBar_ButtonMiniMap(callbackWindow, NativeElementKey(7), state);

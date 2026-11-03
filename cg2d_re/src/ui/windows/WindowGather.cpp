@@ -765,6 +765,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
 // 原函数：0x00486CF0。
 static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& session = *callbackWindow.ownerSession;
     auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -779,14 +780,14 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
         const bool enoughFp = !(world::gPlayerRuntimeSlots.fp < cost);
         if (!enoughFp && (state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = kWindow12NoFp5864F0;
+            uiFrame.hoverText = kWindow12NoFp5864F0;
         }
         if (world::CountFreeInventorySlots_518C60() <= 0 || !enoughFp) {
             graphic->imageNo = 0x3B56C;
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"重新再开。" /* 原常量参考：0x005869F4。 */;
+            uiFrame.hoverText = L"重新再开。" /* 原常量参考：0x005869F4。 */;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -812,6 +813,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
 // 原函数：0x00486E50。
 static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& session = *callbackWindow.ownerSession;
     auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -821,7 +823,7 @@ static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = gather.mode == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
+            uiFrame.hoverText = gather.mode == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
             window = currentWindow;
         }
         std::int32_t consumed = 0;

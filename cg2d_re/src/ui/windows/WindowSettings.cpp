@@ -442,6 +442,7 @@ static void WindowSettings_Release(WindowInstance& releasedWindow)
 // 原函数：0x00493EE0。
 static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -451,7 +452,7 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWin
     if (graphic) graphic->imageNo = 0x3B8BE;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C0;
-        gHoverTextD68AE8 = L"登出伺服器。" /* 原常量参考：0x00586DE8。 */;
+        uiFrame.hoverText = L"登出伺服器。" /* 原常量参考：0x00586DE8。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideAreaElement = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea);
@@ -485,6 +486,7 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWin
 // 原函数：0x00494000。
 static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -494,7 +496,7 @@ static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWind
     if (graphic) graphic->imageNo = 0x3B8C1;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C3;
-        gHoverTextD68AE8 = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
+        uiFrame.hoverText = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_29Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29);
@@ -544,6 +546,7 @@ static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWind
 // 原函数：0x00494180。
 static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -553,7 +556,7 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
     if (graphic) graphic->imageNo = 0x3B8C4;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C6;
-        gHoverTextD68AE8 = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
+        uiFrame.hoverText = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_30Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30);
@@ -606,6 +609,7 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
 // 原函数：0x00494370。
 static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -615,7 +619,7 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWi
     if (graphic) graphic->imageNo = 0x3B8C7;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C9;
-        gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
+        uiFrame.hoverText = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_31Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31);
@@ -655,6 +659,7 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWi
 // 原函数：0x00493E50。
 static std::int32_t WindowSettings_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -663,7 +668,7 @@ static std::int32_t WindowSettings_ButtonClose(WindowInstance& callbackWindow, c
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = kSettingsClose55331C;
+            uiFrame.hoverText = kSettingsClose55331C;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
@@ -684,6 +689,7 @@ static std::int32_t WindowSettings_ButtonClose(WindowInstance& callbackWindow, c
 // 原函数：0x004944A0。
 static std::int32_t WindowSettings_ButtonHotkeys(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -693,7 +699,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(WindowInstance& callbackWindow,
         graphic->imageNo = 0x3B8CA;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8CC;
-            gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
+            uiFrame.hoverText = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const hotkeys = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Hotkeys].window;
@@ -716,6 +722,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(WindowInstance& callbackWindow,
 // 原函数：0x00494550。
 static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
@@ -724,7 +731,7 @@ static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, 
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
+            uiFrame.hoverText = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
             window = currentWindow;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -752,6 +759,7 @@ static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, 
 // 原函数：0x00494620。
 static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
@@ -761,7 +769,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWi
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8D6;
-            gHoverTextD68AE8 = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
+            uiFrame.hoverText = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
             window = currentWindow;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -790,6 +798,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWi
 // 原函数：0x00494720。
 static std::int32_t WindowSettings_ToggleItemStacking(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -798,7 +807,7 @@ static std::int32_t WindowSettings_ToggleItemStacking(WindowInstance& callbackWi
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
+            uiFrame.hoverText = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -825,6 +834,7 @@ static std::int32_t WindowSettings_ToggleItemStacking(WindowInstance& callbackWi
 // 原函数：0x004947F0。
 static std::int32_t WindowSettings_ToggleCursor(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -833,7 +843,7 @@ static std::int32_t WindowSettings_ToggleCursor(WindowInstance& callbackWindow, 
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
+            uiFrame.hoverText = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -863,6 +873,7 @@ static std::int32_t WindowSettings_ToggleCursor(WindowInstance& callbackWindow, 
 // 原函数：0x004948F0。
 static std::int32_t WindowSettings_CycleHotkeyMode(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -871,7 +882,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(WindowInstance& callbackWindo
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
+            uiFrame.hoverText = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -895,6 +906,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(WindowInstance& callbackWindo
 // 原函数：0x004949C0。
 static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -905,7 +917,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
     if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gMusicVolume <= 0
             ? L"无法再降低背景音乐的音量。" /* 原常量参考：0x00586EC4。 */ : L"降低背景音乐的音量。" /* 原常量参考：0x00586EE0。 */;
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
@@ -936,6 +948,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
 // 原函数：0x00494AE0。
 static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -946,7 +959,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
     if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gMusicVolume >= 15
             ? L"无法再提高背景音乐的音量。" /* 原常量参考：0x00586EF8。 */ : L"提高背景音乐的音量。" /* 原常量参考：0x00586F14。 */;
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
@@ -977,6 +990,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
 // 原函数：0x00494C10。
 static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -987,7 +1001,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
     if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gEffectVolume <= 0
             ? L"无法再降低效果音量。" /* 原常量参考：0x00586F2C。 */ : L"降低效果音量。" /* 原常量参考：0x00586F44。 */;
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
@@ -1018,6 +1032,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
 // 原函数：0x00494D30。
 static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1028,7 +1043,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
     if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gEffectVolume >= 15
             ? L"无法再提高效果音量。" /* 原常量参考：0x00586F54。 */ : L"提高效果音量。" /* 原常量参考：0x00586F6C。 */;
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
@@ -1059,6 +1074,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
 // 原函数：0x00494E60。
 static std::int32_t WindowSettings_ToggleChannels(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1067,7 +1083,7 @@ static std::int32_t WindowSettings_ToggleChannels(WindowInstance& callbackWindow
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
+            uiFrame.hoverText = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -1095,6 +1111,7 @@ static std::int32_t WindowSettings_ToggleChannels(WindowInstance& callbackWindow
 // 原函数：0x00494F30。
 static std::int32_t WindowSettings_ToggleAudioFlag(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1103,7 +1120,7 @@ static std::int32_t WindowSettings_ToggleAudioFlag(WindowInstance& callbackWindo
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
+            uiFrame.hoverText = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -1131,6 +1148,7 @@ static std::int32_t WindowSettings_ToggleAudioFlag(WindowInstance& callbackWindo
 // 原函数：0x00495000。
 static std::int32_t WindowSettings_ToggleScanlines(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1139,7 +1157,7 @@ static std::int32_t WindowSettings_ToggleScanlines(WindowInstance& callbackWindo
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
+            uiFrame.hoverText = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
@@ -1167,6 +1185,7 @@ static std::int32_t WindowSettings_ToggleScanlines(WindowInstance& callbackWindo
 // 原函数：0x004950D0。
 static std::int32_t WindowSettings_DrawRenderModeButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1174,7 +1193,7 @@ static std::int32_t WindowSettings_DrawRenderModeButton(WindowInstance& callback
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
+            uiFrame.hoverText = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
         }
         graphic->imageNo = 0x3B5A0 + 3 * index;
     }

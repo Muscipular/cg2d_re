@@ -12,6 +12,7 @@ namespace detail {
 // 原函数：0x004C2460。
 std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -20,7 +21,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, con
         const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hover) {
-            gHoverTextD68AE8 = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
+            uiFrame.hoverText = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t target = world::gDialogTargetD2DE6C;

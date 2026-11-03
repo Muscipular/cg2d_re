@@ -448,12 +448,13 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 // 原函数：0x004CA1A0。
 static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"在此目录中搜寻";
+        uiFrame.hoverText = L"在此目录中搜寻";
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246042;
         consumed = 1;
     } else {

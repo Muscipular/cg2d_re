@@ -7,6 +7,7 @@
 
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -192,20 +193,21 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
 }
 
 // 原函数：0x00507140。
-void UpdateQueuedTextAndGraphicHover_507140()
+void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     const std::int16_t initialCount = std::bit_cast<std::int16_t>(gPendingGraphicCount);
     std::int32_t orderIndex = static_cast<std::int32_t>(initialCount) - 1;
     const std::uint32_t oldColorIndex = gHoverColorIndexD6978C;
     const std::uint32_t colorIndex = oldColorIndex < 59 ? oldColorIndex + 1 : 0;
     gHoverColorIndexD6978C = colorIndex;
     const std::uint32_t color = kHoverColors58ACC8[colorIndex];
-    const std::uint32_t focus = ui::detail::gWindowHasFocusCA0AB4;
+    const std::uint32_t focus = uiFrame.windowHasFocus;
     const bool hasFocus = focus != 0;
     cg::render::gHoverFramePaletteIndex_D69768 = color;
     render::gHoveredGraphicPendingIndex = -1;
     if (hasFocus) {
-        ui::detail::gWindowHasFocusCA0AB4 = 0;
+        uiFrame.windowHasFocus = 0;
         return;
     }
 
@@ -276,9 +278,9 @@ void UpdateQueuedTextAndGraphicHover_507140()
             render::SortTextures_520790();
             if (world::gInputAndHoverSuppressed_D460C8 == 0 && ui::detail::gHoverDescriptionEnabled_58589C != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(&graphic);
-                if (ui::detail::gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
+                if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 1;
-                } else if (ui::detail::gHoverTextD68AE8.find(L"[kok]") != std::wstring::npos) {
+                } else if (uiFrame.hoverText.find(L"[kok]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 5;
                 }
             }

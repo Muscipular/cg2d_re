@@ -550,6 +550,7 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
 // 原函数：0x004A93E0。
 static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -561,7 +562,7 @@ static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, c
         if (auto* const buttonSecondPageElement = currentWindow->FindElementById(WindowBankElementId::ButtonSecondPage); buttonSecondPageElement) buttonSecondPageElement->visible = 1;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请选择银行分页";
+        uiFrame.hoverText = L"请选择银行分页";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         business.valueD67618 = 0;
@@ -578,6 +579,7 @@ static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, c
 // 原函数：0x004A94A0。
 static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -589,7 +591,7 @@ static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, 
         if (auto* const buttonSecondPageElement = currentWindow->FindElementById(WindowBankElementId::ButtonSecondPage); buttonSecondPageElement) buttonSecondPageElement->visible = 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请选择银行分页";
+        uiFrame.hoverText = L"请选择银行分页";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         business.valueD67618 = 1;
@@ -624,13 +626,14 @@ static std::int32_t WindowBank_DrawSecondPageSelection(WindowInstance& callbackW
 // 原函数：0x004A95A0。
 static std::int32_t WindowBank_TabItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"存放物品。";
+        uiFrame.hoverText = L"存放物品。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleOwnItemsElement = window->FindElementById(WindowBankElementId::HandleOwnItems);
@@ -666,13 +669,14 @@ static std::int32_t WindowBank_TabItems(WindowInstance& callbackWindow, const El
 // 原函数：0x004A96D0。
 static std::int32_t WindowBank_TabPets(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"存放宠物。";
+        uiFrame.hoverText = L"存放宠物。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleOwnItemsElement = window->FindElementById(WindowBankElementId::HandleOwnItems);
@@ -711,13 +715,14 @@ static std::int32_t WindowBank_TabPets(WindowInstance& callbackWindow, const Ele
 // 原函数：0x004A9820。
 static std::int32_t WindowBank_TabDeposit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"存放金钱。";
+        uiFrame.hoverText = L"存放金钱。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleAmountElement = window->FindElementById(WindowBankElementId::HandleAmount);
@@ -757,13 +762,14 @@ static std::int32_t WindowBank_TabDeposit(WindowInstance& callbackWindow, const 
 // 原函数：0x004A9990。
 static std::int32_t WindowBank_TabWithdraw(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"提领金钱。";
+        uiFrame.hoverText = L"提领金钱。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleAmount_32Element = window->FindElementById(WindowBankElementId::HandleAmount_32);
@@ -803,6 +809,7 @@ static std::int32_t WindowBank_TabWithdraw(WindowInstance& callbackWindow, const
 // 原函数：0x004A9D10。
 static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -868,9 +875,9 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0
         && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
         if ((world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
-            gHoverTextD68AE8 = L"此物品无法存放。";
+            uiFrame.hoverText = L"此物品无法存放。";
         } else {
-            gHoverTextD68AE8 = L"用滑鼠拖放来存放物品。";
+            uiFrame.hoverText = L"用滑鼠拖放来存放物品。";
         }
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
@@ -1001,6 +1008,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
 // 原函数：0x004AA3D0。
 static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1072,7 +1080,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放来提领物品。";
+            uiFrame.hoverText = L"用滑鼠拖放来提领物品。";
         }
     }
     if (gBankExternalHover57EDD0 != hovered) {
@@ -1304,6 +1312,7 @@ static std::int32_t WindowBank_ScrollPets(WindowInstance& callbackWindow, const 
 // 原函数：0x004AAEC0。
 static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1382,7 +1391,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         const std::int32_t level = world::gPlayerRuntimeSlots.level;
         const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
         if (amount >= level) {
-            gHoverTextD68AE8 = L"用滑鼠拖放来存放宠物。";
+            uiFrame.hoverText = L"用滑鼠拖放来存放宠物。";
         }
     }
     const auto& pet = world::gPetRuntimeRecords[petIndex];
@@ -1465,6 +1474,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
 // 原函数：0x004AB710。
 static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1507,7 +1517,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
         std::uint16_t used;
         std::memcpy(&used, &gPetStorageD64E18[petIndex], sizeof(used));
         if (used != 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放来提领宠物。";
+            uiFrame.hoverText = L"用滑鼠拖放来提领宠物。";
         }
     }
     const auto* const record = &gPetStorageD64E18[petIndex];
@@ -1801,6 +1811,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
 // 原函数：0x004AC200。
 std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1808,7 +1819,7 @@ std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, const El
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"关闭这个视窗。";
+            uiFrame.hoverText = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
@@ -1828,6 +1839,7 @@ std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, const El
 // 原函数：0x004A9350。
 std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1835,7 +1847,7 @@ std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const Elemen
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"关闭此视窗";
+            uiFrame.hoverText = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;

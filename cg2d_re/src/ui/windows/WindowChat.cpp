@@ -477,6 +477,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
 // 原函数：0x004A6FC0。
 static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& chatDisplay = callbackWindow.ownerSession->WorldScene().chatDisplay;
     auto& chatWindow = callbackWindow.ownerSession->UiFrame().native.chat;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
@@ -490,7 +491,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
     case WindowChatElementId::HandleButtons_5:
         if ((state & MouseFlag_Hover) != 0) {
             if (auto* const handleButtons_5Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_5); handleButtons_5Element) handleButtons_5Element->data.graphic->imageNo = 0x3BDC3;
-            gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
+            uiFrame.hoverText = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
             consumed = 1;
         } else {
             if (auto* const handleButtons_5Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_5); handleButtons_5Element) handleButtons_5Element->data.graphic->imageNo = 0x3BDC4;
@@ -510,7 +511,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t image = chatDisplay.range * 3 + 0x3BDB1;
             if (auto* const handleButtons_6Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_6); handleButtons_6Element) handleButtons_6Element->data.graphic->imageNo = image;
-            gHoverTextD68AE8 = L"切换发话的范围。";
+            uiFrame.hoverText = L"切换发话的范围。";
             consumed = 1;
         } else {
             WindowInstance* const window = currentWindow;
@@ -545,7 +546,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         if (!handleButtons_7Element) { return 0; }
         auto* const graphic = handleButtons_7Element->data.graphic;
         if (hovered) {
-            gHoverTextD68AE8 = L"改变聊天时的文字大小。";
+            uiFrame.hoverText = L"改变聊天时的文字大小。";
             consumed = 1;
             switch (platform::gChatTextSizeMode_73ECBC) {
             case 0: graphic->imageNo = 0x3BDD5; break;
@@ -583,7 +584,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         auto* hoverElementsWindow = hoverWindow;
         if (hovered) {
             if (auto* const handleButtonsElement = hoverElementsWindow->FindElementById(WindowChatElementId::HandleButtons); handleButtonsElement) handleButtonsElement->data.graphic->imageNo = 0x3BDA9;
-            gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示字数，点击滑鼠右键减少文字讯息显示字数。";
+            uiFrame.hoverText = L"点击滑鼠左键增加文字显示字数，点击滑鼠右键减少文字讯息显示字数。";
             consumed = 1;
         } else {
             if (auto* const handleButtonsElement = hoverElementsWindow->FindElementById(WindowChatElementId::HandleButtons); handleButtonsElement) handleButtonsElement->data.graphic->imageNo = 0x3BDAA;
@@ -602,7 +603,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
     }
     case WindowChatElementId::HandleButtons_8: {
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更文字的颜色。";
+            uiFrame.hoverText = L"变更文字的颜色。";
             consumed = 1;
         }
         std::int32_t color;

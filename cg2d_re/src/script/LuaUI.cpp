@@ -1469,7 +1469,7 @@ LuaFunctionEx(LuaWindowRef, ShowTips) {
         return 1;
     }
     const char* tips = luaL_optstring(L, 2, "");
-    ui::detail::gHoverTextD68AE8 = text::FromGbkWide(tips);
+    GetLuaConnection(L).Owner().UiFrame().hoverText = text::FromGbkWide(tips);
     lua_pushboolean(L, true);
     return 1;
 }

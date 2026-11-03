@@ -678,14 +678,12 @@ extern std::int32_t gItemDragXCC4880; // 原全局：0x00CC4880。
 extern std::int32_t gItemDragYCC4884; // 原全局：0x00CC4884。
 extern std::int32_t gDraggingCA0B28; // 原全局：0x00CA0B28。
 extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
-extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
 extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
 extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
-extern std::wstring gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。

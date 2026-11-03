@@ -569,7 +569,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
             const int index = static_cast<int>(elementId) - 1; // 复选项数组从0开始。
             const auto& check = checkboxList[index];
             auto& values = window.ownerSession->Lua().autoBattlePanel.checkboxValues;
-            if (mouse & 1) ui::detail::gHoverTextD68AE8 = check.msg;
+            if (mouse & 1) window.ownerSession->UiFrame().hoverText = check.msg;
             if (mouse & 2) {
                 if (check.group) for (int other = 0; other < CHK_MAX; ++other)
                     if (checkboxList[other].group == check.group) values[other] = 0;
@@ -580,7 +580,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
         });
     }
     panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](ui::WindowInstance& window, ui::ElementId elementId, int mouse) {
-        if (mouse & 1) ui::detail::gHoverTextD68AE8 = L"关闭窗口";
+        if (mouse & 1) window.ownerSession->UiFrame().hoverText = L"关闭窗口";
         if (mouse & 2) {
             MakeAutoBattleSimple(*window.ownerSession);
             window.state |= WIN_STATE_CLOSE;
@@ -594,7 +594,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
     panel->graphics[CHK_MAX].width = panel->graphics[CHK_MAX].height = 12;
     panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](ui::WindowInstance& window, ui::ElementId elementId, int mouse) {
         auto& enabled = window.ownerSession->Lua().autoBattlePanel.enabled;
-        if (mouse & 1) ui::detail::gHoverTextD68AE8 = enabled ? L"停止自动战斗" : L"开始自动战斗";
+        if (mouse & 1) window.ownerSession->UiFrame().hoverText = enabled ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
             const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
             if ((world::gCurrentSceneState == 4 && count == 0) || enabled || world::gCurrentSceneState != 4)

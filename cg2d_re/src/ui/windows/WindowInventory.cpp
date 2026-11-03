@@ -78,6 +78,7 @@ static void RefreshInventoryPageSelection(
 // 背包、战斗背包、合成与银行右侧共用页号；银行内只切页，其余入口支持拖物跨页。
 static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -89,12 +90,12 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
         const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
         auto& currentPage = business.bagCurrentPage;
         if ((state & MouseFlag_Hover) != 0) {
-            cg::text::FormatTo(gHoverTextD68AE8,
+            cg::text::FormatTo(uiFrame.hoverText,
                 window->id == WindowId_Bank ? L"切换到第{}页" : L"切换背包{}", page + 1);
         }
         if (window->id != WindowId_Bank && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 0 && page != currentPage) {
             if ((state & MouseFlag_Dragging) != 0) {
-                cg::text::FormatTo(gHoverTextD68AE8, L"移动到背包{}", page + 1);
+                cg::text::FormatTo(uiFrame.hoverText, L"移动到背包{}", page + 1);
                 const std::int32_t left = window->x + element.x;
                 const std::int32_t top = window->y + element.y;
                 render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
@@ -122,6 +123,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
 // 银行左侧页按钮；点击当前页也沿参考重新请求银行数据。
 static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -132,7 +134,7 @@ static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindo
         const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
         auto& currentPage = business.bankCurrentPage;
         if ((state & MouseFlag_Hover) != 0) {
-            cg::text::FormatTo(gHoverTextD68AE8, L"切换到第{}页", page + 1);
+            cg::text::FormatTo(uiFrame.hoverText, L"切换到第{}页", page + 1);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             currentPage = page;
@@ -674,6 +676,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
 // 原函数：0x00488C50。
 static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -682,7 +685,7 @@ static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, 
         graphic->imageNo = 243000;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243002;
-            gHoverTextD68AE8 = L"关闭这个视窗。";
+            uiFrame.hoverText = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) == 0) {
             return 0;
@@ -711,6 +714,7 @@ static void WindowInventory_DropMoney(session::ClientSession& session, const std
 // 原函数：0x00488D30。
 static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -719,7 +723,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"想放钱在地面时使用此按键。";
+            uiFrame.hoverText = L"想放钱在地面时使用此按键。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
@@ -768,6 +772,7 @@ static std::int32_t WindowInventory_RefreshExtraValue(WindowInstance& callbackWi
 // 原函数：0x00488FB0。
 std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -938,9 +943,9 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
         if (item.used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
-                gHoverTextD68AE8 = item.name + L"[kok]";
+                uiFrame.hoverText = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                gHoverTextD68AE8 = item.memo + L"[han]";
+                uiFrame.hoverText = item.memo + L"[han]";
             }
         }
     }
@@ -983,6 +988,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
 // 原函数：0x00489760。
 std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1074,7 +1080,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     auto* const item = items + hovered;
     const std::int32_t hitIndex = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection != 0 ? petHints[hovered] : playerHints[hovered];
+        uiFrame.hoverText = WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection != 0 ? petHints[hovered] : playerHints[hovered];
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100) {
         hovered = -1;
@@ -1175,9 +1181,9 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         if (item->used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
-                gHoverTextD68AE8 = item->name + L"[kok]";
+                uiFrame.hoverText = item->name + L"[kok]";
             } else if ((item->flags & 0x200u) != 0) {
-                gHoverTextD68AE8 = item->memo + L"[han]";
+                uiFrame.hoverText = item->memo + L"[han]";
             }
         }
     }

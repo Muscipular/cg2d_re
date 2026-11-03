@@ -507,6 +507,7 @@ static void WindowPetDetail_Release(WindowInstance& releasedWindow)
 // 原函数：0x0048DD80。
 static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -522,7 +523,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
     case WindowPetDetailElementId::HandleButtons:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
-            gHoverTextD68AE8 = kPetRenameHint586D38;
+            uiFrame.hoverText = kPetRenameHint586D38;
             consumed = 1;
         } else {
             setImage(0x3B56E);
@@ -555,7 +556,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
     case WindowPetDetailElementId::HandleButtons_7:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
-            gHoverTextD68AE8 = kPetPlaceHint586C14;
+            uiFrame.hoverText = kPetPlaceHint586C14;
             consumed = 1;
         } else {
             setImage(0x3BAF7);
@@ -585,7 +586,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
     case WindowPetDetailElementId::HandleButtons_9:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B558 : 0x3B55B);
-            gHoverTextD68AE8 = kPetSelectHint586D2C;
+            uiFrame.hoverText = kPetSelectHint586D2C;
             consumed = 1;
         } else {
             setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);
@@ -678,6 +679,7 @@ std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, const Elem
 // 原函数：0x0048F410。
 std::int32_t WindowPetDetail_SwitchPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t target;
@@ -707,7 +709,7 @@ std::int32_t WindowPetDetail_SwitchPage(WindowInstance& callbackWindow, const El
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = target == WindowId_PetEquipment && (state & MouseFlag_LHoldPhysical) != 0
                 ? 244475 : hover;
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
             consumed = 1;
         } else {
             graphic->imageNo = idle;

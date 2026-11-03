@@ -2389,6 +2389,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
 // 原函数：0x004D2080。
 static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2396,7 +2397,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
+        uiFrame.hoverText = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
@@ -2428,6 +2429,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
 // 原函数：0x004D2170。
 static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2435,7 +2437,7 @@ static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const E
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
+        uiFrame.hoverText = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
@@ -2850,6 +2852,7 @@ static std::int32_t WindowStall_RequestPurchase(WindowInstance* callbackWindow)
 // 原函数：0x004CD420。
 static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -2859,7 +2862,7 @@ static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, cons
         const bool hovered = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hovered) {
-            gHoverTextD68AE8 = L"关闭这个视窗。";
+            uiFrame.hoverText = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallPendingD67C31 == 0) {
             window->state |= 0x8000u;

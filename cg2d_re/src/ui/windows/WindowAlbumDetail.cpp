@@ -439,6 +439,7 @@ static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, con
 // 原函数：0x00492880。
 static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -489,7 +490,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle + 2;
         consumed = 1;
     } else {

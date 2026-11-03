@@ -316,12 +316,13 @@ static void WindowProfileSearch_Release(WindowInstance& releasedWindow)
 // 原函数：0x004CAB90。
 static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请输入关键字";
+        uiFrame.hoverText = L"请输入关键字";
         consumed = 1;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -353,6 +354,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
 // 原函数：0x004CA6F0。
 static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -374,7 +376,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImages[position];
-            gHoverTextD68AE8 = hints[position];
+            uiFrame.hoverText = hints[position];
             consumed = 1;
         } else {
             graphic->imageNo = normalImages[position];
@@ -400,13 +402,14 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
 // 原函数：0x004CA9C0。
 static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"浏览此名玩家的资料表";
+        uiFrame.hoverText = L"浏览此名玩家的资料表";
         consumed = 1;
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246059;
     } else {

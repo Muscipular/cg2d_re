@@ -212,13 +212,14 @@ static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, cons
 // 原函数：0x0048AA60。
 static std::int32_t WindowQuantity_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"增加显示数量。";
+        uiFrame.hoverText = L"增加显示数量。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t maximum = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10);
@@ -247,13 +248,14 @@ static std::int32_t WindowQuantity_ButtonIncrease(WindowInstance& callbackWindow
 // 原函数：0x0048AB10。
 static std::int32_t WindowQuantity_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"减少显示数量。";
+        uiFrame.hoverText = L"减少显示数量。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);

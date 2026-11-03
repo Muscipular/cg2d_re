@@ -432,6 +432,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
 // 原函数：0x004953B0。
 static std::int32_t WindowHotkeys_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -440,7 +441,7 @@ static std::int32_t WindowHotkeys_ButtonClose(WindowInstance& callbackWindow, co
         graphic->imageNo = 0x3B538;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B53A;
-            gHoverTextD68AE8 = kSettingsClose55331C;
+            uiFrame.hoverText = kSettingsClose55331C;
         }
         if ((state & MouseFlag_LDownEvent) == 0) {
             return 0;
@@ -644,6 +645,7 @@ static std::int32_t WindowHotkeys_Scroll(WindowInstance& callbackWindow, const E
 // 原函数：0x004957B0。
 static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
@@ -652,7 +654,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindo
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"显示游戏功能视窗相关热键。" /* 原常量参考：0x00586FA4。 */;
+        uiFrame.hoverText = L"显示游戏功能视窗相关热键。" /* 原常量参考：0x00586FA4。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (windowState->value10 != 0) {
@@ -696,6 +698,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindo
 // 原函数：0x004958D0。
 static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
@@ -704,7 +707,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWind
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"显示画面左上角状态显示相关热键。" /* 原常量参考：0x00586FC0。 */;
+        uiFrame.hoverText = L"显示画面左上角状态显示相关热键。" /* 原常量参考：0x00586FC0。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (windowState->value10 != 1) {
@@ -748,6 +751,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWind
 // 原函数：0x004959F0。
 static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
@@ -756,7 +760,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindo
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"显示画面右上角情绪动作相关热键。" /* 原常量参考：0x00586FE4。 */;
+        uiFrame.hoverText = L"显示画面右上角情绪动作相关热键。" /* 原常量参考：0x00586FE4。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (windowState->value10 != 2) {
@@ -800,6 +804,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindo
 // 原函数：0x00495B10。
 static std::int32_t WindowHotkeys_TabPresetText(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
@@ -808,7 +813,7 @@ static std::int32_t WindowHotkeys_TabPresetText(WindowInstance& callbackWindow, 
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"登录常用句。" /* 原常量参考：0x00587008。 */;
+        uiFrame.hoverText = L"登录常用句。" /* 原常量参考：0x00587008。 */;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (windowState->value10 != 3) {

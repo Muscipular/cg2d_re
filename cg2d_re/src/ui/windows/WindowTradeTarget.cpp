@@ -403,6 +403,7 @@ static std::int32_t WindowTradeTarget_Scroll(WindowInstance& callbackWindow, con
 // 原函数：0x0049EEB0。
 static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -411,7 +412,7 @@ static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindo
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"中止。";
+            uiFrame.hoverText = L"中止。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;

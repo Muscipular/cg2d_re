@@ -338,6 +338,7 @@ static void WindowOwnProfile_Release(WindowInstance& releasedWindow)
 // 原函数：0x004792D0。
 static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -365,7 +366,7 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"请输入描述";
+        uiFrame.hoverText = L"请输入描述";
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;

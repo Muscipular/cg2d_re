@@ -181,11 +181,12 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 // 原函数：0x00477540。
 static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
+        uiFrame.hoverText = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -217,6 +218,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
 // 原函数：0x00477600。
 static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -227,7 +229,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B59E;
-            gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
+            uiFrame.hoverText = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3B59D;
@@ -258,6 +260,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
 // 原函数：0x00477710。
 static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -278,7 +281,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         const std::int32_t hover = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? 0x3BAB7 : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? 0x3B585 : 0x3C112;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(hover);
-            gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
+            uiFrame.hoverText = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
                             : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? L"切换成玩家明细视窗。" /* 原常量参考：0x005858C0。 */ : L"切换成玩家简介视窗" /* 原常量参考：0x0058637C。 */;
             consumed = 1;
         } else {
@@ -302,7 +305,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
     case WindowPlayerTitlesElementId::HandleButtons_22: {
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAC4);
-            gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
+            uiFrame.hoverText = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             setImage(0x3BAC2);
@@ -322,7 +325,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
     case WindowPlayerTitlesElementId::HandleButtons_23:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B576);
-            gHoverTextD68AE8 = L"取消所选择的称号。" /* 原常量参考：0x005863FC。 */;
+            uiFrame.hoverText = L"取消所选择的称号。" /* 原常量参考：0x005863FC。 */;
             consumed = 1;
         } else {
             setImage(0x3B574);
@@ -338,7 +341,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
     case WindowPlayerTitlesElementId::HandleButtons_24: {
         if (business.valuesCF4E50[0] == 1) {
             setImage(0x3B578);
-            gHoverTextD68AE8 = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
+            uiFrame.hoverText = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
         }
         const std::int32_t mode = business.valuesCF4E50[0];
         if ((state & MouseFlag_Hover) != 0) {

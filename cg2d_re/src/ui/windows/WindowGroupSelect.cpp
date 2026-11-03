@@ -428,6 +428,7 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004B5210。
 static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -441,7 +442,7 @@ static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = idle + 2;
-            gHoverTextD68AE8 = L"切换集团邮件。";
+            uiFrame.hoverText = L"切换集团邮件。";
             result = 1;
         } else {
             graphic->imageNo = idle;
@@ -481,6 +482,7 @@ static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow
 // 原函数：0x004B53C0。
 static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -492,7 +494,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
             graphic->imageNo = 0x3BA20;
             const std::int32_t mode = business.mailGroupCC1A30.mode;
             if (mode == 0 || mode == 1 || mode == 2) {
-                gHoverTextD68AE8 = L"准备寄送邮件给此集团。";
+                uiFrame.hoverText = L"准备寄送邮件给此集团。";
             }
             result = 1;
         } else {
@@ -536,6 +538,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
 // 原函数：0x004B5550。
 static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -549,7 +552,7 @@ static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, 
     }
     std::int32_t result = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = selected == 1
+        uiFrame.hoverText = selected == 1
             ? L"对方的邮件寄过来了。"
             : L"准备寄送邮件给对方。";
         result = 1;

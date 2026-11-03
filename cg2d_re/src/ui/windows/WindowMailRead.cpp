@@ -148,6 +148,7 @@ static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, const st
 // 原函数：0x004A4660。
 static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -156,7 +157,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow
         std::int32_t consumed = 0;
         graphic->imageNo = 0x3B556;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"上一封邮件" /* 原常量参考：0x00587718。 */;
+            uiFrame.hoverText = L"上一封邮件" /* 原常量参考：0x00587718。 */;
             graphic->imageNo = 0x3B558;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -181,6 +182,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow
 // 原函数：0x004A4710。
 static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -189,7 +191,7 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, co
         std::int32_t consumed = 0;
         graphic->imageNo = 0x3B559;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"下一封邮件" /* 原常量参考：0x00587724。 */;
+            uiFrame.hoverText = L"下一封邮件" /* 原常量参考：0x00587724。 */;
             graphic->imageNo = 0x3B55B;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -214,6 +216,7 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, co
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -222,7 +225,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = kReplyMailHint587730;
+            uiFrame.hoverText = kReplyMailHint587730;
             graphic->imageNo = 0x3BA1D;
         } else {
             graphic->imageNo = 0x3BA1B;

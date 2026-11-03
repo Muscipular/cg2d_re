@@ -501,6 +501,7 @@ static std::int32_t WindowStatusBar_HandleHover(WindowInstance& callbackWindow, 
 // 原函数：0x00471DF0。
 static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -517,7 +518,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
         if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && callbackWindow.ownerSession->Connection().PukVersion() < 7u) {
             if (hover) {
                 graphic->imageNo = 0x3B93E;
-                gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+                uiFrame.hoverText = kStatusGuildUnavailable586270;
             }
             return consumed;
         }
@@ -538,7 +539,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
         const std::int32_t slot = index - 17;
         const bool enabled = (options & masks[slot]) != 0;
         if (hover) {
-            gHoverTextD68AE8 = hints[slot][enabled ? 1 : 0];
+            uiFrame.hoverText = hints[slot][enabled ? 1 : 0];
         }
         if (enabled) {
             graphic->imageNo = 0x3B92E + slot * 3;
@@ -582,6 +583,7 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 // 原函数：0x004723D0。
 static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -607,7 +609,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
             } else {
                 buffer = L"现在没有任何的增加点数。" /* 原常量参考：0x00556D34。 */;
             }
-            gHoverTextD68AE8 = buffer;
+            uiFrame.hoverText = buffer;
         }
         if (business.statusHasPointsD66E24 == 0) {
             return 0;
@@ -651,7 +653,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         const std::int32_t hasMail = business.statusHasMailCC4B5C;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            gHoverTextD68AE8 = hasMail != 0 ? L"现在有新邮件。" /* 原常量参考：0x00556D24。 */ : L"现在没有邮件。" /* 原常量参考：0x00556D14。 */;
+            uiFrame.hoverText = hasMail != 0 ? L"现在有新邮件。" /* 原常量参考：0x00556D24。 */ : L"现在没有邮件。" /* 原常量参考：0x00556D14。 */;
             if (hasMail == 0) {
                 return 0;
             }
@@ -689,9 +691,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                 const wchar_t* const text = injury <= 25 ? L"现在受了一点小伤。" /* 原常量参考：0x00556E00。 */
                     : injury <= 50 ? L"现在受了轻伤。" /* 原常量参考：0x00556DF0。 */
                     : injury <= 75 ? L"现在受到重伤。" /* 原常量参考：0x00556DE0。 */ : L"现在正面临死亡边缘。" /* 原常量参考：0x00556DC8。 */;
-                gHoverTextD68AE8 = text;
+                uiFrame.hoverText = text;
             } else if (target == -1) {
-                gHoverTextD68AE8 = L"现在十分健康。" /* 原常量参考：0x00556D68。 */;
+                uiFrame.hoverText = L"现在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
                 const auto& pet = world::gPetRuntimeRecords[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
@@ -710,7 +712,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                     format = critical ? L"现在{}濒临死亡。" /* 原常量参考：0x00556D78。 */ : L"现在{}受了重伤。" /* 原常量参考：0x00556D8C。 */;
                 }
                 cg::text::FormatTo(buffer, format, name);
-                gHoverTextD68AE8 = buffer;
+                uiFrame.hoverText = buffer;
                 injury = world::gPlayerRuntimeSlots.valueF4;
                 static_cast<void>(0);
             }

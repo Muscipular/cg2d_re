@@ -169,7 +169,7 @@ int MainLoop(session::ClientSession& session)
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();
             render::SortTextures_520790();
-            UpdateQueuedTextAndGraphicHover_507140();
+            UpdateQueuedTextAndGraphicHover_507140(session);
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {

@@ -240,8 +240,6 @@ std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
 
 std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
 
-std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
-
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
@@ -255,8 +253,6 @@ static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原
 // IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
-
-std::wstring gHoverTextD68AE8 {}; // 原全局：0x00D68AE8。
 
 static_assert(sizeof(WindowListSelectionCallback) == 8);
 
@@ -623,8 +619,6 @@ static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24
     &gDragPrototypes[41], // 71：标题及地图拖动由大地图元素回调区分。
     &gDragPrototypes[8], // 72：沿用宠物详情页的标题拖动区域。
 };
-
-static std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
 
 struct WindowPagePresentation;
 static WindowPagePresentation* gPagePresentation = nullptr; // 仅借用当前窗口调度栈上的切页记录。
@@ -1220,6 +1214,7 @@ std::uint8_t WindowInput_HandleNumber(
     const std::int32_t maximum, const std::uint8_t layer, const wchar_t* const* const hints,
     const std::uint8_t flags, const std::uint32_t color)
 {
+    auto& uiFrame = window->ownerSession->UiFrame();
     auto* elementsWindow = window;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
@@ -1250,7 +1245,7 @@ std::uint8_t WindowInput_HandleNumber(
                     const std::int32_t left = x + column * 24;
                     std::int32_t imageState = 0;
                     if (hit(left, bottom - 19, left + 21, bottom)) {
-                        gHoverTextD68AE8 = hints[0];
+                        uiFrame.hoverText = hints[0];
                         imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                         if ((state & MouseFlag_LDownEvent) != 0) {
                             selected = digit;
@@ -1264,7 +1259,7 @@ std::uint8_t WindowInput_HandleNumber(
             }
             std::int32_t imageState = 0;
             if (hit(x, y + 58, x + 21, y + 77)) {
-                gHoverTextD68AE8 = hints[0];
+                uiFrame.hoverText = hints[0];
                 imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                 if ((state & MouseFlag_LDownEvent) != 0) {
                     selected = 0;
@@ -1277,7 +1272,7 @@ std::uint8_t WindowInput_HandleNumber(
             imageState = 0;
             if (hit(x + 48, y + 58, x + 69, y + 77)) {
                 if ((flags & 1u) != 0) {
-                    gHoverTextD68AE8 = hints[1];
+                    uiFrame.hoverText = hints[1];
                     imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                     if ((state & MouseFlag_LDownEvent) != 0) {
                         selected = 13;
@@ -1286,7 +1281,7 @@ std::uint8_t WindowInput_HandleNumber(
                     auto* const valueElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
                     if (valueElement) {
                         const std::int32_t value = std::bit_cast<std::int32_t>(valueElement->state);
-                        gHoverTextD68AE8 = hints[value > 0 ? 1 : 2];
+                        uiFrame.hoverText = hints[value > 0 ? 1 : 2];
                     }
                     imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                     auto* const currentElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
@@ -1317,7 +1312,7 @@ std::uint8_t WindowInput_HandleNumber(
                 const std::int32_t centerY = y + 28 + row * 20;
                 imageState = 0;
                 if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
-                    gHoverTextD68AE8 = hints[row + 3];
+                    uiFrame.hoverText = hints[row + 3];
                     imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                     if ((state & MouseFlag_LDownEvent) != 0) {
                         selected = row + 10;
@@ -1401,13 +1396,14 @@ std::uint8_t WindowInput_HandleNumber(
 // 原函数：0x004C1FB0。
 std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const window = &callbackWindow;
     auto* const graphicElement = window ? window->FindElementById(elementId) : nullptr;
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            gHoverTextD68AE8 = L"关闭这个视窗。";
+            uiFrame.hoverText = L"关闭这个视窗。";
         }
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2111,6 +2107,7 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return false;
+    auto& uiFrame = callbackWindow->ownerSession->UiFrame();
     // 原常量参考：0x0054F5F4。
     static constexpr std::int32_t kEquipmentTabImages[] {
         244294, 244294, 244295, 244296, 98148, 98131, 98148, 98132,
@@ -2124,16 +2121,16 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
     if (hovered) {
         const std::int32_t page = state->value60;
         if (page == 0) {
-            gHoverTextD68AE8 = tab == 0
+            uiFrame.hoverText = tab == 0
                 ? L"开启装备视窗。"
                 : L"开启宠物装备。";
         } else if (page > 1 && page <= 3) {
             if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
-                gHoverTextD68AE8 = tab == 0
+                uiFrame.hoverText = tab == 0
                     ? L"关闭装备视窗。"
                     : L"关闭宠物装备。";
             } else {
-                gHoverTextD68AE8 = tab == 0
+                uiFrame.hoverText = tab == 0
                     ? L"切换到身上装备。"
                     : L"切换宠物装备。";
             }
@@ -3911,6 +3908,7 @@ std::int32_t WindowDrag_ResetMouse(session::ClientSession& session)
 // 原函数：0x00472D20。
 static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& session = *callbackWindow.ownerSession;
     auto& pointer = session.UiFrame().native.pointer;
     const std::int32_t initialPhase = pointer.phase;
@@ -3948,7 +3946,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
                     const std::int32_t left = rectX + windowX;
                     const std::int32_t height = rect.height;
                     const std::int32_t top = rectY + windowY;
-                    const bool focusAvailable = gWindowHasFocusCA0AB4 == 0;
+                    const bool focusAvailable = uiFrame.windowHasFocus == 0;
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
                         if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
@@ -3976,7 +3974,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
             if (WindowRuntime_HitTestRect(x, y, width, height) != 0) {
                 result |= 1;
             }
-        } else if (gWindowHasFocusCA0AB4 == 0) {
+        } else if (uiFrame.windowHasFocus == 0) {
             const std::int32_t height = window->height;
             const std::int32_t width = window->width;
             const std::int32_t y = window->y;
@@ -4046,12 +4044,13 @@ static std::int32_t WindowRuntime_CompactAndReorder(session::ClientSession& sess
 // 原函数：0x00473E40。
 static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     auto& pointer = session.UiFrame().native.pointer;
     std::int32_t phase = pointer.phase;
     if (phase == 1) {
         const WindowDragCallback callback = pointer.callback;
         if (callback == nullptr) {
-            gWindowHasFocusCA0AB4 = 1;
+            uiFrame.windowHasFocus = 1;
             *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
             return;
         }
@@ -4065,7 +4064,7 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
     switch (phase) {
     case 3:
         pointer.phase = 4;
-        gWindowHasFocusCA0AB4 = 1;
+        uiFrame.windowHasFocus = 1;
         *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
         return;
     case 4: {
@@ -4087,7 +4086,7 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
         pointer.phase = 0;
         return;
     case 1:
-        gWindowHasFocusCA0AB4 = 1;
+        uiFrame.windowHasFocus = 1;
         *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
         break;
     default:
@@ -4098,6 +4097,7 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
 // 原函数：0x00473560。
 static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const ElementId elementId, int ox, int oy, const UIClipRect* clip)
 {
+    auto& uiFrame = target.ownerSession->UiFrame();
     auto& session = *target.ownerSession;
     auto& pointer = session.UiFrame().native.pointer;
     if (WindowRuntime_PointerDragBlocksMouse(target)) return 0;
@@ -4135,7 +4135,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
                 phase = pointer.phase;
             }
         }
-    } else if (gWindowHasFocusCA0AB4 == 0) {
+    } else if (uiFrame.windowHasFocus == 0) {
         if (WindowRuntime_HitTestRect(left, top, width, height) != 0
                 && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
             events = WindowRuntime_AppendMouseEvents(MouseFlag_Hover);
@@ -4197,7 +4197,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
         auto* const eventByte = reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4);
         *eventByte = 0xD4;
-        gWindowHasFocusCA0AB4 = 1;
+        uiFrame.windowHasFocus = 1;
         if (phase == 4) {
             const WindowDragCallback callback = pointer.callback;
             if (callback != nullptr) {
@@ -4375,6 +4375,7 @@ void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const Win
 // 原函数：0x00473F80。
 std::int32_t WindowRuntime_Update(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     auto& pointer = session.UiFrame().native.pointer;
     using namespace detail;
     auto& states = WindowRuntime_States(session);
@@ -4399,14 +4400,14 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     std::int32_t carried = 1;
     world::gMapTargetInputOverride_C8A77C = 0;
     world::gMapTargetDrawOverride_C8A780 = 0;
-    gWindowHasFocusCA0AB4 = 0;
+    uiFrame.windowHasFocus = 0;
     WindowRuntime_AdvanceMousePhase(session);
     PrepareWindowFrame(session);
     WindowRuntime_BeginPointerDragFrame(session);
     const std::int32_t count = WindowRuntime_CompactAndReorder(session);
     const auto scheduledWindows = MergeWindowOrder(session, count);
     const bool hasWindows = !scheduledWindows.empty();
-    gWindowUpdateCountCC4844 = count;
+    uiFrame.nativeWindowCount = count;
     if (hasWindows) {
         std::int32_t index = 0;
         for (;;) {
@@ -4456,7 +4457,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                 *reinterpret_cast<unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) = 212;
                 const bool releaseDrag = phase == 4;
-                gWindowHasFocusCA0AB4 = 1;
+                uiFrame.windowHasFocus = 1;
                 if (releaseDrag) {
                     const WindowDragCallback callback = pointer.callback;
                     if (callback != nullptr) {

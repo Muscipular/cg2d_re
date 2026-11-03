@@ -35,6 +35,7 @@ WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 
 // 原函数：0x004990F0。
 static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -64,7 +65,7 @@ static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, co
                 }
             }
         }
-        gHoverTextD68AE8 = L"结束观战。";
+        uiFrame.hoverText = L"结束观战。";
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;

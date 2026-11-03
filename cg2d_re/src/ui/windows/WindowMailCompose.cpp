@@ -238,6 +238,7 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
 // 原函数：0x004A5970。
 static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -252,7 +253,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
             auto* const graphic = handleRecipientsElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BA0A;
-                gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
+                uiFrame.hoverText = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
                 consumed = 1;
             } else {
                 graphic->imageNo = 0x3BA08;
@@ -276,7 +277,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
         auto* const graphic = handleRecipients_4Element->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA1D;
-            gHoverTextD68AE8 = kReplyMailHint587730;
+            uiFrame.hoverText = kReplyMailHint587730;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3BA1B;

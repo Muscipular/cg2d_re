@@ -310,6 +310,7 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const
 // 原函数：0x004CC6E0。
 static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -319,7 +320,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = business.blacklistDeleteModeD67BC4 != 0
             ? L"删除此笔黑名单。" /* 原常量参考：0x00588654。 */ : L"拒绝接收此人的发话。" /* 原常量参考：0x00588668。 */;
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FCC;
         consumed = 1;
     } else {
@@ -379,6 +380,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
 // 原函数：0x004CC9B0。
 static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -426,7 +428,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
                 base + ((state & MouseFlag_Hover) != 0 ? 2 : 0);
         }
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? L"显示前十笔的黑名单。" /* 原常量参考：0x005886CC。 */ : L"显示后十笔的黑名单。" /* 原常量参考：0x005886B4。 */;
+            uiFrame.hoverText = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? L"显示前十笔的黑名单。" /* 原常量参考：0x005886CC。 */ : L"显示后十笔的黑名单。" /* 原常量参考：0x005886B4。 */;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t page = business.valueD2E444 + (elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? -10 : 10);
@@ -452,13 +454,13 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
     case WindowBlacklistElementId::HandleButtons_8:
         if (business.blacklistDeleteModeD67BC4 == 1) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC7;
-            gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
+            uiFrame.hoverText = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
         }
         if ((state & MouseFlag_Hover) != 0) {
             if (business.blacklistDeleteModeD67BC4 == 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC8;
             }
-            gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
+            uiFrame.hoverText = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
             consumed = 1;
         } else if (business.blacklistDeleteModeD67BC4 == 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC6;
@@ -476,7 +478,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
                 (state & MouseFlag_Hover) != 0 ? 0x8FCB : 0x8FC9;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"可一次删除所有的黑名单。" /* 原常量参考：0x00588680。 */;
+            uiFrame.hoverText = L"可一次删除所有的黑名单。" /* 原常量参考：0x00588680。 */;
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {

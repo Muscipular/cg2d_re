@@ -51,6 +51,9 @@ struct ExtensionWindowState {
 struct UiFrameRuntimeState {
     NativeWindowRuntimeState native {};
     input::InputRuntimeState inputState {};
+    std::uint32_t windowHasFocus = 0; // 原0xCA0AB4，元素派发成功后占用，独立于焦点窗口ID。
+    std::int32_t nativeWindowCount = 0; // 原0xCC4844，原生帧发布的窗口数量。
+    std::wstring hoverText; // 原0xD68AE8，同会话各提示来源共用的正文。
     ExtensionWindowState extension {};
     ElementPointerDragState pointerDrag {};
     bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。

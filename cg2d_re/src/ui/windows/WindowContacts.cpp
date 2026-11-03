@@ -882,6 +882,7 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
 // 原函数：0x004A1EF0。
 static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -933,9 +934,9 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
             if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
-                gHoverTextD68AE8 = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
+                uiFrame.hoverText = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
             } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
-                gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
+                uiFrame.hoverText = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
             }
         } else {
             graphic->imageNo = 0x3B556 + imageOffset;
@@ -984,6 +985,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
 // 原函数：0x004A2610。
 static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -993,7 +995,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindo
         graphic->imageNo = 0x3B541;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B543;
-            gHoverTextD68AE8 = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
+            uiFrame.hoverText = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -1021,6 +1023,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindo
 // 原函数：0x004A2870。
 static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1040,7 +1043,7 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, c
         if (graphic) graphic->imageNo = idle + 2;
         const wchar_t* const hint = category == 0 ? L"切换至名片视窗。" /* 原常量参考：0x005874B0。 */
             : (category == 1 ? L"切换至家族名簿视窗。" /* 原常量参考：0x005874C4。 */ : L"切换到迷你邮件群组。" /* 原常量参考：0x005874DC。 */);
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
         consumed = 1;
     } else {
         if (graphic) graphic->imageNo = idle;
@@ -1074,6 +1077,7 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, c
 // 原函数：0x004A2BD0。
 static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1082,7 +1086,7 @@ static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWi
         graphic->imageNo = 0x3B9E5;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9E7;
-            gHoverTextD68AE8 = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
+            uiFrame.hoverText = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -1156,6 +1160,7 @@ static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const 
 // 原函数：0x004A2530。
 static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1167,7 +1172,7 @@ static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWind
         graphic->imageNo = 0x3B556 + imageOffset;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
-            gHoverTextD68AE8 = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
+            uiFrame.hoverText = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -1206,6 +1211,7 @@ static void WindowContacts_OpenRankSelection(session::ClientSession& session, co
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1217,13 +1223,13 @@ static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, cons
         if (graphic) graphic->imageNo = 0x3B549;
         switch (business.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = L"察看此名片之主人的邮件纪录" /* 原常量参考：0x005874F4。 */;
+            uiFrame.hoverText = L"察看此名片之主人的邮件纪录" /* 原常量参考：0x005874F4。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"察看此家族成员的邮件纪录" /* 原常量参考：0x00587510。 */;
+            uiFrame.hoverText = L"察看此家族成员的邮件纪录" /* 原常量参考：0x00587510。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"浏览此迷你邮件的历程。" /* 原常量参考：0x0058752C。 */;
+            uiFrame.hoverText = L"浏览此迷你邮件的历程。" /* 原常量参考：0x0058752C。 */;
             break;
         }
     }
@@ -1384,6 +1390,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
 // 原函数：0x004A3C70。
 static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1416,13 +1423,13 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
     if (hover) {
         switch (category) {
         case 0:
-            gHoverTextD68AE8 = L"寄送邮件给此名片的主人。" /* 原常量参考：0x005876B0。 */;
+            uiFrame.hoverText = L"寄送邮件给此名片的主人。" /* 原常量参考：0x005876B0。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"对此家族成员寄送邮件。" /* 原常量参考：0x005876CC。 */;
+            uiFrame.hoverText = L"对此家族成员寄送邮件。" /* 原常量参考：0x005876CC。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"传送迷你邮件。" /* 原常量参考：0x005876E4。 */;
+            uiFrame.hoverText = L"传送迷你邮件。" /* 原常量参考：0x005876E4。 */;
             break;
         }
     }
@@ -1440,6 +1447,7 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
 // 原函数：0x004A32E0。
 static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1451,13 +1459,13 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
         if (graphic) graphic->imageNo = 0x3B54C;
         switch (business.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = L"删除此名片。" /* 原常量参考：0x0058755C。 */;
+            uiFrame.hoverText = L"删除此名片。" /* 原常量参考：0x0058755C。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = L"对此家族成员进行除名。" /* 原常量参考：0x0058756C。 */;
+            uiFrame.hoverText = L"对此家族成员进行除名。" /* 原常量参考：0x0058756C。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = L"删除此迷你邮件的名片。" /* 原常量参考：0x00587584。 */;
+            uiFrame.hoverText = L"删除此迷你邮件的名片。" /* 原常量参考：0x00587584。 */;
             break;
         }
     }

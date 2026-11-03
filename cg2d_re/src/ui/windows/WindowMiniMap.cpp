@@ -37,13 +37,14 @@ static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, std::in
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(WindowInstance& callbackWindow, ElementId elementId, std::int32_t events)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;
     auto* const graphic = element->data.graphic;
     graphic->imageNo = (events & MouseFlag_Hover) ? 0x3B53D : 0x3B53B;
-    if (events & MouseFlag_Hover) gHoverTextD68AE8 = L"打开大地图";
+    if (events & MouseFlag_Hover) uiFrame.hoverText = L"打开大地图";
     if (events & MouseFlag_LDownEvent) WindowBigMap_Open();
     return events != 0;
 }

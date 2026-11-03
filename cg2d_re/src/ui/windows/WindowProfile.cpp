@@ -26,6 +26,7 @@ static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4
 // 原函数：0x00478330。
 std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -34,7 +35,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
     case NativeElementKey(17): {
         const bool visible = world::detail::SelectedProfileValue04() != 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = visible
+            uiFrame.hoverText = visible
                 ? L"不公开玩家简介"
                 : L"公开玩家简介";
             consumed = 1;
@@ -63,7 +64,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = images[position] + 2;
-                gHoverTextD68AE8 = hints[position];
+                uiFrame.hoverText = hints[position];
                 consumed = 1;
             } else {
                 graphic->imageNo = images[position];
@@ -96,7 +97,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 243035;
-                gHoverTextD68AE8 = L"开启目录视窗";
+                uiFrame.hoverText = L"开启目录视窗";
                 consumed = 1;
             } else {
                 graphic->imageNo = 243033;
@@ -124,7 +125,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 244420;
-                gHoverTextD68AE8 = L"决定玩家简介";
+                uiFrame.hoverText = L"决定玩家简介";
                 consumed = 1;
             } else {
                 graphic->imageNo = 244418;

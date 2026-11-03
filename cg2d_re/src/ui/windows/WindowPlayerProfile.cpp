@@ -331,6 +331,7 @@ static void WindowPlayerProfile_RefreshAttributeBar(WindowInstance* callbackWind
 // 原函数：0x00474BE0。
 static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t idleImage;
@@ -384,7 +385,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWi
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImage;
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
             consumed = 1;
         } else {
             graphic->imageNo = idleImage;

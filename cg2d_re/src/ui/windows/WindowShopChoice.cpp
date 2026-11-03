@@ -306,6 +306,7 @@ static void WindowShopChoice_Release(WindowInstance&)
 // 原函数：0x0049FFA0。
 static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) == 0) {
@@ -330,7 +331,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
                     static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             }
         }
-        gHoverTextD68AE8 = gChoiceDialog.hints[index];
+        uiFrame.hoverText = gChoiceDialog.hints[index];
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {

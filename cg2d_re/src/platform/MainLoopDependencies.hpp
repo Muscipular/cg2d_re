@@ -32,7 +32,7 @@ void KeepAlive_457AB0(network::CgConnection& connection);
 // 原函数：0x0052CD30。
 int UpdateAudioAndSkipMciClose_52CD30(std::int32_t value);
 // 原函数：0x00507140。
-void UpdateQueuedTextAndGraphicHover_507140();
+void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session);
 // 原函数：0x00423640。
 void ApplyScreenShake_423640(session::ClientSession& session);
 // 原函数：0x0053B4BF。

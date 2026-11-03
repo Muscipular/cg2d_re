@@ -301,6 +301,7 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x00499C30。
 std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     constexpr std::int32_t kBombType = 51;
@@ -379,7 +380,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0
                         && item.used != 0) {
                         const std::int32_t type = item.itemType;
-                        gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                        uiFrame.hoverText = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                                 ? cannotEquip : cannotUse;
                         if ((events & MouseFlag_Hover) != 0) {
                             cg::render::DrawGraphicHover(
@@ -496,9 +497,9 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     }
                 }
             } else {
-                gHoverTextD68AE8 = canUse;
+                uiFrame.hoverText = canUse;
             }
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
         }
     }
     if (gBattleBackpackHover57E430 != hovered) {
@@ -751,6 +752,7 @@ static std::int32_t WindowBattleItems_ShowExtraAttributes(WindowInstance& callba
 // 原函数：0x0049AC40。
 std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -786,7 +788,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     continue;
                 }
                 if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                    gHoverTextD68AE8 = L"无法在战斗中更换装备。";
+                    uiFrame.hoverText = L"无法在战斗中更换装备。";
                     if ((events & MouseFlag_Hover) != 0) {
                         cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
@@ -885,7 +887,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 ? L"可使用此物品。"
                 : L"无法使用此物品。";
         }
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {

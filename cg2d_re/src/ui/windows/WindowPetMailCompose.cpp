@@ -255,6 +255,7 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& ses
 // 原函数：0x004A6450。
 static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -270,7 +271,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = idle + 2;
-                gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons) ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
+                uiFrame.hoverText = elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons) ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
                 consumed = 1;
             } else {
                 graphic->imageNo = idle;
@@ -315,7 +316,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BA1D;
-                gHoverTextD68AE8 = kReplyMailHint587730;
+                uiFrame.hoverText = kReplyMailHint587730;
                 consumed = 1;
             } else {
                 graphic->imageNo = 0x3BA1B;

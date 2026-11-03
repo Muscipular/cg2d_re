@@ -363,9 +363,10 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
 // 原函数：0x004731E0。
 static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
+    if (gWindow6HoverD2EA70 == 1 || uiFrame.hoverText.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
@@ -374,14 +375,14 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         if (auto* const element12 = currentWindow->FindElementById(WindowBottomBarElementId::Element12); element12) element12->visible = 0;
         if (auto* const element13 = currentWindow->FindElementById(WindowBottomBarElementId::Element13); element13) element13->visible = 0;
     } else {
-        if (gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
-            if (!gHoverTextD68AE8.empty()) {
-                gHoverTextD68AE8.resize(gHoverTextD68AE8.size() - 5);
+        if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
+            if (!uiFrame.hoverText.empty()) {
+                uiFrame.hoverText.resize(uiFrame.hoverText.size() - 5);
             }
             gHoverObjectValueD68AC8 = 1;
-        } else if (gHoverTextD68AE8.find(L"[kok]") != std::wstring::npos) {
-            if (!gHoverTextD68AE8.empty()) {
-                gHoverTextD68AE8.resize(gHoverTextD68AE8.size() - 5);
+        } else if (uiFrame.hoverText.find(L"[kok]") != std::wstring::npos) {
+            if (!uiFrame.hoverText.empty()) {
+                uiFrame.hoverText.resize(uiFrame.hoverText.size() - 5);
             }
             gHoverObjectValueD68AC8 = 5;
         }
@@ -390,7 +391,7 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         auto* const element12 = mainElementsWindow->FindElementById(WindowBottomBarElementId::Element12);
         if (element12) {
             auto* const mainText = element12->data.text;
-            mainText->text = gHoverTextD68AE8;
+            mainText->text = uiFrame.hoverText;
             mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
         }
         if (gHoverTitleD68BF4.size() != 0) {
@@ -418,7 +419,7 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         auto* const text = element10->data.text;
         text->text = description;
     }
-    gHoverTextD68AE8.clear();
+    uiFrame.hoverText.clear();
     gHoverObjectValueD68AC8 = 0;
     gHoverTitleD68BF4.clear();
     gHoverTitleValueD69748 = 0;

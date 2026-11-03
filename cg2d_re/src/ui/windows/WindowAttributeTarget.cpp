@@ -240,6 +240,7 @@ static void WindowAttributeTarget_Refresh(WindowInstance& callbackWindow, const 
 // 原函数：0x0049FA40。
 static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -249,7 +250,7 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackW
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"关闭此视窗";
+            uiFrame.hoverText = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (choice.enabled != 0) {
@@ -279,6 +280,7 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackW
 // 原函数：0x0049FB00。
 static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -288,7 +290,7 @@ static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"回到前一页视窗。";
+            uiFrame.hoverText = L"回到前一页视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (choice.enabled != 0) {
@@ -318,6 +320,7 @@ static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWin
 // 原函数：0x0049FBC0。
 static std::int32_t WindowAttributeTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -332,7 +335,7 @@ static std::int32_t WindowAttributeTarget_SelectRow(WindowInstance& callbackWind
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }
-        gHoverTextD68AE8 = L"选择此人物。";
+        uiFrame.hoverText = L"选择此人物。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (choice.enabled != 0) {

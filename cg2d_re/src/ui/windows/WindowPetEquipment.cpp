@@ -157,6 +157,7 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
 
 static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
@@ -165,7 +166,7 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
     if (auto* const element = window->FindElementById(elementId)) {
         element->data.graphic->imageNo = idle + ((state & MouseFlag_LHoldPhysical) != 0 ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0);
     }
-    if ((state & MouseFlag_Hover) != 0) gHoverTextD68AE8 = kPetSelectHint586D2C;
+    if ((state & MouseFlag_Hover) != 0) uiFrame.hoverText = kPetSelectHint586D2C;
     if ((state & MouseFlag_LDownEvent) != 0) {
         std::int32_t position = business.selectedPetCC3E5C;
         for (std::int32_t attempt = 0; attempt < 5; ++attempt) {
@@ -183,6 +184,7 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
 
 static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindow, const ElementId, const std::int32_t events)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
@@ -227,7 +229,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
     }
     if (hovered < 0) return 0;
     const auto& item = pet.items6E4[hovered];
-    gHoverTextD68AE8 = item.used != 0 ? item.name : gPetEquipmentLabels[hovered].text;
+    uiFrame.hoverText = item.used != 0 ? item.name : gPetEquipmentLabels[hovered].text;
     if (item.used != 0 && (events & MouseFlag_LDblClickEvent) != 0) {
         if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {

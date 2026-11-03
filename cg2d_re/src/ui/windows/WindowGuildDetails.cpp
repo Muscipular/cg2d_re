@@ -610,6 +610,7 @@ static void WindowGuildDetails_ScrollRow(WindowInstance* callbackWindow)
 // 原函数：0x004AEC30。
 static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     const std::int32_t row = (index - 18) / 5;
     const std::int32_t column = (index - 18) % 5;
@@ -617,7 +618,7 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& call
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = kGuildPermissionHints[column];
+        uiFrame.hoverText = kGuildPermissionHints[column];
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t rank = gGuildPageD67B78 + row;
@@ -634,6 +635,7 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& call
 // 原函数：0x004AED40。
 static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -642,9 +644,9 @@ static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callba
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B570;
         switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
-        case WindowGuildDetailsElementId::HandleActionButton: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
-        case WindowGuildDetailsElementId::HandleActionButton_66: gHoverTextD68AE8 = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
-        case WindowGuildDetailsElementId::HandleActionButton_73: gHoverTextD68AE8 = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
+        case WindowGuildDetailsElementId::HandleActionButton: uiFrame.hoverText = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
+        case WindowGuildDetailsElementId::HandleActionButton_66: uiFrame.hoverText = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
+        case WindowGuildDetailsElementId::HandleActionButton_73: uiFrame.hoverText = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -798,6 +800,7 @@ static std::int32_t WindowGuildDetails_Scroll(WindowInstance& callbackWindow, co
 // 原函数：0x004AF100。
 static std::int32_t WindowGuildDetails_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -806,7 +809,7 @@ static std::int32_t WindowGuildDetails_ButtonClose(WindowInstance& callbackWindo
         graphic->imageNo = 0x3B538;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B53A;
-            gHoverTextD68AE8 = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
+            uiFrame.hoverText = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B539;

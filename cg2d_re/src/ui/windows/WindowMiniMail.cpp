@@ -184,6 +184,7 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
 // 原函数：0x004CB6A0。
 static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -198,7 +199,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
             graphic->imageNo = 244253;
             std::wstring hint;
             cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
             consumed = 1;
         } else {
             graphic->imageNo = 244251;

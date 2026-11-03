@@ -173,6 +173,7 @@ static std::int32_t WindowEmote_ResetSelection()
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -192,7 +193,7 @@ static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, cons
             return consumed;
         }
         if (hover) {
-            gHoverTextD68AE8 = kEmoteHints5871B0[index];
+            uiFrame.hoverText = kEmoteHints5871B0[index];
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);

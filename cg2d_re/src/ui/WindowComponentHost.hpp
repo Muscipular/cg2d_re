@@ -64,7 +64,6 @@ inline auto& gMouseBtnDown2 = platform::gLegacyMouseState.heldButtons;
 inline auto& gMouseClickState = platform::gLegacyMouseState.edgeButtons;
 inline auto& gMouseBtnDown = platform::gLegacyMouseState.pulseButtons;
 inline auto& gMouseEventState = platform::gLegacyMouseState.valueD68DB4;
-inline auto& gWindowHasFocus = ui::detail::gWindowHasFocusCA0AB4;
 using ui::detail::WindowRuntime_States;
 
 inline bool MouseIsInRect(int x, int y, int w, int h) {

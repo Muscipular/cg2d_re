@@ -589,6 +589,7 @@ static std::int32_t WindowTextList_Scroll(WindowInstance& callbackWindow, const 
 // 原函数：0x004ADF40。
 static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -600,7 +601,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
     if (element5) {
         if (element5->visible != 0) {
             if ((state & MouseFlag_Hover) != 0) {
-                gHoverTextD68AE8 = L"变更家族兽名称。";
+                uiFrame.hoverText = L"变更家族兽名称。";
             }
             if ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
                 const std::wstring proposedTitle = input::ContextText(inputs.textListTitle);
@@ -643,6 +644,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
 // 原函数：0x004AE170。
 static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -650,7 +652,7 @@ static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindo
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
+            uiFrame.hoverText = L"用滑鼠拖放物品至此视窗做为饲料。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const auto buffer = std::format(L"I|{}", gSelectedItem57EE0C);
@@ -808,8 +810,9 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
 // 原函数：0x004AE5B0。
 static std::int32_t WindowTextList_DrawBackgroundTooltip(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    if ((state & MouseFlag_Hover) != 0 && gHoverTextD68AE8.empty()) {
-        gHoverTextD68AE8 = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
+    if ((state & MouseFlag_Hover) != 0 && uiFrame.hoverText.empty()) {
+        uiFrame.hoverText = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";
     }
     return 0;
 }

@@ -472,6 +472,7 @@ static void WindowPetSkills_Release(WindowInstance& releasedWindow)
 // 原函数：0x0048ECA0。
 static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -487,7 +488,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
     case WindowPetSkillsElementId::HandleButtons:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
-            gHoverTextD68AE8 = kPetRenameHint586D38;
+            uiFrame.hoverText = kPetRenameHint586D38;
             consumed = 1;
         } else {
             setImage(0x3B56E);
@@ -520,7 +521,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
     case WindowPetSkillsElementId::HandleButtons_7:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
-            gHoverTextD68AE8 = kPetPlaceHint586C14;
+            uiFrame.hoverText = kPetPlaceHint586C14;
             consumed = 1;
         } else {
             setImage(0x3BAF7);
@@ -550,7 +551,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
     case WindowPetSkillsElementId::HandleButtons_9: {
         if ((state & MouseFlag_Hover) != 0) {
             setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8) ? 0x3B558 : 0x3B55B);
-            gHoverTextD68AE8 = kPetSelectHint586D2C;
+            uiFrame.hoverText = kPetSelectHint586D2C;
             consumed = 1;
         } else {
             setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);

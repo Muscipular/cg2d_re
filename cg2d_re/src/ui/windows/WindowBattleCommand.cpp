@@ -86,7 +86,7 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
 static void WindowBattleCommand_DrawTimer(session::ClientSession& session); // 完整倒计时/超时发送，本帧超时后仍绘制。
 
 // 原函数：0x0043C3E0。
-static void WindowBattleCommand_DrawTargetHint(); // 553F80门禁及首个可选对象的目标提示，不要求鼠标命中。
+static void WindowBattleCommand_DrawTargetHint(session::ClientSession& session); // 553F80门禁及首个可选对象的目标提示，不要求鼠标命中。
 
 // 原函数：0x0043C490。
 static void WindowBattleCommand_ResetTargets(std::int32_t* values, std::int32_t count); // 正数count逐槽写-2，原caller弃返回。
@@ -496,6 +496,7 @@ void WindowBattleCommand_FinishAutoAction(session::ClientSession& session)
 // 原函数：0x004972B0。
 static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -511,7 +512,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"普通物理攻击。";
+            uiFrame.hoverText = L"普通物理攻击。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
@@ -541,6 +542,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
 // 原函数：0x004973C0。
 static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -556,7 +558,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"普通物理防御。";
+            uiFrame.hoverText = L"普通物理防御。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
@@ -585,6 +587,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
 // 原函数：0x00497770。
 static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -604,7 +607,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"使用物品。";
+            uiFrame.hoverText = L"使用物品。";
         }
         if (world::gBattleSelectionModes5ABC7C[3] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
@@ -646,6 +649,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
 // 原函数：0x00497900。
 static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -665,7 +669,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"召唤宠物或封印宠物。";
+            uiFrame.hoverText = L"召唤宠物或封印宠物。";
         }
         if (world::gBattleSelectionModes5ABC7C[4] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
@@ -706,6 +710,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
 // 原函数：0x00497A60。
 static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -725,7 +730,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"变更队形。";
+            uiFrame.hoverText = L"变更队形。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
@@ -754,6 +759,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
 // 原函数：0x00497B80。
 static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -769,7 +775,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"逃离此场战斗。";
+            uiFrame.hoverText = L"逃离此场战斗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
@@ -799,6 +805,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
 // 原函数：0x00497C80。
 static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -833,7 +840,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
         const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hover) {
-            gHoverTextD68AE8 = *rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
+            uiFrame.hoverText = *rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
@@ -1028,6 +1035,7 @@ static void WindowBattleCommand_SelectSkill(
 // 原函数：0x004975A0。
 static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1048,7 +1056,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
         std::int32_t consumed = 0;
         const std::int32_t hover = state & MouseFlag_Hover;
         if (hover != 0) {
-            gHoverTextD68AE8 = L"使用技能。";
+            uiFrame.hoverText = L"使用技能。";
         }
         if (world::gBattleSelectionModes5ABC7C[2] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
@@ -1196,6 +1204,7 @@ static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& sessio
 // 原函数：0x00498160。
 static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1210,11 +1219,11 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
         const std::int32_t hover = entryState & MouseFlag_Hover;
         if (hover != 0 && window != nullptr) {
-            gHoverTextD68AE8 = L"关闭技能视窗。";
+            uiFrame.hoverText = L"关闭技能视窗。";
         }
         cg::yobi::YobiAction* const pendingAction = session.UiFrame().native.battleCommand.petSkillOpening;
         if (hover != 0 && window == nullptr && pendingAction == nullptr) {
-            gHoverTextD68AE8 = L"开启技能视窗。";
+            uiFrame.hoverText = L"开启技能视窗。";
         }
         if (pendingAction == nullptr
             && ((entryState & MouseFlag_LDownEvent) != 0
@@ -1249,8 +1258,9 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
 }
 
 // 原函数：0x0043C3E0。
-static void WindowBattleCommand_DrawTargetHint()
+static void WindowBattleCommand_DrawTargetHint(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     if (world::gBattleCommandValue553F80 != 0) {
         return;
     }
@@ -1269,7 +1279,7 @@ static void WindowBattleCommand_DrawTargetHint()
     static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(platform::gWindowWidth - 257), static_cast<std::int16_t>(y + 12), 2, 0, 0,
         L"请选择目标", 0));
-    gHoverTextD68AE8 = L"按滑鼠右键可取消。";
+    uiFrame.hoverText = L"按滑鼠右键可取消。";
 }
 
 // 原函数：0x0043C490。
@@ -1283,6 +1293,7 @@ static void WindowBattleCommand_ResetTargets(std::int32_t* const values, const s
 // 原函数：0x00498520。
 void WindowBattleCommand_Dispatch(session::ClientSession& session)
 {
+    auto& uiFrame = session.UiFrame();
     std::wstring buffer;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
     for (const cg::yobi::YobiAction* const action : cg::world::gBattleEntries59E980) {
@@ -1292,7 +1303,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             break;
         }
     }
-    WindowBattleCommand_DrawTargetHint();
+    WindowBattleCommand_DrawTargetHint(session);
     switch (cg::world::gBattleCommandState5ABC3C) {
     case 0: {
         std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
@@ -1599,7 +1610,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
-                gHoverTextD68AE8 = L"打开技能视窗。";
+                uiFrame.hoverText = L"打开技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
                     cg::world::gBattlePetCommandPhase553F88 = 1;
                 }
@@ -1613,7 +1624,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
-                gHoverTextD68AE8 = L"关闭技能视窗。";
+                uiFrame.hoverText = L"关闭技能视窗。";
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
@@ -1647,7 +1658,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             bool clickedReturn = false;
             if (graphicIndex == hover) {
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
-                gHoverTextD68AE8 = L"返回技能视窗。";
+                uiFrame.hoverText = L"返回技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
                     cg::yobi::FlushBattleEntries_43C060();
                     cg::world::gBattlePetCommandPhase553F88 = 1;

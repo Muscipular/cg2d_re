@@ -1757,6 +1757,7 @@ static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t
 // 原函数：0x004B9F40。
 static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1768,7 +1769,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
     if (hover) {
         const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
         if (mode >= 0 && mode <= 5) {
-            gHoverTextD68AE8 = kShopConfirmHoverHints[mode];
+            uiFrame.hoverText = kShopConfirmHoverHints[mode];
         }
     }
     const std::int32_t available = shop.quantity;
@@ -2031,6 +2032,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
 // 原函数：0x004BA950。
 static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2042,7 +2044,7 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
         if (hover) {
             const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
             if (mode >= 0 && mode <= 5) {
-                gHoverTextD68AE8 = kShopHints57E6C4[2];
+                uiFrame.hoverText = kShopHints57E6C4[2];
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2072,6 +2074,7 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
 // 原函数：0x004BAA50。
 static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2102,22 +2105,22 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
     const bool hover = (state & MouseFlag_Hover) != 0;
     if (hover) {
         if (!available) {
-            gHoverTextD68AE8 = L"没有可登录的物品";
+            uiFrame.hoverText = L"没有可登录的物品";
         } else {
             switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
             case 0:
             case 2:
             case 3:
-                gHoverTextD68AE8 = L"";
+                uiFrame.hoverText = L"";
                 break;
             case 1:
-                gHoverTextD68AE8 = L"登录所有可卖的物品";
+                uiFrame.hoverText = L"登录所有可卖的物品";
                 break;
             case 4:
-                gHoverTextD68AE8 = L"登录所有可鉴定的物品";
+                uiFrame.hoverText = L"登录所有可鉴定的物品";
                 break;
             case 5:
-                gHoverTextD68AE8 = L"登录所有可修理的物品";
+                uiFrame.hoverText = L"登录所有可修理的物品";
                 break;
             default:
                 break;
@@ -2199,6 +2202,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
 // 原函数：0x004BCEE0。
 static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2219,7 +2223,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
         default:
             return 0;
         }
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
@@ -2557,6 +2561,7 @@ static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const Elem
 // 原函数：0x004BB1D0。
 static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2690,7 +2695,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             break;
         }
         if (hint != nullptr) {
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
         }
     }
     std::int32_t consumed = 0;
@@ -2796,6 +2801,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
 // 原函数：0x004BB6E0。
 static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2987,7 +2993,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             break;
         }
         if (hint != nullptr) {
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
         }
     }
     std::int32_t consumed = 0;
@@ -3266,6 +3272,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
 // 原函数：0x004BC230。
 static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -3302,7 +3309,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     if (hover && std::bit_cast<std::int8_t>(shop.selectedSlots[row]) >= 0) {
         const char mode = materialState.shopMode;
         if (mode == 1 || mode == 4 || mode == 5) {
-            gHoverTextD68AE8 = kShopHints57E6C4[2];
+            uiFrame.hoverText = kShopHints57E6C4[2];
         }
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
@@ -3391,12 +3398,12 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
         }
         if ((flags & 0x100u) != 0) {
             cg::text::FormatTo(buffer, L"{}[kok]", record->name);
-            gHoverTextD68AE8 = buffer;
+            uiFrame.hoverText = buffer;
         } else {
             std::memcpy(&flags, &record->flags, sizeof(flags));
             if ((flags & 0x200u) != 0) {
                 cg::text::FormatTo(buffer, L"{}[han]", record->memo);
-                gHoverTextD68AE8 = buffer;
+                uiFrame.hoverText = buffer;
             }
         }
     }
@@ -3416,6 +3423,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
 // 原函数：0x004BC660。
 static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -3466,7 +3474,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
             break;
         }
         if (hint != nullptr) {
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
             mode = std::bit_cast<std::int8_t>(materialState.shopMode);
         }
     }
@@ -3595,9 +3603,9 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 shop.tooltipIndex = hovered + 8;
             }
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
-                gHoverTextD68AE8 = item.name + L"[kok]";
+                uiFrame.hoverText = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                gHoverTextD68AE8 = item.memo + L"[han]";
+                uiFrame.hoverText = item.memo + L"[han]";
             }
         }
     }
@@ -3686,6 +3694,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
 // 原函数：0x004BD100。
 static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -3705,7 +3714,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = shop.confirmationAcceptHint;
+        uiFrame.hoverText = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = shop.confirmationCallback;
@@ -3720,7 +3729,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = shop.confirmationCancelHint;
+        uiFrame.hoverText = shop.confirmationCancelHint;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {

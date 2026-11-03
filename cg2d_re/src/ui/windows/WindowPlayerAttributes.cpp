@@ -258,6 +258,7 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 // 原函数：0x00475E00。
 static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -281,7 +282,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
             std::int32_t consumed = 0;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B53D;
-                gHoverTextD68AE8 = L"分配点数至目前的能力数值。";
+                uiFrame.hoverText = L"分配点数至目前的能力数值。";
                 consumed = 1;
             } else {
                 graphic->imageNo = 0x3B53B;
@@ -337,7 +338,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImage;
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
             consumed = 1;
         } else {
             graphic->imageNo = idleImage;

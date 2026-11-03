@@ -954,6 +954,7 @@ static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSessio
 // 原函数：0x00483EB0。
 static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -1244,7 +1245,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
         }
     }
     if (hovered) {
-        gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
+        uiFrame.hoverText = L"以滑鼠拖放方式，将素材置放于此处。";
     }
     const std::int32_t selected = craft.selectedSlots[destination];
     if (selected < 0) {
@@ -1578,6 +1579,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
@@ -1711,7 +1713,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
         if (enabled) {
-            gHoverTextD68AE8 = L"执行。" /* 原常量参考：0x005868D8。 */;
+            uiFrame.hoverText = L"执行。" /* 原常量参考：0x005868D8。 */;
         }
         bool insufficient = false;
         switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
@@ -1734,7 +1736,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             break;
         }
         if (insufficient) {
-            gHoverTextD68AE8 = kWindow12NoFp5864F0;
+            uiFrame.hoverText = kWindow12NoFp5864F0;
         }
     }
     if (craft.selectionMode == 0 && (state & MouseFlag_LDownEvent) != 0) {
@@ -1888,6 +1890,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
 // 原函数：0x00482FA0。
 static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1896,7 +1899,7 @@ static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, c
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
-        gHoverTextD68AE8 = L"继续执行。";
+        uiFrame.hoverText = L"继续执行。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (craft.selectionMode == 2) {
@@ -1939,6 +1942,7 @@ static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, c
 // 原函数：0x004830B0。
 static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1946,7 +1950,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
         auto* const graphic = graphicElement->data.graphic;
         const bool hovered = (state & MouseFlag_Hover) != 0;
         if (hovered) {
-            gHoverTextD68AE8 = L"关闭此视窗";
+            uiFrame.hoverText = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
@@ -1966,6 +1970,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
@@ -2033,7 +2038,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = L"以滑鼠拖放＆点选方式，来选择物品。";
+        uiFrame.hoverText = L"以滑鼠拖放＆点选方式，来选择物品。";
     }
     if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
@@ -2420,6 +2425,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWin
 // 原函数：0x00485160。
 static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -2428,7 +2434,7 @@ static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, 
         const bool hovered = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hovered) {
-            gHoverTextD68AE8 = L"关闭这个视窗。";
+            uiFrame.hoverText = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
@@ -2501,6 +2507,7 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbac
 // 原函数：0x004847C0。
 static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
@@ -2645,7 +2652,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
         }
     }
     if (hovered) {
-        gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
+        uiFrame.hoverText = L"以滑鼠拖放方式，将素材置放于此处。";
     }
     const std::int32_t currentSelected = craft.selectedItem;
     if (currentSelected < 0) {

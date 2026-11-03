@@ -36,9 +36,10 @@ static void CancelPointerDrag(session::ClientSession& session) {
 }
 
 static void ConsumePointerDragMouse(session::ClientSession& session) {
+    auto& uiFrame = session.UiFrame();
     session.UiFrame().pointerDragReserved = true;
     gMouseEventState = MES_CAPTURED;
-    gWindowHasFocus = 1;
+    uiFrame.windowHasFocus = 1;
 }
 
 void WindowRuntime_BeginPointerDragFrame(session::ClientSession& session) {

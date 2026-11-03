@@ -217,6 +217,7 @@ static void WindowProfileView_Release(WindowInstance& releasedWindow)
 // 原函数：0x004CB2F0。
 static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowProfileViewElementId::ButtonMail)) {
@@ -227,7 +228,7 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244253;
         std::wstring hint;
         cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
         consumed = 1;
     } else {
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244251;

@@ -177,15 +177,16 @@ static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWind
 // 原函数：0x004C94F0。
 static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
         switch (gProfileCategory1085DA0) {
-        case 0: gHoverTextD68AE8 = L"设定贩卖的目录" /* 原常量参考：0x005884F4。 */; break;
-        case 1: gHoverTextD68AE8 = L"设定购买的目录" /* 原常量参考：0x00588504。 */; break;
-        case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
+        case 0: uiFrame.hoverText = L"设定贩卖的目录" /* 原常量参考：0x005884F4。 */; break;
+        case 1: uiFrame.hoverText = L"设定购买的目录" /* 原常量参考：0x00588504。 */; break;
+        case 2: uiFrame.hoverText = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;

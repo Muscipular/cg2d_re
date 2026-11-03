@@ -245,6 +245,7 @@ static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, co
 // 原函数：0x004CBDB0。
 static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& chatLog = callbackWindow.ownerSession->WorldScene().chatLog;
     auto& logViewer = callbackWindow.ownerSession->UiFrame().native.adventureLog;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -255,7 +256,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
     case WindowAdventureLogElementId::HandleNavigation_4: {
         const std::int32_t base = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? 0x3B592 : 0x3B595;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
+            uiFrame.hoverText = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -287,7 +288,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
     case WindowAdventureLogElementId::HandleNavigation_8: {
         const std::int32_t base = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_7) ? 0x3B559 : 0x3B556;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_7) ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
+            uiFrame.hoverText = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_7) ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {

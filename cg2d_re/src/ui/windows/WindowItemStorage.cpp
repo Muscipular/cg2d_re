@@ -134,6 +134,7 @@ static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x004AC290。
 static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -198,7 +199,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到饲料箱。";
+        uiFrame.hoverText = L"把身上的物品用滑鼠拖放到饲料箱。";
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {

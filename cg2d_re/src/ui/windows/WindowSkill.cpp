@@ -736,6 +736,7 @@ static std::int32_t WindowSkill_StartDrag(session::ClientSession& session, const
 // 原函数：0x0047B820。
 static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -779,7 +780,7 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
         consumed = 1;
     }
     if ((events & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
+        uiFrame.hoverText = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         visualState = 2;
@@ -1113,6 +1114,7 @@ static void WindowSkill_ShowBattleTechniques(
 // 原函数：0x0047C570。
 static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1149,7 +1151,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
         visualState = 2;
         skillState.hover = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
-            gHoverTextD68AE8 = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
+            uiFrame.hoverText = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
         }
     }
     if (clicked) {
@@ -1183,6 +1185,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
 // 原函数：0x0047C700。
 static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1227,7 +1230,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
             hint = cg::yobi::IsYobiActionFpLessThan(world::gBattleEntries59E980[position], cost)
                 ? L"由于魔力不足，无法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
         }
-        gHoverTextD68AE8 = hint;
+        uiFrame.hoverText = hint;
     }
     if (clicked && world::gSkillsF1BAFC[skillState.index].techniques3C[technique].value8C != 0) {
         const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
@@ -1379,6 +1382,7 @@ static void WindowSkill_DrawRidingSkillRow(
 // 原函数：0x0047CC80。
 static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1422,7 +1426,7 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
     if ((visualFlags & MouseFlag_Hover) != 0) {
         visualState = 2;
         skillState.hover = pairIndex;
-        gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
+        uiFrame.hoverText = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & MouseFlag_LDownEvent) != 0) {
         visualState = 1;
@@ -1452,6 +1456,7 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
 // 原函数：0x0047CFE0。
 static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1490,7 +1495,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
     if ((visualFlags & MouseFlag_Hover) != 0) {
         visualState = 2;
         skillState.hover = pairIndex;
-        gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
+        uiFrame.hoverText = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & MouseFlag_LDownEvent) != 0) {
         visualState = 1;
@@ -1647,6 +1652,7 @@ cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(
 // 原函数：0x0047B110。
 static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1662,9 +1668,9 @@ static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const
     if (hovered) {
         const std::int32_t mode = skillState.mode;
         if (mode == 1 || mode == 4) {
-            gHoverTextD68AE8 = L"切换回技能一览视窗。" /* 原常量参考：0x00586488。 */;
+            uiFrame.hoverText = L"切换回技能一览视窗。" /* 原常量参考：0x00586488。 */;
         } else if (mode == 2) {
-            gHoverTextD68AE8 = L"切换回技能等级视窗。" /* 原常量参考：0x00586470。 */;
+            uiFrame.hoverText = L"切换回技能等级视窗。" /* 原常量参考：0x00586470。 */;
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_LDownEvent) != 0) {
@@ -1724,6 +1730,7 @@ std::int32_t WindowSkill_Back(session::ClientSession& session)
 // 原函数：0x0047B210。
 static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1747,7 +1754,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
         const std::uint8_t rebirth = skillOperation.rebirthEnabled;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            gHoverTextD68AE8 = rebirth != 0
+            uiFrame.hoverText = rebirth != 0
                 ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
         }
         std::int32_t consumed = 0;
@@ -1784,6 +1791,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
 // 原函数：0x0047C950。
 static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -1828,7 +1836,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
     }
     const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
-        gHoverTextD68AE8 = L"略过此回合。" /* 原常量参考：0x005865A8。 */;
+        uiFrame.hoverText = L"略过此回合。" /* 原常量参考：0x005865A8。 */;
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2295,6 +2303,7 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
 // 原函数：0x0047C3A0。
 static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
@@ -2337,7 +2346,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
     if ((state & MouseFlag_Hover) != 0) {
         visualState = 2;
         skillState.hover = recipe;
-        gHoverTextD68AE8 = L"制作此配方内容的物品。" /* 原常量参考：0x00586530。 */;
+        uiFrame.hoverText = L"制作此配方内容的物品。" /* 原常量参考：0x00586530。 */;
     }
     if (clicked) {
         visualState = 1;
@@ -2362,6 +2371,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
 // 原函数：0x0047BC00。
 static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
@@ -2379,11 +2389,11 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
+        uiFrame.hoverText = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
             if ((world::gPlayerRuntimeSlots.fp < cost)) {
-                gHoverTextD68AE8 = kWindow12NoFp5864F0;
+                uiFrame.hoverText = kWindow12NoFp5864F0;
             }
         }
         visualState = 2;

@@ -327,6 +327,7 @@ static std::int32_t WindowSkillResult_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x00487D60。
 static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -347,7 +348,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"继续执行。" /* 原常量参考：0x005868E0。 */;
+            uiFrame.hoverText = L"继续执行。" /* 原常量参考：0x005868E0。 */;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -371,6 +372,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
 // 原函数：0x00487E80。
 static std::int32_t WindowSkillResult_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -378,7 +380,7 @@ static std::int32_t WindowSkillResult_ButtonClose(WindowInstance& callbackWindow
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = kWindow13Text5868EC;
+            uiFrame.hoverText = kWindow13Text5868EC;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {

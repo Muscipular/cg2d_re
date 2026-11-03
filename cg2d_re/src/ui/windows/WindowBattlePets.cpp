@@ -79,6 +79,7 @@ static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, cons
 // 原函数：0x0049BA10。
 static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -86,7 +87,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"让这只宠物归还。";
+            uiFrame.hoverText = L"让这只宠物归还。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::FindBattlePetIndex_43C4B0() != -1) {
@@ -185,6 +186,7 @@ static void WindowBattlePets_Refresh(
 // 原函数：0x0049BB00。
 static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -233,7 +235,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                         const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
                             ? L"召唤宠物。"
                             : L"这只宠物昏倒了。";
-                        gHoverTextD68AE8 = hint;
+                        uiFrame.hoverText = hint;
                     }
                 }
                 if ((state & MouseFlag_LDownEvent) != 0) {

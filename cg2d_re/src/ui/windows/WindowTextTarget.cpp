@@ -409,6 +409,7 @@ static std::int32_t WindowTextTarget_Scroll(WindowInstance& callbackWindow, cons
 // 原函数：0x0049F5C0。
 static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -418,7 +419,7 @@ static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"关闭此视窗";
+            uiFrame.hoverText = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (choice.enabled != 0) {
@@ -448,6 +449,7 @@ static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow
 // 原函数：0x0049F680。
 static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -463,7 +465,7 @@ static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, c
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }
-        gHoverTextD68AE8 = L"选择此人物。";
+        uiFrame.hoverText = L"选择此人物。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (choice.enabled != 0) {

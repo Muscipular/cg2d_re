@@ -644,6 +644,7 @@ static network::SendResult WindowPetList_SubmitStates(session::ClientSession& se
 // 原函数：0x0048C1E0。
 static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -672,7 +673,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             WindowDrag_Reset(*callbackWindow.ownerSession);
         }
         if ((events & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = L"打开此宠物的能力视窗。" /* 原常量参考：0x00586D0C。 */;
+            uiFrame.hoverText = L"打开此宠物的能力视窗。" /* 原常量参考：0x00586D0C。 */;
             consumed = 1;
         }
         if ((events & MouseFlag_LDownEvent) != 0) {
@@ -728,7 +729,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B588);
             const std::int32_t follow = world::gPetRuntimeRecords[petIndex(row)].follow6D4;
-            gHoverTextD68AE8 = follow != 0 ? L"无法将此宠物带在身后散步。" /* 原常量参考：0x00586CF0。 */ : L"将此宠物带在身后散步。" /* 原常量参考：0x00586CD8。 */;
+            uiFrame.hoverText = follow != 0 ? L"无法将此宠物带在身后散步。" /* 原常量参考：0x00586CF0。 */ : L"将此宠物带在身后散步。" /* 原常量参考：0x00586CD8。 */;
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) == 0) {
@@ -765,7 +766,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         const std::int32_t row = index - 231;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58B);
-            gHoverTextD68AE8 = states[petIndex(row)] == 1 ? L"这只宠物正处于待命状态。" /* 原常量参考：0x00586C94。 */ : L"使这只宠物处于待命状态。" /* 原常量参考：0x00586C78。 */;
+            uiFrame.hoverText = states[petIndex(row)] == 1 ? L"这只宠物正处于待命状态。" /* 原常量参考：0x00586C94。 */ : L"使这只宠物处于待命状态。" /* 原常量参考：0x00586C78。 */;
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) == 0) {
@@ -809,7 +810,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         const std::int32_t row = index - 236;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58E);
-            gHoverTextD68AE8 = states[petIndex(row)] == 2 ? L"这只宠物正处于战斗状态。" /* 原常量参考：0x00586C5C。 */ : L"使这只宠物处于战斗状态。" /* 原常量参考：0x00586C40。 */;
+            uiFrame.hoverText = states[petIndex(row)] == 2 ? L"这只宠物正处于战斗状态。" /* 原常量参考：0x00586C5C。 */ : L"使这只宠物处于战斗状态。" /* 原常量参考：0x00586C40。 */;
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) == 0) {
@@ -839,7 +840,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         const std::int32_t row = index - 241;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B591);
-            gHoverTextD68AE8 = states[petIndex(row)] == 3 ? L"无法将此宠物放在地上。" /* 原常量参考：0x00586C28。 */ : kPetPlaceHint586C14;
+            uiFrame.hoverText = states[petIndex(row)] == 3 ? L"无法将此宠物放在地上。" /* 原常量参考：0x00586C28。 */ : kPetPlaceHint586C14;
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) == 0) {

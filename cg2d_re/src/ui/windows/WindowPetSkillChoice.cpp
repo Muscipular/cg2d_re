@@ -1476,6 +1476,7 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
 // 原函数：0x004BFBC0。
 static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1483,7 +1484,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            gHoverTextD68AE8 = L"学习此技能。";
+            uiFrame.hoverText = L"学习此技能。";
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -1517,6 +1518,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
 // 原函数：0x004BFCB0。
 static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1530,12 +1532,12 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
         case 1:
         case 2:
         case 12:
-            gHoverTextD68AE8 = L"还是算了。";
+            uiFrame.hoverText = L"还是算了。";
             break;
         case 3:
         case 4:
         case 13:
-            gHoverTextD68AE8 = L"回前一页视窗";
+            uiFrame.hoverText = L"回前一页视窗";
             break;
         default:
             break;
@@ -2067,6 +2069,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, 
 // 原函数：0x004C0910。
 static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2080,7 +2083,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
         }
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            gHoverTextD68AE8 = L"遗忘此技能。";
+            uiFrame.hoverText = L"遗忘此技能。";
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2114,6 +2117,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2155,7 +2159,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
             gWindow54MessageC9FCE0 = -3;
         }
         if (hover) {
-            gHoverTextD68AE8 = L"让宠物学习此技能。";
+            uiFrame.hoverText = L"让宠物学习此技能。";
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2190,6 +2194,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
 // 原函数：0x004C0BF0。
 static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2199,7 +2204,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbac
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
     if (hover) {
-        gHoverTextD68AE8 = L"把要学习的技能放在这一栏。";
+        uiFrame.hoverText = L"把要学习的技能放在这一栏。";
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -2222,6 +2227,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbac
 // 原函数：0x004C0CB0。
 static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2247,7 +2253,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
             gWindow54MessageC9FCE0 = selected;
         }
         gWindow54HoverD2DAD8 = selected;
-        gHoverTextD68AE8 = L"把此技能让宠物学习。";
+        uiFrame.hoverText = L"把此技能让宠物学习。";
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -2313,6 +2319,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& 
 // 原函数：0x004C0F20。
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2327,7 +2334,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = shop.confirmationAcceptHint;
+        uiFrame.hoverText = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             std::wstring requestText;
@@ -2348,7 +2355,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = shop.confirmationCancelHint;
+        uiFrame.hoverText = shop.confirmationCancelHint;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {

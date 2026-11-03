@@ -936,16 +936,16 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t fp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.fp);
             const std::int32_t maxHp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxHp);
             const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & YobiActionFlag_FollowPetOverlay) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
         } else if ((flags & YobiActionFlag_NamedCharacterWithTitle) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
             const wchar_t* const title = graphic->reference.action->text144.data();
             if (*title != L'\0') {
                 cg::ui::detail::gHoverTitleD68BF4 = std::format(L"{:<16}", title);
@@ -988,23 +988,23 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             if (*name == '\0') {
                 name = action->nameC4.data();
             }
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, name);
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, action->field1D0, name);
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & YobiActionFlag_GroundItem) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = fixed->payload.mapActor->itemCount18;
             if (count > 0) {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}({})", fixed->nameC4.c_str(), count);
+                cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}({})", fixed->nameC4.c_str(), count);
             } else {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", fixed->nameC4.c_str());
+                cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", fixed->nameC4.c_str());
             }
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & YobiActionFlag_GroundGold) != 0) {
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", action->nameC4.c_str());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & YobiActionFlag_OtherMapObjectName) != 0) {
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", action->nameC4.c_str());
         }
         return;
     }
@@ -1026,7 +1026,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
         } else {
             if ((action->flags & YobiActionFlag_AuxiliaryBattleGear) == 0) {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, action->nameC4.c_str());
+                cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, action->field1D0, action->nameC4.c_str());
             }
             return;
         }
@@ -1037,7 +1037,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
+            cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
             return;
         }
         if ((action->flags & YobiActionFlag_AuxiliaryBattleGear) != 0) {
@@ -1051,7 +1051,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
         }
         YobiAction* const fixed = graphic->reference.action;
-        cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
+        cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
         return;
     }
 
@@ -1061,7 +1061,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     const std::int32_t fp = static_cast<std::int32_t>(graphic->reference.action->barValue1B0);
     const std::int32_t maxHp = static_cast<std::int32_t>(graphic->reference.action->maxHp);
     const std::int32_t hp = static_cast<std::int32_t>(graphic->reference.action->readiness);
-    cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
+    cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
 }
 
 } // namespace cg::yobi

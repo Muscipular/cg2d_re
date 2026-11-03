@@ -753,6 +753,7 @@ static void WindowCrystalExchangeShop_Submit(WindowInstance& callbackWindow, con
 // 原函数：0x004C43C0。
 static std::int32_t WindowCrystalExchangeShop_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalExchangeShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -761,7 +762,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(WindowInstance& callbackW
     const bool hover = (state & MouseFlag_Hover) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        gHoverTextD68AE8 = L"买进指定的物品。" /* 原常量参考：0x00587FA8。 */;
+        uiFrame.hoverText = L"买进指定的物品。" /* 原常量参考：0x00587FA8。 */;
     }
     if (crystal.slots <= 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
@@ -998,6 +999,7 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(WindowInstance& callbackWin
 // 原函数：0x004C4940。
 static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalExchangeShop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1012,7 +1014,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(WindowInstance& cal
             const wchar_t* const hint = item->selectedCount > 0
                 ? L"减少物品的数量。"
                 : L"无法再减少物品的数量了。";
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t count = item->selectedCount;
@@ -1041,6 +1043,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(WindowInstance& cal
 // 原函数：0x004C4A50。
 static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalExchangeShop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1062,7 +1065,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(WindowInstance& cal
             } else {
                 hint = L"无法再增加物品的数量了。";
             }
-            gHoverTextD68AE8 = hint;
+            uiFrame.hoverText = hint;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             if (item->used != 0) {
@@ -1151,6 +1154,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(WindowInstance& cal
 // 原函数：0x004C4CB0。
 static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalExchangeShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1233,9 +1237,9 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
         if (item.used != 0) {
             crystal.tooltip = hovered + 8;
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
-                gHoverTextD68AE8 = item.name + L"[kok]";
+                uiFrame.hoverText = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                gHoverTextD68AE8 = item.memo + L"[han]";
+                uiFrame.hoverText = item.memo + L"[han]";
             }
         }
     }
@@ -1277,6 +1281,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
 // 原函数：0x004C50C0。
 static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalExchangeShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1291,7 +1296,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = crystal.confirmAccept;
+        uiFrame.hoverText = crystal.confirmAccept;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = crystal.confirmCallback;
@@ -1306,7 +1311,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = crystal.confirmCancel;
+        uiFrame.hoverText = crystal.confirmCancel;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {

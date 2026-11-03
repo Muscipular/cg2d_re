@@ -308,13 +308,14 @@ static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const
 // 原函数：0x00492430。
 static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
+        uiFrame.hoverText = L"开启此魔物的图鉴视窗。";
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {

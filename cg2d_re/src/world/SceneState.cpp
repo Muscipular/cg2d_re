@@ -2421,10 +2421,6 @@ std::uint32_t gPlayerMovementStepYBits_9EE900 = 0; // 原全局：0x009EE900。
 } // namespace detail
 std::uint32_t gPartyCatchUpRateBits_9DAD78 = 0; // 原全局：0x009DAD78。
 
-namespace detail {
-std::uint8_t gWorldEntryRepliesPendingMask_9A4B94 = 0; // 原全局：0x009A4B94。
-
-} // namespace detail
 std::uint16_t gMovePathCount_C82200 = 0; // 原全局：0x00C82200。
 std::uint16_t gPendingDirectionCount_C82202 = 0; // 原全局：0x00C82202。
 
@@ -2486,7 +2482,6 @@ std::uint32_t gMapTransitionObservationPrepared_C8220C = 0; // 原全局：0x00C
 std::uint32_t gMapTransitionReplyPending_C82210 = 0; // 原全局：0x00C82210。
 std::uint32_t gMapTransitionAwaitingRectangle_C82214 = 0; // 原全局：0x00C82214。
 std::uint32_t gMapNameReceivedDuringTransition_C82218 = 0; // 原全局：0x00C82218。
-std::int32_t gPendingMapPaletteIndex_FF0D4C = 0; // 原全局：0x00FF0D4C。
 std::int32_t gDayPeriodPaletteEnabled_73ED44 = 0; // 原全局：0x0073ED44。
 
 } // namespace detail
@@ -3325,7 +3320,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const st
 }
 
 // 原 [0x467F30,0x4681AB)：八次独立临时构造，末尾透传表的一过尾指针。
-std::int32_t* InitializeWorldMapState_467F30()
+std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
 {
     SetWorldMapMetadata_4682E0(0, 0, 0, 0, 0, 0, 0, 0);
     static_cast<void>(SetPlayerMapPosition_468330(0, 0));
@@ -3354,7 +3349,7 @@ std::int32_t* InitializeWorldMapState_467F30()
     gValueC27FE8 = std::int32_t{0};
     second.reset();
 
-    gWorldEntryRepliesPendingMask_9A4B94 = 3;
+    session.WorldScene().worldEntryRepliesPendingMask = 3;
     static_cast<void>(UpdatePlayerMapWindow_468200());
     gMovePathCount_C82200 = 0;
     gPendingDirectionCount_C82202 = 0;
@@ -3593,7 +3588,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gCurrentSceneState = 101;
         [[fallthrough]];
     case 101:
-        if (gWorldEntryRepliesPendingMask_9A4B94 != 0) {
+        if (session.WorldScene().worldEntryRepliesPendingMask != 0) {
             session.WorldScene().frameBackgroundMode = 0;
             return;
         }
@@ -3603,7 +3598,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gCurrentSceneState = 104;
         return;
     case 104: {
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         UpdateDayPeriodPaletteAndTimers_458F00();
         if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
@@ -3647,7 +3642,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gSceneTransitionResetPending_58B6D0 = 1;
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u));
         gCurrentSceneState = 103;
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         return;
     }
     case 103:
@@ -3689,13 +3684,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gCurrentSceneState = 205;
         return;
     case 205: {
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         UpdateDayPeriodPaletteAndTimers_458F00();
         if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
         }
         render::ClearSurfaceTransformCache_44D490();
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(render::UpdatePalette_450BB0());
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
@@ -3734,7 +3729,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gSceneTransitionResetPending_58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         [[fallthrough]];
     }
     case 204: {
@@ -3779,7 +3774,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gSceneTransitionResetPending_58B6D0 = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0();
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
@@ -3790,7 +3785,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 251:
         session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(DrawObservationTravelBackground_440FF0());
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
@@ -3813,7 +3808,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
         }
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
@@ -3854,7 +3849,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gCurrentSceneState = 11;
         return;
     case 11: {
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         UpdateDayPeriodPaletteAndTimers_458F00();
         if (worldScene.normalSceneWaitFrames < 30) {
             goto waitFrame;
@@ -3913,7 +3908,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
                 static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
             }
-            ApplyPendingMapPaletteReply_51D6F0();
+            ApplyPendingMapPaletteReply_51D6F0(session);
             static_cast<void>(render::UpdatePalette_450BB0());
             UpdateDayPeriodPaletteAndTimers_458F00();
             render::gRenderQueueMode103CF10 = 0;
@@ -3938,7 +3933,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         ++gCurrentSceneState;
         return;
     }
@@ -3953,7 +3948,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         return;
     }
     case 20:
@@ -3964,7 +3959,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 3: {
         session.WorldScene().frameBackgroundMode = 0;
         gMapSurfaceCacheEnabled_C82204 = 0;
-        ApplyPendingMapPaletteReply_51D6F0();
+        ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapActorDrawKeys_4468F0();
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
         OpenPendingBattleResultWindow_504A50();
@@ -4057,17 +4052,18 @@ std::uint32_t CaptureSceneAndSelectEvenVariant_51D750()
 
 // 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。
 // PTR01：原51D6F0完整20条；持有回复值，调色板调用后按原序发布模式/已消费状态，正确正文保持。
-void __cdecl ApplyPendingMapPaletteReply_51D6F0()
+void __cdecl ApplyPendingMapPaletteReply_51D6F0(session::ClientSession& session)
 {
-    const std::int32_t value = gPendingMapPaletteIndex_FF0D4C;
+    auto& pendingIndex = session.WorldScene().pendingMapPaletteIndex;
+    const std::int32_t value = pendingIndex;
     if (value == -1) {
         static_cast<void>(render::SelectPalette(gCurrentDayPeriod_73ED48, 0));
         gDayPeriodPaletteEnabled_73ED44 = 1;
-        gPendingMapPaletteIndex_FF0D4C = -2;
+        pendingIndex = -2;
     } else if (value >= 0) {
         static_cast<void>(render::SelectPalette(value, 0));
         gDayPeriodPaletteEnabled_73ED44 = 0;
-        gPendingMapPaletteIndex_FF0D4C = -2;
+        pendingIndex = -2;
     }
 }
 
@@ -8464,7 +8460,7 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection&, const std::int32_
 }
 
 // 原函数：0x0050B380。
-void HandleMapObjectListReply_50B380(cg::network::CgConnection&, const char* const payload)
+void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8543,7 +8539,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection&, const char* con
                 } else if (static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18C) == 0) {
                     gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
                 }
-                detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFDu;
+                connection.Owner().WorldScene().worldEntryRepliesPendingMask &= 0xFDu;
                 static_cast<void>(detail::UpdatePlayerMapWindow_468200());
                 std::array<std::wstring, 4> titleTexts;
                 for (std::size_t i = 0; i < titleTexts.size(); ++i) {
@@ -10258,14 +10254,14 @@ void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection& connec
     if (gMapFloor == floor) {
         detail::gMapRectangleRequestPending_C82208 = 0;
     }
-    if ((detail::gWorldEntryRepliesPendingMask_9A4B94 & 1u) != 0) {
+    if ((connection.Owner().WorldScene().worldEntryRepliesPendingMask & 1u) != 0) {
         detail::InvalidateMapDrawPosition_4691D0();
-        detail::gWorldEntryRepliesPendingMask_9A4B94 &= 0xFEu;
+        connection.Owner().WorldScene().worldEntryRepliesPendingMask &= 0xFEu;
     }
 }
 
 // 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
-std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnection&, const std::int32_t mapId,
+std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnection& connection, const std::int32_t mapId,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
     const std::int32_t yEnd, const char* const payload)
@@ -10342,9 +10338,9 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
         detail::gMapRectangleRequestPending_C82208 = 0;
     }
     // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
-    const std::uint8_t replyFlags = detail::gWorldEntryRepliesPendingMask_9A4B94;
+    const std::uint8_t replyFlags = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
     const std::int32_t currentMapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
-    detail::gWorldEntryRepliesPendingMask_9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
+    connection.Owner().WorldScene().worldEntryRepliesPendingMask = static_cast<std::uint8_t>(replyFlags & 0xFEu);
 
     if (currentMapId == mapId
         && gMapFloor == floor
@@ -10376,7 +10372,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
     const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
     const std::int32_t a13)
 {
-    const std::uint8_t priorFlag = detail::gWorldEntryRepliesPendingMask_9A4B94;
+    const std::uint8_t priorFlag = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
     detail::gMapRectangleRequestPending_C82208 = 1;
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (detail::gMapTransitionObservationPrepared_C8220C == 0) {
@@ -10418,7 +10414,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
 
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 // 原地图名分段字节复制按用户要求改为GBK转宽字符串赋值；提取、长度判断、调色板和返回保持。
-std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection&, char* const payload)
+std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connection, char* const payload)
 {
     std::array<char, 256> text;
     std::array<char, 32> number;
@@ -10430,17 +10426,17 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection&, char*
     const char* const selected =
         std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
     gMapName_9DAD30 = cg::text::FromGbkWide(selected);
-    detail::gPendingMapPaletteIndex_FF0D4C = -2;
+    connection.Owner().WorldScene().pendingMapPaletteIndex = -2;
 
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         payload, '|', 2, 31, number.data()));
     if (number[0] == '\0') {
-        detail::gPendingMapPaletteIndex_FF0D4C = -1;
+        connection.Owner().WorldScene().pendingMapPaletteIndex = -1;
     } else {
         const std::int32_t value = std::atoi(number.data());
-        detail::gPendingMapPaletteIndex_FF0D4C = value;
+        connection.Owner().WorldScene().pendingMapPaletteIndex = value;
         if (value < 0) {
-            detail::gPendingMapPaletteIndex_FF0D4C = -1;
+            connection.Owner().WorldScene().pendingMapPaletteIndex = -1;
         }
     }
     if (detail::gMapTransitionReplyPending_C82210 == 1) {

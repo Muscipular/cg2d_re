@@ -247,8 +247,6 @@ extern std::uint32_t gPlayerMapCoordinateSum_AF10C0; // 原全局：0x00AF10C0�
 extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
 extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
 
-// 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
-extern std::uint8_t gWorldEntryRepliesPendingMask_9A4B94; // 原全局：0x009A4B94。
 // 原 9A86D4 起始的方向 W16；已证调用链最多访问前两项。
 extern std::array<std::uint16_t, 2> gPendingDirections9A86D4;
 // 原 AF0FF8/C75014/C750DC；三组 100 项 W16 路径队列共用 C82200 数量。
@@ -276,7 +274,6 @@ extern std::uint32_t gMapTransitionObservationPrepared_C8220C; // 原全局：0x
 extern std::uint32_t gMapTransitionReplyPending_C82210; // 原全局：0x00C82210。
 extern std::uint32_t gMapTransitionAwaitingRectangle_C82214; // 原全局：0x00C82214。
 extern std::uint32_t gMapNameReceivedDuringTransition_C82218; // 原全局：0x00C82218。
-extern std::int32_t gPendingMapPaletteIndex_FF0D4C; // 原全局：0x00FF0D4C。 原地图回复数值 W32，51D6F0 消费。
 extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
 extern std::uint32_t gMapTransitionRequestSequence_C8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gPendingMapTransitionSequence_9DAD54; // 原全局：0x009DAD54。
@@ -401,7 +398,7 @@ void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session); // �
 // 原函数：0x0046BCF0。
 void __cdecl PopPendingMovementDirection_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
 // 原函数：0x00467F30。
-std::int32_t* InitializeWorldMapState_467F30();                // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
+std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session); // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 // 原函数：0x00468200。
 std::uint16_t __cdecl UpdatePlayerMapWindow_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 // 原函数：0x0046CEC0。
@@ -433,7 +430,7 @@ std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
     std::int32_t expectedTile, std::int32_t expectedObj,
     std::int32_t expectedHit); // 原 [0x469290,0x4693E9)，真实局部三平面校验依赖。
 // 原函数：0x0051D6F0。
-void __cdecl ApplyPendingMapPaletteReply_51D6F0(); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
+void __cdecl ApplyPendingMapPaletteReply_51D6F0(session::ClientSession& session); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
 // 原函数：0x00469030。
 std::int32_t __cdecl LoadAndDrawMapTiles_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 extern std::uint32_t gAutoMapWindowDirty_55DA88; // 原全局：0x0055DA88。 原地图窗口重建标志，初值 1；46C760/46CF60 共用。

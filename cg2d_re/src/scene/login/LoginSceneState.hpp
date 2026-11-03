@@ -37,6 +37,17 @@ struct Capability4ModalState {
     yobi::YobiAction* action = nullptr; // 原 0x9A6EBC。
 };
 
+// 能力 3 登录开场的跨帧动画状态；动作指针借用 Yobi 对象。
+struct Capability3IntroState {
+    std::int32_t phase9A5550 = 0;
+    std::int32_t alpha9A4D08 = 0;
+    std::int32_t alpha9A4CA0 = 0;
+    std::int32_t alpha9A5E70 = 0;
+    yobi::YobiAction* leftAction9A50C0 = nullptr;
+    yobi::YobiAction* rightAction9A50C4 = nullptr;
+    std::wstring message9A50E8;
+};
+
 // 服务器列表图片号会在分类选择后改写，不能跨登录会话共用。
 struct LoginSceneState {
     LoginSceneState() = default;
@@ -65,6 +76,7 @@ struct LoginSceneState {
     std::wstring outerLoginErrorMessage; // 原 0x9A4BA0。
     std::wstring loginModeMessage; // 原 0x9A5FE0。
     Capability4ModalState capability4Modal {};
+    Capability3IntroState capability3Intro {};
     std::array<input::InputContext*, 3> inputFocusTable {
         &context9A5960, &context9A5678, &context9A5960,
     }; // 原 0x559FFC；借用本实例的两个上下文。

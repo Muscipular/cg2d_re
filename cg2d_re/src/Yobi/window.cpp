@@ -596,7 +596,7 @@ static void UpdateQuantityWindowOpeningAnimation_48ABC0(YobiAction* const action
     const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;
     payload->halfHeight = previousHeight + deltaY;
     if (complete) {
-        const ui::WindowValueCallback callback = action->numberWindowCallback2C;
+        const ui::WindowQuantityCallback callback = action->numberWindowCallback2C;
         const std::int32_t initialValue =
             static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t value14 =
@@ -606,7 +606,7 @@ static void UpdateQuantityWindowOpeningAnimation_48ABC0(YobiAction* const action
         const std::int32_t maximum = action->field1D0;
         const std::int32_t sourceWindow = action->nameX;
         static_cast<void>(ui::detail::WindowQuantity_Open(
-            sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
+            *action->ownerSession, sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
@@ -764,33 +764,34 @@ YobiAction* CreateWindowOpeningAnimation_475950(
 
 // QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
 YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
+    session::ClientSession& session,
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
-    const std::int32_t initialValue, const ui::WindowValueCallback callback,
+    const std::int32_t initialValue, const ui::WindowQuantityCallback callback,
     const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)
 {
-    ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
+    ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
-    if (ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].window != nullptr) {
-        ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].window->state |= detail::LinkedWindowStateFlag_CloseRequested;
+    YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    if (ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].window != nullptr) {
+        ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].window->state |= detail::LinkedWindowStateFlag_CloseRequested;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowQuantity_Open(
-            sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
+            session, sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Quantity];
     const auto windowFlags = reinterpret_cast<const unsigned char*>(
-        &ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].flags)[0];
+        &ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].flags)[0];
     std::int32_t x = prototype->defaultX;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
     if ((windowFlags & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0) {
-        x = ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].x;
-        y = ui::detail::WindowRuntime_States()[cg::ui::WindowId_Quantity].y;
+        x = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].x;
+        y = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].y;
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
     auto* const payload = action->payload.windowOpening;

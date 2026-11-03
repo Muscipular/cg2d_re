@@ -228,9 +228,10 @@ YobiAction* CreateWindowOpeningAnimation_475950(
 
 // 原48AC60完整数量展开；maximum为S32，callback为非拥有原生函数指针。
 YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
+    session::ClientSession& session,
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue, // value14仅确认透传窗口参数，业务含义未定，保留原名。
-    void (*callback)(std::int32_t), std::uint32_t flags, std::uint32_t mode,
+    void (*callback)(session::ClientSession&, std::int32_t), std::uint32_t flags, std::uint32_t mode,
     std::uint32_t actionFlags); // QIP01：失败直发布/返回空；低BYTE标志与两CryptInt原序。
 
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。

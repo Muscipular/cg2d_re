@@ -171,7 +171,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
                             continue;
                         }
                         if (source != position + 8) {
-                            WindowItem_RequestTransfer(38, index, source, position + 8);
+                            WindowItem_RequestTransfer(*callbackWindow.ownerSession, 38, index, source, position + 8);
                         }
                         break;
                     }
@@ -347,7 +347,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
                     // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
                     const std::int32_t itemType = world::gPlayerRuntimeSlots.items[source].itemType;
                     if (itemType != 38 && itemType != 52) {
-                        WindowItem_RequestTransfer(38, index, source, position + 100);
+                        WindowItem_RequestTransfer(*callbackWindow.ownerSession, 38, index, source, position + 100);
                     }
                 }
                 break;

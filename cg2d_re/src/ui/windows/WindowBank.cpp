@@ -841,7 +841,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
                 }
             }
             if (source != position + 8) {
-                WindowItem_RequestTransfer(41, index, source, position + 8);
+                WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, source, position + 8);
             }
             break;
         }
@@ -897,7 +897,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             if (target >= 20 || world::gPlayerRuntimeSlots.items[hovered + 8].used == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
-                WindowItem_RequestTransfer(41, index, hovered + 8, target + 100);
+                WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, hovered + 8, target + 100);
             }
         }
         consumed = 1;
@@ -1035,7 +1035,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 if (source != position + 100
                     && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
                         &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
-                    WindowItem_RequestTransfer(41, index, source, position + 100);
+                    WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, source, position + 100);
                 }
                 break;
             }
@@ -1095,7 +1095,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 if (used == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
-                    WindowItem_RequestTransfer(41, index, hovered + 100, target + 8);
+                    WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, hovered + 100, target + 8);
                 }
             }
         }

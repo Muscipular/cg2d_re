@@ -84,7 +84,7 @@ static std::int32_t WindowItemSelector_FindPetIndex(std::int32_t ordinal); // PS
 static bool WindowItemSelector_SetMode(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 
 // 原函数：0x004885A0。
-static std::int32_t WindowItem_RequestTransferQuantity(std::int32_t amount); // IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。
+static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& session, std::int32_t amount); // IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。
 
 // 原函数：0x0048D540。
 static std::int32_t WindowPet_DrawTooltip(
@@ -306,12 +306,6 @@ static std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
 
 // 原全局：0x00CC4C9C。 48BF10发布，仅门禁48BC90的message2请求。
 static std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
-
-// 原全局：0x00CF46B0。 4886E0发布，4885A0读取的来源槽号。
-static std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
-
-// 原全局：0x00D2DBF8。 4886E0发布，4885A0读取的目标槽号。
-static std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
 
 std::uint64_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
 
@@ -905,24 +899,25 @@ std::int32_t WindowElement_HandleSideArea(WindowInstance& callbackWindow, const 
 
 // IMT01：原88条，source7短路及41/38转义后状态-Y-X/真实返回；旧格式历史及正确正文保，全owner/运行待。
 // 原函数：0x004885A0。
-static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount)
+static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& session, const std::int32_t amount)
 {
-    std::int32_t source = gItemMoveSourceCF46B0;
+    auto& transfer = session.UiFrame().native.itemTransfer;
+    std::int32_t source = transfer.source;
     std::int32_t target;
-    if (source == 7 || (target = gItemMoveTargetD2DBF8) == 7) {
+    if (source == 7 || (target = transfer.target) == 7) {
         WindowCraft_ResetItemSelection();
-        source = gItemMoveSourceCF46B0;
-        target = gItemMoveTargetD2DBF8;
+        source = transfer.source;
+        target = transfer.target;
     }
     if (source < 100 && target < 100) {
-        return static_cast<std::int32_t>(cg::network::GetGameConnection().MoveItemStackRequest(source, target, amount));
+        return static_cast<std::int32_t>(session.Connection().MoveItemStackRequest(source, target, amount));
     }
     if (source < 8) {
         return source;
     }
-    WindowState* windowState = &WindowRuntime_States()[WindowId_Bank];
+    WindowState* windowState = &WindowRuntime_States(session)[WindowId_Bank];
     if (windowState->window == nullptr) {
-        windowState = &WindowRuntime_States()[WindowId_ItemStorage];
+        windowState = &WindowRuntime_States(session)[WindowId_ItemStorage];
         if (windowState->window == nullptr) {
             return source;
         }
@@ -934,16 +929,18 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendDialogResponse(
+    return static_cast<std::int32_t>(session.Connection().SendDialogResponse(
         x, y, value14, userState, 0, escapedReply));
 }
 
 // IMT01：原97条，Ctrl BYTE/反转开关与count/used门槛、直接source先target/拆分target先source；正确正文保。
 // 原函数：0x004886E0。
 void WindowItem_RequestTransfer(
+    session::ClientSession& session,
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t source, const std::int32_t target)
 {
+    auto& transfer = session.UiFrame().native.itemTransfer;
     if (source < 0 || target < 0 || source == target) {
         return;
     }
@@ -966,16 +963,16 @@ void WindowItem_RequestTransfer(
             &used, &gItemDetailStorageCC4D58[0].items[target - 100], sizeof(used));
     }
     if (source < 8 || target < 8 || count <= 0 || used != 0 || !split) {
-        gItemMoveSourceCF46B0 = source;
-        gItemMoveTargetD2DBF8 = target;
-        static_cast<void>(WindowItem_RequestTransferQuantity(-1));
+        transfer.source = source;
+        transfer.target = target;
+        static_cast<void>(WindowItem_RequestTransferQuantity(session, -1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     } else {
-        gItemMoveTargetD2DBF8 = target;
-        gItemMoveSourceCF46B0 = source;
+        transfer.target = target;
+        transfer.source = source;
         static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
-            sourceWindow, sourceElement, 244309, count, count, 0,
-            [](const std::int32_t amount) { static_cast<void>(WindowItem_RequestTransferQuantity(amount)); },
+            session, sourceWindow, sourceElement, 244309, count, count, 0,
+            [](session::ClientSession& owner, const std::int32_t amount) { static_cast<void>(WindowItem_RequestTransferQuantity(owner, amount)); },
             1, 0, 0));
     }
 }

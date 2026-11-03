@@ -58,7 +58,7 @@ struct ItemUseTargetRecord {
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。
-    WindowValueCallback callback; // 原窗口42的+18，禁止截成W32。
+    WindowQuantityCallback callback; // 原窗口42的+18，禁止截成W32；回送显式携会话。
 };
 
 struct WindowState {
@@ -253,6 +253,12 @@ struct WindowPointerRuntimeState {
     std::int32_t currentWindowId = 0; // 原0xD67A1C。
 };
 
+// 拆分数量框回送时读取的物品来源/目标，保留原独立发布顺序。
+struct ItemTransferRuntimeState {
+    std::int32_t source = 0; // 原0xCF46B0。
+    std::int32_t target = 0; // 原0xD2DBF8。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -283,6 +289,7 @@ struct NativeWindowRuntimeState {
     GatherWindowRuntimeState gather {};
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
+    ItemTransferRuntimeState itemTransfer {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

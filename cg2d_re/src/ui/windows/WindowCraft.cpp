@@ -2049,7 +2049,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 }
             }
             if (source != position + 8) {
-                WindowItem_RequestTransfer(11, index, source, position + 8);
+                WindowItem_RequestTransfer(*callbackWindow.ownerSession, 11, index, source, position + 8);
             }
             break;
         }

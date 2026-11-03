@@ -861,13 +861,15 @@ std::int32_t WindowItem_FindSortedPetIndex(std::int32_t slot); // DE0B08五个S1
 void WindowCraft_ResetItemSelection(); // 仅清D67B00，不改变其他物品状态。
 // 原函数：0x004886E0。
 void WindowItem_RequestTransfer(
+    session::ClientSession& session,
     std::int32_t sourceWindow, std::int32_t sourceElement,
     std::int32_t source, std::int32_t target); // IMT01：完整直接/拆分门槛及两全局不同发布序，原数量callback副作用保持；全数量框/运行待。
 // 原函数：0x0048A830。
 WindowInstance* WindowQuantity_Open(
+    session::ClientSession& session,
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
-    WindowValueCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
+    WindowQuantityCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
 // 原函数：0x00474170。
 std::int32_t WindowElement_HandleSideArea(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。
 // 原函数：0x0048BB90。

@@ -240,7 +240,7 @@ static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, Eleme
 static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 库存关闭按钮。
 
 // 原函数：0x00488CF0。
-static void WindowInventory_DropMoney(std::int32_t amount); // MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。
+static void WindowInventory_DropMoney(session::ClientSession& session, std::int32_t amount); // MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。
 
 // 原函数：0x00488D30。
 static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。
@@ -692,13 +692,13 @@ static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, 
 
 // MDR01：原488CF0完整18条；动作BYTE bit7/场景门槛原短路，玩家Y后X→woz金额；void只承副作用，全callback ABI待。
 // 原函数：0x00488CF0。
-static void WindowInventory_DropMoney(const std::int32_t amount)
+static void WindowInventory_DropMoney(session::ClientSession& session, const std::int32_t amount)
 {
     if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::IsObservationSceneTransitionActive_440B50() == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().DropGoldRequest(x, y, amount));
+        static_cast<void>(session.Connection().DropGoldRequest(x, y, amount));
     }
 }
 
@@ -723,7 +723,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
             } else {
                 const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
                 static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
-                    14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
+                    *callbackWindow.ownerSession, 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
             }
             consumed = 1;
         }
@@ -806,7 +806,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) > 0 && source < 6) {
                 WindowItem_TransferQuantity(1, source, 0, position + 8);
             } else if (source != position + 8) {
-                WindowItem_RequestTransfer(14, index, source, position + 8);
+                WindowItem_RequestTransfer(*callbackWindow.ownerSession, 14, index, source, position + 8);
             }
             break;
         }
@@ -1035,7 +1035,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             }
             if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) <= 0) {
                 if (source != position) {
-                    WindowItem_RequestTransfer(14, index, source, position);
+                    WindowItem_RequestTransfer(*callbackWindow.ownerSession, 14, index, source, position);
                 }
             } else if (source < 6) {
                 if (position >= 6) {
@@ -1044,7 +1044,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             } else if (position < 6) {
                 WindowItem_TransferQuantity(0, source, 1, position);
             } else {
-                WindowItem_RequestTransfer(14, index, source, position);
+                WindowItem_RequestTransfer(*callbackWindow.ownerSession, 14, index, source, position);
             }
             break;
         }

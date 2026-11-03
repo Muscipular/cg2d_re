@@ -110,7 +110,7 @@ struct YobiAction {
     // 普通phase与数量窗口回调互斥；同一payloadKind不能代替callback家族判定。
     union {
         std::int32_t phase; // 原+2C，普通对象的S32阶段。
-        ui::WindowValueCallback numberWindowCallback2C = nullptr; // 原成员偏移：+0x2C。 48AC60数量族的非拥有函数指针。
+        ui::WindowQuantityCallback numberWindowCallback2C = nullptr; // 原成员偏移：+0x2C。 48AC60数量族的非拥有函数指针。
     };
     std::int32_t x = 0; // 原成员偏移：+0x30。
     std::int32_t y = 0; // 原成员偏移：+0x34。

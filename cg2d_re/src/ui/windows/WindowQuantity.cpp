@@ -91,28 +91,29 @@ WindowPrototype gWindowPrototypeQuantity {0, 4, 100, 100, 126, 136, 0x80010101u,
 // QIP01：原48A830完整37条；原窗口42复用/开启，元素6图号、状态窗口及返回指针分时取样。
 // 原函数：0x0048A830。
 WindowInstance* WindowQuantity_Open(
+    session::ClientSession& session,
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
-    const std::int32_t initialValue, const WindowValueCallback callback)
+    const std::int32_t initialValue, const WindowQuantityCallback callback)
 {
-    if (WindowRuntime_States()[WindowId_Quantity].window != nullptr) {
-        WindowRuntime_States()[WindowId_Quantity].window->state &= ~std::uint32_t{0x8000};
+    if (WindowRuntime_States(session)[WindowId_Quantity].window != nullptr) {
+        WindowRuntime_States(session)[WindowId_Quantity].window->state &= ~std::uint32_t{0x8000};
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        WindowRuntime_States()[WindowId_Quantity].window = WindowRuntime_Open(WindowId_Quantity);
+        WindowRuntime_States(session)[WindowId_Quantity].window = WindowRuntime_Open(session, WindowId_Quantity);
     }
-    WindowInstance* const positionedWindow = WindowRuntime_States()[WindowId_Quantity].window;
+    WindowInstance* const positionedWindow = WindowRuntime_States(session)[WindowId_Quantity].window;
     static_cast<void>(CenterPopupWindowPosition(WindowId_Quantity,
         positionedWindow->width, positionedWindow->height, positionedWindow->x, positionedWindow->y));
-    if (auto* const element7 = WindowRuntime_States()[WindowId_Quantity].window ? WindowRuntime_States()[WindowId_Quantity].window->FindElementById(WindowQuantityElementId::Element7) : nullptr; element7) element7->data.graphic->imageNo = imageNo;
-    WindowInstance* const stateWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    WindowRuntime_States()[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);
-    WindowRuntime_States()[WindowId_Quantity].value14 = static_cast<std::uint32_t>(value14);
-    WindowRuntime_States()[WindowId_Quantity].userState.callback = callback;
+    if (auto* const element7 = WindowRuntime_States(session)[WindowId_Quantity].window ? WindowRuntime_States(session)[WindowId_Quantity].window->FindElementById(WindowQuantityElementId::Element7) : nullptr; element7) element7->data.graphic->imageNo = imageNo;
+    WindowInstance* const stateWindow = WindowRuntime_States(session)[WindowId_Quantity].window;
+    WindowRuntime_States(session)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);
+    WindowRuntime_States(session)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(value14);
+    WindowRuntime_States(session)[WindowId_Quantity].userState.callback = callback;
     if (auto* const buttonOkElement = stateWindow ? stateWindow->FindElementById(WindowQuantityElementId::ButtonOk) : nullptr; buttonOkElement) buttonOkElement->state = static_cast<std::uint32_t>(initialValue);
-    WindowInstance* const result = WindowRuntime_States()[WindowId_Quantity].window;
-    WindowRuntime_States()[WindowId_Quantity].value20 = static_cast<std::uint32_t>(sourceWindow);
-    WindowRuntime_States()[WindowId_Quantity].value24 = static_cast<std::uint32_t>(sourceElement);
+    WindowInstance* const result = WindowRuntime_States(session)[WindowId_Quantity].window;
+    WindowRuntime_States(session)[WindowId_Quantity].value20 = static_cast<std::uint32_t>(sourceWindow);
+    WindowRuntime_States(session)[WindowId_Quantity].value24 = static_cast<std::uint32_t>(sourceElement);
     return result;
 }
 
@@ -190,11 +191,11 @@ static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, cons
         result = 1;
     }
     if ((numeric & 2u) != 0) {
-        const WindowValueCallback callback = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].userState.callback;
+        const WindowQuantityCallback callback = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].userState.callback;
         if (callback != nullptr) {
             auto* const indexedElement2 = window->FindElementById(elementId);
             if (indexedElement2) {
-                callback(std::bit_cast<std::int32_t>(indexedElement2->state));
+                callback(*callbackWindow.ownerSession, std::bit_cast<std::int32_t>(indexedElement2->state));
             }
             window = currentWindow;
         }

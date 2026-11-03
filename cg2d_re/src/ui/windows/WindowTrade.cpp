@@ -1214,7 +1214,7 @@ static void WindowTrade_HandleOwnInventory(
                 continue;
             }
             if (source != position + 8) {
-                WindowItem_RequestTransfer(43, 11, source, position + 8);
+                WindowItem_RequestTransfer(session, 43, 11, source, position + 8);
             }
             break;
         }

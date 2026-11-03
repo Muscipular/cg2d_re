@@ -12,6 +12,7 @@ struct YobiAction;
 namespace cg::ui {
 
 using WindowValueCallback = void (*)(std::int32_t value);
+using WindowQuantityCallback = void (*)(session::ClientSession& session, std::int32_t value);
 using ElementId = std::uint32_t;
 // 原拖放消息及来源编号不变，额外携带发起会话。
 using WindowDragCallback = void (*)(

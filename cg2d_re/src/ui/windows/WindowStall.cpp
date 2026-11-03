@@ -2591,7 +2591,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
                     static_cast<std::uint16_t>(window->y + 40));
                 const std::int16_t x = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(window->x + 320));
-                static_cast<void>(WindowItem_DrawTooltip(x, y, title.c_str(), color, lines, 8, nullptr, 0));
+                static_cast<void>(WindowItem_DrawTooltip(*callbackWindow.ownerSession, x, y, title.c_str(), color, lines, 8, nullptr, 0));
             }
         }
     }

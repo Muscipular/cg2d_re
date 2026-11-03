@@ -354,7 +354,7 @@ static std::int32_t WindowItem_DrawPetTooltip(
     const auto* const lines = record->description.data() + page * 8;
     const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
     const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
+    return WindowItem_DrawTooltip(session, x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // 原函数：0x004E5DA0。

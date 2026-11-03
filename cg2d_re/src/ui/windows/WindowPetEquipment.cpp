@@ -259,6 +259,7 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
             const std::int32_t mouseY = platform::gLegacyMouseState.mouseY;
             const bool specialTitle = (item.flags & 0x100u) != 0;
             static_cast<void>(WindowItem_DrawTooltip(
+                *callbackWindow.ownerSession,
                 mouseX + (mouseX < 320 ? 60 : -257), mouseY + (mouseY < 240 ? 60 : -174),
                 (specialTitle ? item.memo : item.name).c_str(),
                 specialTitle ? 5 : static_cast<std::int8_t>((item.flags & 0x200u) >> 9),

@@ -473,7 +473,7 @@ static std::int32_t WindowItem_DrawShopTooltip(
     const auto* const lines = record->description.data() + page * 8;
     const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
     const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, footer, 4);
+    return WindowItem_DrawTooltip(session, x, y, title.c_str(), titleColor, lines, 8, footer, 4);
 }
 
 // 原函数：0x004B6C50。
@@ -3820,6 +3820,7 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
     const std::int32_t x = window->x + 298;
@@ -3849,11 +3850,11 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
         }
     }
     const std::int32_t message = shop.message;
-    gTooltipColorD67D30 = 0;
+    interaction.tooltipColor = 0;
     const WindowDialogTextLine* line = npcLines.data() + 1 + 4 * (-1 - message);
     for (std::int32_t row = 0; row < 4; ++row) {
         if (!line->text.empty()) {
-            static_cast<void>(WindowItem_SplitTooltipLines(x, y, 3, 8, 0, line->text.data(), 0, 0));
+            static_cast<void>(WindowItem_SplitTooltipLines(*callbackWindow.ownerSession, x, y, 3, 8, 0, line->text.data(), 0, 0));
         }
         ++line;
         y += 10;

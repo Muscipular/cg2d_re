@@ -624,10 +624,6 @@ std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::Client
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
 WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
-extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
-extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
-extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
-extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
@@ -693,12 +689,14 @@ std::uint8_t WindowInput_HandleNumber(
 std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
 // 原函数：0x004FBA30。
 std::int32_t WindowItem_SplitTooltipLines(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
     std::int32_t fontType, std::int8_t color, std::wstring_view text,
     std::int8_t value7, std::int8_t marker); // 原$分段、颜色续接与即时测宽。
 // 原函数：0x0048B810。
 // NIO01：原0x0048B810，运行时物品描述直接借宽行。
 std::int32_t WindowItem_DrawTooltip(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const std::wstring* lines, std::int32_t lineCount, const wchar_t* footer, std::int8_t footerColor);
 // 原函数：0x0048B1A0。

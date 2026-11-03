@@ -1323,6 +1323,7 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
     auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
     static_cast<void>(unused);
     WindowInstance* window = currentWindow;
     const auto mode = std::bit_cast<std::int8_t>(choice.mode);
@@ -1400,13 +1401,14 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
         break;
     }
     std::int32_t message = choice.message;
-    gTooltipColorD67D30 = 0;
+    interaction.tooltipColor = 0;
     if (message >= 0) {
         for (std::int32_t row = 0; row < 2; ++row) {
             if (row != 0) {
                 message = choice.message;
             }
             static_cast<void>(WindowItem_SplitTooltipLines(
+                *callbackWindow.ownerSession,
                 x, y, 3, 8, 0, choice.skills[message].description[row], 0, 0));
             y += 10;
         }
@@ -1414,7 +1416,7 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
         const WindowDialogTextLine* line = npcLines.data() + 1 + 4 * (-1 - message);
         for (std::int32_t row = 0; row < 4; ++row) {
             if (!line->text.empty()) {
-                static_cast<void>(WindowItem_SplitTooltipLines(x, y, 3, 8, 0, line->text.data(), 0, 0));
+                static_cast<void>(WindowItem_SplitTooltipLines(*callbackWindow.ownerSession, x, y, 3, 8, 0, line->text.data(), 0, 0));
             }
             ++line;
             y += 10;

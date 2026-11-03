@@ -234,8 +234,6 @@ static_assert(0x60 + 10 * 0x8C == 0x5D8);
 
 static_assert(sizeof(WindowListSelectionCallback) == 8);
 
-std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
-
 const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434 {{ // 原全局：0x0057E434。
     {243151, 243152, 243153, 243154},
     {243156, 243157, 243158, 243159},
@@ -1379,10 +1377,12 @@ std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, const Ele
 
 // 原0x004FBA30：UTF-16色码分段与即时测宽；正文使用动态宽字符串。
 std::int32_t WindowItem_SplitTooltipLines(
+    session::ClientSession& session,
     std::int32_t x, const std::int32_t y, const std::uint8_t renderMode,
     const std::int32_t fontType, std::int8_t color, std::wstring_view text,
     const std::int8_t value7, const std::int8_t marker)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     for (std::size_t delimiter = text.find(L'$'); delimiter != std::wstring_view::npos;
          delimiter = text.find(L'$')) {
         std::size_t length = delimiter;
@@ -1398,25 +1398,27 @@ std::int32_t WindowItem_SplitTooltipLines(
         text.remove_prefix(delimiter + 2);
         if (next != L'$') {
             const std::int32_t digit = next - L'0';
-            if (digit >= 0 && digit <= 9) { gTooltipColorD67D30 = digit; color = static_cast<std::int8_t>(digit); }
+            if (digit >= 0 && digit <= 9) { interaction.tooltipColor = digit; color = static_cast<std::int8_t>(digit); }
         }
     }
     return render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
         renderMode, static_cast<std::int8_t>(render::ResolveFontId(fontType)),
-        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gTooltipColorD67D30)),
+        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(interaction.tooltipColor)),
         text, value7, marker);
 }
 
 // TDR01：原48B810完整108条；层5清尾/题目/逐行颜色/可选footer后背景入队，原坐标截断及真实返回保持。
 template <typename ReadLine>
 static std::int32_t WindowItem_DrawTooltipLines(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const wchar_t* const title, const std::int8_t titleColor,
     const ReadLine& readLine, const std::int32_t lineCount,
     const wchar_t* const footer, const std::int8_t footerColor)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1430,7 +1432,7 @@ static std::int32_t WindowItem_DrawTooltipLines(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
             5, 12, titleColor, title, 0, 0));
     }
-    gTooltipColorD67D30 = 0;
+    interaction.tooltipColor = 0;
     std::int32_t lineY = 0;
     for (std::int32_t line = 0; line < lineCount; ++line) {
         const auto contents = readLine(line);
@@ -1440,6 +1442,7 @@ static std::int32_t WindowItem_DrawTooltipLines(
             const std::int32_t shortX =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
             static_cast<void>(WindowItem_SplitTooltipLines(
+                session,
                 shortX + 10, shortY + lineY + 22, 5, 12, 0, contents, 0, 0));
         }
         lineY += 13;
@@ -1458,12 +1461,13 @@ static std::int32_t WindowItem_DrawTooltipLines(
 
 // 原0x0048B810：已迁移的运行时描述直接借宽行，逐行读序保持。
 std::int32_t WindowItem_DrawTooltip(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const wchar_t* const title, const std::int8_t titleColor,
     const std::wstring* const lines, const std::int32_t lineCount,
     const wchar_t* const footer, const std::int8_t footerColor)
 {
-    return WindowItem_DrawTooltipLines(x, y, title, titleColor,
+    return WindowItem_DrawTooltipLines(session, x, y, title, titleColor,
         [lines](const std::int32_t line) { return std::wstring_view(lines[line]); },
         lineCount, footer, footerColor);
 }
@@ -2476,11 +2480,11 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
     if (petEquipment) {
         const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
         const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
-        return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
+        return WindowItem_DrawTooltip(session, x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
     }
     const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
     const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
+    return WindowItem_DrawTooltip(session, x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。
@@ -2512,7 +2516,7 @@ std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, 
     const auto* const lines = record->description.data() + page * 8;
     const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
     const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
-    return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
+    return WindowItem_DrawTooltip(session, x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // 原函数：0x0048B750。
@@ -2537,6 +2541,7 @@ std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, const s
     interaction.tooltipSource = 400;
     const auto& title = shop.detail.name;
     return WindowItem_DrawTooltip(
+        session,
         x, y, title.c_str(), 0, shop.detail.description.data() + page * 8,
         8, nullptr, 0);
 }

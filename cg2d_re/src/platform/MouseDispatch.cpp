@@ -247,7 +247,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
             if (inputGateIsZero && interaction.hoverDescriptionEnabled != 0) {
-                ui::detail::gHoverObjectValueD68AC8 = 0;
+                interaction.hoverObjectValue = 0;
             }
             return;
         }
@@ -280,9 +280,9 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             if (world::gInputAndHoverSuppressed_D460C8 == 0 && interaction.hoverDescriptionEnabled != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(&graphic);
                 if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
-                    ui::detail::gHoverObjectValueD68AC8 = 1;
+                    interaction.hoverObjectValue = 1;
                 } else if (uiFrame.hoverText.find(L"[kok]") != std::wstring::npos) {
-                    ui::detail::gHoverObjectValueD68AC8 = 5;
+                    interaction.hoverObjectValue = 5;
                 }
             }
             const std::uint8_t finalLayer =
@@ -295,7 +295,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     }
     *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 5;
     render::gHoveredGraphicPendingIndex = -1;
-    ui::detail::gHoverObjectValueD68AC8 = 0;
+    interaction.hoverObjectValue = 0;
 }
 
 } // namespace cg::platform

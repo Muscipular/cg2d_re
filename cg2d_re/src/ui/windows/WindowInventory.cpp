@@ -226,6 +226,7 @@ static void WindowItem_TransferQuantity(
 
 // 原函数：0x0048B930。
 static std::int32_t WindowItem_DrawDescriptionLines(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const std::wstring_view* lines, std::int32_t unusedStride, std::int32_t lineCount,
     const wchar_t* footer, std::int8_t footerColor); // 原连续NUL分段改为宽行表，空行仍推进，不使用stride。
@@ -363,11 +364,13 @@ static void WindowItem_TransferQuantity(
 
 // 原函数：0x0048B930。
 static std::int32_t WindowItem_DrawDescriptionLines(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const wchar_t* const title, const std::int8_t titleColor,
     const std::wstring_view* lines, const std::int32_t, const std::int32_t lineCount,
     const wchar_t* const footer, const std::int8_t footerColor)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -381,7 +384,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
             5, 12, titleColor, title, 0, 0));
     }
-    gTooltipColorD67D30 = 0;
+    interaction.tooltipColor = 0;
     std::int32_t lineY = 0;
     for (std::int32_t line = 0; line < lineCount; ++line) {
         if (!lines->empty()) {
@@ -390,6 +393,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
             const std::int32_t shortX =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
             static_cast<void>(WindowItem_SplitTooltipLines(
+                session,
                 shortX + 10, shortY + lineY + 22, 5, 12, 0, *lines, 0, 0));
         }
         lineY += 13;
@@ -663,6 +667,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
             (platform::gLegacyMouseState.mouseX < 320);
         const std::int32_t x = (platform::gLegacyMouseState.mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(WindowItem_DrawDescriptionLines(
+            *callbackWindow.ownerSession,
             x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =

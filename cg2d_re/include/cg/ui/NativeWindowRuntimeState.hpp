@@ -1048,6 +1048,12 @@ struct WindowInteractionRuntimeState {
     const void* previewIdentity = nullptr; // 只比较借用记录身份，不拥有或解引用。
     std::int32_t previewPageCount = 0;
     std::int32_t previewPage = 0;
+    std::int32_t tooltipColor = 0; // 原0xD67D30，色码分段跨行续接。
+    std::int32_t hoverObjectValue = 0; // 原0xD68AC8，主悬停文字低字节颜色。
+    std::wstring hoverTitle {}; // 原0xD68BF4。
+    std::int32_t hoverTitleValue = 0; // 原0xD69748，副标题低字节颜色。
+    std::int32_t bottomHover = 0; // 原0xD2EA70，底栏严格判1。
+    std::uint64_t bottomRequestTime = 0; // 原0xD67AF0，完整秒差30秒门禁。
 };
 
 // 窗口44的十条交易候选及回送，名称在点击期间借用所属会话字符串。

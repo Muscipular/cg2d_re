@@ -36,17 +36,6 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, std::
 
 // 控件载荷、窗口状态、组件表与原型。
 
-std::int32_t gHoverObjectValueD68AC8 = 0; // 原全局：0x00D68AC8。
-
-std::wstring gHoverTitleD68BF4 {}; // 原全局：0x00D68BF4。
-
-std::int32_t gHoverTitleValueD69748 = 0; // 原全局：0x00D69748。
-
-// 原全局：0x00D2EA70。 473840的case0写U8(state)&1，4731E0严格判1。
-static std::int32_t gWindow6HoverD2EA70 = 0; // 原全局：0x00D2EA70。
-
-static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原全局：0x00D67AF0。 CTM01保持完整64位秒差作30秒门禁。
-
 static WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4C0。
 
 static WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4D8。
@@ -106,11 +95,12 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
     auto& session = *currentWindow->ownerSession;
     std::int32_t consumed = 0;
     switch (static_cast<WindowBottomBarElementId>(elementId)) {
     case WindowBottomBarElementId::HandleButtons:
-        gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & MouseFlag_Hover;
+        interaction.bottomHover = static_cast<std::uint8_t>(state) & MouseFlag_Hover;
         return 0;
     case WindowBottomBarElementId::HandleButtons_2: {
         auto* const handleButtons_2Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_2);
@@ -341,11 +331,11 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::uint64_t now = platform::ReadSystemSeconds_4589D0();
-            const std::uint64_t previous = gWindow6RequestTimeD67AF0;
+            const std::uint64_t previous = interaction.bottomRequestTime;
             const std::int64_t elapsed = std::bit_cast<std::int64_t>(now - previous);
             if (elapsed >= 30) {
                 static_cast<void>(session.Connection().SendIuEPacket());
-                gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
+                interaction.bottomRequestTime = platform::ReadSystemSeconds_4589D0();
             } else {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"请等待30秒后再操作", 4, 3);
             }
@@ -366,7 +356,8 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gWindow6HoverD2EA70 == 1 || uiFrame.hoverText.empty()) {
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
+    if (interaction.bottomHover == 1 || uiFrame.hoverText.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
@@ -379,12 +370,12 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
             if (!uiFrame.hoverText.empty()) {
                 uiFrame.hoverText.resize(uiFrame.hoverText.size() - 5);
             }
-            gHoverObjectValueD68AC8 = 1;
+            interaction.hoverObjectValue = 1;
         } else if (uiFrame.hoverText.find(L"[kok]") != std::wstring::npos) {
             if (!uiFrame.hoverText.empty()) {
                 uiFrame.hoverText.resize(uiFrame.hoverText.size() - 5);
             }
-            gHoverObjectValueD68AC8 = 5;
+            interaction.hoverObjectValue = 5;
         }
 
         auto* mainElementsWindow = currentWindow;
@@ -392,17 +383,17 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         if (element12) {
             auto* const mainText = element12->data.text;
             mainText->text = uiFrame.hoverText;
-            mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
+            mainText->style.color = *reinterpret_cast<const std::byte*>(&interaction.hoverObjectValue);
         }
-        if (gHoverTitleD68BF4.size() != 0) {
+        if (interaction.hoverTitle.size() != 0) {
             if (auto* const element13 = currentWindow->FindElementById(WindowBottomBarElementId::Element13); element13) element13->visible = 1;
         }
         auto* titleElementsWindow = currentWindow;
         auto* const element13 = titleElementsWindow->FindElementById(WindowBottomBarElementId::Element13);
         if (element13) {
             auto* const titleText = element13->data.text;
-            titleText->text = gHoverTitleD68BF4;
-            titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
+            titleText->text = interaction.hoverTitle;
+            titleText->style.color = *reinterpret_cast<const std::byte*>(&interaction.hoverTitleValue);
         }
         for (std::int32_t index = 1; index <= 7; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
@@ -420,9 +411,9 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         text->text = description;
     }
     uiFrame.hoverText.clear();
-    gHoverObjectValueD68AC8 = 0;
-    gHoverTitleD68BF4.clear();
-    gHoverTitleValueD69748 = 0;
+    interaction.hoverObjectValue = 0;
+    interaction.hoverTitle.clear();
+    interaction.hoverTitleValue = 0;
     return 1;
 }
 

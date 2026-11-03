@@ -47,6 +47,10 @@ struct LoginSceneState {
     std::int32_t capability3InputPending = 0; // 原 0x9A6E9C。
     std::int32_t loginInputFocus = 1; // 原 0x55A048。
     std::int32_t loginInputPending = 0; // 原 0x9A6E28。
+    std::int32_t capability4FrameCounter = 0; // 原 0x9A4F2C。
+    std::int32_t capability4IntroAlpha = 0; // 原 0x9A4D00。
+    std::int32_t capability4IntroPhase = 0; // 原 0x9A4B7C。
+    std::wstring capability4Message; // 原 0x9A4A78。
     std::array<input::InputContext*, 3> inputFocusTable {
         &context9A5960, &context9A5678, &context9A5960,
     }; // 原 0x559FFC；借用本实例的两个上下文。

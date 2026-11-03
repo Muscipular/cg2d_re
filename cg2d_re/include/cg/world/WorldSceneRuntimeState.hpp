@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <string>
 
@@ -91,6 +92,22 @@ struct TileTransitionState {
     std::array<std::int32_t, 64> sourceX {}; // 原 0xFF0E7C。
 };
 
+struct GridTransitionOffset {
+    std::int32_t x;
+    std::int32_t y;
+};
+static_assert(sizeof(GridTransitionOffset) == 8);
+static_assert(offsetof(GridTransitionOffset, y) == 4);
+
+// 网格/顶底扫描线共用初始化标志和比例，中心扫描线的比例独立。
+struct ImageTransitionState {
+    std::uint32_t initialized = 0; // 原 0xFF4910。
+    std::int32_t scale = 0; // 原 0xFF0D78。
+    std::int32_t halfScale = 0; // 原 0xFF0F7C。
+    std::array<GridTransitionOffset, 960> offsets {}; // 原 0xFF28C0。
+};
+static_assert(sizeof(ImageTransitionState::offsets) == 0xFF46C0 - 0xFF28C0);
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -101,6 +118,7 @@ struct WorldSceneRuntimeState {
     ChatInputHistoryState chatInputHistory {};
     QuadrantTransitionState quadrantTransition {};
     TileTransitionState tileTransition {};
+    ImageTransitionState imageTransition {};
     std::uint32_t transitionResetPending = 1; // 原 0x58B6D0，各转场模式共用的首次初始化门禁。
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。

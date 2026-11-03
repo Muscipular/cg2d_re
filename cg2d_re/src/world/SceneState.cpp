@@ -94,19 +94,6 @@ static float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
 static float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
 static float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
 static float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
-// 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
-static std::uint32_t gImageTransitionInitializedFF4910 = 0; // 原全局：0x00FF4910。
-static std::int32_t gImageTransitionScaleFF0D78 = 0; // 原全局：0x00FF0D78。
-static std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原全局：0x00FF0F7C。 原51FC90独立比例，不属于源X数组。
-struct GridTransitionOffset {
-    std::int32_t x;
-    std::int32_t y;
-};
-static_assert(sizeof(GridTransitionOffset) == 8);
-static_assert(offsetof(GridTransitionOffset, y) == 4);
-static std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {}; // 原全局：0x00FF28C0。
-static_assert(sizeof(gGridTransitionOffsetsFF28C0) == 0xFF46C0 - 0xFF28C0);
-
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
 static void InitializeTileTransitionGrid(
     TileTransitionState& tile, const std::int32_t state, const bool aboveScreen)
@@ -7758,6 +7745,9 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
 std::int32_t ProcessSceneGridScaleTransition_51F610(session::ClientSession& session, const std::int32_t value)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
+    auto& gImageTransitionInitializedFF4910 = session.WorldScene().imageTransition.initialized;
+    auto& gImageTransitionScaleFF0D78 = session.WorldScene().imageTransition.scale;
+    auto& gGridTransitionOffsetsFF28C0 = session.WorldScene().imageTransition.offsets;
     bool initialize;
     if (gSceneTransitionResetPending_58B6D0 == 1) {
         gSceneTransitionResetPending_58B6D0 = 0;
@@ -7828,6 +7818,8 @@ static std::int32_t ProcessScanlineTransition(
     session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
+    auto& gImageTransitionInitializedFF4910 = session.WorldScene().imageTransition.initialized;
+    auto& gImageTransitionScaleFF0D78 = session.WorldScene().imageTransition.scale;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
     bool initialize;
@@ -7920,6 +7912,7 @@ std::int32_t ProcessSceneCenterScanlineTransition_51FC90(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
+    auto& gHalfTransitionScaleFF0F7C = session.WorldScene().imageTransition.halfScale;
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     if (step == 0) {
         step = 8;

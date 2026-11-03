@@ -86,63 +86,40 @@ static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
     return true;
 }
 
-enum {
-    CHK_TYPE_SIMPLE,
-    CHK_TYPE_LUA,
-    CHK_REC_ITEM,
-    CHK_REC_SKILL,
-    CHK_STOP_LV1,
-    CHK_STOP_BOSS,
-    CHK_STOP_BAG_FULL,
-    CHK_STOP_LOST_PARTY,
-    CHK_STOP_DEATH,
-    CHK_TARGET_AUTO,
-    CHK_TARGET_LAST,
-    CHK_SKILL_LV_AUTO,
-    CHK_SKILL_LV_LAST,
-    CHK_MAX,
-};
-
-static struct {
+static constexpr struct {
     short x, y;
     short w, h;
     const wchar_t* msg;
-    char index;
-    char value;
     char group;
 } checkboxList[]{
-        {67,          31,          50,  14, L"重复上一回合动作",     CHK_TYPE_SIMPLE,     1, 1},
-        {67 + 52,     31,          50,  14, L"LUA控制行为",          CHK_TYPE_LUA,        0, 1},
+        {67,          31,          50,  14, L"重复上一回合动作",     1},
+        {67 + 52,     31,          50,  14, L"LUA控制行为",          1},
         //
-        {67,          31 + 19,     50,  14, L"使用血瓶",             CHK_REC_ITEM,        0, 0},
-        {67 + 52,     31 + 19,     50,  14, L"使用补血技能",         CHK_REC_SKILL,       0, 0},
+        {67,          31 + 19,     50,  14, L"使用血瓶",             0},
+        {67 + 52,     31 + 19,     50,  14, L"使用补血技能",         0},
         //
-        {67,          31 + 19 * 2, 50,  14, L"遇到1级怪物时暂停",    CHK_STOP_LV1,        0, 0},
-        {67 + 52,     31 + 19 * 2, 50,  14, L"遇到BOSS时暂停",       CHK_STOP_BOSS,       0, 0},
-        {67 + 52 * 2, 31 + 19 * 2, 50,  14, L"背包当前页装满时暂停", CHK_STOP_BAG_FULL,   0, 0},
+        {67,          31 + 19 * 2, 50,  14, L"遇到1级怪物时暂停",    0},
+        {67 + 52,     31 + 19 * 2, 50,  14, L"遇到BOSS时暂停",       0},
+        {67 + 52 * 2, 31 + 19 * 2, 50,  14, L"背包当前页装满时暂停", 0},
         //
-        {67,          31 + 19 * 3, 50,  14, L"队友掉线/离队时暂停",  CHK_STOP_LOST_PARTY, 0, 0},
-        {67 + 52,     31 + 19 * 3, 100, 14, L"队友死亡时暂停",       CHK_STOP_DEATH,      0, 0},
+        {67,          31 + 19 * 3, 50,  14, L"队友掉线/离队时暂停",  0},
+        {67 + 52,     31 + 19 * 3, 100, 14, L"队友死亡时暂停",       0},
         //
-        {67,          31 + 19 * 4, 50,  14, L"自动选择最优目标",     CHK_TARGET_AUTO,     0, 3},
-        {67 + 52,     31 + 19 * 4, 100, 14, L"选择上次选中的目标",   CHK_TARGET_LAST,     1, 3},
+        {67,          31 + 19 * 4, 50,  14, L"自动选择最优目标",     3},
+        {67 + 52,     31 + 19 * 4, 100, 14, L"选择上次选中的目标",   3},
         //
-        {67,          31 + 19 * 5, 50,  14, L"自动选取技能等级",     CHK_SKILL_LV_AUTO,   0, 2},
-        {67 + 52,     31 + 19 * 5, 50,  14, L"最后使用的技能等级",   CHK_SKILL_LV_LAST,   1, 2},
+        {67,          31 + 19 * 5, 50,  14, L"自动选取技能等级",     2},
+        {67 + 52,     31 + 19 * 5, 50,  14, L"最后使用的技能等级",   2},
 
 };
-
-static bool clicked = false;
-static short lastX = 0, lastY = 0;
+static_assert(std::size(checkboxList) == CHK_MAX);
 enum {
     SIMPLE_MODE_OFF = 0,
     SIMPLE_MODE_FULL = 1,
     SIMPLE_MODE_HIDE = 2,
 };
-static int simpleMode = SIMPLE_MODE_FULL;
-static bool enableAutoBattle = false;
 
-static void MakeAutoBattle();
+static void MakeAutoBattle(session::ClientSession& session);
 
 static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
 
@@ -400,6 +377,7 @@ static void PushAction(lua_State* L, const Action& action) {
 
 static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     auto& runtime = session.Lua();
+    const auto& values = runtime.autoBattlePanel.checkboxValues;
     runtime.autoBattleActionCount = 0;
     lua_newtable(L);
     lua_pushinteger(L, session.WorldScene().battle.turn);
@@ -416,36 +394,36 @@ static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     }
     lua_pushinteger(L, n);
     lua_setfield(L, -2, "partyCount");
-    if (checkboxList[CHK_TYPE_SIMPLE].value) {
+    if (values[CHK_TYPE_SIMPLE]) {
         lua_createtable(L, 2, 0);
         for (int i = 0; i < 2; ++i) { PushAction(L, runtime.autoBattleContext.action[i]); lua_rawseti(L, -2, i + 1); }
         lua_setfield(L, -2, "lastAction");
     }
-    lua_pushboolean(L, checkboxList[CHK_TYPE_SIMPLE].value);
+    lua_pushboolean(L, values[CHK_TYPE_SIMPLE]);
     lua_setfield(L, -2, "CHK_TYPE_SIMPLE");
-    lua_pushboolean(L, checkboxList[CHK_TYPE_LUA].value);
+    lua_pushboolean(L, values[CHK_TYPE_LUA]);
     lua_setfield(L, -2, "CHK_TYPE_LUA");
-    lua_pushboolean(L, checkboxList[CHK_REC_ITEM].value);
+    lua_pushboolean(L, values[CHK_REC_ITEM]);
     lua_setfield(L, -2, "CHK_REC_ITEM");
-    lua_pushboolean(L, checkboxList[CHK_REC_SKILL].value);
+    lua_pushboolean(L, values[CHK_REC_SKILL]);
     lua_setfield(L, -2, "CHK_REC_SKILL");
-    lua_pushboolean(L, checkboxList[CHK_STOP_LV1].value);
+    lua_pushboolean(L, values[CHK_STOP_LV1]);
     lua_setfield(L, -2, "CHK_STOP_LV1");
-    lua_pushboolean(L, checkboxList[CHK_STOP_BOSS].value);
+    lua_pushboolean(L, values[CHK_STOP_BOSS]);
     lua_setfield(L, -2, "CHK_STOP_BOSS");
-    lua_pushboolean(L, checkboxList[CHK_STOP_BAG_FULL].value);
+    lua_pushboolean(L, values[CHK_STOP_BAG_FULL]);
     lua_setfield(L, -2, "CHK_STOP_BAG_FULL");
-    lua_pushboolean(L, checkboxList[CHK_STOP_LOST_PARTY].value);
+    lua_pushboolean(L, values[CHK_STOP_LOST_PARTY]);
     lua_setfield(L, -2, "CHK_STOP_LOST_PARTY");
-    lua_pushboolean(L, checkboxList[CHK_STOP_DEATH].value);
+    lua_pushboolean(L, values[CHK_STOP_DEATH]);
     lua_setfield(L, -2, "CHK_STOP_DEATH");
-    lua_pushboolean(L, checkboxList[CHK_TARGET_AUTO].value);
+    lua_pushboolean(L, values[CHK_TARGET_AUTO]);
     lua_setfield(L, -2, "CHK_TARGET_AUTO");
-    lua_pushboolean(L, checkboxList[CHK_TARGET_LAST].value);
+    lua_pushboolean(L, values[CHK_TARGET_LAST]);
     lua_setfield(L, -2, "CHK_TARGET_LAST");
-    lua_pushboolean(L, checkboxList[CHK_SKILL_LV_AUTO].value);
+    lua_pushboolean(L, values[CHK_SKILL_LV_AUTO]);
     lua_setfield(L, -2, "CHK_SKILL_LV_AUTO");
-    lua_pushboolean(L, checkboxList[CHK_SKILL_LV_LAST].value);
+    lua_pushboolean(L, values[CHK_SKILL_LV_LAST]);
     lua_setfield(L, -2, "CHK_SKILL_LV_LAST");
     lua_createtable(L, 20, 0);
     for (int i = 0; i < 20; ++i) { PushBattleEntry(L, i); lua_rawseti(L, -2, i + 1); }
@@ -472,7 +450,7 @@ static bool EmitAutoBattle(session::ClientSession& session) {
 static void DoAutoBattle(session::ClientSession& session) {
     if (world::gCurrentSceneType == SCENE_BATTLE && world::gCurrentSceneState == 4) {
         if (session.Lua().autoBattleActionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction();
-        else enableAutoBattle = false;
+        else session.Lua().autoBattlePanel.enabled = false;
     }
 }
 static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
@@ -511,10 +489,11 @@ static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
 // 面板沿原坐标、图号、互斥选项和鼠标规则；载荷由C++容器持有。
 struct AutoBattleWindow final : UIWindowInstanceEx {
     std::array<ui::WindowGraphicData, CHK_MAX + 3> graphics{};
-    AutoBattleWindow(int id, int x, int width, int height, int count) {
+    AutoBattleWindow(session::ClientSession& session, int id, int x, int width, int height, int count) {
         window.id = id; window.x = x; window.y = 100;
         window.width = width; window.height = height;
         window.state = WIN_STATE_ACTIVE; window.layer = 4;
+        window.ownerSession = &session;
         for (int slot = 0; slot < count; ++slot) {
             auto& element = ui::WindowRuntime_AddElement(window, ui::NativeElementKey(slot));
             element.seqNo = slot;
@@ -534,9 +513,10 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
         element->visible = 1; element->data.graphic = &graphics[ix]; element->mouseCallback = callback;
     }
     int update(int stage, int) override {
-        if (window.id == WIN_AUTOBATTLE && clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
-            window.x += gMouseX - lastX; window.y += gMouseY - lastY;
-            lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY));
+        auto& panel = window.ownerSession->Lua().autoBattlePanel;
+        if (window.id == WIN_AUTOBATTLE && panel.clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
+            window.x += gMouseX - panel.lastX; window.y += gMouseY - panel.lastY;
+            panel.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); panel.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY));
         }
         ui::detail::WindowRuntime_UpdateExtendedElements();
         return stage;
@@ -551,26 +531,29 @@ static ui::WindowGraphicData* CurrentGraphic(ui::ElementId elementId) {
     return element ? element->data.graphic : nullptr;
 }
 
-static void MakeAutoBattleSimple() {
-    if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
-    auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
-        simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
+static void MakeAutoBattleSimple(session::ClientSession& session) {
+    auto& state = session.Lua().autoBattlePanel;
+    if (state.simpleMode == SIMPLE_MODE_OFF) state.simpleMode = SIMPLE_MODE_FULL;
+    auto panel = std::make_shared<AutoBattleWindow>(session, WIN_AUTOBATTLE_SIMPLE,
+        state.simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
     panel->window.category = 0;
     auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;
     toggle->mouseCallback = +[](ui::ElementId, int mouse) {
             if (mouse & 2) {
-                simpleMode = simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;
-                gCurrentWindow->x = simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
+                auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+                state.simpleMode = state.simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;
+                gCurrentWindow->x = state.simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
             }
             return (mouse & 2) ? 1 : 0;
         };
     panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](ui::ElementId, int mouse) {
         if (mouse & 2) {
-            simpleMode = SIMPLE_MODE_OFF;
+            auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+            state.simpleMode = SIMPLE_MODE_OFF;
             gCurrentWindow->state |= WIN_STATE_CLOSE;
-            MakeAutoBattle();
+            MakeAutoBattle(*gCurrentWindow->ownerSession);
         }
         return (mouse & 2) ? 1 : 0;
     });
@@ -578,27 +561,29 @@ static void MakeAutoBattleSimple() {
     WindowExOpen(base);
 }
 
-static void MakeAutoBattle() {
-    auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE, 50, 240, 185, CHK_MAX + 3);
+static void MakeAutoBattle(session::ClientSession& session) {
+    auto panel = std::make_shared<AutoBattleWindow>(session, WIN_AUTOBATTLE, 50, 240, 185, CHK_MAX + 3);
     panel->window.category = 1;
     for (int ix = 0; ix < CHK_MAX; ++ix) {
         const auto& check = checkboxList[ix];
         panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](ui::ElementId elementId, int mouse) {
             const int index = static_cast<int>(elementId) - 1; // 复选项数组从0开始。
-            auto& check = checkboxList[index];
+            const auto& check = checkboxList[index];
+            auto& values = gCurrentWindow->ownerSession->Lua().autoBattlePanel.checkboxValues;
             if (mouse & 1) ui::detail::gHoverTextD68AE8 = check.msg;
             if (mouse & 2) {
-                if (check.group) for (auto& other : checkboxList) if (other.group == check.group) other.value = 0;
-                check.value = check.value ? 0 : 1;
+                if (check.group) for (int other = 0; other < CHK_MAX; ++other)
+                    if (checkboxList[other].group == check.group) values[other] = 0;
+                values[index] = values[index] ? 0 : 1;
             }
-            if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = check.value ? 641501 : 641502;
+            if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = values[index] ? 641501 : 641502;
             return (mouse & 2) ? 1 : 0;
         });
     }
     panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](ui::ElementId elementId, int mouse) {
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = L"关闭窗口";
         if (mouse & 2) {
-            MakeAutoBattleSimple();
+            MakeAutoBattleSimple(*gCurrentWindow->ownerSession);
             gCurrentWindow->state |= WIN_STATE_CLOSE;
             return 1;
         }
@@ -609,18 +594,20 @@ static void MakeAutoBattle() {
     panel->graphics[CHK_MAX].offsetY = -1;
     panel->graphics[CHK_MAX].width = panel->graphics[CHK_MAX].height = 12;
     panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](ui::ElementId elementId, int mouse) {
-        if (mouse & 1) ui::detail::gHoverTextD68AE8 = enableAutoBattle ? L"停止自动战斗" : L"开始自动战斗";
+        auto& enabled = gCurrentWindow->ownerSession->Lua().autoBattlePanel.enabled;
+        if (mouse & 1) ui::detail::gHoverTextD68AE8 = enabled ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
             const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
-            if ((world::gCurrentSceneState == 4 && count == 0) || enableAutoBattle || world::gCurrentSceneState != 4)
-                enableAutoBattle = !enableAutoBattle;
+            if ((world::gCurrentSceneState == 4 && count == 0) || enabled || world::gCurrentSceneState != 4)
+                enabled = !enabled;
         }
-        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = enableAutoBattle ? 640188 : ((mouse & 1) ? 640187 : 640186);
+        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = enabled ? 640188 : ((mouse & 1) ? 640187 : 640186);
         return (mouse & 2) ? 1 : 0;
     });
     panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](ui::ElementId, int mouse) {
-        if (mouse & 2) { clicked = true; lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
-        else if (clicked && !(mouse & 8)) clicked = false;
+        auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+        if (mouse & 2) { state.clicked = true; state.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); state.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
+        else if (state.clicked && !(mouse & 8)) state.clicked = false;
         return (mouse & 2) ? 1 : 0;
     });
     std::shared_ptr<UIWindowInstanceEx> base = panel;
@@ -664,18 +651,17 @@ void InitializeAutoBattle(session::ClientSession& session) {
 }
 
 void ShutdownAutoBattle(session::ClientSession& session) {
-    autobattle_detail::enableAutoBattle = autobattle_detail::clicked = false;
-    autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
     auto& runtime = session.Lua();
     runtime.autoBattleRequireAction = false;
     runtime.autoBattleActionSetup = false;
     runtime.autoBattleActionCount = 0;
     runtime.autoBattleContext = {};
+    runtime.autoBattlePanel = {};
 }
 
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::string_view packet) {
-    if (!GetBattleLuaState(networkConnection.Owner()) || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
+    if (!GetBattleLuaState(networkConnection.Owner()) || networkConnection.Owner().Lua().autoBattlePanel.enabled || !packet.starts_with("Rg ")) return;
     auto& runtime = networkConnection.Owner().Lua();
     switch (networkConnection.Owner().WorldScene().battle.battleType) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
@@ -723,7 +709,7 @@ void AutoBattleProc(session::ClientSession& session) {
     bool isOpen = winAutoBattle || winAutoBattleSimple;
     if (world::gCurrentSceneType == SCENE_BATTLE) {
         if (world::gCurrentSceneState == 1) {
-            autobattle_detail::simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
+            runtime.autoBattlePanel.simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
         }
         if (runtime.autoBattleRequireAction) {
             runtime.autoBattleContext.action[0] = runtime.autoBattleContext.actionNew[0];
@@ -732,16 +718,16 @@ void AutoBattleProc(session::ClientSession& session) {
             runtime.autoBattleRequireAction = false;
         }
         if (!isOpen && world::gCurrentSceneState >= 3 && world::gCurrentSceneState < 7) {
-            if (autobattle_detail::simpleMode) {
-                autobattle_detail::MakeAutoBattleSimple();
+            if (runtime.autoBattlePanel.simpleMode) {
+                autobattle_detail::MakeAutoBattleSimple(session);
             } else {
-                autobattle_detail::MakeAutoBattle();
+                autobattle_detail::MakeAutoBattle(session);
             }
         } else if (world::gCurrentSceneState >= 7) {
             CgWindowClose(WIN_AUTOBATTLE);
             CgWindowClose(WIN_AUTOBATTLE_SIMPLE);
         }
-        if (autobattle_detail::enableAutoBattle) {
+        if (runtime.autoBattlePanel.enabled) {
             autobattle_detail::DoAutoBattle(session);
         }
     }

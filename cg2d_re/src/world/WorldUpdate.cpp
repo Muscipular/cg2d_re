@@ -127,8 +127,8 @@ void Update(session::ClientSession& session)
         detail::ResetSceneUiState_504100();
         detail::ClearContactAndGuildMailStorage_518C80();
         detail::LoadContactAndGuildMailFiles_518CB0();
-        gPendingMapBgmIndex_FF0D5C = 0xFFFFFFFFu;
-        gMapBgmChangePending_FF0D58 = 0;
+        session.WorldScene().pendingMapBgmIndex = 0xFFFFFFFFu;
+        session.WorldScene().mapBgmChangePending = 0;
         gLogoutToTownPending_D67E78 = 0;
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
@@ -151,7 +151,7 @@ void Update(session::ClientSession& session)
     case 8:
         return;
     case 9:
-        detail::DrawNormalScene_51C7D0();
+        detail::DrawNormalScene_51C7D0(session);
         return;
     case 10:
         detail::DrawBattleScene_43CBB0();

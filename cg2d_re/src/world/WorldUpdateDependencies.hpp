@@ -104,7 +104,7 @@ void ResetLogoutScene_45ED80(session::ClientSession& session); // 原 [0x45ED80,
 // 原函数：0x0045ED90。
 std::int32_t UpdateLogoutScene_45ED90(session::ClientSession& session); // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 // 原函数：0x0051C7D0。
-void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
+void DrawNormalScene_51C7D0(session::ClientSession& session); // 原 World::DrawNormalScene@0x51C7D0。
 // 原函数：0x0051D5B0。
 void* __cdecl PrepareMapTransitionObservationState_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 // 原函数：0x0051D750。

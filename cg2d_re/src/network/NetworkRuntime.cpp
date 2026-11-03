@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
@@ -230,7 +231,7 @@ std::uint16_t Sub_50D3B0(cg::network::CgConnection&,
 }
 
 // 原 [0x50E310,0x50E33B)：先读门禁，只有合法范围才依序发布两槽。
-std::int32_t HandleMapBgmChangeReply_50E310(cg::network::CgConnection&,
+std::int32_t HandleMapBgmChangeReply_50E310(cg::network::CgConnection& connection,
     const std::int32_t value)
 {
     const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
@@ -238,8 +239,8 @@ std::int32_t HandleMapBgmChangeReply_50E310(cg::network::CgConnection&,
         return std::bit_cast<std::int32_t>(gate);
     }
     if (value >= 200 && value <= 249) {
-        world::gPendingMapBgmIndex_FF0D5C = static_cast<std::uint32_t>(value);
-        world::gMapBgmChangePending_FF0D58 = 1;
+        connection.Owner().WorldScene().pendingMapBgmIndex = static_cast<std::uint32_t>(value);
+        connection.Owner().WorldScene().mapBgmChangePending = 1;
     }
     return value;
 }

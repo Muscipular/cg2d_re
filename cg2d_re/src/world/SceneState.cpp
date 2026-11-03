@@ -78,7 +78,6 @@ static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x0
 static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
 static std::int32_t gWorldSceneInitialized_FF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
 static std::int32_t gWorldSceneWaitFrames_FF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
-static std::int32_t gWorldBgmResumeIndex_FF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
 static cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
 static std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
@@ -566,8 +565,6 @@ std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 std::uint32_t gBattleEntryPending_5ABFC4 = 0; // 原全局：0x005ABFC4。
 std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
-std::uint32_t gPendingMapBgmIndex_FF0D5C = 0; // 原全局：0x00FF0D5C。
-std::uint32_t gMapBgmChangePending_FF0D58 = 0; // 原全局：0x00FF0D58。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
 std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
 std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
@@ -3598,8 +3595,9 @@ void OpenPendingBattleResultWindow_504A50()
 }
 
 // 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
-void DrawNormalScene_51C7D0()
+void DrawNormalScene_51C7D0(session::ClientSession& session)
 {
+    auto& worldScene = session.WorldScene();
     switch (gCurrentSceneState) {
     case 0:
         gCurrentSceneState = 100;
@@ -3655,13 +3653,13 @@ void DrawNormalScene_51C7D0()
         render::gRenderQueueMode103CF10 = 1;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        if (gMapBgmChangePending_FF0D58 != 0) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
+        if (worldScene.mapBgmChangePending != 0) {
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-            gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
-            gMapBgmChangePending_FF0D58 = 0;
+            worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+            worldScene.mapBgmChangePending = 0;
             audio::gBgmRequest1050810 = 1;
         } else {
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
@@ -3770,16 +3768,16 @@ void DrawNormalScene_51C7D0()
         if (ProcessSceneTransitionEffect_51FDE0(selector, steps, 0x40000000u) == 1) {
             ui::WindowRuntime_ProcessScene();
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
-            const std::uint32_t changeBgm = gMapBgmChangePending_FF0D58;
+            const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
             gCurrentSceneState = 20;
             gLogoutToTownPending_D67E78 = 0;
             if (changeBgm != 0) {
-                static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
+                static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
                 static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                 static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-                gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
-                gMapBgmChangePending_FF0D58 = 0;
+                worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+                worldScene.mapBgmChangePending = 0;
                 audio::gBgmRequest1050810 = 1;
             }
             static_cast<void>(ui::WindowRuntime_Render());
@@ -3808,7 +3806,7 @@ void DrawNormalScene_51C7D0()
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0();
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
-        gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
+        worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
         gCurrentSceneState = 251;
         [[fallthrough]];
     }
@@ -3860,15 +3858,15 @@ void DrawNormalScene_51C7D0()
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render());
-        const std::uint32_t changeBgm = gMapBgmChangePending_FF0D58;
+        const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
         gLogoutToTownPending_D67E78 = 0;
         if (changeBgm != 0) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-            gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
-            gMapBgmChangePending_FF0D58 = 0;
+            worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+            worldScene.mapBgmChangePending = 0;
             audio::gBgmRequest1050810 = 1;
         }
         gCurrentSceneState = 20;
@@ -3904,16 +3902,16 @@ void DrawNormalScene_51C7D0()
             InvalidateMapDrawPosition_4691D0();
             DrawMapSceneWithMarkers_469020();
             if (audio::gBgmRequest1050810 == 0) {
-                if (gMapBgmChangePending_FF0D58 != 0) {
-                    static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
+                if (worldScene.mapBgmChangePending != 0) {
+                    static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
                     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                     static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-                    gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
-                    gMapBgmChangePending_FF0D58 = 0;
-                    gPendingMapBgmIndex_FF0D5C = 0xFFFFFFFFu;
+                    worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+                    worldScene.mapBgmChangePending = 0;
+                    worldScene.pendingMapBgmIndex = 0xFFFFFFFFu;
                 } else {
-                    const std::int32_t bgm = gWorldBgmResumeIndex_FF0D68;
+                    const std::int32_t bgm = worldScene.worldBgmResumeIndex;
                     audio::gBgmTarget1050818 = bgm;
                     static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
                 }
@@ -4034,7 +4032,7 @@ void DrawNormalScene_51C7D0()
         ResumePlayerAfterObservation_51BEF0();
         platform::RequestRender_457010();
         static_cast<void>(audio::PlaySe_52C450(201, 320));
-        gWorldBgmResumeIndex_FF0D68 = audio::ReadBgmRecordIndex58D4F8();
+        worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8();
         audio::ResetBgmPlayback_52B940();
         ++gCurrentSceneState;
         return;
@@ -10391,7 +10389,7 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
 }
 
 // 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
-std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection&, const std::int32_t a2, const std::int32_t a3,
+std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& connection, const std::int32_t a2, const std::int32_t a3,
     const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
     const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
     const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
@@ -10430,8 +10428,8 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection&, con
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
     if (a11 > 0) {
-        gPendingMapBgmIndex_FF0D5C = static_cast<std::uint32_t>(a11);
-        gMapBgmChangePending_FF0D58 = 1;
+        connection.Owner().WorldScene().pendingMapBgmIndex = static_cast<std::uint32_t>(a11);
+        connection.Owner().WorldScene().mapBgmChangePending = 1;
     }
     detail::gValue9EE8F8 = static_cast<std::uint32_t>(a13);
     return a11 > 0 ? a13 : a11;

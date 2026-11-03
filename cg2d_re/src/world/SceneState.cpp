@@ -81,19 +81,6 @@ struct TransitionLines {
 };
 // R02：私有行存储随已发布高度增长，原地址只标识数据身份，不约束现代容器布局。
 static TransitionLines gTransitionLines {};
-static float gTransitionXFF48E8 = 0.0f; // 原全局：0x00FF48E8。
-static float gTransitionAlternateXFF48EC = 0.0f; // 原全局：0x00FF48EC。
-static float gTransitionYFF48F0 = 0.0f; // 原全局：0x00FF48F0。
-static float gTransitionAlternateYFF48F4 = 0.0f; // 原全局：0x00FF48F4。
-static float gTransitionVelocityFF48F8 = 0.0f; // 原全局：0x00FF48F8。
-static float gTransitionActiveLinesFF48FC = 0.0f; // 原全局：0x00FF48FC。
-static std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原全局：0x0058B6D4。 原加载区初值FFFFFFFF。
-static std::int32_t gReverseTransitionActiveLinesFF276C = 0; // 原全局：0x00FF276C。
-static float gReverseTransitionVelocityFF47C4 = 0.0f; // 原全局：0x00FF47C4。
-static float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
-static float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
-static float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
-static float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
 static void InitializeTileTransitionGrid(
     TileTransitionState& tile, const std::int32_t state, const bool aboveScreen)
@@ -6661,6 +6648,13 @@ std::int32_t ProcessSceneSlideOut_51D790(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
+    auto& slide = session.WorldScene().slideTransition;
+    auto& gTransitionXFF48E8 = slide.x;
+    auto& gTransitionAlternateXFF48EC = slide.alternateX;
+    auto& gTransitionYFF48F0 = slide.y;
+    auto& gTransitionAlternateYFF48F4 = slide.alternateY;
+    auto& gTransitionVelocityFF48F8 = slide.velocity;
+    auto& gTransitionActiveLinesFF48FC = slide.activeLines;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::int32_t completed = 0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
@@ -6954,6 +6948,14 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
+    auto& slide = session.WorldScene().slideTransition;
+    auto& gReverseTransitionPhase58B6D4 = slide.reversePhase;
+    auto& gReverseTransitionActiveLinesFF276C = slide.reverseActiveLines;
+    auto& gReverseTransitionVelocityFF47C4 = slide.reverseVelocity;
+    auto& gReverseTransitionXFF4900 = slide.reverseX;
+    auto& gReverseTransitionAlternateXFF4904 = slide.reverseAlternateX;
+    auto& gReverseTransitionYFF4908 = slide.reverseY;
+    auto& gReverseTransitionAlternateYFF490C = slide.reverseAlternateY;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     std::int32_t phase;

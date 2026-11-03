@@ -108,6 +108,23 @@ struct ImageTransitionState {
 };
 static_assert(sizeof(ImageTransitionState::offsets) == 0xFF46C0 - 0xFF28C0);
 
+// 九模式滑屏的前向与反向数值；行向量另由窗口尺寸入口预备。
+struct SlideTransitionState {
+    float x = 0.0f; // 原 0xFF48E8。
+    float alternateX = 0.0f; // 原 0xFF48EC。
+    float y = 0.0f; // 原 0xFF48F0。
+    float alternateY = 0.0f; // 原 0xFF48F4。
+    float velocity = 0.0f; // 原 0xFF48F8。
+    float activeLines = 0.0f; // 原 0xFF48FC。
+    std::int32_t reversePhase = -1; // 原 0x58B6D4，加载区初值 -1。
+    std::int32_t reverseActiveLines = 0; // 原 0xFF276C。
+    float reverseVelocity = 0.0f; // 原 0xFF47C4。
+    float reverseX = 0.0f; // 原 0xFF4900。
+    float reverseAlternateX = 0.0f; // 原 0xFF4904。
+    float reverseY = 0.0f; // 原 0xFF4908。
+    float reverseAlternateY = 0.0f; // 原 0xFF490C。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -119,6 +136,7 @@ struct WorldSceneRuntimeState {
     QuadrantTransitionState quadrantTransition {};
     TileTransitionState tileTransition {};
     ImageTransitionState imageTransition {};
+    SlideTransitionState slideTransition {};
     std::uint32_t transitionResetPending = 1; // 原 0x58B6D0，各转场模式共用的首次初始化门禁。
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。

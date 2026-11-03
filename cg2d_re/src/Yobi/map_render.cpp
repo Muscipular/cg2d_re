@@ -22,6 +22,7 @@
 
 #include "animation.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/ChatHistory.hpp"
@@ -1017,7 +1018,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     if (position < 10) {
         // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
         if (payload != nullptr
-            && (cg::network::GetGameConnection().GameplaySettings().showEnemyHpBars
+            && (action->ownerSession->Connection().GameplaySettings().showEnemyHpBars
                 || payload->battlePosition18 < 10)) {
             if ((payload->flagsFDC & detail::BattleActorFlag_Morph) != 0) {
                 companion = 4;

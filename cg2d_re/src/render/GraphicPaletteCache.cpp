@@ -2,6 +2,8 @@
 
 #include "GraphicDxCacheState.hpp"
 #include "cg/render/Palette.hpp"
+#include "cg/render/GraphicDxCache.hpp"
+#include "cg/resource/GraphicRead.hpp"
 
 #include <cstring>
 #include <memory>
@@ -69,6 +71,20 @@ void ReleaseGraphicPaletteCache_44E110() noexcept
 {
     gOwnedGraphicPaletteCache.reset();
     gGraphicDataCacheList = nullptr;
+}
+
+void InvalidatePaletteColorCaches() noexcept
+{
+    for (auto& item : gGraphicDataCacheStatic) {
+        item.activePalIndex = -1;
+    }
+    if (gGraphicDataCacheList != nullptr) {
+        for (std::size_t index = 0; index < kGraphicPaletteDynamicCount; ++index) {
+            gGraphicDataCacheList[index].activePalIndex = -1;
+        }
+    }
+    InvalidateGraphicTexturePalettes();
+    resource::InvalidateIndependentPaletteColors();
 }
 
 // 原函数：0x0044E150。

@@ -438,6 +438,16 @@ void ResetTextureNodes_523310() noexcept
     }
 }
 
+// NSM01：共享色盘切换不重建节点，仅使实际着色结果失效。
+void InvalidateGraphicTexturePalettes() noexcept
+{
+    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {
+        auto& node = gTextureNodes[static_cast<std::size_t>(index)];
+        node.paletteChoice = -1;
+        node.paletteVersion = -1;
+    }
+}
+
 // 原函数：0x00523350。
 std::int32_t InvalidateGraphicRefs_523350() noexcept
 {

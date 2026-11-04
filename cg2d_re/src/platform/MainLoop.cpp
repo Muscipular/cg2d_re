@@ -1,5 +1,6 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include <format>
 #include "StartupNative.hpp"
@@ -162,6 +163,7 @@ int MainLoop(session::ClientSession& session)
             }
         }
         UpdateAudioAndSkipMciClose_52CD30(session, -1);
+        const bool paletteReady = render::PrepareSessionPalette(session);
         world::Update(session);
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
@@ -169,7 +171,9 @@ int MainLoop(session::ClientSession& session)
             render::SortTextures_520790();
             UpdateQueuedTextAndGraphicHover_507140(session);
         }
-        render::UpdatePalette_450BB0();
+        if (cg::session::GetClientHost().CurrentSession() == &session) {
+            render::UpdatePalette_450BB0();
+        }
         if (gWindowActiveState != 0) {
             cg::yobi::UpdateMapEnvironmentEffects_449160(session);
         }
@@ -217,10 +221,14 @@ int MainLoop(session::ClientSession& session)
         } else if (clearMode == 3) {
             ApplyScreenShake_423640(session);
         }
-        UpdateFrameDiagnostics(session);
+        if (paletteReady) {
+            UpdateFrameDiagnostics(session);
+        }
         render::DrawAllQueued_520DD0(session);
         world::CopyWorldProjectionState_468FF0(session);
-        render::Flip_44C560();
+        if (paletteReady) {
+            render::Flip_44C560();
+        }
 
         auto tick = getTickCount();
         while (!(static_cast<double>(tick) > gLastRenderDt)) {

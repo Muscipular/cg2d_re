@@ -543,6 +543,8 @@ struct WorldSceneRuntimeState {
     std::int32_t pendingSceneState = 0; // 原FF0D60。
     std::int32_t sceneState = 0; // 原FF0D64。
     std::int32_t pendingSceneType = 0; // 原FF0D6C，宿主原初始化位置置-1。
+    std::int32_t paletteIndex = 0; // NSM01：业务目标；色表和实际淡变仍由共享渲染器持有。
+    std::int32_t paletteTransitionSteps = 1; // 请求保留原最小一步，不保存后台插值现场。
     std::unique_ptr<std::array<detail::WorldObjectRecord, detail::kWorldObjectCapacity>> objects; // 原5AC4C0，中央位置构造。
     std::int32_t objectFindCursor = 0; // 原5AC498。
     std::int32_t objectFreeCursor = 0; // 原5AC49C。

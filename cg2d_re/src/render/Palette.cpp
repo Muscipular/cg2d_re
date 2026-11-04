@@ -3,6 +3,8 @@
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
+#include "cg/render/GraphicPaletteCache.hpp"
+#include "cg/session/ClientHost.hpp"
 
 #include <bit>
 #include <format>
@@ -120,6 +122,8 @@ float gPaletteToneRedStep = 0.0f; // 原全局：0x00628FF0。
 std::int32_t gPaletteToneTargetIndex = 0; // 原全局：0x00628BBC。
 std::int32_t gPaletteFrameVersion = 0; // 原全局：0x00628FDC。
 std::int32_t gPaletteVersionThrottle = 0; // 原全局：0x00629310。
+std::uint64_t gPalettePresentationGeneration = 0;
+static bool gPalettePresentationInvalid = false;
 
 static std::uint8_t redMap[256] {};   // 原 0x628FFC，gBGR_Data.r。
 static std::uint8_t greenMap[256] {}; // 原 0x6290FC，gBGR_Data.g。
@@ -289,22 +293,58 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
 }
 
 // PCR01：原450B70完整16条；S16门槛/39上界，steps先局部判非正再发布，原返回保持。
-std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept
+std::int32_t SelectSessionPalette(
+    session::ClientSession& session, std::int32_t index, std::int32_t steps) noexcept
 {
     if (index >= 39 || gPaletteFiles[index].threshold > gPaletteCapability) {
         return index;
     }
-    gActivePalette = index;
+    auto& scene = session.WorldScene();
+    scene.paletteIndex = index;
     const bool nonPositiveSteps = steps <= 0;
-    gPaletteTransitionSteps = steps;
+    scene.paletteTransitionSteps = steps;
     if (nonPositiveSteps) {
-        gPaletteTransitionSteps = 1;
+        scene.paletteTransitionSteps = 1;
+    }
+    if (cg::session::GetClientHost().CurrentSession() == &session) {
+        gActivePalette = scene.paletteIndex;
+        gPaletteTransitionSteps = scene.paletteTransitionSteps;
     }
     return steps;
 }
 
+std::int32_t ReadSessionPaletteChanging(session::ClientSession& session) noexcept
+{
+    return cg::session::GetClientHost().CurrentSession() == &session ? gPaletteChanging : 0;
+}
+
+void InvalidatePalettePresentation() noexcept
+{
+    gPalettePresentationInvalid = true;
+}
+
+bool PrepareSessionPalette(session::ClientSession& session)
+{
+    if (cg::session::GetClientHost().CurrentSession() != &session) {
+        return false;
+    }
+    if (!gPalettePresentationInvalid) {
+        return true;
+    }
+    gActivePalette = session.WorldScene().paletteIndex;
+    gPaletteTransitionSteps = session.WorldScene().paletteTransitionSteps;
+    static_cast<void>(UpdatePalette_450BB0(true));
+    if (gLoadedPalette != gActivePalette || gPaletteTransitionActive != 0) {
+        return false;
+    }
+    InvalidatePaletteColorCaches();
+    ++gPalettePresentationGeneration;
+    gPalettePresentationInvalid = false;
+    return true;
+}
+
 // 原函数：0x00450BB0。
-int UpdatePalette_450BB0()
+int UpdatePalette_450BB0(const bool completeImmediately)
 {
     const std::int32_t previousVersion = gPaletteFrameVersion;
     const std::int32_t previousActivePalette = gActivePalette;
@@ -400,7 +440,7 @@ int UpdatePalette_450BB0()
     const std::int32_t transitionSteps = gPaletteTransitionSteps;
     const std::int32_t transitionFrame = previousFrame + 1;
     gPaletteTransitionFrame = transitionFrame;
-    if (transitionFrame > transitionSteps) {
+    if (completeImmediately || transitionFrame > transitionSteps) {
         for (int i = 16; i < 240; ++i) {
             gPalette[i].blue = gPaletteTarget[i].blue;
             gPalette[i].green = gPaletteTarget[i].green;

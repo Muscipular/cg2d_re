@@ -56,18 +56,18 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             static_cast<void>(render::ClearSurface_4512C0());
             descriptor = {};
             colorBytes[3] = 0xFF;
-            static_cast<void>(render::SelectPalette(19, 1));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 1));
             phase = 1;
             cg::yobi::YobiClearUp_404D30(connection.Owner());
             break;
         }
         case 1:
             image = 22029;
-            static_cast<void>(render::SelectPalette(23, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 23, 30));
             phase = 5;
             break;
         case 2:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 3;
             }
@@ -75,13 +75,13 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 3: {
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
-                static_cast<void>(render::SelectPalette(19, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 phase = 4;
             }
             break;
         }
         case 4:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 std::int32_t mapped;
                 static_cast<void>(resource::GetGraphicMapNoIndex(238564, &mapped));
                 if (mapped < 1) {
@@ -92,11 +92,11 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             break;
         case 5:
             image = 99103;
-            static_cast<void>(render::SelectPalette(23, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 23, 30));
             phase = 6;
             break;
         case 6:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 7;
             }
@@ -104,23 +104,23 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 7: {
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
-                static_cast<void>(render::SelectPalette(19, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 phase = 8;
             }
             break;
         }
         case 8:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phase = 9;
             }
             break;
         case 9:
             image = 22027;
-            static_cast<void>(render::SelectPalette(34, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 34, 30));
             phase = 10;
             break;
         case 10:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 11;
             }
@@ -128,13 +128,13 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 11: {
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 4000u < now) {
-                static_cast<void>(render::SelectPalette(19, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 phase = 12;
             }
             break;
         }
         case 12:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 std::int32_t mapped;
                 static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
                 phase = mapped < 1 ? 13 : 17;
@@ -142,11 +142,11 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             break;
         case 13:
             image = 22028;
-            static_cast<void>(render::SelectPalette(22, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 22, 30));
             phase = 14;
             break;
         case 14:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 15;
             }
@@ -154,23 +154,23 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 15: {
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
-                static_cast<void>(render::SelectPalette(19, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 phase = 16;
             }
             break;
         }
         case 16:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phase = 26;
             }
             break;
         case 17:
             image = 22049;
-            static_cast<void>(render::SelectPalette(26, 60));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 26, 60));
             phase = 18;
             break;
         case 18:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 19;
             }
@@ -178,19 +178,19 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 19: {
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
-                static_cast<void>(render::SelectPalette(19, 60));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 60));
                 phase = 20;
             }
             break;
         }
         case 20:
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phase = 13;
             }
             break;
         case 21:
             image = 0;
-            static_cast<void>(render::SelectPalette(0, 1));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 0, 1));
             static_cast<void>(render::ClearSurface_4512C0());
             phase = 22;
             if (resource::ProbePaletteCapability_45C970() < 0) {
@@ -199,7 +199,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             break;
         case 22:
             image = 0;
-            static_cast<void>(render::SelectPalette(19, 1));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 1));
             static_cast<void>(render::ClearSurface_4512C0());
             phase = 23;
             break;
@@ -219,12 +219,12 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 26:
             image = 238564;
             if (render::HasLegacy3DDevice_44B610() != 0) {
-                static_cast<void>(render::SelectPalette(0, 0));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 0, 0));
                 colorBytes[0] = 0;
                 colorBytes[1] = 0;
                 colorBytes[2] = 0;
             } else {
-                static_cast<void>(render::SelectPalette(0, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 0, 30));
             }
             phase = 27;
             break;
@@ -244,7 +244,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
                     phaseTick = ReadTickCount64();
                     phase = 28;
                 }
-            } else if (render::gPaletteChanging == 0) {
+            } else if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 28;
             }
@@ -253,7 +253,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 if (render::HasLegacy3DDevice_44B610() == 0) {
-                    static_cast<void>(render::SelectPalette(19, 30));
+                    static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 }
                 phase = 29;
             }
@@ -276,22 +276,22 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
                     }
                 } else {
                     if (render::HasLegacy3DDevice_44B610() != 0) {
-                        static_cast<void>(render::SelectPalette(19, 0));
+                        static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 0));
                     }
                     phase = 30;
                 }
-            } else if (render::gPaletteChanging == 0) {
+            } else if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
                 phase = 30;
             }
             break;
         case 30:
             connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             image = 99304;
-            static_cast<void>(render::SelectPalette(38, 60));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 38, 60));
             phase = 31;
             break;
         case 31: {
-            const std::int32_t changing = render::gPaletteChanging;
+            const std::int32_t changing = render::ReadSessionPaletteChanging(connection.Owner());
             connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             if (changing == 0) {
                 phaseTick = ReadTickCount64();
@@ -303,13 +303,13 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
-                static_cast<void>(render::SelectPalette(19, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
                 phase = 33;
             }
             break;
         }
         case 33: {
-            static_cast<void>(render::SelectPalette(19, 0));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 0));
             std::int32_t mapped;
             static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
             connection.Owner().UiFrame().mouse.state->drawingSuppression = 0;

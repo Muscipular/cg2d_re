@@ -3198,7 +3198,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         render::ClearSurfaceTransformCache_44D490(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
-        static_cast<void>(render::UpdatePalette_450BB0());
+        if (submitPixels) {
+            static_cast<void>(render::UpdatePalette_450BB0());
+        }
         cg::render::gGraphicQueue.count = 0;
         cg::render::gTextQueue.count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
@@ -3428,7 +3430,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
             }
             ApplyPendingMapPaletteReply_51D6F0(session);
-            static_cast<void>(render::UpdatePalette_450BB0());
+            if (submitPixels) {
+                static_cast<void>(render::UpdatePalette_450BB0());
+            }
             UpdateDayPeriodPaletteAndTimers_458F00(session);
             render::gRenderQueueMode103CF10 = 0;
             render::DrawAllQueued_520DD0(session);
@@ -3584,11 +3588,11 @@ void __cdecl ApplyPendingMapPaletteReply_51D6F0(session::ClientSession& session)
     auto& pendingIndex = session.WorldScene().pendingMapPaletteIndex;
     const std::int32_t value = pendingIndex;
     if (value == -1) {
-        static_cast<void>(render::SelectPalette(session.WorldScene().map.currentDayPeriod, 0));
+        static_cast<void>(render::SelectSessionPalette(session, session.WorldScene().map.currentDayPeriod, 0));
         session.WorldScene().map.dayPeriodPaletteEnabled = 1;
         pendingIndex = -2;
     } else if (value >= 0) {
-        static_cast<void>(render::SelectPalette(value, 0));
+        static_cast<void>(render::SelectSessionPalette(session, value, 0));
         session.WorldScene().map.dayPeriodPaletteEnabled = 0;
         pendingIndex = -2;
     }
@@ -3629,7 +3633,7 @@ void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(session::ClientSession& sess
         const std::int32_t mode = session.WorldScene().map.dayPeriodPaletteEnabled;
         session.WorldScene().map.currentDayPeriod = category;
         if (mode == 1) {
-            static_cast<void>(render::SelectPalette(category, 3600));
+            static_cast<void>(render::SelectSessionPalette(session, category, 3600));
         }
     }
     UpdatePlayerCountdown_458F40(session);
@@ -6207,7 +6211,7 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
     if (phase == 1) {
         if (ProcessSceneTransitionEffect_51FDE0(session, 14, 8, 0x40000000U) == 1) {
             session.WorldScene().frameBackgroundMode = 0;
-            render::SelectPalette(0, 0);
+            render::SelectSessionPalette(session, 0, 0);
             return 1;
         }
     } else if (phase == 0) {
@@ -10142,7 +10146,7 @@ std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(cg::network::CgConnection
     static_cast<void>(UpdateGameTime(connection.Owner(), &connection.Owner().WorldScene().gameTime.value));
     const std::int32_t category = GetCate_458EC0(&connection.Owner().WorldScene().gameTime.value);
     connection.Owner().WorldScene().map.currentDayPeriod = category;
-    static_cast<void>(render::SelectPalette(category, 0));
+    static_cast<void>(render::SelectSessionPalette(connection.Owner(), category, 0));
     connection.Owner().WorldScene().map.cachePathKey = pathValue;
     connection.Owner().WorldScene().gameTime.adjustmentSeconds = std::bit_cast<std::uint32_t>(adjustment);
     return adjustment;

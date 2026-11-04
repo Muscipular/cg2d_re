@@ -2636,7 +2636,7 @@ static void ProcessBattleMGmnHeader(
     created->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
     created->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     {
-        created->mapX1E0 = static_cast<std::int32_t>(render::gActivePalette);
+        created->mapX1E0 = static_cast<std::int32_t>(scene->ownerSession->WorldScene().paletteIndex);
     }
     static_cast<void>(PlayFrame_517DA0(*slot, AnimationPlayback_Loop));
     static_cast<void>(NewBattleText_4217F0(created, 4, created->nameC4.data(), 0, 100));

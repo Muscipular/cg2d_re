@@ -4,6 +4,8 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
 // 原 PALETTEENTRY 的四字节存储，flags 是调色板标志，不是透明度。
@@ -80,6 +82,7 @@ extern float gPaletteToneRedStep;            // 原 0x628FF0。
 extern std::int32_t gPaletteToneTargetIndex; // 原 0x628BBC。
 extern std::int32_t gPaletteFrameVersion;    // 原 0x628FDC。
 extern std::int32_t gPaletteVersionThrottle; // 原 0x629310。
+extern std::uint64_t gPalettePresentationGeneration; // NSM01：共享色盘输出切换代次，不写磁盘。
 
 // 原 453DE0：统计完整 W32 掩码中的置位数；Renderer::Init 用于颜色通道参数。
 int CountMaskBits_453DE0(std::uint32_t mask) noexcept;
@@ -98,10 +101,19 @@ std::int32_t FindNearestPaletteColor_451E90(
 
 // 原 0x450B70；不增加负数索引处理，调用者须保证 index 非负。
 // 返回原 EAX：拒绝时为 index，接受时为 steps，而非成功布尔值。
-std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept; // PCR01：S16门槛/39上界，拒绝返index，steps先判定再发布，接受返原steps。
+std::int32_t SelectSessionPalette(
+    session::ClientSession& session, std::int32_t index, std::int32_t steps) noexcept; // PCR01：原门槛/返回；仅当前发布共享渲染目标。
+
+// 后台淡变已跳过，不能消费当前会话的共享等待状态。
+std::int32_t ReadSessionPaletteChanging(session::ClientSession& session) noexcept;
+
+// 切换只登记失效；恢复在下一帧逻辑前进行，失败不清待重试标志。
+void InvalidatePalettePresentation() noexcept;
+bool PrepareSessionPalette(session::ClientSession& session);
 
 // 原 0x450BB0：按活动索引加载目标并逐帧过渡；保持原 EAX 各路径值。
-int UpdatePalette_450BB0();
+// NSM01：切回时直接完成；普通当前会话保持原逐帧算法。
+int UpdatePalette_450BB0(bool completeImmediately = false);
 
 // 原 0x451220；非零索引的纯黑映射为 1，索引 0 最后单独清零；返回 0x400。
 int RebuildPalette32() noexcept;

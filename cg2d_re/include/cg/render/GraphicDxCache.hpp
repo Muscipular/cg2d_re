@@ -17,6 +17,9 @@ void InitializeSurfaceTransformCache62A630_44CD30();
 // 5222D0 按用户裁决仅实现恒空第二参数路径；部分建链也不改写本函数的成功返回。
 std::int32_t LoadGraphic_522570(std::int32_t imageNo);
 
+// NSM01：切换共享色盘后强制下次上传；不解绑节点、尺寸、表面或借用。
+void InvalidateGraphicTexturePalettes() noexcept;
+
 // 原播放/绘制消费者按阶段读取 DX 宽、高的低 S16；不检查图号，不触发加载。
 std::int16_t ReadGraphicDxWidth(std::int32_t imageNo) noexcept;
 std::int16_t ReadGraphicDxHeight(std::int32_t imageNo) noexcept;

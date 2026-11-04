@@ -117,7 +117,7 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
             return 0;
         }
         if (firstFrame) {
-            static_cast<void>(render::SelectPalette(palette, 30));
+            static_cast<void>(render::SelectSessionPalette(session, palette, 30));
             // LUR01：loading整图随客户区缩放，保留原图号、层序和调色板淡变。
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
@@ -125,7 +125,7 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
         } else {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(session) == 0) {
                 keepRunning = false;
             }
         }
@@ -155,12 +155,12 @@ static std::int32_t FadeOutLoading_4585F0(session::ClientSession& session)
         if (firstFrame) {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
-            static_cast<void>(render::SelectPalette(19, 30));
+            static_cast<void>(render::SelectSessionPalette(session, 19, 30));
             firstFrame = false;
         } else {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
-            if (render::gPaletteChanging == 0) {
+            if (render::ReadSessionPaletteChanging(session) == 0) {
                 keepRunning = false;
             }
         }

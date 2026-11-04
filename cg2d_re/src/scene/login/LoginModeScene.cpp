@@ -37,33 +37,33 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
 
         const std::int32_t capability = render::gPaletteCapability;
         if (capability == 3) {
-            static_cast<void>(render::SelectPalette(29, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 29, 30));
         } else if (capability == 2 || capability == 1) {
-            static_cast<void>(render::SelectPalette(32, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 32, 30));
         } else {
-            static_cast<void>(render::SelectPalette(24, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 24, 30));
         }
     } else if (initialState == 1) {
-        if (render::gPaletteChanging == 0) {
+        if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
             connection.Owner().WorldScene().sceneState = 2;
         }
     } else if (initialState == 2) {
         inputMode = 0;
     } else if (initialState == 3) {
-        if (render::gPaletteChanging == 0) {
+        if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
             if (render::gPaletteCapability == 0) {
-                static_cast<void>(render::SelectPalette(18, 30));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 18, 30));
             } else {
-                static_cast<void>(render::SelectPalette(19, 60));
+                static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 60));
             }
             ++connection.Owner().WorldScene().sceneState;
         }
     } else if (initialState == 4) {
-        if (render::gPaletteChanging == 0) {
-            static_cast<void>(render::SelectPalette(19, 30));
+        if (render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
             ++connection.Owner().WorldScene().sceneState;
         }
-    } else if (initialState == 5 && render::gPaletteChanging == 0) {
+    } else if (initialState == 5 && render::ReadSessionPaletteChanging(connection.Owner()) == 0) {
         static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));
     }
 
@@ -76,7 +76,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
         static_cast<void>(detail::SaveCurrentLoginRecord_520200(connection.Owner()));
         static_cast<void>(detail::PlaySe(connection.Owner(), 53, 320, 240));
         if (render::gPaletteCapability >= 1) {
-            static_cast<void>(render::SelectPalette(19, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 30));
         }
         connection.Owner().WorldScene().sceneState = 3;
         return;

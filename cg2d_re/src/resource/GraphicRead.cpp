@@ -625,6 +625,22 @@ void ReleaseIndependentPalettes_522C50()
     gIndependentPaletteIndex = nullptr;
 }
 
+void InvalidateIndependentPaletteColors() noexcept
+{
+    if (gIndependentPaletteIndex != nullptr) {
+        for (std::int32_t index = 1; index < gIndependentPaletteCount; ++index) {
+            if (auto* const record = gIndependentPaletteIndex[index].record) {
+                record->paletteChoice = -1;
+                record->paletteVersion = -1;
+            }
+        }
+    }
+    for (auto& record : GetAnimationPaletteCache().records) {
+        record->paletteChoice = -1;
+        record->paletteVersion = -1;
+    }
+}
+
 // 原函数：0x00523140。
 std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)
 {

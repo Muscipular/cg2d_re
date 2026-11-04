@@ -1399,7 +1399,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 connection.PukVersion() = 0;
                 ResetCharacterListProgress_45DD50(connection);
                 sceneUi.updateAvailable = 0;
-                render::SelectPalette(0, 0);
+                render::SelectSessionPalette(connection.Owner(), 0, 0);
             } else if (mainState == 1u) {
                 const std::int32_t result = UpdateCharacterListProgress_45DD60(connection);
                 if (result == 1) {

@@ -193,7 +193,7 @@ void Update(session::ClientSession& session)
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;
-        render::SelectPalette(paletteIndex, 0);
+        render::SelectSessionPalette(session, paletteIndex, 0);
         SetCurrentSceneType(session, 2);
         cg::yobi::YobiClearUp_404D30(session);
         session.Connection().DisconnectState() = 0;

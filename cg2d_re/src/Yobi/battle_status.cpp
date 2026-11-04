@@ -896,7 +896,7 @@ void UpdateBattleAction174_4121D0(YobiAction* const action)
     const std::int32_t index = payload->effectRunningC9C;
     const std::int32_t steps = payload->effects1C[index].position3;
     const std::int32_t palette = payload->effects1C[index].position;
-    static_cast<void>(render::SelectPalette(palette, steps));
+    static_cast<void>(render::SelectSessionPalette(*action->ownerSession, palette, steps));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     AdvanceBattleCastState_439340(action);
 }

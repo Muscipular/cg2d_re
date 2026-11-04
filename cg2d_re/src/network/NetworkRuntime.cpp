@@ -253,7 +253,7 @@ void HandlePaletteTransitionReply_50E630(cg::network::CgConnection& connection,
     if (connection.Owner().WorldScene().sceneType == 10) {
         return;
     }
-    static_cast<void>(render::SelectPalette(index, steps));
+    static_cast<void>(render::SelectSessionPalette(connection.Owner(), index, steps));
 }
 
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。

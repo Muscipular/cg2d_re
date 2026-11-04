@@ -53,6 +53,9 @@ std::int32_t InitializeIndependentPalettes_522B30();
 // 原 522C50：先释放记录池、再释放索引池，分别清指针；保留队列、计数与 DBF 数据。
 void ReleaseIndependentPalettes_522C50();
 
+// NSM01：只失效已存在的原生/动画色盘版本，保留源色表、索引和实际地址。
+void InvalidateIndependentPaletteColors() noexcept;
+
 // 动画原索引为0或来源色表缺失时，尝试mapNo等于完整animeNo的图档内嵌色表。
 // 返回有效原索引或独立的运行时索引；未命中的非法原索引沿原绘制规则归0。
 // 运行时索引跨渲染器重建稳定，图档关闭时失效。

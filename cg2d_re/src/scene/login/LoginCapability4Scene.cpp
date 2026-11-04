@@ -156,7 +156,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             }
             login::detail::SaveCredentialRecordsWithoutPasswords_533730(connection.Owner());
             static_cast<void>(login::detail::PlaySe(connection.Owner(), 53, 320, 240));
-            static_cast<void>(render::SelectPalette(30, 30));
+            static_cast<void>(render::SelectSessionPalette(connection.Owner(), 30, 30));
             connection.Owner().WorldScene().sceneState = 4;
         } else if (result == 2) {
             static_cast<void>(login::detail::PlaySe(connection.Owner(), 54, 320, 240));

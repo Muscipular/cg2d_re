@@ -124,7 +124,7 @@ static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connec
         }
         static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200(connection.Owner()));
         static_cast<void>(cg::login::detail::PlaySe(connection.Owner(), 53, 320, 240));
-        static_cast<void>(cg::render::SelectPalette(30, 30));
+        static_cast<void>(cg::render::SelectSessionPalette(connection.Owner(), 30, 30));
         connection.Owner().WorldScene().sceneState = 10;
     } else if (result == 2) {
         static_cast<void>(cg::login::detail::PlaySe(connection.Owner(), 54, 320, 240));
@@ -389,10 +389,10 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         return DispatchCapability3FromCurrentState(connection);
 
     case 7:
-        if (render::gPaletteChanging != 0) {
+        if (render::ReadSessionPaletteChanging(connection.Owner()) != 0) {
             return DispatchCapability3FromCurrentState(connection);
         }
-        static_cast<void>(render::SelectPalette(19, 60));
+        static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 60));
         connection.Owner().WorldScene().sceneState = 10;
         input::SetContext_44B330(connection.Owner(), nullptr);
         return DrawCapability3CommonTail(connection);

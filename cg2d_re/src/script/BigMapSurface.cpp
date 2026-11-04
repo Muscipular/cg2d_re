@@ -45,6 +45,7 @@ struct BigMapSurface::State {
     int width = 0, height = 0, divisor = 1, columns = 0, rows = 0;
     int tileWidth = 0, tileHeight = 0, pending = 0, failed = 0;
     int paletteVersion = -1, paletteChoice = -1;
+    std::uint64_t palettePresentationGeneration = 0;
     bool loaded = false, changed = false, cacheError = false, diskError = false;
     std::uint64_t nextDiskCheck = 0, nextCacheSave = 0;
     std::filesystem::path mapPath, cachePath;
@@ -286,6 +287,7 @@ struct BigMapSurface::State {
         resourceStamp = ResourceStamp(); paletteStamp = PaletteStamp();
         if (mode == 1) cutStamp = CutStamp(session);
         paletteVersion = render::gPaletteFrameVersion; paletteChoice = render::gActivePalette;
+        palettePresentationGeneration = render::gPalettePresentationGeneration;
         cachePath = std::filesystem::path(L"data/cache/bigmap") / std::format(L"{}_{}_{}_{}.bmc", group, pathGroup, floor, mode);
         loaded = true;
         SyncVisible(session);
@@ -373,8 +375,10 @@ bool BigMapSurface::PrepareMap(session::ClientSession& session) {
         }
     }
     state.SyncVisible(session);
-    if (state.paletteVersion != render::gPaletteFrameVersion || state.paletteChoice != render::gActivePalette) {
+    if (state.paletteVersion != render::gPaletteFrameVersion || state.paletteChoice != render::gActivePalette
+        || state.palettePresentationGeneration != render::gPalettePresentationGeneration) {
         state.paletteVersion = render::gPaletteFrameVersion; state.paletteChoice = render::gActivePalette;
+        state.palettePresentationGeneration = render::gPalettePresentationGeneration;
         state.paletteStamp = State::PaletteStamp(); state.changed = true;
         for (auto& tile : state.tiles) { tile.dirty = true; tile.retryAt = 0; }
     }

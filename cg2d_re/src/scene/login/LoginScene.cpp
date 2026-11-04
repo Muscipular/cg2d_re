@@ -339,7 +339,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         connection.DisconnectState() = 0;
         world::BeginSceneTransition(session);
         request.serverHighlight = 0;
-        static_cast<void>(render::SelectPalette(27, 0));
+        static_cast<void>(render::SelectSessionPalette(session, 27, 0));
         cg::audio::LoadAndPlayBGM(session, 17);
     }
 
@@ -351,7 +351,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                 reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
         } else if ((cg::ui::QueryUiControlInputState_45F100(session, &gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(session, 1);
-            static_cast<void>(render::SelectPalette(20, 1));
+            static_cast<void>(render::SelectSessionPalette(session, 20, 1));
             detail::PlaySe(session, 54, 320, 240);
             cg::audio::BeginBgmFadeOut_52B990(session);
         } else if (const auto selectedControl = SelectedCategoryControl();

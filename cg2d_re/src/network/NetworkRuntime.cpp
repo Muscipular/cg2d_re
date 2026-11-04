@@ -342,7 +342,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
     const std::int32_t flag1 = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
     const std::int32_t flag2 = std::atoi(field);
-    if (world::RegisterWorldObjectWithoutAction_445A60(
+    if (world::RegisterWorldObjectWithoutAction_445A60(connection.Owner(),
             recordIndex, recordImageNo, recordX, recordY, recordDirection,
             name, titles, level, static_cast<std::uint16_t>(value40),
             flag1, flag2, type) == 0) {

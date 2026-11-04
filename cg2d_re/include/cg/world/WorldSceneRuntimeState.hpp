@@ -5,6 +5,7 @@
 #include "cg/world/PlayerRuntimeSlots.hpp"
 #include "cg/world/PetRuntimeRecord.hpp"
 #include "cg/world/SkillRuntimeSlots.hpp"
+#include "cg/world/WorldObjectRecord.hpp"
 
 #include <array>
 #include <cstddef>
@@ -281,6 +282,11 @@ struct WorldSceneRuntimeState {
     std::int32_t pendingSceneState = 0; // 原FF0D60。
     std::int32_t sceneState = 0; // 原FF0D64。
     std::int32_t pendingSceneType = 0; // 原FF0D6C，宿主原初始化位置置-1。
+    std::unique_ptr<std::array<detail::WorldObjectRecord, detail::kWorldObjectCapacity>> objects; // 原5AC4C0，中央位置构造。
+    std::int32_t objectFindCursor = 0; // 原5AC498。
+    std::int32_t objectFreeCursor = 0; // 原5AC49C。
+    std::int32_t objectUsedCount = 0; // 原5AC4B4。
+    std::int32_t objectUpperBound = 0; // 原5F9738，不是占用数量。
     std::unique_ptr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
     std::unique_ptr<std::array<PetRuntimeRecord, 5>> petRecords; // 原F633F8，原中央位置构造五宠物。
     std::array<PetPairRecord, 5> petPairs {}; // 原DE0B08，同会话宠物显示排序对。

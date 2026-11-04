@@ -2610,7 +2610,7 @@ static void WindowStall_OpenBrowse(
 {
     gStallItemCountD67BCC = 0;
     gStallPetCountD67BD4 = 0;
-    cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
+    cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(session, target);
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:

@@ -462,9 +462,9 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             drawBars = true;
         }
     } else {
-        const std::uint16_t originalFlags = world::detail::gWorldObjects[stateIndex].flags42;
-        state = world::detail::gWorldObjects[stateIndex].flags120;
-        value = world::detail::gWorldObjects[stateIndex].value124;
+        const std::uint16_t originalFlags = (*action->ownerSession->WorldScene().objects)[stateIndex].flags42;
+        state = (*action->ownerSession->WorldScene().objects)[stateIndex].flags120;
+        value = (*action->ownerSession->WorldScene().objects)[stateIndex].value124;
         flags = originalFlags;
         if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
             flags &= MapActorDisplayMask_FollowPetStatusImages;
@@ -672,7 +672,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
             world::ClearPlayerActionFlags(*action->ownerSession, bits);
         } else {
-            world::detail::gWorldObjects[stateIndex].flags120 &=
+            (*action->ownerSession->WorldScene().objects)[stateIndex].flags120 &=
                 static_cast<std::uint16_t>(~bits);
         }
     };

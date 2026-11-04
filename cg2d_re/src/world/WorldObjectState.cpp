@@ -14,16 +14,19 @@
 namespace cg::world {
 namespace detail {
 
-std::int32_t gWorldObjectFindCursor = 0; // 原全局：0x005AC498。
-std::int32_t gWorldObjectFreeCursor = 0; // 原全局：0x005AC49C。
-std::int32_t gWorldObjectUsedCount = 0; // 原全局：0x005AC4B4。
-std::int32_t gWorldObjectUpperBound = 0; // 原全局：0x005F9738。
+void InitializeWorldObjectStorage(session::ClientSession& session)
+{
+    auto& objects = session.WorldScene().objects;
+    if (objects == nullptr) {
+        objects = std::make_unique<std::array<WorldObjectRecord, kWorldObjectCapacity>>();
+    }
+}
 
 // WBR01：只清占用槽action/value34，无释放/标死；两个父的三个调用点先YobiClearUp。
 // 原函数：0x00446610。
-void DetachWorldObjectActions_446610()
+void DetachWorldObjectActions_446610(session::ClientSession& session)
 {
-    for (auto& record : gWorldObjects) {
+    for (auto& record : (*session.WorldScene().objects)) {
         if (record.used != 0) {
             record.action = nullptr;
             record.value34 = -1;
@@ -39,21 +42,21 @@ void ResetMapActorDrawKeys_4468F0(session::ClientSession& session)
 
 // WOL01：完整两段查槽，start/end各持样一次，used W16非零/编号W32命中后发布查找游标。
 // 原函数：0x00444FA0。
-std::int32_t FindWorldObjectSlot_444FA0(const std::int32_t objectIndex)
+std::int32_t FindWorldObjectSlot_444FA0(session::ClientSession& session, const std::int32_t objectIndex)
 {
-    const std::int32_t start = gWorldObjectFindCursor;
-    const std::int32_t end = gWorldObjectUpperBound;
+    const std::int32_t start = session.WorldScene().objectFindCursor;
+    const std::int32_t end = session.WorldScene().objectUpperBound;
     for (std::int32_t index = start; index < end; ++index) {
-        const auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        const auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0 && record.objectIndex == objectIndex) {
-            gWorldObjectFindCursor = index;
+            session.WorldScene().objectFindCursor = index;
             return index;
         }
     }
     for (std::int32_t index = 0; index < start; ++index) {
-        const auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        const auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0 && record.objectIndex == objectIndex) {
-            gWorldObjectFindCursor = index;
+            session.WorldScene().objectFindCursor = index;
             return index;
         }
     }
@@ -62,29 +65,29 @@ std::int32_t FindWorldObjectSlot_444FA0(const std::int32_t objectIndex)
 
 // WOL01：只推进计数/高水位/空槽游标并返回旧槽，不写记录或标占用/分配资源。
 // 原函数：0x00446130。
-std::int32_t ReserveWorldObjectSlot_446130()
+std::int32_t ReserveWorldObjectSlot_446130(session::ClientSession& session)
 {
-    if (gWorldObjectUsedCount >= 1000) {
+    if (session.WorldScene().objectUsedCount >= 1000) {
         return -1;
     }
-    const std::int32_t used = gWorldObjectUsedCount;
-    const std::int32_t upperBound = gWorldObjectUpperBound;
-    const std::int32_t selected = gWorldObjectFreeCursor;
-    gWorldObjectUsedCount = used + 1;
+    const std::int32_t used = session.WorldScene().objectUsedCount;
+    const std::int32_t upperBound = session.WorldScene().objectUpperBound;
+    const std::int32_t selected = session.WorldScene().objectFreeCursor;
+    session.WorldScene().objectUsedCount = used + 1;
     std::int32_t next = selected + 1;
     if (next > upperBound) {
-        gWorldObjectUpperBound = next;
+        session.WorldScene().objectUpperBound = next;
     }
     for (; next < 1000; ++next) {
-        if (gWorldObjects[static_cast<std::size_t>(next)].used == 0) {
-            gWorldObjectFreeCursor = next;
+        if ((*session.WorldScene().objects)[static_cast<std::size_t>(next)].used == 0) {
+            session.WorldScene().objectFreeCursor = next;
             break;
         }
     }
     if (selected > 0 && next >= 1000) {
         for (std::int32_t index = 0; index < selected; ++index) {
-            if (gWorldObjects[static_cast<std::size_t>(index)].used == 0) {
-                gWorldObjectFreeCursor = index;
+            if ((*session.WorldScene().objects)[static_cast<std::size_t>(index)].used == 0) {
+                session.WorldScene().objectFreeCursor = index;
                 break;
             }
         }
@@ -129,12 +132,12 @@ std::uint32_t MapWorldObjectTypeToCategory_446210(const std::int32_t type)
 
 // WLR01：无释放整表重置，只原七字段/名称首BYTE及四计数游标，不合并为有释放清理。
 // 原函数：0x00446470。
-void ResetWorldObjectTable_446470()
+void ResetWorldObjectTable_446470(session::ClientSession& session)
 {
-    gWorldObjectUsedCount = 0;
-    gWorldObjectUpperBound = 0;
-    gWorldObjectFreeCursor = 0;
-    for (auto& record : gWorldObjects) {
+    session.WorldScene().objectUsedCount = 0;
+    session.WorldScene().objectUpperBound = 0;
+    session.WorldScene().objectFreeCursor = 0;
+    for (auto& record : (*session.WorldScene().objects)) {
         record.used = 0;
         record.action = nullptr;
         record.flags42 = 0;
@@ -143,17 +146,17 @@ void ResetWorldObjectTable_446470()
         record.value34 = -1;
         record.name54.clear();
     }
-    gWorldObjectFindCursor = 0;
+    session.WorldScene().objectFindCursor = 0;
 }
 
 // WLR01：只清已占用槽，附件/文本先清再fresh主标死；保名称和未占用槽字段。
 // 原函数：0x004464D0。
-void __cdecl ClearWorldObjectsAndActions_4464D0()
+void __cdecl ClearWorldObjectsAndActions_4464D0(session::ClientSession& session)
 {
-    gWorldObjectUsedCount = 0;
-    gWorldObjectUpperBound = 0;
-    gWorldObjectFreeCursor = 0;
-    for (auto& record : gWorldObjects) {
+    session.WorldScene().objectUsedCount = 0;
+    session.WorldScene().objectUpperBound = 0;
+    session.WorldScene().objectFreeCursor = 0;
+    for (auto& record : (*session.WorldScene().objects)) {
         if (record.used == 0) {
             continue;
         }
@@ -169,7 +172,7 @@ void __cdecl ClearWorldObjectsAndActions_4464D0()
         record.objectIndex = 0;
         record.value34 = -1;
     }
-    gWorldObjectFindCursor = 0;
+    session.WorldScene().objectFindCursor = 0;
 }
 
 } // namespace detail
@@ -205,15 +208,16 @@ std::int32_t RegisterMapActorDrawKey_446900(
 
 // WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
 // 原函数：0x004462B0。
-cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
+cg::yobi::YobiAction* FindObjectYobi_4462B0(session::ClientSession& session, const std::int32_t objectIndex)
 {
-    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);
-    return index < 0 ? nullptr : detail::gWorldObjects[index].action;
+    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(session, objectIndex);
+    return index < 0 ? nullptr : (*session.WorldScene().objects)[index].action;
 }
 
 // WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
 // 原函数：0x00445A60。
 std::int32_t RegisterWorldObjectWithoutAction_445A60(
+    session::ClientSession& session,
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const char* const name,
@@ -221,14 +225,14 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
     const std::uint16_t value40, const std::int32_t flag1,
     const std::int32_t flag2, const std::int32_t type)
 {
-    if (detail::FindWorldObjectSlot_444FA0(objectIndex) >= 0) {
+    if (detail::FindWorldObjectSlot_444FA0(session, objectIndex) >= 0) {
         return 0;
     }
-    const std::int32_t index = detail::ReserveWorldObjectSlot_446130();
+    const std::int32_t index = detail::ReserveWorldObjectSlot_446130(session);
     if (index < 0) {
         return 0;
     }
-    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     record.action = nullptr;
     record.used = 2;
     record.category = static_cast<std::uint16_t>(detail::MapWorldObjectTypeToCategory_446210(type));
@@ -279,31 +283,31 @@ void RemoveWorldObject_4462E0(session::ClientSession& session, const std::int32_
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50(session));
         return;
     }
-    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);
+    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(session, objectIndex);
     if (index < 0) {
         return;
     }
-    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     cg::yobi::YobiAction* const action = record.action;
     if (action != nullptr) {
         cg::yobi::ClearMapActorAttachments(action);
         cg::yobi::MarkDeath(record.action);
         record.action = nullptr;
     }
-    const std::int32_t used = detail::gWorldObjectUsedCount;
+    const std::int32_t used = session.WorldScene().objectUsedCount;
     record.used = 0;
     record.flags42 = 0;
     record.flags120 = 0;
     record.value34 = -1;
     if (used > 0) {
-        detail::gWorldObjectUsedCount = used - 1;
+        session.WorldScene().objectUsedCount = used - 1;
     }
-    if (detail::gWorldObjectFreeCursor > index) {
-        detail::gWorldObjectFreeCursor = index;
+    if (session.WorldScene().objectFreeCursor > index) {
+        session.WorldScene().objectFreeCursor = index;
     }
-    for (std::int32_t end = detail::gWorldObjectUpperBound; end > 0; --end) {
-        if (detail::gWorldObjects[static_cast<std::size_t>(end - 1)].used != 0) {
-            detail::gWorldObjectUpperBound = end;
+    for (std::int32_t end = session.WorldScene().objectUpperBound; end > 0; --end) {
+        if ((*session.WorldScene().objects)[static_cast<std::size_t>(end - 1)].used != 0) {
+            session.WorldScene().objectUpperBound = end;
             return;
         }
     }

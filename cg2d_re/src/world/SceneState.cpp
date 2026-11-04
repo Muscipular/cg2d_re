@@ -3794,7 +3794,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             return;
         }
         static_cast<void>(DestroyPlayerMapPresence_519D50(session));
-        ClearWorldObjectsAndActions_4464D0();
+        ClearWorldObjectsAndActions_4464D0(session);
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         DetachPartyMapActions_51B0F0(session);
         session.WorldScene().mapNotice.startTick = 0;
@@ -4239,7 +4239,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         render::ClearSurfaceTransformCache_44D490(session);
         static_cast<void>(SetCurrentSceneTypeAndState(session, 9, 1));
         cg::yobi::YobiClearUp_404D30(session);
-        DetachWorldObjectActions_446610();
+        DetachWorldObjectActions_446610(session);
         cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(session.Connection().AcknowledgeBattleExit(0));
         return;
@@ -4265,7 +4265,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         clearBattleEffects();
         cg::yobi::YobiClearUp_404D30(session);
-        DetachWorldObjectActions_446610();
+        DetachWorldObjectActions_446610(session);
         cg::world::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
         static_cast<void>(SetPendingSceneType(session, 7));
@@ -5593,7 +5593,7 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& ses
     }
     const std::int32_t targetY = gPlayerMoveTargetY;
     const std::int32_t targetX = gPlayerMoveTargetX;
-    result = HasWorldObjectAt_4450D0(targetX, targetY, 7);
+    result = HasWorldObjectAt_4450D0(session, targetX, targetY, 7);
     if (result == 0) {
         return 0;
     }
@@ -5675,7 +5675,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
     if (gMapTargetInteractionClick_C8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const std::int32_t targetY = gPlayerMoveTargetY;
         const std::int32_t targetX = gPlayerMoveTargetX;
-        const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(targetX, targetY, 8, 0x1000);
+        const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(session, targetX, targetY, 8, 0x1000);
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose(session));
             static_cast<void>(ui::WindowOwnStall_RequestClose(session));
@@ -5685,7 +5685,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
         static_cast<void>(RequestAdjacentWorldInteraction_51B3E0(session));
         const std::int32_t secondY = gPlayerMoveTargetY;
         const std::int32_t secondX = gPlayerMoveTargetX;
-        const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);
+        const std::int32_t secondIndex = FindWorldObjectAt_445160(session, secondX, secondY, 8);
         if (secondIndex != -1) {
             static_cast<void>(session.Connection().RequestPlayerProfile(3, secondIndex));
         }
@@ -7843,7 +7843,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         cg::login::detail::SaveCurrentClientPreferences_520160(connection);
         logout.transitionPhase = 0;
         DestroyPlayerMapPresence_519D50(session);
-        ResetWorldObjectTable_446470();
+        ResetWorldObjectTable_446470(session);
         cg::yobi::YobiClearUp_404D30(session);
         sceneState = session.WorldScene().sceneState;
         ++sceneState;
@@ -8253,7 +8253,7 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection& connection, const 
             const std::uint32_t objectIndex = slot.objectIndex;
             if (objectIndex != connection.Owner().WorldScene().player->objectIndex) {
                 cg::yobi::YobiAction* const action =
-                    FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+                    FindObjectYobi_4462B0(connection.Owner(), std::bit_cast<std::int32_t>(objectIndex));
                 if (action != nullptr) {
                     detail::ClearWorldActorPartyMembership_442C70(action);
                 }
@@ -8321,7 +8321,7 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection& connection, const 
     const std::uint32_t objectIndex = slot.objectIndex;
     if (objectIndex != connection.Owner().WorldScene().player->objectIndex) {
         cg::yobi::YobiAction* const action =
-            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+            FindObjectYobi_4462B0(connection.Owner(), std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
             slot.action = action;
             detail::MarkWorldActorAsPartyMember_442C40(action);
@@ -8453,7 +8453,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                 detail::UpsertWorldActor_445350(
                     connection.Owner(), objectIndex, mappedImage, x, y, direction, name, titles,
                     extraText, level, value40, flag1, flag2, type);
-                object = FindObjectYobi_4462B0(objectIndex);
+                object = FindObjectYobi_4462B0(connection.Owner(), objectIndex);
                 if (object != nullptr) {
                     cg::yobi::UpdateMapActorMode(object, mode, attachmentImage);
                     if (mode == cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
@@ -8577,7 +8577,7 @@ void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection& networkConne
             }
             continue;
         }
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(networkConnection.Owner(), objectIndex);
         if (action != nullptr) {
             detail::ApplyWorldActorActionCommand_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
             continue;
@@ -8869,7 +8869,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
         && networkConnection.Owner().WorldScene().player->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
         detail::SetPlayerChatBubble_51A6A0(networkConnection.Owner(), 1000, snapshot, drawColor, drawFont);
     } else {
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(networkConnection.Owner(), objectIndex);
         if (action != nullptr) {
             detail::SetWorldActorChatBubble_442DC0(action, 1000, snapshot, drawColor, drawFont);
         }
@@ -9932,7 +9932,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
     }
     if (networkConnection.Owner().WorldScene().logoutToTownPending != 0) {
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50(networkConnection.Owner()));
-        detail::ClearWorldObjectsAndActions_4464D0();
+        detail::ClearWorldObjectsAndActions_4464D0(networkConnection.Owner());
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         detail::DetachPartyMapActions_51B0F0(networkConnection.Owner());
         session.WorldScene().mapNotice.startTick = 0;
@@ -9953,7 +9953,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         gDirectionalMapTransitionPending_9FB92E = 0;
         static_cast<void>(SetCurrentSceneTypeAndState(networkConnection.Owner(), 9, 1));
         cg::yobi::YobiClearUp_404D30(networkConnection.Owner());
-        detail::DetachWorldObjectActions_446610();
+        detail::DetachWorldObjectActions_446610(networkConnection.Owner());
 
         cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(networkConnection.AcknowledgeBattleExit(0));
@@ -10281,7 +10281,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
         static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
         static_cast<std::uint32_t>(a10), a12);
     static_cast<void>(detail::SetPlayerMapPosition_468330(a6, a7));
-    detail::ClearWorldObjectsAndActions_4464D0();
+    detail::ClearWorldObjectsAndActions_4464D0(connection.Owner());
 
     const std::uint32_t mask = gValue9FB918.mask;
     const std::uint32_t encoded = gValue9FB918.encoded;
@@ -10678,7 +10678,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t target = detail::HasWorldObjectAt_4450D0(targetX, targetY, 8);
+    const std::int32_t target = detail::HasWorldObjectAt_4450D0(session, targetX, targetY, 8);
     const std::uint16_t follow = session.WorldScene().partyActive;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
         || target != 1 || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
@@ -10713,7 +10713,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
             (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
             (gPlayerX + static_cast<std::int32_t>(deltaX));
-        target = detail::HasWorldObjectAtWithFlags_4451F0(targetX, targetY, 8, 0xC400, 0);
+        target = detail::HasWorldObjectAtWithFlags_4451F0(session, targetX, targetY, 8, 0xC400, 0);
     }
     const std::uint16_t follow = session.WorldScene().partyActive;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
@@ -10749,7 +10749,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
             (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
             (gPlayerX + static_cast<std::int32_t>(deltaX));
-        if (detail::HasWorldObjectAtWithoutFlags_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
+        if (detail::HasWorldObjectAtWithoutFlags_4452A0(session, targetX, targetY, 0x28, 0x400, 0) != 1) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
         }
@@ -10788,7 +10788,7 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (detail::HasWorldObjectAt_4450D0(targetX, targetY, 8) != 1
+    if (detail::HasWorldObjectAt_4450D0(session, targetX, targetY, 8) != 1
         || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10819,12 +10819,12 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t firstX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    const std::int32_t first = detail::HasWorldObjectAt_4450D0(firstX, firstY, 8);
+    const std::int32_t first = detail::HasWorldObjectAt_4450D0(session, firstX, firstY, 8);
     const std::int32_t secondY =
         (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
     const std::int32_t secondX =
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
-    const std::int32_t second = detail::HasWorldObjectAt_4450D0(secondX, secondY, 8);
+    const std::int32_t second = detail::HasWorldObjectAt_4450D0(session, secondX, secondY, 8);
     if (session.WorldScene().partyActive != 1 && first != 1 && second != 1) {
         AppendChatMessage_44B050(session, L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10856,7 +10856,7 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
         (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
-    if (detail::HasWorldObjectAt_4450D0(targetX, targetY, 8) != 1
+    if (detail::HasWorldObjectAt_4450D0(session, targetX, targetY, 8) != 1
         || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));

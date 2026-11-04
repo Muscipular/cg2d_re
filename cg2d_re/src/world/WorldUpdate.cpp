@@ -116,7 +116,7 @@ void Update(session::ClientSession& session)
         detail::ResetPendingPathEvent_46A9E0();
         detail::InitializeWorldMapState_467F30(session);
         detail::InitializePlayerRuntimeState_5199A0(session.Connection());
-        detail::ResetWorldObjectTable_446470();
+        detail::ResetWorldObjectTable_446470(session);
         detail::ResetCurrentDialogType_4D3170(session);
         detail::InitializeWorldSceneFlags_455BD0(session);
         detail::InitializeMapEffectPool_46E2A0();
@@ -161,7 +161,7 @@ void Update(session::ClientSession& session)
         const std::int32_t sceneState = session.WorldScene().sceneState;
         if (sceneState == 0) {
             detail::DestroyPlayerMapPresence_519D50(session);
-            detail::ResetWorldObjectTable_446470();
+            detail::ResetWorldObjectTable_446470(session);
             cg::yobi::YobiClearUp_404D30(session);
             ui::WindowRuntime_ProcessScene(session);
             cg::yobi::ResetObservationGroupList_43F220(session);
@@ -183,7 +183,7 @@ void Update(session::ClientSession& session)
         }
         cg::login::detail::SaveCurrentClientPreferences_520160(session.Connection());
         detail::DestroyPlayerMapPresence_519D50(session);
-        detail::ResetWorldObjectTable_446470();
+        detail::ResetWorldObjectTable_446470(session);
         session.Connection().Shutdown();
         session.Connection().DisconnectState() = 0;
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();

@@ -131,7 +131,7 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
     }
     const std::int32_t step = payload->step34;
     if (step <= -20) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -184,7 +184,7 @@ static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const a
     }
     const std::int32_t step = payload->step34;
     if (step > 30) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -469,7 +469,7 @@ static std::int32_t UpdateTransitionTrail(
     }
     const std::int32_t counter = payload->counter10;
     if (counter >= 40) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -548,13 +548,13 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
     auto* const payload = action->payload.mapTransition;
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
         || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 8000u < tick && TransitionMovementIdle(action)) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -635,7 +635,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 1200u < tick) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
     }
     return 0;
@@ -651,7 +651,7 @@ static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const acti
         payload->orbitRadius24 = 0;
     }
     if (payload->orbitRadius24 > 800) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -678,7 +678,7 @@ static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const ac
         payload->orbitAngle20 = 0.0F;
         payload->orbitRadius24 = 800;
     } else if (payload->orbitRadius24 <= 0) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 1;
     }
@@ -705,13 +705,13 @@ static std::int32_t UpdateStraightBlinkTransition_447610(YobiAction* const actio
     }
     if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
         || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }
@@ -737,7 +737,7 @@ static std::int32_t UpdateApproachingBlinkTransition_447820(YobiAction* const ac
     }
     const std::uint64_t tick = platform::ReadTickCount64();
     if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
-        world::RecreateWorldObjectAction_4467D0(action, payload->objectIndex28);
+        world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
     }

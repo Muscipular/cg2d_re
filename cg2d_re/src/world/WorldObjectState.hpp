@@ -3,6 +3,8 @@
 namespace cg::network { class CgConnection; }
 namespace cg::session { class ClientSession; }
 
+#include "cg/world/WorldObjectRecord.hpp"
+
 #include <string>
 #include <string_view>
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -16,63 +18,9 @@ namespace cg::yobi {
 struct YobiAction;
 }
 
-namespace cg::world::detail {
-
-// 原0x13C记录的增量映射；未消费区不计最终指针/字段映射，见World对象SPEC。
-struct WorldObjectRecord {
-    // 原0x0043D7C0：成员正序构造及失败前缀清理由C++承接。
-    WorldObjectRecord() = default;
-    // 原0x0043D810：成员自动逆序析构。
-    ~WorldObjectRecord() = default;
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::uint16_t category; // 原成员偏移：+0x02。
-    std::int32_t objectIndex; // 原成员偏移：+0x04。
-    std::uint32_t imageNo; // 原成员偏移：+0x08。
-    platform::LegacyCryptInt coordinate0C; // 原成员偏移：+0x0C。
-    platform::LegacyCryptInt coordinate1C; // 原成员偏移：+0x1C。
-    std::int32_t level2C; // 原成员偏移：+0x2C。
-    std::int32_t direction; // 原成员偏移：+0x30。
-    std::int32_t value34; // 原成员偏移：+0x34。
-    std::int32_t value38; // 原+38；value34待转方向对应的目标X。
-    std::int32_t value3C; // 原+3C；同一待转方向对应的目标Y。
-    std::uint16_t value40; // 原成员偏移：+0x40。
-    std::uint16_t flags42; // 原成员偏移：+0x42。
-    std::uint8_t marker44; // 原成员偏移：+0x44。 442BD0置1，449CC0读取；与flags42分属不同槽。
-    std::array<std::byte, 3> bytes45; // 原成员偏移：+0x45。
-    std::int32_t value48; // 原成员偏移：+0x48。
-    std::int32_t value4C; // 原成员偏移：+0x4C。
-    std::int32_t value50; // 原成员偏移：+0x50。
-    std::wstring name54; // 原成员偏移：+0x54。 446470清空名称；协议入口按原GBK字节长度门槛解码。
-    std::wstring title65; // 原成员偏移：+0x65。
-    std::wstring text76; // 原成员偏移：+0x76。
-    std::wstring text97; // 原成员偏移：+0x97。
-    std::wstring textB8; // 原成员偏移：+0xB8。
-    std::wstring nameC9; // 原成员偏移：+0xC9。 445D20/445F40保留60个GBK字节限制，内部保存宽文本。
-    std::array<std::byte, 6> bytes106; // 原成员偏移：+0x106。
-    std::int32_t value10C; // 原成员偏移：+0x10C。 442CA0/442D00/442D60的共同数值槽。
-    std::array<std::byte, 4> bytes110; // 原成员偏移：+0x110。
-    std::uint32_t flags114; // 原成员偏移：+0x114。
-    std::int32_t value118; // 原成员偏移：+0x118。
-    cg::yobi::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
-    std::uint16_t flags120; // 原成员偏移：+0x120。
-    std::array<std::byte, 2> bytes122; // 原成员偏移：+0x122。
-    std::int32_t value124; // 原+124，442F70状态图号表下标。
-    std::wstring text128; // 原+128；445350的第4段称号。
-    std::array<std::byte, 3> bytes139; // 原成员偏移：+0x139。
-};
-
-inline constexpr std::size_t kWorldObjectCapacity = 1000;
-extern std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects; // 原全局：0x005AC4C0。
-extern std::int32_t gWorldObjectFindCursor; // 原5AC498。
-extern std::int32_t gWorldObjectFreeCursor; // 原5AC49C。
-extern std::int32_t gWorldObjectUsedCount; // 原5AC4B4。
-extern std::int32_t gWorldObjectUpperBound; // 原5F9738；不是占用数。
-
-} // namespace cg::world::detail
-
 namespace cg::world {
 // 原函数：0x004462B0。
-cg::yobi::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
+cg::yobi::YobiAction* FindObjectYobi_4462B0(session::ClientSession& session, std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
 // 原函数：0x0050AEF0。
 void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection& networkConnection, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 // 原函数：0x0050B380。
@@ -91,6 +39,7 @@ std::int32_t RegisterMapActorDrawKey_446900(
 // WOP01：只生产无action记录；已存在/领取失败返0，原字段/文本生产完成返1。
 // 原函数：0x00445A60。
 std::int32_t RegisterWorldObjectWithoutAction_445A60(
+    session::ClientSession& session,
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,
     const char* titles, std::int32_t level, std::uint16_t value40,
@@ -98,7 +47,7 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
 // 原函数：0x004462E0。
 void RemoveWorldObject_4462E0(session::ClientSession& session, std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
-void RecreateWorldObjectAction_4467D0(cg::yobi::YobiAction* source, std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
+void RecreateWorldObjectAction_4467D0(session::ClientSession& session, cg::yobi::YobiAction* source, std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
 // 原函数：0x00519EE0。
 void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
 
@@ -108,7 +57,7 @@ void RenderChara_521F20(session::ClientSession& session); // 原 World::RenderCh
 // 原函数：0x0046B4B0。
 void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 // 原函数：0x00444FA0。
-std::int32_t FindWorldObjectSlot_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
+std::int32_t FindWorldObjectSlot_444FA0(session::ClientSession& session, std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
 // 原函数：0x00449C90。
 std::uint16_t EnableWorldActorModeMarker_449C90(cg::yobi::YobiAction* action); // 同一次W16 flags42取样/条件置100并返低W16结果；NULL返0。
 // 原函数：0x00449CC0。
@@ -155,7 +104,7 @@ void ApplyWorldActorActionCommand_444410(
     std::int32_t direction, std::int32_t characterAction, std::int32_t option1,
     std::int32_t option2, std::int32_t option3, std::int32_t option4);
 // 原函数：0x00446130。
-std::int32_t ReserveWorldObjectSlot_446130(); // WOL01：空槽领取返回旧游标，只推进计数/游标，保持记录。
+std::int32_t ReserveWorldObjectSlot_446130(session::ClientSession& session); // WOL01：空槽领取返回旧游标，只推进计数/游标，保持记录。
 // 原函数：0x004461E0。
 std::uint32_t MapWorldObjectTypeToDrawFlags_4461E0(std::int32_t type); // WOL01：类型转flags114，返回完整W32。
 // 原函数：0x00446210。
@@ -186,27 +135,32 @@ void UpsertGroundGoldObject_445F40(
 // WGQ01：类别/必需flags120命中返对象编号，否则-1；掩码0不命中。
 // 原函数：0x00445030。
 std::int32_t FindWorldObjectAtWithActionFlags_445030(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t category, std::uint16_t flags);
 // 原函数：0x004450D0。
 std::int32_t HasWorldObjectAt_4450D0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：类别命中返完整0/1。
 // 原函数：0x00445160。
 std::int32_t FindWorldObjectAt_445160(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：命中返对象编号，否则-1。
 // WGQ01：包含掩码0分别跳过对应字段，非零要求原W16交集，返完整0/1。
 // 原函数：0x004451F0。
 std::int32_t HasWorldObjectAtWithFlags_4451F0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t flags42Mask, std::uint16_t flags120Mask);
 // WGQ01：排除掩码0仍读取原W16字段，42失败不取120，返完整0/1。
 // 原函数：0x004452A0。
 std::int32_t HasWorldObjectAtWithoutFlags_4452A0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t excluded42, std::uint16_t excluded120);
 // 原函数：0x00446470。
-void ResetWorldObjectTable_446470(); // WLR01：只清引用/原字段的整表重置，无释放或标死。
+void ResetWorldObjectTable_446470(session::ClientSession& session); // WLR01：只清引用/原字段的整表重置，无释放或标死。
 // 原函数：0x00446610。
-void DetachWorldObjectActions_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
+void DetachWorldObjectActions_446610(session::ClientSession& session); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
 // 原函数：0x0046A5F0。
 void AdvanceFollowersBehindPlayerLeader_46A5F0(session::ClientSession& session); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 // 原函数：0x0046A190。
@@ -222,7 +176,7 @@ cg::yobi::YobiAction* ClearPlayerMovementActive_51A660(session::ClientSession& s
 // 原函数：0x0051A680。
 std::int32_t ReadPlayerMovementActive_51A680(session::ClientSession& session); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 // 原函数：0x004464D0。
-void __cdecl ClearWorldObjectsAndActions_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
+void __cdecl ClearWorldObjectsAndActions_4464D0(session::ClientSession& session); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
 // 原函数：0x00446640。
 void RecreateMissingWorldObjectActions_446640(session::ClientSession& session); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
 

@@ -80,7 +80,7 @@ void SetWorldActorChatBubble_442DC0(
     }
     auto* const payload = action->payload.mapActor;
     auto* const flagBytes = reinterpret_cast<unsigned char*>(
-        &gWorldObjects[payload->index].flags42);
+        &(*action->ownerSession->WorldScene().objects)[payload->index].flags42);
     flagBytes[1] |= 0x20u;
     const std::uint64_t tick = platform::ReadTickCount64();
     payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
@@ -122,7 +122,7 @@ void ClearWorldActorLeaderMarker_442C00(cg::yobi::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     record.marker44 = 0;
     if (action->overheadMarkerMode2E4 != cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
         record.flags42 &= 0xFEFFu;
@@ -136,7 +136,7 @@ void Sub_442CA0(cg::yobi::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x40u;
     record.value10C = value;
 }
@@ -148,7 +148,7 @@ std::uint16_t* Sub_442CD0(cg::yobi::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags42;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags42;
     flags &= 0xBFFFu;
     return &flags;
 }
@@ -160,7 +160,7 @@ void Sub_442D00(cg::yobi::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x80u;
     record.value10C = value;
 }
@@ -172,7 +172,7 @@ std::uint16_t* Sub_442D30(cg::yobi::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags42;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags42;
     flags &= 0x7FFFu;
     return &flags;
 }
@@ -184,7 +184,7 @@ void Sub_442D60(cg::yobi::YobiAction* const action, const std::int32_t value)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 4u;
     record.value10C = value;
 }
@@ -196,7 +196,7 @@ std::uint16_t* Sub_442D90(cg::yobi::YobiAction* const action)
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags42;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags42;
     flags &= 0xEBFFu;
     return &flags;
 }
@@ -208,7 +208,7 @@ std::uint16_t* ShowWorldActorPersistentStatusIcon_43D970(cg::yobi::YobiAction* c
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 1u;
     return &flags;
 }
@@ -220,7 +220,7 @@ std::uint16_t* HideWorldActorPersistentStatusIcon_43D9A0(cg::yobi::YobiAction* c
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     flags &= 0xFFFEu;
     return &flags;
 }
@@ -235,7 +235,7 @@ void SetWorldActorStatusIcon_43D9D0(cg::yobi::YobiAction* const action, std::int
         value = 0;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     *reinterpret_cast<unsigned char*>(&record.flags120) |= 2u;
     record.value124 = value;
 }
@@ -247,7 +247,7 @@ void ClearWorldActorStatusIcon_43DA10(cg::yobi::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     record.flags120 &= 0xFFFDu;
     record.value124 = 0;
 }
@@ -259,7 +259,7 @@ std::uint16_t* ShowWorldActorTimedStatusIcon_43DA40(cg::yobi::YobiAction* const 
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x24u;
     return &flags;
 }
@@ -271,7 +271,7 @@ std::uint16_t* ShowActorPetPersistentStatusIcon_43DA70(cg::yobi::YobiAction* con
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 8u;
     return &flags;
 }
@@ -283,7 +283,7 @@ std::uint16_t* HideActorPetPersistentStatusIcon_43DAA0(cg::yobi::YobiAction* con
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     flags &= 0xFFF7u;
     return &flags;
 }
@@ -295,7 +295,7 @@ std::uint16_t* ShowActorPetTimedStatusIcon_43DAD0(cg::yobi::YobiAction* const ac
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x50u;
     return &flags;
 }
@@ -307,7 +307,7 @@ std::uint16_t EnableWorldActorModeMarker_449C90(cg::yobi::YobiAction* const acti
         return 0;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags42;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags42;
     std::uint16_t sampledFlags = flags;
     if ((sampledFlags & 0x200u) == 0) {
         sampledFlags |= 0x100u;
@@ -323,7 +323,7 @@ void ClearWorldActorModeMarkerUnlessLeader_449CC0(cg::yobi::YobiAction* const ac
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     if (record.marker44 == 0) {
         record.flags42 &= 0xFEFFu;
     }
@@ -336,7 +336,7 @@ std::uint16_t* MarkWorldActorAsPartyMember_442C40(cg::yobi::YobiAction* const ac
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = gWorldObjects[payload->index].flags42;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags42;
     reinterpret_cast<unsigned char*>(&flags)[1] |= 2u;
     return &flags;
 }
@@ -351,7 +351,7 @@ void ClearWorldActorPartyMembership_442C70(cg::yobi::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    gWorldObjects[payload->index].flags42 &= 0xFDFFu;
+    (*action->ownerSession->WorldScene().objects)[payload->index].flags42 &= 0xFDFFu;
 }
 
 // 原函数：0x00442BD0。
@@ -361,7 +361,7 @@ void MarkWorldActorAsPartyLeader_442BD0(cg::yobi::YobiAction* const action)
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& record = gWorldObjects[payload->index];
+    auto& record = (*action->ownerSession->WorldScene().objects)[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 1u;
     record.marker44 = 1;
 }
@@ -374,15 +374,15 @@ void UpsertGroundItemObject_445D20(
     const std::int32_t direction, const std::int32_t value48,
     const char* const name, const std::int32_t value50)
 {
-    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(session, objectIndex);
     if (index < 0) {
-        index = ReserveWorldObjectSlot_446130();
+        index = ReserveWorldObjectSlot_446130(session);
         if (index < 0) {
             return;
         }
         cg::yobi::YobiAction* const action =
             cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, direction);
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -394,7 +394,7 @@ void UpsertGroundItemObject_445D20(
         record.value34 = -1;
     }
 
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value48 = value48;
     // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享operator=(int32_t)。
@@ -434,15 +434,15 @@ void UpsertGroundGoldObject_445F40(
     const std::int32_t direction, const std::int32_t value4C,
     const std::wstring_view name)
 {
-    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(session, objectIndex);
     if (index < 0) {
-        index = ReserveWorldObjectSlot_446130();
+        index = ReserveWorldObjectSlot_446130(session);
         if (index < 0) {
             return;
         }
         cg::yobi::YobiAction* const action =
             cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, direction);
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -454,7 +454,7 @@ void UpsertGroundGoldObject_445F40(
         record.value34 = -1;
     }
 
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value4C = value4C;
     const auto assignCoordinate = [](
@@ -667,7 +667,7 @@ void FaceWorldActorTowardPlayer_43D860(session::ClientSession& session, cg::yobi
         return;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    if (detail::gWorldObjects[payload->index].category != 1) {
+    if ((*session.WorldScene().objects)[payload->index].category != 1) {
         return;
     }
     const auto playerX = static_cast<std::int64_t>(player->worldX);
@@ -700,7 +700,7 @@ std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* cons
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = detail::gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
     return &flags;
 }
@@ -712,7 +712,7 @@ std::uint16_t* ResumeWorldActorAfterObservation_43DB30(cg::yobi::YobiAction* con
         return nullptr;
     }
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
-    auto& flags = detail::gWorldObjects[payload->index].flags120;
+    auto& flags = (*action->ownerSession->WorldScene().objects)[payload->index].flags120;
     flags &= 0xFF7Fu;
     return &flags;
 }

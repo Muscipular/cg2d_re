@@ -40,10 +40,17 @@ static LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
 
 namespace cg::world::detail {
 
-// 原CRT553014，原0x0043D760／0x0043D770／0x0043D7A0：原中央位置直接构造及逆序析构。
+// 原CRT553014，原0x0043D760／0x0043D770／0x0043D7A0：中央原位置初始化，实际寿命归会话。
 // 原0x0053C45E／0x0053C4E0／0x0053C560／0x005405F5：数组寿命及完成前缀清理由C++／MSVC承接。
 // 原0x0043D7C0／0x0043D810：千项各两CryptInt按成员声明序构造、退出双逆序。
-std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects{}; // 原全局：0x005AC4C0。
+struct WorldObjectRuntimeStartup final {
+    WorldObjectRuntimeStartup()
+    {
+        InitializeWorldObjectStorage(cg::session::GetClientHost().FirstSession());
+    }
+};
+static_assert(std::is_trivially_destructible_v<WorldObjectRuntimeStartup>);
+static const WorldObjectRuntimeStartup gWorldObjectRuntimeStartup;
 
 } // namespace cg::world::detail
 

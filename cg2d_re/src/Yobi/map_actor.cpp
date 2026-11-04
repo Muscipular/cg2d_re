@@ -40,7 +40,7 @@ static void ApplyPendingMapActorDirection(YobiAction* const action, const std::i
     if (!TransitionMovementIdle(action)) {
         return;
     }
-    auto& record = world::detail::gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*action->ownerSession->WorldScene().objects)[static_cast<std::size_t>(index)];
     if (record.value34 != -1
         && (action->mapX1E0 == static_cast<std::int32_t>(record.value38))
         && (action->mapY1F0 == static_cast<std::int32_t>(record.value3C))) {
@@ -83,7 +83,7 @@ static void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload*
     const std::int32_t index = payload->index;
     action->imageNo = index == -1 ? action->ownerSession->WorldScene().player->imageNo
         : std::bit_cast<std::int32_t>(
-            world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
+            (*action->ownerSession->WorldScene().objects)[static_cast<std::size_t>(index)].imageNo);
 }
 
 // 原五条附件路径的槽取样时点不同，见 AAS01；只在本文件选择已证顺序。
@@ -441,7 +441,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                     (player != nullptr && player == action) || payload->index == -1
                     ? action->ownerSession->WorldScene().player->imageNo
                     : std::bit_cast<std::int32_t>(
-                        world::detail::gWorldObjects[payload->index].imageNo);
+                        (*action->ownerSession->WorldScene().objects)[payload->index].imageNo);
                 action->imageNo = world::ResolveRidingCharacterImage_51C0D0(original);
             };
             if (payload->rideActor44 != nullptr) {
@@ -578,7 +578,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             return;
         }
     } else if ((reinterpret_cast<const unsigned char*>(
-                    &world::detail::gWorldObjects[
+                    &(*action->ownerSession->WorldScene().objects)[
                         static_cast<std::size_t>(index)].flags120)[0] & MapActorActionFlag_SuspendUpdate) != 0) {
         return;
     }
@@ -589,7 +589,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         payload = action->payload.mapActor;
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
-                    &world::detail::gWorldObjects[
+                    &(*action->ownerSession->WorldScene().objects)[
                         static_cast<std::size_t>(index)].flags42)[1] & MapActorDisplayByte1Flag_SharedMovementAndBars) == 0) {
             UpdateMapActorPathMovement_4424B0(action);
             useSharedRate = false;
@@ -610,7 +610,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     player = action->ownerSession->WorldScene().player->action;
     std::int32_t stopAtEnd;
     if (player != action
-        && (world::detail::gWorldObjects[
+        && ((*action->ownerSession->WorldScene().objects)[
                 static_cast<std::size_t>(index)].category & MapActorCategoryFlag_LoopEmoteAnimations) != 0) {
         const std::int32_t characterAction = action->characterAction;
         stopAtEnd = characterAction == CharacterAnimation_Run || characterAction == CharacterAnimation_Stand
@@ -631,7 +631,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         payload = action->payload.mapActor;
         index = payload->index;
         if (player != action) {
-            const std::uint32_t flags = world::detail::gWorldObjects[
+            const std::uint32_t flags = (*action->ownerSession->WorldScene().objects)[
                 static_cast<std::size_t>(index)].flags114;
             if ((flags & MapObjectRenderFlag_NameOnlyCategory) != 0 && (flags & MapObjectRenderMask_StaticFlipExempt) == 0) {
                 flipStatic = 1;
@@ -704,7 +704,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {
-                world::RemoveWorldObject_4462E0(*action->ownerSession, world::detail::gWorldObjects[
+                world::RemoveWorldObject_4462E0(*action->ownerSession, (*action->ownerSession->WorldScene().objects)[
                     static_cast<std::size_t>(index)].objectIndex);
                 return;
             }

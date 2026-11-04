@@ -1039,7 +1039,7 @@ static void WindowDialog_RouteReply(
         return;
     }
     WindowDialog_Route(connection.Owner(), type, value, request, target, text);
-    cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
+    cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(connection.Owner(), target);
     world::FaceWorldActorTowardPlayer_43D860(connection.Owner(), action);
 }
 

@@ -224,7 +224,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
     const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
         ? parent->ownerSession->WorldScene().player->action
-        : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+        : world::FindObjectYobi_4462B0(*parent->ownerSession, std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
     }
@@ -256,7 +256,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
     const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
         ? parent->ownerSession->WorldScene().player->action
-        : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+        : world::FindObjectYobi_4462B0(*parent->ownerSession, std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
     }
@@ -317,7 +317,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
     const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
         ? action->ownerSession->WorldScene().player->action
-        : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+        : world::FindObjectYobi_4462B0(*action->ownerSession, std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
@@ -400,7 +400,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
     const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
     YobiAction* const source = objectIndex == action->ownerSession->WorldScene().player->objectIndex
         ? action->ownerSession->WorldScene().player->action
-        : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+        : world::FindObjectYobi_4462B0(*action->ownerSession, std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
@@ -1018,7 +1018,7 @@ std::int32_t HandleMapObservationActionReply_440920(
     YobiAction* const target =
         static_cast<std::uint32_t>(objectIndex) == session.WorldScene().player->objectIndex
         ? session.WorldScene().player->action
-        : world::FindObjectYobi_4462B0(objectIndex);
+        : world::FindObjectYobi_4462B0(session, objectIndex);
     if (target == nullptr) {
         return 1;
     }
@@ -1035,12 +1035,12 @@ std::int32_t HandleMapObservationActionReply_440920(
             if (static_cast<std::uint32_t>(member) == session.WorldScene().player->objectIndex) {
                 world::SuspendPlayerForObservation_51BEE0(session);
             } else {
-                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
+                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(session, member));
             }
         }
         return 1;
     }
-    YobiAction* const source = world::FindObjectYobi_4462B0(values[0]);
+    YobiAction* const source = world::FindObjectYobi_4462B0(session, values[0]);
     if (source != nullptr) {
         const std::int32_t travelDuration = values[1];
         const std::int32_t direction = source->direction;
@@ -1059,7 +1059,7 @@ std::int32_t HandleMapObservationActionReply_440920(
                 world::SuspendPlayerForObservation_51BEE0(session);
                 ui::WindowRuntime_ApplyObservationInputGate(session);
             } else {
-                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
+                world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(session, member));
             }
         }
         source->imageNo = 0;

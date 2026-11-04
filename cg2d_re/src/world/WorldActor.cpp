@@ -55,7 +55,7 @@ void ApplyWorldActorActionCommand_444410(
         action->direction = direction;
         return;
     case 50: {
-        auto& record = gWorldObjects[index];
+        auto& record = (*action->ownerSession->WorldScene().objects)[index];
         record.value34 = direction;
         record.value38 = x;
         record.value3C = y;
@@ -84,14 +84,14 @@ void ApplyWorldActorActionCommand_444410(
         [[fallthrough]];
     }
     case 1: {
-        const std::uint16_t flags = gWorldObjects[index].flags42;
+        const std::uint16_t flags = (*action->ownerSession->WorldScene().objects)[index].flags42;
         if ((flags & 0x300u) == 0x300u) {
             if (action->pathCountOrDrawOrder_270 < 10) {
                 cg::yobi::AppendInterpolatedMapActorPath_441FC0(action, x, y);
             } else {
                 ResetMapFollowersFromPath(*action->ownerSession, action);
                 cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
-                gWorldObjects[index].value34 = -1;
+                (*action->ownerSession->WorldScene().objects)[index].value34 = -1;
             }
         } else {
             cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
@@ -188,12 +188,12 @@ void ApplyWorldActorActionCommand_444410(
         action->pathCountOrDrawOrder_270 = 0;
         cg::yobi::SetMapActorAnimationState_43EFC0(action, 0, 1);
         action->direction = direction;
-        gWorldObjects[index].value34 = -1;
+        (*action->ownerSession->WorldScene().objects)[index].value34 = -1;
         return;
     case 60: {
         action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
         const std::int32_t recordImage = character_select::ResolveCharacterImageForVersion(option1);
-        gWorldObjects[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
+        (*action->ownerSession->WorldScene().objects)[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
         if (option2 > 0) {
             if (payload->mainGear30 == nullptr) {
                 const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
@@ -275,7 +275,7 @@ void ApplyWorldActorActionCommand_444410(
             const std::int32_t image = character_select::ResolveCharacterImageForVersion(option1);
             payload->rideActor44->imageNo = image;
             const std::int32_t original =
-                std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
+                std::bit_cast<std::int32_t>((*action->ownerSession->WorldScene().objects)[payload->index].imageNo);
             action->imageNo = ResolveRidingCharacterImage_51C0D0(original);
             action->phase = cg::yobi::MapActorPhase_Mounting;
         } else {
@@ -300,9 +300,9 @@ void ApplyWorldActorActionCommand_444410(
         return;
     case 200:
         if (option1 != 0) {
-            reinterpret_cast<unsigned char*>(&gWorldObjects[payload->index].flags120)[1] |= 0x10u;
+            reinterpret_cast<unsigned char*>(&(*action->ownerSession->WorldScene().objects)[payload->index].flags120)[1] |= 0x10u;
         } else {
-            gWorldObjects[payload->index].flags120 &= 0xEFFFu;
+            (*action->ownerSession->WorldScene().objects)[payload->index].flags120 &= 0xEFFFu;
         }
         return;
     default:
@@ -315,7 +315,7 @@ void ApplyWorldActorActionCommand_444410(
 void RecreateMissingWorldObjectActions_446640(session::ClientSession& session)
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
-        auto& record = gWorldObjects[index];
+        auto& record = (*session.WorldScene().objects)[index];
         if (record.used == 0 || record.action != nullptr) {
             continue;
         }
@@ -367,10 +367,10 @@ void UpsertWorldActor_445350(
     const std::int32_t flag1, const std::int32_t flag2,
     const std::int32_t type)
 {
-    std::int32_t index = FindWorldObjectSlot_444FA0(objectIndex);
+    std::int32_t index = FindWorldObjectSlot_444FA0(session, objectIndex);
     std::int32_t selectedDirection = direction;
     if (index < 0) {
-        index = ReserveWorldObjectSlot_446130();
+        index = ReserveWorldObjectSlot_446130(session);
         if (index < 0) {
             return;
         }
@@ -379,7 +379,7 @@ void UpsertWorldActor_445350(
         }
         cg::yobi::YobiAction* const action =
             cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, selectedDirection);
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
             return;
@@ -391,7 +391,7 @@ void UpsertWorldActor_445350(
         record.value34 = -1;
     }
 
-    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value40 = static_cast<std::uint16_t>(value40);
     record.level2C = level;
@@ -498,16 +498,17 @@ void UpsertWorldActor_445350(
 // WGQ01：X→fresh Y→类别/必需flags120，返对象编号或-1；保比较读取/RNG与动态上界。
 // 原函数：0x00445030。
 std::int32_t FindWorldObjectAtWithActionFlags_445030(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::uint16_t category, const std::uint16_t flags)
 {
-    std::int32_t upperBound = gWorldObjectUpperBound;
+    std::int32_t upperBound = session.WorldScene().objectUpperBound;
     if (upperBound <= 0) {
         return -1;
     }
     std::int32_t index = 0;
     do {
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             cg::yobi::YobiAction* const action = record.action;
             if (action != nullptr
@@ -518,7 +519,7 @@ std::int32_t FindWorldObjectAtWithActionFlags_445030(
                 return record.objectIndex;
             }
         }
-        upperBound = gWorldObjectUpperBound;
+        upperBound = session.WorldScene().objectUpperBound;
         ++index;
     } while (index < upperBound);
     return -1;
@@ -527,15 +528,16 @@ std::int32_t FindWorldObjectAtWithActionFlags_445030(
 // WGQ01：X→fresh Y→类别，返完整0/1，无额外flags门禁；原主体保持。
 // 原函数：0x004450D0。
 std::int32_t HasWorldObjectAt_4450D0(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
-    std::int32_t upperBound = gWorldObjectUpperBound;
+    std::int32_t upperBound = session.WorldScene().objectUpperBound;
     if (upperBound <= 0) {
         return 0;
     }
     std::int32_t index = 0;
     do {
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             cg::yobi::YobiAction* const action = record.action;
             if (action != nullptr
@@ -545,7 +547,7 @@ std::int32_t HasWorldObjectAt_4450D0(
                 return 1;
             }
         }
-        upperBound = gWorldObjectUpperBound;
+        upperBound = session.WorldScene().objectUpperBound;
         ++index;
     } while (index < upperBound);
     return 0;
@@ -554,15 +556,16 @@ std::int32_t HasWorldObjectAt_4450D0(
 // WGQ01：X→fresh Y→类别，返对象编号或-1，无标志门禁；保动态上界。
 // 原函数：0x00445160。
 std::int32_t FindWorldObjectAt_445160(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
-    std::int32_t upperBound = gWorldObjectUpperBound;
+    std::int32_t upperBound = session.WorldScene().objectUpperBound;
     if (upperBound <= 0) {
         return -1;
     }
     std::int32_t index = 0;
     do {
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             cg::yobi::YobiAction* const action = record.action;
             if (action != nullptr
@@ -572,7 +575,7 @@ std::int32_t FindWorldObjectAt_445160(
                 return record.objectIndex;
             }
         }
-        upperBound = gWorldObjectUpperBound;
+        upperBound = session.WorldScene().objectUpperBound;
         ++index;
     } while (index < upperBound);
     return -1;
@@ -581,16 +584,17 @@ std::int32_t FindWorldObjectAt_445160(
 // WGQ01：包含掩码0分别跳过相应W16字段，原X/fresh Y/类别后再检查，返完整0/1。
 // 原函数：0x004451F0。
 std::int32_t HasWorldObjectAtWithFlags_4451F0(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)
 {
-    std::int32_t upperBound = gWorldObjectUpperBound;
+    std::int32_t upperBound = session.WorldScene().objectUpperBound;
     if (upperBound <= 0) {
         return 0;
     }
     std::int32_t index = 0;
     do {
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             cg::yobi::YobiAction* const action = record.action;
             if (action != nullptr
@@ -602,7 +606,7 @@ std::int32_t HasWorldObjectAtWithFlags_4451F0(
                 return 1;
             }
         }
-        upperBound = gWorldObjectUpperBound;
+        upperBound = session.WorldScene().objectUpperBound;
         ++index;
     } while (index < upperBound);
     return 0;
@@ -611,16 +615,17 @@ std::int32_t HasWorldObjectAtWithFlags_4451F0(
 // WGQ01：排除掩码0仍沿原W16字段读取，42失败不取120，返完整0/1；主体保持。
 // 原函数：0x004452A0。
 std::int32_t HasWorldObjectAtWithoutFlags_4452A0(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t excluded42, const std::uint16_t excluded120)
 {
-    std::int32_t upperBound = gWorldObjectUpperBound;
+    std::int32_t upperBound = session.WorldScene().objectUpperBound;
     if (upperBound <= 0) {
         return 0;
     }
     std::int32_t index = 0;
     do {
-        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
         if (record.used != 0) {
             cg::yobi::YobiAction* const action = record.action;
             if (action != nullptr
@@ -632,7 +637,7 @@ std::int32_t HasWorldObjectAtWithoutFlags_4452A0(
                 return 1;
             }
         }
-        upperBound = gWorldObjectUpperBound;
+        upperBound = session.WorldScene().objectUpperBound;
         ++index;
     } while (index < upperBound);
     return 0;
@@ -899,7 +904,7 @@ std::int32_t ReadPlayerMovementActive_51A680(session::ClientSession& session)
 namespace cg::world {
 
 // 原函数：0x0050AEF0。
-void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection&, const char* const payload)
+void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection& connection, const char* const payload)
 {
     char text[2048];
     for (std::int32_t field = 3; field < 28; field += 5) {
@@ -916,7 +921,7 @@ void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection&, const char* 
         const std::int32_t fp = std::atoi(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
         const std::int32_t maxFp = std::atoi(text);
-        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(connection.Owner(), objectIndex);
         if (action == nullptr) {
             continue;
         }
@@ -935,16 +940,17 @@ void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection&, const char* 
 // WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
 // 原函数：0x004467D0。
 void RecreateWorldObjectAction_4467D0(
+    session::ClientSession& session,
     cg::yobi::YobiAction* const source, const std::int32_t objectIndex)
 {
     if (objectIndex < 0) {
         return;
     }
-    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);
+    const std::int32_t index = detail::FindWorldObjectSlot_444FA0(session, objectIndex);
     if (index < 0) {
         return;
     }
-    auto& record = detail::gWorldObjects[static_cast<std::size_t>(index)];
+    auto& record = (*session.WorldScene().objects)[static_cast<std::size_t>(index)];
     if (record.used == 0 || record.action != nullptr) {
         return;
     }

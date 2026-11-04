@@ -921,6 +921,7 @@ void RefreshSessionWindow()
             title += L" - ";
             title += entry.label;
             if (entry.disconnected) title += L" [断线]";
+            title += L" // 开启者，你今天爆揍一顿小吸兽了吗？";
             break;
         }
     }

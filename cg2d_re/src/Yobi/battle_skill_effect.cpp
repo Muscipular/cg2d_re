@@ -2,6 +2,7 @@
 #include "battle_message.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 
 #include <array>
@@ -42,7 +43,7 @@ void BindBattleSkillMeta(YobiAction* const action)
     auto* const meta = GetBattleSkillMeta(action);
     if (!meta) return;
     for (std::size_t slot = 0; slot < 20; ++slot) {
-        if (world::gBattleAllEntries59E980[slot] != action) continue;
+        if (action->ownerSession->WorldScene().battle.allEntries[slot] != action) continue;
         if (action->payload.battleActor->castSkill103C == gBattleMSkill5AAA78) {
             *meta = skillContext;
         }

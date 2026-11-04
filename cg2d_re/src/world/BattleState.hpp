@@ -17,10 +17,6 @@ namespace cg::session { class ClientSession; }
 namespace cg::world {
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84：43C8F0 顺序重置的独立 S32 槽。
-extern std::int32_t gBattleFirstActionSelectionMode_5ABB70; // 原全局：0x005ABB70。
-extern std::int32_t gBattleSecondActionSelectionMode_5ABB6C; // 原全局：0x005ABB6C。
-extern std::int32_t gLastBattleCommandPetIndex_553F90; // 原全局：0x00553F90。
-extern std::int32_t gSelectedBattlePetTechniqueIndex_553F84; // 原全局：0x00553F84。
 // 原函数：0x0050D120。
 void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 // 原函数：0x0050D3C0。
@@ -28,48 +24,14 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& networkConnection
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnection, const char* payload); // 三阶段战斗结果生产，socket未用。
 void ConsumeBattlePlayerTimer(session::ClientSession& session, std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
-extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
-extern std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。
-extern const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC; // 原全局：0x005536FC。
 // R03：窗口初始化调整这一份阵位，战斗动作／效果继续借用。
 void CenterBattleLayoutToWindow(session::ClientSession& session);
-extern std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 原全局：0x00553758。 两组原S32坐标。
-extern std::int32_t gBattleCurrentPosition5ABCA4; // 原全局：0x005ABCA4。 实际gMyPostion；不同于P回复的5ABCA8。
-extern std::int32_t gBattlePlayerActionState5ABC74; // 原全局：0x005ABC74。 UI发布动作完成状态，非5ABB74回合数。
-extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 原全局：0x005ABC7C。 496F10清九个W32，含94/98/9C。
-extern std::int32_t gBattleSelectedSkill5ABB5C; // 原全局：0x005ABB5C。 4974C0写技能槽，4975A0/498520重取。
-extern std::int32_t gBattleSelectedTechnique5ABC78; // 原全局：0x005ABC78。 4974C0写技术槽，不是UI列表索引。
-extern std::int32_t gBattleCommandState5ABC3C; // 原全局：0x005ABC3C。 技能/宠物命令完成状态，498520消费。
-extern std::uint8_t gBattleRebirthDisabled5ABC40; // 原全局：0x005ABC40。 497C80先读的独立U8门禁，498520后续写。
-extern std::int32_t gBattleSkillActionCount5ABBF4; // 原全局：0x005ABBF4。
-extern std::int32_t gBattlePetActionCount5ABBBC; // 原全局：0x005ABBBC。
-extern std::int32_t gBattleCountdownActive5ABCB8; // 原全局：0x005ABCB8。 43C4E0置1，4982C0到期清零。
-extern std::uint64_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
-extern std::int32_t gBattleCountdownSecond5ABB80; // 原全局：0x005ABB80。 低于十秒时的独立提示秒数。
-extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 原全局：0x005ABBFC。 4965D0每次解码后重取，非553F90。
-extern std::int32_t gBattleCommandX553F78; // 原全局：0x00553F78。 映像490，43C4E0覆盖493。
-extern std::int32_t gBattleCommandY553F7C; // 原全局：0x00553F7C。 映像-104，43C4E0覆盖-106。
-extern std::int32_t gBattleCommandValue553F80; // 原全局：0x00553F80。 映像及初始化17，43C3E0读取。
-extern std::array<std::int32_t, 9> gBattleResetValues5ABB84; // 原全局：0x005ABB84。 43C490只写-2的独立九槽，非选择标志。
-extern std::int32_t gBattleSelectionMode5ABC70; // 原全局：0x005ABC70。 与九个选择槽分别存储。
-extern std::int32_t gBattleSkillUsed5ABC68; // 原全局：0x005ABC68。 497000/4975A0读取完整W32。
-extern std::int32_t gBattlePetCommandPhase553F88; // 原全局：0x00553F88。 原.data初值1，宠物命令写0/2。
-extern std::int32_t gBattleValue5ABCC0; // 原全局：0x005ABCC0。 两个技能开启入口清零，不猜未消费语义。
-extern cg::yobi::YobiAction* gBattleCommandAction5ABC00; // 原全局：0x005ABC00。 原非拥有对象引用，MarkDeath后清槽。
-extern std::uint32_t gBattleTargetFlags5ABC44; // 原全局：0x005ABC44。 43C560先发布完整目标位模式，43C120后续消费。
-extern std::int32_t gBattleSelectedItem5ABC48; // 原全局：0x005ABC48。 499C30发布真实物品槽，498520后续消费。
-extern std::int32_t gBattleItemTargetPending5ABCC4; // 原全局：0x005ABCC4。 499C30请求选目标，497100/497770处理。
-extern std::int32_t gBattleBombLevelD67B2C; // 原全局：0x00D67B2C。 仅炸弹hover发布，41D4FE动画读取。
 // 原函数：0x00405B40。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 // 原函数：0x00518C60。
 std::int32_t CountFreeInventorySlots_518C60(session::ClientSession& session); // BEI01：所属会话玩家slot8..27逐used W16统计空槽，S32返回；运行待。
-extern std::uint32_t gBattlePlayerFlags5ABCAC; // 原全局：0x005ABCAC。
-extern std::uint32_t gBattleSkillFlags5ABC04; // 原全局：0x005ABC04。
-extern std::uint32_t gBattlePetSkillFlags5ABB78; // 原全局：0x005ABB78。
-extern std::uint32_t gBattleRidePet5ABC38; // 原全局：0x005ABC38。
 
 namespace detail {
 // 原函数：0x0043CB10。
@@ -79,11 +41,9 @@ std::int32_t ShouldPlayBattleResultSound_4ED670(session::ClientSession& session)
 // 原函数：0x00504A50。
 void OpenPendingBattleResultWindow_504A50(session::ClientSession& session); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
 // 原函数：0x0043C8F0。
-std::int32_t ResetBattleCommandSelection_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
-extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
+std::int32_t ResetBattleCommandSelection_43C8F0(session::ClientSession& session);                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 // 原函数：0x0043C4E0。
 void BeginBattleCommandSelection_43C4E0(session::ClientSession& session); // 完整命令计时初始化、对象标志与技能选择同步。
-extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(session::ClientSession& session); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
 

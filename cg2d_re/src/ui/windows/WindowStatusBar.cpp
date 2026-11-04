@@ -205,22 +205,22 @@ static void WindowStatusBar_FormatVitals(session::ClientSession& session, std::w
 {
     cg::yobi::YobiAction* battlePlayer = nullptr;
     if (session.WorldScene().sceneType == 10) {
-        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t position = session.WorldScene().battle.currentPosition;
         if (position < 20) {
-            battlePlayer = world::gBattleEntries59E980[position];
+            battlePlayer = session.WorldScene().battle.entries[position];
         }
     }
     if (battlePlayer != nullptr) {
         const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(battlePlayer);
-        const std::int32_t hpPosition = world::gBattleCurrentPosition5ABCA4;
-        const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(world::gBattleEntries59E980[hpPosition]);
+        const std::int32_t hpPosition = session.WorldScene().battle.currentPosition;
+        const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(session.WorldScene().battle.entries[hpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFpPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t maxFpPosition = session.WorldScene().battle.currentPosition;
         const std::int32_t maxFp =
-            cg::yobi::ReadYobiActionMaxFpOnce(world::gBattleEntries59E980[maxFpPosition]);
-        const std::int32_t fpPosition = world::gBattleCurrentPosition5ABCA4;
-        const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[fpPosition]);
+            cg::yobi::ReadYobiActionMaxFpOnce(session.WorldScene().battle.entries[maxFpPosition]);
+        const std::int32_t fpPosition = session.WorldScene().battle.currentPosition;
+        const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(session.WorldScene().battle.entries[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
         const std::int32_t maxHp = static_cast<std::int32_t>(session.WorldScene().player->maxHp);

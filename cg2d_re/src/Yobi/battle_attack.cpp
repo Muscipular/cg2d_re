@@ -31,7 +31,6 @@ namespace detail {
 // 原函数：0x00409680。
 void UpdateBattleAction14_409680(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     YobiAction* const caster = payload->caster1070;
     action->characterAction = CharacterAnimation_Attack;
@@ -101,13 +100,13 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 break;
             }
         }
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position];
         if (target != nullptr) {
             auto* const targetPayload = target->payload.battleActor;
             target->hidden = 0;
             TurnBattleToward_406190(target, action, 1, 0.0F);
             targetPayload->castSkill103C = -1;
-            target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+            target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
             targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
                 payload->effects1C[payload->effectRunningC9C].flags);
             if (action->frameEvent >= 20000 || payload->value1038 == BattleComboFrameHitGate_ForceHitPath) {
@@ -258,17 +257,17 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                         if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                                cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                                action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                         } else {
                             const std::int32_t amount = effect.position3;
-                            (cg::world::gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
-                            if ((cg::world::gBattleAllEntries59E980[
+                            (action->ownerSession->WorldScene().battle.allEntries[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                            if ((action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 std::optional<platform::LegacyCryptInt> temporary;
                                 temporary.emplace(static_cast<std::int32_t>(0));
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary->encoded;
-                                YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                                YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[currentIndex].position];
                                 copyTarget->barValue1B0.encoded = temporaryEncoded;
                                 const std::uint32_t temporaryMask = temporary->mask;
@@ -297,17 +296,17 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                         if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                                cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                                action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                         } else {
                             const std::int32_t amount = effect.position3;
-                            (cg::world::gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
-                            if ((cg::world::gBattleAllEntries59E980[
+                            (action->ownerSession->WorldScene().battle.allEntries[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                            if ((action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 std::optional<platform::LegacyCryptInt> temporary;
                                 temporary.emplace(static_cast<std::int32_t>(0));
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary->encoded;
-                                YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                                YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[currentIndex].position];
                                 copyTarget->barValue1B0.encoded = temporaryEncoded;
                                 const std::uint32_t temporaryMask = temporary->mask;
@@ -349,14 +348,14 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        (cg::world::gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
-                        YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                        (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness += static_cast<std::int32_t>(amount));
+                        YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                 payload->effects1C[payload->effectRunningC9C].position];
                             copyTarget->readiness = copyTarget->maxHp;
                         }
@@ -383,7 +382,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                         if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                                cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                                action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                         } else {
                             auto* const fp = &action->barValue1B0;
                             ((*fp) -= static_cast<std::int32_t>(effect.position3));
@@ -424,7 +423,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
                         auto* const hp = &action->readiness;
                         ((*hp) -= static_cast<std::int32_t>(effect.position3));
@@ -452,17 +451,17 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[hitIndex];
                     if ((hitFlags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        (cg::world::gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
-                        if ((cg::world::gBattleAllEntries59E980[
+                        (action->ownerSession->WorldScene().battle.allEntries[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                        if ((action->ownerSession->WorldScene().battle.allEntries[
                                 payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
                             temporary.emplace(static_cast<std::int32_t>(0));
                             const std::int32_t currentIndex = payload->effectRunningC9C;
                             const std::uint32_t temporaryEncoded = temporary->encoded;
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                 payload->effects1C[currentIndex].position];
                             copyTarget->barValue1B0.encoded = temporaryEncoded;
                             const std::uint32_t temporaryMask = temporary->mask;
@@ -505,23 +504,23 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
                         if (amount == 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                                cg::world::gBattleAllEntries59E980[effect.position], 22331, 0, 0));
+                                action->ownerSession->WorldScene().battle.allEntries[effect.position], 22331, 0, 0));
                         } else {
                             const std::int32_t damageSkill = payload->castSkill103C;
                             if (damageSkill != BattleSkill_EnergyDrain && damageSkill != BattleSkill_EquipBreakAttack && damageSkill != BattleSkill_GoldAttack) {
-                                (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                                if ((cg::world::gBattleAllEntries59E980[
+                                (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                                if ((action->ownerSession->WorldScene().battle.allEntries[
                                         payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                                     std::optional<platform::LegacyCryptInt> temporary;
                                     temporary.emplace(static_cast<std::int32_t>(0));
                                     const std::int32_t currentIndex = payload->effectRunningC9C;
                                     const std::uint32_t temporaryEncoded = temporary->encoded;
-                                    YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                                    YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                         payload->effects1C[currentIndex].position];
                                     copyTarget->readiness.encoded = temporaryEncoded;
                                     const std::uint32_t temporaryMask = temporary->mask;
@@ -603,7 +602,6 @@ std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
 // 原函数：0x00406E10。
 void UpdateBattleAction15_406E10(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     if (payload->valueFD0 == 0) {
         payload->valueFD0 = 1;
@@ -616,7 +614,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     if (payload->attackModeFF4 == BattleAttackMode_Boomerang) {
         const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
         if (position != -1) {
-            YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+            YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
             const std::int32_t sourcePosition = payload->battlePosition18;
             std::int32_t x = target->x;
             const std::int32_t y = target->y;
@@ -654,7 +652,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     }
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position != -1) {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 0.0F);
     }
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
@@ -669,7 +667,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
         do {
             const std::int32_t image = lowLevel ? 29105 : (payload->castSkillLevel1044 < 12 ? 29106 : 104217);
             static_cast<void>(NewBattleHitEffect_41F5B0(
-                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, 0, 30, image));
+                action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position], 0, 0, 30, image));
             static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22090));
         } while (AdvanceBattleEffect_439470(action) != 1);
     } else {
@@ -687,7 +685,6 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
 // 原函数：0x00408170。
 void UpdateBattleAction18_408170(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Attack;
     const std::int32_t skill = payload->castSkill103C;
@@ -698,7 +695,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
             AdvanceBattleCastState_439340(action);
         }
     } else {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 0.0F);
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t gateEvent = action->frameEvent;
@@ -709,7 +706,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
         const std::int32_t level = payload->castSkillLevel1044;
         const std::int32_t image = level < 9 ? 29105 : (level < 12 ? 29106 : 104217);
         static_cast<void>(NewBattleHitEffect_41F5B0(
-            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, 0, 30, image));
+            action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position], 0, 0, 30, image));
     }
     static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22050));
     const std::int32_t soundEvent = action->frameEvent;
@@ -729,7 +726,6 @@ void UpdateBattleAction18_408170(YobiAction* const action)
 // 原函数：0x004082F0。
 void UpdateBattleAction19_4082F0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     if (payload->valueFD0 == 0) {
         payload->valueFD0 = 1;
@@ -745,7 +741,7 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
             AdvanceBattleCastState_439340(action);
         }
     } else {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 0.0F);
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t gateEvent = action->frameEvent;
@@ -773,7 +769,7 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
     action->framePlayingRate = 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position != -1) {
-        TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 0.0F);
     }
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
@@ -797,7 +793,7 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
     action->framePlayingRate = 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position != -1) {
-        TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 0.0F);
     }
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
@@ -829,7 +825,6 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
 // 原[4072E0,408169)：动作16投射命中与退场；完整流程见doc/cg2d_battle_projectile_hit_spec.md。
 void UpdateBattleAction16_4072E0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     if (action == nullptr) {
         return;
     }
@@ -843,13 +838,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
     }
     if ((*reinterpret_cast<const unsigned char*>(
             &payload->effects1C[initialIndex].flags) & BattleResultFlag_Avoidance) == 0) {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[payload->effects1C[initialIndex].position], 0, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[initialIndex].position], 0, 0.0F);
     }
     const std::int32_t earlyIndex = payload->effectRunningC9C;
     if ((payload->effects1C[earlyIndex].flags & BattleResultFlag_Barrier) != 0
-        && GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[payload->effects1C[earlyIndex].position]) < 70
+        && GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[earlyIndex].position]) < 70
         && action->frameEvent == 0) {
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position];
         if (target == nullptr) {
             return;
         }
@@ -892,11 +887,11 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         return;
     }
     if (GetBattleDistance_406300(action,
-            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 20
+            action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position]) < 20
         && action->frameEvent == 0) {
         const std::int32_t index = payload->effectRunningC9C;
         const std::int32_t position = payload->effects1C[index].position;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
         if (target == nullptr) {
             return;
         }
@@ -961,7 +956,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             }
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -1021,19 +1016,19 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 if (secondaryImage >= 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, secondaryImage, 0));
                 }
-                NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
+                NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                 const std::int32_t mode = payload->attackModeFF4;
                 static_cast<void>(audio::PlaySe_52C450(mode == BattleAttackMode_ThrowingKnife ? 141 : (mode == BattleAttackMode_Bow ? 142 : 255), action->x));
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = effect.position3;
-                (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                if ((cg::world::gBattleAllEntries59E980[
+                (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                if ((action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
                     temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t zeroEncoded = temporary->encoded;
-                    YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                    YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[copyEffectIndex].position];
                     copyTarget->readiness.encoded = zeroEncoded;
                     copyTarget->readiness.mask = temporary->mask;
@@ -1093,14 +1088,14 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness += static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         copyTarget->readiness = copyTarget->maxHp;
                     }
@@ -1114,7 +1109,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
-                        cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
                 }
             } else if ((hitFlags & BattleResultMask_Reflection) != 0) {
                 const std::int32_t skill = payload->castSkill103C;
@@ -1183,7 +1178,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                 if ((numberFlags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[payload->effects1C[numberIndex].position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[numberIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[numberIndex].position3;
@@ -1193,7 +1188,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
-                        cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
                 }
             }
             if (payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike
@@ -1255,20 +1250,19 @@ void UpdateBattleAction17_4093B0(YobiAction* const action)
 // 原函数：0x00408410。
 void UpdateBattleAction20_408410(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     const std::int32_t initialIndex = payload->effectRunningC9C;
     const std::uint8_t entryFlags = *reinterpret_cast<const std::uint8_t*>(
         &payload->effects1C[initialIndex].flags);
     if ((entryFlags & BattleResultFlag_Avoidance) == 0) {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[payload->effects1C[initialIndex].position], 1, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[initialIndex].position], 1, 0.0F);
     }
     if (GetBattleDistance_406300(action,
-            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
+            action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
         const std::int32_t index = payload->effectRunningC9C;
         const std::int32_t position = payload->effects1C[index].position;
         const std::uint32_t initialFlags = payload->effects1C[index].flags;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
         auto* const targetPayload = target->payload.battleActor;
         std::int32_t image;
         if ((initialFlags & BattleResultFlag_Guard) != 0) {
@@ -1279,7 +1273,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
             image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -1299,19 +1293,19 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                 if (image >= 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, image, 0));
                 }
-                NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
+                NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 if ((effect.flags & BattleResultFlag_RebirthGuard) == 0) {
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                    if ((cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                    if ((action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
                         temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                         copyTarget->readiness.encoded = encoded;
                         const std::uint32_t mask = temporary->mask;
                         copyTarget->readiness.mask = mask;
@@ -1333,7 +1327,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
             if ((numberFlags & BattleResultFlag_RebirthGuard) != 0) {
                 static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                    cg::world::gBattleAllEntries59E980[payload->effects1C[numberIndex].position], 22459, 0, 0));
+                    action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[numberIndex].position], 22459, 0, 0));
             } else {
                 const std::int32_t y = target->y - 80;
                 const std::int32_t displayed = payload->effects1C[numberIndex].position3;
@@ -1344,7 +1338,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
-                    cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                    action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
             }
             static_cast<void>(MarkDeath(action));
         }
@@ -1376,26 +1370,25 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 {
     static constexpr std::array<std::int32_t, 5> kBoomerangHitImages {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
-    using world::gBattleAllEntries59E980;
     const std::int32_t initialFrameEvent = action->frameEvent;
     auto* const payload = action->payload.battleActor;
     if (initialFrameEvent == 0) {
         if (action->field1D0 == 0) {
             action->field1D0 = static_cast<std::int32_t>(GetBattleAngleDifference_406060(action,
-                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]));
+                action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position]));
         }
         if (GetBattleDistance_406300(action,
-                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 60) {
+                action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position]) < 60) {
             const float step = static_cast<float>(static_cast<double>(action->effectAcceleration48)
                 + 0.3F);
             action->effectAcceleration48 = step;
             TurnBattleToward_406190(action,
-                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, step);
+                action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position], 0, step);
         }
         const std::int32_t turnIndex = payload->effectRunningC9C;
         const float step = action->effectAcceleration48;
         TurnBattleToward_406190(action,
-            cg::world::gBattleAllEntries59E980[payload->effects1C[turnIndex].position], 0, step);
+            action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[turnIndex].position], 0, step);
         NormalizeBattleAngle_405E60(action);
         YobiAction* const other = action->battleOpponent10;
         if (other->phase != BattleAction_LaunchRangedAttack) {
@@ -1403,11 +1396,11 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
         }
         if (action->frameEvent == 0
             && GetBattleDistance_406300(action,
-                cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 20) {
+                action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position]) < 20) {
             std::int32_t image = -1;
             std::int32_t secondaryImage = -1;
             std::int32_t direction = 0;
-            YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position];
+            YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[payload->effectRunningC9C].position];
             auto* const targetPayload = target->payload.battleActor;
             action->effectAcceleration48 = 10.0F;
             const std::int32_t imageIndex = payload->effectRunningC9C;
@@ -1480,7 +1473,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 }
             }
             TurnBattleToward_406190(target, action, 1, 0.0F);
-            target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+            target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
             targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
                 payload->effects1C[payload->effectRunningC9C].flags);
             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -1506,19 +1499,19 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     if (secondaryImage >= 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, secondaryImage, 0));
                     }
-                    NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
+                    NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                     static_cast<void>(audio::PlaySe_52C450(143, action->x));
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                    if ((cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                    if ((action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
                         temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                         copyTarget->readiness.encoded = encoded;
                         const std::uint32_t mask = temporary->mask;
                         copyTarget->readiness.mask = mask;
@@ -1542,14 +1535,14 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        (cg::world::gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
-                        YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                        (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness += static_cast<std::int32_t>(amount));
+                        YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                                 payload->effects1C[payload->effectRunningC9C].position];
                             copyTarget->readiness = copyTarget->maxHp;
                         }
@@ -1564,7 +1557,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
                         static_cast<void>(NewBattleAttributeEffects_4209C0(
-                            cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                            action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
                     }
                 } else if ((hitFlags & BattleResultFlag_ReflectPhysical) != 0) {
                     AdvanceBattleCastState_439340(target);
@@ -1580,7 +1573,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                     if ((numberFlags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[payload->effects1C[numberIndex].position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[numberIndex].position], 22459, 0, 0));
                     } else {
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
@@ -1591,7 +1584,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
                         static_cast<void>(NewBattleAttributeEffects_4209C0(
-                            cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                            action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
                     }
                 }
                 if (payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike
@@ -1630,7 +1623,6 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 // 原函数：0x004090F0。
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     std::int32_t turnSign = action->field1D0;
     YobiAction* const caster = payload->caster1070;
@@ -1680,7 +1672,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
                     static_cast<void>(AdvanceBattleEffect_439470(action->battleOpponent10));
                     AdvanceBattleCastState_439340(action->battleOpponent10);
                     AppendBattleEffect_439400(action, {parentPayload->effects1C[parentPayload->effectRunningC9C].position, 0, 0, 0});
-                    if (cg::world::gBattleAllEntries59E980[parentPayload->effects1C[parentPayload->effectRunningC9C].position]->phase != BattleAction_Idle) {
+                    if (action->ownerSession->WorldScene().battle.allEntries[parentPayload->effects1C[parentPayload->effectRunningC9C].position]->phase != BattleAction_Idle) {
                         AppendBattleCast_4392A0(caster, action, BattleAction_WaitTargetReady);
                     }
                     AppendBattleCast_4392A0(caster, action, BattleAction_AdvanceLinkedCast);
@@ -1725,14 +1717,13 @@ void UpdateBattleAction24_409380(YobiAction* const action)
 // 原函数：0x00406BA0。
 void UpdateBattleAction25_406BA0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position == -1) {
         AdvanceBattleCastState_439340(action);
         return;
     }
-    YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+    YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
     if (target == nullptr) {
         AdvanceBattleCastState_439340(action);
         return;
@@ -1740,7 +1731,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
     if (payload->battlePosition18 == position || target->phase == BattleAction_Idle) {
         auto* const targetPayload = target->payload.battleActor;
         targetPayload->x10 = target->x;
-        YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
+        YobiAction* const currentTarget = action->ownerSession->WorldScene().battle.allEntries[
             payload->effects1C[payload->effectRunningC9C].position];
         auto* const currentPayload = currentTarget->payload.battleActor;
         currentPayload->y14 = currentTarget->y;
@@ -1804,7 +1795,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
         if (count == duration) {
             static_cast<void>(audio::PlaySe_52C450(207, action->x));
             if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
-                if (CountBattleActiveEntries_406360() <= 1) {
+                if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
                     action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 const std::uint32_t state = payload->stateFE0;
@@ -1898,7 +1889,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
     }
     if (count == duration) {
         if ((static_cast<std::uint8_t>(flags) & BattleActorFlag_Dead) != 0) {
-            if (CountBattleActiveEntries_406360() <= 1) {
+            if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
                 action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
             }
             const std::uint32_t state = payload->stateFE0;
@@ -2101,23 +2092,22 @@ void UpdateBattleAction242_417CC0(YobiAction* const action)
 // 原函数：0x00416220。
 std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 10.0F;
     action->framePlayingRate = 100;
     const std::int32_t turnPosition = payload->effects1C[payload->effectRunningC9C].position;
-    TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[turnPosition], 1, 0.0F);
+    TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[turnPosition], 1, 0.0F);
     MoveBattleByAngle_405EA0(action);
     const std::int32_t distancePosition = payload->effects1C[payload->effectRunningC9C].position;
-    if (GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[distancePosition]) < 20) {
+    if (GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[distancePosition]) < 20) {
         const std::int32_t index = payload->effectRunningC9C;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[index].position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[index].position];
         const std::uint32_t flags = payload->effects1C[index].flags;
         auto* const targetPayload = target->payload.battleActor;
         TurnBattleToward_406190(target, action, 1, 0.0F);
         targetPayload->castSkill103C = -1;
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if ((flags & BattleResultFlag_Avoidance) != 0) {
@@ -2173,15 +2163,15 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness += static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         copyTarget->readiness = copyTarget->maxHp;
                     }
@@ -2198,7 +2188,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
                     if ((action->readiness < 0)) {
@@ -2218,13 +2208,13 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
             } else {
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
                     if (amount != 0) {
-                        (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                        YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                        (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                        YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
@@ -2233,7 +2223,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
                             const std::uint32_t encoded = temporary->encoded;
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary->mask;
                             copyTarget->readiness.readCount = temporary->readCount;
@@ -2249,7 +2239,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                         static_cast<void>(NewBattleAttributeEffects_4209C0(action, target));
                     } else {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22331, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22331, 0, 0));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -2305,7 +2295,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
             action->motionMagnitude54 = 5.0F;
             const std::uint8_t thresholdFlags = *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
             if ((thresholdFlags & BattleActorFlag_Dead) != 0) {
-                if (CountBattleActiveEntries_406360() <= 1) {
+                if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
                     action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 payload->aliveFF8 = 0;
@@ -2357,7 +2347,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(207, action->x));
         const std::uint8_t initialFlags = *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
         if ((initialFlags & BattleActorFlag_Dead) != 0) {
-            if (CountBattleActiveEntries_406360() <= 1) {
+            if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
                 action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
             }
             const std::uint32_t state = payload->stateFE0;
@@ -2432,7 +2422,6 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
 // 原函数：0x00416DD0。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 10.0F;
@@ -2442,17 +2431,17 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
         if (payload->valueFF0 < 16) {
             const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-            applyEffect = GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[position]) < 20;
+            applyEffect = GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[position]) < 20;
         }
     }
     if (applyEffect) {
         const std::int32_t index = payload->effectRunningC9C;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[index].position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[index].position];
         const std::uint32_t flags = payload->effects1C[index].flags;
         auto* const targetPayload = target->payload.battleActor;
         TurnBattleToward_406190(target, action, 1, 0.0F);
         targetPayload->castSkill103C = -1;
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if ((flags & BattleResultFlag_Avoidance) != 0) {
@@ -2507,15 +2496,15 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness += static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         copyTarget->readiness = copyTarget->maxHp;
                     }
@@ -2533,7 +2522,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
                     if ((action->readiness < 0)) {
@@ -2553,13 +2542,13 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
             } else {
                 if ((flags & BattleResultFlag_RebirthGuard) != 0) {
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-                    static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[position], 22459, 0, 0));
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[position], 22459, 0, 0));
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
                     if (amount != 0) {
-                        (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
-                        YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                        (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                        YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
@@ -2568,7 +2557,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::uint32_t encoded = temporary->encoded;
                             const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary->mask;
                             copyTarget->readiness.readCount = temporary->readCount;
@@ -2584,7 +2573,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                         static_cast<void>(NewBattleAttributeEffects_4209C0(action, target));
                     } else {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22331, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22331, 0, 0));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -2610,13 +2599,12 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 // 原函数：0x00417410。
 void UpdateBattleActions238_239_417410(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     const BattleEntryEffectRecord& initial = payload->effects1C[payload->effectRunningC9C];
     if ((initial.flags & BattleResultFlag_Barrier) != 0
-        && GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[initial.position]) < 70
+        && GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[initial.position]) < 70
         && action->frameEvent == 0) {
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[
             payload->effects1C[payload->effectRunningC9C].position];
         static_cast<void>(MarkDeath(action));
         action->phase = BattleAction_MoveOutOfBounds;
@@ -2629,11 +2617,11 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         return;
     }
     const std::int32_t distancePosition = payload->effects1C[payload->effectRunningC9C].position;
-    if (GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[distancePosition]) < 20
+    if (GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[distancePosition]) < 20
         && action->frameEvent == 0) {
         const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t position = current.position;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
         const std::uint32_t initialFlags = current.flags;
         auto* const targetPayload = target->payload.battleActor;
         std::int32_t imageNo = -1;
@@ -2651,7 +2639,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             }
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -2674,12 +2662,12 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 if (secondImageNo >= 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, secondImageNo, 0));
                 }
-                NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
+                NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                 static_cast<void>(audio::PlaySe_52C450(255, action->x));
                 const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = damage.position3;
-                (cg::world::gBattleAllEntries59E980[damage.position]->readiness -= static_cast<std::int32_t>(amount));
-                YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                (action->ownerSession->WorldScene().battle.allEntries[damage.position]->readiness -= static_cast<std::int32_t>(amount));
+                YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
@@ -2688,7 +2676,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
-                    YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                    YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary->mask;
                     copyTarget->readiness.readCount = temporary->readCount;
@@ -2711,14 +2699,14 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 const std::int32_t healIndex = payload->effectRunningC9C;
                 if ((payload->effects1C[healIndex].flags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    (cg::world::gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         copyTarget->readiness = copyTarget->maxHp;
                     }
@@ -2744,7 +2732,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
                 if ((displayFlags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[payload->effects1C[displayIndex].position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[displayIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[displayIndex].position3;
@@ -2760,7 +2748,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
-                    cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                    action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
             }
         }
         const std::int32_t tailIndex = payload->effectRunningC9C;
@@ -2800,7 +2788,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             action->phase = BattleAction_MoveOutOfBounds;
         } else {
             const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
-            TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 6.0F);
+            TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[position], 1, 6.0F);
         }
     }
 }
@@ -2836,20 +2824,19 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
 // 原函数：0x00417D80。
 void UpdateBattleAction243_417D80(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     const BattleEntryEffectRecord& initial = payload->effects1C[payload->effectRunningC9C];
     const std::uint8_t turnFlags = *reinterpret_cast<const std::uint8_t*>(&initial.flags);
     if ((turnFlags & BattleResultFlag_Avoidance) == 0) {
-        TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[initial.position], 0, 0.0F);
+        TurnBattleToward_406190(action, action->ownerSession->WorldScene().battle.allEntries[initial.position], 0, 0.0F);
     }
     const std::int32_t distancePosition = payload->effects1C[payload->effectRunningC9C].position;
-    if (GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[distancePosition]) < 20
+    if (GetBattleDistance_406300(action, action->ownerSession->WorldScene().battle.allEntries[distancePosition]) < 20
         && action->frameEvent == 0) {
         const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t position = current.position;
         const std::uint32_t initialFlags = current.flags;
-        YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+        YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
         auto* const targetPayload = target->payload.battleActor;
         std::int32_t imageNo = -1;
         std::int32_t secondImageNo = -1;
@@ -2914,7 +2901,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             }
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
-        target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
+        target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -2940,7 +2927,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                 if (secondImageNo >= 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, secondImageNo, 0));
                 }
-                NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
+                NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                 static_cast<void>(audio::PlaySe_52C450(255, action->x));
             }
             const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
@@ -2952,14 +2939,14 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                 const std::int32_t healIndex = payload->effectRunningC9C;
                 if ((payload->effects1C[healIndex].flags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    (cg::world::gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
+                    (action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position];
                         copyTarget->readiness = copyTarget->maxHp;
                     }
@@ -2984,7 +2971,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                 const std::int32_t displayIndex = payload->effectRunningC9C;
                 if ((payload->effects1C[displayIndex].flags & BattleResultFlag_RebirthGuard) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                        cg::world::gBattleAllEntries59E980[payload->effects1C[displayIndex].position], 22459, 0, 0));
+                        action->ownerSession->WorldScene().battle.allEntries[payload->effects1C[displayIndex].position], 22459, 0, 0));
                 }
                 showAttributes = true;
             }
@@ -2995,7 +2982,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
-                    cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
+                    action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
             }
         }
         const std::int32_t tailIndex = payload->effectRunningC9C;
@@ -3099,7 +3086,6 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
 // 原函数：0x004186B0。
 void UpdateBattleAction255_4186B0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     const std::int32_t event = action->frameEvent;
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Attack;
@@ -3112,7 +3098,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
             if (position == -1) {
                 break;
             }
-            YobiAction* const target = cg::world::gBattleAllEntries59E980[position];
+            YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[position];
             if (target == nullptr) {
                 break;
             }
@@ -3156,14 +3142,14 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     static_cast<void>(audio::PlaySe_52C450(134, action->x));
                     const std::int32_t damagePosition = effect.position;
                     const std::int32_t amount = effect.position3;
-                    (cg::world::gBattleAllEntries59E980[damagePosition]->readiness -= static_cast<std::int32_t>(amount));
-                    YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[effect.position];
+                    (action->ownerSession->WorldScene().battle.allEntries[damagePosition]->readiness -= static_cast<std::int32_t>(amount));
+                    YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[effect.position];
                     if ((compareTarget->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
                         temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyPosition = effect.position;
                         const std::uint32_t encoded = temporary->encoded;
-                        YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[copyPosition];
+                        YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];
                         copyTarget->readiness.encoded = encoded;
                         copyTarget->readiness.mask = temporary->mask;
                         copyTarget->readiness.readCount = temporary->readCount;
@@ -3185,14 +3171,14 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     AdvanceBattleCastState_439340(target);
                     if ((effect.flags & BattleResultFlag_RebirthGuard) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[effect.position], 22459, 0, 0));
                     } else {
-                        YobiAction* const healTarget = cg::world::gBattleAllEntries59E980[effect.position];
+                        YobiAction* const healTarget = action->ownerSession->WorldScene().battle.allEntries[effect.position];
                         const std::int32_t amount = healTarget->counter1DC;
                         (healTarget->readiness += static_cast<std::int32_t>(amount));
-                        YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[effect.position];
+                        YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[effect.position];
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
-                            YobiAction* const copyTarget = cg::world::gBattleAllEntries59E980[effect.position];
+                            YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[effect.position];
                             copyTarget->readiness = copyTarget->maxHp;
                         }
                         const std::uint32_t displayFlags = effect.flags;
@@ -3217,7 +3203,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                         // 普通免疫图标取当前C9C；本轮其余操作仍使用固定effect。
                         const std::int32_t currentPosition = payload->effects1C[payload->effectRunningC9C].position;
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(
-                            cg::world::gBattleAllEntries59E980[currentPosition], 22459, 0, 0));
+                            action->ownerSession->WorldScene().battle.allEntries[currentPosition], 22459, 0, 0));
                     } else {
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = effect.position3;

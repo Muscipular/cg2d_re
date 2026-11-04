@@ -22,7 +22,7 @@ static void PushData(lua_State* L, DataKind kind, int index = 0, int subIndex = 
 void PushPlayer(lua_State* L) { PushData(L, DataKind::Player); }
 void PushBattleEntry(lua_State* L, int slot)
 {
-    if (slot < 0 || slot >= 20 || !cg::world::gBattleEntries59E980[slot]) { lua_pushnil(L); return; }
+    if (slot < 0 || slot >= 20 || !GetLuaConnection(L).Owner().WorldScene().battle.entries[slot]) { lua_pushnil(L); return; }
     PushData(L, DataKind::Battle, slot);
 }
 static int ReadItem(lua_State* L, int index, std::string_view key)
@@ -93,8 +93,8 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "poolGoldLimit") { Push(L, p.values15BD0[1]); return 1; }
     if (key == "poolGoldLimit2") { Push(L, p.values15BD0[2]); return 1; }
     if (key == "isInjury") { Push(L, ((p.flags18C & 0x10000u) != 0)); return 1; }
-    if (key == "position") { Push(L, cg::world::gBattleCurrentPosition5ABCA4); return 1; }
-    if (key == "surprisal") { Push(L, (cg::world::gBattlePlayerFlags5ABCAC & 3u)); return 1; }
+    if (key == "position") { Push(L, GetLuaConnection(L).Owner().WorldScene().battle.currentPosition); return 1; }
+    if (key == "surprisal") { Push(L, (GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 3u)); return 1; }
     if (key == "mapX") { Push(L, cg::world::gPlayerX); return 1; }
     if (key == "mapY") { Push(L, cg::world::gPlayerY); return 1; }
     if (key == "mapId") { Push(L, cg::world::gCurrentMapId_9A86DC); return 1; }
@@ -123,16 +123,16 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "counter") { Push(L, p.valuesD4[1]); return 1; }
     if (key == "hitrate") { Push(L, p.valuesD4[2]); return 1; }
     if (key == "avoid") { Push(L, p.valuesD4[3]); return 1; }
-    if (key == "disableAct1") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 4u) != 0)); return 1; }
-    if (key == "disableAct2") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 16u) != 0)); return 1; }
-    if (key == "disablePetAct1") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 8u) != 0)); return 1; }
-    if (key == "disablePetAct2") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 131072u) != 0)); return 1; }
-    if (key == "hasPet") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 32u) != 0)); return 1; }
-    if (key == "weaponDirect") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 128u) != 0)); return 1; }
-    if (key == "weaponBow") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 256u) != 0)); return 1; }
-    if (key == "weaponBoomerang") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 512u) != 0)); return 1; }
-    if (key == "weaponKnife") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 1024u) != 0)); return 1; }
-    if (key == "petRide") { Push(L, ((cg::world::gBattlePlayerFlags5ABCAC & 65536u) != 0)); return 1; }
+    if (key == "disableAct1") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 4u) != 0)); return 1; }
+    if (key == "disableAct2") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 16u) != 0)); return 1; }
+    if (key == "disablePetAct1") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 8u) != 0)); return 1; }
+    if (key == "disablePetAct2") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 131072u) != 0)); return 1; }
+    if (key == "hasPet") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 32u) != 0)); return 1; }
+    if (key == "weaponDirect") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 128u) != 0)); return 1; }
+    if (key == "weaponBow") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 256u) != 0)); return 1; }
+    if (key == "weaponBoomerang") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 512u) != 0)); return 1; }
+    if (key == "weaponKnife") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 1024u) != 0)); return 1; }
+    if (key == "petRide") { Push(L, ((GetLuaConnection(L).Owner().WorldScene().battle.playerFlags & 65536u) != 0)); return 1; }
     if (key == "skillList") {
         lua_createtable(L, cg::world::kSkillSlotCount, 0);
         for (int i = 0; i < cg::world::kSkillSlotCount; ++i) {
@@ -212,7 +212,7 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
     if (key == "canUse") {
         bool used = false;
         for (const auto& pair : GetLuaConnection(L).Owner().WorldScene().playerSkills.pairs) if (pair.used && pair.index == index) used = true;
-        Push(L, used && (cg::world::gBattleSkillFlags5ABC04 & (1u << index)) != 0); return 1;
+        Push(L, used && (GetLuaConnection(L).Owner().WorldScene().battle.skillFlags & (1u << index)) != 0); return 1;
     }
     if (key == "techList") {
         lua_createtable(L, cg::world::kTechniqueSlotCount, 0);
@@ -249,13 +249,13 @@ static int ReadPetTechnique(lua_State* L, int index, int sub, std::string_view k
     if (key == "seqNo") { Push(L, p.sequence); return 1; }
     if (key == "field") { Push(L, p.field); return 1; }
     if (key == "target") { Push(L, p.target); return 1; }
-    if (key == "canUse") { Push(L, (pet.used && (cg::world::gBattlePetSkillFlags5ABB78 & (1u << sub)) != 0)); return 1; }
+    if (key == "canUse") { Push(L, (pet.used && (GetLuaConnection(L).Owner().WorldScene().battle.petSkillFlags & (1u << sub)) != 0)); return 1; }
     if (key == "index") { Push(L, (pet.used ? sub : -1)); return 1; }
     lua_pushnil(L); return 1;
 }
 static int ReadBattle(lua_State* L, int index, std::string_view key)
 {
-    auto* p = cg::world::gBattleEntries59E980[index];
+    auto* p = GetLuaConnection(L).Owner().WorldScene().battle.entries[index];
     if (!p) { lua_pushnil(L); return 1; }
     if (key == "battlePos") { Push(L, p->value1D4); return 1; }
     if (key == "lv") { Push(L, p->field1D0); return 1; }

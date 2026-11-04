@@ -96,7 +96,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow
                 std::sprintf(buffer.data(), "M|%X", 255u);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 currentWindow->state |= 0x8000u;
-                world::gBattlePlayerActionState5ABC74 = 1;
+                callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
             consumed = 1;
@@ -250,7 +250,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                         std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         currentWindow->state |= 0x8000u;
-                        world::gBattlePlayerActionState5ABC74 = 1;
+                        callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
                     consumed = 1;

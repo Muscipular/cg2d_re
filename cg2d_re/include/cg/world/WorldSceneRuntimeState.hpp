@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <memory>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -93,6 +94,63 @@ struct MapNoticeState {
 
 // 战斗场景的遍历游标与退出动作借用；动作本体由 Yobi 持有。
 struct BattleSceneState {
+    BattleSceneState() = default;
+    BattleSceneState(const BattleSceneState&) = delete;
+    BattleSceneState& operator=(const BattleSceneState&) = delete;
+    BattleSceneState(BattleSceneState&&) = delete;
+    BattleSceneState& operator=(BattleSceneState&&) = delete;
+
+    std::uint32_t modeFlag = 0; // 原5ABFCC。
+    std::array<cg::yobi::YobiAction*, 22> allEntries {}; // 原59E980，非拥有，含20/21特殊槽。
+    const std::span<cg::yobi::YobiAction*, 20> entries {allEntries.data(), 20}; // 原59E980，同一数组前20槽。
+    std::array<std::array<std::int32_t, 4>, 22> graphicPoints {{ // 原553758，两组原S32坐标。
+        {910, 590, 610, 290}, {845, 625, 545, 325}, {780, 660, 480, 360},
+        {715, 695, 415, 395}, {650, 730, 350, 430}, {845, 540, 545, 240},
+        {781, 576, 481, 276}, {718, 613, 418, 313}, {654, 649, 354, 349},
+        {590, 685, 290, 385}, {-14, -194, 285, 105}, {-77, -157, 222, 142},
+        {-141, -121, 158, 178}, {-205, -85, 94, 214}, {-269, -49, 30, 250},
+        {45, -143, 345, 156}, {-18, -107, 281, 192}, {-81, -71, 218, 228},
+        {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
+        {-131, -121, 218, 228},
+    }};
+    std::int32_t layoutOffsetX = 0; // 原CenterBattleLayoutToWindow局部静态。
+    std::int32_t layoutOffsetY = 0;
+    std::int32_t currentPosition = 0; // 原5ABCA4。
+    std::uint32_t position = 0; // 原5ABCA8，与currentPosition不同。
+    std::int32_t playerActionState = 0; // 原5ABC74。
+    std::array<std::int32_t, 9> selectionModes {}; // 原5ABC7C。
+    std::int32_t selectedSkill = 0; // 原5ABB5C。
+    std::int32_t selectedTechnique = 0; // 原5ABC78。
+    std::int32_t commandState = 0; // 原5ABC3C。
+    std::uint8_t rebirthDisabled = 0; // 原5ABC40。
+    std::int32_t skillActionCount = 0; // 原5ABBF4。
+    std::int32_t petActionCount = 0; // 原5ABBBC。
+    std::int32_t countdownActive = 0; // 原5ABCB8。
+    std::uint64_t commandDeadline = 0; // 原5ABBF8。
+    std::int32_t countdownSecond = 0; // 原5ABB80。
+    std::int32_t snapshotPetIndex = 0; // 原5ABBFC。
+    std::int32_t commandX = 490; // 原553F78。
+    std::int32_t commandY = -104; // 原553F7C。
+    std::int32_t commandValue = 17; // 原553F80。
+    std::array<std::int32_t, 9> resetValues {}; // 原5ABB84，与selectionModes不同。
+    std::int32_t selectionMode = 0; // 原5ABC70。
+    std::int32_t skillUsed = 0; // 原5ABC68。
+    std::int32_t petCommandPhase = 1; // 原553F88。
+    std::int32_t value5ABCC0 = 0; // 原5ABCC0，未证业务名。
+    cg::yobi::YobiAction* commandAction = nullptr; // 原5ABC00，非拥有。
+    std::uint32_t targetFlags = 0; // 原5ABC44。
+    std::int32_t selectedItem = 0; // 原5ABC48。
+    std::int32_t itemTargetPending = 0; // 原5ABCC4。
+    std::int32_t bombLevel = 0; // 原D67B2C。
+    std::uint32_t playerFlags = 0; // 原5ABCAC。
+    std::uint32_t skillFlags = 0; // 原5ABC04。
+    std::uint32_t petSkillFlags = 0; // 原5ABB78。
+    std::uint32_t rebirthLevel = 0; // 原5ABB7C。
+    std::uint32_t ridePet = 0; // 原5ABC38。
+    std::int32_t firstActionSelectionMode = 0; // 原5ABB70。
+    std::int32_t secondActionSelectionMode = 0; // 原5ABB6C。
+    std::int32_t lastCommandPetIndex = -1; // 原553F90。
+    std::int32_t selectedPetTechniqueIndex = -1; // 原553F84。
     std::int32_t sceneIndex = 0; // 原 0x5ABFD8。
     yobi::YobiAction* sceneAction = nullptr; // 原 0x5ABA94，非拥有场景根动作。
     yobi::YobiAction* exitAction = nullptr; // 原 0x5ABCDC。
@@ -130,6 +188,8 @@ struct BattleSceneState {
     std::uint32_t turnMessagesExhausted = 0; // 原 0x5ABB28，当前回合 M 文本耗尽。
     std::int32_t pendingGroupCount = 0; // 原 0x5ABB24，延迟事件组数。
 };
+static_assert(sizeof(BattleSceneState::allEntries) == 22 * sizeof(cg::yobi::YobiAction*));
+static_assert(decltype(BattleSceneState::entries)::extent == 20);
 static_assert(sizeof(BattleSceneState::cQueue) == 4 * 0x1000);
 static_assert(sizeof(BattleSceneState::mQueue) == 4 * 0x1000);
 static_assert(sizeof(BattleSceneState::cText) == 0x1000);

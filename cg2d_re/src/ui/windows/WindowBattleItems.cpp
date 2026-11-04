@@ -254,9 +254,9 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
             currentWindow->state |= 0x8000u;
         }
     }
-    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
     WindowInstance* const window = currentWindow;
-    cg::yobi::YobiAction* const source = world::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const source = callbackWindow.ownerSession->WorldScene().battle.entries[position];
     auto* const element5 = window->FindElementById(WindowBattleItemsElementId::Element5);
     if (element5) {
         auto* const data = element5->data.animation;
@@ -278,7 +278,7 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
     if (element54) {
         if (element54->visible != 0) {
             const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
-                world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
+                callbackWindow.ownerSession->WorldScene().battle.entries[callbackWindow.ownerSession->WorldScene().battle.currentPosition]);
             if (currentImage >= 110350 && currentImage <= 110373) {
                 auto* const element55 = elementsWindow->FindElementById(WindowBattleItemsElementId::Element5);
                 if (element55) {
@@ -440,10 +440,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 currentWindow->state |= 0x8000u;
-                world::gBattleSelectionModes5ABC7C[5] = 0;
+                callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-                world::gBattlePlayerActionState5ABC74 = 1;
+                callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
         }
@@ -481,16 +481,16 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0) {
                 if (item.hasDescription != 0) {
                     if (type == kMedicineType) {
-                        if ((world::gBattlePlayerFlags5ABCAC & 0x40000u) == 0) {
+                        if ((callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) == 0) {
                             hint = canUse;
                         }
                     } else if (type == kBombType) {
                         const std::int32_t level = item.level;
-                        world::gBattleBombLevelD67B2C = level;
+                        callbackWindow.ownerSession->WorldScene().battle.bombLevel = level;
                         const std::int32_t cost = readBombCost(level);
                         if (usableLevel >= level && items[2].used == 0 && items[3].used == 0
                             && !(callbackWindow.ownerSession->WorldScene().player->fp < cost)
-                            && world::gBattleModeFlag5ABFCC != 1) {
+                            && callbackWindow.ownerSession->WorldScene().battle.modeFlag != 1) {
                             hint = canUse;
                         }
                     } else {
@@ -517,7 +517,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
                     || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
-                    || world::gBattleModeFlag5ABFCC == 1) {
+                    || callbackWindow.ownerSession->WorldScene().battle.modeFlag == 1) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     useItem = true;
@@ -539,10 +539,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         currentWindow->state |= 0x8000u;
-                        world::gBattleSelectionModes5ABC7C[5] = 0;
+                        callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-                        world::gBattlePlayerActionState5ABC74 = 1;
+                        callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
                 } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
@@ -551,7 +551,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, unidentified, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.itemType == kMedicineType
-                    && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0) {
+                    && (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) != 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     useItem = true;
@@ -559,23 +559,23 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             }
             if (useItem) {
                 currentWindow->state |= 0x8000u;
-                const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+                const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
                 const auto target = static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
-                if (cg::yobi::CheckBattleCommand_43C560(position, target) != 0) {
-                    world::gBattleSelectedItem5ABC48 = hovered + 8;
+                if (cg::yobi::CheckBattleCommand_43C560(*callbackWindow.ownerSession, position, target) != 0) {
+                    callbackWindow.ownerSession->WorldScene().battle.selectedItem = hovered + 8;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
-                    world::gBattleItemTargetPending5ABCC4 = 1;
+                    callbackWindow.ownerSession->WorldScene().battle.itemTargetPending = 1;
                     inventory.battleItemTargetFlag = 1;
                 } else {
-                    const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
-                    world::gBattleSelectedItem5ABC48 = hovered + 8;
+                    const std::int32_t currentPosition = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
+                    callbackWindow.ownerSession->WorldScene().battle.selectedItem = hovered + 8;
                     std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-                    cg::yobi::FlushBattleEntries_43C060();
-                    world::gBattlePlayerActionState5ABC74 = 1;
+                    cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
+                    callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -591,7 +591,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 canDrag = usableLevel >= item.level && items[2].used == 0 && items[3].used == 0
                     && !(callbackWindow.ownerSession->WorldScene().player->fp < cost)
-                    && world::gBattleModeFlag5ABFCC != 1;
+                    && callbackWindow.ownerSession->WorldScene().battle.modeFlag != 1;
             } else {
                 canDrag = item.used != 0;
             }
@@ -600,7 +600,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 if (((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0
                         || (type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                     && (item.itemType != kMedicineType
-                        || (world::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
+                        || (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) == 0)) {
                     static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 0));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
@@ -706,7 +706,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t cost = readBombCost(level);
                 if (usableLevel < level || items[2].used != 0 || items[3].used != 0
                     || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
-                    || world::gBattleModeFlag5ABFCC == 1) {
+                    || callbackWindow.ownerSession->WorldScene().battle.modeFlag == 1) {
                     static_cast<void>(cg::render::DrawGraphic(
                         x + 105, y + 93, 223, 22738, 0, nullptr));
                 }
@@ -719,7 +719,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 }
             }
             if (item.hasDescription == 0 || (item.itemType == kMedicineType
-                    && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
+                    && (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) != 0)) {
                 static_cast<void>(cg::render::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
@@ -840,10 +840,10 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;
-                    world::gBattleSelectionModes5ABC7C[5] = 0;
+                    callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-                    world::gBattlePlayerActionState5ABC74 = 1;
+                    callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
             }
@@ -910,10 +910,10 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;
-                    world::gBattleSelectionModes5ABC7C[5] = 0;
+                    callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-                    world::gBattlePlayerActionState5ABC74 = 1;
+                    callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
             }

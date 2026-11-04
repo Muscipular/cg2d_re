@@ -176,7 +176,7 @@ YobiAction* NewBattleEvent_43B610(
     payload->packetOffset64 = offset;
     for (std::int32_t position = 0; position < 22; ++position) {
         if ((payload->entryMaskA8 & (1U << position)) != 0) {
-            InitBattleCastList_4390E0(position);
+            InitBattleCastList_4390E0(*source->ownerSession, position);
         }
     }
     battle.eventActions[payload->eventSlot60] = scene;
@@ -238,7 +238,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
             const std::uint32_t eventMask = payload->entryMaskA8;
             const std::uint32_t bit = 1u << index;
             if ((eventMask & bit) != 0) {
-                InitBattleCastList_4390E0(index);
+                InitBattleCastList_4390E0(*action->ownerSession, index);
             }
         }
         battle.eventDispatchBusy = 0;
@@ -252,7 +252,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
             const std::uint32_t eventMask = payload->entryMaskA8;
             const std::uint32_t bit = 1u << index;
             if ((eventMask & bit) != 0) {
-                InitBattleCastList_4390E0(index);
+                InitBattleCastList_4390E0(*action->ownerSession, index);
             }
         }
         battle.eventDispatchBusy = 0;
@@ -261,9 +261,9 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
 }
 
 // 原函数：0x0043C0A0。
-void DrawBattleEntryHover_43C0A0(const std::int32_t index)
+void DrawBattleEntryHover_43C0A0(session::ClientSession& session, const std::int32_t index)
 {
-    YobiAction* const action = world::gBattleEntries59E980[index];
+    YobiAction* const action = session.WorldScene().battle.entries[index];
     if (action == nullptr || (GetYobiActionFlagsLowByte(action) & YobiActionFlag_PendingValue2) == 0) {
         return;
     }
@@ -294,7 +294,7 @@ void InitializeBattleScene_4383F0(session::ClientSession& session)
     auto& battle = session.WorldScene().battle;
     battle.sceneAction = detail::NewBattleScene_4383B0(session);
     battle.eventActions.fill(nullptr);
-    cg::world::gBattleAllEntries59E980.fill(nullptr);
+    session.WorldScene().battle.allEntries.fill(nullptr);
     battle.activeEventMask = 0;
     battle.pendingGroupCount = 0;
     battle.exitRequested = 0;
@@ -306,12 +306,12 @@ void InitializeBattleScene_4383F0(session::ClientSession& session)
 
 
 // 原函数：0x004990A0。
-void DrawBattleActorHpBar_4990A0(const std::int32_t index)
+void DrawBattleActorHpBar_4990A0(session::ClientSession& session, const std::int32_t index)
 {
-    YobiAction* const initialAction = world::gBattleEntries59E980[index];
+    YobiAction* const initialAction = session.WorldScene().battle.entries[index];
     if (initialAction->callback != nullptr
         && !(initialAction->readiness <= 0)) {
-        YobiAction* const action = world::gBattleEntries59E980[index];
+        YobiAction* const action = session.WorldScene().battle.entries[index];
         if ((action->flags & YobiActionFlag_HideBattleHpBar) == 0) {
             static_cast<void>(detail::ShowHpBar_43DB60(action, -10, 3, -1));
         }
@@ -327,8 +327,8 @@ void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& sess
         || battle.turnSnapshot != battle.turn) {
         return;
     }
-    for (std::size_t index = 0; index < cg::world::gBattleEntries59E980.size(); ++index) {
-        YobiAction* const action = cg::world::gBattleEntries59E980[index];
+    for (std::size_t index = 0; index < session.WorldScene().battle.entries.size(); ++index) {
+        YobiAction* const action = session.WorldScene().battle.entries[index];
         if (action != nullptr && ((std::bit_cast<std::int32_t>(battle.endBits) >> index) & 1) != 0) {
             action->flags |= YobiActionFlag_BattleIdleAnimation;
         }
@@ -337,9 +337,9 @@ void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& sess
 
 
 // 原函数：0x0043C040。
-void DisableBattleActorIdleAnimation_43C040()
+void DisableBattleActorIdleAnimation_43C040(session::ClientSession& session)
 {
-    for (YobiAction* const action : world::gBattleEntries59E980) {
+    for (YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr) {
             action->flags &= ~YobiActionFlag_BattleIdleAnimation;
         }
@@ -348,9 +348,9 @@ void DisableBattleActorIdleAnimation_43C040()
 
 
 // 原函数：0x0043C120。
-std::int32_t GetSelectedBattleEntry_43C120()
+std::int32_t GetSelectedBattleEntry_43C120(session::ClientSession& session)
 {
-    const std::uint32_t target = world::gBattleTargetFlags5ABC44;
+    const std::uint32_t target = session.WorldScene().battle.targetFlags;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
     static constexpr std::int32_t rows[4][5] {
         {14, 12, 10, 11, 13},
@@ -359,7 +359,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
         {4, 2, 0, 1, 3},
     };
     for (std::int32_t position = 0; position < 20; ++position) {
-        const YobiAction* const action = world::gBattleEntries59E980[position];
+        const YobiAction* const action = session.WorldScene().battle.entries[position];
         if (action == nullptr || action->cacheIndex != hitIndex
             || (GetYobiActionFlagsLowByte(action) & YobiActionFlag_PendingValue2) == 0) {
             continue;
@@ -379,12 +379,12 @@ std::int32_t GetSelectedBattleEntry_43C120()
                 }
             }
             // 四行完整覆盖0..19；原排配对0/1、2/3，先纵向再右邻、左邻。
-            detail::DrawBattleEntryHover_43C0A0(rows[row ^ 1][column]);
+            detail::DrawBattleEntryHover_43C0A0(session, rows[row ^ 1][column]);
             if (column + 1 <= 4) {
-                detail::DrawBattleEntryHover_43C0A0(rows[row][column + 1]);
+                detail::DrawBattleEntryHover_43C0A0(session, rows[row][column + 1]);
             }
             if (column - 1 >= 0) {
-                detail::DrawBattleEntryHover_43C0A0(rows[row][column - 1]);
+                detail::DrawBattleEntryHover_43C0A0(session, rows[row][column - 1]);
             }
             return position + detail::BattleTargetCode_CrossNeighborBase;
         }
@@ -392,7 +392,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
             const std::int32_t first = position < 10 ? 0 : 10;
             for (std::int32_t index = first; index < first + 10; ++index) {
                 if (index != position) {
-                    detail::DrawBattleEntryHover_43C0A0(index);
+                    detail::DrawBattleEntryHover_43C0A0(session, index);
                 }
             }
             return position < 10 ? detail::BattleTargetCode_Team0 : detail::BattleTargetCode_Team1;
@@ -400,7 +400,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
         if ((target & detail::BattleTargetFlag_All) != 0) {
             for (std::int32_t index = 0; index < 20; ++index) {
                 if (index != position) {
-                    detail::DrawBattleEntryHover_43C0A0(index);
+                    detail::DrawBattleEntryHover_43C0A0(session, index);
                 }
             }
             return detail::BattleTargetCode_All;
@@ -411,10 +411,10 @@ std::int32_t GetSelectedBattleEntry_43C120()
 
 
 // 原函数：0x0043C910。
-std::int32_t ReturnBattleActorsToFormation_43C910()
+std::int32_t ReturnBattleActorsToFormation_43C910(session::ClientSession& session)
 {
     bool pending = false;
-    for (YobiAction* const action : world::gBattleEntries59E980) {
+    for (YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
                 &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_EntryComplete) == 0) {
@@ -427,11 +427,11 @@ std::int32_t ReturnBattleActorsToFormation_43C910()
 
 
 // 原函数：0x0043C9A0。
-void OrientEnteringBattleSides_43C9A0()
+void OrientEnteringBattleSides_43C9A0(session::ClientSession& session)
 {
-    const auto turnEntries = [](const std::int32_t first, const std::int32_t end) {
+    const auto turnEntries = [&session](const std::int32_t first, const std::int32_t end) {
         for (std::int32_t index = first; index < end; ++index) {
-            YobiAction* const action = cg::world::gBattleEntries59E980[index];
+            YobiAction* const action = session.WorldScene().battle.entries[index];
             if (action != nullptr) {
                 const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
                 const double yEnd = payload->y0C;
@@ -441,19 +441,19 @@ void OrientEnteringBattleSides_43C9A0()
                 const double xStart = payload->x00;
                 const float x = static_cast<float>(xEnd - xStart);
                 const float angle = static_cast<float>(cg::world::GetVectorAngleDegrees_46F970(x, y));
-                cg::world::gBattleEntries59E980[index]->angle50 = angle;
-                detail::UpdateBattleDirectionFromAngle_405CB0(cg::world::gBattleEntries59E980[index]);
-                static_cast<void>(detail::PlayFrame_517DA0(cg::world::gBattleEntries59E980[index], AnimationPlayback_StopAtEnd));
+                session.WorldScene().battle.entries[index]->angle50 = angle;
+                detail::UpdateBattleDirectionFromAngle_405CB0(session.WorldScene().battle.entries[index]);
+                static_cast<void>(detail::PlayFrame_517DA0(session.WorldScene().battle.entries[index], AnimationPlayback_StopAtEnd));
             }
         }
     };
     const std::uint8_t firstFlags =
-        *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
+        *reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags);
     if ((firstFlags & detail::BattlePlayerFlag_PlayerSurprise) != 0) {
         turnEntries(10, 20);
     }
     const std::uint8_t secondFlags =
-        *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
+        *reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags);
     if ((secondFlags & detail::BattlePlayerFlag_EnemySurprise) != 0) {
         turnEntries(0, 10);
     }
@@ -461,10 +461,10 @@ void OrientEnteringBattleSides_43C9A0()
 
 
 // 原函数：0x0043CA50。
-std::int32_t Sub_43CA50()
+std::int32_t Sub_43CA50(session::ClientSession& session)
 {
     std::int32_t count = 0;
-    for (const YobiAction* const action : world::gBattleEntries59E980) {
+    for (const YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
                 &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_Player) != 0) {
@@ -476,25 +476,25 @@ std::int32_t Sub_43CA50()
 
 
 // 原函数：0x0043CA80。
-void DrawBattleActorNames_43CA80()
+void DrawBattleActorNames_43CA80(session::ClientSession& session)
 {
     std::int8_t color = 0;
     if (platform::gActorOverheadTextMode_5F974C == 0) {
         return;
     }
     for (std::int32_t index = 0; index < 20; ++index) {
-        if (cg::world::gBattleEntries59E980[index] == nullptr) {
+        if (session.WorldScene().battle.entries[index] == nullptr) {
             continue;
         }
-        const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t position = session.WorldScene().battle.currentPosition;
         if (position < 20) {
             color = index == position || index == cg::world::GetBattlePetPosition_405B40(position) ? 4 : 0;
         }
-        const YobiAction* const action = cg::world::gBattleEntries59E980[index];
+        const YobiAction* const action = session.WorldScene().battle.entries[index];
         const wchar_t* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
         const std::int32_t width = cg::render::TextMeasure(name, 1);
-        const std::int32_t x = cg::world::gBattleEntries59E980[index]->x - width / 2;
+        const std::int32_t x = session.WorldScene().battle.entries[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
@@ -505,27 +505,28 @@ void DrawBattleActorNames_43CA80()
 
 // 原函数：0x0043C560。
 std::int32_t CheckBattleCommand_43C560(
+    session::ClientSession& session,
     const std::int32_t position, const std::uint32_t flags)
 {
-    cg::world::gBattleTargetFlags5ABC44 = flags;
+    session.WorldScene().battle.targetFlags = flags;
     const std::int32_t pet = cg::world::GetBattlePetPosition_405B40(position);
     if ((flags & detail::BattleTargetFlag_Select) == 0) {
         return 0;
     }
     if ((flags & detail::BattleTargetFlag_OwnPet) != 0) {
-        YobiAction* const action = cg::world::gBattleEntries59E980[pet];
+        YobiAction* const action = session.WorldScene().battle.entries[pet];
         if (action != nullptr
             && (!(action->readiness <= 0)
                 || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
-            cg::world::gBattleEntries59E980[pet]->flags |= YobiActionFlag_PendingValue2;
+            session.WorldScene().battle.entries[pet]->flags |= YobiActionFlag_PendingValue2;
         }
     }
     if ((flags & detail::BattleTargetFlag_Self) != 0) {
-        YobiAction* const action = cg::world::gBattleEntries59E980[position];
+        YobiAction* const action = session.WorldScene().battle.entries[position];
         if (action != nullptr
             && (!(action->readiness <= 0)
                 || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
-            cg::world::gBattleEntries59E980[position]->flags |= YobiActionFlag_PendingValue2;
+            session.WorldScene().battle.entries[position]->flags |= YobiActionFlag_PendingValue2;
         }
     }
     if ((flags & detail::BattleTargetMask_OtherAlliesOrPlayers) != 0) {
@@ -534,7 +535,7 @@ std::int32_t CheckBattleCommand_43C560(
             if (slot == position || slot == pet) {
                 continue;
             }
-            YobiAction* const action = cg::world::gBattleEntries59E980[slot];
+            YobiAction* const action = session.WorldScene().battle.entries[slot];
             if (action != nullptr
                 && ((flags & detail::BattleTargetFlag_OtherAllies) != 0
                     || ((flags & detail::BattleTargetFlag_OtherAllyPlayers) != 0
@@ -542,18 +543,18 @@ std::int32_t CheckBattleCommand_43C560(
                             &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_Player) != 0))
                 && (!(action->readiness <= 0)
                     || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
-                cg::world::gBattleEntries59E980[slot]->flags |= YobiActionFlag_PendingValue2;
+                session.WorldScene().battle.entries[slot]->flags |= YobiActionFlag_PendingValue2;
             }
         }
     }
     if ((flags & detail::BattleTargetFlag_Opponents) != 0) {
         const std::int32_t first = position < 10 ? 10 : 0;
         for (std::int32_t slot = first; slot < first + 10; ++slot) {
-            YobiAction* const action = cg::world::gBattleEntries59E980[slot];
+            YobiAction* const action = session.WorldScene().battle.entries[slot];
             if (action != nullptr
                 && (!(action->readiness <= 0)
                     || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
-                cg::world::gBattleEntries59E980[slot]->flags |= YobiActionFlag_PendingValue2;
+                session.WorldScene().battle.entries[slot]->flags |= YobiActionFlag_PendingValue2;
             }
         }
     }
@@ -564,8 +565,8 @@ std::int32_t CheckBattleCommand_43C560(
         {4, 2, 0, 1, 3},
     };
     if ((flags & detail::BattleTargetFlag_CheckMeleeRows) == 0
-        || ((*reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC) & detail::BattlePlayerFlag_DirectWeapon) == 0
-            && position == cg::world::gBattleCurrentPosition5ABCA4)) {
+        || ((*reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags) & detail::BattlePlayerFlag_DirectWeapon) == 0
+            && position == session.WorldScene().battle.currentPosition)) {
         return 1;
     }
     std::int32_t column = position;
@@ -581,11 +582,11 @@ std::int32_t CheckBattleCommand_43C560(
     if (row == 0) {
         const std::int32_t front = rows[1][column];
         for (std::int32_t c = 0; c < 5; ++c) {
-            const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
+            const YobiAction* const ownFront = session.WorldScene().battle.entries[front];
             if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & YobiActionFlag_PendingValue2) != 0) {
-                const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[2][c]];
+                const YobiAction* const enemyFront = session.WorldScene().battle.entries[rows[2][c]];
                 if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & YobiActionFlag_PendingValue2) != 0) {
-                    YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[3][c]];
+                    YobiAction* const enemyBack = session.WorldScene().battle.entries[rows[3][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~YobiActionFlag_PendingValue2;
                     }
@@ -595,11 +596,11 @@ std::int32_t CheckBattleCommand_43C560(
     } else if (row == 3) {
         const std::int32_t front = rows[2][column];
         for (std::int32_t c = 0; c < 5; ++c) {
-            const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
+            const YobiAction* const ownFront = session.WorldScene().battle.entries[front];
             if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & YobiActionFlag_PendingValue2) != 0) {
-                const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[1][c]];
+                const YobiAction* const enemyFront = session.WorldScene().battle.entries[rows[1][c]];
                 if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & YobiActionFlag_PendingValue2) != 0) {
-                    YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[0][c]];
+                    YobiAction* const enemyBack = session.WorldScene().battle.entries[rows[0][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~YobiActionFlag_PendingValue2;
                     }
@@ -612,9 +613,9 @@ std::int32_t CheckBattleCommand_43C560(
 
 
 // 原函数：0x0043C060。
-void FlushBattleEntries_43C060()
+void FlushBattleEntries_43C060(session::ClientSession& session)
 {
-    auto& entries = world::gBattleEntries59E980;
+    auto& entries = session.WorldScene().battle.entries;
     for (std::size_t slot = 0; slot < entries.size(); ++slot) {
         YobiAction* const action = entries[slot];
         if (action != nullptr) {

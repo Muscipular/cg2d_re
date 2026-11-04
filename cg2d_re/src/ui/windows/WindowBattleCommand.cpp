@@ -195,21 +195,21 @@ static void WindowBattleCommand_Open(
         if (auto* const element122 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
         if (auto* const element132 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
         const std::int32_t namePosition = world::GetBattlePetPosition_405B40(
-            world::gBattleCurrentPosition5ABCA4);
-        const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[namePosition];
+            session.WorldScene().battle.currentPosition);
+        const cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[namePosition];
         const wchar_t* name = cg::yobi::GetYobiTitle(action);
         if (name[0] == '\0') {
             name = cg::yobi::GetYobiName(action);
         }
         if (auto* const element113 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
         const std::int32_t maximumPosition = world::GetBattlePetPosition_405B40(
-            world::gBattleCurrentPosition5ABCA4);
+            session.WorldScene().battle.currentPosition);
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
-            world::gBattleEntries59E980[maximumPosition]);
+            session.WorldScene().battle.entries[maximumPosition]);
         const std::int32_t currentPosition = world::GetBattlePetPosition_405B40(
-            world::gBattleCurrentPosition5ABCA4);
+            session.WorldScene().battle.currentPosition);
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
-            world::gBattleEntries59E980[currentPosition]);
+            session.WorldScene().battle.entries[currentPosition]);
         auto* const element123 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
         if (element123) {
             cg::text::FormatTo(element123->data.text->text, L"{:4}/{:4}", current, maximum);
@@ -227,16 +227,16 @@ static void WindowBattleCommand_Open(
         if (auto* const element112 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element112) element112->visible = 1;
         if (auto* const element122 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr; element122) element122->visible = 1;
         if (auto* const element132 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element13) : nullptr; element132) element132->visible = 1;
-        const std::int32_t namePosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t namePosition = session.WorldScene().battle.currentPosition;
         const wchar_t* const name = cg::yobi::GetYobiName(
-            world::gBattleEntries59E980[namePosition]);
+            session.WorldScene().battle.entries[namePosition]);
         if (auto* const element113 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element11) : nullptr; element113) element113->data.text->text = name;
-        const std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t maximumPosition = session.WorldScene().battle.currentPosition;
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
-            world::gBattleEntries59E980[maximumPosition]);
-        const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
+            session.WorldScene().battle.entries[maximumPosition]);
+        const std::int32_t currentPosition = session.WorldScene().battle.currentPosition;
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
-            world::gBattleEntries59E980[currentPosition]);
+            session.WorldScene().battle.entries[currentPosition]);
         auto* const element123 = WindowRuntime_States(session)[WindowId_BattleCommand].window ? WindowRuntime_States(session)[WindowId_BattleCommand].window->FindElementById(WindowBattleCommandElementId::Element12) : nullptr;
         if (element123) {
             cg::text::FormatTo(element123->data.text->text, L"{:4}/{:4}", current, maximum);
@@ -323,7 +323,7 @@ static std::int32_t WindowBattleCommand_Update(WindowInstance& callbackWindow, c
         if (auto* const buttonItemElement = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonItem); buttonItemElement) buttonItemElement->visible = 1;
         if (auto* const buttonPetElement = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonPet); buttonPetElement) buttonPetElement->visible = 1;
         if (auto* const buttonFormationElement = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonFormation); buttonFormationElement) buttonFormationElement->visible = 1;
-        if (world::gBattleSkillUsed5ABC68 != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.skillUsed != 0) {
             if (auto* const buttonSkillElement2 = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonSkill); buttonSkillElement2) buttonSkillElement2->visible = 0;
             if (auto* const buttonItemElement2 = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonItem); buttonItemElement2) buttonItemElement2->visible = 0;
             if (auto* const buttonPetElement2 = currentWindow->FindElementById(WindowBattleCommandElementId::ButtonPet); buttonPetElement2) buttonPetElement2->visible = 0;
@@ -343,11 +343,11 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
     const auto mode = static_cast<std::uint8_t>(WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
         std::wstring_view name;
-        if (world::gSelectedBattlePetTechniqueIndex_553F84 < 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectedPetTechniqueIndex < 0) {
             name = {};
         } else {
             const std::int32_t pet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
-            const std::int32_t technique = world::gSelectedBattlePetTechniqueIndex_553F84;
+            const std::int32_t technique = callbackWindow.ownerSession->WorldScene().battle.selectedPetTechniqueIndex;
             if (pet >= 0 && pet < static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().petRecords->size())
                 && technique < world::kPetTechniqueSlotCount)
                 name = (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquesD8[technique].name;
@@ -357,7 +357,7 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
     if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
         for (; first < 20; ++first) {
-            const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[first];
+            const cg::yobi::YobiAction* const action = callbackWindow.ownerSession->WorldScene().battle.entries[first];
             if (action != nullptr && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
                 break;
             }
@@ -366,7 +366,7 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
             const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
             std::int8_t selected = -1;
             for (std::int32_t index = 0; index < 20; ++index) {
-                const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[index];
+                const cg::yobi::YobiAction* const action = callbackWindow.ownerSession->WorldScene().battle.entries[index];
                 if (action != nullptr && cg::yobi::GetYobiActionCacheIndex(action) == hitIndex
                     && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
                     selected = static_cast<std::int8_t>(index);
@@ -380,7 +380,7 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
             const auto textY = static_cast<std::int16_t>(windowY + 89);
             std::wstring name = L"请选择对象";
             if (selected >= 0) {
-                const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[selected];
+                const cg::yobi::YobiAction* const action = callbackWindow.ownerSession->WorldScene().battle.entries[selected];
                 const wchar_t* title = cg::yobi::GetYobiTitle(action);
                 if (title[0] == '\0') {
                     title = cg::yobi::GetYobiName(action);
@@ -446,7 +446,7 @@ static void WindowBattleCommand_Close(session::ClientSession& session)
 // 原函数：0x00496F10。
 static void WindowBattleCommand_ResetSelection(session::ClientSession& session)
 {
-    world::gBattleSelectionModes5ABC7C.fill(0);
+    session.WorldScene().battle.selectionModes.fill(0);
     WindowInstance* window = WindowRuntime_States(session)[WindowId_Skill].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
@@ -480,16 +480,16 @@ static void WindowBattleCommand_ResetSelection(session::ClientSession& session)
 void WindowBattleCommand_FinishAutoAction(session::ClientSession& session)
 {
     WindowRuntime_States(session)[WindowId_BattleCommand].userState.value = 0;
-    cg::world::gBattleCountdownActive5ABCB8 = 0;
-    cg::yobi::FlushBattleEntries_43C060();
+    session.WorldScene().battle.countdownActive = 0;
+    cg::yobi::FlushBattleEntries_43C060(session);
     WindowBattleCommand_Close(session);
     session.WorldScene().sceneState = 5;
-    if (cg::world::gBattleCommandAction5ABC00) cg::yobi::MarkDeath(cg::world::gBattleCommandAction5ABC00);
-    cg::world::gBattleCommandAction5ABC00 = nullptr;
-    cg::world::gBattlePetActionCount5ABBBC = 2;
-    cg::world::gBattleSkillActionCount5ABBF4 = 2;
-    cg::world::gBattleCommandState5ABC3C = 5;
-    cg::world::gBattleSnapshotPetIndex5ABBFC = -1;
+    if (session.WorldScene().battle.commandAction) cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
+    session.WorldScene().battle.commandAction = nullptr;
+    session.WorldScene().battle.petActionCount = 2;
+    session.WorldScene().battle.skillActionCount = 2;
+    session.WorldScene().battle.commandState = 5;
+    session.WorldScene().battle.snapshotPetIndex = -1;
     WindowBattleCommand_ResetSelection(session);
     if (auto* window = WindowRuntime_States(session)[WindowId_BattleCommand].window) window->state |= 0x8000u;
 }
@@ -506,7 +506,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9C4;
-            if (world::gBattleSelectionModes5ABC7C[0] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[0] != 0) {
                 graphic->imageNo = 0x3B9C5;
             }
             return 0;
@@ -517,13 +517,13 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
-            world::gBattleSelectionModes5ABC7C[0] = 1;
-            world::gBattleSelectionMode5ABC70 = 0;
-            cg::yobi::FlushBattleEntries_43C060();
-            static_cast<void>(cg::yobi::CheckBattleCommand_43C560(
-                world::gBattleCurrentPosition5ABCA4, 0x475u));
-            cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-            world::gBattleCommandAction5ABC00 = nullptr;
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[0] = 1;
+            callbackWindow.ownerSession->WorldScene().battle.selectionMode = 0;
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
+            static_cast<void>(cg::yobi::CheckBattleCommand_43C560(*callbackWindow.ownerSession,
+                callbackWindow.ownerSession->WorldScene().battle.currentPosition, 0x475u));
+            cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+            callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             session.UiFrame().native.battleCommand.targetSelectionReady = 0;
             consumed = 1;
@@ -532,7 +532,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9C6;
         }
-        if (world::gBattleSelectionModes5ABC7C[0] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[0] != 0) {
             graphic->imageNo = 0x3B9C5;
         }
         return consumed;
@@ -552,7 +552,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D0;
-            if (world::gBattleSelectionModes5ABC7C[1] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[1] != 0) {
                 graphic->imageNo = 0x3B9D1;
             }
             return 0;
@@ -563,13 +563,13 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
-            world::gBattleSelectionModes5ABC7C[1] = 1;
-            world::gBattleSelectionMode5ABC70 = 0;
-            cg::yobi::FlushBattleEntries_43C060();
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[1] = 1;
+            callbackWindow.ownerSession->WorldScene().battle.selectionMode = 0;
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
             static_cast<void>(session.Connection().SendBattlePacket(L"G"));
-            cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-            world::gBattleCommandAction5ABC00 = nullptr;
-            world::gBattlePlayerActionState5ABC74 = 1;
+            cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+            callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+            callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -577,7 +577,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9D2;
         }
-        if (world::gBattleSelectionModes5ABC7C[1] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[1] != 0) {
             graphic->imageNo = 0x3B9D1;
         }
         return consumed;
@@ -596,13 +596,13 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (world::gBattleSkillUsed5ABC68 != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.skillUsed != 0) {
             graphic->imageNo = 0x3B9D4;
             return 0;
         }
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D3;
-            if (world::gBattleSelectionModes5ABC7C[3] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[3] != 0) {
                 graphic->imageNo = 0x3B9D4;
             }
             return 0;
@@ -611,15 +611,15 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
         if ((state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = L"使用物品。";
         }
-        if (world::gBattleSelectionModes5ABC7C[3] == 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[3] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 WindowBattleCommand_ResetSelection(session);
-                world::gBattleSelectionMode5ABC70 = 3;
-                world::gBattleSelectionModes5ABC7C[3] = 1;
-                cg::yobi::FlushBattleEntries_43C060();
-                cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-                world::gBattleCommandAction5ABC00 = nullptr;
-                world::gBattleItemTargetPending5ABCC4 = 0;
+                callbackWindow.ownerSession->WorldScene().battle.selectionMode = 3;
+                callbackWindow.ownerSession->WorldScene().battle.selectionModes[3] = 1;
+                cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
+                cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+                callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+                callbackWindow.ownerSession->WorldScene().battle.itemTargetPending = 0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 session.UiFrame().native.battleCommand.targetSelectionReady = 0;
                 session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
@@ -629,19 +629,19 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
             &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0 && inventory.battleItemTargetFlag != 0) {
             session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
             inventory.battleItemTargetFlag = 0;
-            cg::yobi::FlushBattleEntries_43C060();
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
         }
         graphic->imageNo = 0x3B9D3;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9D5;
         }
-        if (world::gBattleSelectionModes5ABC7C[3] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[3] != 0) {
             graphic->imageNo = 0x3B9D4;
         }
         if (WindowRuntime_States(session)[WindowId_BattleItems].window != nullptr) {
             session.UiFrame().native.battleCommand.itemOpening = nullptr;
         } else if (session.UiFrame().native.battleCommand.itemOpening == nullptr && inventory.battleItemTargetFlag == 0) {
-            world::gBattleSelectionModes5ABC7C[3] = 0;
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[3] = 0;
         }
         return consumed;
     }
@@ -658,13 +658,13 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (world::gBattleSkillUsed5ABC68 != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.skillUsed != 0) {
             graphic->imageNo = 0x3B9CB;
             return 0;
         }
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9CA;
-            if (world::gBattleSelectionModes5ABC7C[4] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[4] != 0) {
                 graphic->imageNo = 0x3B9CB;
             }
             return 0;
@@ -673,14 +673,14 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
         if ((state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = L"召唤宠物或封印宠物。";
         }
-        if (world::gBattleSelectionModes5ABC7C[4] == 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[4] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 WindowBattleCommand_ResetSelection(session);
-                world::gBattleSelectionMode5ABC70 = 4;
-                world::gBattleSelectionModes5ABC7C[4] = 1;
-                cg::yobi::FlushBattleEntries_43C060();
-                cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-                world::gBattleCommandAction5ABC00 = nullptr;
+                callbackWindow.ownerSession->WorldScene().battle.selectionMode = 4;
+                callbackWindow.ownerSession->WorldScene().battle.selectionModes[4] = 1;
+                cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
+                cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+                callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 session.UiFrame().native.battleCommand.petOpening = WindowRuntime_CreateAnimation(session, WindowId_BattlePets, 1, 0, nullptr);
                 consumed = 1;
@@ -696,13 +696,13 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9CC;
         }
-        if (world::gBattleSelectionModes5ABC7C[4] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[4] != 0) {
             graphic->imageNo = 0x3B9CB;
         }
         if (WindowRuntime_States(session)[WindowId_BattlePets].window != nullptr) {
             session.UiFrame().native.battleCommand.petOpening = nullptr;
         } else if (session.UiFrame().native.battleCommand.petOpening == nullptr) {
-            world::gBattleSelectionModes5ABC7C[4] = 0;
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[4] = 0;
         }
         return consumed;
     }
@@ -719,13 +719,13 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (world::gBattleSkillUsed5ABC68 != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.skillUsed != 0) {
             graphic->imageNo = 0x3B9D7;
             return 0;
         }
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D6;
-            if (world::gBattleSelectionModes5ABC7C[6] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[6] != 0) {
                 graphic->imageNo = 0x3B9D7;
             }
             return 0;
@@ -736,13 +736,13 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
-            world::gBattleSelectionMode5ABC70 = 6;
-            world::gBattleSelectionModes5ABC7C[6] = 1;
-            cg::yobi::FlushBattleEntries_43C060();
+            callbackWindow.ownerSession->WorldScene().battle.selectionMode = 6;
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[6] = 1;
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
             static_cast<void>(session.Connection().SendBattlePacket(L"P"));
-            cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-            world::gBattleCommandAction5ABC00 = nullptr;
-            world::gBattlePlayerActionState5ABC74 = 1;
+            cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+            callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+            callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -750,7 +750,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9D8;
         }
-        if (world::gBattleSelectionModes5ABC7C[6] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[6] != 0) {
             graphic->imageNo = 0x3B9D7;
         }
         return consumed;
@@ -770,7 +770,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
         auto* const graphic = graphicElement->data.graphic;
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9D9;
-            if (world::gBattleSelectionModes5ABC7C[7] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[7] != 0) {
                 graphic->imageNo = 0x3B9DA;
             }
             return 0;
@@ -781,13 +781,13 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
-            world::gBattleSelectionModes5ABC7C[7] = 1;
-            world::gBattleSelectionMode5ABC70 = 0;
-            cg::yobi::FlushBattleEntries_43C060();
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[7] = 1;
+            callbackWindow.ownerSession->WorldScene().battle.selectionMode = 0;
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
             static_cast<void>(session.Connection().SendBattlePacket(L"E"));
-            cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-            world::gBattleCommandAction5ABC00 = nullptr;
-            world::gBattlePlayerActionState5ABC74 = 1;
+            cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+            callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+            callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -795,7 +795,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9DB;
         }
-        if (world::gBattleSelectionModes5ABC7C[7] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[7] != 0) {
             graphic->imageNo = 0x3B9DA;
         }
         return consumed;
@@ -815,7 +815,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
     if (elementPtr) {
         WindowElement* const element = elementPtr;
         auto* const graphic = element->data.graphic;
-        if (world::gBattleRebirthDisabled5ABC40 != 0
+        if (callbackWindow.ownerSession->WorldScene().battle.rebirthDisabled != 0
             || callbackWindow.ownerSession->WorldScene().player->value08 == 0
             || callbackWindow.ownerSession->WorldScene().player->timerRemaining0C <= 0) {
             element->visible = 0;
@@ -825,13 +825,13 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
         element->visible = 1;
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9CD;
-            if (world::gBattleSelectionModes5ABC7C[8] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[8] != 0) {
                 graphic->imageNo = 0x3B9CE;
             }
             return 0;
         }
         const cg::yobi::YobiAction* const action =
-            world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4];
+            callbackWindow.ownerSession->WorldScene().battle.entries[callbackWindow.ownerSession->WorldScene().battle.currentPosition];
         if (action == nullptr) {
             return 0;
         }
@@ -846,17 +846,17 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowBattleCommand_ResetSelection(session);
-            world::gBattleSelectionModes5ABC7C[8] = 1;
-            world::gBattleSelectionMode5ABC70 = 8;
-            cg::yobi::FlushBattleEntries_43C060();
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[8] = 1;
+            callbackWindow.ownerSession->WorldScene().battle.selectionMode = 8;
+            cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
             const cg::yobi::YobiAction* const current =
-                world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4];
+                callbackWindow.ownerSession->WorldScene().battle.entries[callbackWindow.ownerSession->WorldScene().battle.currentPosition];
             const char* const command =
                 *cg::yobi::FindBattleRebirthSlot(current) != nullptr ? "R|0" : "R|1";
             static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(command)));
-            cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-            world::gBattleCommandAction5ABC00 = nullptr;
-            world::gBattlePlayerActionState5ABC74 = 1;
+            cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+            callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+            callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -864,7 +864,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
         if (hover) {
             graphic->imageNo = 0x3B9CF;
         }
-        if (world::gBattleSelectionModes5ABC7C[8] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[8] != 0) {
             graphic->imageNo = 0x3B9CE;
         }
         return consumed;
@@ -877,16 +877,16 @@ std::int32_t WindowBattleCommand_CanSelectSkill(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0) {
+        || session.WorldScene().battle.skillUsed != 0) {
         return 0;
     }
-    return world::gBattleSelectionModes5ABC7C[2] == 0 ? -1 : 0;
+    return session.WorldScene().battle.selectionModes[2] == 0 ? -1 : 0;
 }
 
 // 原函数：0x004970B0。
@@ -894,16 +894,16 @@ std::int32_t WindowBattleCommand_CanSelectItem(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0) {
+        || session.WorldScene().battle.skillUsed != 0) {
         return 0;
     }
-    return world::gBattleSelectionModes5ABC7C[3] == 0 ? -1 : 0;
+    return session.WorldScene().battle.selectionModes[3] == 0 ? -1 : 0;
 }
 
 // 原函数：0x00497100。
@@ -911,23 +911,23 @@ void WindowBattleCommand_OpenItems(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0
-        || world::gBattleSelectionModes5ABC7C[3] != 0) {
+        || session.WorldScene().battle.skillUsed != 0
+        || session.WorldScene().battle.selectionModes[3] != 0) {
         return;
     }
     WindowBattleCommand_ResetSelection(session);
-    world::gBattleSelectionModes5ABC7C[3] = 1;
-    world::gBattleSelectionMode5ABC70 = 3;
-    cg::yobi::FlushBattleEntries_43C060();
-    cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-    world::gBattleCommandAction5ABC00 = nullptr;
-    world::gBattleItemTargetPending5ABCC4 = 0;
+    session.WorldScene().battle.selectionModes[3] = 1;
+    session.WorldScene().battle.selectionMode = 3;
+    cg::yobi::FlushBattleEntries_43C060(session);
+    cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
+    session.WorldScene().battle.commandAction = nullptr;
+    session.WorldScene().battle.itemTargetPending = 0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     session.UiFrame().native.battleCommand.targetSelectionReady = 0;
     session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
@@ -938,16 +938,16 @@ std::int32_t WindowBattleCommand_CanSelectPet(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0) {
+        || session.WorldScene().battle.skillUsed != 0) {
         return 0;
     }
-    return world::gBattleSelectionModes5ABC7C[4] == 0 ? -1 : 0;
+    return session.WorldScene().battle.selectionModes[4] == 0 ? -1 : 0;
 }
 
 // 原函数：0x00497210。
@@ -955,22 +955,22 @@ void WindowBattleCommand_OpenPets(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0
-        || world::gBattleSelectionModes5ABC7C[4] != 0) {
+        || session.WorldScene().battle.skillUsed != 0
+        || session.WorldScene().battle.selectionModes[4] != 0) {
         return;
     }
     WindowBattleCommand_ResetSelection(session);
-    world::gBattleSelectionModes5ABC7C[4] = 1;
-    world::gBattleSelectionMode5ABC70 = 4;
-    cg::yobi::FlushBattleEntries_43C060();
-    cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-    world::gBattleCommandAction5ABC00 = nullptr;
+    session.WorldScene().battle.selectionModes[4] = 1;
+    session.WorldScene().battle.selectionMode = 4;
+    cg::yobi::FlushBattleEntries_43C060(session);
+    cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
+    session.WorldScene().battle.commandAction = nullptr;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     session.UiFrame().native.battleCommand.petOpening = WindowRuntime_CreateAnimation(session, WindowId_BattlePets, 1, 0, nullptr);
 }
@@ -980,23 +980,23 @@ void WindowBattleCommand_OpenSkills(session::ClientSession& session)
 {
     if (WindowRuntime_States(session)[WindowId_BattleCommand].window == nullptr
         || WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0
-        || world::gBattleCurrentPosition5ABCA4 >= 20) {
+        || session.WorldScene().battle.currentPosition >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
         *reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
-        || world::gBattleSkillUsed5ABC68 != 0
-        || world::gBattleSelectionModes5ABC7C[2] != 0) {
+        || session.WorldScene().battle.skillUsed != 0
+        || session.WorldScene().battle.selectionModes[2] != 0) {
         return;
     }
     WindowBattleCommand_ResetSelection(session);
-    world::gBattleSelectionModes5ABC7C[2] = 1;
-    world::gBattleSelectionMode5ABC70 = 2;
-    cg::yobi::FlushBattleEntries_43C060();
-    cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-    world::gBattleCommandAction5ABC00 = nullptr;
-    world::gBattleValue5ABCC0 = 0;
+    session.WorldScene().battle.selectionModes[2] = 1;
+    session.WorldScene().battle.selectionMode = 2;
+    cg::yobi::FlushBattleEntries_43C060(session);
+    cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
+    session.WorldScene().battle.commandAction = nullptr;
+    session.WorldScene().battle.value5ABCC0 = 0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     session.UiFrame().native.battleCommand.targetSelectionReady = 0;
     session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill);
@@ -1006,30 +1006,30 @@ void WindowBattleCommand_OpenSkills(session::ClientSession& session)
 static void WindowBattleCommand_SelectSkill(
     session::ClientSession& session, const std::int32_t skillIndex, const std::int32_t technique)
 {
-    world::gBattleSelectedSkill5ABB5C = skillIndex;
-    world::gBattleSelectedTechnique5ABC78 = technique;
+    session.WorldScene().battle.selectedSkill = skillIndex;
+    session.WorldScene().battle.selectedTechnique = technique;
     const auto target = std::bit_cast<std::uint32_t>(
         session.WorldScene().playerSkills.skills[skillIndex].techniques3C[technique].value84);
-    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-    if (cg::yobi::CheckBattleCommand_43C560(position, target) != 0) {
+    const std::int32_t position = session.WorldScene().battle.currentPosition;
+    if (cg::yobi::CheckBattleCommand_43C560(session, position, target) != 0) {
         session.UiFrame().native.battleCommand.skillTargetPending = 1;
         return;
     }
-    const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
-    const std::int32_t currentTechnique = world::gBattleSelectedTechnique5ABC78;
-    const std::int32_t currentSkill = world::gBattleSelectedSkill5ABB5C;
+    const std::int32_t currentPosition = session.WorldScene().battle.currentPosition;
+    const std::int32_t currentTechnique = session.WorldScene().battle.selectedTechnique;
+    const std::int32_t currentSkill = session.WorldScene().battle.selectedSkill;
     std::array<char, 768> buffer;
     std::sprintf(buffer.data(), "S|%X|%X|%X",
         static_cast<std::uint32_t>(currentSkill),
         static_cast<std::uint32_t>(currentTechnique),
         static_cast<std::uint32_t>(currentPosition));
     static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-    cg::yobi::FlushBattleEntries_43C060();
+    cg::yobi::FlushBattleEntries_43C060(session);
     static_cast<void>(audio::PlaySe_52C450(57, 320));
-    const std::int32_t count = world::gBattleSkillActionCount5ABBF4;
-    world::gBattleCommandState5ABC3C = 2;
-    world::gBattleSkillActionCount5ABBF4 = count + 1;
-    cg::yobi::FlushBattleEntries_43C060();
+    const std::int32_t count = session.WorldScene().battle.skillActionCount;
+    session.WorldScene().battle.commandState = 2;
+    session.WorldScene().battle.skillActionCount = count + 1;
+    cg::yobi::FlushBattleEntries_43C060(session);
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     WindowBattleCommand_Close(session);
 }
@@ -1044,13 +1044,13 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if (world::gBattleSkillUsed5ABC68 != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.skillUsed != 0) {
             graphic->imageNo = 0x3B9C8;
             return 0;
         }
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value != 0) {
             graphic->imageNo = 0x3B9C7;
-            if (world::gBattleSelectionModes5ABC7C[2] != 0) {
+            if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] != 0) {
                 graphic->imageNo = 0x3B9C8;
             }
             return 0;
@@ -1060,15 +1060,15 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
         if (hover != 0) {
             uiFrame.hoverText = L"使用技能。";
         }
-        if (world::gBattleSelectionModes5ABC7C[2] == 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] == 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 WindowBattleCommand_ResetSelection(session);
-                world::gBattleSelectionMode5ABC70 = 2;
-                world::gBattleSelectionModes5ABC7C[2] = 1;
-                cg::yobi::FlushBattleEntries_43C060();
-                cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
-                world::gBattleCommandAction5ABC00 = nullptr;
-                world::gBattleValue5ABCC0 = 0;
+                callbackWindow.ownerSession->WorldScene().battle.selectionMode = 2;
+                callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] = 1;
+                cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
+                cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
+                callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
+                callbackWindow.ownerSession->WorldScene().battle.value5ABCC0 = 0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 session.UiFrame().native.battleCommand.targetSelectionReady = 0;
                 session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill);
@@ -1078,12 +1078,12 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
             &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
             if (session.UiFrame().native.battleCommand.skillTargetPending != 0) {
                 session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleTechniques(
-                    session, world::gBattleSelectedSkill5ABB5C, &WindowBattleCommand_SelectSkill);
+                    session, callbackWindow.ownerSession->WorldScene().battle.selectedSkill, &WindowBattleCommand_SelectSkill);
                 session.UiFrame().native.battleCommand.skillTargetPending = 0;
-                cg::yobi::FlushBattleEntries_43C060();
+                cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
             } else if (WindowRuntime_States(session)[WindowId_Skill].window != nullptr) {
                 if (WindowSkill_Back(session) != 0) {
-                    world::gBattleSelectionModes5ABC7C[2] = 0;
+                    callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] = 0;
                 }
             } else {
                 session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill);
@@ -1093,13 +1093,13 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
         if (hover != 0) {
             graphic->imageNo = 0x3B9C9;
         }
-        if (world::gBattleSelectionModes5ABC7C[2] != 0) {
+        if (callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] != 0) {
             graphic->imageNo = 0x3B9C8;
         }
         if (WindowRuntime_States(session)[WindowId_Skill].window != nullptr) {
             session.UiFrame().native.battleCommand.skillOpening = nullptr;
         } else if (session.UiFrame().native.battleCommand.skillOpening == nullptr && session.UiFrame().native.battleCommand.skillTargetPending == 0) {
-            world::gBattleSelectionModes5ABC7C[2] = 0;
+            callbackWindow.ownerSession->WorldScene().battle.selectionModes[2] = 0;
         }
         return consumed;
     }
@@ -1110,97 +1110,97 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
 static void WindowBattleCommand_SelectPetSkill(session::ClientSession& session, const std::int32_t technique)
 {
     if (technique < 0) {
-        world::gBattlePetCommandPhase553F88 = 0;
+        session.WorldScene().battle.petCommandPhase = 0;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        if (world::gBattleCurrentPosition5ABCA4 < 20) {
+        if (session.WorldScene().battle.currentPosition < 20) {
             static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
         }
-        cg::yobi::FlushBattleEntries_43C060();
+        cg::yobi::FlushBattleEntries_43C060(session);
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        const std::int32_t count = world::gBattlePetActionCount5ABBBC;
-        world::gBattleCommandState5ABC3C = 5;
-        world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gLastBattleCommandPetIndex_553F90 = world::FindBattlePetIndex_43C4B0(session);
+        const std::int32_t count = session.WorldScene().battle.petActionCount;
+        session.WorldScene().battle.commandState = 5;
+        session.WorldScene().battle.petActionCount = count + 1;
+        session.WorldScene().battle.lastCommandPetIndex = world::FindBattlePetIndex_43C4B0(session);
         WindowBattleCommand_Close(session);
         return;
     }
-    world::gSelectedBattlePetTechniqueIndex_553F84 = technique;
+    session.WorldScene().battle.selectedPetTechniqueIndex = technique;
     const std::int32_t targetPet = world::FindBattlePetIndex_43C4B0(session);
-    const std::int32_t targetTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
+    const std::int32_t targetTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>((*session.WorldScene().petRecords)[targetPet]
             .techniquesD8[targetTechnique].target)));
     const std::int32_t position = world::GetBattlePetPosition_405B40(
-        world::gBattleCurrentPosition5ABCA4);
-    if (cg::yobi::CheckBattleCommand_43C560(position, target) == 0) {
+        session.WorldScene().battle.currentPosition);
+    if (cg::yobi::CheckBattleCommand_43C560(session, position, target) == 0) {
         const std::int32_t idPet = world::FindBattlePetIndex_43C4B0(session);
-        const std::int32_t idTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
+        const std::int32_t idTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
         const std::int32_t targetIndex =
             (*session.WorldScene().petRecords)[idPet].techniquesD8[idTechnique].techniqueId >= 200600
-            ? world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4)
+            ? world::GetBattlePetPosition_405B40(session.WorldScene().battle.currentPosition)
             : world::FindBattlePetIndex_43C4B0(session);
-        const std::int32_t currentTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
+        const std::int32_t currentTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
         static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-        cg::yobi::FlushBattleEntries_43C060();
+        cg::yobi::FlushBattleEntries_43C060(session);
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        const std::int32_t count = world::gBattlePetActionCount5ABBBC;
-        world::gBattleCommandState5ABC3C = 5;
-        world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gLastBattleCommandPetIndex_553F90 = world::FindBattlePetIndex_43C4B0(session);
+        const std::int32_t count = session.WorldScene().battle.petActionCount;
+        session.WorldScene().battle.commandState = 5;
+        session.WorldScene().battle.petActionCount = count + 1;
+        session.WorldScene().battle.lastCommandPetIndex = world::FindBattlePetIndex_43C4B0(session);
         WindowBattleCommand_Close(session);
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    world::gBattlePetCommandPhase553F88 = 2;
+    session.WorldScene().battle.petCommandPhase = 2;
 }
 
 // 原函数：0x00497FF0。
 static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& session, const std::int32_t technique)
 {
     if (technique < 0) {
-        world::gBattlePetCommandPhase553F88 = 0;
-        world::gBattleSelectionMode5ABC70 = 0;
+        session.WorldScene().battle.petCommandPhase = 0;
+        session.WorldScene().battle.selectionMode = 0;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        if (world::gBattleCurrentPosition5ABCA4 < 20) {
+        if (session.WorldScene().battle.currentPosition < 20) {
             static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
         }
-        cg::yobi::FlushBattleEntries_43C060();
+        cg::yobi::FlushBattleEntries_43C060(session);
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        const std::int32_t count = world::gBattlePetActionCount5ABBBC;
-        const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
-        world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gBattleCommandState5ABC3C = 5;
-        world::gLastBattleCommandPetIndex_553F90 = pet;
+        const std::int32_t count = session.WorldScene().battle.petActionCount;
+        const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+        session.WorldScene().battle.petActionCount = count + 1;
+        session.WorldScene().battle.commandState = 5;
+        session.WorldScene().battle.lastCommandPetIndex = pet;
         WindowBattleCommand_Close(session);
         return;
     }
-    world::gBattleSelectionMode5ABC70 = 0;
-    const auto targetPet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
-    world::gSelectedBattlePetTechniqueIndex_553F84 = technique;
+    session.WorldScene().battle.selectionMode = 0;
+    const auto targetPet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+    session.WorldScene().battle.selectedPetTechniqueIndex = technique;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>((*session.WorldScene().petRecords)[targetPet]
             .techniquesD8[technique].target)));
-    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-    if (cg::yobi::CheckBattleCommand_43C560(position, target) == 0) {
-        const std::uint32_t pet = world::gBattleRidePet5ABC38;
-        const std::int32_t currentTechnique = world::gSelectedBattlePetTechniqueIndex_553F84;
+    const std::int32_t position = session.WorldScene().battle.currentPosition;
+    if (cg::yobi::CheckBattleCommand_43C560(session, position, target) == 0) {
+        const std::uint32_t pet = session.WorldScene().battle.ridePet;
+        const std::int32_t currentTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
         static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
-        cg::yobi::FlushBattleEntries_43C060();
+        cg::yobi::FlushBattleEntries_43C060(session);
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        const std::int32_t count = world::gBattlePetActionCount5ABBBC;
-        const auto currentPet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
-        world::gBattlePetActionCount5ABBBC = count + 1;
-        world::gBattleCommandState5ABC3C = 5;
-        world::gLastBattleCommandPetIndex_553F90 = currentPet;
+        const std::int32_t count = session.WorldScene().battle.petActionCount;
+        const auto currentPet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+        session.WorldScene().battle.petActionCount = count + 1;
+        session.WorldScene().battle.commandState = 5;
+        session.WorldScene().battle.lastCommandPetIndex = currentPet;
         WindowBattleCommand_Close(session);
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    world::gBattlePetCommandPhase553F88 = 2;
+    session.WorldScene().battle.petCommandPhase = 2;
 }
 
 // 原函数：0x00498160。
@@ -1233,12 +1233,12 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
             if (window != nullptr) {
                 window->state |= 0x8000u;
             } else {
-                cg::yobi::FlushBattleEntries_43C060();
+                cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
                 const std::uint8_t actionState =
                     reinterpret_cast<const std::uint8_t*>(&WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C)[0];
-                world::gBattlePetCommandPhase553F88 = 1;
+                callbackWindow.ownerSession->WorldScene().battle.petCommandPhase = 1;
                 const bool riding = actionState == 4;
-                world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
+                callbackWindow.ownerSession->WorldScene().battle.selectedPetTechniqueIndex = -1;
                 session.UiFrame().native.battleCommand.petSkillOpening = riding
                     ? WindowSkill_OpenRidingSkills(session, &WindowBattleCommand_SelectRidingSkill) : WindowSkill_OpenPetSkills(session, &WindowBattleCommand_SelectPetSkill);
             }
@@ -1263,11 +1263,11 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
 static void WindowBattleCommand_DrawTargetHint(session::ClientSession& session)
 {
     auto& uiFrame = session.UiFrame();
-    if (world::gBattleCommandValue553F80 != 0) {
+    if (session.WorldScene().battle.commandValue != 0) {
         return;
     }
     bool selected = false;
-    for (const cg::yobi::YobiAction* const action : world::gBattleEntries59E980) {
+    for (const cg::yobi::YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
             selected = true;
             break;
@@ -1276,7 +1276,7 @@ static void WindowBattleCommand_DrawTargetHint(session::ClientSession& session)
     if (!selected) {
         return;
     }
-    const std::int32_t y = world::gBattleCommandState5ABC3C == 4 ? 88 : 91;
+    const std::int32_t y = session.WorldScene().battle.commandState == 4 ? 88 : 91;
     static_cast<void>(cg::render::DrawGraphic(platform::gWindowWidth - 138, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(platform::gWindowWidth - 257), static_cast<std::int16_t>(y + 12), 2, 0, 0,
@@ -1298,7 +1298,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
     auto& uiFrame = session.UiFrame();
     std::wstring buffer;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
-    for (const cg::yobi::YobiAction* const action : cg::world::gBattleEntries59E980) {
+    for (const cg::yobi::YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr && cg::yobi::GetYobiActionCacheIndex(action) == hitIndex
             && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
             static_cast<void>(platform::RequestCursorState_506DE0(2, 0));
@@ -1306,121 +1306,121 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         }
     }
     WindowBattleCommand_DrawTargetHint(session);
-    switch (cg::world::gBattleCommandState5ABC3C) {
+    switch (session.WorldScene().battle.commandState) {
     case 0: {
-        std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
+        std::int32_t position = session.WorldScene().battle.currentPosition;
         if (position < 20) {
-            cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[position];
+            cg::yobi::YobiAction* const player = session.WorldScene().battle.entries[position];
             if (*cg::yobi::FindBattleRiderSlot(player) != nullptr) {
-                if ((reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0] & 8u) != 0) {
+                if ((reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0] & 8u) != 0) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
-                    const std::int32_t petCount = cg::world::gBattlePetActionCount5ABBBC;
-                    const std::uint32_t flags = cg::world::gBattlePlayerFlags5ABCAC;
+                    const std::int32_t petCount = session.WorldScene().battle.petActionCount;
+                    const std::uint32_t flags = session.WorldScene().battle.playerFlags;
                     const bool skipPlayer = (flags & 0x20000u) != 0;
-                    cg::world::gBattlePetActionCount5ABBBC = petCount + 1;
+                    session.WorldScene().battle.petActionCount = petCount + 1;
                     if (skipPlayer) {
                         static_cast<void>(session.Connection().SendBattlePacket(L"N"));
-                        const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
+                        const std::int32_t count = session.WorldScene().battle.skillActionCount;
                         session.WorldScene().sceneState = 5;
-                        cg::world::gBattleSkillActionCount5ABBF4 = count + 1;
+                        session.WorldScene().battle.skillActionCount = count + 1;
                     } else {
-                        cg::world::gBattlePlayerFlags5ABCAC &= ~8u;
-                        cg::world::gBattleRebirthDisabled5ABC40 = 0;
+                        session.WorldScene().battle.playerFlags &= ~8u;
+                        session.WorldScene().battle.rebirthDisabled = 0;
                     }
                     WindowBattleCommand_Close(session);
-                    cg::world::gBattlePlayerActionState5ABC74 = 0;
+                    session.WorldScene().battle.playerActionState = 0;
                     break;
                 }
-                const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
-                bool open = technique == -1 || cg::world::gBattleSelectionMode5ABC70 != 0;
+                const std::int32_t technique = session.WorldScene().battle.selectedPetTechniqueIndex;
+                bool open = technique == -1 || session.WorldScene().battle.selectionMode != 0;
                 if (!open) {
-                    const std::uint32_t flags = cg::world::gBattlePetSkillFlags5ABB78;
+                    const std::uint32_t flags = session.WorldScene().battle.petSkillFlags;
                     open = (flags & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
                 }
                 if (!open) {
-                    const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
+                    const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
                     const std::int32_t cost = (*session.WorldScene().petRecords)[pet].techniquesD8[technique].fp;
                     open = cg::yobi::IsCostGreaterThanYobiActionFp(cost, player);
                 }
                 if (!open) {
-                    const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
-                    const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+                    const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+                    const std::int32_t currentTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
                     const auto target =
                         std::bit_cast<std::int16_t>((*session.WorldScene().petRecords)[pet].techniquesD8[currentTechnique].target);
-                    const std::int32_t currentPosition = cg::world::gBattleCurrentPosition5ABCA4;
-                    open = cg::yobi::CheckBattleCommand_43C560(
+                    const std::int32_t currentPosition = session.WorldScene().battle.currentPosition;
+                    open = cg::yobi::CheckBattleCommand_43C560(session,
                         currentPosition, static_cast<std::uint32_t>(target)) == 0;
                 }
                 if (open) {
-                    cg::world::gBattlePetCommandPhase553F88 = 1;
-                    cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
+                    session.WorldScene().battle.petCommandPhase = 1;
+                    session.WorldScene().battle.selectedPetTechniqueIndex = -1;
                     static_cast<void>(WindowSkill_OpenRidingSkills(session, &WindowBattleCommand_SelectRidingSkill));
                 }
                 session.WorldScene().battle.petSkillGraphicIndex = -2;
                 WindowBattleCommand_ResetSelection(session);
-                const std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
+                const std::int32_t mode = session.WorldScene().battle.selectionMode;
                 if (mode > 0) {
-                    cg::world::gBattleSelectionModes5ABC7C[mode] = 1;
-                    cg::yobi::FlushBattleEntries_43C060();
+                    session.WorldScene().battle.selectionModes[mode] = 1;
+                    cg::yobi::FlushBattleEntries_43C060(session);
                 } else if (mode == 0) {
-                    cg::world::gBattleSelectionModes5ABC7C[0] = 1;
+                    session.WorldScene().battle.selectionModes[0] = 1;
                 }
-                cg::world::gBattleCommandState5ABC3C = 4;
+                session.WorldScene().battle.commandState = 4;
                 WindowBattleCommand_Open(session, 4, 341, 0);
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
-                cg::world::gBattlePlayerActionState5ABC74 = 0;
+                session.WorldScene().battle.playerActionState = 0;
                 break;
             }
         }
-        std::uint32_t flags = cg::world::gBattlePlayerFlags5ABCAC;
+        std::uint32_t flags = session.WorldScene().battle.playerFlags;
         if ((flags & 4u) != 0) {
             if (position < 20) {
                 static_cast<void>(session.Connection().SendBattlePacket(L"N"));
-                position = cg::world::gBattleCurrentPosition5ABCA4;
-                flags = cg::world::gBattlePlayerFlags5ABCAC;
+                position = session.WorldScene().battle.currentPosition;
+                flags = session.WorldScene().battle.playerFlags;
             }
-            const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
-            cg::world::gBattleSkillActionCount5ABBF4 = count + 1;
+            const std::int32_t count = session.WorldScene().battle.skillActionCount;
+            session.WorldScene().battle.skillActionCount = count + 1;
             if ((flags & 0x20u) != 0) {
-                cg::world::gBattleCommandState5ABC3C = 3;
+                session.WorldScene().battle.commandState = 3;
             } else if ((flags & 0x10u) != 0) {
                 if (position < 20) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                 }
-                const std::int32_t nextCount = cg::world::gBattleSkillActionCount5ABBF4;
+                const std::int32_t nextCount = session.WorldScene().battle.skillActionCount;
                 session.WorldScene().sceneState = 5;
-                cg::world::gBattleSkillActionCount5ABBF4 = nextCount + 1;
+                session.WorldScene().battle.skillActionCount = nextCount + 1;
             } else {
-                cg::world::gBattlePlayerFlags5ABCAC = flags & ~4u;
-                cg::world::gBattleRebirthDisabled5ABC40 = 0;
+                session.WorldScene().battle.playerFlags = flags & ~4u;
+                session.WorldScene().battle.rebirthDisabled = 0;
             }
             WindowBattleCommand_Close(session);
-            cg::world::gBattlePlayerActionState5ABC74 = 0;
+            session.WorldScene().battle.playerActionState = 0;
             break;
         }
         if ((flags & 0x10u) != 0) {
-            const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
-            cg::world::gBattleRebirthDisabled5ABC40 = 0;
-            cg::world::gBattleSelectionMode5ABC70 = count == 0 ? cg::world::gBattleFirstActionSelectionMode_5ABB70 : cg::world::gBattleSecondActionSelectionMode_5ABB6C;
-        } else if (cg::world::gBattleSkillActionCount5ABBF4 == 0) {
-            const std::int32_t mode = cg::world::gBattleFirstActionSelectionMode_5ABB70;
-            cg::world::gBattleRebirthDisabled5ABC40 = 0;
-            cg::world::gBattleSelectionMode5ABC70 = mode;
+            const std::int32_t count = session.WorldScene().battle.skillActionCount;
+            session.WorldScene().battle.rebirthDisabled = 0;
+            session.WorldScene().battle.selectionMode = count == 0 ? session.WorldScene().battle.firstActionSelectionMode : session.WorldScene().battle.secondActionSelectionMode;
+        } else if (session.WorldScene().battle.skillActionCount == 0) {
+            const std::int32_t mode = session.WorldScene().battle.firstActionSelectionMode;
+            session.WorldScene().battle.rebirthDisabled = 0;
+            session.WorldScene().battle.selectionMode = mode;
         } else {
-            cg::world::gBattleSelectionMode5ABC70 = cg::world::gBattleSecondActionSelectionMode_5ABB6C;
+            session.WorldScene().battle.selectionMode = session.WorldScene().battle.secondActionSelectionMode;
         }
-        WindowBattleCommand_ResetTargets(cg::world::gBattleResetValues5ABB84.data(), 9);
+        WindowBattleCommand_ResetTargets(session.WorldScene().battle.resetValues.data(), 9);
         WindowBattleCommand_ResetSelection(session);
-        std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
+        std::int32_t mode = session.WorldScene().battle.selectionMode;
         if (mode >= 0) {
-            cg::world::gBattleSelectionModes5ABC7C[mode] = 1;
-            cg::yobi::FlushBattleEntries_43C060();
-            mode = cg::world::gBattleSelectionMode5ABC70;
+            session.WorldScene().battle.selectionModes[mode] = 1;
+            cg::yobi::FlushBattleEntries_43C060(session);
+            mode = session.WorldScene().battle.selectionMode;
         }
         switch (mode) {
         case 0:
-            static_cast<void>(cg::yobi::CheckBattleCommand_43C560(
-                cg::world::gBattleCurrentPosition5ABCA4, 0x475u));
+            static_cast<void>(cg::yobi::CheckBattleCommand_43C560(session,
+                session.WorldScene().battle.currentPosition, 0x475u));
             break;
         case 2:
             static_cast<void>(WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill));
@@ -1434,39 +1434,39 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         default:
             break;
         }
-        const auto modeFlags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
-        cg::world::gBattleCommandState5ABC3C = 1;
+        const auto modeFlags = reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0];
+        session.WorldScene().battle.commandState = 1;
         std::int32_t commandType = 0;
         if ((modeFlags & 0x10u) == 0) {
-            commandType = cg::world::gBattleSkillActionCount5ABBF4 != 0 ? 2 : 1;
+            commandType = session.WorldScene().battle.skillActionCount != 0 ? 2 : 1;
         }
         WindowBattleCommand_Open(session, commandType, 341, 0);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
-        cg::world::gBattlePlayerActionState5ABC74 = 0;
+        session.WorldScene().battle.playerActionState = 0;
         break;
     }
     case 1: {
-        if (cg::world::gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
-            cg::world::gBattleSelectionModes5ABC7C[0] = 0;
-            cg::yobi::FlushBattleEntries_43C060();
+        if (session.WorldScene().battle.selectionModes[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
+            session.WorldScene().battle.selectionModes[0] = 0;
+            cg::yobi::FlushBattleEntries_43C060(session);
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if (session.UiFrame().native.battleCommand.targetSelectionReady != 0) {
-            const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120();
+            const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120(session);
             if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
                 bool send = true;
-                switch (cg::world::gBattleSelectionMode5ABC70) {
+                switch (session.WorldScene().battle.selectionMode) {
                 case 0:
                     cg::text::FormatTo(buffer, L"H|{:X}", static_cast<std::uint32_t>(target));
                     break;
                 case 2: {
-                    const std::int32_t technique = cg::world::gBattleSelectedTechnique5ABC78;
-                    const std::int32_t skill = cg::world::gBattleSelectedSkill5ABB5C;
+                    const std::int32_t technique = session.WorldScene().battle.selectedTechnique;
+                    const std::int32_t skill = session.WorldScene().battle.selectedSkill;
                     cg::text::FormatTo(buffer, L"S|{:X}|{:X}|{:X}", static_cast<std::uint32_t>(skill), static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                     break;
                 }
                 case 3: {
-                    const std::int32_t item = cg::world::gBattleSelectedItem5ABC48;
+                    const std::int32_t item = session.WorldScene().battle.selectedItem;
                     cg::text::FormatTo(buffer, L"I|{:X}|{:X}", static_cast<std::uint32_t>(item), static_cast<std::uint32_t>(target));
                     break;
                 }
@@ -1476,17 +1476,17 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 }
                 if (send) {
                     static_cast<void>(session.Connection().SendBattlePacket(buffer));
-                    cg::yobi::FlushBattleEntries_43C060();
-                    cg::world::gBattlePlayerActionState5ABC74 = 1;
+                    cg::yobi::FlushBattleEntries_43C060(session);
+                    session.WorldScene().battle.playerActionState = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
             }
         }
-        if (cg::world::gBattlePlayerActionState5ABC74 == 1) {
-            const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
-            cg::world::gBattleCommandState5ABC3C = 2;
-            cg::world::gBattleSkillActionCount5ABBF4 = count + 1;
-            cg::yobi::FlushBattleEntries_43C060();
+        if (session.WorldScene().battle.playerActionState == 1) {
+            const std::int32_t count = session.WorldScene().battle.skillActionCount;
+            session.WorldScene().battle.commandState = 2;
+            session.WorldScene().battle.skillActionCount = count + 1;
+            cg::yobi::FlushBattleEntries_43C060(session);
             WindowBattleCommand_Close(session);
         }
         if (session.UiFrame().native.battleCommand.targetSelectionReady == 0) {
@@ -1496,112 +1496,112 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
     }
     case 2:
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value == 3) {
-            const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
-            cg::world::gBattlePlayerActionState5ABC74 = 0;
+            const std::int32_t count = session.WorldScene().battle.skillActionCount;
+            session.WorldScene().battle.playerActionState = 0;
             if (count == 1) {
-                const bool singleAction = (reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0] & 0x10u) != 0;
-                std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
+                const bool singleAction = (reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0] & 0x10u) != 0;
+                std::int32_t mode = session.WorldScene().battle.selectionMode;
                 if (!singleAction) {
-                    cg::world::gBattleCommandState5ABC3C = 0;
-                    cg::world::gBattleFirstActionSelectionMode_5ABB70 = mode;
+                    session.WorldScene().battle.commandState = 0;
+                    session.WorldScene().battle.firstActionSelectionMode = mode;
                     if (mode == 6) {
                         mode = 0;
-                        cg::world::gBattleSkillUsed5ABC68 = 1;
-                        cg::world::gBattleFirstActionSelectionMode_5ABB70 = 0;
-                        cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
+                        session.WorldScene().battle.skillUsed = 1;
+                        session.WorldScene().battle.firstActionSelectionMode = 0;
+                        session.WorldScene().battle.secondActionSelectionMode = 0;
                     } else if (mode >= 2 && mode <= 6) {
-                        cg::world::gBattleSkillUsed5ABC68 = 1;
-                        cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
+                        session.WorldScene().battle.skillUsed = 1;
+                        session.WorldScene().battle.secondActionSelectionMode = 0;
                     }
                 } else {
-                    cg::world::gBattleFirstActionSelectionMode_5ABB70 = mode;
+                    session.WorldScene().battle.firstActionSelectionMode = mode;
                     if (mode == 6) {
                         mode = 0;
-                        cg::world::gBattleFirstActionSelectionMode_5ABB70 = 0;
+                        session.WorldScene().battle.firstActionSelectionMode = 0;
                     }
-                    cg::world::gBattleCommandState5ABC3C = 3;
+                    session.WorldScene().battle.commandState = 3;
                 }
                 if (mode == 8) {
-                    cg::world::gBattleRebirthDisabled5ABC40 = 1;
+                    session.WorldScene().battle.rebirthDisabled = 1;
                 }
             } else {
-                const std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
-                cg::world::gBattleSecondActionSelectionMode_5ABB6C = mode;
+                const std::int32_t mode = session.WorldScene().battle.selectionMode;
+                session.WorldScene().battle.secondActionSelectionMode = mode;
                 if (mode == 6) {
-                    cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
+                    session.WorldScene().battle.secondActionSelectionMode = 0;
                 }
                 session.WorldScene().sceneState = 5;
             }
         }
         break;
     case 3: {
-        const auto flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
+        const auto flags = reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0];
         if ((flags & 0x20u) == 0) {
             session.WorldScene().sceneState = 5;
             break;
         }
         if ((flags & 8u) != 0) {
-            if (cg::world::gBattleCurrentPosition5ABCA4 < 20) {
+            if (session.WorldScene().battle.currentPosition < 20) {
                 static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
             }
-            ++cg::world::gBattlePetActionCount5ABBBC;
+            ++session.WorldScene().battle.petActionCount;
             session.WorldScene().sceneState = 5;
             break;
         }
-        const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+        const std::int32_t technique = session.WorldScene().battle.selectedPetTechniqueIndex;
         bool open = technique == -1
-            || (cg::world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
+            || (session.WorldScene().battle.petSkillFlags & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
         if (!open) {
-            const std::int32_t position = cg::world::GetBattlePetPosition_405B40(cg::world::gBattleCurrentPosition5ABCA4);
-            cg::yobi::YobiAction* const action = cg::world::gBattleEntries59E980[position];
+            const std::int32_t position = cg::world::GetBattlePetPosition_405B40(session.WorldScene().battle.currentPosition);
+            cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[position];
             const std::int32_t pet = cg::world::FindBattlePetIndex_43C4B0(session);
-            const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+            const std::int32_t currentTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
             const std::int32_t cost = (*session.WorldScene().petRecords)[pet].techniquesD8[currentTechnique].fp;
             open = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action);
         }
         if (!open) {
             const std::int32_t pet = cg::world::FindBattlePetIndex_43C4B0(session);
-            const std::int32_t currentTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+            const std::int32_t currentTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
             const auto target =
                 std::bit_cast<std::int16_t>((*session.WorldScene().petRecords)[pet].techniquesD8[currentTechnique].target);
-            const std::int32_t position = cg::world::GetBattlePetPosition_405B40(cg::world::gBattleCurrentPosition5ABCA4);
-            open = cg::yobi::CheckBattleCommand_43C560(position, static_cast<std::uint32_t>(target)) == 0;
+            const std::int32_t position = cg::world::GetBattlePetPosition_405B40(session.WorldScene().battle.currentPosition);
+            open = cg::yobi::CheckBattleCommand_43C560(session, position, static_cast<std::uint32_t>(target)) == 0;
         }
         if (open) {
-            cg::world::gBattlePetCommandPhase553F88 = 1;
-            cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
+            session.WorldScene().battle.petCommandPhase = 1;
+            session.WorldScene().battle.selectedPetTechniqueIndex = -1;
             static_cast<void>(WindowSkill_OpenPetSkills(session, &WindowBattleCommand_SelectPetSkill));
         }
         session.WorldScene().battle.petSkillGraphicIndex = -2;
-        cg::world::gBattleCommandState5ABC3C = 4;
+        session.WorldScene().battle.commandState = 4;
         WindowBattleCommand_Open(session, 3, 341, 0);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         break;
     }
     case 4: {
-        if (cg::world::gBattlePetCommandPhase553F88 == 3) {
-            const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120();
+        if (session.WorldScene().battle.petCommandPhase == 3) {
+            const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120(session);
             if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
-                const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+                const std::int32_t technique = session.WorldScene().battle.selectedPetTechniqueIndex;
                 cg::text::FormatTo(buffer, L"W|{:X}|{:X}", static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(session.Connection().SendBattlePacket(buffer));
-                cg::yobi::FlushBattleEntries_43C060();
-                cg::world::gBattlePlayerActionState5ABC74 = 1;
+                cg::yobi::FlushBattleEntries_43C060(session);
+                session.WorldScene().battle.playerActionState = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
         }
-        std::int32_t phase = cg::world::gBattlePetCommandPhase553F88;
+        std::int32_t phase = session.WorldScene().battle.petCommandPhase;
         if (phase == 2) {
             phase = 3;
-            cg::world::gBattlePetCommandPhase553F88 = 3;
+            session.WorldScene().battle.petCommandPhase = 3;
         }
         bool draw = false;
         std::int32_t imageNo = 0;
         switch (phase) {
         case 0: {
             if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
-                const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
-                cg::world::gBattlePetCommandPhase553F88 = 1;
+                const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+                session.WorldScene().battle.petCommandPhase = 1;
                 if (pet < 0) {
                     static_cast<void>(WindowSkill_OpenPetSkills(session, &WindowBattleCommand_SelectPetSkill));
                 } else {
@@ -1614,7 +1614,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 uiFrame.hoverText = L"打开技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
-                    cg::world::gBattlePetCommandPhase553F88 = 1;
+                    session.WorldScene().battle.petCommandPhase = 1;
                 }
             }
             imageNo = 0x589B;
@@ -1634,7 +1634,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     if (window != nullptr) {
                         window->state |= 0x8000u;
                     }
-                    cg::world::gBattlePetCommandPhase553F88 = 0;
+                    session.WorldScene().battle.petCommandPhase = 0;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
             }
@@ -1645,10 +1645,10 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         case 2:
         case 3: {
             if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
-                cg::yobi::FlushBattleEntries_43C060();
-                const auto pet = std::bit_cast<std::int32_t>(cg::world::gBattleRidePet5ABC38);
-                cg::world::gBattlePetCommandPhase553F88 = 1;
-                cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
+                cg::yobi::FlushBattleEntries_43C060(session);
+                const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
+                session.WorldScene().battle.petCommandPhase = 1;
+                session.WorldScene().battle.selectedPetTechniqueIndex = -1;
                 if (pet < 0) {
                     static_cast<void>(WindowSkill_OpenPetSkills(session, &WindowBattleCommand_SelectPetSkill));
                 } else {
@@ -1662,27 +1662,27 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 uiFrame.hoverText = L"返回技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
-                    cg::yobi::FlushBattleEntries_43C060();
-                    cg::world::gBattlePetCommandPhase553F88 = 1;
-                    cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
+                    cg::yobi::FlushBattleEntries_43C060(session);
+                    session.WorldScene().battle.petCommandPhase = 1;
+                    session.WorldScene().battle.selectedPetTechniqueIndex = -1;
                     clickedReturn = true;
                 }
             }
-            if (!clickedReturn && cg::world::gSelectedBattlePetTechniqueIndex_553F84 != -1) {
+            if (!clickedReturn && session.WorldScene().battle.selectedPetTechniqueIndex != -1) {
                 const std::int32_t namePet = cg::world::FindBattlePetIndex_43C4B0(session);
-                const std::int32_t nameTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+                const std::int32_t nameTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
                 buffer = std::format(L"{:<16}", (*session.WorldScene().petRecords)[namePet].techniquesD8[nameTechnique].name);
-                const std::int32_t nameY = cg::world::gBattleCommandY553F7C;
-                const std::int32_t nameX = cg::world::gBattleCommandX553F78;
+                const std::int32_t nameY = session.WorldScene().battle.commandY;
+                const std::int32_t nameX = session.WorldScene().battle.commandX;
                 static_cast<void>(render::DrawText2_456670(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(nameX - 114)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(nameY - 15)),
                     2, 0, 0, buffer, 0));
                 const std::int32_t costPet = cg::world::FindBattlePetIndex_43C4B0(session);
-                const std::int32_t costTechnique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
+                const std::int32_t costTechnique = session.WorldScene().battle.selectedPetTechniqueIndex;
                 cg::text::FormatTo(buffer, L"{:4}", (*session.WorldScene().petRecords)[costPet].techniquesD8[costTechnique].fp);
-                const std::int32_t costY = cg::world::gBattleCommandY553F7C;
-                const std::int32_t costX = cg::world::gBattleCommandX553F78;
+                const std::int32_t costY = session.WorldScene().battle.commandY;
+                const std::int32_t costX = session.WorldScene().battle.commandX;
                 static_cast<void>(render::DrawText2_456670(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(costX + 90)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(costY - 12)),
@@ -1696,25 +1696,25 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             break;
         }
         if (draw) {
-            const std::int32_t y = cg::world::gBattleCommandY553F7C;
-            const std::int32_t x = cg::world::gBattleCommandX553F78;
+            const std::int32_t y = session.WorldScene().battle.commandY;
+            const std::int32_t x = session.WorldScene().battle.commandX;
             session.WorldScene().battle.petSkillGraphicIndex = cg::render::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
         }
-        if (cg::world::gBattlePlayerActionState5ABC74 == 1) {
-            const std::int32_t count = cg::world::gBattlePetActionCount5ABBBC;
-            cg::world::gBattleCommandState5ABC3C = 5;
-            cg::world::gBattlePetActionCount5ABBBC = count + 1;
-            cg::world::gLastBattleCommandPetIndex_553F90 = cg::world::FindBattlePetIndex_43C4B0(session);
+        if (session.WorldScene().battle.playerActionState == 1) {
+            const std::int32_t count = session.WorldScene().battle.petActionCount;
+            session.WorldScene().battle.commandState = 5;
+            session.WorldScene().battle.petActionCount = count + 1;
+            session.WorldScene().battle.lastCommandPetIndex = cg::world::FindBattlePetIndex_43C4B0(session);
             WindowBattleCommand_Close(session);
         }
         break;
     }
     case 5:
         if (WindowRuntime_States(session)[WindowId_BattleCommand].userState.value == 3) {
-            cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[cg::world::gBattleCurrentPosition5ABCA4];
-            if (*cg::yobi::FindBattleRiderSlot(player) != nullptr && cg::world::gBattlePetActionCount5ABBBC < 2) {
-                cg::world::gBattlePlayerActionState5ABC74 = 0;
-                cg::world::gBattleCommandState5ABC3C = 0;
+            cg::yobi::YobiAction* const player = session.WorldScene().battle.entries[session.WorldScene().battle.currentPosition];
+            if (*cg::yobi::FindBattleRiderSlot(player) != nullptr && session.WorldScene().battle.petActionCount < 2) {
+                session.WorldScene().battle.playerActionState = 0;
+                session.WorldScene().battle.commandState = 0;
             } else {
                 session.WorldScene().sceneState = 5;
             }
@@ -1723,7 +1723,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
     default:
         break;
     }
-    const auto flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
+    const auto flags = reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0];
     if ((flags & 0x1Cu) != 0x1Cu) {
         WindowBattleCommand_DrawTimer(session);
     }
@@ -1733,29 +1733,29 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
 static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
 {
     const std::uint64_t tick = platform::ReadTickCount64();
-    std::int64_t remaining = std::bit_cast<std::int64_t>(cg::world::gBattleCommandDeadline5ABBF8 - tick);
-    if (cg::world::gBattleCountdownActive5ABCB8 == 0) {
+    std::int64_t remaining = std::bit_cast<std::int64_t>(session.WorldScene().battle.commandDeadline - tick);
+    if (session.WorldScene().battle.countdownActive == 0) {
         return;
     }
     if (remaining <= 0) {
-        cg::world::gBattleCountdownActive5ABCB8 = 0;
+        session.WorldScene().battle.countdownActive = 0;
         remaining = 0;
-        cg::yobi::FlushBattleEntries_43C060();
+        cg::yobi::FlushBattleEntries_43C060(session);
         WindowBattleCommand_Close(session);
-        cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[cg::world::gBattleCurrentPosition5ABCA4];
+        cg::yobi::YobiAction* const player = session.WorldScene().battle.entries[session.WorldScene().battle.currentPosition];
         bool finish = false;
         if (*cg::yobi::FindBattleRiderSlot(player) != nullptr) {
             static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
             finish = true;
         } else {
-            std::uint8_t flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
-            const std::int32_t skillCount = cg::world::gBattleSkillActionCount5ABBF4;
+            std::uint8_t flags = reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0];
+            const std::int32_t skillCount = session.WorldScene().battle.skillActionCount;
             if ((flags & 0x20u) != 0) {
                 if (skillCount == 0 && (flags & 4u) == 0) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                     finish = true;
                 }
-                if (cg::world::gBattlePetActionCount5ABBBC == 0) {
+                if (session.WorldScene().battle.petActionCount == 0) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
                     finish = true;
                 }
@@ -1763,10 +1763,10 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
                 if (skillCount == 0) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
-                    flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
+                    flags = reinterpret_cast<const std::uint8_t*>(&session.WorldScene().battle.playerFlags)[0];
                     finish = true;
                 }
-                if (cg::world::gBattleSkillActionCount5ABBF4 == 1 && (flags & 4u) == 0) {
+                if (session.WorldScene().battle.skillActionCount == 1 && (flags & 4u) == 0) {
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                     finish = true;
                 }
@@ -1774,19 +1774,19 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
         }
         if (finish) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-            cg::yobi::YobiAction* const action = cg::world::gBattleCommandAction5ABC00;
+            cg::yobi::YobiAction* const action = session.WorldScene().battle.commandAction;
             session.WorldScene().sceneState = 5;
             cg::yobi::MarkDeath(action);
-            cg::world::gBattleCommandAction5ABC00 = nullptr;
+            session.WorldScene().battle.commandAction = nullptr;
         }
     }
     std::int32_t imageBase = 0x5690;
     if (remaining < 10000) {
         imageBase = 0x569A;
         const std::int32_t seconds = static_cast<std::int32_t>(remaining / 1000);
-        if (seconds != cg::world::gBattleCountdownSecond5ABB80) {
+        if (seconds != session.WorldScene().battle.countdownSecond) {
             static_cast<void>(audio::PlaySe_52C450(202, 320));
-            cg::world::gBattleCountdownSecond5ABB80 = seconds;
+            session.WorldScene().battle.countdownSecond = seconds;
         }
     }
     std::wstring buffer;
@@ -1800,7 +1800,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
         static_cast<void>(cg::render::DrawGraphic(
             firstDigitX + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
     }
-    if (cg::world::gBattleModeFlag5ABFCC == 1) {
+    if (session.WorldScene().battle.modeFlag == 1) {
         const auto turn = std::bit_cast<std::int32_t>(session.WorldScene().battle.turnSnapshot + 1u);
         cg::text::FormatTo(buffer, L"第 {} 回合", turn);
         const std::int32_t screenWidth = platform::gWindowWidth > 0 ? platform::gWindowWidth : 640;
@@ -1818,7 +1818,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
 void WindowBattleCommand_SnapshotPetVitals(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
-    if (world::gBattleCurrentPosition5ABCA4 >= 20) {
+    if (session.WorldScene().battle.currentPosition >= 20) {
         return;
     }
     for (std::size_t index = 0; index < inventory.battlePetVitals.size(); ++index) {
@@ -1834,12 +1834,12 @@ void WindowBattleCommand_SnapshotPetVitals(session::ClientSession& session)
 void WindowBattleCommand_SyncActorVitals(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
-    const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
-    if (position >= 20 || cg::world::gBattleSnapshotPetIndex5ABBFC < 0) {
+    const std::int32_t position = session.WorldScene().battle.currentPosition;
+    if (position >= 20 || session.WorldScene().battle.snapshotPetIndex < 0) {
         return;
     }
     const std::int32_t petPosition = cg::world::GetBattlePetPosition_405B40(position);
-    cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[cg::world::gBattleCurrentPosition5ABCA4];
+    cg::yobi::YobiAction* const player = session.WorldScene().battle.entries[session.WorldScene().battle.currentPosition];
     if (player == nullptr) {
         return;
     }
@@ -1847,16 +1847,16 @@ void WindowBattleCommand_SyncActorVitals(session::ClientSession& session)
     if (rider == nullptr || *rider != nullptr) {
         return;
     }
-    const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(cg::world::gBattleEntries59E980[petPosition]);
-    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].hp = hp;
-    const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(cg::world::gBattleEntries59E980[petPosition]);
-    const std::int32_t maxHpIndex = cg::world::gBattleSnapshotPetIndex5ABBFC;
-    cg::yobi::YobiAction* const fpAction = cg::world::gBattleEntries59E980[petPosition];
+    const std::int32_t hp = cg::yobi::ReadYobiActionHpOnce(session.WorldScene().battle.entries[petPosition]);
+    inventory.battlePetVitals[session.WorldScene().battle.snapshotPetIndex].hp = hp;
+    const std::int32_t maxHp = cg::yobi::ReadYobiActionMaxHpOnce(session.WorldScene().battle.entries[petPosition]);
+    const std::int32_t maxHpIndex = session.WorldScene().battle.snapshotPetIndex;
+    cg::yobi::YobiAction* const fpAction = session.WorldScene().battle.entries[petPosition];
     inventory.battlePetVitals[maxHpIndex].maxHp = maxHp;
     const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(fpAction);
-    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].fp = fp;
-    const std::int32_t maxFp = cg::yobi::ReadYobiActionMaxFpOnce(cg::world::gBattleEntries59E980[petPosition]);
-    inventory.battlePetVitals[cg::world::gBattleSnapshotPetIndex5ABBFC].maxFp = maxFp;
+    inventory.battlePetVitals[session.WorldScene().battle.snapshotPetIndex].fp = fp;
+    const std::int32_t maxFp = cg::yobi::ReadYobiActionMaxFpOnce(session.WorldScene().battle.entries[petPosition]);
+    inventory.battlePetVitals[session.WorldScene().battle.snapshotPetIndex].maxFp = maxFp;
 }
 
 } // namespace detail

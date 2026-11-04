@@ -10,6 +10,7 @@
 
 #include "animation.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -374,7 +375,7 @@ std::int32_t NewBattleNumber_41F1A0(
 {
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", value);
-    if (world::gBattleModeFlag5ABFCC == 0) {
+    if (source->ownerSession->WorldScene().battle.modeFlag == 0) {
         if ((flags & BattleResultFlag_NumberSuffixPlus) != 0) {
             buffer += L"+";
         }

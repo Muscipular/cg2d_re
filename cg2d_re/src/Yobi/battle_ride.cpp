@@ -92,8 +92,6 @@ static void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarri
 // 原函数：0x00414050。
 void UpdateBattleAction224_414050(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
-    using world::gBattleGraphicPoints553758;
     using world::gBattlePointIndices5536FC;
     auto* const payload = action->payload.battleActor;
     const std::int32_t index = payload->effectRunningC9C;
@@ -110,52 +108,52 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             rider->phase = BattleRiderSyncMode_DrawAttributesOnly;
             payload->rider13C8->field58 = 0;
             payload->rider13C8->characterAction = CharacterAnimation_Sit;
-            YobiAction* const nameSource = cg::world::gBattleAllEntries59E980[first];
+            YobiAction* const nameSource = action->ownerSession->WorldScene().battle.allEntries[first];
             YobiAction* const nameRider = payload->rider13C8;
             nameRider->nameC4 = nameSource->nameC4;
-            YobiAction* const valueSource = cg::world::gBattleAllEntries59E980[first];
+            YobiAction* const valueSource = action->ownerSession->WorldScene().battle.allEntries[first];
             YobiAction* const valueRider = payload->rider13C8;
             valueRider->field1D0 = valueSource->field1D0;
-            YobiAction* cryptSource = cg::world::gBattleAllEntries59E980[first];
+            YobiAction* cryptSource = action->ownerSession->WorldScene().battle.allEntries[first];
             YobiAction* cryptRider = payload->rider13C8;
             cryptRider->readiness = cryptSource->readiness;
-            cryptSource = cg::world::gBattleAllEntries59E980[first];
+            cryptSource = action->ownerSession->WorldScene().battle.allEntries[first];
             cryptRider = payload->rider13C8;
             cryptRider->maxHp = cryptSource->maxHp;
-            cryptSource = cg::world::gBattleAllEntries59E980[first];
+            cryptSource = action->ownerSession->WorldScene().battle.allEntries[first];
             cryptRider = payload->rider13C8;
             cryptRider->barValue1B0 = cryptSource->barValue1B0;
-            cryptSource = cg::world::gBattleAllEntries59E980[first];
+            cryptSource = action->ownerSession->WorldScene().battle.allEntries[first];
             cryptRider = payload->rider13C8;
             cryptRider->barMaximum1C0 = cryptSource->barMaximum1C0;
-            YobiAction* coordinateSource = cg::world::gBattleAllEntries59E980[first];
+            YobiAction* coordinateSource = action->ownerSession->WorldScene().battle.allEntries[first];
             YobiAction* coordinateRider = payload->rider13C8;
             coordinateRider->x = coordinateSource->x;
-            coordinateSource = cg::world::gBattleAllEntries59E980[first];
+            coordinateSource = action->ownerSession->WorldScene().battle.allEntries[first];
             coordinateRider = payload->rider13C8;
             coordinateRider->y = coordinateSource->y;
-            coordinateSource = cg::world::gBattleAllEntries59E980[first];
+            coordinateSource = action->ownerSession->WorldScene().battle.allEntries[first];
             coordinateRider = payload->rider13C8;
             coordinateRider->origin_x_offset40 = coordinateSource->origin_x_offset40;
-            coordinateSource = cg::world::gBattleAllEntries59E980[first];
+            coordinateSource = action->ownerSession->WorldScene().battle.allEntries[first];
             coordinateRider = payload->rider13C8;
             coordinateRider->origin_y_offset44 = coordinateSource->origin_y_offset44;
             payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
-            action->nameC4 = cg::world::gBattleAllEntries59E980[second]->nameC4;
-            const std::int32_t nextImage = cg::world::gBattleAllEntries59E980[second]->imageNo;
+            action->nameC4 = action->ownerSession->WorldScene().battle.allEntries[second]->nameC4;
+            const std::int32_t nextImage = action->ownerSession->WorldScene().battle.allEntries[second]->imageNo;
             action->characterAction = CharacterAnimation_Stand;
             action->imageNo = nextImage;
-            action->field1D0 = cg::world::gBattleAllEntries59E980[second]->field1D0;
-            action->readiness = cg::world::gBattleAllEntries59E980[second]->readiness;
-            action->maxHp = cg::world::gBattleAllEntries59E980[second]->maxHp;
-            action->barValue1B0 = cg::world::gBattleAllEntries59E980[second]->barValue1B0;
-            action->barMaximum1C0 = cg::world::gBattleAllEntries59E980[second]->barMaximum1C0;
-            action->x = cg::world::gBattleAllEntries59E980[second]->x;
-            action->y = cg::world::gBattleAllEntries59E980[second]->y;
-            action->origin_x_offset40 = cg::world::gBattleAllEntries59E980[second]->origin_x_offset40;
-            action->origin_y_offset44 = cg::world::gBattleAllEntries59E980[second]->origin_y_offset44;
-            ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[first]->payload.battleActor);
-            ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[second]->payload.battleActor);
+            action->field1D0 = action->ownerSession->WorldScene().battle.allEntries[second]->field1D0;
+            action->readiness = action->ownerSession->WorldScene().battle.allEntries[second]->readiness;
+            action->maxHp = action->ownerSession->WorldScene().battle.allEntries[second]->maxHp;
+            action->barValue1B0 = action->ownerSession->WorldScene().battle.allEntries[second]->barValue1B0;
+            action->barMaximum1C0 = action->ownerSession->WorldScene().battle.allEntries[second]->barMaximum1C0;
+            action->x = action->ownerSession->WorldScene().battle.allEntries[second]->x;
+            action->y = action->ownerSession->WorldScene().battle.allEntries[second]->y;
+            action->origin_x_offset40 = action->ownerSession->WorldScene().battle.allEntries[second]->origin_x_offset40;
+            action->origin_y_offset44 = action->ownerSession->WorldScene().battle.allEntries[second]->origin_y_offset44;
+            ClearBattleRideAttachments(action->ownerSession->WorldScene().battle.allEntries[first]->payload.battleActor);
+            ClearBattleRideAttachments(action->ownerSession->WorldScene().battle.allEntries[second]->payload.battleActor);
             FaceBattleActorTowardFormationPosition_406260(action);
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             const std::int32_t frameX = action->frameX;
@@ -181,8 +179,8 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8->motionMagnitude54 = 8.0F;
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             static_cast<void>(PlayFrame_517DA0(payload->rider13C8, AnimationPlayback_Loop));
-            static_cast<void>(MarkDeath(cg::world::gBattleAllEntries59E980[second]));
-            cg::world::gBattleAllEntries59E980[second] = nullptr;
+            static_cast<void>(MarkDeath(action->ownerSession->WorldScene().battle.allEntries[second]));
+            action->ownerSession->WorldScene().battle.allEntries[second] = nullptr;
             static_cast<void>(audio::PlaySe_52C450(465, payload->rider13C8->x));
             return;
         }
@@ -270,33 +268,33 @@ void UpdateBattleAction224_414050(YobiAction* const action)
                 payload->auxiliaryGear13B8[1] = nullptr;
             }
             if (position != first) {
-                YobiAction* const oldSecond = cg::world::gBattleAllEntries59E980[second];
+                YobiAction* const oldSecond = action->ownerSession->WorldScene().battle.allEntries[second];
                 if (oldSecond != nullptr) {
                     static_cast<void>(MarkDeath(oldSecond));
-                    cg::world::gBattleAllEntries59E980[second] = nullptr;
+                    action->ownerSession->WorldScene().battle.allEntries[second] = nullptr;
                 }
-                YobiAction** const slot = &cg::world::gBattleAllEntries59E980[position];
+                YobiAction** const slot = &action->ownerSession->WorldScene().battle.allEntries[position];
                 YobiAction* const oldPosition = *slot;
                 if (oldPosition != nullptr) {
                     static_cast<void>(MarkDeath(oldPosition));
                     *slot = nullptr;
                 }
-                *slot = cg::world::gBattleAllEntries59E980[first];
+                *slot = action->ownerSession->WorldScene().battle.allEntries[first];
                 const std::uint8_t priority = static_cast<std::uint8_t>(10 * position + 2);
-                cg::world::gBattleAllEntries59E980[first] = nullptr;
+                action->ownerSession->WorldScene().battle.allEntries[first] = nullptr;
                 action->priority = priority;
                 payload->battlePosition18 = position;
-                action->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
-                action->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
-                action->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
-                action->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
-                payload->x00 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
-                payload->y04 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
-                payload->x08 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][0];
-                payload->y0C = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1];
-                const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
+                action->origin_x_offset40 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][2]);
+                action->origin_y_offset44 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][3]);
+                action->x = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][2];
+                action->y = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][3];
+                payload->x00 = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][2];
+                payload->y04 = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][3];
+                payload->x08 = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][0];
+                payload->y0C = action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[position]][1];
+                const std::int32_t currentPosition = action->ownerSession->WorldScene().battle.currentPosition;
                 if (currentPosition == first || currentPosition == second) {
-                    world::gBattleCurrentPosition5ABCA4 = position;
+                    action->ownerSession->WorldScene().battle.currentPosition = position;
                 }
             }
             RestoreBattleStateEffects_422370(action);
@@ -328,17 +326,17 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 8.0F;
     const std::int32_t distancePoint = cg::world::gBattlePointIndices5536FC[second];
-    const float distanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][3]);
-    const float distanceX = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][2]);
+    const float distanceY = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[distancePoint][3]);
+    const float distanceX = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[distancePoint][2]);
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
-        action->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][2]);
-        action->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][3]);
+        action->origin_x_offset40 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[second]][2]);
+        action->origin_y_offset44 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[cg::world::gBattlePointIndices5536FC[second]][3]);
         FaceBattleActorTowardFormationPosition_406260(action);
         action->characterAction = CharacterAnimation_Stand;
     } else {
         const std::int32_t turnPoint = cg::world::gBattlePointIndices5536FC[second];
-        const float turnY = static_cast<float>(cg::world::gBattleGraphicPoints553758[turnPoint][3]);
-        const float turnX = static_cast<float>(cg::world::gBattleGraphicPoints553758[turnPoint][2]);
+        const float turnY = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[turnPoint][3]);
+        const float turnX = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[turnPoint][2]);
         TurnBattleTowardPosition_4060D0(action, turnX, turnY, 1, 0.0F);
         MoveBattleByAngle_405EA0(action);
     }
@@ -346,21 +344,21 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     payload->rider13C8->characterAction = CharacterAnimation_Sit;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t riderDistancePoint = cg::world::gBattlePointIndices5536FC[first];
-    const float riderDistanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[riderDistancePoint][3]);
-    const std::int32_t riderDistanceX = cg::world::gBattleGraphicPoints553758[riderDistancePoint][2];
+    const float riderDistanceY = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[riderDistancePoint][3]);
+    const std::int32_t riderDistanceX = action->ownerSession->WorldScene().battle.graphicPoints[riderDistancePoint][2];
     YobiAction* const distanceRider = payload->rider13C8;
     if (GetBattleDistanceToPosition_4062A0(
         distanceRider, static_cast<float>(riderDistanceX), riderDistanceY) < 5) {
         const std::int32_t snapXPoint = cg::world::gBattlePointIndices5536FC[first];
         YobiAction* const snapXRider = payload->rider13C8;
-        snapXRider->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapXPoint][2]);
+        snapXRider->origin_x_offset40 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[snapXPoint][2]);
         const std::int32_t snapYPoint = cg::world::gBattlePointIndices5536FC[first];
         YobiAction* const snapYRider = payload->rider13C8;
-        snapYRider->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapYPoint][3]);
+        snapYRider->origin_y_offset44 = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[snapYPoint][3]);
     } else {
         const std::int32_t turnPoint = cg::world::gBattlePointIndices5536FC[first];
-        const float turnY = static_cast<float>(cg::world::gBattleGraphicPoints553758[turnPoint][3]);
-        const std::int32_t turnX = cg::world::gBattleGraphicPoints553758[turnPoint][2];
+        const float turnY = static_cast<float>(action->ownerSession->WorldScene().battle.graphicPoints[turnPoint][3]);
+        const std::int32_t turnX = action->ownerSession->WorldScene().battle.graphicPoints[turnPoint][2];
         YobiAction* const turningRider = payload->rider13C8;
         TurnBattleTowardPosition_4060D0(turningRider, static_cast<float>(turnX), turnY, 1, 0.0F);
         MoveBattleByAngle_405EA0(payload->rider13C8);
@@ -413,7 +411,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     const bool finish = oldTime > 15 && offset >= 0;
     currentRider->field58 = oldTime + 1;
     if (finish) {
-        YobiAction** const secondSlot = &cg::world::gBattleAllEntries59E980[second];
+        YobiAction** const secondSlot = &action->ownerSession->WorldScene().battle.allEntries[second];
         YobiAction* const oldSecond = *secondSlot;
         if (oldSecond != nullptr) {
             static_cast<void>(MarkDeath(oldSecond));
@@ -428,7 +426,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         FaceBattleActorTowardFormationPosition_406260(*secondSlot);
         static_cast<void>(PlayFrame_517DA0(*secondSlot, AnimationPlayback_Loop));
         MoveBattleCastState_439380(*secondSlot);
-        YobiAction** const firstSlot = &cg::world::gBattleAllEntries59E980[first];
+        YobiAction** const firstSlot = &action->ownerSession->WorldScene().battle.allEntries[first];
         YobiAction* const oldFirst = *firstSlot;
         if (oldFirst != nullptr) {
             static_cast<void>(MarkDeath(oldFirst));
@@ -464,7 +462,6 @@ void UpdateBattleAction224_414050(YobiAction* const action)
 // 原函数：0x004154C0。
 void UpdateBattleAction226_4154C0(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     const std::int32_t index = payload->effectRunningC9C;
     YobiAction* const entryRider = payload->rider13C8;
@@ -473,20 +470,20 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     const std::int32_t second = payload->effects1C[index].position4;
     if (entryRider->field58 == 0) {
         YobiAction* const restoredSecond = carrier->second04;
-        cg::world::gBattleAllEntries59E980[second] = restoredSecond;
+        action->ownerSession->WorldScene().battle.allEntries[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_WaitIdle;
-        cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
-        YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
+        action->ownerSession->WorldScene().battle.allEntries[second]->phase = BattleAction_WaitIdle;
+        action->ownerSession->WorldScene().battle.allEntries[second]->flags &= ~YobiActionFlag_Hidden;
+        YobiAction* const secondXTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         secondXTarget->origin_x_offset40 = action->origin_x_offset40;
-        YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
+        YobiAction* const secondYTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         secondYTarget->origin_y_offset44 = action->origin_y_offset44;
         carrier->second04 = nullptr;
         action->graphicIndex = -1;
         action->lastImageNo = 0;
         ClearBattleRideAttachments(payload);
-        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[second]);
-        YobiAction* const directionSource = cg::world::gBattleAllEntries59E980[second];
+        FaceBattleActorTowardFormationPosition_406260(action->ownerSession->WorldScene().battle.allEntries[second]);
+        YobiAction* const directionSource = action->ownerSession->WorldScene().battle.allEntries[second];
         YobiAction* const directionRider = payload->rider13C8;
         directionRider->direction = directionSource->direction;
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
@@ -495,11 +492,11 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Damage;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
-    const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_x_offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->ownerSession->WorldScene().battle.allEntries[second]->origin_x_offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
     deltaXRider->deltaX = x + screenX;
-    const std::int32_t y = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_y_offset44);
+    const std::int32_t y = static_cast<std::int32_t>(action->ownerSession->WorldScene().battle.allEntries[second]->origin_y_offset44);
     const std::int32_t screenY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     YobiAction* const deltaYRider = payload->rider13C8;
     deltaYRider->deltaY = y + screenY;
@@ -507,34 +504,34 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     positionXRider->x = positionXRider->deltaX;
     YobiAction* const positionYRider = payload->rider13C8;
     positionYRider->y = positionYRider->deltaY;
-    static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[second], AnimationPlayback_Loop));
+    static_cast<void>(PlayFrame_517DA0(action->ownerSession->WorldScene().battle.allEntries[second], AnimationPlayback_Loop));
     YobiAction* const movingRider = payload->rider13C8;
     const std::int32_t time = movingRider->field58;
-    const std::int32_t offset = time * time / 5 + cg::world::gBattleAllEntries59E980[second]->frameY;
+    const std::int32_t offset = time * time / 5 + action->ownerSession->WorldScene().battle.allEntries[second]->frameY;
     movingRider->y += offset;
     YobiAction* const counterRider = payload->rider13C8;
     const std::int32_t nextTime = counterRider->field58 + 1;
     const bool restoreEntries = offset >= 0;
     counterRider->field58 = nextTime;
     if (restoreEntries) {
-        YobiAction* const oldFirst = cg::world::gBattleAllEntries59E980[first];
+        YobiAction* const oldFirst = action->ownerSession->WorldScene().battle.allEntries[first];
         if (oldFirst != nullptr) {
             static_cast<void>(MarkDeath(oldFirst));
-            cg::world::gBattleAllEntries59E980[first] = nullptr;
+            action->ownerSession->WorldScene().battle.allEntries[first] = nullptr;
         }
         YobiAction* const restoredFirst = carrier->first00;
-        cg::world::gBattleAllEntries59E980[first] = restoredFirst;
+        action->ownerSession->WorldScene().battle.allEntries[first] = restoredFirst;
         restoredFirst->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
-        YobiAction* const firstXTarget = cg::world::gBattleAllEntries59E980[first];
+        action->ownerSession->WorldScene().battle.allEntries[first]->flags &= ~YobiActionFlag_Hidden;
+        YobiAction* const firstXTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstXTarget->origin_x_offset40 = action->origin_x_offset40;
-        YobiAction* const firstYTarget = cg::world::gBattleAllEntries59E980[first];
+        YobiAction* const firstYTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstYTarget->origin_y_offset44 = action->origin_y_offset44;
-        RestoreBattleRideGear(&cg::world::gBattleAllEntries59E980[first], carrier);
+        RestoreBattleRideGear(&action->ownerSession->WorldScene().battle.allEntries[first], carrier);
         carrier->first00 = nullptr;
-        FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[first]);
-        static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], AnimationPlayback_Loop));
-        MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[first]);
+        FaceBattleActorTowardFormationPosition_406260(action->ownerSession->WorldScene().battle.allEntries[first]);
+        static_cast<void>(PlayFrame_517DA0(action->ownerSession->WorldScene().battle.allEntries[first], AnimationPlayback_Loop));
+        MoveBattleCastState_439380(action->ownerSession->WorldScene().battle.allEntries[first]);
         payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
@@ -542,10 +539,10 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         payload->rider13C8 = nullptr;
         static_cast<void>(MarkDeath(oldEffect));
         payload->effect1060 = nullptr;
-        RestoreBattleStateEffects_422370(cg::world::gBattleAllEntries59E980[first]);
-        RestoreBattleStateEffects_422370(cg::world::gBattleAllEntries59E980[second]);
-        static_cast<void>(audio::PlaySe_52C450(457, cg::world::gBattleAllEntries59E980[first]->x));
-        MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[second]);
+        RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[first]);
+        RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[second]);
+        static_cast<void>(audio::PlaySe_52C450(457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
+        MoveBattleCastState_439380(action->ownerSession->WorldScene().battle.allEntries[second]);
         static_cast<void>(MarkDeath(action));
     }
     YobiAction* const rider = payload->rider13C8;
@@ -557,7 +554,6 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
 // 原函数：0x00415940。
 void UpdateBattleAction227_415940(YobiAction* const action)
 {
-    using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     const std::int32_t index = payload->effectRunningC9C;
     const std::int32_t first = payload->effects1C[index].position3;
@@ -569,66 +565,66 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     auto* const carrier = carrierAction->payload.battleRideCarrier;
     if (entryTime == 0) {
         YobiAction* const restoredSecond = carrier->second04;
-        cg::world::gBattleAllEntries59E980[second] = restoredSecond;
+        action->ownerSession->WorldScene().battle.allEntries[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_Idle;
-        cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
-        YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
+        action->ownerSession->WorldScene().battle.allEntries[second]->phase = BattleAction_Idle;
+        action->ownerSession->WorldScene().battle.allEntries[second]->flags &= ~YobiActionFlag_Hidden;
+        YobiAction* const secondXTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         secondXTarget->origin_x_offset40 = action->origin_x_offset40;
-        YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
+        YobiAction* const secondYTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         secondYTarget->origin_y_offset44 = action->origin_y_offset44;
-        cg::world::gBattleAllEntries59E980[second]->x = static_cast<std::int32_t>(action->origin_x_offset40);
-        cg::world::gBattleAllEntries59E980[second]->y = static_cast<std::int32_t>(action->origin_y_offset44);
+        action->ownerSession->WorldScene().battle.allEntries[second]->x = static_cast<std::int32_t>(action->origin_x_offset40);
+        action->ownerSession->WorldScene().battle.allEntries[second]->y = static_cast<std::int32_t>(action->origin_y_offset44);
         carrier->second04 = nullptr;
-        YobiAction* animationTarget = cg::world::gBattleAllEntries59E980[second];
+        YobiAction* animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->graphicIndex = action->graphicIndex;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->framePlayingRate = action->framePlayingRate;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->lastImageNo = action->lastImageNo;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->characterAction = action->characterAction;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->lastCharacterAction = action->lastCharacterAction;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->direction = action->direction;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->lastDirection = action->lastDirection;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->frameIndex = action->frameIndex;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->frameRemain = action->frameRemain;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->graphicOffsetX = action->graphicOffsetX;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->graphicOffsetY = action->graphicOffsetY;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->frameEvent = action->frameEvent;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->hidden = action->hidden;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->field2D8 = action->field2D8;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->completedLoops = action->completedLoops;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->playRevert = action->playRevert;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->frameX = action->frameX;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->frameY = action->frameY;
-        YobiAction* const descriptorTarget = cg::world::gBattleAllEntries59E980[second];
+        YobiAction* const descriptorTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         descriptorTarget->drawMode = action->drawMode;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->batchType = action->batchType;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->mixFlagsOverrideMask = action->mixFlagsOverrideMask;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->color2 = action->color2;
-        animationTarget = cg::world::gBattleAllEntries59E980[second];
+        animationTarget = action->ownerSession->WorldScene().battle.allEntries[second];
         animationTarget->mixFlagsOverrideValue = action->mixFlagsOverrideValue;
-        RestoreBattleStateEffects_422370(cg::world::gBattleAllEntries59E980[second]);
-        MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[second]);
-        static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[second], AnimationPlayback_Loop));
+        RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[second]);
+        MoveBattleCastState_439380(action->ownerSession->WorldScene().battle.allEntries[second]);
+        static_cast<void>(PlayFrame_517DA0(action->ownerSession->WorldScene().battle.allEntries[second], AnimationPlayback_Loop));
         action->graphicIndex = -1;
         action->lastImageNo = 0;
         ClearBattleRideAttachments(payload);
@@ -651,7 +647,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     positionYRider->y = positionYRider->deltaY;
     YobiAction* const movingRider = payload->rider13C8;
     const std::int32_t time = movingRider->field58;
-    const std::int32_t offset = flags != 0 ? time * time / 5 + cg::world::gBattleAllEntries59E980[second]->frameY
+    const std::int32_t offset = flags != 0 ? time * time / 5 + action->ownerSession->WorldScene().battle.allEntries[second]->frameY
         : (time - 15) * (time - 15) - 225;
     movingRider->y += offset;
     const bool finish = flags != 0 || payload->rider13C8->field58 > 15;
@@ -659,30 +655,30 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     const std::int32_t nextTime = counterRider->field58 + 1;
     counterRider->field58 = nextTime;
     if (finish && offset >= 0) {
-        YobiAction* const oldFirst = cg::world::gBattleAllEntries59E980[first];
+        YobiAction* const oldFirst = action->ownerSession->WorldScene().battle.allEntries[first];
         if (oldFirst != nullptr) {
             static_cast<void>(MarkDeath(oldFirst));
-            cg::world::gBattleAllEntries59E980[first] = nullptr;
+            action->ownerSession->WorldScene().battle.allEntries[first] = nullptr;
         }
         YobiAction* const restoredFirst = carrier->first00;
-        cg::world::gBattleAllEntries59E980[first] = restoredFirst;
+        action->ownerSession->WorldScene().battle.allEntries[first] = restoredFirst;
         restoredFirst->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
-        YobiAction* firstTarget = cg::world::gBattleAllEntries59E980[first];
+        action->ownerSession->WorldScene().battle.allEntries[first]->flags &= ~YobiActionFlag_Hidden;
+        YobiAction* firstTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstTarget->origin_x_offset40 = action->origin_x_offset40;
-        firstTarget = cg::world::gBattleAllEntries59E980[first];
+        firstTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstTarget->origin_y_offset44 = action->origin_y_offset44;
-        firstTarget = cg::world::gBattleAllEntries59E980[first];
+        firstTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstTarget->x = action->x;
-        firstTarget = cg::world::gBattleAllEntries59E980[first];
+        firstTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstTarget->y = action->y;
-        firstTarget = cg::world::gBattleAllEntries59E980[first];
+        firstTarget = action->ownerSession->WorldScene().battle.allEntries[first];
         firstTarget->direction = action->direction;
-        cg::world::gBattleAllEntries59E980[first]->motionMagnitude54 = 6.0F;
-        RestoreBattleRideGear(&cg::world::gBattleAllEntries59E980[first], carrier);
+        action->ownerSession->WorldScene().battle.allEntries[first]->motionMagnitude54 = 6.0F;
+        RestoreBattleRideGear(&action->ownerSession->WorldScene().battle.allEntries[first], carrier);
         carrier->first00 = nullptr;
-        static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], AnimationPlayback_Loop));
-        MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[first]);
+        static_cast<void>(PlayFrame_517DA0(action->ownerSession->WorldScene().battle.allEntries[first], AnimationPlayback_Loop));
+        MoveBattleCastState_439380(action->ownerSession->WorldScene().battle.allEntries[first]);
         payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
@@ -690,8 +686,8 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         payload->rider13C8 = nullptr;
         static_cast<void>(MarkDeath(oldEffect));
         payload->effect1060 = nullptr;
-        RestoreBattleStateEffects_422370(cg::world::gBattleAllEntries59E980[first]);
-        static_cast<void>(audio::PlaySe_52C450(457, cg::world::gBattleAllEntries59E980[first]->x));
+        RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[first]);
+        static_cast<void>(audio::PlaySe_52C450(457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
         static_cast<void>(MarkDeath(action));
     }
     YobiAction* const rider = payload->rider13C8;

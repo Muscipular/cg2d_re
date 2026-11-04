@@ -1013,7 +1013,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         return;
     }
 
-    const std::int32_t position = cg::world::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = action->ownerSession->WorldScene().battle.currentPosition;
     action = graphic->reference.action;
     const auto* const payload = static_cast<const detail::BattleActorPayload*>(action->payload.battleActor);
     if (position < 10) {

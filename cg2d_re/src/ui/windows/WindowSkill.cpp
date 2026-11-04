@@ -880,8 +880,8 @@ static void WindowSkill_HandleTechniqueRow(
         nameColor = 7;
     } else if (battle) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-        cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
+        const std::int32_t position = session.WorldScene().battle.currentPosition;
+        cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[position];
         if (cg::yobi::IsYobiActionFpLessThan(action, cost)) {
             nameColor = 6;
         }
@@ -1135,7 +1135,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
     if (clicked) {
         const std::int32_t skillIndex =
             std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
-        const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
+        const std::uint32_t flags = callbackWindow.ownerSession->WorldScene().battle.skillFlags;
         const std::uint32_t mask = 1u << (static_cast<std::uint32_t>(skillIndex) & 31u);
         if ((flags & mask) != 0) {
             WindowSkill_ShowBattleTechniques(session, currentWindow, pairIndex, 0);
@@ -1149,7 +1149,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
+    const std::uint32_t flags = callbackWindow.ownerSession->WorldScene().battle.skillFlags;
     if ((state & MouseFlag_Hover) != 0) {
         const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
             &callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
@@ -1208,8 +1208,8 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
     std::int8_t visualState = 0;
     bool allowed = record->techniques3C[technique].value8C != 0;
     if (allowed) {
-        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-        allowed = cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost);
+        const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
+        allowed = cg::yobi::IsYobiActionFpGreaterEqual(callbackWindow.ownerSession->WorldScene().battle.entries[position], cost);
     }
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
@@ -1231,15 +1231,15 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
         skillState.hover = technique;
         const wchar_t* hint = L"由于能力不足，无法使用此技能。" /* 原常量参考：0x00586588。 */;
         if (record->techniques3C[technique].value8C != 0) {
-            const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-            hint = cg::yobi::IsYobiActionFpLessThan(world::gBattleEntries59E980[position], cost)
+            const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
+            hint = cg::yobi::IsYobiActionFpLessThan(callbackWindow.ownerSession->WorldScene().battle.entries[position], cost)
                 ? L"由于魔力不足，无法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
         }
         uiFrame.hoverText = hint;
     }
     if (clicked && callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].techniques3C[technique].value8C != 0) {
-        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)) {
+        const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
+        if (cg::yobi::IsYobiActionFpGreaterEqual(callbackWindow.ownerSession->WorldScene().battle.entries[position], cost)) {
             visualState = 1;
         }
     }
@@ -1330,11 +1330,11 @@ static void WindowSkill_DrawPetSkillRow(
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const std::int32_t position = world::GetBattlePetPosition_405B40(
-        world::gBattleCurrentPosition5ABCA4);
-    cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
+        session.WorldScene().battle.currentPosition);
+    cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[position];
     const std::int32_t cost = record->fp;
     std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
-    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = session.WorldScene().battle.petSkillFlags;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
     }
@@ -1355,7 +1355,7 @@ static void WindowSkill_DrawRidingSkillRow(
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
-    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
     render::GraphicDescriptor16 descriptor {};
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto technique = std::bit_cast<std::int16_t>(
@@ -1368,11 +1368,11 @@ static void WindowSkill_DrawRidingSkillRow(
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = session.WorldScene().battle.currentPosition;
     const std::int32_t cost = record->fp;
-    cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[position];
     std::int8_t nameColor = cg::yobi::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
-    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = session.WorldScene().battle.petSkillFlags;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
     }
@@ -1405,16 +1405,16 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
+    const std::uint32_t flags = callbackWindow.ownerSession->WorldScene().battle.petSkillFlags;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
         pairPet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
         technique = std::bit_cast<std::int16_t>(
             (*callbackWindow.ownerSession->WorldScene().petRecords)[pairPet].techniquePairs650[pairIndex].index);
         const std::int32_t costPet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
-        const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
+        const std::int32_t playerPosition = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
         const std::int32_t cost = (*callbackWindow.ownerSession->WorldScene().petRecords)[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
+        if (cg::yobi::IsYobiActionFpGreaterEqual(callbackWindow.ownerSession->WorldScene().battle.entries[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
             if (skillState.petSelectionCallback != nullptr) {
                 const std::int32_t pet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
@@ -1469,7 +1469,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
-    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().battle.ridePet);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
         (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].techniquePairs650[pairIndex].index);
@@ -1479,14 +1479,14 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    if ((world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
-        const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+    if ((callbackWindow.ownerSession->WorldScene().battle.petSkillFlags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
+        const std::int32_t position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
         const std::int32_t cost = record->fp;
-        if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
+        if (cg::yobi::IsYobiActionFpGreaterEqual(callbackWindow.ownerSession->WorldScene().battle.entries[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
             const PetSkillSelectionCallback callback = skillState.petSelectionCallback;
             if (callback != nullptr) {
-                const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+                const auto pet = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().battle.ridePet);
                 const auto selected = std::bit_cast<std::int16_t>(
                     (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquePairs650[pairIndex].index);
                 callback(*currentWindow->ownerSession, selected);
@@ -1560,8 +1560,8 @@ static void WindowSkill_ShowPetSkills(session::ClientSession& session, WindowIns
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
             const std::int32_t position = world::GetBattlePetPosition_405B40(
-                world::gBattleCurrentPosition5ABCA4);
-            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
+                session.WorldScene().battle.currentPosition);
+            cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[position];
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
@@ -1591,13 +1591,13 @@ static void WindowSkill_ShowRidingSkills(session::ClientSession& session, Window
     for (std::int32_t index = 10; index <= 16; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
-    const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+    const auto petIndex = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
     if (petIndex < 0) {
         return;
     }
-    const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
+    const std::int32_t position = session.WorldScene().battle.currentPosition;
     auto* elementsWindow = window;
-    cg::yobi::YobiAction* const displayAction = world::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const displayAction = session.WorldScene().battle.entries[position];
     auto* const element32 = elementsWindow ? elementsWindow->FindElementById(WindowSkillElementId::Element3) : nullptr;
     if (element32) {
         auto* const textData = element32->data.text;
@@ -1611,8 +1611,8 @@ static void WindowSkill_ShowRidingSkills(session::ClientSession& session, Window
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
-            const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
-            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[currentPosition];
+            const std::int32_t currentPosition = session.WorldScene().battle.currentPosition;
+            cg::yobi::YobiAction* const action = session.WorldScene().battle.entries[currentPosition];
             const std::int32_t cost = record->fp;
             static_cast<void>(cg::yobi::IsCostGreaterThanYobiActionFp(cost, action));
         }
@@ -1811,10 +1811,10 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
     std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
     if (mode == 5) {
         petIndex = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
-        position = world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4);
+        position = world::GetBattlePetPosition_405B40(callbackWindow.ownerSession->WorldScene().battle.currentPosition);
     } else if (mode == 6) {
-        position = world::gBattleCurrentPosition5ABCA4;
-        petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+        position = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
+        petIndex = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().battle.ridePet);
     } else {
         petIndex = state;
     }
@@ -1828,9 +1828,9 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
             const std::int32_t cost = record->fp;
-            cg::yobi::YobiAction* const action = world::gBattleEntries59E980[position];
+            cg::yobi::YobiAction* const action = callbackWindow.ownerSession->WorldScene().battle.entries[position];
             if (cg::yobi::IsCostGreaterThanYobiActionFp(cost, action)
-                || (world::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
+                || (callbackWindow.ownerSession->WorldScene().battle.petSkillFlags & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
                 ++unavailable;
             }
             ++count;
@@ -2067,18 +2067,18 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
     }
     case 5:
     case 6: {
-        std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
+        std::int32_t maximumPosition = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
         if (mode == 5) {
             maximumPosition = world::GetBattlePetPosition_405B40(maximumPosition);
         }
         const std::int32_t maximum =
-            cg::yobi::ReadYobiActionMaxFpOnce(world::gBattleEntries59E980[maximumPosition]);
-        std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
+            cg::yobi::ReadYobiActionMaxFpOnce(callbackWindow.ownerSession->WorldScene().battle.entries[maximumPosition]);
+        std::int32_t currentPosition = callbackWindow.ownerSession->WorldScene().battle.currentPosition;
         if (mode == 5) {
             currentPosition = world::GetBattlePetPosition_405B40(currentPosition);
         }
         const std::int32_t current =
-            cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[currentPosition]);
+            cg::yobi::ReadYobiActionFpOnce(callbackWindow.ownerSession->WorldScene().battle.entries[currentPosition]);
         auto* const element8 = currentWindow->FindElementById(WindowSkillElementId::Element8);
         if (element8) {
             cg::text::FormatTo(element8->data.text->text, L"{:4}/{:4}", current, maximum);
@@ -2092,7 +2092,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
                     hover = skillState.hover;
                 } else {
                     hover = skillState.hover;
-                    pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
+                    pet = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().battle.ridePet);
                 }
                 drawDescription((*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquesD8[hover].description, line, 26);
             }

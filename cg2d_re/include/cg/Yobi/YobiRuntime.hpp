@@ -397,26 +397,26 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清F
 // 原函数：0x0043BED0。
 void ClearBattleAppendEffects_43BED0(session::ClientSession& session); // 每次发布当前节点、取next再释放，最后清首指针。
 // 原函数：0x004990A0。
-void DrawBattleActorHpBar_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
+void DrawBattleActorHpBar_4990A0(session::ClientSession& session, std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
 
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
 void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& session);
 // 原函数：0x0043C040。
-void DisableBattleActorIdleAnimation_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
+void DisableBattleActorIdleAnimation_43C040(session::ClientSession& session); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
 // 原函数：0x0043C120。
-std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
+std::int32_t GetSelectedBattleEntry_43C120(session::ClientSession& session); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 // 原函数：0x0043C910。
-std::int32_t ReturnBattleActorsToFormation_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。
+std::int32_t ReturnBattleActorsToFormation_43C910(session::ClientSession& session); // 全表未就绪对象置phase=2，全部就绪返回1。
 // 原函数：0x0043C9A0。
-void OrientEnteringBattleSides_43C9A0(); // 先10..19再重读玩家位处理0..9，重取对象并转向/播放。
+void OrientEnteringBattleSides_43C9A0(session::ClientSession& session); // 先10..19再重读玩家位处理0..9，重取对象并转向/播放。
 // 原函数：0x0043CA50。
-std::int32_t Sub_43CA50(); // 非空战斗槽中载荷FDC bit4计数。
+std::int32_t Sub_43CA50(session::ClientSession& session); // 非空战斗槽中载荷FDC bit4计数。
 // 原函数：0x0043CA80。
-void DrawBattleActorNames_43CA80(); // 战斗原名字绘制，保留测量前Y/后X以及逐槽颜色状态。
+void DrawBattleActorNames_43CA80(session::ClientSession& session); // 战斗原名字绘制，保留测量前Y/后X以及逐槽颜色状态。
 // 原43C560：发布目标标志，依原序按HP/阵营选择并处理前后排遮挡。
-std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
+std::int32_t CheckBattleCommand_43C560(session::ClientSession& session, std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
-void FlushBattleEntries_43C060();
+void FlushBattleEntries_43C060(session::ClientSession& session);
 // 原战斗载荷+106C非拥有对象引用槽；空载荷返空，497C80仅在入口检查，点击后重取槽值。
 YobiAction* const* FindBattleRebirthSlot(const YobiAction* action) noexcept;
 // 原战斗载荷+13C8的非拥有Yobi引用槽；载荷空返空，调用方保留各自原门禁。

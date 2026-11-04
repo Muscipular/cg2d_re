@@ -37,17 +37,17 @@ enum {
     SIDE_ALL = 42,
 };
 
-static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
+static bool CheckTarget(session::ClientSession& session, int a, int d, B_TARGET_FLAGS flags) {
     if (a < 0 || d < 0 || a >= 20 || d >= 20)
         return false;
-    if (!cg::world::gBattleEntries59E980[d]) {
+    if (!session.WorldScene().battle.entries[d]) {
         return false;
     }
     int aSide = a / 10;
     int aLine = a % 10 / 5;
     int dSide = d / 10;
     int dLine = d % 10 / 5;
-    if (static_cast<std::int32_t>(cg::world::gBattleEntries59E980[d]->readiness) <= 0) {
+    if (static_cast<std::int32_t>(session.WorldScene().battle.entries[d]->readiness) <= 0) {
         if (!(flags & B_TARGET_IN_DEAD)) {
             return false;
         }
@@ -67,13 +67,13 @@ static bool CheckTarget(int a, int d, B_TARGET_FLAGS flags) {
         if (aSide != dSide && aLine == dLine && aLine == 0) {
             int aLinePos = a % 10 % 5;
             int aP = aSide * 10 + aLinePos + (aLine + 1) % 2 * 5;
-            bool aAlive = cg::world::gBattleEntries59E980[aP] && cg::world::gBattleEntries59E980[aP]->readiness > 0;
+            bool aAlive = session.WorldScene().battle.entries[aP] && session.WorldScene().battle.entries[aP]->readiness > 0;
             int dLinePos = d % 10 % 5;
             int dP = dSide * 10 + dLinePos + (dLine + 1) % 2 * 5;
-            bool dAlive = cg::world::gBattleEntries59E980[dP] && cg::world::gBattleEntries59E980[dP]->readiness > 0;
+            bool dAlive = session.WorldScene().battle.entries[dP] && session.WorldScene().battle.entries[dP]->readiness > 0;
             if (aAlive && dAlive) {
-                if (a == cg::world::gBattleCurrentPosition5ABCA4) {
-                    if (cg::world::gBattlePlayerFlags5ABCAC & BP_FLAG_WEAPON_DIRECT) {
+                if (a == session.WorldScene().battle.currentPosition) {
+                    if (session.WorldScene().battle.playerFlags & BP_FLAG_WEAPON_DIRECT) {
                         return false;
                     }
                 } else {
@@ -185,13 +185,13 @@ static int getItemIndex(session::ClientSession& session, int itemId) {
     return -1;
 }
 
-static int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
+static int checkAndGetTarget(session::ClientSession& session, int attacker, int defer, B_TARGET_FLAGS flg) {
     if (attacker < 0 || attacker >= 20) return -1;
     if (defer >= SIDE_ALL) {
         defer = (1 - attacker / 10) * 10;
         if (flg & B_TARGET_IN_ENEMY) {
             for (int j = 0; j < 10; ++j) {
-                if (cg::world::gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || cg::world::gBattleEntries59E980[defer + j]->readiness > 0)) {
+                if (session.WorldScene().battle.entries[defer + j] && ((flg & B_TARGET_IN_DEAD) || session.WorldScene().battle.entries[defer + j]->readiness > 0)) {
                     defer += j;
                     break;
                 }
@@ -202,7 +202,7 @@ static int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
     } else if (defer >= SIDE_0) {
         defer = 10 * (defer - SIDE_0);
         for (int j = 0; j < 10; ++j) {
-            if (cg::world::gBattleEntries59E980[defer + j] && ((flg & B_TARGET_IN_DEAD) || cg::world::gBattleEntries59E980[defer + j]->readiness > 0)) {
+            if (session.WorldScene().battle.entries[defer + j] && ((flg & B_TARGET_IN_DEAD) || session.WorldScene().battle.entries[defer + j]->readiness > 0)) {
                 defer = defer + j;
                 break;
             }
@@ -210,7 +210,7 @@ static int checkAndGetTarget(int attacker, int defer, B_TARGET_FLAGS flg) {
     } else if (defer >= 20) {
         defer = (defer - 20);
     }
-    if (!CheckTarget(attacker, defer, flg)) {
+    if (!CheckTarget(session, attacker, defer, flg)) {
         return -1;
     }
     if (flg & B_TARGET_ALL) {
@@ -263,9 +263,9 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             if (param4 < 0) {
-                param4 = takeRandomTarget(connection.Owner(), cg::world::gBattleCurrentPosition5ABCA4, targetFlags);
+                param4 = takeRandomTarget(connection.Owner(), GetLuaConnection(L).Owner().WorldScene().battle.currentPosition, targetFlags);
             }
-            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param4, targetFlags);
+            auto target = checkAndGetTarget(GetLuaConnection(L).Owner(), GetLuaConnection(L).Owner().WorldScene().battle.currentPosition, param4, targetFlags);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 sendNone();
                 break;
@@ -280,7 +280,7 @@ static int SendBattleAction(lua_State* L)
                 sendNone();
                 break;
             }
-            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param3, connection.Owner().WorldScene().playerItems[itemIndex].target);
+            auto target = checkAndGetTarget(GetLuaConnection(L).Owner(), GetLuaConnection(L).Owner().WorldScene().battle.currentPosition, param3, connection.Owner().WorldScene().playerItems[itemIndex].target);
             if (target < 0) {
                 sendNone();
                 break;
@@ -290,14 +290,14 @@ static int SendBattleAction(lua_State* L)
             break;
         }
         case B_ACTION_ATTACK: {
-            int attacker = cg::world::gBattleCurrentPosition5ABCA4;
+            int attacker = GetLuaConnection(L).Owner().WorldScene().battle.currentPosition;
             auto flg = (B_TARGET_FLAGS) (B_TARGET_IN_ENEMY | B_TARGET_SORO | B_TARGET_CHECK_WEAPON);
             if (param2 < 0) {
                 m_log_iw(L"B_ACTION_ATTACK takeRandomTarget %d target %d\n", attacker, param2);
                 param2 = takeRandomTarget(connection.Owner(), attacker, flg);
             }
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
-            auto target = checkAndGetTarget(attacker, param2, flg);
+            auto target = checkAndGetTarget(GetLuaConnection(L).Owner(), attacker, param2, flg);
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
             if (target < 0) {
                 sendNone();
@@ -336,7 +336,7 @@ static int SendBattleAction(lua_State* L)
             break;
         case B_ACTION_PET_SKILL: {
             auto techIndex = getPetTechIndex(connection.Owner(), param2);
-            auto petPos = (cg::world::gBattleCurrentPosition5ABCA4 % 10 + 5) % 10 + cg::world::gBattleCurrentPosition5ABCA4 / 10 * 10;
+            auto petPos = (GetLuaConnection(L).Owner().WorldScene().battle.currentPosition % 10 + 5) % 10 + GetLuaConnection(L).Owner().WorldScene().battle.currentPosition / 10 * 10;
             int petIndex = getCurrentPet(connection.Owner());
             m_log_iw(L"B_ACTION_ATTACK techIndex %d petIndex %d\n", techIndex, petIndex);
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
@@ -352,7 +352,7 @@ static int SendBattleAction(lua_State* L)
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
             B_TARGET_FLAGS targetFlags = (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].target;
             m_log_iw(L"B_ACTION_ATTACK tech %d %d %ls\n", (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].name.data());
-            auto target = checkAndGetTarget(petPos, param3, targetFlags);
+            auto target = checkAndGetTarget(GetLuaConnection(L).Owner(), petPos, param3, targetFlags);
             m_log_iw(L"B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
@@ -388,7 +388,7 @@ static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     lua_setfield(L, -2, "battleField");
     int n = 0;
     for (int j = 0; j < 10; ++j) {
-        if (cg::world::gBattleEntries59E980[j]) {
+        if (session.WorldScene().battle.entries[j]) {
             n++;
         }
     }
@@ -461,7 +461,7 @@ static int takeRandomTarget(session::ClientSession& session, int attacker, B_TAR
         max = 9;
     }
     for (int i = min; i <= max; ++i) {
-        if (cg::world::gBattleEntries59E980[i] && cg::world::gBattleEntries59E980[i]->readiness > 0) {
+        if (session.WorldScene().battle.entries[i] && session.WorldScene().battle.entries[i]->readiness > 0) {
             list.push_back(i);
         }
     }
@@ -475,10 +475,10 @@ static int takeRandomTarget(session::ClientSession& session, int attacker, B_TAR
         std::shuffle(list.begin(), list.end(), *rnd);
     }
     for (auto id: list) {
-        m_log_iw(L"enemy %d %ls\n", id, cg::world::gBattleEntries59E980[id]->nameC4.c_str());
+        m_log_iw(L"enemy %d %ls\n", id, session.WorldScene().battle.entries[id]->nameC4.c_str());
     }
     for (auto ix: list) {
-        int t = checkAndGetTarget(attacker, ix, flags);
+        int t = checkAndGetTarget(session, attacker, ix, flags);
         m_log_iw(L"enemy %d checkAndGetTarget %d(%x) => %d\n", ix, attacker, flags, t);
         if (t >= 0) {
             return t;
@@ -596,7 +596,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
         auto& enabled = window.ownerSession->Lua().autoBattlePanel.enabled;
         if (mouse & 1) window.ownerSession->UiFrame().hoverText = enabled ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
-            const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
+            const int count = window.ownerSession->WorldScene().battle.skillActionCount + window.ownerSession->WorldScene().battle.petActionCount;
             if ((window.ownerSession->WorldScene().sceneState == 4 && count == 0) || enabled || window.ownerSession->WorldScene().sceneState != 4)
                 enabled = !enabled;
         }
@@ -618,7 +618,7 @@ static int LuaCheckTarget(lua_State* L) {
     const int defender = static_cast<int>(lua_tointeger(L, 2));
     int flags = static_cast<int>(lua_tointeger(L, 3));
     if (flags <= 0) flags = B_TARGET_CHECK_WEAPON | B_TARGET_IN_FRIEND | B_TARGET_IN_ENEMY | B_TARGET_IN_PET | B_TARGET_IN_ME | B_TARGET_WHO;
-    Push(L, CheckTarget(attacker, defender, static_cast<B_TARGET_FLAGS>(flags))); return 1;
+    Push(L, CheckTarget(GetLuaConnection(L).Owner(), attacker, defender, static_cast<B_TARGET_FLAGS>(flags))); return 1;
 }
 static int LuaBattleTime(lua_State* L) { Push(L, _time64(nullptr)); return 1; }
 static int LuaBattleLog(lua_State* L) { m_log_iw(L"[AutoBattle] %hs\n", luaL_checkstring(L, 1)); return 0; }
@@ -627,7 +627,7 @@ static int LuaRandomTarget(lua_State* L) {
         static_cast<int>(lua_tointeger(L, 1)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 2)))); return 1;
 }
 static int LuaCheckedTarget(lua_State* L) {
-    Push(L, checkAndGetTarget(static_cast<int>(lua_tointeger(L, 1)), static_cast<int>(lua_tointeger(L, 2)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 3)))); return 1;
+    Push(L, checkAndGetTarget(GetLuaConnection(L).Owner(), static_cast<int>(lua_tointeger(L, 1)), static_cast<int>(lua_tointeger(L, 2)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 3)))); return 1;
 }
 
 } // namespace autobattle_detail
@@ -664,7 +664,7 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     if (!GetBattleLuaState(networkConnection.Owner()) || networkConnection.Owner().Lua().autoBattlePanel.enabled || !packet.starts_with("Rg ")) return;
     auto& runtime = networkConnection.Owner().Lua();
     switch (networkConnection.Owner().WorldScene().battle.battleType) { case 0: case 2: case 3: case 7: return; default: break; }
-    const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
+    const int count = networkConnection.Owner().WorldScene().battle.skillActionCount + networkConnection.Owner().WorldScene().battle.petActionCount;
     if (count < 0 || count >= 2) {
         m_log_iw(L"[AutoBattle] action slot out of range: %d\n", count);
         return;

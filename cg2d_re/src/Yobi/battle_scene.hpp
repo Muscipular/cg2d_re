@@ -18,7 +18,7 @@ YobiAction* NewBattleScene_4383B0(session::ClientSession& session); // 优先级
 // 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 // 原函数：0x0043C0A0。
-void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
+void DrawBattleEntryHover_43C0A0(session::ClientSession& session, std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
 
 } // namespace detail
 

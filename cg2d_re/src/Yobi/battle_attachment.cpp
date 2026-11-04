@@ -19,7 +19,7 @@ namespace detail {
 void UpdateBattleAttachment_421F90(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
-    YobiAction* const registered = world::gBattleAllEntries59E980[position];
+    YobiAction* const registered = action->ownerSession->WorldScene().battle.allEntries[position];
     YobiAction* const parent = action->battleAttachmentParent10;
     if (registered != parent) {
         static_cast<void>(MarkDeath(action));
@@ -31,7 +31,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
-    YobiAction* const registered = world::gBattleAllEntries59E980[position];
+    YobiAction* const registered = action->ownerSession->WorldScene().battle.allEntries[position];
     const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (registered != parent) {
         static_cast<void>(MarkDeath(action));
@@ -117,7 +117,7 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     using enum resource::animation::AnimeActionFlag;
     const std::int32_t position = action->value1D4;
     YobiAction* const parent = action->battleAttachmentParent10;
-    YobiAction* const registered = world::gBattleAllEntries59E980[position];
+    YobiAction* const registered = action->ownerSession->WorldScene().battle.allEntries[position];
     const bool hasRegisteredParent = registered == parent;
     const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
     if (!hasRegisteredParent) {
@@ -247,7 +247,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     const std::int32_t parentDirection = parent->direction;
     const std::int32_t position = action->value1D4;
     action->direction = parentDirection;
-    if (world::gBattleAllEntries59E980[position] != parent) {
+    if (action->ownerSession->WorldScene().battle.allEntries[position] != parent) {
         static_cast<void>(MarkDeath(action));
         return;
     }

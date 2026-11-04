@@ -986,6 +986,7 @@ void NormalizeBattleAngle_405E60(YobiAction* action); // BSTL01：上限首样/�
 void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
 // 原函数：0x00405ED0。
 std::int8_t GetBattleRelativeDirection_405ED0(
+    session::ClientSession& session,
     float sourceX, float sourceY, float targetX, float targetY,
     float tolerance); // 第二组坐标作基准，原负基准两次相减及三闭区间保持独立。
 // 原函数：0x00406060。
@@ -1002,15 +1003,15 @@ std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, flo
 // 原函数：0x00406300。
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
 // 原函数：0x00406360。
-std::int32_t CountBattleActiveEntries_406360(); // BHRC01：22槽含20/21，FF8完整S32严格==1，无新payload保护。
+std::int32_t CountBattleActiveEntries_406360(session::ClientSession& session); // BHRC01：22槽含20/21，FF8完整S32严格==1，无新payload保护。
 // 原函数：0x004065A0。
 std::int32_t SeedBattleRandom_4065A0(YobiAction* source, std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
 // 原函数：0x00406260。
 void FaceBattleActorTowardFormationPosition_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 // 原函数：0x004390E0。
-void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
+void InitBattleCastList_4390E0(session::ClientSession& session, std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 // 原函数：0x004391E0。
-void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。
+void ResetBattleCastList_4391E0(session::ClientSession& session, std::int32_t index); // 恢复重置，不清忙状态、技能或转向。
 // 原函数：0x004392A0。
 void AppendBattleCast_4392A0(YobiAction* caster, YobiAction* actor, std::int32_t state);
 // 原函数：0x004392F0。

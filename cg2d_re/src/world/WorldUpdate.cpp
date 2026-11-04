@@ -124,7 +124,7 @@ void Update(session::ClientSession& session)
         session.WorldScene().battle.entryPending = 0;
         session.WorldScene().gameplayRepliesSuppressed = 0;
         detail::InitializeGameplayNotifications_504A30(session);
-        detail::ResetBattleCommandSelection_43C8F0();
+        detail::ResetBattleCommandSelection_43C8F0(session);
         detail::ResetSceneUiState_504100(session);
         detail::ClearContactAndGuildMailStorage_518C80();
         detail::LoadContactAndGuildMailFiles_518CB0();

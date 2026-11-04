@@ -36,7 +36,7 @@ WindowPrototype gWindowPrototypeBattleStateNotice {2, 3, 224, 162, 192, 96, 0x80
 // 原函数：0x0043C950。
 void WindowBattleStateNotice_Open(session::ClientSession& session)
 {
-    if ((cg::world::gBattlePlayerFlags5ABCAC & 3u) != 0
+    if ((session.WorldScene().battle.playerFlags & 3u) != 0
         && session.WorldScene().battle.entryNoticeAction == nullptr && WindowRuntime_States(session)[WindowId_BattleStateNotice].window == nullptr) {
         session.WorldScene().battle.entryNoticeAction = WindowRuntime_CreateAnimation(session, WindowId_BattleStateNotice, 1, 0, nullptr);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -55,7 +55,7 @@ static std::int32_t WindowBattleStateNotice_Update(WindowInstance& callbackWindo
     if (callbackWindow.ownerSession->WorldScene().sceneState != 3) {
         currentWindow->state |= 0x8000u;
     }
-    const auto flags = static_cast<std::uint8_t>(world::gBattlePlayerFlags5ABCAC);
+    const auto flags = static_cast<std::uint8_t>(callbackWindow.ownerSession->WorldScene().battle.playerFlags);
     if ((flags & 1u) != 0) {
         if (auto* const element12 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element12) element12->visible = 1;
     } else if ((flags & 2u) != 0) {

@@ -4309,7 +4309,7 @@ void __cdecl InitializeMapSceneResources_46DA80(
     std::int32_t a3,
     std::uint32_t a4)
 {
-    audio::ResetSpatialSoundSources_52CD40();
+    audio::ResetSpatialSoundSources_52CD40(session);
     session.WorldScene().map.resourceMapId = a1;
     session.WorldScene().map.resourceMode = a4;
     session.WorldScene().map.resourceFloor = a2;

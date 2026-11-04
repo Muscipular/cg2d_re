@@ -163,7 +163,7 @@ int MainLoop(session::ClientSession& session)
                 }
             }
         }
-        UpdateAudioAndSkipMciClose_52CD30(-1);
+        UpdateAudioAndSkipMciClose_52CD30(session, -1);
         world::Update(session);
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {

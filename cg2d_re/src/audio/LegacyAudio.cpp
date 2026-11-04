@@ -68,30 +68,6 @@ struct BgmConfigRecord final {
     std::int32_t value48; // 原成员偏移：+0x48。
 };
 
-// 原 [0x104C9B8,0x104D0C0)：音效请求表，独立于空间坐标记录。
-struct SoundRequestRecord final {
-    std::int32_t channelIndex; // 原成员偏移：+0x00。
-    std::int32_t seNo; // 原成员偏移：+0x04。
-    std::int32_t requestCount; // 原成员偏移：+0x08。
-    std::int32_t distanceOrAtten; // 原成员偏移：+0x0C。
-    std::int32_t targetVolumeIndex; // 原成员偏移：+0x10。
-    std::int32_t appliedVolumeIndex; // 原成员偏移：+0x14。
-    std::int32_t screenX; // 原成员偏移：+0x18。
-    std::int32_t targetPanIndex; // 原成员偏移：+0x1C。
-    std::int32_t appliedPanIndex; // 原成员偏移：+0x20。
-};
-
-static_assert(offsetof(SoundRequestRecord, channelIndex) == 0x00);
-static_assert(offsetof(SoundRequestRecord, seNo) == 0x04);
-static_assert(offsetof(SoundRequestRecord, requestCount) == 0x08);
-static_assert(offsetof(SoundRequestRecord, distanceOrAtten) == 0x0C);
-static_assert(offsetof(SoundRequestRecord, targetVolumeIndex) == 0x10);
-static_assert(offsetof(SoundRequestRecord, appliedVolumeIndex) == 0x14);
-static_assert(offsetof(SoundRequestRecord, screenX) == 0x18);
-static_assert(offsetof(SoundRequestRecord, targetPanIndex) == 0x1C);
-static_assert(offsetof(SoundRequestRecord, appliedPanIndex) == 0x20);
-static_assert(sizeof(SoundRequestRecord) == 0x24);
-
 // 原 [0x104D0C8,0x104DFC8)：64 项通道；104DFCC 是独立样本计数槽。
 struct SoundChannelState final {
     std::int32_t value00; // 原成员偏移：+0x00。
@@ -196,12 +172,8 @@ static std::wstring AudioPathToWide(const char* const path)
     return wide;
 }
 
-static std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {}; // 原全局：0x0103D1C0。
-static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
-
 static std::array<std::int32_t, 512> gBgmMapping103DFAC {}; // 原全局：0x0103DFAC。
 static std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {}; // 原全局：0x0104A3B8。
-static std::array<SoundRequestRecord, 50> gSoundRequests104C9B8 {}; // 原全局：0x0104C9B8。
 static std::array<SoundEffectDefinition, 500> gSoundEffects103E7B0 {}; // 原全局：0x0103E7B0。
 static std::array<SoundChannelState, 64> gSoundChannels104D0C8 {}; // 原全局：0x0104D0C8。
 static std::array<std::byte, 0x80> gAudioBytes103DDFC {}; // 原全局：0x0103DDFC。
@@ -238,7 +210,6 @@ static std::uint32_t gBgmLoopStart103CFB8 = 0; // 原全局：0x0103CFB8。
 static std::uint32_t gBgmLoopEnd103DEA4 = 0; // 原全局：0x0103DEA4。
 static platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
-static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
 static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
 static_assert(sizeof(gPanVal103CFBC) == 0x200);
 static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
@@ -276,7 +247,7 @@ volatile std::uint32_t gMciDeviceId = 0; // 原全局：0x010507EC。
 std::uint32_t gMciCloseResult = 0; // 原全局：0x010507FC。
 
 // 原函数：0x0052B9E0。
-SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(); // 原通道、请求与两张运行表初始化。
+SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSession& session); // 进程启动时初始化通道、首会话请求与运行表。
 // 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
 void StopAndReleaseStreamingBgm_52B8E0()
 {
@@ -426,7 +397,7 @@ std::int32_t InitializeAudioDeviceAndSamples_524230()
 }
 
 // 原函数：0x005241A0。
-std::int32_t InitializeAudio_5241A0()
+std::int32_t InitializeAudio_5241A0(session::ClientSession& session)
 {
     if ((platform::gRendererFlags & 0x20u) != 0) {
         gAudioDisabled_10507D4 = 1;
@@ -447,7 +418,7 @@ std::int32_t InitializeAudio_5241A0()
     }
 
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"\tmusic_init() Start"));
-    static_cast<void>(InitializeSoundRuntimeState_52B9E0());
+    static_cast<void>(InitializeSoundRuntimeState_52B9E0(session));
     gAudioDisabled_10507D4 = 0;
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"t_music_init OK"));
     return 1;
@@ -578,17 +549,17 @@ std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept
 }
 
 // 原函数：0x0052CD40。
-SpatialAudioRecord* __cdecl ResetSpatialSoundSources_52CD40()
+SpatialAudioRecord* __cdecl ResetSpatialSoundSources_52CD40(session::ClientSession& session)
 {
-    for (auto& record : gSpatialRecords103D1C0) {
+    for (auto& record : session.Audio().spatialSources) {
         record.value04 = -1;
         record.value00 = 1;
     }
-    return gSpatialRecords103D1C0.data() + gSpatialRecords103D1C0.size();
+    return session.Audio().spatialSources.data() + session.Audio().spatialSources.size();
 }
 
 // 原 [0x52B9E0,0x52BBD6)：按通道、清零区、请求、声像/音量表顺序初始化。
-SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0()
+SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSession& session)
 {
     for (SoundChannelState& channel : gSoundChannels104D0C8) {
         channel.value00 = 0;
@@ -600,13 +571,13 @@ SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0()
     gAudioBytes103DD7C.fill(std::byte {0});
     gAudioBytes104A334.fill(std::byte {0});
 
-    for (SoundRequestRecord& request : gSoundRequests104C9B8) {
+    for (SoundRequestRecord& request : session.Audio().soundRequests) {
         request.channelIndex = -1;
         request.requestCount = 0;
     }
 
     platform::Cg2dInitializeSoundTablesX87(gPanVal103CFBC.data(), gSoundVolValue10505D0.data());
-    return ResetSpatialSoundSources_52CD40();
+    return ResetSpatialSoundSources_52CD40(session);
 }
 
 // 原 [0x52CDE0,0x52CE97)；在同一空间音频表发布更近的屏幕坐标与距离。
@@ -622,12 +593,12 @@ std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(session::ClientSessi
     float screenY;
     world::ProjectWorldToScreen_46CE30(session, worldX, worldY, &screenX, &screenY);
     return platform::Cg2dPublishSpatialProjectionX87(
-        gSpatialRecords103D1C0.data(), index, &screenX, &screenY);
+        session.Audio().spatialSources.data(), index, &screenX, &screenY);
 }
 
 // 原函数：0x0052C9E0。
 std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(
-    const std::int32_t id, const std::int32_t x, const std::int32_t y)
+    session::ClientSession& session, const std::int32_t id, const std::int32_t x, const std::int32_t y)
 {
     if (id < 250 || id > 299) {
         return 0;
@@ -641,7 +612,7 @@ std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(
     }
 
     SoundRequestRecord& request =
-        gSoundRequests104C9B8[static_cast<std::size_t>(id - 250)];
+        session.Audio().soundRequests[static_cast<std::size_t>(id - 250)];
     const std::int32_t count = request.requestCount;
     if (count != 0 && request.distanceOrAtten <= distance) {
         ++request.requestCount;
@@ -758,7 +729,7 @@ std::int32_t __cdecl PlaySe_52C450(
 
 // 原 [0x52C680,0x52C90D)：请求已发布后更新通道及设备，只有复制失败被视为错误。
 std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
-    const std::int32_t requestIndex, const std::int32_t isNew)
+    session::ClientSession& session, const std::int32_t requestIndex, const std::int32_t isNew)
 {
     if (gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
         || requestIndex < 0 || requestIndex >= 50) {
@@ -766,7 +737,7 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
     }
 
     SoundRequestRecord& request =
-        gSoundRequests104C9B8[static_cast<std::size_t>(requestIndex)];
+        session.Audio().soundRequests[static_cast<std::size_t>(requestIndex)];
     const std::int32_t seNo = request.seNo;
     if (seNo > 500) {
         return -1;
@@ -880,11 +851,11 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
 }
 
 // 原 [0x52CB50,0x52CC3D)：遍历唯一请求表；失败的播放请求仍清计数。
-std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50()
+std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50(session::ClientSession& session)
 {
     std::int32_t result = -1;
-    for (std::size_t index = 0; index < gSoundRequests104C9B8.size(); ++index) {
-        SoundRequestRecord& request = gSoundRequests104C9B8[index];
+    for (std::size_t index = 0; index < session.Audio().soundRequests.size(); ++index) {
+        SoundRequestRecord& request = session.Audio().soundRequests[index];
         if (request.requestCount == 0) {
             const std::int32_t channel = request.channelIndex;
             result = channel;
@@ -926,14 +897,14 @@ std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50()
                 desired - previousPanIndex, -2, 2);
         }
         result = ApplySpatialSoundRequest_52C680(
-            static_cast<std::int32_t>(index), static_cast<std::int32_t>(isNew));
+            session, static_cast<std::int32_t>(index), static_cast<std::int32_t>(isNew));
         request.requestCount = 0;
     }
     return result;
 }
 
 // 原 [0x52CCA0,0x52CCD1) 与独占尾块 [0x52CC40,0x52CC96)。
-void UpdateAudioPlayback_52CCA0()
+void UpdateAudioPlayback_52CCA0(session::ClientSession& session)
 {
     UpdateFileBgm();
     if (gAudioDisabled_10507D4 != 0) {
@@ -945,7 +916,7 @@ void UpdateAudioPlayback_52CCA0()
             --effect.cooldown;
         }
     }
-    static_cast<void>(ProcessSpatialSoundRequests_52CB50());
+    static_cast<void>(ProcessSpatialSoundRequests_52CB50(session));
     static_cast<void>(UpdateBgmRequest_52C910());
 
     if (gBgmActive1050808 == 0) {
@@ -967,9 +938,9 @@ void UpdateAudioPlayback_52CCA0()
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。
-void __cdecl SubmitSpatialSoundSources_52CD60()
+void __cdecl SubmitSpatialSoundSources_52CD60(session::ClientSession& session)
 {
-    for (SpatialAudioRecord& record : gSpatialRecords103D1C0) {
+    for (SpatialAudioRecord& record : session.Audio().spatialSources) {
         const std::int32_t id = record.value04;
         if (id == -1) {
             continue;
@@ -983,7 +954,7 @@ void __cdecl SubmitSpatialSoundSources_52CD60()
             return;
         }
 
-        static_cast<void>(AccumulateSpatialSoundRequest_52C9E0(id + 249, x, y));
+        static_cast<void>(AccumulateSpatialSoundRequest_52C9E0(session, id + 249, x, y));
         record.value00 = 1;
     }
 }

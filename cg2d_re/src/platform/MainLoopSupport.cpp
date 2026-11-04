@@ -62,9 +62,9 @@ std::uint32_t ResetSystemLog_44B5A0()
 }
 
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。
-int UpdateAudioAndSkipMciClose_52CD30(std::int32_t)
+int UpdateAudioAndSkipMciClose_52CD30(session::ClientSession& session, std::int32_t)
 {
-    cg::audio::UpdateAudioPlayback_52CCA0();
+    cg::audio::UpdateAudioPlayback_52CCA0(session);
     cg::audio::gSkipMciDeviceClose_103DE80 = 1;
     return 1;
 }

@@ -265,7 +265,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     login::detail::AppendSystemLog_44B5C0(L"initAutoMapColor Start");
     static_cast<void>(resource::LoadAutoMapColor_45A130(resource::gGraphicInfoPaths));
     login::detail::AppendSystemLog_44B5C0(L"t_music_init Start");
-    static_cast<void>(audio::InitializeAudio_5241A0());
+    static_cast<void>(audio::InitializeAudio_5241A0(session));
     static_cast<void>(cg::audio::InitializeMusic_454C30(gLegacyWindow));
     login::detail::AppendSystemLog_44B5C0(L"initAlbumStartUp Start");
     static_cast<void>(world::InitializeAlbum_518C20(session));

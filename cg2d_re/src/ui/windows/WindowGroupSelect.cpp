@@ -410,7 +410,7 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
         const std::int32_t visible = source != -1 ? 1 : 0;
         if (visible != 0) {
             WindowInstance* const window = currentWindow;
-            const std::wstring name = mode == 0 ? world::detail::gContactsF19FB0[source].name10
+            const std::wstring name = mode == 0 ? callbackWindow->ownerSession->WorldScene().mail.data->contacts[source].name10
                 : mode == 1 ? cg::world::gOrderedRecords1051B14[source].name18
                     : cg::world::GetGuildRankText(position);
             auto* const textElement = window->FindElementById(NativeElementKey(12 + row));
@@ -517,7 +517,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
                     } else {
                         // 原普通分支查CC2E6C排序表，不用CC1A38名单值取联系人。
                         const std::int32_t ordered = business.mailGroupOrderCC2E6C[row];
-                        if (world::detail::gContactsF19FB0[ordered].value02 != 0) {
+                        if (callbackWindow.ownerSession->WorldScene().mail.data->contacts[ordered].value02 != 0) {
                             business.mailGroupCC1A30.selected[row] = 1;
                         }
                     }
@@ -620,7 +620,7 @@ static void WindowGroupSelect_BuildRecipients(session::ClientSession& session, c
         WindowGroupSelect_SortRecipients(session, 0);
         for (std::int32_t index = 0; index < 60; ++index) {
             const std::int32_t source = business.mailGroupOrderCC2E6C[index];
-            if (world::detail::gContactsF19FB0[source].used == 1) {
+            if (session.WorldScene().mail.data->contacts[source].used == 1) {
                 business.mailGroupCC1A30.indices[index] = source;
                 ++business.mailGroupCC1A30.count;
             }
@@ -667,10 +667,10 @@ static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& 
     const std::int32_t rightIndex = *right;
     const std::int32_t leftIndex = *left;
     const bool leftUsed = category == 0
-        ? world::detail::gContactsF19FB0[leftIndex].used != 0
+        ? session.WorldScene().mail.data->contacts[leftIndex].used != 0
         : cg::world::gOrderedRecords1051B14[leftIndex].value08 != 0;
     const bool rightUsed = category == 0
-        ? world::detail::gContactsF19FB0[rightIndex].used != 0
+        ? session.WorldScene().mail.data->contacts[rightIndex].used != 0
         : cg::world::gOrderedRecords1051B14[rightIndex].value08 != 0;
     if (leftUsed != rightUsed) {
         return leftUsed ? -1 : 1;
@@ -683,8 +683,8 @@ static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& 
         return 0;
     }
     if (category == 0) {
-        const auto* const other = &world::detail::gContactsF19FB0[rightIndex];
-        const auto* const current = &world::detail::gContactsF19FB0[leftIndex];
+        const auto* const other = &session.WorldScene().mail.data->contacts[rightIndex];
+        const auto* const current = &session.WorldScene().mail.data->contacts[leftIndex];
         switch (mode) {
         case 0: return WindowContacts_CompareContactName(current, other);
         case 1: return WindowContacts_CompareContactTitle(current, other);

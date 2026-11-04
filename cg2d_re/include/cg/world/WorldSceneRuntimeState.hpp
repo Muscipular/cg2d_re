@@ -513,9 +513,24 @@ struct AlbumRuntimeState {
     std::unique_ptr<detail::AlbumRuntimeData> data;
 };
 
+namespace detail { struct MailRuntimeData; }
+
+// 邮件与资料实际记录的稳定owner；完整类型在邮件模块私有头。
+struct MailRuntimeState {
+    MailRuntimeState();
+    ~MailRuntimeState();
+    MailRuntimeState(const MailRuntimeState&) = delete;
+    MailRuntimeState& operator=(const MailRuntimeState&) = delete;
+    MailRuntimeState(MailRuntimeState&&) = delete;
+    MailRuntimeState& operator=(MailRuntimeState&&) = delete;
+
+    std::unique_ptr<detail::MailRuntimeData> data;
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     AlbumRuntimeState album {};
+    MailRuntimeState mail {};
     GameTimeRuntimeState gameTime {};
     WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};

@@ -154,7 +154,7 @@ WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原
 WindowInstance* WindowRuntime_Open(session::ClientSession& session, std::int32_t id);
 void WindowBigMap_Open(session::ClientSession& session); // 小地图按钮唯一入口，复用原生原型与各会话单实例生命周期。
 // 原函数：0x005342E0。
-WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
+WindowInstance* WindowProfileReply_Open(session::ClientSession& session); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。
 cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,

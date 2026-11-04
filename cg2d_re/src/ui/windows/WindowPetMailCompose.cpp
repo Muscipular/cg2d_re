@@ -365,13 +365,13 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 }
                 WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                 if (category == 1) {
-                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
                         target, 1, timestamp, storedText));
                 } else {
-                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText);
+                    world::detail::PrependContactMailMessage_5191C0(*callbackWindow.ownerSession, target, 1, timestamp, storedText);
                 }
-                static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-                static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+                static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+                static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 WindowInstance* const window = currentWindow;
                 inputs.mail.clearText();
@@ -401,7 +401,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
         auto* const element7 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element7);
         if (element7) {
             auto* const text = element7->data.text;
-            text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
+            text->text = category == 0 ? callbackWindow.ownerSession->WorldScene().mail.data->contacts[target].name10
                 : cg::world::gOrderedRecords1051B14[target].name18;
         }
     }

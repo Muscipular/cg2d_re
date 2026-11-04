@@ -197,7 +197,7 @@ MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactR
 
 void WindowMail_WriteGuildStatus(session::ClientSession& session, WindowTextData* const data, const std::int32_t status);
 
-void WindowMail_WriteContactStatus(
+void WindowMail_WriteContactStatus(session::ClientSession& session,
     const MailContactView& record, WindowTextData* const data, const std::int16_t status);
 
 void WindowMail_SetUnreadGraphic(WindowInstance* callbackWindow, const std::int32_t index);

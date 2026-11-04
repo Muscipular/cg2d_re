@@ -103,7 +103,7 @@ static void WindowMiniMail_Refresh(WindowInstance* callbackWindow)
     static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.miniMailPrototype, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
-        const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
+        const std::int32_t cost = world::detail::ReadCategoryValue105FA20(*callbackWindow->ownerSession);
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 3));
         if (indexedElement) {
             indexedElement->data.graphic->imageNo =
@@ -111,7 +111,7 @@ static void WindowMiniMail_Refresh(WindowInstance* callbackWindow)
         }
         divisor *= 10;
     }
-    if (world::detail::ReadCategoryValue105FA20() == 0) {
+    if (world::detail::ReadCategoryValue105FA20(*callbackWindow->ownerSession) == 0) {
         if (auto* const send_4Element = currentWindow->FindElementById(WindowMiniMailElementId::Send_4); send_4Element) send_4Element->data.graphic->imageNo = 245520;
     }
 }
@@ -124,7 +124,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode =
-            gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
+            gMiniMailCompose105F508.target == callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection ? 1 : 0;
         WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.miniMailPrototype, window->x, window->y, mode));
         input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.miniMail);
@@ -139,7 +139,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
         }
         const std::int32_t target = gMiniMailCompose105F508.target;
         inputs.miniMailPrototype.text.clear();
-        world::detail::gMiniMailSelectionD673E4 = target;
+        callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection = target;
     }
     WindowMiniMail_Refresh(&callbackWindow);
     return 1;
@@ -199,7 +199,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 244253;
             std::wstring hint;
-            cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+            cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20(*callbackWindow.ownerSession));
             uiFrame.hoverText = hint;
             consumed = 1;
         } else {
@@ -229,7 +229,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
     const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 8, packet));
-    const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(gMiniMailCompose105F508.target);
+    const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(*callbackWindow.ownerSession, gMiniMailCompose105F508.target);
     if (contact != -1) {
         __time64_t time;
         time = ::_time64(nullptr);
@@ -242,13 +242,13 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
         std::wstring timestamp;
         cg::text::FormatTo(timestamp, L"{:4}/{:2}/{:2} {:02}:{:02}",
             year + 1900, month + 1, day, hour, minute);
-        world::detail::PrependMiniMailMessage_5343C0(contact, 1, timestamp, storedText);
+        world::detail::PrependMiniMailMessage_5343C0(*callbackWindow.ownerSession, contact, 1, timestamp, storedText);
     }
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 4));
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     inputs.miniMail.clearText();
-    world::detail::gMiniMailSelectionD673E4 = -1;
+    callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection = -1;
     return 1;
 }
 

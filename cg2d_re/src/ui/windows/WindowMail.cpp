@@ -182,7 +182,7 @@ void WindowMail_WriteGuildStatus(session::ClientSession& session, WindowTextData
     }
 }
 
-void WindowMail_WriteContactStatus(
+void WindowMail_WriteContactStatus(session::ClientSession& session,
     const MailContactView& record, WindowTextData* const data, const std::int16_t status)
 {
     if (status == -1) {
@@ -193,7 +193,7 @@ void WindowMail_WriteContactStatus(
         const std::int16_t currentStatus = record.ReadStatus();
         data->style.color = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
     } else {
-        std::int32_t server = cg::network::GetGameConnection().LoginRequests().selectedLoginServerGroup;
+        std::int32_t server = session.Connection().LoginRequests().selectedLoginServerGroup;
         if (server >= 25) {
             server -= 25;
         }
@@ -229,9 +229,9 @@ std::int32_t WindowMail_DeleteContact(WindowInstance& callbackWindow, const Elem
     const std::int32_t index = business.mailDeleteIndexD2DA8C;
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestContactDeletion(index));
     const std::int32_t currentIndex = business.mailDeleteIndexD2DA8C;
-    static_cast<void>(world::detail::ClearContactMailMessages_5192C0(currentIndex));
-    static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+    static_cast<void>(world::detail::ClearContactMailMessages_5192C0(*callbackWindow.ownerSession, currentIndex));
+    static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Contacts, 1, 0, nullptr));
     }
@@ -247,8 +247,8 @@ std::int32_t WindowMail_DeleteGuildMember(WindowInstance& callbackWindow, const 
     const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
     const std::int32_t key = cg::world::gOrderedRecords1051B14[index].value0C;
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestGuildMemberDeletion(key));
-    static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+    static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
 }
@@ -258,13 +258,13 @@ std::int32_t WindowMail_DeleteMiniMailContact(WindowInstance& callbackWindow, co
 {
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = business.mailDeleteIndexD2DA8C;
-    const auto& record = world::detail::ReadMiniMailContact1075A90(index);
+    const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, index);
     const std::int32_t key = record.key04;
     const std::wstring escapedText = input::EscapeTextAndNotify(record.name10, 255);
     const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestMiniMailContactDeletion(key, escapedText));
     const std::int32_t currentIndex = business.mailDeleteIndexD2DA8C;
-    world::detail::RemoveMiniMailContact_534480(currentIndex);
+    world::detail::RemoveMiniMailContact_534480(*callbackWindow.ownerSession, currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
 }

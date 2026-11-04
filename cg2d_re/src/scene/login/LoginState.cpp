@@ -305,7 +305,7 @@ std::int32_t ProcessState_45E960(network::CgConnection& connection)
     if (connection.Owner().WorldScene().sceneState == 1) {
         const std::int32_t result = UpdateLoginProgress(connection);
         if (result == 1) {
-            world::detail::ResendSavedPlayerProfile_534290();
+            world::detail::ResendSavedPlayerProfile_534290(connection.Owner());
             world::SetCurrentSceneType(connection.Owner(), 9);
         } else if (result == -1) {
             connection.Owner().WorldScene().sceneState = 100;

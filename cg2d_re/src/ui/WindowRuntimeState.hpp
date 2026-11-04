@@ -641,7 +641,7 @@ WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& s
 std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
 extern std::int32_t gProfileCategory1085DA0; // 原全局：0x01085DA0。 478330生产，窗口59按0/1/2选择类别，非地址。
 // 原函数：0x004CB430。
-std::int32_t WindowProfileView_ReadSelection(std::int32_t index); // 只读selected10C门禁，不检查used。
+std::int32_t WindowProfileView_ReadSelection(session::ClientSession& session, std::int32_t index); // 只读selected10C门禁，不检查used。
 // 原函数：0x0048BB30。
 std::int32_t WindowItem_ClassifyItemSlot(std::int32_t slot); // IDE01：signed槽0..7/8..27/100..119分类1/2/3，其它0，真实S32，四CALL只来源/全消费待。
 // 原函数：0x0048BB70。

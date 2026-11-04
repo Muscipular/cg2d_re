@@ -164,7 +164,7 @@ static void WindowOwnProfile_RefreshEntry(WindowInstance* callbackWindow,
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
+    auto& current = callbackWindow->ownerSession->WorldScene().mail.data->currentProfile.entries410[index];
     const std::int32_t element = index + 9;
     const bool editing = currentWindow->ownerSession->UiFrame().inputState.currentContext == context;
     auto* elementsWindow = currentWindow;
@@ -196,7 +196,7 @@ static void WindowOwnProfile_RefreshEntry(WindowInstance* callbackWindow,
     }
     data->text = current.text08;
     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
-    const auto& saved = world::detail::ReadSelectedProfile1074938();
+    const auto& saved = world::detail::ReadSelectedProfile1074938(*callbackWindow->ownerSession);
     std::byte color {6};
     if (saved.entries410[index].text08 == current.text08) {
         const std::int32_t currentValue = current.value00;
@@ -215,11 +215,11 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    auto& current = world::detail::gCurrentProfile10738E8;
+    auto& current = callbackWindow->ownerSession->WorldScene().mail.data->currentProfile;
     auto* portraitElementsWindow = currentWindow;
     const std::int32_t portrait = callbackWindow->ownerSession->WorldScene().player->value17C;
     if (auto* const element19 = portraitElementsWindow->FindElementById(WindowOwnProfileElementId::Element19); element19) element19->data.graphic->imageNo = portrait;
-    const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
+    const std::int32_t publicFlag = world::detail::SelectedProfileValue04(*callbackWindow->ownerSession);
     auto* const handleButtonsElement = currentWindow->FindElementById(WindowOwnProfileElementId::HandleButtons);
     if (handleButtonsElement) {
         handleButtonsElement->data.graphic->imageNo =
@@ -301,7 +301,7 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
         for (std::int32_t index = 12; index < 16; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
-        const auto& saved = world::detail::ReadSelectedProfile1074938();
+        const auto& saved = world::detail::ReadSelectedProfile1074938(*callbackWindow->ownerSession);
         std::byte color {6};
         if (saved.text728 == current.text728) {
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
@@ -310,7 +310,7 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.text->style.color = color;
         }
     }
-    const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00();
+    const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00(*callbackWindow->ownerSession);
     if (auto* const handleButtons_30Element = currentWindow->FindElementById(WindowOwnProfileElementId::HandleButtons_30); handleButtons_30Element) handleButtons_30Element->visible = changed != 0 ? 1 : 0;
 }
 
@@ -375,7 +375,7 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
     auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
         if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != indexedElement->data.input) {
-            const auto& current = world::detail::gCurrentProfile10738E8;
+            const auto& current = callbackWindow.ownerSession->WorldScene().mail.data->currentProfile;
             const wchar_t* const source =
                 elementId == static_cast<ElementId>(WindowOwnProfileElementId::EditField_9) ? current.text728.data() : current.entries410[index - 5].text08.data();
             prototype->text = source;

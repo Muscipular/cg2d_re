@@ -147,7 +147,7 @@ static void WindowOwnProfileCategory_Refresh(WindowInstance* callbackWindow)
     if (auto* const element6 = currentWindow->FindElementById(WindowOwnProfileCategoryElementId::Element6); element6) element6->data.graphic->imageNo = image;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t page = gProfileScrollCA0444;
-        const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
+        const auto& record = world::detail::ReadCategoryRecord105FA24(*callbackWindow->ownerSession, mode, page + row);
         const wchar_t* const source =
             record.used != 0 ? record.text0C.data() : L"";
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row + 9));
@@ -199,7 +199,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
     if (selectedMode >= 0 && selectedMode <= 2) {
         const std::int32_t page = gProfileScrollCA0444;
         const std::int32_t selected =
-            world::detail::gCurrentProfile10738E8.entries410[selectedMode].value00;
+            callbackWindow.ownerSession->WorldScene().mail.data->currentProfile.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB03;
         }
@@ -211,13 +211,13 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
     const std::int32_t mode = gProfileCategory1085DA0;
     if (mode >= 0 && mode <= 2) {
         const std::int32_t page = gProfileScrollCA0444;
-        const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + index - 19);
+        const auto& record = world::detail::ReadCategoryRecord105FA24(*callbackWindow.ownerSession, mode, page + index - 19);
         if (record.used == 0) {
             return 1;
         }
         const std::int32_t value = record.value04;
         const std::int32_t image = record.value08;
-        auto& entry = world::detail::gCurrentProfile10738E8.entries410[mode];
+        auto& entry = callbackWindow.ownerSession->WorldScene().mail.data->currentProfile.entries410[mode];
         entry.value00 = value;
         entry.value04 = image;
     }
@@ -264,9 +264,9 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
             std::int32_t count;
             if (mode == 2) {
                 window = currentWindow;
-                count = world::detail::ReadCategoryCount105FA1C();
+                count = world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession);
             } else {
-                count = world::detail::ReadCategoryCount105FA18();
+                count = world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
                 window = currentWindow;
             }
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
@@ -293,8 +293,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const std::int32_t count = mode == 2
-                ? world::detail::ReadCategoryCount105FA1C()
-                : world::detail::ReadCategoryCount105FA18();
+                ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
             const std::int32_t page = gProfileScrollCA0444 + 1;
             gProfileScrollCA0444 = page;
             if (page <= count - 11) {
@@ -305,8 +305,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
             }
             const std::int32_t position = gProfileScrollCA0444;
             const std::int32_t currentCount = mode == 2
-                ? world::detail::ReadCategoryCount105FA1C()
-                : world::detail::ReadCategoryCount105FA18();
+                ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
             if (dragScrollElement) {
@@ -327,8 +327,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
             const std::int32_t mode = gProfileCategory1085DA0;
             if (mode >= 0 && mode <= 2) {
                 const std::int32_t count = mode == 2
-                    ? world::detail::ReadCategoryCount105FA1C()
-                    : world::detail::ReadCategoryCount105FA18();
+                    ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                    : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
                 WindowInstance* const window = currentWindow;
                 auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
                 if (dragScrollElement) {
@@ -348,8 +348,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
             const std::int32_t mode = gProfileCategory1085DA0;
             if (mode >= 0 && mode <= 2) {
                 const std::int32_t count = mode == 2
-                    ? world::detail::ReadCategoryCount105FA1C()
-                    : world::detail::ReadCategoryCount105FA18();
+                    ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                    : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
                 const std::int32_t page = gProfileScrollCA0444 + 10;
                 gProfileScrollCA0444 = page;
                 if (page > count - 11) {
@@ -358,8 +358,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 const std::int32_t position = gProfileScrollCA0444;
                 const std::int32_t currentCount = mode == 2
-                    ? world::detail::ReadCategoryCount105FA1C()
-                    : world::detail::ReadCategoryCount105FA18();
+                    ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                    : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
                 WindowInstance* const window = currentWindow;
                 auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
                 if (dragScrollElement) {
@@ -388,8 +388,8 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(WindowInstance& callback
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const std::int32_t count = mode == 2
-                ? world::detail::ReadCategoryCount105FA1C()
-                : world::detail::ReadCategoryCount105FA18();
+                ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
             if (dragScrollElement) {
@@ -410,8 +410,8 @@ static std::int32_t WindowOwnProfileCategory_Scroll(WindowInstance& callbackWind
         if (mode >= 0 && mode <= 2) {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t count = mode == 2
-                ? world::detail::ReadCategoryCount105FA1C()
-                : world::detail::ReadCategoryCount105FA18();
+                ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
+                : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
             const std::int32_t page = gProfileScrollCA0444;
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);

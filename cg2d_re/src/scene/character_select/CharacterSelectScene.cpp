@@ -181,8 +181,8 @@ std::int32_t ResetCharacterCreationRequest_45E7B0(network::CgConnection& connect
 {
     const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
     connection.CharacterSelectUi().creationProgress.phase = 0;
-    world::detail::ResetCharacterProfile_5345A0(selected);
-    return world::detail::SavePlayerProfilesFile_534770();
+    world::detail::ResetCharacterProfile_5345A0(connection.Owner(), selected);
+    return world::detail::SavePlayerProfilesFile_534770(connection.Owner());
 }
 
 // 原函数：0x0045E7D0。
@@ -1610,10 +1610,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             if (actionIndex == 0u) {
                 connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 world::ClearCurrentCharacterAlbum_518BE0(connection.Owner());
-                cg::world::detail::ClearCurrentCharacterContactMail_519290();
-                cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
-                cg::world::detail::SaveContactMailFile_519300();
-                cg::world::detail::SaveGuildMailFile_519550();
+                cg::world::detail::ClearCurrentCharacterContactMail_519290(connection.Owner());
+                cg::world::detail::ClearCurrentCharacterGuildMail_5194C0(connection.Owner());
+                cg::world::detail::SaveContactMailFile_519300(connection.Owner());
+                cg::world::detail::SaveGuildMailFile_519550(connection.Owner());
                 world::SetCurrentSceneType(connection.Owner(), 4);
                 login::detail::PlaySe(53, 320, 240);
                 cg::yobi::YobiClearUp_404D30(connection.Owner());

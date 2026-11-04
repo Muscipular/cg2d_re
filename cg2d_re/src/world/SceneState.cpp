@@ -3080,7 +3080,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetCurrentDialogType_4D3170(session);
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
-        static_cast<void>(UpdateUnreadMailPageHint_518DA0());
+        static_cast<void>(UpdateUnreadMailPageHint_518DA0(session));
         input::SetContext_44B330(session, &inputs.chat);
         session.WorldScene().sceneState = 101;
         [[fallthrough]];
@@ -3358,7 +3358,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetCurrentDialogType_4D3170(session);
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
-        static_cast<void>(UpdateUnreadMailPageHint_518DA0());
+        static_cast<void>(UpdateUnreadMailPageHint_518DA0(session));
         if (worldScene.normalSceneInitialized == 1) {
             platform::gPendingGraphicCount = 0;
             platform::gPendingGraphicCount2 = 0;
@@ -6096,7 +6096,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     for (auto& skill : connection.Owner().WorldScene().playerSkills.skills) skill = {};
     connection.Owner().WorldScene().playerSkills.pairs = {};
     connection.Owner().WorldScene().playerSkills.valueF633E8 = 0;
-    gContactsF19FB0.fill({});
+    connection.Owner().WorldScene().mail.data->contacts.fill({});
     std::memset(connection.Owner().WorldScene().petPairs.data(), 0, sizeof(connection.Owner().WorldScene().petPairs));
 
     const volatile std::int16_t& selected = connection.LoginRequests().selectedCharacterIndex;

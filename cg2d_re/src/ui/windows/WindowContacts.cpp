@@ -415,7 +415,7 @@ static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, const 
         const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
         business.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(&callbackWindow, mode, category);
-        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
+        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0(*callbackWindow.ownerSession));
         WindowContacts_ClampScroll(&callbackWindow);
     }
     return 1;
@@ -446,10 +446,10 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
     }
     WindowContacts_Sort(*callbackWindow->ownerSession);
     if (WindowRuntime_Settings(*callbackWindow->ownerSession).contactsPreviewMode == 0) {
-        const std::uint32_t page = world::detail::gMailContactPage_CB1384;
+        const std::uint32_t page = callbackWindow->ownerSession->WorldScene().mail.data->contactPage;
         render::GraphicDescriptor16 descriptor {};
         const std::int32_t currentCategory = business.valuesD67B40[6];
-        world::detail::gMailFallbackPage_CB0354 = page;
+        callbackWindow->ownerSession->WorldScene().mail.data->fallbackPage = page;
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
                 const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions();
@@ -504,7 +504,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(27 + row * 8)); indexedElement3) indexedElement3->visible = 1;
             switch (business.valuesD67B40[6]) {
             case 0:
-                record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
+                record = WindowMail_MakeContactView(callbackWindow->ownerSession->WorldScene().mail.data->contacts[recordIndex]);
                 if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement4) indexedElement4->data.graphic->imageNo = 0x3B9E0;
                 break;
             case 1:
@@ -512,7 +512,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement5) indexedElement5->data.graphic->imageNo = 0x3B9E8;
                 break;
             case 2:
-                record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
+                record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(*callbackWindow->ownerSession, recordIndex));
                 if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement6) indexedElement6->data.graphic->imageNo = 0x3B9E0;
                 break;
             }
@@ -586,11 +586,11 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             auto* const statusDataElement = statusElementsWindow->FindElementById(NativeElementKey(textIndex + 4));
             if (statusDataElement) {
                 auto* const statusData = statusDataElement->data.text;
-                WindowMail_WriteContactStatus(record, statusData, status);
+                WindowMail_WriteContactStatus(*callbackWindow->ownerSession, record, statusData, status);
             }
             switch (business.valuesD67B40[6]) {
             case 0:
-                if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
+                if (world::detail::HasUnreadContactMail_519090(*callbackWindow->ownerSession, recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(callbackWindow, 27 + row * 8);
                 }
                 break;
@@ -602,12 +602,12 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                     const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
                     if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = memberKey == ownKey ? 1 : 0;
                 }
-                if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
+                if (world::detail::HasUnreadGuildMail_5190F0(*callbackWindow->ownerSession, recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(callbackWindow, 27 + row * 8);
                 }
                 break;
             case 2:
-                if (world::detail::HasUnreadMiniMail_519170(recordIndex) != 0) {
+                if (world::detail::HasUnreadMiniMail_519170(*callbackWindow->ownerSession, recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(callbackWindow, 27 + row * 8);
                 }
                 break;
@@ -639,7 +639,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(54 + row * 5)); indexedElement3) indexedElement3->visible = 1;
         switch (business.valuesD67B40[6]) {
         case 0:
-            record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
+            record = WindowMail_MakeContactView(callbackWindow->ownerSession->WorldScene().mail.data->contacts[recordIndex]);
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement4) indexedElement4->visible = 1;
             break;
         case 1: {
@@ -656,7 +656,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             break;
         }
         case 2:
-            record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
+            record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(*callbackWindow->ownerSession, recordIndex));
             break;
         }
         const std::int32_t textIndex = 57 + row * 5;
@@ -682,16 +682,16 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         if (statusDataElement) {
             auto* const statusData = statusDataElement->data.text;
             const std::int16_t status = record.ReadStatus();
-            WindowMail_WriteContactStatus(record, statusData, status);
+            WindowMail_WriteContactStatus(*callbackWindow->ownerSession, record, statusData, status);
         }
         switch (business.valuesD67B40[6]) {
         case 0:
-            if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
+            if (world::detail::HasUnreadContactMail_519090(*callbackWindow->ownerSession, recordIndex) != 0) {
                 WindowMail_SetUnreadGraphic(callbackWindow, 54 + row * 5);
             }
             break;
         case 1:
-            if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
+            if (world::detail::HasUnreadGuildMail_5190F0(*callbackWindow->ownerSession, recordIndex) != 0) {
                 const std::int32_t blink = business.mailBlinkFlagD67B60;
                 auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(54 + row * 5));
                 if (graphicElement) {
@@ -701,7 +701,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             }
             break;
         case 2:
-            if (world::detail::HasUnreadMiniMail_519170(recordIndex) != 0) {
+            if (world::detail::HasUnreadMiniMail_519170(*callbackWindow->ownerSession, recordIndex) != 0) {
                 WindowMail_SetUnreadGraphic(callbackWindow, 54 + row * 5);
             }
             break;
@@ -894,7 +894,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
         switch (business.valuesD67B40[6]) {
         case 0: {
             const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-            if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
+            if (callbackWindow.ownerSession->WorldScene().mail.data->contacts[recordIndex].used == 0) {
                 return 1;
             }
             static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(0, recordIndex));
@@ -912,7 +912,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
         }
         case 2: {
             const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-            const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+            const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, recordIndex);
             if (record.used == 0) {
                 return 1;
             }
@@ -1236,7 +1236,7 @@ static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, cons
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B548;
-        world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(*callbackWindow.ownerSession, index);
+        callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId = WindowContacts_ResolveButtonRecord(*callbackWindow.ownerSession, index);
         const std::int32_t category = business.valuesD67B40[6];
         business.mailCategoryD67B64 = category;
         business.mailCategoryCC4D50 = category;
@@ -1283,7 +1283,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         }
         if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
-            const auto& record = world::detail::gContactsF19FB0[recordIndex];
+            const auto& record = callbackWindow.ownerSession->WorldScene().mail.data->contacts[recordIndex];
             if (record.used != 0) {
                 recordImage = &record.value0C;
             }
@@ -1307,7 +1307,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
     case 2:
         if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
-            const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+            const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, recordIndex);
             if (record.used != 0) {
                 recordImage = &record.value0C;
             }
@@ -1357,7 +1357,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
     switch (business.valuesD67B40[6]) {
     case 0: {
         const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-        if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
+        if (callbackWindow.ownerSession->WorldScene().mail.data->contacts[recordIndex].used == 0) {
             return 1;
         }
         static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(0, recordIndex));
@@ -1375,7 +1375,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
     }
     case 2: {
         const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-        const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+        const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, recordIndex);
         if (record.used == 0) {
             return 1;
         }
@@ -1501,7 +1501,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(session::Client
 )" L"　从名片里删除吗？" LR"(
 )" L" " LR"(
 )" L" (确定删除时，请按住" LR"(
-)" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, world::detail::gContactsF19FB0[index].name10);
+)" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, session.WorldScene().mail.data->contacts[index].name10);
     return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1535,7 +1535,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(session::Clien
 从迷你邮件中删除吗？
 
  (确定删除时，请按住
-  CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, world::detail::ReadMiniMailContact1075A90(index).name10);
+  CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, world::detail::ReadMiniMailContact1075A90(session, index).name10);
     return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1645,14 +1645,14 @@ static std::int32_t WindowContacts_CompareRecords(session::ClientSession& sessio
         bool leftUsed;
         bool rightUsed;
         if (category == 0) {
-            rightUsed = world::detail::gContactsF19FB0[*right].used != 0;
-            leftUsed = world::detail::gContactsF19FB0[*left].used != 0;
+            rightUsed = session.WorldScene().mail.data->contacts[*right].used != 0;
+            leftUsed = session.WorldScene().mail.data->contacts[*left].used != 0;
         } else if (category == 1) {
             rightUsed = cg::world::gOrderedRecords1051B14[*right].value08 != 0;
             leftUsed = cg::world::gOrderedRecords1051B14[*left].value08 != 0;
         } else {
-            rightUsed = world::detail::ReadMiniMailContact1075A90(*right).used != 0;
-            leftUsed = world::detail::ReadMiniMailContact1075A90(*left).used != 0;
+            rightUsed = world::detail::ReadMiniMailContact1075A90(session, *right).used != 0;
+            leftUsed = world::detail::ReadMiniMailContact1075A90(session, *left).used != 0;
         }
         if (leftUsed != rightUsed) {
             return leftUsed ? -1 : 1;
@@ -1663,8 +1663,8 @@ static std::int32_t WindowContacts_CompareRecords(session::ClientSession& sessio
         if (category == 2) {
             const std::int32_t rightIndex = *right;
             const std::int32_t leftIndex = *left;
-            const auto* const other = &world::detail::ReadMiniMailContact1075A90(rightIndex);
-            const auto* const current = &world::detail::ReadMiniMailContact1075A90(leftIndex);
+            const auto* const other = &world::detail::ReadMiniMailContact1075A90(session, rightIndex);
+            const auto* const current = &world::detail::ReadMiniMailContact1075A90(session, leftIndex);
             return WindowContacts_CompareMiniMailNumber(current, other);
         }
     }
@@ -1676,8 +1676,8 @@ static std::int32_t WindowContacts_CompareRecords(session::ClientSession& sessio
     const std::int32_t rightIndex = *right;
     if (category == 0) {
         const std::int32_t leftIndex = *left;
-        const auto* const other = &world::detail::gContactsF19FB0[rightIndex];
-        const auto* const current = &world::detail::gContactsF19FB0[leftIndex];
+        const auto* const other = &session.WorldScene().mail.data->contacts[rightIndex];
+        const auto* const current = &session.WorldScene().mail.data->contacts[leftIndex];
         switch (mode) {
         case 0:
             return WindowContacts_CompareContactName(current, other);

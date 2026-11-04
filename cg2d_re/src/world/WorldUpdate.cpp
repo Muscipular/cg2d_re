@@ -126,8 +126,8 @@ void Update(session::ClientSession& session)
         detail::InitializeGameplayNotifications_504A30(session);
         detail::ResetBattleCommandSelection_43C8F0(session);
         detail::ResetSceneUiState_504100(session);
-        detail::ClearContactAndGuildMailStorage_518C80();
-        detail::LoadContactAndGuildMailFiles_518CB0();
+        detail::ClearContactAndGuildMailStorage_518C80(session);
+        detail::LoadContactAndGuildMailFiles_518CB0(session);
         session.WorldScene().pendingMapBgmIndex = 0xFFFFFFFFu;
         session.WorldScene().mapBgmChangePending = 0;
         session.WorldScene().logoutToTownPending = 0;

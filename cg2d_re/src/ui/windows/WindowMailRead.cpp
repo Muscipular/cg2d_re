@@ -129,9 +129,9 @@ static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, const 
 {
     if (value == -1) {
         WindowMailRead_FindUnread(*callbackWindow.ownerSession);
-        static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-        static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
+        static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+        static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
+        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0(*callbackWindow.ownerSession));
         cg::core::NullSub_509080();
     }
     return 1;
@@ -162,10 +162,10 @@ static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B557;
-            const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 - 1;
-            world::detail::gViewedMailMessageIndex_D046D4 = page;
+            const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex - 1;
+            callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = page;
             if (page < 0) {
-                world::detail::gViewedMailMessageIndex_D046D4 = 9;
+                callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = 9;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             cg::core::NullSub_509080();
@@ -196,10 +196,10 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, co
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B55A;
-            const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 + 1;
-            world::detail::gViewedMailMessageIndex_D046D4 = page;
+            const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex + 1;
+            callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = page;
             if (page >= 10) {
-                world::detail::gViewedMailMessageIndex_D046D4 = 0;
+                callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             cg::core::NullSub_509080();
@@ -232,7 +232,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
             graphic->imageNo = 0x3BA1B;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
+            const std::int32_t contact = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
             const std::int32_t oldSlot = business.prefixD2F0B8.value0C;
             const std::int32_t category = business.mailCategoryD67B64;
             business.prefixD2F0B8.value04 = contact;
@@ -263,44 +263,44 @@ static void WindowMailRead_FindUnread(session::ClientSession& session)
 {
     auto& business = session.UiFrame().native.business;
     const std::int32_t category = business.mailCategoryD67B64;
-    cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
+    session.WorldScene().mail.data->viewedMessageIndex = 0;
     switch (category) {
     case 0: {
         const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
-        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t contact = session.WorldScene().mail.data->viewedContactId;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*cg::world::GetMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
-                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
+            if (*cg::world::GetMailMessageF7CA08(session, selected, contact, page).unread00 != std::byte{0}) {
+                session.WorldScene().mail.data->viewedMessageIndex = page;
                 break;
             }
         }
         break;
     }
     case 1: {
-        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t member = session.WorldScene().mail.data->viewedContactId;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         static_cast<void>(cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey));
-        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t mailMember = session.WorldScene().mail.data->viewedContactId;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
+        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(session, mailKey);
         if (slot == -1) {
-            cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
+            session.WorldScene().mail.data->viewedMessageIndex = 0;
             return;
         }
         const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*cg::world::GetGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
-                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
+            if (*cg::world::GetGuildMailMessageDE0B30(session, selected, slot, page).unread00 != std::byte{0}) {
+                session.WorldScene().mail.data->viewedMessageIndex = page;
                 break;
             }
         }
         break;
     }
     case 2: {
-        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t contact = session.WorldScene().mail.data->viewedContactId;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*cg::world::GetMiniMailMessage10763A0(contact, page).unread00 != std::byte{0}) {
-                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
+            if (*cg::world::GetMiniMailMessage10763A0(session, contact, page).unread00 != std::byte{0}) {
+                session.WorldScene().mail.data->viewedMessageIndex = page;
                 break;
             }
         }
@@ -323,29 +323,29 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
     std::int32_t memberIndex = 0;
     std::int32_t mailSlot = 0;
     if (category == 1) {
-        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t member = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
-        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t mailMember = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        mailSlot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
+        mailSlot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(*callbackWindow->ownerSession, mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
-    const auto readCurrentMessage = [category, mailSlot]() -> cg::world::MailMessageView {
+    const auto readCurrentMessage = [category, mailSlot, callbackWindow]() -> cg::world::MailMessageView {
         if (category == 0) {
-            const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-            const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
-            const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-            return cg::world::GetMailMessageF7CA08(selected, contact, page);
+            const std::int16_t selected = callbackWindow->ownerSession->Connection().LoginRequests().selectedCharacterIndex;
+            const std::int32_t contact = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
+            const std::int32_t page = callbackWindow->ownerSession->WorldScene().mail.data->viewedMessageIndex;
+            return cg::world::GetMailMessageF7CA08(*callbackWindow->ownerSession, selected, contact, page);
         }
         if (category == 1) {
-            const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-            const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-            return cg::world::GetGuildMailMessageDE0B30(selected, mailSlot, page);
+            const std::int16_t selected = callbackWindow->ownerSession->Connection().LoginRequests().selectedCharacterIndex;
+            const std::int32_t page = callbackWindow->ownerSession->WorldScene().mail.data->viewedMessageIndex;
+            return cg::world::GetGuildMailMessageDE0B30(*callbackWindow->ownerSession, selected, mailSlot, page);
         }
-        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
-        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-        return cg::world::GetMiniMailMessage10763A0(contact, page);
+        const std::int32_t contact = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
+        const std::int32_t page = callbackWindow->ownerSession->WorldScene().mail.data->viewedMessageIndex;
+        return cg::world::GetMiniMailMessage10763A0(*callbackWindow->ownerSession, contact, page);
     };
     if (category == 1 && mailSlot == -1) {
         auto* const element17 = currentWindow->FindElementById(WindowMailReadElementId::Element17);
@@ -390,9 +390,9 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
     if (category == 1) {
         name = cg::world::gOrderedRecords1051B14[memberIndex].name18;
     } else {
-        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
-        name = category == 0 ? cg::world::detail::gContactsF19FB0[contact].name10.data()
-            : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
+        const std::int32_t contact = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
+        name = category == 0 ? callbackWindow->ownerSession->WorldScene().mail.data->contacts[contact].name10.data()
+            : cg::world::detail::ReadMiniMailContact1075A90(*callbackWindow->ownerSession, contact).name10.data();
     }
     cg::text::FormatTo(buffer, L"{}", name);
     auto* const element16 = currentWindow->FindElementById(WindowMailReadElementId::Element16);
@@ -400,7 +400,7 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
         auto* const nameData = element16->data.text;
         nameData->text = buffer;
     }
-    const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;
+    const std::int32_t page = callbackWindow->ownerSession->WorldScene().mail.data->viewedMessageIndex + 1;
     cg::text::FormatTo(buffer, L"{:2}/{:2}", page, 10);
     auto* const element15 = currentWindow->FindElementById(WindowMailReadElementId::Element15);
     if (element15) {
@@ -428,27 +428,27 @@ static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, 
     switch (category) {
     case 0: {
         const std::int16_t selected = callbackWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
-        identity = cg::world::detail::gViewedMailContactId_CF4FC0;
-        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-        message = cg::world::GetMailMessageF7CA08(selected, identity, page);
+        identity = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
+        const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex;
+        message = cg::world::GetMailMessageF7CA08(*callbackWindow.ownerSession, selected, identity, page);
         break;
     }
     case 1: {
-        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t member = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         identity = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
-        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t mailMember = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
-        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
+        const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(*callbackWindow.ownerSession, mailKey);
         const std::int16_t selected = callbackWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
-        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-        message = cg::world::GetGuildMailMessageDE0B30(selected, slot, page);
+        const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex;
+        message = cg::world::GetGuildMailMessageDE0B30(*callbackWindow.ownerSession, selected, slot, page);
         break;
     }
     case 2: {
-        identity = cg::world::detail::gViewedMailContactId_CF4FC0;
-        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
-        message = cg::world::GetMiniMailMessage10763A0(identity, page);
+        identity = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
+        const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex;
+        message = cg::world::GetMiniMailMessage10763A0(*callbackWindow.ownerSession, identity, page);
         break;
     }
     default:
@@ -470,11 +470,11 @@ static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, 
     if (kind == std::byte{0}) {
         std::int32_t source;
         if (category == 0) {
-            source = cg::world::detail::gContactsF19FB0[identity].value0C;
+            source = callbackWindow.ownerSession->WorldScene().mail.data->contacts[identity].value0C;
         } else if (category == 1) {
             source = cg::world::gOrderedRecords1051B14[identity].value14;
         } else {
-            source = cg::world::detail::ReadMiniMailContact1075A90(identity).value0C;
+            source = cg::world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, identity).value0C;
         }
         image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(source);
         window = currentWindow;

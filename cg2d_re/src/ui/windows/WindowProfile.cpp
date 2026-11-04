@@ -29,7 +29,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
     std::int32_t consumed = 0;
     switch (elementId) {
     case NativeElementKey(17): {
-        const bool visible = world::detail::SelectedProfileValue04() != 0;
+        const bool visible = world::detail::SelectedProfileValue04(*callbackWindow.ownerSession) != 0;
         if ((state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = visible
                 ? L"不公开玩家简介"
@@ -39,9 +39,9 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(callbackWindow.ownerSession->Connection().SetProfileVisibilityRequest(visible ? 0 : 1));
             if (!visible) {
-                static_cast<void>(world::detail::PublishPlayerProfile_533C80(1));
+                static_cast<void>(world::detail::PublishPlayerProfile_533C80(*callbackWindow.ownerSession, 1));
             }
-            world::detail::SelectedProfileValue04() = visible ? 0 : 1;
+            world::detail::SelectedProfileValue04(*callbackWindow.ownerSession) = visible ? 0 : 1;
         }
         return consumed;
     }
@@ -129,7 +129,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
-            static_cast<void>(world::detail::PublishPlayerProfile_533C80(0));
+            static_cast<void>(world::detail::PublishPlayerProfile_533C80(*callbackWindow.ownerSession, 0));
             return 1;
         }
         return consumed;
@@ -213,15 +213,15 @@ static void WindowProfile_RouteReply(
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     switch (type) {
     case 38:
-        world::detail::HandleProfileCategorySelectionReply_4C9E40(value, text);
+        world::detail::HandleProfileCategorySelectionReply_4C9E40(session, value, text);
         static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileCategory, 1, 0, nullptr));
         return;
     case 39:
-        world::detail::HandleProfileSearchResultsReply_4CA330(value, text);
+        world::detail::HandleProfileSearchResultsReply_4CA330(session, value, text);
         static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileSearch, 1, 0, nullptr));
         return;
     case 40:
-        static_cast<void>(world::detail::HandleViewedPlayerProfileReply_4CAC60(value, text));
+        static_cast<void>(world::detail::HandleViewedPlayerProfileReply_4CAC60(session, value, text));
         static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileView, 1, 0, nullptr));
         return;
     default:

@@ -128,15 +128,15 @@ WindowPrototype gWindowPrototypeProfileView {0, 4, 5, 20, 317, 250, 0x80000080u,
 // 窗口函数实现。
 
 // 原函数：0x004CB430。
-std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
+std::int32_t WindowProfileView_ReadSelection(session::ClientSession& session, const std::int32_t index)
 {
     if (index - 79 < 32) {
-        return world::detail::ReadCategoryRecord105FA24(0, index - 78).selected10C != 0 ? 1 : 0;
+        return world::detail::ReadCategoryRecord105FA24(session, 0, index - 78).selected10C != 0 ? 1 : 0;
     }
     if (index - 79 < 64) {
-        return world::detail::ReadCategoryRecord105FA24(1, index - 110).selected10C != 0 ? 1 : 0;
+        return world::detail::ReadCategoryRecord105FA24(session, 1, index - 110).selected10C != 0 ? 1 : 0;
     }
-    return world::detail::ReadCategoryRecord105FA24(2, index - 142).selected10C != 0 ? 1 : 0;
+    return world::detail::ReadCategoryRecord105FA24(session, 2, index - 142).selected10C != 0 ? 1 : 0;
 }
 
 // 原函数：0x004CAFA0。
@@ -145,7 +145,7 @@ static std::uint32_t WindowProfileView_Refresh(WindowInstance* callbackWindow)
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
-        world::detail::gViewedProfile105ECE0;
+        callbackWindow->ownerSession->WorldScene().mail.data->viewedProfile;
     auto* const element15 = currentWindow->FindElementById(WindowProfileViewElementId::Element15);
     if (element15) {
         element15->data.graphic->imageNo =
@@ -228,7 +228,7 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
     if ((state & MouseFlag_Hover) != 0) {
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244253;
         std::wstring hint;
-        cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20(*callbackWindow.ownerSession));
         uiFrame.hoverText = hint;
         consumed = 1;
     } else {
@@ -236,8 +236,8 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
-        if (money >= world::detail::ReadCategoryValue105FA20()) {
-            const auto& profile = world::detail::gViewedProfile105ECE0;
+        if (money >= world::detail::ReadCategoryValue105FA20(*callbackWindow.ownerSession)) {
+            const auto& profile = callbackWindow.ownerSession->WorldScene().mail.data->viewedProfile;
             gMiniMailCompose105F508.target = profile.value00;
             gMiniMailCompose105F508.name = profile.text08;
             gMiniMailCompose105F508.text104.clear();

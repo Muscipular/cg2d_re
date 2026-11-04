@@ -379,8 +379,8 @@ std::int32_t HandleGuildMailResetReply_50E830(cg::network::CgConnection& connect
     if (state != 0) {
         return std::bit_cast<std::int32_t>(state);
     }
-    cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
-    return cg::world::detail::SaveGuildMailFile_519550();
+    cg::world::detail::ClearCurrentCharacterGuildMail_5194C0(connection.Owner());
+    return cg::world::detail::SaveGuildMailFile_519550(connection.Owner());
 }
 
 // GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
@@ -402,7 +402,7 @@ std::int32_t HandleGuildMemberRemovalReply_50F130(cg::network::CgConnection& con
     }
     cg::world::gOrderedRecordCount1051510 =
         cg::world::CountRecordsValue08EqualOne_50EF50();
-    return world::detail::DeleteGuildMailEntry_5194F0(key);
+    return world::detail::DeleteGuildMailEntry_5194F0(connection.Owner(), key);
 }
 
 // GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。
@@ -418,12 +418,12 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const st
     const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+    static_cast<void>(world::detail::PrependGuildMailMessage_519370(connection.Owner(),
         key, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text)));
     const wchar_t* const recordName = index >= 0 && static_cast<std::size_t>(index) < cg::world::gOrderedRecords1051B14.size()
         ? cg::world::gOrderedRecords1051B14[index].name18.c_str() : L"";
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, recordName);
-    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(connection.Owner()));
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }

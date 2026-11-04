@@ -315,14 +315,14 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendContactMail(contact, packet, 0));
                             WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
-                            world::detail::PrependContactMailMessage_5191C0(contact, 1, timestamp, storedText);
+                            world::detail::PrependContactMailMessage_5191C0(*callbackWindow.ownerSession, contact, 1, timestamp, storedText);
                         } else if (groupMode == 1) {
                             const std::int32_t member = business.mailGroupCC1A30.indices[row];
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(key, packet, 0));
                             WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
-                            static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+                            static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
                                 key, 1, timestamp, storedText));
                         } else {
                             const std::int32_t group = business.mailGroupCC1A30.indices[row];
@@ -334,14 +334,14 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                                 if (memberGroup == currentGroup) {
                                     WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                                     const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
-                                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+                                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
                                         key, 1, timestamp, storedText));
                                 }
                             }
                         }
                     }
-                    static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-                    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+                    static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+                    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
                     closeAfterSend = true;
                 }
@@ -355,7 +355,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (category == 2) {
                 const std::int32_t contact = business.prefixD2F0B8.value04;
-                const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
+                const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, contact);
                 const std::int32_t key = record.key04;
                 {
                     storedText = input::ContextText(inputs.mail);
@@ -369,7 +369,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendMiniMail(packet, 0));
                 static_cast<void>(world::detail::FormatMailTimestamp_534520(*callbackWindow.ownerSession, timestamp));
                 const std::int32_t currentContact = business.prefixD2F0B8.value04;
-                world::detail::PrependMiniMailMessage_5343C0(currentContact, 1, timestamp, storedText);
+                world::detail::PrependMiniMailMessage_5343C0(*callbackWindow.ownerSession, currentContact, 1, timestamp, storedText);
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;
             } else {
@@ -401,13 +401,13 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 }
                 WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                 if (category == 1) {
-                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(
+                    static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
                         target, 1, timestamp, storedText));
                 } else {
-                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText);
+                    world::detail::PrependContactMailMessage_5191C0(*callbackWindow.ownerSession, target, 1, timestamp, storedText);
                 }
-                static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
-                static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+                static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
+                static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;
             }
@@ -448,13 +448,13 @@ static std::uint8_t WindowMailCompose_RefreshRecipients(WindowInstance* callback
         std::wstring name; // 下方只在三个已赋值的category分支读取。
         switch (category) {
         case 0:
-            name = world::detail::gContactsF19FB0[business.prefixD2F0B8.value04].name10.data();
+            name = callbackWindow->ownerSession->WorldScene().mail.data->contacts[business.prefixD2F0B8.value04].name10.data();
             break;
         case 1:
             name = cg::world::gOrderedRecords1051B14[business.prefixD2F0B8.value04].name18;
             break;
         case 2:
-            name = world::detail::ReadMiniMailContact1075A90(
+            name = world::detail::ReadMiniMailContact1075A90(*callbackWindow->ownerSession,
                 business.prefixD2F0B8.value04).name10.data();
             break;
         }

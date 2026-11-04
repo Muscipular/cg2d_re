@@ -392,7 +392,7 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     } else {
         business.statusHasInjuryD046C8 = 1;
     }
-    business.statusHasMailCC4B5C = world::detail::UpdateUnreadMailPageHint_518DA0() != 0 ? 1 : 0;
+    business.statusHasMailCC4B5C = world::detail::UpdateUnreadMailPageHint_518DA0(*callbackWindow->ownerSession) != 0 ? 1 : 0;
     std::int32_t phase = business.statusBlinkPhaseCF4FBC + 1;
     business.statusBlinkPhaseCF4FBC = phase;
     if (phase > 60) {
@@ -667,13 +667,13 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
             if (auto* const handleHintButton_13Element = hoverWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_13); handleHintButton_13Element) handleHintButton_13Element->data.graphic->imageNo = 0x3B951;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            world::detail::FindFirstUnreadMailContact_518F00(
+            world::detail::FindFirstUnreadMailContact_518F00(*callbackWindow.ownerSession,
                 &business.statusMailCategoryD66E34, &business.statusMailIndexD2E2D8);
             const std::int32_t category = business.statusMailCategoryD66E34;
             if (category == 0 || category == 1 || category == 2) {
                 const std::int32_t mailIndex = business.statusMailIndexD2E2D8;
                 business.mailCategoryD67B64 = category;
-                world::detail::gViewedMailContactId_CF4FC0 = mailIndex;
+                callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId = mailIndex;
                 business.mailCategoryCC4D50 = category;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailRead, 1, 0, nullptr));
             }

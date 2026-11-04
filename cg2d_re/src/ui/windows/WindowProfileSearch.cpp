@@ -229,7 +229,7 @@ static void WindowProfileSearch_RefreshResults(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    const auto& search = world::detail::gProfileSearch105C398;
+    const auto& search = callbackWindow->ownerSession->WorldScene().mail.data->profileSearch;
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
@@ -246,7 +246,7 @@ static void WindowProfileSearch_RefreshResults(WindowInstance* callbackWindow)
     case 0:
     case 1:
     case 2: {
-        const wchar_t* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
+        const wchar_t* const title = world::detail::ReadCategoryText105FA24(*callbackWindow->ownerSession, group, search.value04);
         if (auto* const element2 = currentWindow->FindElementById(WindowProfileSearchElementId::Element2); element2) element2->data.text->text = title;
         auto* const element3 = currentWindow->FindElementById(WindowProfileSearchElementId::Element3);
         if (element3) {
@@ -388,7 +388,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
         }
     }
     const std::wstring keyword = input::EscapeText(gProfileSearchKeyword1075988, 256);
-    const auto& search = world::detail::gProfileSearch105C398;
+    const auto& search = callbackWindow.ownerSession->WorldScene().mail.data->profileSearch;
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;
     const std::wstring combined = std::to_wstring(group) + L"|" + std::to_wstring(entry) + L"|" + keyword;
@@ -419,7 +419,7 @@ static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWin
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246060;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const auto& record = world::detail::gProfileSearch105C398.records[position];
+        const auto& record = callbackWindow.ownerSession->WorldScene().mail.data->profileSearch.records[position];
         const std::int32_t key = record.value104;
         const std::wstring combined = std::to_wstring(key) + L"|" + record.text04;
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
@@ -431,8 +431,8 @@ static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWin
         consumed = 1;
     }
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ProfileView].window != nullptr) {
-        const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
-        if (key == world::detail::gProfileSearch105C398.records[position].value104) {
+        const std::int32_t key = callbackWindow.ownerSession->WorldScene().mail.data->viewedProfile.value00;
+        if (key == callbackWindow.ownerSession->WorldScene().mail.data->profileSearch.records[position].value104) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246058;
         }
     }

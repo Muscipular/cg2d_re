@@ -240,8 +240,8 @@ void HandleGuildRemovalReply_50F280(cg::network::CgConnection& connection, const
         return;
     }
     ResetGuildRuntimeFields();
-    static_cast<void>(cg::world::detail::ClearCurrentCharacterGuildMail_5194C0());
-    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
+    static_cast<void>(cg::world::detail::ClearCurrentCharacterGuildMail_5194C0(connection.Owner()));
+    static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(connection.Owner()));
     static_cast<void>(ui::WindowGuildDetails_RequestClose(connection.Owner()));
 }
 
@@ -412,7 +412,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connec
     const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     gOrderedRecordCount1051510 = count;
-    return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
+    return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(connection.Owner(), selected);
 }
 
 // GML01：原200排序项W16==1首匹配，计数/返回S32，无则-1。

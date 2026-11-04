@@ -190,7 +190,7 @@ static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbac
 static void WindowProfileCategory_Release(WindowInstance&); // 先清对话类型，再标记61/62/63。
 
 // 原函数：0x004CB4A0。
-static std::int32_t WindowProfileCategory_ResolveCategory(std::int32_t index, std::int32_t* group, std::int32_t* value);
+static std::int32_t WindowProfileCategory_ResolveCategory(session::ClientSession& session, std::int32_t index, std::int32_t* group, std::int32_t* value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -385,7 +385,7 @@ static void WindowProfileCategory_Refresh(WindowInstance* callbackWindow)
     constexpr std::array<std::int32_t, 3> textBases {0, 32, 64};
     for (std::int32_t group = 0; group < 3; ++group) {
         for (std::int32_t index = 1; index <= counts[group]; ++index) {
-            const auto& record = world::detail::ReadCategoryRecord105FA24(group, index);
+            const auto& record = world::detail::ReadCategoryRecord105FA24(*callbackWindow->ownerSession, group, index);
             const std::int32_t textIndex = textBases[group] + index - 1;
             if (record.used != 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(textIndex)); indexedElement) indexedElement->visible = 1;
@@ -430,18 +430,18 @@ static void WindowProfileCategory_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004CB4A0。
-static std::int32_t WindowProfileCategory_ResolveCategory(
+static std::int32_t WindowProfileCategory_ResolveCategory(session::ClientSession& session,
     const std::int32_t index, std::int32_t* const group, std::int32_t* const value)
 {
     if (index - 79 < 32) {
         *group = 0;
-        *value = world::detail::ReadCategoryRecord105FA24(0, index - 78).value04;
+        *value = world::detail::ReadCategoryRecord105FA24(session, 0, index - 78).value04;
     } else if (index - 79 < 64) {
         *group = 1;
-        *value = world::detail::ReadCategoryRecord105FA24(1, index - 110).value04;
+        *value = world::detail::ReadCategoryRecord105FA24(session, 1, index - 110).value04;
     } else {
         *group = 2;
-        *value = world::detail::ReadCategoryRecord105FA24(2, index - 142).value04;
+        *value = world::detail::ReadCategoryRecord105FA24(session, 2, index - 142).value04;
     }
     return 1;
 }
@@ -462,12 +462,12 @@ static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbac
     } else {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0;
     }
-    if ((state & MouseFlag_LDownEvent) == 0 || WindowProfileView_ReadSelection(index) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0 || WindowProfileView_ReadSelection(*callbackWindow.ownerSession, index) == 0) {
         return consumed;
     }
     std::int32_t group;
     std::int32_t value;
-    if (WindowProfileCategory_ResolveCategory(index, &group, &value) != 0) {
+    if (WindowProfileCategory_ResolveCategory(*callbackWindow.ownerSession, index, &group, &value) != 0) {
         std::array<std::wstring, 2> buffers;
         cg::text::FormatTo(buffers[0], L"{}|{}|", group, value);
         buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);

@@ -29,35 +29,17 @@
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
+namespace cg::world {
+
+MailRuntimeState::MailRuntimeState()
+    : data(std::make_unique<detail::MailRuntimeData>())
+{
+}
+MailRuntimeState::~MailRuntimeState() = default;
+
+} // namespace cg::world
+
 namespace cg::world::detail {
-
-ProfileRuntimeRecord gCurrentProfile10738E8 {}; // 原全局：0x010738E8。
-ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
-ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
-ProfileSearchRuntimeSlots gProfileSearch105C398 {}; // 原全局：0x0105C398。
-
-std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {}; // 原全局：0x00F19FB0。
-std::array<std::int32_t, 60> gContactIndicesFDA608 {}; // 原全局：0x00FDA608。
-std::uint16_t gUnreadMailCategory_62B354 = 0; // 原全局：0x0062B354。
-std::uint32_t gMailContactPage_CB1384 = 0; // 原全局：0x00CB1384。
-std::uint32_t gMailFallbackPage_CB0354 = 0; // 原全局：0x00CB0354。
-std::int32_t gViewedMailContactId_CF4FC0 = 0; // 原全局：0x00CF4FC0。
-std::int32_t gViewedMailMessageIndex_D046D4 = 0; // 原全局：0x00D046D4。
-std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490清-1，窗口63保存同一发信目标编号。
-static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
-
-// 三类收信共用内部对象；固定磁盘布局仅在存取时转换。
-struct MailMessage {
-    std::byte unread; // +00：未读标记，窗口可清零。
-    std::byte kind; // +01：收信类别低字节。
-    std::wstring name; // 原+02：完整日期文本。
-    std::wstring text; // 原+14：内部邮件正文。
-};
-struct GuildMailEntry {
-    std::int32_t key; // +00：公会成员键。
-    std::uint32_t active; // +04：查找要求恰为1，未读扫描只判断非零。
-    std::array<MailMessage, 10> messages; // +08：同一成员的十条消息。
-};
 
 // 文件边界：旧版mail.dat/guildmail.dat布局保持，不直接存取含wstring的对象。
 struct MailDiskMessage {
@@ -135,32 +117,7 @@ static void DecodeGuildMailEntry(GuildMailEntry& entry, const GuildMailDiskEntry
     }
 }
 
-// 连续消息数组保留原跨联系人步进；UI只经既有视图借用。
-static std::array<MailMessage, 2 * 60 * 10> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
-static std::array<GuildMailEntry, 2 * 200> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
-
-struct MiniMailRuntimeSlots {
-    std::array<MiniMailContactRecord, 20> contacts;
-    std::array<MailMessage, 20 * 10> messages; // 原10763A0，20组各十条140H；保原连续访问。
-};
-
-static MiniMailRuntimeSlots gMiniMailRuntime {};
-static std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
-
-// 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
-static std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
 static constexpr wchar_t kProfileDefault58F614[] = L"未设定"; // 原常量参考：0x0058F614。
-
-struct CategoryRuntimeSlots {
-    std::int32_t value00; // 原成员偏移：+0x00。 原105FA10，50F2A0发布、50F3A0比较。
-    std::int32_t value04; // 原成员偏移：+0x04。 原105FA14，50F8E0发布、50F3A0比较。
-    std::int32_t count08; // 原成员偏移：+0x08。
-    std::int32_t count0C; // 原成员偏移：+0x0C。
-    std::int32_t value10; // 原成员偏移：+0x10。 原105FA20，50F3A0第三字段。
-    std::array<CategoryRecord, 300> records; // 原105FA24/1066464/106CEA4三组同源区。
-};
-
-static CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
 // 个人资料与类别文件保留旧定长GBK布局；运行时对象只保存宽文本。
 struct ProfileDiskEntry {
@@ -256,16 +213,16 @@ static void DecodeProfile(ProfileRuntimeRecord& record, const ProfileDiskRecord&
     }
 }
 
-static CategoryDiskStorage EncodeCategories()
+static CategoryDiskStorage EncodeCategories(session::ClientSession& session)
 {
     CategoryDiskStorage disk{};
-    disk.value00 = gCategory105FA10.value00;
-    disk.value04 = gCategory105FA10.value04;
-    disk.count08 = gCategory105FA10.count08;
-    disk.count0C = gCategory105FA10.count0C;
-    disk.value10 = gCategory105FA10.value10;
+    disk.value00 = session.WorldScene().mail.data->category.value00;
+    disk.value04 = session.WorldScene().mail.data->category.value04;
+    disk.count08 = session.WorldScene().mail.data->category.count08;
+    disk.count0C = session.WorldScene().mail.data->category.count0C;
+    disk.value10 = session.WorldScene().mail.data->category.value10;
     for (std::size_t i = 0; i < disk.records.size(); ++i) {
-        const auto& record = gCategory105FA10.records[i];
+        const auto& record = session.WorldScene().mail.data->category.records[i];
         auto& target = disk.records[i];
         target.used = record.used;
         target.bytes01 = record.bytes01;
@@ -278,17 +235,17 @@ static CategoryDiskStorage EncodeCategories()
     return disk;
 }
 
-static void DecodeCategories(const CategoryDiskStorage& disk, const std::size_t bytes)
+static void DecodeCategories(session::ClientSession& session, const CategoryDiskStorage& disk, const std::size_t bytes)
 {
-    if (bytes > offsetof(CategoryDiskStorage, value00)) { gCategory105FA10.value00 = disk.value00; }
-    if (bytes > offsetof(CategoryDiskStorage, value04)) { gCategory105FA10.value04 = disk.value04; }
-    if (bytes > offsetof(CategoryDiskStorage, count08)) { gCategory105FA10.count08 = disk.count08; }
-    if (bytes > offsetof(CategoryDiskStorage, count0C)) { gCategory105FA10.count0C = disk.count0C; }
-    if (bytes > offsetof(CategoryDiskStorage, value10)) { gCategory105FA10.value10 = disk.value10; }
+    if (bytes > offsetof(CategoryDiskStorage, value00)) { session.WorldScene().mail.data->category.value00 = disk.value00; }
+    if (bytes > offsetof(CategoryDiskStorage, value04)) { session.WorldScene().mail.data->category.value04 = disk.value04; }
+    if (bytes > offsetof(CategoryDiskStorage, count08)) { session.WorldScene().mail.data->category.count08 = disk.count08; }
+    if (bytes > offsetof(CategoryDiskStorage, count0C)) { session.WorldScene().mail.data->category.count0C = disk.count0C; }
+    if (bytes > offsetof(CategoryDiskStorage, value10)) { session.WorldScene().mail.data->category.value10 = disk.value10; }
     for (std::size_t i = 0; i < disk.records.size(); ++i) {
         const std::size_t offset = offsetof(CategoryDiskStorage, records) + i * sizeof(CategoryDiskRecord);
         if (bytes <= offset) { break; }
-        auto& record = gCategory105FA10.records[i];
+        auto& record = session.WorldScene().mail.data->category.records[i];
         const auto& source = disk.records[i];
         if (bytes > offset + offsetof(CategoryDiskRecord, used)) { record.used = source.used; }
         if (bytes > offset + offsetof(CategoryDiskRecord, bytes01)) { record.bytes01 = source.bytes01; }
@@ -309,11 +266,11 @@ static MailMessageView MakeMailMessageView(MailMessage& message)
 }
 
 // 原函数：0x004EC030。
-static std::int32_t CompareContactIndices_4EC030(
+static std::int32_t CompareContactIndices_4EC030(session::ClientSession& session,
     const std::int32_t* const left, const std::int32_t* const right)
 {
-    const ContactRuntimeRecord& other = gContactsF19FB0[*right];
-    const ContactRuntimeRecord& current = gContactsF19FB0[*left];
+    const ContactRuntimeRecord& other = session.WorldScene().mail.data->contacts[*right];
+    const ContactRuntimeRecord& current = session.WorldScene().mail.data->contacts[*left];
     const bool currentUsed = current.used != 0;
     const bool otherUsed = other.used != 0;
     if (currentUsed != otherUsed) {
@@ -338,33 +295,33 @@ static std::int32_t CompareContactIndices_4EC030(
     return (current.value04 > other.value04) - (current.value04 < other.value04);
 }
 
-const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index)
+const MiniMailContactRecord& ReadMiniMailContact1075A90(session::ClientSession& session, const std::int32_t index)
 {
-    return gMiniMailRuntime.contacts[index];
+    return session.WorldScene().mail.data->miniMail.contacts[index];
 }
 
 } // namespace cg::world::detail
 
 namespace cg::world {
 
-MailMessageView GetMailMessageF7CA08(
+MailMessageView GetMailMessageF7CA08(session::ClientSession& session,
     const std::int16_t selected, const std::int32_t contact, const std::int32_t page)
 {
-    return detail::MakeMailMessageView(detail::gMailStorageF7CA08[
+    return detail::MakeMailMessageView(session.WorldScene().mail.data->messages[
         selected * 60 * 10 + static_cast<std::ptrdiff_t>(contact) * 10 + page]);
 }
 
-MailMessageView GetGuildMailMessageDE0B30(
+MailMessageView GetGuildMailMessageDE0B30(session::ClientSession& session,
     const std::int16_t selected, const std::int32_t slot, const std::int32_t page)
 {
-    return detail::MakeMailMessageView(detail::gGuildMailStorageDE0B30[
+    return detail::MakeMailMessageView(session.WorldScene().mail.data->guildMessages[
         selected * 200 + static_cast<std::ptrdiff_t>(slot)].messages[page]);
 }
 
-MailMessageView GetMiniMailMessage10763A0(
+MailMessageView GetMiniMailMessage10763A0(session::ClientSession& session,
     const std::int32_t contact, const std::int32_t page)
 {
-    return detail::MakeMailMessageView(detail::gMiniMailRuntime.messages[
+    return detail::MakeMailMessageView(session.WorldScene().mail.data->miniMail.messages[
         static_cast<std::ptrdiff_t>(contact) * 10 + page]);
 }
 
@@ -372,51 +329,51 @@ MailMessageView GetMiniMailMessage10763A0(
 
 namespace cg::world::detail {
 
-const ProfileRuntimeRecord& ReadSelectedProfile1074938()
+const ProfileRuntimeRecord& ReadSelectedProfile1074938(session::ClientSession& session)
 {
-    return gProfiles1074938[cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex];
+    return session.WorldScene().mail.data->profiles[session.Connection().LoginRequests().selectedCharacterIndex];
 }
 
-std::int32_t ReadCategoryValue105FA20()
+std::int32_t ReadCategoryValue105FA20(session::ClientSession& session)
 {
-    return gCategory105FA10.value10;
+    return session.WorldScene().mail.data->category.value10;
 }
 
-std::int32_t& SelectedProfileValue04()
+std::int32_t& SelectedProfileValue04(session::ClientSession& session)
 {
-    return gProfiles1074938[cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex].value04;
+    return session.WorldScene().mail.data->profiles[session.Connection().LoginRequests().selectedCharacterIndex].value04;
 }
 
-const wchar_t* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
+const wchar_t* ReadCategoryText105FA24(session::ClientSession& session, const std::int32_t group, const std::int32_t index)
 {
-    return gCategory105FA10.records[group * 100 + index].text0C.data();
+    return session.WorldScene().mail.data->category.records[group * 100 + index].text0C.data();
 }
 
-std::int32_t ReadCategoryCount105FA18()
+std::int32_t ReadCategoryCount105FA18(session::ClientSession& session)
 {
-    return gCategory105FA10.count08;
+    return session.WorldScene().mail.data->category.count08;
 }
 
-std::int32_t ReadCategoryCount105FA1C()
+std::int32_t ReadCategoryCount105FA1C(session::ClientSession& session)
 {
-    return gCategory105FA10.count0C;
+    return session.WorldScene().mail.data->category.count0C;
 }
 
-const CategoryRecord& ReadCategoryRecord105FA24(
+const CategoryRecord& ReadCategoryRecord105FA24(session::ClientSession& session,
     const std::int32_t group, const std::int32_t index)
 {
-    return gCategory105FA10.records[group * 100 + index];
+    return session.WorldScene().mail.data->category.records[group * 100 + index];
 }
 
 // 原函数：0x004EC1A0。
-void SortContactIndices_4EC1A0()
+void SortContactIndices_4EC1A0(session::ClientSession& session)
 {
     for (std::int32_t index = 0; index < 60; ++index) {
-        gContactIndicesFDA608[index] = index;
+        session.WorldScene().mail.data->contactIndices[index] = index;
     }
-    std::sort(gContactIndicesFDA608.begin(), gContactIndicesFDA608.end(),
-        [](const std::int32_t left, const std::int32_t right) {
-            return CompareContactIndices_4EC030(&left, &right) < 0;
+    std::sort(session.WorldScene().mail.data->contactIndices.begin(), session.WorldScene().mail.data->contactIndices.end(),
+        [&session](const std::int32_t left, const std::int32_t right) {
+            return CompareContactIndices_4EC030(session, &left, &right) < 0;
         });
 }
 
@@ -429,7 +386,7 @@ void HandleContactListReply_50D740(cg::network::CgConnection& connection, const 
     char name[256];
     char text[256];
     std::int32_t field = 2;
-    for (ContactRuntimeRecord& record : gContactsF19FB0) {
+    for (ContactRuntimeRecord& record : connection.Owner().WorldScene().mail.data->contacts) {
         if (network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1) <= 0) {
             record.used = 0;
             record.name10.clear();
@@ -468,7 +425,7 @@ void HandleContactExtendedTextReply_50D8C0(cg::network::CgConnection& connection
     char first[256];
     char second[256];
     std::int32_t field = 2;
-    for (ContactRuntimeRecord& record : gContactsF19FB0) {
+    for (ContactRuntimeRecord& record : connection.Owner().WorldScene().mail.data->contacts) {
         if (network::ExtractDelimitedField_52CED0(
                 payload, '|', field - 1, 255, first) == 1) {
             break;
@@ -484,7 +441,7 @@ void HandleContactExtendedTextReply_50D8C0(cg::network::CgConnection& connection
         }
         field += 2;
     }
-    SortContactIndices_4EC1A0();
+    SortContactIndices_4EC1A0(connection.Owner());
 }
 
 // 原函数：0x0050D9E0。
@@ -494,7 +451,7 @@ void HandleContactUpdateReply_50D9E0(cg::network::CgConnection& connection, cons
         return;
     }
     const std::int32_t active = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    ContactRuntimeRecord& record = gContactsF19FB0[index];
+    ContactRuntimeRecord& record = connection.Owner().WorldScene().mail.data->contacts[index];
     if (active <= 0) {
         record.used = 0;
         record.name10.clear();
@@ -520,7 +477,7 @@ void HandleContactUpdateReply_50D9E0(cg::network::CgConnection& connection, cons
         network::ParseDelimitedInteger_52CFA0(payload, '|', 6)));
     record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
     if (network::ParseDelimitedInteger_52CFA0(payload, '|', 8) == 1) {
-        static_cast<void>(ClearContactMailMessages_5192C0(index));
+        static_cast<void>(ClearContactMailMessages_5192C0(connection.Owner(), index));
     }
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
@@ -532,19 +489,19 @@ void HandleContactUpdateReply_50D9E0(cg::network::CgConnection& connection, cons
     if (std::strlen(text) <= 32) {
         record.text53 = cg::text::FromGbkWide(text);
     }
-    SortContactIndices_4EC1A0();
+    SortContactIndices_4EC1A0(connection.Owner());
 }
 
 // 原函数：0x005191C0。
-void PrependContactMailMessage_5191C0(
+void PrependContactMailMessage_5191C0(session::ClientSession& session,
     const std::int32_t index, const std::int32_t kind,
     const std::wstring_view name, const std::wstring_view text)
 {
-    if (gContactsF19FB0[index].used == 0) {
+    if (session.WorldScene().mail.data->contacts[index].used == 0) {
         return;
     }
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    MailMessage* const entry = gMailStorageF7CA08.data()
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    MailMessage* const entry = session.WorldScene().mail.data->messages.data()
         + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::ptrdiff_t message = 9; message > 0; --message) {
         entry[message] = entry[message - 1];
@@ -557,20 +514,20 @@ void PrependContactMailMessage_5191C0(
 
 // SHP01：原三类未读提示，迷你倒序；U16类别后发布W32页，未命中持有备用页。
 // 原函数：0x00518DA0。
-std::int32_t UpdateUnreadMailPageHint_518DA0()
+std::int32_t UpdateUnreadMailPageHint_518DA0(session::ClientSession& session)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
-        const std::int32_t index = gContactIndicesFDA608[position];
-        if (gContactsF19FB0[index].used == 0) {
+        const std::int32_t index = session.WorldScene().mail.data->contactIndices[position];
+        if (session.WorldScene().mail.data->contacts[index].used == 0) {
             continue;
         }
-        const MailMessage* const entry = gMailStorageF7CA08.data()
+        const MailMessage* const entry = session.WorldScene().mail.data->messages.data()
             + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry[message].unread != std::byte{0}) {
-                gUnreadMailCategory_62B354 = 1;
-                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
+                session.WorldScene().mail.data->unreadCategory = 1;
+                session.WorldScene().mail.data->contactPage = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
@@ -580,12 +537,12 @@ std::int32_t UpdateUnreadMailPageHint_518DA0()
         if (record.value08 == 0) {
             continue;
         }
-        const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(record.value0C);
+        const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(session, record.value0C);
         if (index == -1) {
             continue;
         }
-        const std::ptrdiff_t currentSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        const GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
+        const std::ptrdiff_t currentSelected = session.Connection().LoginRequests().selectedCharacterIndex;
+        const GuildMailEntry* const entry = session.WorldScene().mail.data->guildMessages.data()
             + currentSelected * 200 + static_cast<std::ptrdiff_t>(index);
         const std::uint32_t active = entry->active;
         if (active == 0) {
@@ -593,48 +550,48 @@ std::int32_t UpdateUnreadMailPageHint_518DA0()
         }
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry->messages[message].unread != std::byte{0}) {
-                gUnreadMailCategory_62B354 = 2;
-                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
+                session.WorldScene().mail.data->unreadCategory = 2;
+                session.WorldScene().mail.data->contactPage = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        if (gMiniMailRuntime.contacts[position].used == 0) {
+        if (session.WorldScene().mail.data->miniMail.contacts[position].used == 0) {
             continue;
         }
-        const MailMessage* const entry = gMiniMailRuntime.messages.data()
+        const MailMessage* const entry = session.WorldScene().mail.data->miniMail.messages.data()
             + static_cast<std::ptrdiff_t>(position) * 10;
         for (std::ptrdiff_t message = 9; message >= 0; --message) {
             if (entry[message].unread != std::byte{0}) {
-                gUnreadMailCategory_62B354 = 3;
-                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
+                session.WorldScene().mail.data->unreadCategory = 3;
+                session.WorldScene().mail.data->contactPage = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
     }
-    const std::uint32_t fallbackPage = gMailFallbackPage_CB0354;
-    gUnreadMailCategory_62B354 = 0;
-    gMailContactPage_CB1384 = fallbackPage;
+    const std::uint32_t fallbackPage = session.WorldScene().mail.data->fallbackPage;
+    session.WorldScene().mail.data->unreadCategory = 0;
+    session.WorldScene().mail.data->contactPage = fallbackPage;
     return 0;
 }
 
 // SHP01：原三类未读定位，迷你正序；先S32类别再索引，公会fresh字符/key，唯一父弃返。
 // 原函数：0x00518F00。
-void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_t* const index)
+void FindFirstUnreadMailContact_518F00(session::ClientSession& session, std::int32_t* const category, std::int32_t* const index)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
-        const std::int32_t contact = gContactIndicesFDA608[position];
-        if (gContactsF19FB0[contact].used == 0) {
+        const std::int32_t contact = session.WorldScene().mail.data->contactIndices[position];
+        if (session.WorldScene().mail.data->contacts[contact].used == 0) {
             continue;
         }
-        const MailMessage* const entry = gMailStorageF7CA08.data()
+        const MailMessage* const entry = session.WorldScene().mail.data->messages.data()
             + selected * 60 * 10 + static_cast<std::ptrdiff_t>(contact) * 10;
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry[message].unread != std::byte{0}) {
                 *category = 0;
-                *index = gContactIndicesFDA608[position];
+                *index = session.WorldScene().mail.data->contactIndices[position];
                 return;
             }
         }
@@ -644,12 +601,12 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
         if (member.value08 == 0) {
             continue;
         }
-        const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(member.value0C);
+        const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(session, member.value0C);
         if (slot == -1) {
             continue;
         }
-        const std::ptrdiff_t currentSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        const GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
+        const std::ptrdiff_t currentSelected = session.Connection().LoginRequests().selectedCharacterIndex;
+        const GuildMailEntry* const entry = session.WorldScene().mail.data->guildMessages.data()
             + currentSelected * 200 + static_cast<std::ptrdiff_t>(slot);
         const std::uint32_t active = entry->active;
         if (active == 0) {
@@ -658,8 +615,8 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry->messages[message].unread != std::byte{0}) {
                 *category = 1;
-                const std::ptrdiff_t selectedForKey = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-                const GuildMailEntry* const keyEntry = gGuildMailStorageDE0B30.data()
+                const std::ptrdiff_t selectedForKey = session.Connection().LoginRequests().selectedCharacterIndex;
+                const GuildMailEntry* const keyEntry = session.WorldScene().mail.data->guildMessages.data()
                     + selectedForKey * 200 + static_cast<std::ptrdiff_t>(slot);
                 const std::int32_t key = keyEntry->key;
                 *index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
@@ -668,10 +625,10 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
         }
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        if (gMiniMailRuntime.contacts[position].used == 0) {
+        if (session.WorldScene().mail.data->miniMail.contacts[position].used == 0) {
             continue;
         }
-        const MailMessage* const entry = gMiniMailRuntime.messages.data()
+        const MailMessage* const entry = session.WorldScene().mail.data->miniMail.messages.data()
             + static_cast<std::ptrdiff_t>(position) * 10;
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry[message].unread != std::byte{0}) {
@@ -686,16 +643,16 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
 }
 
 // 原函数：0x00519090。
-std::int32_t HasUnreadContactMail_519090(const std::int32_t index)
+std::int32_t HasUnreadContactMail_519090(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index >= 60) {
         return 0;
     }
-    if (gContactsF19FB0[index].used == 0) {
+    if (session.WorldScene().mail.data->contacts[index].used == 0) {
         return 0;
     }
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    const MailMessage* const entry = gMailStorageF7CA08.data()
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    const MailMessage* const entry = session.WorldScene().mail.data->messages.data()
         + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::int32_t message = 0; message < 10; ++message) {
         if (entry[message].unread != std::byte{0}) {
@@ -706,11 +663,11 @@ std::int32_t HasUnreadContactMail_519090(const std::int32_t index)
 }
 
 // 原函数：0x005190F0。
-std::int32_t HasUnreadGuildMail_5190F0(const std::int32_t index)
+std::int32_t HasUnreadGuildMail_5190F0(session::ClientSession& session, const std::int32_t index)
 {
     const auto& record = cg::world::gOrderedRecords1051B14[index];
     const std::int32_t key = record.value0C;
-    const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(key);
+    const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(session, key);
     if (slot == -1) {
         return 0;
     }
@@ -720,8 +677,8 @@ std::int32_t HasUnreadGuildMail_5190F0(const std::int32_t index)
     if (record.value08 == 0) {
         return 0;
     }
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    const MailMessage* const entry = gGuildMailStorageDE0B30[
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    const MailMessage* const entry = session.WorldScene().mail.data->guildMessages[
         selected * 200 + static_cast<std::ptrdiff_t>(slot)].messages.data();
     for (std::int32_t message = 0; message < 10; ++message) {
         if (entry[message].unread != std::byte{0}) {
@@ -732,15 +689,15 @@ std::int32_t HasUnreadGuildMail_5190F0(const std::int32_t index)
 }
 
 // 原函数：0x00519170。
-std::int32_t HasUnreadMiniMail_519170(const std::int32_t index)
+std::int32_t HasUnreadMiniMail_519170(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index >= 20) {
         return 0;
     }
-    if (gMiniMailRuntime.contacts[index].used == 0) {
+    if (session.WorldScene().mail.data->miniMail.contacts[index].used == 0) {
         return 0;
     }
-    const MailMessage* const entry = gMiniMailRuntime.messages.data()
+    const MailMessage* const entry = session.WorldScene().mail.data->miniMail.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::int32_t message = 0; message < 10; ++message) {
         if (entry[message].unread != std::byte{0}) {
@@ -761,15 +718,15 @@ void HandleContactMailReply_50DC70(cg::network::CgConnection& connection, const 
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 299, text);
     const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    PrependContactMailMessage_5191C0(index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
-    const std::wstring& contactName = gContactsF19FB0[index].name10;
+    PrependContactMailMessage_5191C0(connection.Owner(), index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
+    const std::wstring& contactName = connection.Owner().WorldScene().mail.data->contacts[index].name10;
     cg::text::FormatTo(message, kind == -1 ? L"收到从{}寄来的邮件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送来了宠物邮件！" /* 原常量参考：0x0058B064。 */, contactName);
-    static_cast<void>(SaveContactMailFile_519300());
-    static_cast<void>(UpdateUnreadMailPageHint_518DA0());
-    if (gViewedMailContactId_CF4FC0 == index) {
-        const std::int32_t position = gViewedMailMessageIndex_D046D4;
+    static_cast<void>(SaveContactMailFile_519300(connection.Owner()));
+    static_cast<void>(UpdateUnreadMailPageHint_518DA0(connection.Owner()));
+    if (connection.Owner().WorldScene().mail.data->viewedContactId == index) {
+        const std::int32_t position = connection.Owner().WorldScene().mail.data->viewedMessageIndex;
         if (position < 9) {
-            gViewedMailMessageIndex_D046D4 = position + 1;
+            connection.Owner().WorldScene().mail.data->viewedMessageIndex = position + 1;
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
@@ -777,10 +734,10 @@ void HandleContactMailReply_50DC70(cg::network::CgConnection& connection, const 
 }
 
 // 原函数：0x00534370。
-std::int32_t FindMiniMailContactByKey_534370(const std::int32_t key)
+std::int32_t FindMiniMailContactByKey_534370(session::ClientSession& session, const std::int32_t key)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
-        const MiniMailContactRecord& record = gMiniMailRuntime.contacts[index];
+        const MiniMailContactRecord& record = session.WorldScene().mail.data->miniMail.contacts[index];
         if (record.used == 1 && record.key04 == key) {
             return index;
         }
@@ -789,10 +746,10 @@ std::int32_t FindMiniMailContactByKey_534370(const std::int32_t key)
 }
 
 // 原函数：0x005343A0。
-std::int32_t FindFreeMiniMailContactSlot_5343A0()
+std::int32_t FindFreeMiniMailContactSlot_5343A0(session::ClientSession& session)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
-        if (gMiniMailRuntime.contacts[index].used == 0) {
+        if (session.WorldScene().mail.data->miniMail.contacts[index].used == 0) {
             return index;
         }
     }
@@ -800,10 +757,10 @@ std::int32_t FindFreeMiniMailContactSlot_5343A0()
 }
 
 // 原函数：0x004C9490。
-void ResetMiniMailSequenceAndSelection_4C9490()
+void ResetMiniMailSequenceAndSelection_4C9490(session::ClientSession& session)
 {
-    gMiniMailSequence1075A88 = 0;
-    gMiniMailSelectionD673E4 = -1;
+    session.WorldScene().mail.data->miniMailSequence = 0;
+    session.WorldScene().mail.data->miniMailSelection = -1;
 }
 
 // 原函数：0x00534520。
@@ -823,14 +780,14 @@ std::int32_t FormatMailTimestamp_534520(session::ClientSession& session, std::ws
 }
 
 // 原函数：0x005343C0。
-void PrependMiniMailMessage_5343C0(
+void PrependMiniMailMessage_5343C0(session::ClientSession& session,
     const std::int32_t index, const std::int32_t kind,
     const std::wstring_view name, const std::wstring_view text)
 {
-    if (gMiniMailRuntime.contacts[index].used == 0) {
+    if (session.WorldScene().mail.data->miniMail.contacts[index].used == 0) {
         return;
     }
-    MailMessage* const entry = gMiniMailRuntime.messages.data()
+    MailMessage* const entry = session.WorldScene().mail.data->miniMail.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::ptrdiff_t message = 9; message > 0; --message) {
         entry[message] = entry[message - 1];
@@ -842,15 +799,15 @@ void PrependMiniMailMessage_5343C0(
 }
 
 // 原函数：0x00534480。
-void RemoveMiniMailContact_534480(const std::int32_t index)
+void RemoveMiniMailContact_534480(session::ClientSession& session, const std::int32_t index)
 {
-    if (index < 0 || index >= static_cast<std::int32_t>(gMiniMailRuntime.contacts.size())) {
+    if (index < 0 || index >= static_cast<std::int32_t>(session.WorldScene().mail.data->miniMail.contacts.size())) {
         return;
     }
-    gMiniMailRuntime.contacts[index].used = 0;
-    MailMessage* const first = gMiniMailRuntime.messages.data()
+    session.WorldScene().mail.data->miniMail.contacts[index].used = 0;
+    MailMessage* const first = session.WorldScene().mail.data->miniMail.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
-    const auto remaining = static_cast<std::ptrdiff_t>(gMiniMailRuntime.messages.size()) - index * 10;
+    const auto remaining = static_cast<std::ptrdiff_t>(session.WorldScene().mail.data->miniMail.messages.size()) - index * 10;
     for (std::ptrdiff_t message = 0; message < std::min(std::ptrdiff_t{20}, remaining); ++message) {
         MailMessage* const entry = first + message;
         entry->text.clear();
@@ -861,18 +818,18 @@ void RemoveMiniMailContact_534480(const std::int32_t index)
 }
 
 // 原函数：0x0050F430。
-void HandleMiniMailContactRemovalReply_50F430(cg::network::CgConnection&, const char* const payload)
+void HandleMiniMailContactRemovalReply_50F430(cg::network::CgConnection& connection, const char* const payload)
 {
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    const std::int32_t index = FindMiniMailContactByKey_534370(key);
-    RemoveMiniMailContact_534480(index);
+    const std::int32_t index = FindMiniMailContactByKey_534370(connection.Owner(), key);
+    RemoveMiniMailContact_534480(connection.Owner(), index);
 }
 
 // 原函数：0x0050F7F0。
 void HandleMiniMailReply_50F7F0(cg::network::CgConnection& connection, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
-    const std::int32_t index = FindMiniMailContactByKey_534370(key);
+    const std::int32_t index = FindMiniMailContactByKey_534370(connection.Owner(), key);
     if (index == -1) {
         return;
     }
@@ -882,13 +839,13 @@ void HandleMiniMailReply_50F7F0(cg::network::CgConnection& connection, const std
     network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    PrependMiniMailMessage_5343C0(index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
-    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, gMiniMailRuntime.contacts[index].name10);
-    static_cast<void>(UpdateUnreadMailPageHint_518DA0());
-    if (gViewedMailContactId_CF4FC0 == key) {
-        const std::int32_t position = gViewedMailMessageIndex_D046D4;
+    PrependMiniMailMessage_5343C0(connection.Owner(), index, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text));
+    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, connection.Owner().WorldScene().mail.data->miniMail.contacts[index].name10);
+    static_cast<void>(UpdateUnreadMailPageHint_518DA0(connection.Owner()));
+    if (connection.Owner().WorldScene().mail.data->viewedContactId == key) {
+        const std::int32_t position = connection.Owner().WorldScene().mail.data->viewedMessageIndex;
         if (position < 9) {
-            gViewedMailMessageIndex_D046D4 = position + 1;
+            connection.Owner().WorldScene().mail.data->viewedMessageIndex = position + 1;
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
@@ -898,13 +855,13 @@ void HandleMiniMailReply_50F7F0(cg::network::CgConnection& connection, const std
 // 原函数：0x0050F9E0。
 void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connection, const char* const payload)
 {
-    const std::int32_t index = FindFreeMiniMailContactSlot_5343A0();
+    const std::int32_t index = FindFreeMiniMailContactSlot_5343A0(connection.Owner());
     if (index == -1) {
         return;
     }
-    MailMessage* const first = gMiniMailRuntime.messages.data()
+    MailMessage* const first = connection.Owner().WorldScene().mail.data->miniMail.messages.data()
         + static_cast<std::ptrdiff_t>(index) * 10;
-    const auto remaining = static_cast<std::ptrdiff_t>(gMiniMailRuntime.messages.size()) - index * 10;
+    const auto remaining = static_cast<std::ptrdiff_t>(connection.Owner().WorldScene().mail.data->miniMail.messages.size()) - index * 10;
     for (std::ptrdiff_t message = 0; message < std::min(std::ptrdiff_t{20}, remaining); ++message) {
         MailMessage* const entry = first + message;
         entry->text.clear();
@@ -913,7 +870,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
         entry->kind = std::byte{0};
     }
 
-    MiniMailContactRecord& record = gMiniMailRuntime.contacts[index];
+    MiniMailContactRecord& record = connection.Owner().WorldScene().mail.data->miniMail.contacts[index];
     record.used = 1;
     record.key04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
@@ -936,9 +893,9 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
         input::UnescapeLegacyTextAndNotify_52D2F0(fieldBytes);
         record.text21 = cg::text::FromGbkWide(fieldBytes);
     }
-    const std::uint32_t sequence = gMiniMailSequence1075A88;
+    const std::uint32_t sequence = connection.Owner().WorldScene().mail.data->miniMailSequence;
     record.sequence02 = static_cast<std::uint16_t>(sequence);
-    gMiniMailSequence1075A88 = sequence + 1u;
+    connection.Owner().WorldScene().mail.data->miniMailSequence = sequence + 1u;
 
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
     char timestamp[256];
@@ -951,40 +908,40 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
     std::wstring formattedTimestamp;
     static_cast<void>(FormatMailTimestamp_534520(connection.Owner(), formattedTimestamp));
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
-    if (gProfiles1074938[selected].value00 == key) {
-        PrependMiniMailMessage_5343C0(index, 1, formattedTimestamp, cg::text::FromGbkWide(text));
+    if (connection.Owner().WorldScene().mail.data->profiles[selected].value00 == key) {
+        PrependMiniMailMessage_5343C0(connection.Owner(), index, 1, formattedTimestamp, cg::text::FromGbkWide(text));
         return;
     }
-    PrependMiniMailMessage_5343C0(index, 0, formattedTimestamp, cg::text::FromGbkWide(text));
+    PrependMiniMailMessage_5343C0(connection.Owner(), index, 0, formattedTimestamp, cg::text::FromGbkWide(text));
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, record.name10);
     AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
 // 原函数：0x00518C80。
-std::int32_t ClearContactAndGuildMailStorage_518C80()
+std::int32_t ClearContactAndGuildMailStorage_518C80(session::ClientSession& session)
 {
-    gMailStorageF7CA08.fill({});
-    gGuildMailStorageDE0B30.fill({});
-    gMailContactPage_CB1384 = 0;
+    session.WorldScene().mail.data->messages.fill({});
+    session.WorldScene().mail.data->guildMessages.fill({});
+    session.WorldScene().mail.data->contactPage = 0;
     return 0;
 }
 
 // 原函数：0x00533910。
-void ClearMiniMailAndProfiles_533910()
+void ClearMiniMailAndProfiles_533910(session::ClientSession& session)
 {
-    for (MiniMailContactRecord& record : gMiniMailRuntime.contacts) {
+    for (MiniMailContactRecord& record : session.WorldScene().mail.data->miniMail.contacts) {
         record.used = 0;
     }
-    gMiniMailRuntime.messages.fill({});
-    gProfiles1074938.fill({});
-    gCurrentProfile10738E8 = {};
+    session.WorldScene().mail.data->miniMail.messages.fill({});
+    session.WorldScene().mail.data->profiles.fill({});
+    session.WorldScene().mail.data->currentProfile = {};
 }
 
 // 原函数：0x00533950。
-void InitializeDefaultProfiles_533950()
+void InitializeDefaultProfiles_533950(session::ClientSession& session)
 {
-    ProfileRuntimeRecord& first = gProfiles1074938[0];
+    ProfileRuntimeRecord& first = session.WorldScene().mail.data->profiles[0];
     first.text08.clear();
     first.value108 = -1;
     first.value04 = 0;
@@ -997,54 +954,54 @@ void InitializeDefaultProfiles_533950()
         entry.text08 = kProfileDefault58F614;
     }
     // 原533AB5在最后文本复制完成前取S16角色，两次整条复制共用此值。
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
     first.text728 = kProfileDefault58F614;
-    gProfiles1074938[1] = first;
-    gCurrentProfile10738E8 = gProfiles1074938[selected];
+    session.WorldScene().mail.data->profiles[1] = first;
+    session.WorldScene().mail.data->currentProfile = session.WorldScene().mail.data->profiles[selected];
 }
 
 // 原函数：0x00533B00。
-std::int32_t HasProfileDraftChanges_533B00()
+std::int32_t HasProfileDraftChanges_533B00(session::ClientSession& session)
 {
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    const ProfileRuntimeRecord& saved = gProfiles1074938[selected];
-    const std::int32_t firstCurrent = gCurrentProfile10738E8.entries410[0].value00;
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    const ProfileRuntimeRecord& saved = session.WorldScene().mail.data->profiles[selected];
+    const std::int32_t firstCurrent = session.WorldScene().mail.data->currentProfile.entries410[0].value00;
     const std::int32_t firstSaved = saved.entries410[0].value00;
     if (firstSaved != firstCurrent) {
         return 1;
     }
     const std::int32_t secondSaved = saved.entries410[1].value00;
-    const std::int32_t secondCurrent = gCurrentProfile10738E8.entries410[1].value00;
+    const std::int32_t secondCurrent = session.WorldScene().mail.data->currentProfile.entries410[1].value00;
     if (secondSaved != secondCurrent) {
         return 1;
     }
     const std::int32_t thirdSaved = saved.entries410[2].value00;
-    const std::int32_t thirdCurrent = gCurrentProfile10738E8.entries410[2].value00;
+    const std::int32_t thirdCurrent = session.WorldScene().mail.data->currentProfile.entries410[2].value00;
     if (thirdSaved != thirdCurrent) {
         return 1;
     }
     for (std::int32_t index = 0; index < 3; ++index) {
-        if (saved.entries410[index].text08 != gCurrentProfile10738E8.entries410[index].text08) {
+        if (saved.entries410[index].text08 != session.WorldScene().mail.data->currentProfile.entries410[index].text08) {
             return 1;
         }
     }
-    return saved.text728 != gCurrentProfile10738E8.text728 ? 1 : 0;
+    return saved.text728 != session.WorldScene().mail.data->currentProfile.text728 ? 1 : 0;
 }
 
 // 原函数：0x00533C80。
-std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
+std::int32_t PublishPlayerProfile_533C80(session::ClientSession& session, const std::int32_t mode)
 {
     if (mode != 0 && mode != 1) {
         return mode - 1;
     }
     if (mode == 0) {
-        for (ProfileEntry& entry : gCurrentProfile10738E8.entries410) {
+        for (ProfileEntry& entry : session.WorldScene().mail.data->currentProfile.entries410) {
             if (entry.text08.empty()) {
                 entry.text08 = kProfileDefault58F614;
             }
         }
-        if (gCurrentProfile10738E8.text728.empty()) {
-            gCurrentProfile10738E8.text728 = kProfileDefault58F614;
+        if (session.WorldScene().mail.data->currentProfile.text728.empty()) {
+            session.WorldScene().mail.data->currentProfile.text728 = kProfileDefault58F614;
         }
     }
 
@@ -1052,12 +1009,12 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
     std::array<std::wstring, 4> escaped;
     for (std::int32_t index = 0; index < 3; ++index) {
         const wchar_t* source = L"不公开"; // 原常量参考：0x0058F61C。
-        if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
+        if (session.WorldScene().mail.data->currentProfile.entries410[index].value00 != 0) {
             if (mode == 1) {
-                const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-                source = gProfiles1074938[selected].entries410[index].text08.data();
+                const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+                source = session.WorldScene().mail.data->profiles[selected].entries410[index].text08.data();
             } else {
-                source = gCurrentProfile10738E8.entries410[index].text08.data();
+                source = session.WorldScene().mail.data->currentProfile.entries410[index].text08.data();
             }
         }
         sourceText = source;
@@ -1065,74 +1022,74 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         escaped[index] = input::EscapeText(sourceText, 256);
     }
     if (mode == 1) {
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        sourceText = gProfiles1074938[selected].text728;
+        const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+        sourceText = session.WorldScene().mail.data->profiles[selected].text728;
     } else {
-        sourceText = gCurrentProfile10738E8.text728;
+        sourceText = session.WorldScene().mail.data->currentProfile.text728;
     }
     cg::core::NullSub_509080();
     escaped[3] = input::EscapeText(sourceText, 256);
 
     if (mode == 1) {
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        const std::int32_t third = gProfiles1074938[selected].entries410[2].value00;
-        const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
-        const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
-        const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-        return static_cast<std::int32_t>(cg::network::GetGameConnection().SendPlayerProfile(
+        const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+        const std::int32_t third = session.WorldScene().mail.data->profiles[selected].entries410[2].value00;
+        const std::int32_t second = session.WorldScene().mail.data->profiles[selected].entries410[1].value00;
+        const std::int32_t first = session.WorldScene().mail.data->profiles[selected].entries410[0].value00;
+        const auto networkSession = session.Connection().CaptureSession();
+        return static_cast<std::int32_t>(session.Connection().SendPlayerProfile(
             first, escaped[0], second, escaped[1], third, escaped[2], escaped[3]));
     }
 
-    const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
-    const std::int32_t second = gCurrentProfile10738E8.entries410[1].value00;
-    const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    static_cast<void>(cg::network::GetGameConnection().SendPlayerProfile(first, escaped[0], second, escaped[1],
+    const std::int32_t third = session.WorldScene().mail.data->currentProfile.entries410[2].value00;
+    const std::int32_t second = session.WorldScene().mail.data->currentProfile.entries410[1].value00;
+    const std::int32_t first = session.WorldScene().mail.data->currentProfile.entries410[0].value00;
+    const auto networkSession = session.Connection().CaptureSession();
+    static_cast<void>(session.Connection().SendPlayerProfile(first, escaped[0], second, escaped[1],
         third, escaped[2], escaped[3]));
 
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    ProfileRuntimeRecord& target = gProfiles1074938[selected];
-    target.text08 = gCurrentProfile10738E8.text08;
-    target.entries410[0].value00 = gCurrentProfile10738E8.entries410[0].value00;
-    target.entries410[0].value04 = gCurrentProfile10738E8.entries410[0].value04;
-    target.entries410[0].text08 = gCurrentProfile10738E8.entries410[0].text08;
-    const std::int32_t secondValue = gCurrentProfile10738E8.entries410[1].value04;
-    target.entries410[1].value00 = gCurrentProfile10738E8.entries410[1].value00;
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    ProfileRuntimeRecord& target = session.WorldScene().mail.data->profiles[selected];
+    target.text08 = session.WorldScene().mail.data->currentProfile.text08;
+    target.entries410[0].value00 = session.WorldScene().mail.data->currentProfile.entries410[0].value00;
+    target.entries410[0].value04 = session.WorldScene().mail.data->currentProfile.entries410[0].value04;
+    target.entries410[0].text08 = session.WorldScene().mail.data->currentProfile.entries410[0].text08;
+    const std::int32_t secondValue = session.WorldScene().mail.data->currentProfile.entries410[1].value04;
+    target.entries410[1].value00 = session.WorldScene().mail.data->currentProfile.entries410[1].value00;
     target.entries410[1].value04 = secondValue;
-    target.entries410[1].text08 = gCurrentProfile10738E8.entries410[1].text08;
-    const std::int32_t thirdValue = gCurrentProfile10738E8.entries410[2].value04;
-    target.entries410[2].value00 = gCurrentProfile10738E8.entries410[2].value00;
+    target.entries410[1].text08 = session.WorldScene().mail.data->currentProfile.entries410[1].text08;
+    const std::int32_t thirdValue = session.WorldScene().mail.data->currentProfile.entries410[2].value04;
+    target.entries410[2].value00 = session.WorldScene().mail.data->currentProfile.entries410[2].value00;
     target.entries410[2].value04 = thirdValue;
-    target.entries410[2].text08 = gCurrentProfile10738E8.entries410[2].text08;
+    target.entries410[2].text08 = session.WorldScene().mail.data->currentProfile.entries410[2].text08;
     const auto bytes = static_cast<std::int32_t>(
-        cg::text::ToGbk(gCurrentProfile10738E8.text728).size() + 1);
-    target.text728 = gCurrentProfile10738E8.text728;
+        cg::text::ToGbk(session.WorldScene().mail.data->currentProfile.text728).size() + 1);
+    target.text728 = session.WorldScene().mail.data->currentProfile.text728;
     return bytes;
 }
 
 // 原函数：0x00534290。
-network::SendResult ResendSavedPlayerProfile_534290()
+network::SendResult ResendSavedPlayerProfile_534290(session::ClientSession& session)
 {
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    const std::int32_t enabled = gProfiles1074938[selected].value04;
-    static_cast<void>(PublishPlayerProfile_533C80(1));
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    return cg::network::GetGameConnection().SetProfileVisibilityRequest(enabled != 0 ? 1 : 0);
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    const std::int32_t enabled = session.WorldScene().mail.data->profiles[selected].value04;
+    static_cast<void>(PublishPlayerProfile_533C80(session, 1));
+    const auto networkSession = session.Connection().CaptureSession();
+    return session.Connection().SetProfileVisibilityRequest(enabled != 0 ? 1 : 0);
 }
 
 // 原函数：0x0050F2A0。
-std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(cg::network::CgConnection&, const char* const payload)
+std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(cg::network::CgConnection& connection, const char* const payload)
 {
     for (std::int32_t index = 0; index < 100; ++index) {
-        gCategory105FA10.records[index].used = 0;
-        gCategory105FA10.records[index + 100].used = 0;
+        connection.Owner().WorldScene().mail.data->category.records[index].used = 0;
+        connection.Owner().WorldScene().mail.data->category.records[index + 100].used = 0;
     }
-    gCategory105FA10.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    gCategory105FA10.count08 = 0;
+    connection.Owner().WorldScene().mail.data->category.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    connection.Owner().WorldScene().mail.data->category.count08 = 0;
     std::int32_t field = 2;
     std::int32_t count = 0;
     for (;;) {
-        CategoryRecord& source = gCategory105FA10.records[count];
+        CategoryRecord& source = connection.Owner().WorldScene().mail.data->category.records[count];
         source.used = 1;
         source.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         source.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
@@ -1141,13 +1098,13 @@ std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(cg::network::CgConnectio
             payload, '|', field++, 255, text0CBytes);
         input::UnescapeLegacyTextAndNotify_52D2F0(text0CBytes);
         source.text0C = cg::text::FromGbkWide(text0CBytes);
-        CategoryRecord& target = gCategory105FA10.records[count + 100];
+        CategoryRecord& target = connection.Owner().WorldScene().mail.data->category.records[count + 100];
         target.used = 1;
         target.value04 = source.value04;
         target.value08 = source.value08;
         target.text0C = source.text0C;
         ++count;
-        gCategory105FA10.count08 = count;
+        connection.Owner().WorldScene().mail.data->category.count08 = count;
         if (status == 1) {
             return count;
         }
@@ -1159,13 +1116,13 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
 {
     const std::int32_t first = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
-    gCategory105FA10.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    networkConnection.Owner().WorldScene().mail.data->category.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
     const std::int16_t selected = networkConnection.LoginRequests().selectedCharacterIndex;
-    gProfiles1074938[selected].value00 = key;
-    const std::int32_t previous = gCategory105FA10.value00;
+    networkConnection.Owner().WorldScene().mail.data->profiles[selected].value00 = key;
+    const std::int32_t previous = networkConnection.Owner().WorldScene().mail.data->category.value00;
     std::int32_t mask = previous != first ? 1 : 0;
-    if (gCategory105FA10.value04 != second) {
+    if (networkConnection.Owner().WorldScene().mail.data->category.value04 != second) {
         mask |= 2;
     }
     if (mask != 0) {
@@ -1175,17 +1132,17 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
 }
 
 // 原函数：0x0050F8E0。
-std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnection&, const char* const payload)
+std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnection& connection, const char* const payload)
 {
     for (std::int32_t index = 200; index < 300; ++index) {
-        gCategory105FA10.records[index].used = 0;
+        connection.Owner().WorldScene().mail.data->category.records[index].used = 0;
     }
-    gCategory105FA10.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    gCategory105FA10.count0C = 0;
+    connection.Owner().WorldScene().mail.data->category.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    connection.Owner().WorldScene().mail.data->category.count0C = 0;
     std::int32_t field = 2;
     std::int32_t count = 0;
     for (;;) {
-        CategoryRecord& record = gCategory105FA10.records[count + 200];
+        CategoryRecord& record = connection.Owner().WorldScene().mail.data->category.records[count + 200];
         record.used = 1;
         record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
         record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
@@ -1195,7 +1152,7 @@ std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnect
         input::UnescapeLegacyTextAndNotify_52D2F0(text0CBytes);
         record.text0C = cg::text::FromGbkWide(text0CBytes);
         ++count;
-        gCategory105FA10.count0C = count;
+        connection.Owner().WorldScene().mail.data->category.count0C = count;
         if (status == 1) {
             return count;
         }
@@ -1203,30 +1160,30 @@ std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnect
 }
 
 // 原函数：0x004C9E40。
-void HandleProfileCategorySelectionReply_4C9E40(const std::int32_t, char* const payload)
+void HandleProfileCategorySelectionReply_4C9E40(session::ClientSession& session, const std::int32_t, char* const payload)
 {
     input::UnescapeLegacyText_52D150(payload);
     std::int32_t field = 1;
-    for (std::int32_t index = 0; index < gCategory105FA10.count08; ++index) {
+    for (std::int32_t index = 0; index < session.WorldScene().mail.data->category.count08; ++index) {
         const auto mask = static_cast<std::uint8_t>(
             network::ParseDelimitedInteger_52CFA0(payload, '|', field++));
-        gCategory105FA10.records[index].selected10C = mask & 1u;
-        gCategory105FA10.records[index + 100].selected10C = (mask >> 1) & 1u;
+        session.WorldScene().mail.data->category.records[index].selected10C = mask & 1u;
+        session.WorldScene().mail.data->category.records[index + 100].selected10C = (mask >> 1) & 1u;
     }
-    for (std::int32_t index = 0; index < gCategory105FA10.count0C; ++index) {
+    for (std::int32_t index = 0; index < session.WorldScene().mail.data->category.count0C; ++index) {
         const auto mask = static_cast<std::uint8_t>(
             network::ParseDelimitedInteger_52CFA0(payload, '|', field++));
-        gCategory105FA10.records[index + 200].selected10C = mask & 1u;
+        session.WorldScene().mail.data->category.records[index + 200].selected10C = mask & 1u;
     }
 }
 
 // 原函数：0x005342F0。
-std::int32_t FindProfileCategoryImage_5342F0(const std::int32_t key, const std::int32_t mode)
+std::int32_t FindProfileCategoryImage_5342F0(session::ClientSession& session, const std::int32_t key, const std::int32_t mode)
 {
     if (mode != 0 && mode != 1) {
         return -1;
     }
-    const CategoryRecord* record = gCategory105FA10.records.data()
+    const CategoryRecord* record = session.WorldScene().mail.data->category.records.data()
         + (mode == 0 ? 0 : 200);
     const CategoryRecord* const end = record + 100;
     for (; record != end; ++record) {
@@ -1238,18 +1195,18 @@ std::int32_t FindProfileCategoryImage_5342F0(const std::int32_t key, const std::
 }
 
 // 原函数：0x004CA330。
-void HandleProfileSearchResultsReply_4CA330(const std::int32_t, char* const payload)
+void HandleProfileSearchResultsReply_4CA330(session::ClientSession& session, const std::int32_t, char* const payload)
 {
-    for (ProfileSearchRecord& record : gProfileSearch105C398.records) {
+    for (ProfileSearchRecord& record : session.WorldScene().mail.data->profileSearch.records) {
         record.used = 0;
     }
     input::UnescapeLegacyText_52D150(payload);
-    gProfileSearch105C398.value00 =
+    session.WorldScene().mail.data->profileSearch.value00 =
         network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    gProfileSearch105C398.value04 =
+    session.WorldScene().mail.data->profileSearch.value04 =
         network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
     std::int32_t field = 3;
-    for (ProfileSearchRecord& record : gProfileSearch105C398.records) {
+    for (ProfileSearchRecord& record : session.WorldScene().mail.data->profileSearch.records) {
         if (network::ParseDelimitedInteger_52CFA0(payload, '|', field) == -1) {
             return;
         }
@@ -1270,10 +1227,10 @@ void HandleProfileSearchResultsReply_4CA330(const std::int32_t, char* const payl
 }
 
 // 原函数：0x004CAC60。
-std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* const payload)
+std::int32_t HandleViewedPlayerProfileReply_4CAC60(session::ClientSession& session, const std::int32_t, char* const payload)
 {
     input::UnescapeLegacyText_52D150(payload);
-    ProfileRuntimeRecord& record = gViewedProfile105ECE0;
+    ProfileRuntimeRecord& record = session.WorldScene().mail.data->viewedProfile;
     char text[256];
     record.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 255, text);
@@ -1311,15 +1268,15 @@ std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* con
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
-    const std::int32_t second = FindProfileCategoryImage_5342F0(record.entries410[1].value00, 0);
+    const std::int32_t second = FindProfileCategoryImage_5342F0(session, record.entries410[1].value00, 0);
     if (second != -1) {
         record.entries410[1].value04 = second;
     }
-    const std::int32_t first = FindProfileCategoryImage_5342F0(record.entries410[0].value00, 0);
+    const std::int32_t first = FindProfileCategoryImage_5342F0(session, record.entries410[0].value00, 0);
     if (first != -1) {
         record.entries410[0].value04 = first;
     }
-    const std::int32_t third = FindProfileCategoryImage_5342F0(record.entries410[2].value00, 1);
+    const std::int32_t third = FindProfileCategoryImage_5342F0(session, record.entries410[2].value00, 1);
     if (third != -1) {
         record.entries410[2].value04 = third;
     }
@@ -1327,13 +1284,13 @@ std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* con
 }
 
 // 原函数：0x0050F450。
-void HandlePlayerProfileReply_50F450(cg::network::CgConnection&, const char* const text1, const std::int32_t value2,
+void HandlePlayerProfileReply_50F450(cg::network::CgConnection& connection, const char* const text1, const std::int32_t value2,
     const char* const text3, const char* const text4, const char* const text5,
     const std::int32_t value6, const std::int32_t value7, const char* const text8,
     const std::int32_t value9, const char* const text10, const std::int32_t value11,
     const char* const text12, const char* const text13)
 {
-    ProfileRuntimeRecord& record = gReceivedProfile1074110;
+    ProfileRuntimeRecord& record = connection.Owner().WorldScene().mail.data->receivedProfile;
     std::array<std::array<char, 256>, 8> buffers;
     record.value10C = value6;
     std::strcpy(buffers[4].data(), text1);
@@ -1367,25 +1324,25 @@ void HandlePlayerProfileReply_50F450(cg::network::CgConnection&, const char* con
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
-    const std::int32_t second = FindProfileCategoryImage_5342F0(record.entries410[1].value00, 0);
+    const std::int32_t second = FindProfileCategoryImage_5342F0(connection.Owner(), record.entries410[1].value00, 0);
     if (second != -1) {
         record.entries410[1].value04 = second;
     }
-    const std::int32_t first = FindProfileCategoryImage_5342F0(record.entries410[0].value00, 0);
+    const std::int32_t first = FindProfileCategoryImage_5342F0(connection.Owner(), record.entries410[0].value00, 0);
     if (first != -1) {
         record.entries410[0].value04 = first;
     }
-    const std::int32_t third = FindProfileCategoryImage_5342F0(record.entries410[2].value00, 1);
+    const std::int32_t third = FindProfileCategoryImage_5342F0(connection.Owner(), record.entries410[2].value00, 1);
     if (third != -1) {
         record.entries410[2].value04 = third;
     }
-    static_cast<void>(ui::WindowProfileReply_Open());
+    static_cast<void>(ui::WindowProfileReply_Open(connection.Owner()));
 }
 
 // 原函数：0x005348A0。
-std::int32_t SaveProfileCategoryFile_5348A0()
+std::int32_t SaveProfileCategoryFile_5348A0(session::ClientSession& session)
 {
-    auto disk = EncodeCategories();
+    auto disk = EncodeCategories(session);
     std::FILE* const stream = _wfopen(L"bin\\category.dat", L"wb+");
     if (stream == nullptr) {
         return 0;
@@ -1396,23 +1353,23 @@ std::int32_t SaveProfileCategoryFile_5348A0()
 }
 
 // 原函数：0x00534910。
-std::int32_t LoadProfileCategoryFile_534910()
+std::int32_t LoadProfileCategoryFile_534910(session::ClientSession& session)
 {
-    auto disk = EncodeCategories();
+    auto disk = EncodeCategories(session);
     std::FILE* const stream = _wfopen(L"bin\\category.dat", L"rb+");
     if (stream == nullptr) {
         return 0;
     }
     const std::size_t bytes = std::fread(&disk, 1, sizeof(disk), stream);
     static_cast<void>(std::fclose(stream));
-    DecodeCategories(disk, bytes);
+    DecodeCategories(session, disk, bytes);
     return 1;
 }
 
 // 原函数：0x005345A0。
-std::int32_t ResetCharacterProfile_5345A0(const std::int32_t index)
+std::int32_t ResetCharacterProfile_5345A0(session::ClientSession& session, const std::int32_t index)
 {
-    ProfileRuntimeRecord& record = gProfiles1074938[index];
+    ProfileRuntimeRecord& record = session.WorldScene().mail.data->profiles[index];
     record.text08.clear();
     record.value108 = -1;
     record.value04 = 0;
@@ -1425,17 +1382,17 @@ std::int32_t ResetCharacterProfile_5345A0(const std::int32_t index)
         entry.text08 = kProfileDefault58F614;
     }
     // 原534737在末条文本的movsd与movsb之间读取当前角色，不沿用重置实参。
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
     record.text728 = kProfileDefault58F614;
-    gCurrentProfile10738E8 = gProfiles1074938[selected];
+    session.WorldScene().mail.data->currentProfile = session.WorldScene().mail.data->profiles[selected];
     return selected;
 }
 
 // 原函数：0x00534770。
-std::int32_t SavePlayerProfilesFile_534770()
+std::int32_t SavePlayerProfilesFile_534770(session::ClientSession& session)
 {
     std::array<ProfileDiskRecord, 2> disk{};
-    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
+    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(session.WorldScene().mail.data->profiles[i]); }
     const auto path = std::format(L"{}\\profile.dat",
         login::detail::ReadSelectedSavedDirectory());
     std::FILE* const stream = _wfopen(path.c_str(), L"wb+");
@@ -1448,10 +1405,10 @@ std::int32_t SavePlayerProfilesFile_534770()
 }
 
 // 原函数：0x005347F0。
-std::int32_t LoadPlayerProfilesFile_5347F0()
+std::int32_t LoadPlayerProfilesFile_5347F0(session::ClientSession& session)
 {
     std::array<ProfileDiskRecord, 2> disk{};
-    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(gProfiles1074938[i]); }
+    for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(session.WorldScene().mail.data->profiles[i]); }
     const auto path = std::format(L"{}\\profile.dat",
         login::detail::ReadSelectedSavedDirectory());
     std::FILE* const stream = _wfopen(path.c_str(), L"rb+");
@@ -1463,60 +1420,60 @@ std::int32_t LoadPlayerProfilesFile_5347F0()
     for (std::size_t i = 0; i < disk.size(); ++i) {
         const std::size_t offset = i * sizeof(ProfileDiskRecord);
         if (bytes <= offset) { break; }
-        DecodeProfile(gProfiles1074938[i], disk[i], bytes - offset);
+        DecodeProfile(session.WorldScene().mail.data->profiles[i], disk[i], bytes - offset);
     }
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    gCurrentProfile10738E8 = gProfiles1074938[selected];
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    session.WorldScene().mail.data->currentProfile = session.WorldScene().mail.data->profiles[selected];
     return 1;
 }
 
 // 原函数：0x00518CB0。
-std::int32_t LoadContactAndGuildMailFiles_518CB0()
+std::int32_t LoadContactAndGuildMailFiles_518CB0(session::ClientSession& session)
 {
     const auto mailPath = std::format(L"{}\\mail.dat",
         login::detail::ReadSelectedSavedDirectory());
     std::FILE* stream = _wfopen(mailPath.c_str(), L"rb");
     if (stream == nullptr) {
-        return SaveContactMailFile_519300();
+        return SaveContactMailFile_519300(session);
     }
     std::unique_ptr<std::FILE, decltype(&std::fclose)> file(stream, &std::fclose);
     // 先编码旧值，保留短读时未覆盖的记录部分。
-    std::vector<MailDiskMessage> mailDisk(gMailStorageF7CA08.size());
+    std::vector<MailDiskMessage> mailDisk(session.WorldScene().mail.data->messages.size());
     for (std::size_t i = 0; i < mailDisk.size(); ++i) {
-        mailDisk[i] = EncodeMailMessage(gMailStorageF7CA08[i]);
+        mailDisk[i] = EncodeMailMessage(session.WorldScene().mail.data->messages[i]);
     }
     const std::size_t mailBytes = std::fread(mailDisk.data(), 1, mailDisk.size() * sizeof(MailDiskMessage), stream);
     static_cast<void>(std::fclose(file.release()));
     for (std::size_t i = 0; i * sizeof(MailDiskMessage) < mailBytes; ++i) {
-        DecodeMailMessage(gMailStorageF7CA08[i], mailDisk[i], mailBytes - i * sizeof(MailDiskMessage));
+        DecodeMailMessage(session.WorldScene().mail.data->messages[i], mailDisk[i], mailBytes - i * sizeof(MailDiskMessage));
     }
 
     const auto guildPath = std::format(L"{}\\guildmail.dat",
         login::detail::ReadSelectedSavedDirectory());
     stream = _wfopen(guildPath.c_str(), L"rb");
     if (stream == nullptr) {
-        return SaveGuildMailFile_519550();
+        return SaveGuildMailFile_519550(session);
     }
     file.reset(stream);
-    std::vector<GuildMailDiskEntry> guildDisk(gGuildMailStorageDE0B30.size());
+    std::vector<GuildMailDiskEntry> guildDisk(session.WorldScene().mail.data->guildMessages.size());
     for (std::size_t i = 0; i < guildDisk.size(); ++i) {
-        guildDisk[i] = EncodeGuildMailEntry(gGuildMailStorageDE0B30[i]);
+        guildDisk[i] = EncodeGuildMailEntry(session.WorldScene().mail.data->guildMessages[i]);
     }
     const std::size_t guildBytes = std::fread(guildDisk.data(), 1, guildDisk.size() * sizeof(GuildMailDiskEntry), stream);
     for (std::size_t i = 0; i * sizeof(GuildMailDiskEntry) < guildBytes; ++i) {
-        DecodeGuildMailEntry(gGuildMailStorageDE0B30[i], guildDisk[i], guildBytes - i * sizeof(GuildMailDiskEntry));
+        DecodeGuildMailEntry(session.WorldScene().mail.data->guildMessages[i], guildDisk[i], guildBytes - i * sizeof(GuildMailDiskEntry));
     }
     return std::fclose(file.release());
 }
 
 // 原函数：0x00519300。
-std::int32_t SaveContactMailFile_519300()
+std::int32_t SaveContactMailFile_519300(session::ClientSession& session)
 {
     const auto path = std::format(L"{}\\mail.dat",
         login::detail::ReadSelectedSavedDirectory());
-    std::vector<MailDiskMessage> disk(gMailStorageF7CA08.size());
+    std::vector<MailDiskMessage> disk(session.WorldScene().mail.data->messages.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
-        disk[i] = EncodeMailMessage(gMailStorageF7CA08[i]);
+        disk[i] = EncodeMailMessage(session.WorldScene().mail.data->messages[i]);
     }
     std::FILE* const stream = _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {
@@ -1527,13 +1484,13 @@ std::int32_t SaveContactMailFile_519300()
 }
 
 // 原函数：0x00519550。
-std::int32_t SaveGuildMailFile_519550()
+std::int32_t SaveGuildMailFile_519550(session::ClientSession& session)
 {
     const auto path = std::format(L"{}\\guildmail.dat",
         login::detail::ReadSelectedSavedDirectory());
-    std::vector<GuildMailDiskEntry> disk(gGuildMailStorageDE0B30.size());
+    std::vector<GuildMailDiskEntry> disk(session.WorldScene().mail.data->guildMessages.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
-        disk[i] = EncodeGuildMailEntry(gGuildMailStorageDE0B30[i]);
+        disk[i] = EncodeGuildMailEntry(session.WorldScene().mail.data->guildMessages[i]);
     }
     std::FILE* const stream = _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {
@@ -1544,37 +1501,37 @@ std::int32_t SaveGuildMailFile_519550()
 }
 
 // 原函数：0x00519290。
-std::int32_t ClearCurrentCharacterContactMail_519290()
+std::int32_t ClearCurrentCharacterContactMail_519290(session::ClientSession& session)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10, 60 * 10, MailMessage{});
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    std::fill_n(session.WorldScene().mail.data->messages.data() + selected * 60 * 10, 60 * 10, MailMessage{});
     return 0;
 }
 
 // 原函数：0x005194C0。
-std::int32_t ClearCurrentCharacterGuildMail_5194C0()
+std::int32_t ClearCurrentCharacterGuildMail_5194C0(session::ClientSession& session)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    std::fill_n(gGuildMailStorageDE0B30.data() + selected * 200, 200, GuildMailEntry{});
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    std::fill_n(session.WorldScene().mail.data->guildMessages.data() + selected * 200, 200, GuildMailEntry{});
     return 0;
 }
 
 // 原函数：0x005192C0。
-std::int32_t ClearContactMailMessages_5192C0(const std::int32_t number)
+std::int32_t ClearContactMailMessages_5192C0(session::ClientSession& session, const std::int32_t number)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    std::fill_n(session.WorldScene().mail.data->messages.data() + selected * 60 * 10
         + static_cast<std::ptrdiff_t>(number) * 10, 10, MailMessage{});
     return 0;
 }
 
 // GML01：原selected S16/200邮件槽W32==1最后匹配，无则-1。
 // 原函数：0x005195F0。
-std::int32_t FindLastActiveGuildMailEntry_5195F0(const std::int32_t key)
+std::int32_t FindLastActiveGuildMailEntry_5195F0(session::ClientSession& session, const std::int32_t key)
 {
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
     const GuildMailEntry* entry =
-        gGuildMailStorageDE0B30.data() + selected * 200;
+        session.WorldScene().mail.data->guildMessages.data() + selected * 200;
     std::int32_t result = -1;
     for (std::int32_t index = 0; index < 200; ++index) {
         const std::uint32_t active = entry->active;
@@ -1591,14 +1548,14 @@ std::int32_t FindLastActiveGuildMailEntry_5195F0(const std::int32_t key)
 
 // GML01：原末匹配后fresh角色，整C88清零（包含active/key），原S32返回保持。
 // 原函数：0x005194F0。
-std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
+std::int32_t DeleteGuildMailEntry_5194F0(session::ClientSession& session, const std::int32_t key)
 {
-    const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(key);
+    const std::int32_t index = FindLastActiveGuildMailEntry_5195F0(session, key);
     if (index == -1) {
         return index;
     }
-    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
+    const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    GuildMailEntry* const entry = session.WorldScene().mail.data->guildMessages.data()
         + selected * 200 + static_cast<std::ptrdiff_t>(index);
     *entry = {};
     return 0;
@@ -1606,22 +1563,22 @@ std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
 
 // GML01：原查找门槛/分支fresh角色、空槽或九次倒序移位，kind两BYTE及name/text发布序保持。
 // 原函数：0x00519370。
-std::uintptr_t PrependGuildMailMessage_519370(
+std::uintptr_t PrependGuildMailMessage_519370(session::ClientSession& session,
     const std::int32_t key, const std::int32_t kind,
     const std::wstring_view name, const std::wstring_view text)
 {
     if (cg::world::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
         return 0xFFFFFFFFu;
     }
-    const std::int32_t existingIndex = FindLastActiveGuildMailEntry_5195F0(key);
+    const std::int32_t existingIndex = FindLastActiveGuildMailEntry_5195F0(session, key);
     GuildMailEntry* entry;
     if (existingIndex == -1) {
-        const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
         const std::ptrdiff_t groupBytes = 200 * sizeof(GuildMailEntry);
         const std::ptrdiff_t groupOffset = selected * groupBytes;
         std::int32_t index = 0;
         for (; index < 200; ++index) {
-            entry = gGuildMailStorageDE0B30.data() + selected * 200 + index;
+            entry = session.WorldScene().mail.data->guildMessages.data() + selected * 200 + index;
             const std::uint32_t active = entry->active;
             if (active == 0) {
                 break;
@@ -1629,15 +1586,15 @@ std::uintptr_t PrependGuildMailMessage_519370(
         }
         if (index == 200) {
             // 原 EAX 是满组末地址再加 4；保持原生宽度，不构造越界指针。
-            return reinterpret_cast<std::uintptr_t>(gGuildMailStorageDE0B30.data())
+            return reinterpret_cast<std::uintptr_t>(session.WorldScene().mail.data->guildMessages.data())
                 + static_cast<std::uintptr_t>(groupOffset + groupBytes + 4);
         }
         const std::uint32_t active = 1;
         entry->key = key;
         entry->active = active;
     } else {
-        const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        entry = gGuildMailStorageDE0B30.data() + selected * 200 + existingIndex;
+        const std::ptrdiff_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+        entry = session.WorldScene().mail.data->guildMessages.data() + selected * 200 + existingIndex;
         for (std::ptrdiff_t message = 9; message != 0; --message) {
             entry->messages[message] = entry->messages[message - 1];
         }
@@ -1650,9 +1607,9 @@ std::uintptr_t PrependGuildMailMessage_519370(
     return textBytes;
 }
 
-std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(const std::int16_t selected)
+std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(session::ClientSession& session, const std::int16_t selected)
 {
-    GuildMailEntry* entry = gGuildMailStorageDE0B30.data()
+    GuildMailEntry* entry = session.WorldScene().mail.data->guildMessages.data()
         + static_cast<std::ptrdiff_t>(selected) * 200;
     const std::uintptr_t keyEnd =
         reinterpret_cast<std::uintptr_t>(cg::world::gOrderedRecords1051B14.data())

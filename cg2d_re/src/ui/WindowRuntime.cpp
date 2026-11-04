@@ -24,6 +24,8 @@
 
 namespace cg::ui {
 
+NativeWindowRuntimeState::NativeWindowRuntimeState() = default;
+
 WindowElementLink& WindowElementLink::operator=(WindowElement* const element)
 {
     windowId = element && element->owner ? element->owner->id : -1;

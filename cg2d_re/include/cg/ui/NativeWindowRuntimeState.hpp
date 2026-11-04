@@ -1385,6 +1385,7 @@ struct StallWindowRuntimeState {
 
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
+    NativeWindowRuntimeState();
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
     std::array<detail::WindowState, detail::kWindowCount> states {}; // 原0xC9A9B0，按ID寻址。
     detail::WindowPagePresentation* pagePresentation = nullptr; // 仅借用所属会话当前窗口调度栈记录。

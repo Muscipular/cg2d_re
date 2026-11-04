@@ -4594,11 +4594,6 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
             windows[index]->state |= 0x2000u;
             static_cast<void>(CenterPopupWindowPosition(id,
                 existing->width, existing->height, existing->x, existing->y));
-            if (id == WindowId_Shop || id == WindowId_ShopChoice) {
-                m_logw(L"[BZ][window.reuse] owner=%p id=%d window=%p state=0x%08X dialog=%d\n",
-                    static_cast<void*>(&session), id, static_cast<void*>(existing),
-                    static_cast<unsigned>(existing->state), session.WorldScene().npcDialog.type);
-            }
             return windows[index];
         }
     }
@@ -4798,11 +4793,6 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
         window->width, window->height, window->x, window->y));
     WindowRuntime_UpdateElementOrder(*window);
     pointer.currentWindow = previous;
-    if (id == WindowId_Shop || id == WindowId_ShopChoice) {
-        m_logw(L"[BZ][window.created] owner=%p id=%d window=%p state=0x%08X dialog=%d\n",
-            static_cast<void*>(&session), id, static_cast<void*>(window),
-            static_cast<unsigned>(window->state), session.WorldScene().npcDialog.type);
-    }
     WindowRuntime_QueueWindowOpen(*window);
     return window;
 }

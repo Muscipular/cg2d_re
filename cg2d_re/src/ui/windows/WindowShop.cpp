@@ -1,6 +1,5 @@
 #include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
-#include "cg/core/m_log.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -1635,14 +1634,9 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         }
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
-        m_logw(L"[BZ][shop.close] owner=%p reason=distance state=0x%08X\n",
-            static_cast<void*>(callbackWindow.ownerSession), static_cast<unsigned>(currentWindow->state));
         currentWindow->state |= 0x8000u;
     }
     if (shop.dialogType != npcDialog.type) {
-        m_logw(L"[BZ][shop.close] owner=%p reason=dialog_changed shop=%d current=%d state=0x%08X\n",
-            static_cast<void*>(callbackWindow.ownerSession), shop.dialogType, npcDialog.type,
-            static_cast<unsigned>(currentWindow->state));
         currentWindow->state |= 0x8000u;
     }
     if (auto* const element11 = currentWindow->FindElementById(WindowShopElementId::Element11); element11) element11->visible = 1;

@@ -819,8 +819,6 @@ static void WindowDialog_Route(
     auto& npcDialog = session.WorldScene().npcDialog;
     std::int32_t currentType = npcDialog.type;
     if (currentType >= 0 && type != currentType) {
-        m_logw(L"[BZ][route.replace] owner=%p requested=%d current=%d request=%d target=%d\n",
-            static_cast<void*>(&session), type, currentType, request, target);
         // 先解除旧对话状态并完成关闭，旧窗release不能消费随后发布的新数据。
         npcDialog.type = -1;
         if (currentType == 32) {
@@ -912,8 +910,6 @@ static void WindowDialog_Route(
         }
     }
     if (!enterNewType && npcDialog.type >= 0) {
-        m_logw(L"[BZ][route.blocked] owner=%p requested=%d current=%d request=%d target=%d\n",
-            static_cast<void*>(&session), type, npcDialog.type, request, target);
         return;
     }
     npcDialog.type = type;
@@ -941,15 +937,9 @@ static void WindowDialog_Route(
         return;
     case 6:
         created = WindowShop_OpenBuy(session, text);
-        m_logw(L"[BZ][route.buy] owner=%p items=%d animation=%p dialog=%d\n",
-            static_cast<void*>(&session), session.UiFrame().native.shop.itemCount,
-            static_cast<void*>(created), npcDialog.type);
         return;
     case 7:
         created = WindowShop_OpenSell(session, text);
-        m_logw(L"[BZ][route.sell] owner=%p items=%d animation=%p dialog=%d\n",
-            static_cast<void*>(&session), session.UiFrame().native.shop.replyItemCount,
-            static_cast<void*>(created), npcDialog.type);
         return;
     case 16:
         static_cast<void>(WindowShopChoice_OpenSkillChoice(session, text));
@@ -1282,25 +1272,14 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
 void WindowDialog_ReceiveReply(cg::network::CgConnection& networkConnection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    m_logw(L"[BZ][ui.receive] owner=%p conn=%llu type=%d value=%d request=%d target=%d textBytes=%zu scene=%d/%d dialog=%d\n",
-        static_cast<void*>(&networkConnection.Owner()), static_cast<unsigned long long>(networkConnection.Id()),
-        type, value, request, target, std::strlen(text),
-        networkConnection.Owner().WorldScene().sceneType, networkConnection.Owner().WorldScene().sceneState,
-        networkConnection.Owner().WorldScene().npcDialog.type);
     if (networkConnection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
-        m_logw(L"[BZ][ui.drop] owner=%p reason=replies_suppressed\n",
-            static_cast<void*>(&networkConnection.Owner()));
         return;
     }
     if (networkConnection.Owner().WorldScene().logoutToTownPending != 0) {
-        m_logw(L"[BZ][ui.drop] owner=%p reason=logout_pending\n",
-            static_cast<void*>(&networkConnection.Owner()));
         return;
     }
     const std::int32_t rippleGate = world::ReadRippleGateOnce(networkConnection.Owner());
     if (rippleGate != 0) {
-        m_logw(L"[BZ][ui.drop] owner=%p reason=ripple_gate value=%d\n",
-            static_cast<void*>(&networkConnection.Owner()), rippleGate);
         return;
     }
     detail::WindowDialog_RouteReply(networkConnection, type, value, request, target, text);

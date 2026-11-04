@@ -116,8 +116,8 @@ private:
     void SyncVisibleMapIfNeeded(session::ClientSession& session, int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void ResetMapCache(int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void MarkTilesDirtyForMapRect(int left, int top, int right, int bottom);
-    void BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY);
-    void BuildMapTile(MapExTile& tile, int tileX, int tileY, int mode);
+    void BuildOneVisibleTile(session::ClientSession& session, int startTileX, int endTileX, int startTileY, int endTileY);
+    void BuildMapTile(session::ClientSession& session, MapExTile& tile, int tileX, int tileY, int mode);
     bool UpdateTileTexture(MapExTile& tile);
     void DrawPoints(const WindowElement& element, int absX, int absY, int drawX, int drawY, const UIClipRect& controlClip);
     MapExTile& GetOrCreateTile(int tileX, int tileY);

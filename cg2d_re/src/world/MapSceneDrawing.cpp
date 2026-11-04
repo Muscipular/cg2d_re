@@ -22,14 +22,14 @@ namespace cg::world::detail {
 
 
 // 原 46D179：tile 与静态 obj 的描述符写序不同，不统一重建描述符。
-static void DrawCutTile(
+static void DrawCutTile(session::ClientSession& session,
     const std::uint16_t tile, const std::int32_t screenX, const std::int32_t screenY,
     render::GraphicDescriptor16& descriptor)
 {
     if (tile <= 999 || screenX < -64 || screenX >= platform::gWindowWidth + 32 || screenY < -48 || screenY >= platform::gWindowHeight + 24) {
         return;
     }
-    const CutRecord9FB954& cut = gCutData9FB948.records[tile - 1000];
+    const CutRecord9FB954& cut = session.WorldScene().map.data.cut.records[tile - 1000];
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.clipMode = 1;
@@ -62,7 +62,7 @@ static void DrawCutObject(
     if (object <= 999) {
         return;
     }
-    const CutRecord9FB954& cut = gCutData9FB948.records[object - 1000];
+    const CutRecord9FB954& cut = session.WorldScene().map.data.cut.records[object - 1000];
     const std::int16_t animationFlag = cut.value04;
     if (animationFlag == 1) {
         const std::int32_t startX = session.WorldScene().map.xStart;
@@ -129,7 +129,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
     const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
 {
-    const std::int32_t tile = ResolveMapGraphicNumber_46CF00(gMapTileArray[index]);
+    const std::int32_t tile = ResolveMapGraphicNumber_46CF00(session, session.WorldScene().map.data.tiles[index]);
     if (tile > 999) {
         if (screenX >= -32 && screenX < platform::gWindowWidth + 32 && screenY >= -24 && screenY < platform::gWindowHeight + 24) {
             const std::uint8_t layer =
@@ -145,7 +145,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
         }
     }
 
-    const std::int32_t object = ResolveMapGraphicNumber_46CF00(gMapObjArray[index]);
+    const std::int32_t object = ResolveMapGraphicNumber_46CF00(session, session.WorldScene().map.data.objects[index]);
     if (object > 999) {
         std::int32_t imageNo;
         static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
@@ -185,7 +185,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), 0, nullptr));
         } else if (object >= 250 && object <= 299) {
             const std::int32_t span = session.WorldScene().map.spanX;
-            const std::int32_t rawObject = gMapObjArray[span * row + diagonal + row];
+            const std::int32_t rawObject = session.WorldScene().map.data.objects[span * row + diagonal + row];
             static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(rawObject, screenX, screenY));
         } else if (object >= 200 && object <= 249) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(object));
@@ -247,7 +247,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
         const auto mapId = std::bit_cast<std::int32_t>(session.WorldScene().map.mapId);
         if (detail::ReadMapCacheRectangle_468C40(session,
                 mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
-                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
+                session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.hits.data()) < 0) {
             return;
         }
         const std::int32_t walkYEnd = session.WorldScene().map.yEnd;
@@ -257,13 +257,13 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
         if (cutMode) {
             static_cast<void>(detail::BuildMapWalkability_46D9C0(session,
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
-                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
-                gMapWalkabilityArray.data()));
+                session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.hits.data(),
+                session.WorldScene().map.data.walkability.data()));
         } else {
-            static_cast<void>(detail::BuildGraphicMapWalkability_4693F0(
+            static_cast<void>(detail::BuildGraphicMapWalkability_4693F0(session,
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
-                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
-                gMapWalkabilityArray.data()));
+                session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.hits.data(),
+                session.WorldScene().map.data.walkability.data()));
         }
         if (session.WorldScene().map.waitingForRectangleData != 0) {
             const auto direction = std::bit_cast<std::int16_t>(session.WorldScene().map.requestedRectangleDirection);
@@ -299,8 +299,8 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
             }
             const std::int32_t index = session.WorldScene().map.spanX * row + column;
             if (cutMode) {
-                detail::DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
-                detail::DrawCutObject(session, gMapObjArray[index], column, row, drawX, drawY, descriptor);
+                detail::DrawCutTile(session, session.WorldScene().map.data.tiles[index], drawX, drawY, descriptor);
+                detail::DrawCutObject(session, session.WorldScene().map.data.objects[index], column, row, drawX, drawY, descriptor);
             } else {
                 detail::DrawNormalMapCell(session, index, diagonal, row, drawX, drawY, markers);
             }

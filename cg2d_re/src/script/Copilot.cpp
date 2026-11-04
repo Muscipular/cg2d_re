@@ -52,7 +52,6 @@ constexpr int kReplanMoveDistance = 5;
 
 static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
 static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
-static auto& gMoveBlockMap = world::gMapWalkabilityArray;
 
 
 struct DiskMapCache {
@@ -167,9 +166,9 @@ static void setDiskState(std::vector<unsigned char>& state, int width, int heigh
     }
 }
 
-static void applySingleCellRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
+static void applySingleCellRule(session::ClientSession& session, std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(session, raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -224,9 +223,9 @@ static void applyFootprintRule(std::vector<unsigned char>& state, int width, int
     }
 }
 
-static void applyObjectRule(std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
+static void applyObjectRule(session::ClientSession& session, std::vector<unsigned char>& state, int width, int height, unsigned short raw, int x, int y)
 {
-    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(session, raw);
     if (imageId > 999) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -238,22 +237,22 @@ static void applyObjectRule(std::vector<unsigned char>& state, int width, int he
         return;
     }
 
-    applySingleCellRule(state, width, height, raw, x, y);
+    applySingleCellRule(session, state, width, height, raw, x, y);
 }
 
-static std::vector<unsigned char> synthesizeDiskCells(
+static std::vector<unsigned char> synthesizeDiskCells(session::ClientSession& session,
     int width, int height, const std::vector<unsigned short>& tileData, const std::vector<unsigned short>& objData, const std::vector<unsigned short>& hitData)
 {
     size_t cellCount = tileData.size();
     std::vector<unsigned char> state(cellCount, 0);
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            applySingleCellRule(state, width, height, tileData[diskIndex(width, x, y)], x, y);
+            applySingleCellRule(session, state, width, height, tileData[diskIndex(width, x, y)], x, y);
         }
     }
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            applyObjectRule(state, width, height, objData[diskIndex(width, x, y)], x, y);
+            applyObjectRule(session, state, width, height, objData[diskIndex(width, x, y)], x, y);
         }
     }
 
@@ -410,7 +409,7 @@ static void syncVisibleCache(session::ClientSession& session)
         for (int x = 0; x < session.WorldScene().map.spanX; ++x) {
             int globalX = session.WorldScene().map.xStart + x;
             int globalY = session.WorldScene().map.yStart + y;
-            session.Lua().copilot.data->knownMap[makeKey(globalX, globalY)] = gMoveBlockMap[x + y * session.WorldScene().map.spanX] == 1 ? kKnownBlocked : kKnownWalkable;
+            session.Lua().copilot.data->knownMap[makeKey(globalX, globalY)] = session.WorldScene().map.data.walkability[x + y * session.WorldScene().map.spanX] == 1 ? kKnownBlocked : kKnownWalkable;
         }
     }
 }
@@ -487,7 +486,7 @@ static bool loadDiskMap(session::ClientSession& session)
 
     next.width = header[2];
     next.height = header[3];
-    next.cells = synthesizeDiskCells(next.width, next.height, tileData, objData, hitData);
+    next.cells = synthesizeDiskCells(session, next.width, next.height, tileData, objData, hitData);
     next.tileData = std::move(tileData);
     next.objData = std::move(objData);
     next.hitData = std::move(hitData);
@@ -538,10 +537,10 @@ struct CellGraphicInfo {
     unsigned short sy = 0;
 };
 
-static CellGraphicInfo readCellGraphicInfo(unsigned short raw)
+static CellGraphicInfo readCellGraphicInfo(session::ClientSession& session, unsigned short raw)
 {
     CellGraphicInfo info;
-    info.imageId = world::ResolveMapGraphicNumber_46CF00(raw);
+    info.imageId = world::ResolveMapGraphicNumber_46CF00(session, raw);
     if (info.imageId > 999 || (info.imageId >= 60 && info.imageId <= 79)) {
         resource::GetGraphicMapNoIndex(info.imageId, &info.seqNo);
         resource::GetGraphicFlag1(info.seqNo, &info.flag);
@@ -552,9 +551,9 @@ static CellGraphicInfo readCellGraphicInfo(unsigned short raw)
     return info;
 }
 
-static unsigned char rawBlockState(unsigned short raw)
+static unsigned char rawBlockState(session::ClientSession& session, unsigned short raw)
 {
-    int imageId = world::ResolveMapGraphicNumber_46CF00(raw);
+    int imageId = world::ResolveMapGraphicNumber_46CF00(session, raw);
     if (imageId > 999 || (imageId >= 60 && imageId <= 79)) {
         std::int32_t seqNo = 0;
         unsigned short flag = 0;
@@ -613,7 +612,7 @@ static bool footprintCovers(Point origin, CellGraphicInfo info, Point p)
             if (objRaw == 0) {
                 continue;
             }
-            CellGraphicInfo objInfo = readCellGraphicInfo(objRaw);
+            CellGraphicInfo objInfo = readCellGraphicInfo(session, objRaw);
             if (objInfo.imageId <= 999 || !footprintCovers({x, y}, objInfo, p)) {
                 continue;
             }
@@ -674,7 +673,7 @@ static int markCoveringObjectBlocks(session::ClientSession& session, Point p, [[
             if (objRaw == 0) {
                 continue;
             }
-            CellGraphicInfo objInfo = readCellGraphicInfo(objRaw);
+            CellGraphicInfo objInfo = readCellGraphicInfo(session, objRaw);
             if (objInfo.imageId <= 999 || objInfo.flag != 0 || !footprintCovers({x, y}, objInfo, p)) {
                 continue;
             }
@@ -702,14 +701,14 @@ static void markDynamicBlockedByMapSource(session::ClientSession& session, Point
     unsigned short objRaw = session.Lua().copilot.data->diskMap.objData[index];
     unsigned short hitRaw = session.Lua().copilot.data->diskMap.hitData[index];
     bool hitWalkable = (hitRaw & 0x00FF) != 1;
-    bool tileWalkable = rawBlockState(tileRaw) != 1;
+    bool tileWalkable = rawBlockState(session, tileRaw) != 1;
     if (hitWalkable && tileWalkable) {
         int objMarked = markCoveringObjectBlocks(session, p, "stuck-obj");
         if (objMarked > 0) {
             return;
         }
         if (objRaw != 0) {
-            CellGraphicInfo objInfo = readCellGraphicInfo(objRaw);
+            CellGraphicInfo objInfo = readCellGraphicInfo(session, objRaw);
             if (objInfo.imageId > 999) {
                 if (markObjectFootprintBlocked(session, p, objRaw, objInfo, p, "stuck-obj-self") > 0) {
                     return;
@@ -750,11 +749,11 @@ static void markDynamicBlockedByMapSource(session::ClientSession& session, Point
     // unsigned short tileRaw = session.Lua().copilot.data->diskMap.tileData[index];
     // unsigned short objRaw = session.Lua().copilot.data->diskMap.objData[index];
     // unsigned short hitRaw = session.Lua().copilot.data->diskMap.hitData[index];
-    // CellGraphicInfo tileInfo = readCellGraphicInfo(tileRaw);
-    // CellGraphicInfo objInfo = readCellGraphicInfo(objRaw);
+    // CellGraphicInfo tileInfo = readCellGraphicInfo(session, tileRaw);
+    // CellGraphicInfo objInfo = readCellGraphicInfo(session, objRaw);
     // int lx = p.x - session.WorldScene().map.xStart;
     // int ly = p.y - session.WorldScene().map.yStart;
-    // int visible = isValidMap(session) && lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY ? gMoveBlockMap[lx + ly * session.WorldScene().map.spanX] : -1;
+    // int visible = isValidMap(session) && lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY ? session.WorldScene().map.data.walkability[lx + ly * session.WorldScene().map.spanX] : -1;
     // unsigned char disk = session.Lua().copilot.data->diskMap.cells[index];
     // unsigned char known = cachedKnownOrDiskCell(session, p);
     // m_log_i(
@@ -774,7 +773,7 @@ static bool toLocal(session::ClientSession& session, Point p, int& lx, int& ly)
 static bool canWalkLocal(session::ClientSession& session, int lx, int ly)
 {
     return isValidMap(session) && lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY
-        && gMoveBlockMap[lx + ly * session.WorldScene().map.spanX] != 1;
+        && session.WorldScene().map.data.walkability[lx + ly * session.WorldScene().map.spanX] != 1;
 }
 
 static bool canWalkLocalPoint(session::ClientSession& session, int lx, int ly)
@@ -883,8 +882,8 @@ static bool isBidirectionalWaypoint(session::ClientSession& session, Point playe
     int py = player.y - session.WorldScene().map.yStart;
     int tx = target.x - session.WorldScene().map.xStart;
     int ty = target.y - session.WorldScene().map.yStart;
-    int playerVisible = isValidMap(session) && px >= 0 && py >= 0 && px < session.WorldScene().map.spanX && py < session.WorldScene().map.spanY ? gMoveBlockMap[px + py * session.WorldScene().map.spanX] : -1;
-    int targetVisible = isValidMap(session) && tx >= 0 && ty >= 0 && tx < session.WorldScene().map.spanX && ty < session.WorldScene().map.spanY ? gMoveBlockMap[tx + ty * session.WorldScene().map.spanX] : -1;
+    int playerVisible = isValidMap(session) && px >= 0 && py >= 0 && px < session.WorldScene().map.spanX && py < session.WorldScene().map.spanY ? session.WorldScene().map.data.walkability[px + py * session.WorldScene().map.spanX] : -1;
+    int targetVisible = isValidMap(session) && tx >= 0 && ty >= 0 && tx < session.WorldScene().map.spanX && ty < session.WorldScene().map.spanY ? session.WorldScene().map.data.walkability[tx + ty * session.WorldScene().map.spanX] : -1;
     unsigned char playerKnown = cachedKnownOrDiskCell(session, player);
     unsigned char targetKnown = cachedKnownOrDiskCell(session, target);
     m_log_iw(L"[copilot] no path detail playerWalkable=%d playerKnown=%u playerVisible=%d playerDyn=%d targetKnown=%u targetVisible=%d targetDyn=%d diskLoaded=%d diskSize=%dx%d dyn=%u known=%u\n",

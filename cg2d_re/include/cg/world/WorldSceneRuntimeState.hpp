@@ -7,6 +7,7 @@
 #include "cg/world/SkillRuntimeSlots.hpp"
 #include "cg/world/WorldObjectRecord.hpp"
 #include "cg/world/MapEffectRuntimeState.hpp"
+#include "cg/world/MapDataRuntimeState.hpp"
 
 #include <array>
 #include <cstddef>
@@ -385,6 +386,7 @@ static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
 // 地图投影/移动分量、矩形请求窗口及自动地图重载门禁，由世界会话持有。
 struct WorldMapRuntimeState {
+    MapDataRuntimeState data {};
     std::uint32_t mapId = 0; // 原9A86DC。
     volatile std::int32_t floor = 0; // 原9EE8F0，保留逐次volatile读取。
     std::int16_t xStart = 0; // 原9DEF64。

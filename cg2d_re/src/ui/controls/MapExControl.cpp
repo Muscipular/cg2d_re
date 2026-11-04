@@ -65,8 +65,8 @@ static void MapExPlotDiamond(std::vector<uint32_t>& pixels, int width, int heigh
     MapExPlotPixel(pixels, width, height, x, y - 1, color);
 }
 
-static int MapExDecodeMapNo(unsigned short raw) {
-    return world::ResolveMapGraphicNumber_46CF00(raw);
+static int MapExDecodeMapNo(session::ClientSession& session, unsigned short raw) {
+    return world::ResolveMapGraphicNumber_46CF00(session, raw);
 }
 
 static uint8_t MapExColorIndexFromMapNo(int mapNo) {
@@ -79,12 +79,12 @@ static uint8_t MapExColorIndexFromMapNo(int mapNo) {
     return resource::gAutoMapColors927F48[mapNo];
 }
 
-static uint8_t MapExColorIndexFromRaw(unsigned short raw) {
-    return MapExColorIndexFromMapNo(MapExDecodeMapNo(raw));
+static uint8_t MapExColorIndexFromRaw(session::ClientSession& session, unsigned short raw) {
+    return MapExColorIndexFromMapNo(MapExDecodeMapNo(session, raw));
 }
 
-static uint8_t MapExNewMapColorIndexFromRaw(unsigned short raw) {
-    int mapNo = MapExDecodeMapNo(raw);
+static uint8_t MapExNewMapColorIndexFromRaw(session::ClientSession& session, unsigned short raw) {
+    int mapNo = MapExDecodeMapNo(session, raw);
     if (mapNo >= MAP_EX_NEW_MAP_NO_MIN && mapNo <= MAP_EX_NEW_MAP_NO_MAX) {
         return resource::gAutoMapColors927F48[mapNo - 200000];
     }
@@ -263,7 +263,7 @@ void WindowMapExData::SyncVisibleMapIfNeeded(session::ClientSession& session, in
     }
 
     long long cellCount64 = static_cast<long long>(visibleW) * visibleH;
-    if (cellCount64 <= 0 || cellCount64 > static_cast<long long>(world::gMapTileArray.size())) {
+    if (cellCount64 <= 0 || cellCount64 > static_cast<long long>(session.WorldScene().map.data.tiles.size())) {
         visibleMap = VisibleMapCache{};
         return;
     }
@@ -305,9 +305,9 @@ void WindowMapExData::SyncVisibleMapIfNeeded(session::ClientSession& session, in
     next.loaded = true;
 
     size_t cellCount = static_cast<size_t>(cellCount64);
-    next.tileData.assign(world::gMapTileArray.data(), world::gMapTileArray.data() + cellCount);
-    next.objData.assign(world::gMapObjArray.data(), world::gMapObjArray.data() + cellCount);
-    next.hitData.assign(world::gMapHitArray.data(), world::gMapHitArray.data() + cellCount);
+    next.tileData.assign(session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.tiles.data() + cellCount);
+    next.objData.assign(session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.objects.data() + cellCount);
+    next.hitData.assign(session.WorldScene().map.data.hits.data(), session.WorldScene().map.data.hits.data() + cellCount);
     visibleMap = std::move(next);
 
     if (hadOld) {
@@ -419,7 +419,7 @@ WindowMapExData::MapExTile* WindowMapExData::FindTile(int tileX, int tileY) {
     return &it->second;
 }
 
-void WindowMapExData::BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY) {
+void WindowMapExData::BuildOneVisibleTile(session::ClientSession& session, int startTileX, int endTileX, int startTileY, int endTileY) {
     int centerScreenX = 0;
     int centerScreenY = 0;
     MapExScreenFromMap(mapWidth, mapX, mapY, centerScreenX, centerScreenY);
@@ -459,10 +459,10 @@ void WindowMapExData::BuildOneVisibleTile(int startTileX, int endTileX, int star
     }
 
     auto& tile = GetOrCreateTile(bestTileX, bestTileY);
-    BuildMapTile(tile, bestTileX, bestTileY, mapBufferMode);
+    BuildMapTile(session, tile, bestTileX, bestTileY, mapBufferMode);
 }
 
-void WindowMapExData::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mode) {
+void WindowMapExData::BuildMapTile(session::ClientSession& session, MapExTile& tile, int tileX, int tileY, int mode) {
     int tileLeft = tileX * MAP_EX_TILE_W;
     int tileTop = tileY * MAP_EX_TILE_H;
 
@@ -563,8 +563,8 @@ void WindowMapExData::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mo
                 continue;
             }
             size_t regionIndex = MapExIndex(regionW, gridX - minMapX, gridY - minMapY);
-            colorIndexes[regionIndex] = MapExColorIndexFromRaw(tileRaw);
-            newMapColorIndexes[regionIndex] = MapExNewMapColorIndexFromRaw(tileRaw);
+            colorIndexes[regionIndex] = MapExColorIndexFromRaw(session, tileRaw);
+            newMapColorIndexes[regionIndex] = MapExNewMapColorIndexFromRaw(session, tileRaw);
         }
     }
 
@@ -581,7 +581,7 @@ void WindowMapExData::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mo
                 continue;
             }
 
-            int mapNo = MapExDecodeMapNo(objRaw);
+            int mapNo = MapExDecodeMapNo(session, objRaw);
             if (mapNo <= 0 || mapNo >= static_cast<int>(sizeof(resource::gAutoMapColors927F48))) {
                 continue;
             }
@@ -630,7 +630,7 @@ void WindowMapExData::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mo
             }
             if (argbMode && mapIndex >= 0 && mapIndex < MAP_EX_AUT_DATA_COUNT) {
                 if (!argb) {
-                    const world::AutRecordAF10D8& unit = world::gAutDataAF10D8[mapIndex];
+                    const world::AutRecordAF10D8& unit = session.WorldScene().map.data.aut[mapIndex];
                     uint32_t rgb = (static_cast<unsigned char>(unit.value00) << 16) | (static_cast<unsigned char>(unit.value01) << 8) | static_cast<unsigned char>(unit.value02);
                     if (rgb) {
                         argb = MapExRgbToArgb(rgb);
@@ -818,7 +818,7 @@ bool WindowMapExData::Render(const WindowElement& element, int ox, int oy, const
 
     DrawPoints(element, absX, absY, drawX, drawY, controlClip);
     if (tileBuildFrameCounter == 0) {
-        BuildOneVisibleTile(startTileX, endTileX, startTileY, endTileY);
+        BuildOneVisibleTile(*element.owner->ownerSession, startTileX, endTileX, startTileY, endTileY);
     }
     tileBuildFrameCounter = (tileBuildFrameCounter + 1) % MAP_EX_TILE_BUILD_INTERVAL;
     for (int tileY = startTileY; tileY <= endTileY; ++tileY) {

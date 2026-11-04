@@ -93,16 +93,16 @@ struct BigMapSurface::State {
         return info.mapNo == number && info.w > 0 && info.h > 0 ? &info : nullptr;
     }
 
-    Sprite MakeSprite(std::size_t cell, bool object) const {
+    Sprite MakeSprite(session::ClientSession& session, std::size_t cell, bool object) const {
         Sprite sprite;
         const int raw = object ? objects[cell] : ground[cell];
-        const int number = mode == 1 ? raw : world::ResolveMapGraphicNumber_46CF00(raw);
+        const int number = mode == 1 ? raw : world::ResolveMapGraphicNumber_46CF00(session, raw);
         if (number <= 999) return sprite; // 标记/音效不是静态地图图形。
         const int gx = static_cast<int>(cell % width), gy = static_cast<int>(cell / width);
         sprite.x = kMapOriginX + 32 * (gx + gy);
         sprite.y = kMapOriginY + 24 * (width + gy - gx);
         if (mode == 1) {
-            const auto& cuts = world::detail::gCutData9FB948;
+            const auto& cuts = session.WorldScene().map.data.cut;
             const int count = cuts.count06 + cuts.count08 + cuts.count0A;
             if (raw - 1000 < 0 || raw - 1000 >= count || raw - 1000 >= 50000) {
                 sprite.image = -2; sprite.source = {0, 0, 64, 48}; return sprite;
@@ -144,13 +144,13 @@ struct BigMapSurface::State {
             for (int tx = leftTile; tx <= rightTile; ++tx) function(tiles[ty * columns + tx]);
     }
 
-    void UpdateCell(std::size_t cell) {
+    void UpdateCell(session::ClientSession& session, std::size_t cell) {
         for (int object = 0; object < 2; ++object) {
             const auto id = static_cast<std::uint32_t>(2 * cell + object);
             ForTiles(sprites[id], [id](Tile& tile) {
                 std::erase(tile.sprites, id); tile.dirty = true; tile.retryAt = 0;
             });
-            sprites[id] = MakeSprite(cell, object != 0);
+            sprites[id] = MakeSprite(session, cell, object != 0);
             ForTiles(sprites[id], [id](Tile& tile) {
                 tile.sprites.push_back(id); tile.dirty = true; tile.retryAt = 0;
             });
@@ -158,7 +158,7 @@ struct BigMapSurface::State {
         changed = true;
     }
 
-    bool ReadMap(bool initial) {
+    bool ReadMap(session::ClientSession& session, bool initial) {
         std::ifstream input(mapPath, std::ios::binary);
         std::array<std::int32_t, 5> header{};
         if (!input.read(reinterpret_cast<char*>(header.data()), sizeof(header)) || header[0] != 0x0150414D
@@ -178,7 +178,7 @@ struct BigMapSurface::State {
                 const bool redraw = ground[i] != data[0][i] || objects[i] != data[1][i];
                 changed |= redraw || hits[i] != data[2][i];
                 ground[i] = data[0][i]; objects[i] = data[1][i]; hits[i] = data[2][i];
-                if (redraw) UpdateCell(i);
+                if (redraw) UpdateCell(session, i);
             }
         }
         std::error_code error;
@@ -188,7 +188,7 @@ struct BigMapSurface::State {
 
     void SyncVisible(session::ClientSession& session) {
         const int spanX = session.WorldScene().map.spanX, spanY = session.WorldScene().map.spanY;
-        if (spanX <= 0 || spanY <= 0 || static_cast<std::size_t>(spanX) * spanY > world::gMapTileArray.size()) return;
+        if (spanX <= 0 || spanY <= 0 || static_cast<std::size_t>(spanX) * spanY > session.WorldScene().map.data.tiles.size()) return;
         const int playerX = static_cast<int>(world::gPlayerX), playerY = static_cast<int>(world::gPlayerY);
         for (int sy = 0; sy < spanY; ++sy) {
             const int gy = session.WorldScene().map.yStart + sy;
@@ -198,17 +198,17 @@ struct BigMapSurface::State {
                 if (gx < 0 || gx >= width || std::abs(gx - playerX) > 25) continue;
                 const auto source = static_cast<std::size_t>(sy) * spanX + sx;
                 const auto cell = static_cast<std::size_t>(gy) * width + gx;
-                const bool redraw = ground[cell] != world::gMapTileArray[source] || objects[cell] != world::gMapObjArray[source];
-                changed |= redraw || hits[cell] != world::gMapHitArray[source];
-                ground[cell] = world::gMapTileArray[source]; objects[cell] = world::gMapObjArray[source];
-                hits[cell] = world::gMapHitArray[source];
-                if (redraw) UpdateCell(cell);
+                const bool redraw = ground[cell] != session.WorldScene().map.data.tiles[source] || objects[cell] != session.WorldScene().map.data.objects[source];
+                changed |= redraw || hits[cell] != session.WorldScene().map.data.hits[source];
+                ground[cell] = session.WorldScene().map.data.tiles[source]; objects[cell] = session.WorldScene().map.data.objects[source];
+                hits[cell] = session.WorldScene().map.data.hits[source];
+                if (redraw) UpdateCell(session, cell);
             }
         }
     }
 
-    static std::string CutStamp() {
-        const auto& cut = world::detail::gCutData9FB948;
+    static std::string CutStamp(session::ClientSession& session) {
+        const auto& cut = session.WorldScene().map.data.cut;
         return {reinterpret_cast<const char*>(&cut), sizeof(cut)};
     }
 
@@ -273,7 +273,7 @@ struct BigMapSurface::State {
 
     bool Initialize(session::ClientSession& session) {
         mapPath = world::FormatMapDataPath_468520(group, pathGroup, floor);
-        if (!ReadMap(true)) return false;
+        if (!ReadMap(session, true)) return false;
         // 4.06@412B49，维度判断严格按顺序。
         divisor = width <= 64 && height <= 48 ? 4 : width <= 256 && height <= 192 ? 8
             : width <= 300 && height <= 300 ? 10 : 16;
@@ -282,9 +282,9 @@ struct BigMapSurface::State {
         rows = (kSourceHeight + 24 * (width + height) + kSourceHeight - 1) / kSourceHeight;
         tiles.resize(static_cast<std::size_t>(columns) * rows);
         sprites.resize(ground.size() * 2);
-        for (std::size_t i = 0; i < ground.size(); ++i) UpdateCell(i);
+        for (std::size_t i = 0; i < ground.size(); ++i) UpdateCell(session, i);
         resourceStamp = ResourceStamp(); paletteStamp = PaletteStamp();
-        if (mode == 1) cutStamp = CutStamp();
+        if (mode == 1) cutStamp = CutStamp(session);
         paletteVersion = render::gPaletteFrameVersion; paletteChoice = render::gActivePalette;
         cachePath = std::filesystem::path(L"data/cache/bigmap") / std::format(L"{}_{}_{}_{}.bmc", group, pathGroup, floor, mode);
         loaded = true;
@@ -362,13 +362,13 @@ bool BigMapSurface::PrepareMap(session::ClientSession& session) {
         state.nextDiskCheck = now + 500;
         std::error_code error;
         const auto time = std::filesystem::last_write_time(state.mapPath, error);
-        if (!error && time != state.diskTime) state.diskError = !state.ReadMap(false);
+        if (!error && time != state.diskTime) state.diskError = !state.ReadMap(session, false);
         else if (error) state.diskError = true;
         if (mode == 1) {
-            const auto cut = State::CutStamp();
+            const auto cut = State::CutStamp(session);
             if (cut != state.cutStamp) {
                 state.cutStamp = cut;
-                for (std::size_t cell = 0; cell < state.ground.size(); ++cell) state.UpdateCell(cell);
+                for (std::size_t cell = 0; cell < state.ground.size(); ++cell) state.UpdateCell(session, cell);
             }
         }
     }

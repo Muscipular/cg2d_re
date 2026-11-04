@@ -883,7 +883,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 } else if (static_cast<std::int8_t>(draft.remainingElementPoints9A50C8) > 0) {
                     draft.attributePhase9A5AFC = 106;
                 } else {
-                    const std::wstring utf16Name(draft.input9A51E8.text,
+                    const std::wstring utf16Name(draft.input9A51E8.text, 0,
                         cg::text::Prefix(draft.input9A51E8.text, static_cast<std::size_t>(cursor)));
                     std::optional<std::string> stored;
                     try { stored = cg::text::ToGbk(utf16Name); }

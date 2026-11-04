@@ -22,6 +22,8 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <cerrno>
+#include <filesystem>
 #include <type_traits>
 
 #include <Windows.h>
@@ -719,14 +721,79 @@ static std::uint32_t RestoreSavedByteState_520700(
 }
 
 // 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
-static std::uint8_t RestoreCurrentSavedValue_520730(session::ClientSession& session)
+static std::uint8_t RestoreCurrentSavedValue_520730(const SavedPhysicalRecord& current)
 {
-    auto& current = session.SavedLogin().data->current;
     const std::uint8_t value = current.value315;
     if (value != 0) {
         cg::platform::gValue553438 = static_cast<std::int32_t>(value);
     }
     return value;
+}
+
+static bool gSharedPreferencesRestored = false;
+
+static void LoadSharedClientPreferences(SavedPhysicalRecord& current)
+{
+    const auto path = std::format(L"{}\\shared-settings.dat", platform::gDataPath);
+    std::FILE* const file = _wfopen(path.c_str(), L"rb");
+    if (file == nullptr) {
+        if (errno != ENOENT) m_log_iw(L"无法读取进程共享设置，沿用启动记录，错误 %d。", errno);
+        return;
+    }
+    std::array<std::uint8_t, sizeof(SavedDiskRecord) + 2> encoded {};
+    const std::size_t bytes = std::fread(encoded.data(), 1, encoded.size(), file);
+    const bool failed = std::ferror(file) != 0;
+    std::fclose(file);
+    if (failed || bytes != sizeof(SavedDiskRecord) + 1) {
+        m_log_iw(L"进程共享设置读取失败或长度不符，沿用启动记录。");
+        return;
+    }
+    SavedDiskRecord disk {};
+    std::int32_t decodedBytes = 0;
+    static_cast<void>(DecodeLegacyBytes_52D460(encoded.data(), static_cast<std::int32_t>(bytes),
+        0, reinterpret_cast<std::uint8_t*>(&disk), &decodedBytes));
+    if (decodedBytes != static_cast<std::int32_t>(sizeof(SavedDiskRecord)) || disk.version != 0x7002) {
+        m_log_iw(L"进程共享设置版本不符，沿用启动记录。");
+        return;
+    }
+    DecodeSavedRecord(current, disk, sizeof(disk));
+}
+
+static void SaveSharedClientPreferences()
+{
+    // 不从会话当前记录复制，避免把凭据、快捷正文或角色内容写进共享文件。
+    auto record = MakeDefaultSavedRecord();
+    record.cursorB0 = static_cast<std::uint8_t>(platform::gNativeCursorEnabled_D67AE4);
+    record.chatSizeB1 = static_cast<std::uint8_t>(platform::gChatTextSizeMode_73ECBC);
+    record.split312 = static_cast<std::uint8_t>(platform::gInvertItemSplitModifier_D67AE8);
+    record.overhead314 = static_cast<std::uint8_t>(platform::gActorOverheadTextMode_5F974C);
+    record.value31B = static_cast<std::uint8_t>(platform::gValueD68858);
+    record.sort313 = static_cast<std::uint8_t>(platform::gContactSortMode_D67CD0);
+    record.value315 = static_cast<std::uint8_t>(platform::gValue553438);
+    record.display30A[2] = static_cast<std::uint8_t>(platform::gValue55463C);
+    record.display30A[6] = static_cast<std::uint8_t>(platform::gChatNotificationSoundEnabled_554644);
+    auto disk = EncodeSavedRecord(record, false);
+    std::array<std::uint8_t, sizeof(SavedDiskRecord) + 1> encoded {};
+    std::int32_t encodedBytes = 0;
+    EncodeLegacyBytes_52D310(reinterpret_cast<std::uint8_t*>(&disk), static_cast<std::int32_t>(sizeof(disk)), 0,
+        encoded.data(), &encodedBytes, static_cast<std::int32_t>(encoded.size()));
+    std::error_code error;
+    static_cast<void>(std::filesystem::create_directories(std::filesystem::path(platform::gDataPath), error));
+    if (error) {
+        m_log_iw(L"无法创建进程共享设置目录，错误 %d。", error.value());
+        return;
+    }
+    const auto path = std::format(L"{}\\shared-settings.dat", platform::gDataPath);
+    std::FILE* const file = _wfopen(path.c_str(), L"wb");
+    if (file == nullptr) {
+        m_log_iw(L"无法保存进程共享设置，错误 %d。", errno);
+        return;
+    }
+    const std::size_t written = std::fwrite(encoded.data(), 1, static_cast<std::size_t>(encodedBytes), file);
+    const int closed = std::fclose(file);
+    if (written != static_cast<std::size_t>(encodedBytes) || closed != 0) {
+        m_log_iw(L"进程共享设置写入失败。");
+    }
 }
 
 // 原函数：0x005201B0。
@@ -737,11 +804,18 @@ std::int32_t RestoreCurrentSavedState_5201B0(session::ClientSession& session)
     }
 
     auto& current = session.SavedLogin().data->current;
-    (void)RestoreAudioSettings_5204C0(current);
-    (void)RestoreSavedScalarSettings_5205E0(current);
+    if (!gSharedPreferencesRestored) {
+        auto shared = current;
+        LoadSharedClientPreferences(shared);
+        (void)RestoreAudioSettings_5204C0(shared);
+        (void)RestoreSavedScalarSettings_5205E0(shared);
+        (void)RestoreSavedByteState_520700(shared);
+        (void)RestoreCurrentSavedValue_520730(shared);
+        platform::gValue55463C = shared.display30A[2];
+        platform::gChatNotificationSoundEnabled_554644 = shared.display30A[6];
+        gSharedPreferencesRestored = true;
+    }
     (void)RestoreSavedInputContexts_520690(session, current);
-    (void)RestoreSavedByteState_520700(current);
-    (void)RestoreCurrentSavedValue_520730(session);
     return 1;
 }
 
@@ -810,13 +884,9 @@ std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& sess
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = session.SavedLogin().data->current;
     const std::int32_t color = current.display30A[0 + selected];
-    const std::int32_t first = current.display30A[2 + selected];
     inputs.chat.color = color;
-    cg::platform::gValue55463C = first;
     const std::int32_t second = current.display30A[4 + selected];
-    const std::int32_t third = current.display30A[6 + selected];
     chatDisplay.range = second;
-    cg::platform::gChatNotificationSoundEnabled_554644 = third;
     return selected;
 }
 
@@ -966,6 +1036,7 @@ catch (const cg::text::GbkStorageError&) {
 // 原函数：0x00520200。
 std::int32_t SaveCurrentLoginRecord_520200(session::ClientSession& session)
 {
+    SaveSharedClientPreferences();
     return PersistCurrentSavedRecord_520200(session);
 }
 
@@ -1007,10 +1078,7 @@ std::int32_t DeleteSavedAccountFiles_533860(
 void RestoreCapability4CurrentSavedRecord(session::ClientSession& session)
 {
     auto& current = session.SavedLogin().data->current;
-    (void)RestoreAudioSettings_5204C0(current);
-    (void)RestoreSavedScalarSettings_5205E0(current);
     (void)RestoreSavedInputContexts_520690(session, current);
-    (void)RestoreSavedByteState_520700(current);
 }
 
 void CacheAutoLoginInputValues(

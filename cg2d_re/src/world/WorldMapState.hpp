@@ -472,6 +472,7 @@ network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
 void ResetMapFollowersFromPath(session::ClientSession& session, cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
 // 原函数：0x0046AFE0。
 void PropagatePartyFollowerPath_46AFE0(
+    session::ClientSession& session,
     std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
 // 原函数：0x0046ADA0。
 void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& session); // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
@@ -524,7 +525,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
 // 原函数：0x0046F680。
 std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& session); // 完整鼠标目标格投影/绘制与四种事件生产。
 // 原函数：0x0046A990。
-void RebuildPartyFollowOrder_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
+void RebuildPartyFollowOrder_46A990(session::ClientSession& session); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 // 原函数：0x0046A5A0。
 void AppendFirstFollowerPathPoint_46A5A0(session::ClientSession& session, std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 // 原函数：0x0046A940。

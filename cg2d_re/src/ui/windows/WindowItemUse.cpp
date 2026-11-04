@@ -107,9 +107,9 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSes
     targets.count = count;
     targets.records[0].kind = 0;
     for (std::int16_t slot = 0; slot < 5; ++slot) {
-        if (world::ReadPetMapFlags(slot) != 0
-            && world::ReadPetMapObjectIndex(slot) != ownIndex) {
-            cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
+        if (world::ReadPetMapFlags(session, slot) != 0
+            && world::ReadPetMapObjectIndex(session, slot) != ownIndex) {
+            cg::yobi::YobiAction* const action = world::ReadPetMapAction(session, slot);
             if (action != nullptr) {
                 targets.records[count].name = cg::yobi::GetYobiName(action);
             }

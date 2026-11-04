@@ -677,13 +677,13 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
 std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
 {
     for (std::size_t position = 0; position < 5; ++position) {
-        const std::int16_t index = ReadPetFollowIndex(position);
+        const std::int16_t index = ReadPetFollowIndex(session, position);
         if (index < 0) {
             break;
         }
         const std::uint32_t playerIndex = session.WorldScene().player->objectIndex;
-        cg::yobi::YobiAction* const action = ReadPetMapAction(index);
-        const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
+        cg::yobi::YobiAction* const action = ReadPetMapAction(session, index);
+        const bool isPlayer = ReadPetMapObjectIndex(session, index) == playerIndex;
         if (isPlayer) {
             const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
@@ -724,7 +724,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
             }
         }
 
-        cg::yobi::YobiAction* const first = ReadPetMapAction(ReadPetFollowIndex(0));
+        cg::yobi::YobiAction* const first = ReadPetMapAction(session, ReadPetFollowIndex(session, 0));
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t speed = first->walkSpeed;
         const std::int32_t nextX = action->pathX220[0];
@@ -738,11 +738,11 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         if (position + 1 >= 5) {
             continue;
         }
-        const std::int16_t nextIndex = ReadPetFollowIndex(position + 1);
+        const std::int16_t nextIndex = ReadPetFollowIndex(session, position + 1);
         if (nextIndex < 0) {
             continue;
         }
-        cg::yobi::YobiAction* const next = ReadPetMapAction(nextIndex);
+        cg::yobi::YobiAction* const next = ReadPetMapAction(session, nextIndex);
         const std::int32_t y =
             static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =
@@ -751,15 +751,15 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
     }
 
     for (std::size_t position = 0; position < 5; ++position) {
-        const std::int16_t index = ReadPetFollowIndex(position);
+        const std::int16_t index = ReadPetFollowIndex(session, position);
         if (index < 0) {
             break;
         }
         const std::uint32_t playerIndex = session.WorldScene().player->objectIndex;
-        if (ReadPetMapObjectIndex(index) == playerIndex) {
+        if (ReadPetMapObjectIndex(session, index) == playerIndex) {
             AdvancePlayerWorldMovement_46A700(session);
         } else {
-            cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(index));
+            cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(session, index));
         }
     }
     static_cast<void>(UpdatePlayerMapWindow_468200());
@@ -823,15 +823,15 @@ void MovePlayerOneStep_46B1B0(
 // 原函数：0x0046A5F0。
 void AdvanceFollowersBehindPlayerLeader_46A5F0(session::ClientSession& session)
 {
-    if (gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A(session) & 0x100u) == 0) {
+    if (session.WorldScene().partyActive == 0 || (ReadPlayerFlags18A(session) & 0x100u) == 0) {
         return;
     }
     for (std::size_t position = 1; position < 5; ++position) {
-        const std::int16_t index = ReadPetFollowIndex(position);
+        const std::int16_t index = ReadPetFollowIndex(session, position);
         if (index < 0) {
             break;
         }
-        cg::yobi::YobiAction* const action = ReadPetMapAction(index);
+        cg::yobi::YobiAction* const action = ReadPetMapAction(session, index);
         const double targetX = static_cast<std::int32_t>(action->mapX200) * 64.0;
         const float worldX = action->worldX;
         if (targetX < worldX || targetX > worldX) {
@@ -854,11 +854,11 @@ void AdvanceFollowersBehindPlayerLeader_46A5F0(session::ClientSession& session)
         if (position + 1 >= 5) {
             continue;
         }
-        const std::int16_t nextIndex = ReadPetFollowIndex(position + 1);
+        const std::int16_t nextIndex = ReadPetFollowIndex(session, position + 1);
         if (nextIndex < 0) {
             continue;
         }
-        cg::yobi::YobiAction* const nextAction = ReadPetMapAction(nextIndex);
+        cg::yobi::YobiAction* const nextAction = ReadPetMapAction(session, nextIndex);
         const std::int32_t y =
             static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t x =

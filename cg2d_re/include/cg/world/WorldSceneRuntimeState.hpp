@@ -290,6 +290,9 @@ struct WorldSceneRuntimeState {
     std::int32_t unspentAttributePoints = 0; // 原D2F788。
     std::uint32_t gameplayRepliesSuppressed = 0; // 原9A6E0C，完整W32门禁。
     std::uint32_t logoutToTownPending = 0; // 原D67E78。
+    std::array<PetMapCharaSlot, 5> petMapSlots {}; // 原FF02E0，动作保持非拥有借用。
+    alignas(std::uint32_t) std::array<std::uint16_t, 5> petFollowOrder {}; // 原9FB938，原10B别名区。
+    std::uint16_t partyActive = 0; // 原FF0D36，协议与场景共用。
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};
@@ -335,5 +338,7 @@ struct WorldSceneRuntimeState {
     std::array<char, 100> moveDirectionText {}; // 原 0x9E03D0，先写前缀，发送门禁后才写 NUL。
     std::uint64_t mapRectangleRequestStartTick = 0; // 原 0xAF10C8，缺块请求取时钟后发布。
 };
+
+static_assert(sizeof(WorldSceneRuntimeState::petFollowOrder) == 10);
 
 } // namespace cg::world

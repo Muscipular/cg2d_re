@@ -325,32 +325,6 @@ static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
-// 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
-struct PetMapCharaSlot {
-    std::uint16_t flags;
-    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
-    std::uint32_t objectIndex;
-    std::int32_t level08; // 原成员偏移：+0x08。 50B380玩家分支同步第0槽。
-    std::int32_t value0C; // 原成员偏移：+0x0C。 50A3E0按掩码0x11写。
-    std::int32_t value10; // 原成员偏移：+0x10。 50A3E0按掩码0x09写，在value0C之前消费。
-    std::int32_t value14; // 原成员偏移：+0x14。 50A3E0按掩码0x21写。
-    std::wstring name18; // 原+18，内部队伍名称。
-    std::array<std::byte, 3> bytes29; // 原成员偏移：+0x29。
-    cg::yobi::YobiAction* action; // 原 +2C，非拥有。
-};
-
-static_assert(offsetof(PetMapCharaSlot, flags) == 0);
-static_assert(offsetof(PetMapCharaSlot, objectIndex) == 4);
-static_assert(offsetof(PetMapCharaSlot, level08) == 8);
-static_assert(offsetof(PetMapCharaSlot, value0C) == 0x0C);
-static_assert(offsetof(PetMapCharaSlot, value10) == 0x10);
-static_assert(offsetof(PetMapCharaSlot, value14) == 0x14);
-static_assert(offsetof(PetMapCharaSlot, name18) == 0x18);
-static std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
-// 原 [9FB938,9FB942)：两次W32与末次W16清理、后续S16读取共用同一10B。
-static alignas(std::uint32_t) std::array<std::uint16_t, 5> gPetFollowOrder {};
-static_assert(sizeof(gPetFollowOrder) == 10);
-
 // 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
 struct MapCharaSceneSlots {
     std::uint16_t valueC8A73C; // 原全局：0x00C8A73C。
@@ -2204,9 +2178,6 @@ static_assert(decltype(gBattleEntries59E980)::extent == 20);
 } // namespace detail
 
 namespace detail {
-// 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
-std::uint16_t gPartyActive_FF0D36 = 0; // 原全局：0x00FF0D36。
-
 } // namespace detail
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
@@ -3830,7 +3801,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(DestroyPlayerMapPresence_519D50(session));
         ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
-        DetachPartyMapActions_51B0F0();
+        DetachPartyMapActions_51B0F0(session);
         session.WorldScene().mapNotice.startTick = 0;
         SynchronizeTimedMapNoticeWindow_455FC0(session);
         ResetTimedMapNotice_455C60(session);
@@ -4814,7 +4785,7 @@ std::uint16_t SendPendingMovementDirections_46AC10(session::ClientSession& sessi
             break;
         }
     }
-    if (gPartyActive_FF0D36 != 0) {
+    if (session.WorldScene().partyActive != 0) {
         const std::uint32_t flags = ReadPlayerFlags18A(session);
         if ((flags & 0x100u) == 0) {
             return static_cast<std::uint16_t>(flags);
@@ -5302,23 +5273,23 @@ void ResetCurrentDialogType_4D3170(session::ClientSession& session)
 
 namespace detail {
 
-std::int16_t ReadPetFollowIndex(const std::size_t position) noexcept
+std::int16_t ReadPetFollowIndex(session::ClientSession& session, const std::size_t position) noexcept
 {
-    return std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
+    return std::bit_cast<std::int16_t>(session.WorldScene().petFollowOrder[position]);
 }
 
 // 原函数：0x0046A990。
-void RebuildPartyFollowOrder_46A990()
+void RebuildPartyFollowOrder_46A990(session::ClientSession& session)
 {
-    if (gPartyActive_FF0D36 == 0) {
+    if (session.WorldScene().partyActive == 0) {
         return;
     }
-    gPetFollowOrder.fill(0xFFFFu);
+    session.WorldScene().petFollowOrder.fill(0xFFFFu);
     std::size_t output = 0;
-    for (std::size_t index = 0; index < gPetMapCharaSlots.size(); ++index) {
-        const auto& slot = gPetMapCharaSlots[index];
+    for (std::size_t index = 0; index < session.WorldScene().petMapSlots.size(); ++index) {
+        const auto& slot = session.WorldScene().petMapSlots[index];
         if (slot.flags != 0 && slot.action != nullptr) {
-            gPetFollowOrder[output] = static_cast<std::uint16_t>(index);
+            session.WorldScene().petFollowOrder[output] = static_cast<std::uint16_t>(index);
             ++output;
         }
     }
@@ -5327,7 +5298,7 @@ void RebuildPartyFollowOrder_46A990()
 void ResetMapFollowersFromPath(session::ClientSession& session, cg::yobi::YobiAction* const leader)
 {
     for (std::int32_t i = 1; i < 5; ++i) {
-        auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
+        auto& slot = session.WorldScene().petMapSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
             const bool isPlayer = slot.objectIndex == session.WorldScene().player->objectIndex;
             cg::yobi::ResetMapFollowerFromPath(session,
@@ -5337,27 +5308,27 @@ void ResetMapFollowersFromPath(session::ClientSession& session, cg::yobi::YobiAc
 }
 
 // 原函数：0x0046AFE0。
-void PropagatePartyFollowerPath_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
+void PropagatePartyFollowerPath_46AFE0(session::ClientSession& session, const std::int32_t index, std::int32_t x, std::int32_t y)
 {
-    cg::yobi::YobiAction* const first = gPetMapCharaSlots[0].action;
+    cg::yobi::YobiAction* const first = session.WorldScene().petMapSlots[0].action;
     if (first == nullptr || !cg::yobi::IsMapActorIdleAtTarget(first)) {
         return;
     }
     std::int32_t previous = index - 1;
     for (; previous >= 0; --previous) {
-        const auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(previous)];
+        const auto& slot = session.WorldScene().petMapSlots[static_cast<std::size_t>(previous)];
         if (slot.flags != 0 && slot.action != nullptr) {
             break;
         }
     }
     if (previous >= 0 && cg::yobi::AreMapActorTargetsAdjacent(
-            gPetMapCharaSlots[static_cast<std::size_t>(previous)].action,
-            gPetMapCharaSlots[static_cast<std::size_t>(index)].action)) {
+            session.WorldScene().petMapSlots[static_cast<std::size_t>(previous)].action,
+            session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].action)) {
         return;
     }
     gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
     for (std::int32_t i = index; i < 5; ++i) {
-        auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
+        auto& slot = session.WorldScene().petMapSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
             cg::yobi::YobiAction* const action = slot.action;
             if (action != nullptr) {
@@ -5373,9 +5344,9 @@ void PropagatePartyFollowerPath_46AFE0(const std::int32_t index, std::int32_t x,
 }
 
 // 原函数：0x0051B0F0。
-void DetachPartyMapActions_51B0F0()
+void DetachPartyMapActions_51B0F0(session::ClientSession& session)
 {
-    for (auto& slot : gPetMapCharaSlots) {
+    for (auto& slot : session.WorldScene().petMapSlots) {
         slot.action = nullptr;
     }
 }
@@ -5383,7 +5354,7 @@ void DetachPartyMapActions_51B0F0()
 // 原函数：0x0051B080。
 cg::yobi::YobiAction* ClearPartyMembershipState_51B080(session::ClientSession& session)
 {
-    for (auto& slot : gPetMapCharaSlots) {
+    for (auto& slot : session.WorldScene().petMapSlots) {
         if (slot.flags != 0) {
             if (slot.objectIndex == session.WorldScene().player->objectIndex) {
                 cg::yobi::YobiAction* const action = slot.action;
@@ -5412,7 +5383,7 @@ cg::yobi::YobiAction* ClearPartyMembershipState_51B080(session::ClientSession& s
 // 原函数：0x0046A5A0。
 void AppendFirstFollowerPathPoint_46A5A0(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
-    if (gPartyActive_FF0D36 == 0) {
+    if (session.WorldScene().partyActive == 0) {
         return;
     }
     // 原FDA88A一次W32取样，复用同一已证跨字段边界。
@@ -5420,33 +5391,33 @@ void AppendFirstFollowerPathPoint_46A5A0(session::ClientSession& session, const 
     if ((flags & 0x100u) == 0) {
         return;
     }
-    const std::int16_t index = std::bit_cast<std::int16_t>(gPetFollowOrder[1]);
+    const std::int16_t index = std::bit_cast<std::int16_t>(session.WorldScene().petFollowOrder[1]);
     if (index < 0) {
         return;
     }
     cg::yobi::YobiAction* const action =
-        gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+        session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].action;
     cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
 }
 
 // 原函数：0x0046A940。
 void AdvancePlayerLeaderFollowers_46A940(session::ClientSession& session)
 {
-    if (gPartyActive_FF0D36 == 0) {
+    if (session.WorldScene().partyActive == 0) {
         return;
     }
     const std::uint32_t flags = ReadPlayerFlags18A(session);
     if ((flags & 0x100u) == 0) {
         return;
     }
-    for (std::size_t position = 1; position < gPetFollowOrder.size(); ++position) {
+    for (std::size_t position = 1; position < session.WorldScene().petFollowOrder.size(); ++position) {
         const std::int16_t index =
-            std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
+            std::bit_cast<std::int16_t>(session.WorldScene().petFollowOrder[position]);
         if (index < 0) {
             break;
         }
         cg::yobi::YobiAction* const action =
-            gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+            session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].action;
         cg::yobi::StepMapActorMovement_442730(action);
     }
 }
@@ -5724,7 +5695,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
             static_cast<void>(session.Connection().RequestPlayerProfile(3, secondIndex));
         }
     }
-    if ((gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A(session) & 0x100u) != 0)
+    if ((session.WorldScene().partyActive == 0 || (ReadPlayerFlags18A(session) & 0x100u) != 0)
         && gPlayerMovementAndFacingBlocked_62B5AA == 0 && gMapMovementInputBlocked_C82220 == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const bool forceContinuousMove = gMapLeftHoldDurationMs_C8A778 >= 500u;
         if (forceContinuousMove) {
@@ -5770,8 +5741,8 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
             }
         }
     }
-    RebuildPartyFollowOrder_46A990();
-    if (gPartyActive_FF0D36 != 0 && (ReadPlayerFlags18A(session) & 0x100u) == 0) {
+    RebuildPartyFollowOrder_46A990(session);
+    if (session.WorldScene().partyActive != 0 && (ReadPlayerFlags18A(session) & 0x100u) == 0) {
         return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190(session));
     }
     return static_cast<std::uint8_t>(UpdatePlayerPathMovement_469FC0(session));
@@ -6037,7 +6008,7 @@ void CreatePlayerMapPresence_519A80(session::ClientSession& session)
         cg::yobi::CopyYobiPlayerMaxHp(
             session.WorldScene().player->action, &session.WorldScene().player->maxHp);
         const std::uint32_t objectIndex = session.WorldScene().player->objectIndex;
-        for (auto& slot : gPetMapCharaSlots) {
+        for (auto& slot : session.WorldScene().petMapSlots) {
             if (slot.flags != 0 && slot.objectIndex == objectIndex) {
                 slot.action = session.WorldScene().player->action;
                 break;
@@ -6439,7 +6410,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     for (PetRuntimeRecord& record : (*connection.Owner().WorldScene().petRecords)) {
         record.ClearRaw();
     }
-    gPetMapCharaSlots.fill({});
+    connection.Owner().WorldScene().petMapSlots.fill({});
     connection.Owner().WorldScene().playerSkills.jobName.clear();
     for (auto& skill : connection.Owner().WorldScene().playerSkills.skills) skill = {};
     connection.Owner().WorldScene().playerSkills.pairs = {};
@@ -6454,8 +6425,8 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(connection.Owner(), selected));
     static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(selected));
 
-    gPartyActive_FF0D36 = 0;
-    for (PetMapCharaSlot& slot : gPetMapCharaSlots) {
+    connection.Owner().WorldScene().partyActive = 0;
+    for (PetMapCharaSlot& slot : connection.Owner().WorldScene().petMapSlots) {
         slot.flags = 0;
         slot.objectIndex = 0;
         slot.action = nullptr;
@@ -8281,7 +8252,7 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection& connection, const 
     }
     const std::uint32_t mask = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(index)];
+    auto& slot = connection.Owner().WorldScene().petMapSlots[static_cast<std::size_t>(index)];
     if (mask == 0) {
         if (slot.flags != 0) {
             const std::uint32_t objectIndex = slot.objectIndex;
@@ -8304,7 +8275,7 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection& connection, const 
         std::int32_t count = 0;
         std::int32_t next = -1;
         for (std::int32_t i = 0; i < 5; ++i) {
-            if (gPetMapCharaSlots[static_cast<std::size_t>(i)].flags != 0) {
+            if (connection.Owner().WorldScene().petMapSlots[static_cast<std::size_t>(i)].flags != 0) {
                 ++count;
                 if (next == -1 && i > index) {
                     next = i;
@@ -8312,17 +8283,17 @@ void HandlePartyMemberReply_50A3E0(cg::network::CgConnection& connection, const 
             }
         }
         if (count <= 1) {
-            detail::gPartyActive_FF0D36 = 0;
+            connection.Owner().WorldScene().partyActive = 0;
             static_cast<void>(detail::ClearPartyMembershipState_51B080(connection.Owner()));
             return;
         }
         if (next >= 0 && (x >= 0 || y >= 0)) {
-            detail::PropagatePartyFollowerPath_46AFE0(next, x, y);
+            detail::PropagatePartyFollowerPath_46AFE0(connection.Owner(), next, x, y);
         }
         return;
     }
 
-    detail::gPartyActive_FF0D36 = 1;
+    connection.Owner().WorldScene().partyActive = 1;
     slot.flags = 1;
     std::int32_t field = 2;
     if ((mask & 3u) != 0) {
@@ -8465,12 +8436,12 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                 }
                 detail::SetPlayerMapIdentity_51A090(connection.Owner(), cg::text::FromGbkWide(name), titleTexts, level, value40, flag1, flag2);
                 if ((connection.Owner().WorldScene().player->flags18A & 0x100u) != 0
-                    && gPetMapCharaSlots[0].flags != 0) {
-                    gPetMapCharaSlots[0].level08 = connection.Owner().WorldScene().player->level;
-                    gPetMapCharaSlots[0].name18 = connection.Owner().WorldScene().player->name;
+                    && connection.Owner().WorldScene().petMapSlots[0].flags != 0) {
+                    connection.Owner().WorldScene().petMapSlots[0].level08 = connection.Owner().WorldScene().player->level;
+                    connection.Owner().WorldScene().petMapSlots[0].name18 = connection.Owner().WorldScene().player->name;
                 }
-                for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
-                    auto& slot = gPetMapCharaSlots[i];
+                for (std::size_t i = 0; i < connection.Owner().WorldScene().petMapSlots.size(); ++i) {
+                    auto& slot = connection.Owner().WorldScene().petMapSlots[i];
                     if (slot.flags != 0
                         && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
                         slot.action = connection.Owner().WorldScene().player->action;
@@ -8495,8 +8466,8 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                     } else {
                         detail::ClearWorldActorModeMarkerUnlessLeader_449CC0(object);
                     }
-                    for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
-                        auto& slot = gPetMapCharaSlots[i];
+                    for (std::size_t i = 0; i < connection.Owner().WorldScene().petMapSlots.size(); ++i) {
+                        auto& slot = connection.Owner().WorldScene().petMapSlots[i];
                         if (slot.flags != 0
                             && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
                             slot.action = object;
@@ -8809,13 +8780,13 @@ std::int32_t SendPlayerChatInput_50C940(
     const std::int32_t gate = chat.replyGate;
     const std::uint8_t disabled = chat.disabled;
     const bool restricted = disabled != 0
-        || (gate == 0 && detail::gPartyActive_FF0D36 != 0
+        || (gate == 0 && session.WorldScene().partyActive != 0
             && (ReadPlayerOptions194LowByte(session) & 8u) != 0);
     if (restricted) {
         const std::uint64_t tick = platform::ReadTickCount64();
         if (tick - chat.currentTick > 180000u) {
             chat.disabled = 0;
-        } else if (chat.replyGate != 0 || detail::gPartyActive_FF0D36 == 0
+        } else if (chat.replyGate != 0 || session.WorldScene().partyActive == 0
                    || (ReadPlayerOptions194LowByte(session) & 8u) == 0) {
             AppendChatMessage_44B050(session, L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
             const std::int32_t sound = platform::gChatNotificationSoundEnabled_554644;
@@ -8922,7 +8893,7 @@ void HandlePartyMembershipReply_50D000(cg::network::CgConnection& networkConnect
         }
     } else if (first == 0 && second == 1) {
         detail::ClearPlayerPartyMembership_51A5F0(networkConnection.Owner());
-        detail::gPartyActive_FF0D36 = 0;
+        networkConnection.Owner().WorldScene().partyActive = 0;
         static_cast<void>(detail::ClearPartyMembershipState_51B080(networkConnection.Owner()));
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(networkConnection.Owner().WorldScene().player->direction));
@@ -9325,7 +9296,7 @@ void HandleWorldObjectRemovalReply_50BF20(cg::network::CgConnection& connection,
         network::ParseDelimitedBase62_52D0D0(payload, ',', field);
     while (objectIndex != -1) {
         RemoveWorldObject_4462E0(connection.Owner(), objectIndex);
-        for (auto& slot : gPetMapCharaSlots) {
+        for (auto& slot : connection.Owner().WorldScene().petMapSlots) {
             if (slot.flags != 0
                 && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
                 slot.action = nullptr;
@@ -9968,7 +9939,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50(networkConnection.Owner()));
         detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
-        detail::DetachPartyMapActions_51B0F0();
+        detail::DetachPartyMapActions_51B0F0(networkConnection.Owner());
         session.WorldScene().mapNotice.startTick = 0;
         detail::SynchronizeTimedMapNoticeWindow_455FC0(session);
         detail::ResetTimedMapNotice_455C60(session);
@@ -10681,19 +10652,19 @@ std::int16_t ReadDirectionDeltaY(const std::int16_t direction) noexcept
     return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
 }
 
-cg::yobi::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
+cg::yobi::YobiAction* ReadPetMapAction(session::ClientSession& session, const std::int16_t index) noexcept
 {
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+    return session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].action;
 }
 
-std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
+std::uint32_t ReadPetMapObjectIndex(session::ClientSession& session, const std::int16_t index) noexcept
 {
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
+    return session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].objectIndex;
 }
 
-std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
+std::uint16_t ReadPetMapFlags(session::ClientSession& session, const std::int16_t index) noexcept
 {
-    return gPetMapCharaSlots[static_cast<std::size_t>(index)].flags;
+    return session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].flags;
 }
 
 // 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
@@ -10713,7 +10684,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
     const std::int32_t targetX =
         (gPlayerX + static_cast<std::int32_t>(deltaX));
     const std::int32_t target = detail::HasWorldObjectAt_4450D0(targetX, targetY, 8);
-    const std::uint16_t follow = detail::gPartyActive_FF0D36;
+    const std::uint16_t follow = session.WorldScene().partyActive;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
         || target != 1 || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
@@ -10749,7 +10720,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
             (gPlayerX + static_cast<std::int32_t>(deltaX));
         target = detail::HasWorldObjectAtWithFlags_4451F0(targetX, targetY, 8, 0xC400, 0);
     }
-    const std::uint16_t follow = detail::gPartyActive_FF0D36;
+    const std::uint16_t follow = session.WorldScene().partyActive;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
         || target != 1 || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0
         || !(gPlayerCoordinateSyncPending_C821D8 == 0)) {
@@ -10770,7 +10741,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
 void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
 {
     auto& interaction = session.UiFrame().native.interaction;
-    const bool joinTeam = detail::gPartyActive_FF0D36 == 0;
+    const bool joinTeam = session.WorldScene().partyActive == 0;
     if (joinTeam) {
         const std::int32_t direction = session.WorldScene().player->direction;
         if (direction < 0) {
@@ -10859,7 +10830,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
     const std::int32_t secondX =
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = detail::HasWorldObjectAt_4450D0(secondX, secondY, 8);
-    if (detail::gPartyActive_FF0D36 != 1 && first != 1 && second != 1) {
+    if (session.WorldScene().partyActive != 1 && first != 1 && second != 1) {
         AppendChatMessage_44B050(session, L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;

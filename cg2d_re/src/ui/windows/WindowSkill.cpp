@@ -2682,14 +2682,14 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
         targets.names[0] = name;
     }
     for (std::int16_t slot = 0; slot < 5; ++slot) {
-        if (world::ReadPetMapFlags(slot) == 0) {
+        if (world::ReadPetMapFlags(session, slot) == 0) {
             continue;
         }
         const std::uint32_t ownIndex = session.WorldScene().player->objectIndex;
-        if (world::ReadPetMapObjectIndex(slot) == ownIndex) {
+        if (world::ReadPetMapObjectIndex(session, slot) == ownIndex) {
             continue;
         }
-        cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
+        cg::yobi::YobiAction* const action = world::ReadPetMapAction(session, slot);
         if (action != nullptr) {
             targets.names[count] = cg::yobi::GetYobiName(action);
         }

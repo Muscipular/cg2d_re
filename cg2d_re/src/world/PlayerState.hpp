@@ -138,9 +138,9 @@ std::int32_t FindAttributeAllocationHintTarget_504B10(session::ClientSession& se
 // 原函数：0x00504B60。
 std::int32_t FindFirstInjuredPet_504B60(session::ClientSession& session); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
 std::int16_t ReadPlayerTribe(session::ClientSession& session) noexcept; // 原FDA700，窗口7按S16读取。
-cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
-std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
-std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
+cg::yobi::YobiAction* ReadPetMapAction(session::ClientSession& session, std::int16_t index) noexcept;
+std::uint16_t ReadPetMapFlags(session::ClientSession& session, std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
+std::uint32_t ReadPetMapObjectIndex(session::ClientSession& session, std::int16_t index) noexcept;
 // 原函数：0x00519EC0。
 std::uint32_t SetPlayerMapCoordinates_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 // 原函数：0x0051BEE0。
@@ -198,7 +198,7 @@ void ClearPlayerPartyMembership_51A5F0(session::ClientSession& session); // 仅�
 // 原函数：0x0051B080。
 cg::yobi::YobiAction* ClearPartyMembershipState_51B080(session::ClientSession& session); // 解散地图五槽；返回51A5B0的非拥有T*。
 // 原函数：0x0051B0F0。
-void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
+void DetachPartyMapActions_51B0F0(session::ClientSession& session); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x00519A80。
 void CreatePlayerMapPresence_519A80(session::ClientSession& session); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
@@ -206,11 +206,9 @@ cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     session::ClientSession& session,
     std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
-// 协议与场景共用的队伍状态。
-extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
 // 原函数：0x0051B3E0。
 std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& session); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
-std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
+std::int16_t ReadPetFollowIndex(session::ClientSession& session, std::size_t position) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 // 原函数：0x00519CD0。
 void CreateOrUpdatePlayerMapActor_519CD0(

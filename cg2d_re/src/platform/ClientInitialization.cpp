@@ -236,7 +236,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
     SeedRandom_53B4BF(session.Connection(), std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
     static_cast<void>(world::InitializeRotationTable_46FB20(session));
-    static_cast<void>(ResetLegacyMouseState_506870());
+    static_cast<void>(ResetLegacyMouseState_506870(session));
     static_cast<void>(cg::yobi::InitializeYobiActionList_404A40(session));
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
@@ -249,8 +249,8 @@ int InitializeClient_4576B0(session::ClientSession& session)
     const std::uint32_t drawCursor = gNativeCursorEnabled_D67AE4;
     ::ShowCursor(0);
     if (drawCursor != 0) {
-        const std::int32_t y = (gLegacyMouseState.mouseY + 16);
-        const std::int32_t x = (gLegacyMouseState.mouseX + 16);
+        const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);
+        const std::int32_t x = (session.UiFrame().mouse.state->mouseX + 16);
         static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;

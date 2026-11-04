@@ -515,9 +515,9 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     }
     int update(int stage, int) override {
         auto& panel = window.ownerSession->Lua().autoBattlePanel;
-        if (window.id == WIN_AUTOBATTLE && panel.clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
-            window.x += gMouseX - panel.lastX; window.y += gMouseY - panel.lastY;
-            panel.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); panel.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY));
+        if (window.id == WIN_AUTOBATTLE && panel.clicked && (window.ownerSession->UiFrame().mouse.state->heldButtons & CG_MBTN_LEFTDOWN)) {
+            window.x += window.ownerSession->UiFrame().mouse.state->mouseX - panel.lastX; window.y += window.ownerSession->UiFrame().mouse.state->mouseY - panel.lastY;
+            panel.lastX = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseX)); panel.lastY = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseY));
         }
         ui::detail::WindowRuntime_UpdateExtendedElements(window);
         return stage;
@@ -605,7 +605,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
     });
     panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](ui::WindowInstance& window, ui::ElementId, int mouse) {
         auto& state = window.ownerSession->Lua().autoBattlePanel;
-        if (mouse & 2) { state.clicked = true; state.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); state.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
+        if (mouse & 2) { state.clicked = true; state.lastX = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseX)); state.lastY = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseY)); }
         else if (state.clicked && !(mouse & 8)) state.clicked = false;
         return (mouse & 2) ? 1 : 0;
     });

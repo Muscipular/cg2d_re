@@ -262,10 +262,10 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     const std::int32_t bottom = hitBaseY + 18;
     const std::int32_t top = hitBaseY + 1;
     const std::int32_t right = left + 66;
-    hovered = cg::ui::HitTestMouseRect_5049A0(
+    hovered = cg::ui::HitTestMouseRect_5049A0(session,
         left, top, right, bottom, -1) != 0;
     if (hovered
-        && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons) & 1U) != 0) {
+        && (static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons) & 1U) != 0) {
         cg::yobi::MarkDeath(dialog.action);
         dialog.action = nullptr;
         clicked = 1;

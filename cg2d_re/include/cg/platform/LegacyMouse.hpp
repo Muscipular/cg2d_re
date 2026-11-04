@@ -4,7 +4,10 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <type_traits>
+
+namespace cg::session { class ClientSession; }
 
 namespace cg::platform {
 
@@ -26,8 +29,7 @@ enum LegacyMouseEdge : std::uint32_t {
     LegacyMouseEdge_RDblClick = 0x20, // 右键双击。
 };
 
-// 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态。末尾 0xD68DC4 由 Startup.hpp
-// 中的既有唯一存储承接，不属于本结构。
+// 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态；末尾光标请求不属于本结构。
 struct LegacyMouseState {
     // 原0x00506460、0x00506530：成员正序构造及失败前缀清理由C++承接。
     LegacyMouseState() = default;
@@ -64,51 +66,68 @@ static_assert(sizeof(LegacyMouseState::leftElapsed) == 8);
 static_assert(sizeof(LegacyMouseState::rightDownTick) == 8);
 static_assert(sizeof(LegacyMouseState::rightElapsed) == 8);
 
-extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8；中央有序构造。
+// 鼠标记录在原中央位置构造，外层会话不提前消费十次CryptInt构造RNG。
+struct MouseRuntimeState {
+    MouseRuntimeState() = default;
+    ~MouseRuntimeState() = default;
+    MouseRuntimeState(const MouseRuntimeState&) = delete;
+    MouseRuntimeState& operator=(const MouseRuntimeState&) = delete;
+    MouseRuntimeState(MouseRuntimeState&&) = delete;
+    MouseRuntimeState& operator=(MouseRuntimeState&&) = delete;
+    std::unique_ptr<LegacyMouseState> state; // 原D68CF8完整实际记录。
+    std::uint64_t rightRepeatAnchorMs = 0; // 原D68BF0，不并入中间连续状态。
+    std::uint64_t leftRepeatAnchorMs = 0; // 原D68DC8。
+    std::uint32_t requestedCursor = 0; // 原D68DC4，帧末消费后清零。
+    std::uint32_t consumedCursor = 0; // 原9A6F44，供原生窗口设置当前光标。
+};
 
-// 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
-extern std::uint64_t gRightMouseRepeatAnchorMs_D68BF0; // 原全局：0x00D68BF0。
-extern std::uint64_t gLeftMouseRepeatAnchorMs_D68DC8; // 原全局：0x00D68DC8。
+void InitializeLegacyMouseStorage(session::ClientSession& session);
 
 // 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。
-std::int32_t ResetLegacyMouseState_506870();
+std::int32_t ResetLegacyMouseState_506870(session::ClientSession& session);
 
 // 原 MouseEvent::Reset_0@[0x506890,0x5068FF)，严格先赋 X、后赋 Y。
-void ResetLegacyMousePosition_506890(std::int32_t x, std::int32_t y);
+void ResetLegacyMousePosition_506890(session::ClientSession& session, std::int32_t x, std::int32_t y);
 
 // 原 MouseEvent::UpdateLDown@[0x506900,0x5069DD)。
 // 更新普通鼠标状态；重复点击计数／上报按COR10移除。
 void UpdateLegacyMouseLeftDown_506900(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 MouseEvent::UpdateLUp@[0x5069E0,0x506A8B)。
 std::int32_t UpdateLegacyMouseLeftUp_5069E0(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 MouseEvent::UpdateLDbClick@[0x506A90,0x506B44)。
 std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 MouseEvent::UpdateRDown@[0x506B50,0x506C32)。
 // 更新普通鼠标状态；重复点击计数／上报按COR10移除。
 void UpdateLegacyMouseRightDown_506B50(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 sub_506C40@[0x506C40,0x506CEB)，对应右键抬起。
 std::int32_t UpdateLegacyMouseRightUp_506C40(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 sub_506CF0@[0x506CF0,0x506DA4)，对应右键双击。
 std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
+    session::ClientSession& session,
     std::int32_t x,
     std::int32_t y);
 
 // 原 sub_506DB0@[0x506DB0,0x506DC3)；按 32 位回绕累加滚轮增量并返回原增量。
-std::int32_t AddLegacyMouseWheelDelta_506DB0(std::int32_t delta) noexcept;
+std::int32_t AddLegacyMouseWheelDelta_506DB0(session::ClientSession& session, std::int32_t delta) noexcept;
 
 } // namespace cg::platform

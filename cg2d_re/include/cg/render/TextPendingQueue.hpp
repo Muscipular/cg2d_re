@@ -67,6 +67,7 @@ void DrawColoredText(
 // 原 sub_45D7A0@[0x45D7A0,0x45D7CF)。
 // 左键按下时返回 values 中首个等于当前悬停文本索引的元素下标，否则返回 -1。
 std::int32_t FindClickedTextIndex_45D7A0(
+    session::ClientSession& session,
     const std::int32_t* values,
     std::int32_t count);
 

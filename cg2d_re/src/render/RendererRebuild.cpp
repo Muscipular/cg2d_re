@@ -65,8 +65,8 @@ void RebuildRenderer_466B80(session::ClientSession& session)
     }
     resource::ReleaseIndependentPalettes_522C50();
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
-    platform::gLegacyMouseState.heldButtons = 0;
-    platform::gLegacyMouseState.edgeButtons = 0;
+    session.UiFrame().mouse.state->heldButtons = 0;
+    session.UiFrame().mouse.state->edgeButtons = 0;
     platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
 }
 

@@ -626,7 +626,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
                 consumed = 1;
             }
         } else if ((*reinterpret_cast<const std::uint8_t*>(
-            &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0 && inventory.battleItemTargetFlag != 0) {
+            &callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0 && inventory.battleItemTargetFlag != 0) {
             session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
             inventory.battleItemTargetFlag = 0;
             cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
@@ -686,7 +686,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
                 consumed = 1;
             }
         } else if ((*reinterpret_cast<const std::uint8_t*>(
-            &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
+            &callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
             WindowInstance* const window = WindowRuntime_States(session)[WindowId_BattlePets].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
@@ -1075,7 +1075,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
                 consumed = 1;
             }
         } else if ((*reinterpret_cast<const std::uint8_t*>(
-            &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
+            &callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
             if (session.UiFrame().native.battleCommand.skillTargetPending != 0) {
                 session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleTechniques(
                     session, callbackWindow.ownerSession->WorldScene().battle.selectedSkill, &WindowBattleCommand_SelectSkill);
@@ -1229,7 +1229,7 @@ static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callback
         }
         if (pendingAction == nullptr
             && ((entryState & MouseFlag_LDownEvent) != 0
-                || (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0)) {
+                || (reinterpret_cast<const std::uint8_t*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0)) {
             if (window != nullptr) {
                 window->state |= 0x8000u;
             } else {
@@ -1301,7 +1301,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
     for (const cg::yobi::YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr && cg::yobi::GetYobiActionCacheIndex(action) == hitIndex
             && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
-            static_cast<void>(platform::RequestCursorState_506DE0(2, 0));
+            static_cast<void>(platform::RequestCursorState_506DE0(session, 2, 0));
             break;
         }
     }
@@ -1446,14 +1446,14 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         break;
     }
     case 1: {
-        if (session.WorldScene().battle.selectionModes[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
+        if (session.WorldScene().battle.selectionModes[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
             session.WorldScene().battle.selectionModes[0] = 0;
             cg::yobi::FlushBattleEntries_43C060(session);
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if (session.UiFrame().native.battleCommand.targetSelectionReady != 0) {
             const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120(session);
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
                 bool send = true;
                 switch (session.WorldScene().battle.selectionMode) {
                 case 0:
@@ -1581,7 +1581,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
     case 4: {
         if (session.WorldScene().battle.petCommandPhase == 3) {
             const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120(session);
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
                 const std::int32_t technique = session.WorldScene().battle.selectedPetTechniqueIndex;
                 cg::text::FormatTo(buffer, L"W|{:X}|{:X}", static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(session.Connection().SendBattlePacket(buffer));
@@ -1599,7 +1599,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         std::int32_t imageNo = 0;
         switch (phase) {
         case 0: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
                 const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
                 session.WorldScene().battle.petCommandPhase = 1;
                 if (pet < 0) {
@@ -1611,7 +1611,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0];
                 uiFrame.hoverText = L"打开技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
                     session.WorldScene().battle.petCommandPhase = 1;
@@ -1627,7 +1627,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             if (graphicIndex == hover) {
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
                 uiFrame.hoverText = L"关闭技能视窗。";
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
                     WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
@@ -1644,7 +1644,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         }
         case 2:
         case 3: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0] & platform::LegacyMouseEdge_RDown) != 0) {
                 cg::yobi::FlushBattleEntries_43C060(session);
                 const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
                 session.WorldScene().battle.petCommandPhase = 1;
@@ -1659,7 +1659,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&session.UiFrame().mouse.state->edgeButtons)[0];
                 uiFrame.hoverText = L"返回技能视窗。";
                 if ((clicks & platform::LegacyMouseEdge_LDown) != 0) {
                     cg::yobi::FlushBattleEntries_43C060(session);

@@ -268,11 +268,11 @@ static void DrawCategoryControls(network::CgConnection& connection)
         if (cg::login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0) {
             if (request.selectedLoginServerGroup == index) {
                 const auto controlRecord = SelectedCategoryControl();
-                cg::ui::DrawUiControl_45EFD0(
+                cg::ui::DrawUiControl_45EFD0(connection.Owner(),
                     &controlRecord, 10, 0, 0, 0);
             } else if (request.selectedLoginServerGroup < 0) {
                 const auto controlRecord = CategoryScanRecord(index);
-                cg::ui::DrawUiControl_45EFD0(
+                cg::ui::DrawUiControl_45EFD0(connection.Owner(),
                     &controlRecord, 10, 0, 0, 0);
             }
         }
@@ -344,17 +344,17 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
 
     if (session.WorldScene().sceneState == 1) {
         interactiveTail = 1;
-        if ((cg::ui::QueryUiControlInputState_45F100(&gCloseUi) & 1) != 0) {
+        if ((cg::ui::QueryUiControlInputState_45F100(session, &gCloseUi) & 1) != 0) {
             detail::PlaySe(54, 320, 240);
             ::PostMessageW(
                 reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
-        } else if ((cg::ui::QueryUiControlInputState_45F100(&gSwitchSceneUi) & 1) != 0) {
+        } else if ((cg::ui::QueryUiControlInputState_45F100(session, &gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(session, 1);
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
             cg::audio::BeginBgmFadeOut_52B990();
         } else if (const auto selectedControl = SelectedCategoryControl();
-            (cg::ui::QueryUiControlInputState_45F100(&selectedControl) & 1) != 0) {
+            (cg::ui::QueryUiControlInputState_45F100(session, &selectedControl) & 1) != 0) {
             request.selectedLoginServerGroup = -1;
             request.serverPage = 0;
             detail::PlaySe(54, 320, 240);
@@ -362,7 +362,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
                 const auto categoryControl = CategoryScanRecord(index);
-                const std::int32_t input = cg::ui::QueryUiControlInputState_45F100(&categoryControl);
+                const std::int32_t input = cg::ui::QueryUiControlInputState_45F100(session, &categoryControl);
                 category = request.selectedLoginServerGroup;
                 if ((input & 1) != 0
                     && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0
@@ -388,7 +388,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             for (std::int32_t slot = 0; slot < 10; ++slot) {
                 if (category >= 0) {
                     const std::uint8_t input = static_cast<std::uint8_t>(
-                        cg::ui::QueryUiControlInputState_45F100(&serverUi[static_cast<std::size_t>(slot)]));
+                        cg::ui::QueryUiControlInputState_45F100(session, &serverUi[static_cast<std::size_t>(slot)]));
                     if ((input & 0x40u) != 0) {
                         request.serverHighlight = slot;
                     }
@@ -596,21 +596,21 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         SetBaseWindowTitle(title);
     }
 
-    cg::ui::DrawUiControl_45EFD0(&gCloseUi, 10, 0, 0, 0);
-    cg::ui::DrawUiControl_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
+    cg::ui::DrawUiControl_45EFD0(session, &gCloseUi, 10, 0, 0, 0);
+    cg::ui::DrawUiControl_45EFD0(session, &gSwitchSceneUi, 10, 0, 0, 0);
     if (interactiveTail != 0) {
         DrawCategoryControls(connection);
         if (request.selectedLoginServerGroup >= 0
             && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(request.selectedLoginServerGroup)] > 10) {
-            cg::ui::DrawUiControl_45EFD0(&gNextPageUi, 10, 0, 0, 0);
-            cg::ui::DrawUiControl_45EFD0(&gPreviousPageUi, 10, 0, 0, 0);
-            if ((cg::ui::QueryUiControlInputState_45F100(&gNextPageUi) & 1) != 0) {
+            cg::ui::DrawUiControl_45EFD0(session, &gNextPageUi, 10, 0, 0, 0);
+            cg::ui::DrawUiControl_45EFD0(session, &gPreviousPageUi, 10, 0, 0, 0);
+            if ((cg::ui::QueryUiControlInputState_45F100(session, &gNextPageUi) & 1) != 0) {
                 if (request.serverPage < 1) {
                     ++request.serverPage;
                 }
                 detail::PlaySe(51, 320, 240);
             }
-            if ((cg::ui::QueryUiControlInputState_45F100(&gPreviousPageUi) & 1) != 0) {
+            if ((cg::ui::QueryUiControlInputState_45F100(session, &gPreviousPageUi) & 1) != 0) {
                 if (request.serverPage > 0) {
                     --request.serverPage;
                 }
@@ -623,10 +623,10 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                 ReadServerAvailability(request.selectedLoginServerGroup, request.serverPage, slot);
             if (available && request.selectedLoginServerGroup >= 0) {
                 if (request.serverPage == 0) {
-                    cg::ui::DrawUiControl_45EFD0(
+                    cg::ui::DrawUiControl_45EFD0(session,
                         &serverUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
                 } else if (request.serverPage == 1) {
-                    cg::ui::DrawUiControl_45EFD0(
+                    cg::ui::DrawUiControl_45EFD0(session,
                         &serverUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, 0);
                 }
             }
@@ -637,10 +637,10 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             if (ReadServerAvailability(request.selectedLoginServerGroup, request.serverPage, slot)) {
                 const std::int32_t style = slot == request.serverHighlight ? 2 : 1;
                 if (request.serverPage == 0) {
-                    cg::ui::DrawUiControl_45EFD0(
+                    cg::ui::DrawUiControl_45EFD0(session,
                         &serverUi[static_cast<std::size_t>(slot)], 10, 0, 0, style);
                 } else if (request.serverPage == 1) {
-                    cg::ui::DrawUiControl_45EFD0(
+                    cg::ui::DrawUiControl_45EFD0(session,
                         &serverUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, style);
                 }
             }

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -89,7 +90,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
                 1);
         }
 
-        if (cg::render::FindClickedTextIndex_45D7A0(&message.result, 1) == 0) {
+        if (cg::render::FindClickedTextIndex_45D7A0(connection.Owner(), &message.result, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (message.action != nullptr) {
                 cg::yobi::MarkDeath(message.action);
@@ -155,7 +156,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
                 1);
         }
 
-        if (cg::render::FindClickedTextIndex_45D7A0(&message.result, 1) == 0) {
+        if (cg::render::FindClickedTextIndex_45D7A0(connection.Owner(), &message.result, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (message.action != nullptr) {
                 cg::yobi::MarkDeath(message.action);
@@ -239,10 +240,10 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         (lineCount - 1) * (cg::render::GetFontMetrics(0).doubleHeight + 2);
     const std::int32_t left = message.x + (message.width - 66) / 2;
     const std::int32_t top = message.y + lineOffset + 61;
-    const bool hovered = cg::ui::HitTestMouseRect_5049A0(left, top, left + 66, top + 17, -1) != 0;
+    const bool hovered = cg::ui::HitTestMouseRect_5049A0(connection.Owner(), left, top, left + 66, top + 17, -1) != 0;
     if (hovered) {
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
         if ((mouseClickState & 1U) != 0) {
             detail::PlaySe(79, 320, 240);
             if (message.action != nullptr) {

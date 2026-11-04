@@ -62,7 +62,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
     Capability4InputButton32 exitButton = kCapability4ExitButton;
     std::int32_t result = 0;
 
-    if ((cg::ui::QueryUiControlInputState_45F100(&loginButton) & 1) != 0) {
+    if ((cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &loginButton) & 1) != 0) {
         loginButton.normalImageNo = loginButton.clickedImageNo;
         if (sceneUi.context9A5678.length() != 0
             && sceneUi.context9A5960.length() != 0) {
@@ -81,7 +81,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         } else {
             result = -2;
         }
-    } else if ((cg::ui::QueryUiControlInputState_45F100(&exitButton) & 1) != 0) {
+    } else if ((cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &exitButton) & 1) != 0) {
         exitButton.normalImageNo = exitButton.clickedImageNo;
         result = 2;
     }
@@ -144,24 +144,24 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         const std::int32_t offsetX = ui::LegacyUiLayoutScope::GetOffsetX();
         const std::int32_t offsetY = ui::LegacyUiLayoutScope::GetOffsetY();
         if ((static_cast<std::int32_t>(sceneUi.context9A5678X) + offsetX
-                < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(sceneUi.context9A5678X) + offsetX + 372)
+                < connection.Owner().UiFrame().mouse.state->mouseX)
+            && (connection.Owner().UiFrame().mouse.state->mouseX < static_cast<std::int32_t>(sceneUi.context9A5678X) + offsetX + 372)
             && (static_cast<std::int32_t>(sceneUi.context9A5678Y) + offsetY
-                < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(sceneUi.context9A5678Y) + offsetY + 26)
-            && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
+                < connection.Owner().UiFrame().mouse.state->mouseY)
+            && (connection.Owner().UiFrame().mouse.state->mouseY < static_cast<std::int32_t>(sceneUi.context9A5678Y) + offsetY + 26)
+            && (static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons)
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
             sceneUi.inputFocusIndex = 1;
         }
         if ((static_cast<std::int32_t>(sceneUi.context9A5960X) + offsetX
-                < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(sceneUi.context9A5960X) + offsetX + 372)
+                < connection.Owner().UiFrame().mouse.state->mouseX)
+            && (connection.Owner().UiFrame().mouse.state->mouseX < static_cast<std::int32_t>(sceneUi.context9A5960X) + offsetX + 372)
             && (static_cast<std::int32_t>(sceneUi.context9A5960Y) + offsetY
-                < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(sceneUi.context9A5960Y) + offsetY + 26)
-            && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
+                < connection.Owner().UiFrame().mouse.state->mouseY)
+            && (connection.Owner().UiFrame().mouse.state->mouseY < static_cast<std::int32_t>(sceneUi.context9A5960Y) + offsetY + 26)
+            && (static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons)
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
@@ -174,7 +174,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
 
         const std::int32_t accountTop = static_cast<std::int32_t>(sceneUi.context9A5678Y) - 4;
         const std::int32_t accountLeft = static_cast<std::int32_t>(sceneUi.context9A5678X) - 5;
-        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(
+        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             accountLeft,
             accountTop,
             accountLeft + 372,
@@ -183,7 +183,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
 
         const std::int32_t passwordTop = static_cast<std::int32_t>(sceneUi.context9A5960Y) - 4;
         const std::int32_t passwordLeft = static_cast<std::int32_t>(sceneUi.context9A5960X) - 5;
-        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(
+        static_cast<void>(cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             passwordLeft,
             passwordTop,
             passwordLeft + 372,
@@ -191,8 +191,8 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
             206));
     }
 
-    cg::ui::DrawUiControl_45EFD0(&loginButton, 207, 0, 0, 0);
-    cg::ui::DrawUiControl_45EFD0(&exitButton, 207, 0, 0, 0);
+    cg::ui::DrawUiControl_45EFD0(connection.Owner(), &loginButton, 207, 0, 0, 0);
+    cg::ui::DrawUiControl_45EFD0(connection.Owner(), &exitButton, 207, 0, 0, 0);
     static_cast<void>(DrawClientVersion(460, 462, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;
 }
@@ -215,7 +215,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
     const std::int32_t controlRenderMode = mode != 0 ? 1 : 0;
 
     const std::int32_t firstControlState =
-        QueryLoginControlState_5036F0(firstControl);
+        QueryLoginControlState_5036F0(connection.Owner(), firstControl);
     if ((firstControlState & 1) != 0 && mode == 0) {
         if (sceneUi.context9A5960.length() == 0
             || sceneUi.context9A5678.length() == 0
@@ -233,7 +233,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
         }
     } else {
         const std::int32_t secondControlState =
-            QueryLoginControlState_5036F0(secondControl);
+            QueryLoginControlState_5036F0(connection.Owner(), secondControl);
         if ((secondControlState & 1) != 0 && mode == 0) {
             result = 2;
         }
@@ -278,7 +278,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
         const std::int32_t firstX = sceneUi.context9A5960X;
         if (rectangleCapability >= 1) {
             const std::int32_t firstY = sceneUi.context9A5960Y;
-            if (cg::ui::HitTestMouseRect_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                     firstX - 5,
                     firstY - 5,
                     firstX + 222,
@@ -290,7 +290,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
 
             const std::int32_t secondY = sceneUi.context9A5678Y;
             const std::int32_t secondX = sceneUi.context9A5678X;
-            if (cg::ui::HitTestMouseRect_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                     secondX - 5,
                     secondY - 5,
                     secondX + 222,
@@ -301,7 +301,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
             }
         } else {
             const std::int32_t firstY = sceneUi.context9A5960Y;
-            if (cg::ui::HitTestMouseRect_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                     firstX - 5,
                     firstY - 5,
                     firstX + 268,
@@ -313,7 +313,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
 
             const std::int32_t secondY = sceneUi.context9A5678Y;
             const std::int32_t secondX = sceneUi.context9A5678X;
-            if (cg::ui::HitTestMouseRect_5049A0(
+            if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                     secondX - 5,
                     secondY - 5,
                     secondX + 268,
@@ -349,9 +349,9 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
         }
     }
 
-    DrawLoginControl_503780(
+    DrawLoginControl_503780(connection.Owner(),
         firstControl, 4, 0, 0, controlRenderMode);
-    DrawLoginControl_503780(
+    DrawLoginControl_503780(connection.Owner(),
         secondControl, 4, 0, 0, controlRenderMode);
 
     const std::int32_t rawBackgroundIndex =

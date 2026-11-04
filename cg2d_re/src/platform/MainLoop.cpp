@@ -167,7 +167,7 @@ int MainLoop(session::ClientSession& session)
         world::Update(session);
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
-            UpdateCursor_506E00();
+            UpdateCursor_506E00(session);
             render::SortTextures_520790();
             UpdateQueuedTextAndGraphicHover_507140(session);
         }

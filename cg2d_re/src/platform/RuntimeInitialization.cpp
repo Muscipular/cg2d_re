@@ -28,9 +28,6 @@
 
 namespace cg::platform {
 
-std::uint64_t gRightMouseRepeatAnchorMs_D68BF0 = 0; // 原全局：0x00D68BF0。
-std::uint64_t gLeftMouseRepeatAnchorMs_D68DC8 = 0; // 原全局：0x00D68DC8。
-
 // 原CRT553004..553010：保留以下两值的构造顺序；其后三个防护值按PRM01移除。
 // 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
 static LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
@@ -215,9 +212,16 @@ static const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup {
 static const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup {
     cg::session::GetClientHost().FirstSession()};
 
-// 原CRT5530F8，原0x00506340／0x00506350／0x00506370：同一中央位置直接定义。
+// 原CRT5530F8，原0x00506340／0x00506350／0x00506370：同一中央位置初始化实际会话记录。
 // 原0x00506460／0x00506530／0x00506380：X→Y→八坐标构造，退出成员逆序。
-LegacyMouseState gLegacyMouseState{}; // 原全局：0x00D68CF8。
+struct LegacyMouseRuntimeStartup final {
+    LegacyMouseRuntimeStartup()
+    {
+        InitializeLegacyMouseStorage(cg::session::GetClientHost().FirstSession());
+    }
+};
+static_assert(std::is_trivially_destructible_v<LegacyMouseRuntimeStartup>);
+static const LegacyMouseRuntimeStartup gLegacyMouseRuntimeStartup;
 
 } // namespace cg::platform
 

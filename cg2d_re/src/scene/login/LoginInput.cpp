@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "LoginSavedState.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
@@ -159,6 +160,7 @@ std::wstring& ReadInputValueFF4982_520440(std::wstring& output)
 
 // 原函数：0x005036F0。
 std::int32_t QueryLoginControlState_5036F0(
+    session::ClientSession& session,
     const LoginSceneControl32* const control)
 {
     if (control == nullptr) {
@@ -171,12 +173,12 @@ std::int32_t QueryLoginControlState_5036F0(
     const std::int32_t width = control->width;
     const std::int32_t bottom = height + top;
     const std::int32_t right = width + left;
-    if (cg::ui::HitTestMouseRect_5049A0(left, top, right, bottom, -1) == 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(session, left, top, right, bottom, -1) == 0) {
         return 0;
     }
 
     const std::uint8_t edge =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
     std::uint32_t result = 0x40U;
     if ((edge & 0x01U) != 0) {
         result |= 0x01U;
@@ -186,7 +188,7 @@ std::int32_t QueryLoginControlState_5036F0(
     }
 
     const std::uint8_t held =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.heldButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->heldButtons);
     if ((held & 0x01U) != 0) {
         result |= 0x02U;
     }
@@ -195,7 +197,7 @@ std::int32_t QueryLoginControlState_5036F0(
     }
 
     const std::uint8_t pulse =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.pulseButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->pulseButtons);
     if ((pulse & 0x01U) != 0) {
         result |= 0x10U;
     }
@@ -213,6 +215,7 @@ std::int32_t QueryLoginControlState_5036F0(
 
 // 原函数：0x00503780。
 void DrawLoginControl_503780(
+    session::ClientSession& session,
     const LoginSceneControl32* const control,
     const std::uint8_t layer,
     const std::int32_t state,
@@ -239,7 +242,7 @@ void DrawLoginControl_503780(
         const std::int32_t bottom = height + top;
         const std::int32_t width = control->width;
         const std::int32_t right = width + left;
-        if (cg::ui::HitTestMouseRect_5049A0(left, top, right, bottom, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(session, left, top, right, bottom, -1) != 0) {
             imageNo = control->activeImageNo;
         } else {
             imageNo = control->normalImageNo;
@@ -261,7 +264,7 @@ void DrawLoginControl_503780(
     const std::int32_t hitBottom = hitHeight + hitTop;
     const std::int32_t hitWidth = control->width;
     const std::int32_t hitRight = hitWidth + hitLeft;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(session,
             hitLeft,
             hitTop,
             hitRight,
@@ -547,12 +550,12 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
     do {
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
-        if ((geometry.x + offsetX < platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < geometry.x + offsetX + geometry.width)
-            && (geometry.y + offsetY < platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < geometry.y + offsetY + geometry.height)) {
+        if ((geometry.x + offsetX < connection.Owner().UiFrame().mouse.state->mouseX)
+            && (connection.Owner().UiFrame().mouse.state->mouseX < geometry.x + offsetX + geometry.width)
+            && (geometry.y + offsetY < connection.Owner().UiFrame().mouse.state->mouseY)
+            && (connection.Owner().UiFrame().mouse.state->mouseY < geometry.y + offsetY + geometry.height)) {
             const std::uint8_t click =
-                static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+                static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
             hoveredSlot = slotIndex;
             if ((click & 0x01U) != 0) {
                 detail::PlaySe(51, 320, 240);

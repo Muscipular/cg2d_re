@@ -38,7 +38,7 @@ static void CancelPointerDrag(session::ClientSession& session) {
 static void ConsumePointerDragMouse(session::ClientSession& session) {
     auto& uiFrame = session.UiFrame();
     session.UiFrame().pointerDragReserved = true;
-    gMouseEventState = MES_CAPTURED;
+    session.UiFrame().mouse.state->valueD68DB4 = MES_CAPTURED;
     uiFrame.windowHasFocus = 1;
 }
 
@@ -69,14 +69,14 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
     auto& pointerDrag = session.UiFrame().pointerDrag;
     auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (pointerDragReserved || element.refDrag < 0 || !(events & MouseFlag_LDownEvent)
-        || !(gMouseBtnDown2 & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase(session) != 0
+        || !(window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase(session) != 0
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
     pointerDrag.elementId = element.elementId;
     pointerDrag.creationSerial = element.creationSerial;
-    pointerDrag.lastX = platform::gLegacyMouseState.buttonCoordinates[0];
-    pointerDrag.lastY = platform::gLegacyMouseState.buttonCoordinates[1];
+    pointerDrag.lastX = window.ownerSession->UiFrame().mouse.state->buttonCoordinates[0];
+    pointerDrag.lastY = window.ownerSession->UiFrame().mouse.state->buttonCoordinates[1];
     pointerDrag.moved = false;
     pointerDrag.startedThisFrame = true;
     window.state &= ~std::uint32_t{0x800}; // 已命中的控件接管本次UI窗口位置拖动。
@@ -103,17 +103,17 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     WindowInstance* owner = nullptr;
     auto* element = ResolvePointerDrag(session, owner);
     if (!element || WindowDrag_ReadMousePhase(session) != 0) { CancelPointerDrag(session); return 1; }
-    const bool released = (gMouseClickState & platform::LegacyMouseEdge_LUp) != 0;
-    const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
+    const bool released = (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LUp) != 0;
+    const bool held = (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) != 0;
     if (!held && !released) { CancelPointerDrag(session); return 1; }
-    const int x = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[2]) : static_cast<int>(gMouseX);
-    const int y = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[3]) : static_cast<int>(gMouseY);
+    const int x = released ? static_cast<int>(window.ownerSession->UiFrame().mouse.state->buttonCoordinates[2]) : static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX);
+    const int y = released ? static_cast<int>(window.ownerSession->UiFrame().mouse.state->buttonCoordinates[3]) : static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
     const bool moved = x != pointerDrag.lastX || y != pointerDrag.lastY;
     pointerDrag.lastX = x; pointerDrag.lastY = y;
     pointerDrag.moved |= moved;
     element->mouseState = WindowMouseState_Press;
     if (pointerDrag.startedThisFrame && !moved && !released) return 1; // 按下本身已派发onPress。
-    if (released) platform::ResetLegacyMousePosition_506890(x, y);
+    if (released) platform::ResetLegacyMousePosition_506890(*window.ownerSession, x, y);
     int flags = held && !released ? MouseFlag_LHoldPhysical : MouseFlag_None;
     if (moved) flags |= MouseFlag_Dragging;
     if (flags) EmitPointerDrag(window, *element, flags);

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
@@ -342,8 +343,8 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         }
 
         gWindowClass.hCursor = nullptr;
-        gRequestedCursorState_D68DC4 = 0;
-        gConsumedCursorState_9A6F44 = 0;
+        cg::session::GetClientHost().FirstSession().UiFrame().mouse.requestedCursor = 0;
+        cg::session::GetClientHost().FirstSession().UiFrame().mouse.consumedCursor = 0;
         gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         gWindowClass.lpszMenuName = nullptr;
         gWindowClass.lpszClassName = gWindowClassName;

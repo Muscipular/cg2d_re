@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -95,7 +96,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             std::bit_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
         if (sampledState < 6u) {
             const std::uint8_t mouseClickState =
-                static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+                static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
             if ((mouseClickState & 1u) != 0) {
                 connection.Owner().WorldScene().sceneState = 6;
                 processLoginInput = true;

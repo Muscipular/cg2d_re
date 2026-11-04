@@ -1540,24 +1540,24 @@ static void WindowCraft_HandleMaterialDrag(
     if (sourceIndex >= 6 && craft.selectedImage < 0) {
         WindowDrag_Cancel(session);
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         const auto y = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(session, 10, sourceIndex, x, y, WindowCraft_HandleMaterialDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t imageNo =
         sourceIndex < 6 ? craft.selectionImages[sourceIndex] : craft.selectedImage;
     const std::int32_t y =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -2034,7 +2034,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 const WindowElement* const element = elementPtr;
                 const std::int32_t left = element->x + 50 * (position % 5) + window->x;
                 const std::int32_t top = element->y + 50 * (position / 5) + window->y;
-                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                     hovered = position;
                     break;
                 }
@@ -2053,7 +2053,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     }
     craft.backpackHover = hovered;
     if (hovered >= 0 && callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0
-        && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+        && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 11 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const std::uint8_t mode = craft.selectionMode;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
@@ -2279,7 +2279,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 const std::int32_t page = craft.materialHintPage + 1;
                 const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
@@ -2467,9 +2467,9 @@ static std::int32_t WindowCraft_DrawInputNotice(
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t imageNo = 0x3B568;
-    if (cg::ui::HitTestMouseRect_5049A0(287, 268, 353, 285, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+        if ((static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));

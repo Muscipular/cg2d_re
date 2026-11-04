@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -26,11 +27,12 @@ std::int32_t gHoveredTextPendingIndex = 0; // 原全局：0x00D68BEC。
 
 // 原函数：0x0045D7A0。
 std::int32_t FindClickedTextIndex_45D7A0(
+    session::ClientSession& session,
     const std::int32_t* const values,
     const std::int32_t count)
 {
     const std::uint8_t edgeButtons = static_cast<std::uint8_t>(
-        platform::gLegacyMouseState.edgeButtons);
+        session.UiFrame().mouse.state->edgeButtons);
     if ((edgeButtons & 1U) == 0U) {
         return -1;
     }

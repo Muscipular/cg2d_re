@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "LuaUI.hpp"
 #include <cstring>
 
@@ -108,11 +109,11 @@ static int LuaMouseIndex(lua_State* L) {
         return 1;
     }
     if (strcmp(key, "x") == 0) {
-        lua_pushinteger(L, gMouseX);
+        lua_pushinteger(L, GetLuaConnection(L).Owner().UiFrame().mouse.state->mouseX);
         return 1;
     }
     if (strcmp(key, "y") == 0) {
-        lua_pushinteger(L, gMouseY);
+        lua_pushinteger(L, GetLuaConnection(L).Owner().UiFrame().mouse.state->mouseY);
         return 1;
     }
     lua_pushnil(L);

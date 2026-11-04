@@ -580,7 +580,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
     if (inputCount > 0) {
         do {
             const std::int32_t top = dialog.message.inputY[selected] + window->y;
-            if (cg::ui::HitTestMouseRect_5049A0(inputX, top, inputX + inputWidth, top + 16, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, inputX, top, inputX + inputWidth, top + 16, -1) != 0) {
                 break;
             }
             inputCount = std::bit_cast<std::int8_t>(dialog.message.inputCount);
@@ -628,7 +628,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
         std::int32_t offset = 0;
         std::int32_t row = 0;
         while (row < lineCount) {
-            if (cg::ui::HitTestMouseRect_5049A0(left, top + offset, left + width, top + offset + 20, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top + offset, left + width, top + offset + 20, -1) != 0) {
                 lineCount = dialog.message.lineCount;
                 if (row < lineCount) {
                     dialog.message.hoveredRow = row;
@@ -646,7 +646,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
         if (row < lineCount) {
             bool found = false;
             do {
-                if (cg::ui::HitTestMouseRect_5049A0(
+                if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession,
                         left, top + offset, left + width, top + offset + 20, -1) != 0) {
                     found = true;
                     break;

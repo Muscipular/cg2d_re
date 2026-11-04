@@ -992,7 +992,7 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(WindowInstance& callbackWin
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = shop.itemCount;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
         const std::int32_t position = crystal.scroll;
         WindowInstance* const window = currentWindow;
         auto* const indexedElement = window->FindElementById(NativeElementKey(index - 5));
@@ -1188,7 +1188,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + windowX + 2;
             const std::int32_t top = element.y + windowY + 2;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                 hovered = 0;
             }
         }
@@ -1198,7 +1198,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
         crystal.inventoryHover = hovered;
     }
     const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (items[hovered + 8].used != 0) {
@@ -1298,12 +1298,12 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(100, 381, 166, 398, -1) != 0;
-    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(510, 381, 576, 398, -1) != 0;
+    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 100, 381, 166, 398, -1) != 0;
+    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 510, 381, 576, 398, -1) != 0;
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
         uiFrame.hoverText = crystal.confirmAccept;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
@@ -1320,7 +1320,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     if (cancelHover) {
         cancelImage = 245328;
         uiFrame.hoverText = crystal.confirmCancel;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
@@ -1391,14 +1391,14 @@ static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
     const std::int32_t key = index + 300;
     if (interaction.tooltipSource != key) {
         interaction.tooltipX = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         interaction.tooltipY = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (session.UiFrame().mouse.state->mouseX < 320);
         interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (session.UiFrame().mouse.state->mouseY < 240);
         interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     interaction.tooltipSource = key;

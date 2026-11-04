@@ -46,9 +46,10 @@ static_assert(offsetof(CharacterModalUiRecord, text) == 0x18);
 static_assert(sizeof(CharacterModalUiRecord) == 0x20);
 
 // sub_503990@0x503990 与 sub_503A20@0x503A20 的还原入口。
-std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRecord* uiRecord);
+std::int32_t ReadCharacterModalButtonMouseState_503990(session::ClientSession& session, const CharacterModalUiRecord* uiRecord);
 // 原函数：0x00503A20。
 std::int32_t DrawCharacterModalButton_503A20(
+    session::ClientSession& session,
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,
     std::int8_t color,
@@ -66,7 +67,7 @@ std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connec
 void ProcessCreationScene_4626A0(network::CgConnection& connection, std::int32_t entryGate);
 
 // 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
-std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBounds* rectangle);
+std::int32_t HitTestCharacterCreationControl_464290(session::ClientSession& session, const cg::ui::UiControlBounds* rectangle);
 
 // 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。
 void AdvanceCharacterCreationScene_462870(network::CgConnection& connection);

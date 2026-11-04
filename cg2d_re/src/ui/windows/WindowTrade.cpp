@@ -200,6 +200,7 @@ static void WindowTrade_HandleRemoteItem(
 
 // 原函数：0x004B1900。
 static bool WindowTrade_HitTestOwnPetRow(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
 
 // 原函数：0x004AFFE0。
@@ -333,14 +334,14 @@ static std::int32_t WindowItem_DrawPetTooltip(
     const std::int32_t key = index + 200;
     if (interaction.tooltipSource != key) {
         interaction.tooltipX = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         interaction.tooltipY = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (session.UiFrame().mouse.state->mouseX < 320);
         interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (session.UiFrame().mouse.state->mouseY < 240);
         interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     const std::int32_t sideOffset =
@@ -844,7 +845,7 @@ static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::
                 trade.preview = preview;
             }
             if (preview >= 0) {
-                const bool left = (platform::gLegacyMouseState.mouseX < 320);
+                const bool left = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseX < 320);
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(trade.preview);
                 if (ownPet != 0) {
@@ -939,7 +940,7 @@ static std::int32_t WindowTrade_HandlePanel(
     const std::int16_t y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementY + windowY));
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(window->ownerSession->UiFrame().mouse.state->tailReset);
         const std::int32_t scrollPosition = *scrollValue;
         auto* const wheelElementElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(scrollElement)) : nullptr;
         if (wheelElementElement) {
@@ -964,7 +965,7 @@ static std::int32_t WindowTrade_HandlePanel(
     if ((state & MouseFlag_Hover) != 0) {
         for (std::int32_t part = 0; part < 5; ++part) {
             const auto& rectangle = rectangles54F508[part];
-            if (WindowTrade_HitTestOwnPetRow(x + rectangle[0], y + rectangle[1], rectangle[2], rectangle[3])) {
+            if (WindowTrade_HitTestOwnPetRow(*window->ownerSession, x + rectangle[0], y + rectangle[1], rectangle[2], rectangle[3])) {
                 selected = part;
             }
         }
@@ -1024,9 +1025,9 @@ static std::int32_t WindowTrade_HandlePanel(
                 numericElement == -1 ? nullptr : &valueSlotElement->state;
             const std::int32_t scrollSnapshot = *scrollValue;
             const std::int32_t mouseY =
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+                static_cast<std::int32_t>(window->ownerSession->UiFrame().mouse.state->mouseY);
             const std::int32_t mouseX =
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+                static_cast<std::int32_t>(window->ownerSession->UiFrame().mouse.state->mouseX);
             callback(*window->ownerSession, x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
                      &itemCount, &petCount, &amount, &displayAmount, descriptor);
         }
@@ -1135,7 +1136,7 @@ static void WindowTrade_HandleOwnInventory(
             }
             const std::int32_t left = x + 50 * (position % 5) + 13;
             const std::int32_t top = y + 52 * (position / 5) + 26;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(session, left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position + 8;
                 break;
             }
@@ -1155,7 +1156,7 @@ static void WindowTrade_HandleOwnInventory(
         }
         trade.hoverSlotCB0A4C = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
         if (session.WorldScene().playerItems[hovered].used != 0
             && (session.WorldScene().playerItems[hovered].flags & 1u) != 0
@@ -1311,7 +1312,7 @@ static void WindowTrade_HandleOwnPets(
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
-            if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(session, x + 11, top, x + 251, top + 69, -1) != 0) {
                 hovered = scroll + row;
                 break;
             }
@@ -1322,7 +1323,7 @@ static void WindowTrade_HandleOwnPets(
         petIndex = std::bit_cast<std::int16_t>(session.WorldScene().petPairs[hovered].index);
         if (petIndex >= 0) {
             uiFrame.hoverText = L"用滑鼠拖放方式，登录此笔宠物交易。";
-            if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+            if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
                 && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
                 if ((*session.WorldScene().petRecords)[petIndex].used != 0
                     && trade.petMarks[petIndex] == 0) {
@@ -1481,24 +1482,24 @@ static void WindowTrade_HandleOwnItemDrag(
         || session.WorldScene().playerItems[WindowTrade_ReadSelectedItem(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 6, sourceIndex, x, y, WindowTrade_HandleOwnItemDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t imageNo =
         session.WorldScene().playerItems[WindowTrade_ReadSelectedItem(session, sourceIndex)].imageNo;
     const std::int32_t y =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -1521,28 +1522,28 @@ static void WindowTrade_HandleOwnPetDrag(
         || (*session.WorldScene().petRecords)[WindowTrade_ReadSelectedPet(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 7, sourceIndex, x, y, WindowTrade_HandleOwnPetDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t slot = WindowTrade_ReadSelectedPet(session, sourceIndex);
     const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::gLegacyMouseState.mouseY - 35)));
+        (session.UiFrame().mouse.state->mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::gLegacyMouseState.mouseX - 120)));
+        (session.UiFrame().mouse.state->mouseX - 120)));
     WindowBank_DrawOwnPetTooltip(session, petX, petY, slot, 5);
     const std::int32_t y =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
@@ -1628,7 +1629,7 @@ static void WindowTrade_HandleSelectedItem(
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const std::int32_t left = x + 50 * (slot % 5) + 13;
             const std::int32_t top = y + 52 * (slot / 5) + 26;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(session, left, top, left + 48, top + 48, -1) != 0) {
                 hovered = slot;
                 break;
             }
@@ -1644,7 +1645,7 @@ static void WindowTrade_HandleSelectedItem(
         }
         trade.hoverSlotC8AA78 = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemoveItem(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1810,7 +1811,7 @@ static void WindowTrade_HandleSelectedPet(
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
-            if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(session, x + 11, top, x + 251, top + 69, -1) != 0) {
                 hovered = scroll + row;
                 break;
             }
@@ -1820,7 +1821,7 @@ static void WindowTrade_HandleSelectedPet(
     if (phase == 0 && hovered >= 0) {
         uiFrame.hoverText = L"用滑鼠拖放方式，取消此笔宠物交易。";
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemovePet(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1980,7 +1981,7 @@ static void WindowTrade_HandleRemoteItem(
             for (std::int32_t slot = 0; slot < 20; ++slot) {
                 const std::int32_t left = x + 50 * (slot % 5) + 13;
                 const std::int32_t top = y + 52 * (slot / 5) + 26;
-                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(session, left, top, left + 48, top + 48, -1) != 0) {
                     hovered = slot;
                     std::uint16_t used;
                     std::memcpy(&used, &trade.items[slot], sizeof(used));
@@ -2081,7 +2082,7 @@ static void WindowTrade_HandleRemoteItem(
         if ((state & MouseFlag_Hover) != 0) {
             for (std::int32_t row = 0; row < 3; ++row) {
                 const std::int32_t top = y + rowY[row];
-                if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(session, x + 11, top, x + 251, top + 69, -1) != 0) {
                     const std::int32_t slot = scroll + row;
                     if (slot >= 0) {
                         std::uint16_t used;
@@ -2126,16 +2127,17 @@ static void WindowTrade_HandleRemoteItem(
 
 // 原函数：0x004B1900。
 static bool WindowTrade_HitTestOwnPetRow(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height)
 {
     const std::int32_t relativeX =
-        (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(x));
+        (session.UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(x));
     if (relativeX < 0 || relativeX >= width) {
         return false;
     }
     const std::int32_t relativeY =
-        (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(y));
+        (session.UiFrame().mouse.state->mouseY - static_cast<std::int32_t>(y));
     return relativeY >= 0 && relativeY < height;
 }
 

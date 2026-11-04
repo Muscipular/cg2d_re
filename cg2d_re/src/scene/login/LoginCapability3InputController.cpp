@@ -41,7 +41,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
     std::int32_t result = 0;
     const std::int32_t nonzeroMode = mode != 0 ? 1 : 0;
 
-    if ((cg::ui::QueryUiControlInputState_45F100(&primaryButton) & 1) != 0
+    if ((cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &primaryButton) & 1) != 0
         && mode == 0) {
         primaryButton.normalImageNo = primaryButton.clickedImageNo;
         if (sceneUi.context9A5678.length() == 0
@@ -58,7 +58,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
             sceneUi.context9A5678.text.resize(cg::text::Prefix(sceneUi.context9A5678.text, static_cast<std::size_t>(
                 passwordByteLength)));
         }
-    } else if ((cg::ui::QueryUiControlInputState_45F100(&secondaryButton) & 1) != 0
+    } else if ((cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &secondaryButton) & 1) != 0
         && mode == 0) {
         secondaryButton.normalImageNo = secondaryButton.clickedImageNo;
         result = 2;
@@ -124,7 +124,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
     if (platform::gMonitorKeyboard == 0 && mode == 0) {
         const std::int32_t passwordY = sceneUi.context9A5678Y;
         const std::int32_t passwordX = sceneUi.context9A5678X;
-        if (cg::ui::HitTestMouseRect_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                 passwordX - 5,
                 passwordY - 4,
                 passwordX + 227,
@@ -136,7 +136,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
 
         const std::int32_t accountY = sceneUi.context9A5960Y;
         const std::int32_t accountX = sceneUi.context9A5960X;
-        if (cg::ui::HitTestMouseRect_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
                 accountX - 5,
                 accountY - 4,
                 accountX + 227,
@@ -167,9 +167,9 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
         }
     }
 
-    cg::ui::DrawUiControl_45EFD0(
+    cg::ui::DrawUiControl_45EFD0(connection.Owner(),
         &primaryButton, 207, 0, 0, nonzeroMode);
-    cg::ui::DrawUiControl_45EFD0(
+    cg::ui::DrawUiControl_45EFD0(connection.Owner(),
         &secondaryButton, 207, 0, 0, nonzeroMode);
     static_cast<void>(DrawClientVersion(540, 424, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "CharacterSelectSceneState.hpp"
@@ -79,8 +80,8 @@ std::int32_t ProcessCharacterSlot_461B30(
         for (std::int32_t item = 1; item < 3; ++item) {
             detail::CharacterSelectUiRecord& uiRecord =
                 uiRecords[static_cast<std::size_t>(item)];
-            cg::ui::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, mode);
-            if (mode == 0 && (cg::ui::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
+            cg::ui::DrawUiControl_45EFD0(connection.Owner(), &uiRecord, 5, 0, 0, mode);
+            if (mode == 0 && (cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &uiRecord) & 1) != 0) {
                 result = item;
             }
         }
@@ -159,8 +160,8 @@ std::int32_t ProcessCharacterSlot_461B30(
             cg::yobi::AdvanceYobiAnimationFrame_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {
-        cg::ui::DrawUiControl_45EFD0(&uiRecords[0], 5, 0, 0, mode);
-        if ((cg::ui::QueryUiControlInputState_45F100(&uiRecords[0]) & 1) != 0) {
+        cg::ui::DrawUiControl_45EFD0(connection.Owner(), &uiRecords[0], 5, 0, 0, mode);
+        if ((cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &uiRecords[0]) & 1) != 0) {
             result = 0;
         }
         style = mode + 1;
@@ -183,8 +184,8 @@ std::int32_t ProcessCharacterSlot_461B30(
 
             detail::CharacterSelectUiRecord& uiRecord =
                 uiRecords[static_cast<std::size_t>(item)];
-            cg::ui::DrawUiControl_45EFD0(&uiRecord, 5, 0, 0, style);
-            if (style == 0 && (cg::ui::QueryUiControlInputState_45F100(&uiRecord) & 1) != 0) {
+            cg::ui::DrawUiControl_45EFD0(connection.Owner(), &uiRecord, 5, 0, 0, style);
+            if (style == 0 && (cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &uiRecord) & 1) != 0) {
                 result = item;
             }
         }

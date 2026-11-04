@@ -826,13 +826,13 @@ static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, const Elem
     }
     const std::int32_t count = chatDisplay.count;
     if (count == 0) {
-        if (platform::gLegacyMouseState.tailReset != 0) {
+        if (callbackWindow.ownerSession->UiFrame().mouse.state->tailReset != 0) {
             auto* elementsWindow = window;
             if (auto* const element9 = elementsWindow->FindElementById(WindowChatElementId::Element9), * const handleButtons_15Element = elementsWindow->FindElementById(WindowChatElementId::HandleButtons_15); element9 && handleButtons_15Element) element9->y = handleButtons_15Element->y - 14;
         }
         return 0;
     }
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
     const std::int32_t position = count - chatWindow.scrollOffset;
     auto* const dragScrollElement = window->FindElementById(WindowChatElementId::DragScroll);
     if (dragScrollElement) {

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../login/LoginSavedState.hpp"
@@ -418,8 +419,8 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
     std::int8_t versionMinus = 0;
     std::int8_t variantMinus = 0;
     std::int8_t variantPlus = 0;
-    const auto hover = []() -> std::int8_t {
-        return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
+    const auto hover = [&connection]() -> std::int8_t {
+        return (CreationMouseByte(connection.Owner().UiFrame().mouse.state->heldButtons) & 1) != 0 ? 1 : 2;
     };
 
     for (std::int32_t index = 0; index < 14; ++index) {
@@ -437,32 +438,32 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
         const std::int32_t height = kCreationSelectSize54DFE0[1];
         const std::int32_t left = position[0];
         const std::int32_t width = kCreationSelectSize54DFE0[0];
-        if (cg::ui::HitTestMouseRect_5049A0(left, top, left + width, top + height, -1) != 0
-            && (CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(), left, top, left + width, top + height, -1) != 0
+            && (CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             draft.characterIndex9A4CFC = static_cast<std::uint8_t>(index);
             draft.variantIndex9A5B00 = 0;
             break;
         }
         selected = draft.characterIndex9A4CFC;
     }
-    if (HitTestCharacterCreationControl_464290(&kCreationSelectButtons54DFE8[0].bounds) != 0) {
+    if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationSelectButtons54DFE8[0].bounds) != 0) {
         confirmState = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(53, 320);
             result = 1;
         }
     }
-    if (HitTestCharacterCreationControl_464290(&kCreationSelectButtons54DFE8[1].bounds) != 0) {
+    if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationSelectButtons54DFE8[1].bounds) != 0) {
         cancelState = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(54, 320);
             result = 2;
         }
     }
     if (connection.PukVersion() >= 5) {
-        if (HitTestCharacterCreationControl_464290(&kCreationVersionHit54E020[0]) != 0) {
+        if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationVersionHit54E020[0]) != 0) {
             versionPlus = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
                 const std::uint8_t puk = connection.PukVersion();
                 const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
                 const std::int32_t limit = puk >= 8 ? 2 : 1;
@@ -473,9 +474,9 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
                 }
             }
         }
-        if (HitTestCharacterCreationControl_464290(&kCreationVersionHit54E020[1]) != 0) {
+        if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationVersionHit54E020[1]) != 0) {
             versionMinus = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
                 if (static_cast<std::int8_t>(draft.characterFamily9A57E0) > 0) {
                     --draft.characterFamily9A57E0;
                 } else {
@@ -484,9 +485,9 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
             }
         }
     }
-    if (HitTestCharacterCreationControl_464290(&kCreationVariantButtons54E084[0].bounds) != 0) {
+    if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationVariantButtons54E084[0].bounds) != 0) {
         variantMinus = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(draft.variantIndex9A5B00 - 1);
             draft.variantIndex9A5B00 = next;
             if (static_cast<std::int8_t>(next) < 0) {
@@ -494,9 +495,9 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
             }
         }
     }
-    if (HitTestCharacterCreationControl_464290(&kCreationVariantButtons54E084[1].bounds) != 0) {
+    if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationVariantButtons54E084[1].bounds) != 0) {
         variantPlus = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(draft.variantIndex9A5B00 + 1);
             draft.variantIndex9A5B00 = next;
             if (static_cast<std::int8_t>(next) > 3) {
@@ -505,11 +506,11 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
         }
     }
 
-    if (HitTestCharacterCreationControl_464290(&kCreationPreviewHit54E064[0]) != 0
-        || HitTestCharacterCreationControl_464290(&kCreationPreviewHit54E064[1]) != 0) {
+    if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationPreviewHit54E064[0]) != 0
+        || HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationPreviewHit54E064[1]) != 0) {
         cg::yobi::YobiAction* first;
         cg::yobi::YobiAction* second;
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
             first = draft.createActions[0];
             if (first != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
@@ -535,7 +536,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
             second = draft.createActions[1];
             first = draft.createActions[0];
         }
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 2) != 0) {
+        if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 2) != 0) {
             if (first != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
                     first, cg::yobi::GetYobiActionField2B8(first) + 1);
@@ -704,20 +705,20 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     const std::uint8_t maxVersion = puk >= 7 ? 2 : (puk >= 5 ? 1 : 0);
     const bool showVersionControls = maxVersion != draft.characterFamily9A57E0;
 
-    const auto hover = []() -> std::int8_t {
-        return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
+    const auto hover = [&connection]() -> std::int8_t {
+        return (CreationMouseByte(connection.Owner().UiFrame().mouse.state->heldButtons) & 1) != 0 ? 1 : 2;
     };
-    const auto hitRow = [](const std::size_t record, const std::int32_t top) {
+    const auto hitRow = [&connection](const std::size_t record, const std::int32_t top) {
         const auto& bounds = kCreationUi54E0BC[record].bounds;
-        return cg::ui::HitTestMouseRect_5049A0(
+        return cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             bounds.left, top, bounds.left + bounds.width, top + bounds.height, -1);
     };
 
     if (draft.attributePhase9A5AFC == 1) {
         for (std::size_t index = 0; index < 4; ++index) {
-            if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[index].bounds) != 0) {
+            if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[index].bounds) != 0) {
                 arrows[index] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     auto& value = index < 2 ? draft.styleIndex9A5668 : draft.colorIndex9A4B80;
                     if ((index & 1) == 0) {
                         const auto next = static_cast<std::uint8_t>(value - 1);
@@ -737,9 +738,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             }
         }
         if (showVersionControls) {
-            if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[4].bounds) != 0) {
+            if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[4].bounds) != 0) {
                 arrows[4] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = draft.graphicGeneration9A4B88;
                     const std::uint8_t version = draft.characterFamily9A57E0;
                     const auto next = static_cast<std::uint8_t>(value - 1);
@@ -750,9 +751,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                     audio::PlaySe_52C450(51, 320);
                 }
             }
-            if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[5].bounds) != 0) {
+            if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[5].bounds) != 0) {
                 arrows[5] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = draft.graphicGeneration9A4B88;
                     const std::uint8_t version = draft.characterFamily9A57E0;
                     const auto next = static_cast<std::uint8_t>(value + 1);
@@ -780,7 +781,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 + 14 * static_cast<std::int32_t>(row);
             if (static_cast<std::int8_t>(*attributes[row]) > 0 && hitRow(6, top) != 0) {
                 attributeMinus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = *attributes[row];
                     if (static_cast<std::int8_t>(value) > 0) {
                         const std::uint8_t left = draft.remainingAttributePoints9A4D04;
@@ -796,7 +797,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             if (static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04) > 0
                 && static_cast<std::int8_t>(*attributes[row]) < attributeLimit && hitRow(7, top) != 0) {
                 attributePlus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     bool changed = false;
                     if (static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04) > 0) {
                         const std::uint8_t value = *attributes[row];
@@ -827,7 +828,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 + 14 * static_cast<std::int32_t>(row);
             if (static_cast<std::int8_t>(elements[row]) > 0 && hitRow(8, top) != 0) {
                 elementMinus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = elements[row];
                     if (static_cast<std::int8_t>(value) > 0) {
                         const std::uint8_t left = draft.remainingElementPoints9A50C8;
@@ -842,7 +843,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             }
             if (static_cast<std::int8_t>(elements[row]) < 10 && hitRow(9, top) != 0) {
                 elementPlus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->pulseButtons) & 1) != 0) {
                     const std::size_t opposite = row < 2 ? row + 2 : row - 2;
                     if (elements[opposite] == 0) {
                         if (static_cast<std::int8_t>(draft.remainingElementPoints9A50C8) > 0) {
@@ -871,9 +872,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             }
         }
 
-        if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[10].bounds) != 0) {
+        if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[10].bounds) != 0) {
             confirmState = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
                 const std::int32_t cursor = draft.input9A51E8.caretByteOffset;
                 if (cursor <= 0) {
                     draft.attributePhase9A5AFC = 100;
@@ -910,9 +911,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 }
             }
         }
-        if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[11].bounds) != 0) {
+        if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[11].bounds) != 0) {
             cancelState = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(connection.Owner().UiFrame().mouse.state->edgeButtons) & 1) != 0) {
                 audio::PlaySe_52C450(54, 320);
                 result = 2;
             }
@@ -1178,13 +1179,13 @@ std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(network::CgConnection&
 }
 
 // 原函数：0x00464290。
-std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBounds* const rectangle)
+std::int32_t HitTestCharacterCreationControl_464290(session::ClientSession& session, const cg::ui::UiControlBounds* const rectangle)
 {
     const std::int32_t top = rectangle->top;
     const std::int32_t left = rectangle->left;
     const std::int32_t height = rectangle->height;
     const std::int32_t width = rectangle->width;
-    return cg::ui::HitTestMouseRect_5049A0(
+    return cg::ui::HitTestMouseRect_5049A0(session,
         left, top, left + width, top + height, -1);
 }
 
@@ -1276,7 +1277,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
     }
 
     for (std::size_t index = 0; index < buttons.size(); ++index) {
-        if ((detail::ReadCharacterModalButtonMouseState_503990(&buttons[index]) & 1) != 0) {
+        if ((detail::ReadCharacterModalButtonMouseState_503990(connection.Owner(), &buttons[index]) & 1) != 0) {
             login::detail::PlaySe(79, 320, 240);
             cg::yobi::MarkDeath(action);
             action = nullptr;
@@ -1292,7 +1293,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
             2, 0, 0, lines[index], 0, 0);
     }
     for (const auto& button : buttons) {
-        detail::DrawCharacterModalButton_503A20(&button, 2, 4, 1, cg::render::gHoverFramePaletteIndex_D69768, 214);
+        detail::DrawCharacterModalButton_503A20(connection.Owner(), &button, 2, 4, 1, cg::render::gHoverFramePaletteIndex_D69768, 214);
     }
 RET:
     VM_DOLPHIN_WHITE_END
@@ -1657,17 +1658,17 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         if (sceneUi.updateAvailable != 0) {
             if (uiStyle == 0
                 && connection.Owner().WorldScene().sceneState == 11
-                && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
+                && (cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &gUpdateUi) & 1) != 0) {
                 world::SetCurrentSceneType(connection.Owner(), 13);
                 uiStyle = 1;
             }
-            cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
+            cg::ui::DrawUiControl_45EFD0(connection.Owner(), &gUpdateUi, 5, 0, 0, uiStyle);
             cg::render::QueueOriginalPaletteGraphic_45F090(252, 392, 4, 245078, 0, -1);
         }
 
         if (uiStyle == 0
             && connection.Owner().WorldScene().sceneState == 11
-            && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
+            && (cg::ui::QueryUiControlInputState_45F100(connection.Owner(), &gReturnUi) & 1) != 0) {
             cg::yobi::YobiClearUp_404D30(connection.Owner());
             ClearPreviewActions(connection);
             connection.Shutdown();
@@ -1675,7 +1676,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             world::SetCurrentSceneType(connection.Owner(), 2);
             login::detail::PlaySe(54, 320, 240);
         }
-        cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
+        cg::ui::DrawUiControl_45EFD0(connection.Owner(), &gReturnUi, 5, 0, 0, uiStyle);
         cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG

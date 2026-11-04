@@ -628,7 +628,7 @@ static std::int32_t WindowHotkeys_Scroll(WindowInstance& callbackWindow, const E
     if (!currentWindow) return 0;
     WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;

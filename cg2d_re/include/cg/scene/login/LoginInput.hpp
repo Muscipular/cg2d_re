@@ -5,6 +5,8 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::network {
 class CgConnection;
 }
@@ -51,10 +53,12 @@ std::wstring& ReadInputValueFF4982_520440(std::wstring& output);
 
 // 原 sub_5036F0@[0x5036F0,0x50377E)：登录控件命中与鼠标状态位打包。
 std::int32_t QueryLoginControlState_5036F0(
+    session::ClientSession& session,
     const LoginSceneControl32* control);
 
 // 原 sub_503780@[0x503780,0x5038A9)：登录控件基础图与命中覆盖图绘制。
 void DrawLoginControl_503780(
+    session::ClientSession& session,
     const LoginSceneControl32* control,
     std::uint8_t layer,
     std::int32_t state,

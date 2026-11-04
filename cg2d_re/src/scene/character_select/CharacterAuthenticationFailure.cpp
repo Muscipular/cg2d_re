@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -51,7 +52,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
     const std::int32_t buttonBottom = buttonY + 132;
     const std::int32_t buttonTop = buttonY + 115;
     const std::int32_t buttonRight = buttonLeft + 66;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             buttonLeft,
             buttonTop,
             buttonRight,
@@ -60,7 +61,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
         != 0) {
         hovered = true;
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
         if ((mouseClickState & 1U) != 0) {
             result = 1;
             login::detail::PlaySe(51, 320, 240);

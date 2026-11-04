@@ -247,10 +247,10 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
     } else {
         const std::int32_t kind = WindowDrag_ReadKind(*callbackWindow.ownerSession);
         if (kind == 2) {
-            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
-        } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        } else if (kind == 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             currentWindow->state |= 0x8000u;
         }
     }
@@ -378,7 +378,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     if (occupancy[position + 8] != 0) {
                         continue;
                     }
-                    if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0
+                    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0
                         && item.used != 0) {
                         const std::int32_t type = item.itemType;
                         uiFrame.hoverText = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
@@ -465,7 +465,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t elementY = element.y;
                 const std::int32_t windowY = window->y;
                 const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
-                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                     hovered = position;
                     break;
                 }
@@ -507,7 +507,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
         inventory.battleTooltipPage = 0;
     }
     inventory.battleBackpackHover = hovered;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const auto& item = items[hovered + 8];
             bool useItem = false;
@@ -607,7 +607,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             const auto& item = items[hovered + 8];
             if (item.used != 0) {
                 const std::int32_t pages = item.pages;
@@ -790,7 +790,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 if (occupancy[position] != 0) {
                     continue;
                 }
-                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                     uiFrame.hoverText = L"无法在战斗中更换装备。";
                     if ((events & MouseFlag_Hover) != 0) {
                         cg::render::DrawGraphicHover(
@@ -858,7 +858,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             }
             const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, position, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, position, -24);
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
             }
@@ -892,7 +892,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
         uiFrame.hoverText = hint;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
+    if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             if (hovered == 2 || hovered == 3) {
                 std::int32_t weapons = 0;
@@ -928,7 +928,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
                 ++inventory.battleTooltipPage;
                 if (inventory.battleTooltipPage >= item->pages) {

@@ -856,8 +856,8 @@ static std::int32_t WindowSettings_ToggleCursor(WindowInstance& callbackWindow, 
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8E3;
             }
-            const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
-            const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
+            const std::int32_t y = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseY + 16);
+            const std::int32_t x = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseX + 16);
             static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
         } else {
             graphic->imageNo = 0x3B8E4;

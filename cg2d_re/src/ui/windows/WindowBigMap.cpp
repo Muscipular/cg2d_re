@@ -882,7 +882,7 @@ struct BigMapWindowState final {
     }
 
     bool Hit(int x, int y, int w, int h) const {
-        return MouseIsInRect(window.x + x, window.y + y, w, h);
+        return MouseIsInRect(*window.ownerSession, window.x + x, window.y + y, w, h);
     }
 
     int Update(int stage) {
@@ -912,8 +912,8 @@ struct BigMapWindowState final {
         mapReady = map.PrepareMap(*window.ownerSession);
         if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
         SyncControls();
-        const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);
-        const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
+        const int mx = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX), my = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
+        const bool held = (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) != 0;
         const bool available = window.ownerSession->UiFrame().windowHasFocus == 0 && ui::WindowDrag_ReadMousePhase(*window.ownerSession) == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
@@ -926,7 +926,7 @@ struct BigMapWindowState final {
             }
         }
         RefreshText();
-        if (!acceptsMouse || (gMouseClickState & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
+        if (!acceptsMouse || (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
             WindowElement_HandleVerticalScroll(window, static_cast<ElementId>(WindowBigMapElementId::Element15), heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
@@ -944,7 +944,7 @@ struct BigMapWindowState final {
             } else movingWindow = false;
         } else if (dragging) {
             // 原生元素事件的0x100为双击；留给地图元素，优先于第二次按下的拖动捕获。
-            if (acceptsMouse && mapClickPending && (gMouseClickState & platform::LegacyMouseEdge_LDblClick) && MapHit()) {
+            if (acceptsMouse && mapClickPending && (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) && MapHit()) {
                 dragging = false;
                 return stage;
             }
@@ -959,7 +959,7 @@ struct BigMapWindowState final {
             } else dragging = false;
         } else return stage;
         // 捕获期间及松开当帧，原生元素分发和后续窗口均不再接收尾部事件。
-        gMouseEventState = MES_CAPTURED;
+        window.ownerSession->UiFrame().mouse.state->valueD68DB4 = MES_CAPTURED;
         window.ownerSession->UiFrame().windowHasFocus = 1;
         return stage;
     }
@@ -1119,7 +1119,7 @@ struct BigMapWindowState final {
                 else if (index == TitleArea) {
                     movingWindow = true;
                     dragging = false;
-                    dragX = static_cast<int>(gMouseX); dragY = static_cast<int>(gMouseY);
+                    dragX = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX); dragY = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
                     dragWindowX = window.x; dragWindowY = window.y;
                 }
             }
@@ -1129,8 +1129,8 @@ struct BigMapWindowState final {
         }
         if (events & (MouseFlag_LDownEvent | MouseFlag_RDownEvent)) lastListClickX = lastListClickY = -1;
         if (!mapReady) return 1;
-        const auto point = map.ScreenToMap(static_cast<int>(gMouseX) - window.x - map.x,
-            static_cast<int>(gMouseY) - window.y - map.y);
+        const auto point = map.ScreenToMap(static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX) - window.x - map.x,
+            static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY) - window.y - map.y);
         const bool valid = point.first >= 0 && point.second >= 0
             && point.first < map.mapWidth && point.second < map.mapHeight;
         if ((events & MouseFlag_LDblClickEvent) && mapClickPending) {
@@ -1144,7 +1144,7 @@ struct BigMapWindowState final {
             mapClickPending = true;
             dragging = true;
             dragMoved = false;
-            dragX = static_cast<int>(gMouseX); dragY = static_cast<int>(gMouseY);
+            dragX = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX); dragY = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
             dragMapX = map.mapX; dragMapY = map.mapY;
         }
         if ((events & MouseFlag_RDownEvent) && valid) {
@@ -1378,8 +1378,8 @@ struct BigMapWindowState final {
         RendererBreakWindowTextBatch();
         if (mapReady) {
             if (acceptsMouse && MapHit()) {
-                const auto point = map.ScreenToMap(gMouseX - mapClip.left, gMouseY - mapClip.top);
-                RendererDrawTextClipped(static_cast<short>(gMouseX + 24), static_cast<short>(gMouseY),
+                const auto point = map.ScreenToMap(window.ownerSession->UiFrame().mouse.state->mouseX - mapClip.left, window.ownerSession->UiFrame().mouse.state->mouseY - mapClip.top);
+                RendererDrawTextClipped(static_cast<short>(window.ownerSession->UiFrame().mouse.state->mouseX + 24), static_cast<short>(window.ownerSession->UiFrame().mouse.state->mouseY),
                     FONT_LAYER_WINDOW, kMapFont, 0, std::format(L"{},{}", point.first, point.second), 0, 0, &mapClip);
             }
             Marker(px, py, PlayerMarker, 14, mapClip);

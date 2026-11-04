@@ -85,14 +85,14 @@ int WindowExtension::update(int, int hasFocused) {
     WindowRuntime_UpdateElementOrder(window);
     const int captured = WindowRuntime_ProcessElements(window);
     if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
-        && dragMove == 1 && (gMouseBtnDown2 & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse(window)) {
+        && dragMove == 1 && (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse(window)) {
         if (dragMoving && dragOwner == window.id) {
-            window.x += gMouseX - dragMoveLastX; window.y += gMouseY - dragMoveLastY;
-            dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
+            window.x += window.ownerSession->UiFrame().mouse.state->mouseX - dragMoveLastX; window.y += window.ownerSession->UiFrame().mouse.state->mouseY - dragMoveLastY;
+            dragMoveLastX = window.ownerSession->UiFrame().mouse.state->mouseX; dragMoveLastY = window.ownerSession->UiFrame().mouse.state->mouseY;
         } else if (dragMoving) dragMoving = false;
-        else if (hasFocused && !captured && dragOwner == -1 && (gMouseClickState & platform::LegacyMouseEdge_LDown)) {
+        else if (hasFocused && !captured && dragOwner == -1 && (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown)) {
             dragOwner = window.id; dragMoving = true;
-            dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
+            dragMoveLastX = window.ownerSession->UiFrame().mouse.state->mouseX; dragMoveLastY = window.ownerSession->UiFrame().mouse.state->mouseY;
         }
     } else {
         if (dragOwner == window.id) dragOwner = -1;

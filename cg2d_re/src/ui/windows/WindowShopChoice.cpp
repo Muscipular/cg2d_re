@@ -283,7 +283,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             const auto& element = (*selectRowElement);
             const auto x = static_cast<std::int16_t>(window->x + element.x);
             const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
-            if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
+            if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x, y, x + element.width, y + 12, -1) == 0) {
                 continue;
             }
             auto* const selectRowElement2 = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);
@@ -295,7 +295,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             }
         }
         uiFrame.hoverText = choice.dialog.hints[index];
-        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
             const WindowChoiceCallback callback = choice.dialog.callback;
             if (callback != nullptr) {
                 static_cast<void>(callback(*callbackWindow.ownerSession, index));

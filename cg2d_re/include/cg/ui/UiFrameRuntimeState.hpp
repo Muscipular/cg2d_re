@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/NativeWindowRuntimeState.hpp"
+#include "cg/platform/LegacyMouse.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -49,6 +50,7 @@ struct ExtensionWindowState {
 
 // 原生/扩展窗口、输入选择、Lua 场景通知及输入编码诊断的会话帧状态。
 struct UiFrameRuntimeState {
+    platform::MouseRuntimeState mouse {};
     NativeWindowRuntimeState native {};
     input::InputRuntimeState inputState {};
     std::uint32_t windowHasFocus = 0; // 原0xCA0AB4，元素派发成功后占用，独立于焦点窗口ID。

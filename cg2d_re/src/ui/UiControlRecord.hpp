@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <type_traits>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::ui {
 
 // LUR01：仅由登录／服务器／角色选择入口持有，退出时平移该场景新增的绘制记录。
@@ -60,9 +62,10 @@ static_assert(std::is_standard_layout_v<UiControlRecord>);
 static_assert(std::is_trivially_copyable_v<UiControlRecord>);
 
 // 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
-std::int32_t QueryUiControlInputState_45F100(const UiControlRecord* controlRecord);
+std::int32_t QueryUiControlInputState_45F100(session::ClientSession& session, const UiControlRecord* controlRecord);
 // 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
 void DrawUiControl_45EFD0(
+    session::ClientSession& session,
     const UiControlRecord* controlRecord,
     std::uint8_t renderLayer,
     std::int32_t hoverFrameMode,

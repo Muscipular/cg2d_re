@@ -32,22 +32,22 @@ static constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量�
 };
 
 // 原5071C6..507242：宽度留给命中后的绘框，四边各自读取CryptInt。
-static bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& width)
+static bool HitQueuedText(session::ClientSession& session, const render::TextPendingRecord& text, std::int32_t& width)
 {
     width = cg::render::TextMeasure(text.text.c_str(), text.fontType);
-    if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
+    if (!(session.UiFrame().mouse.state->mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
         return false;
     }
-    if (!(static_cast<std::int32_t>(text.x - 2) <= gLegacyMouseState.mouseX)) {
+    if (!(static_cast<std::int32_t>(text.x - 2) <= session.UiFrame().mouse.state->mouseX)) {
         return false;
     }
     const std::uint8_t fontType = text.fontType;
     const std::int32_t y = text.y;
     const std::int32_t height = render::GetFontMetrics(fontType).doubleHeight;
-    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height + 2))) {
+    if (!(session.UiFrame().mouse.state->mouseY <= static_cast<std::int32_t>(y + height + 2))) {
         return false;
     }
-    return (static_cast<std::int32_t>(text.y - 2) <= gLegacyMouseState.mouseY);
+    return (static_cast<std::int32_t>(text.y - 2) <= session.UiFrame().mouse.state->mouseY);
 }
 
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
@@ -58,20 +58,20 @@ static bool HitQueuedGraphic(session::ClientSession& session, const render::Grap
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
         const std::int32_t width = std::bit_cast<std::int16_t>(base->Read(imageNo).width);
         const std::int32_t x = graphic.x;
-        if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(x + width))) {
+        if (!(session.UiFrame().mouse.state->mouseX <= static_cast<std::int32_t>(x + width))) {
             return false;
         }
-        if (!(static_cast<std::int32_t>(graphic.x) <= gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(graphic.x) <= session.UiFrame().mouse.state->mouseX)) {
             return false;
         }
         const std::int32_t heightImage = graphic.imageNo;
         const render::GraphicDxCache* const heightBase = render::gGraphicDxCache103CFA4;
         const std::int32_t y = graphic.y;
         const std::int32_t height = std::bit_cast<std::int16_t>(heightBase->Read(heightImage).height);
-        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height))) {
+        if (!(session.UiFrame().mouse.state->mouseY <= static_cast<std::int32_t>(y + height))) {
             return false;
         }
-        return (static_cast<std::int32_t>(graphic.y) <= gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(graphic.y) <= session.UiFrame().mouse.state->mouseY);
     }
 
     const std::int32_t scene = session.WorldScene().sceneType;
@@ -79,22 +79,22 @@ static bool HitQueuedGraphic(session::ClientSession& session, const render::Grap
         const cg::yobi::YobiAction* const xAction = graphic.reference.action;
         const std::int32_t x = graphic.x;
         const std::int32_t centerX = x - cg::yobi::ReadYobiGraphicOffsetX(xAction);
-        if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) > centerX + 16) {
+        if (static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX) > centerX + 16) {
             return false;
         }
-        if (!(static_cast<std::int32_t>(centerX - 16) <= gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(centerX - 16) <= session.UiFrame().mouse.state->mouseX)) {
             return false;
         }
         const cg::yobi::YobiAction* const upperAction = graphic.reference.action;
         const std::int32_t upperY = graphic.y;
         const std::int32_t upperOffset = cg::yobi::ReadYobiGraphicOffsetY(upperAction);
-        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
+        if (!(session.UiFrame().mouse.state->mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
             return false;
         }
         const cg::yobi::YobiAction* const lowerAction = graphic.reference.action;
         const std::int32_t lowerY = graphic.y;
         const std::int32_t lowerOffset = cg::yobi::ReadYobiGraphicOffsetY(lowerAction);
-        return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= session.UiFrame().mouse.state->mouseY);
     }
 
     const std::int32_t imageNo = graphic.imageNo;
@@ -105,25 +105,25 @@ static bool HitQueuedGraphic(session::ClientSession& session, const render::Grap
     const std::int32_t x = graphic.x;
     const std::int32_t center = x - cg::yobi::ReadYobiGraphicOffsetX(xAction);
     const double centerX = center;
-    if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) > centerX + 24.0) {
+    if (static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX) > centerX + 24.0) {
         return false;
     }
     const double lowerX = centerX - 24.0;
-    if (static_cast<std::int32_t>(cg::platform::gLegacyMouseState.mouseX) < lowerX) {
+    if (static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX) < lowerX) {
         return false;
     }
     const std::int32_t upperImage = graphic.imageNo;
     const render::GraphicDxCache* const upperBase = render::gGraphicDxCache103CFA4;
     const std::int32_t upperHeight = std::bit_cast<std::int16_t>(upperBase->Read(upperImage).height);
     const std::int32_t upperY = graphic.y;
-    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
+    if (!(session.UiFrame().mouse.state->mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
         return false;
     }
     const std::int32_t lowerImage = graphic.imageNo;
     const render::GraphicDxCache* const lowerBase = render::gGraphicDxCache103CFA4;
     const std::int32_t lowerHeight = std::bit_cast<std::int16_t>(lowerBase->Read(lowerImage).height);
     const std::int32_t lowerY = graphic.y;
-    if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= gLegacyMouseState.mouseY)) {
+    if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= session.UiFrame().mouse.state->mouseY)) {
         return false;
     }
     return (cg::yobi::ReadYobiActionFlags(graphic.reference.action) & 0x02000000u) == 0;
@@ -217,7 +217,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     while (textIndex < textCount) {
         const render::TextPendingRecord& text = render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
         std::int32_t width;
-        if (text.value7 != 0 && HitQueuedText(text, width)) {
+        if (text.value7 != 0 && HitQueuedText(session, text, width)) {
             render::gHoveredTextPendingIndex = textIndex;
             const render::TextPendingRecord& selected =
                 render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
@@ -245,7 +245,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             const std::int32_t inputGate = world::gInputAndHoverSuppressed_D460C8;
             render::gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
-            *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
+            *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = 0xD4;
             if (inputGateIsZero && interaction.hoverDescriptionEnabled != 0) {
                 interaction.hoverObjectValue = 0;
             }
@@ -287,13 +287,13 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             }
             const std::uint8_t finalLayer =
                 render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].layer;
-            *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = finalLayer;
+            *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = finalLayer;
             return;
         }
         --remaining;
         --orderIndex;
     }
-    *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 5;
+    *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = 5;
     render::gHoveredGraphicPendingIndex = -1;
     interaction.hoverObjectValue = 0;
 }

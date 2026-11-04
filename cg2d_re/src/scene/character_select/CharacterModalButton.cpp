@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -7,7 +8,7 @@
 
 namespace cg::character_select::detail {
 // 原函数：0x00503990。
-std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRecord* uiRecord)
+std::int32_t ReadCharacterModalButtonMouseState_503990(session::ClientSession& session, const CharacterModalUiRecord* uiRecord)
 {
     const std::int32_t top = uiRecord->top;
     const std::int32_t left = uiRecord->left;
@@ -15,7 +16,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRec
     const std::int32_t width = uiRecord->width;
     const std::int32_t bottom = height + top;
     const std::int32_t right = width + left;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(session,
             left,
             top,
             right,
@@ -26,7 +27,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRec
     }
 
     const std::uint8_t clickState =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
     std::uint32_t result = 0x40U;
     if ((clickState & 0x01U) != 0) {
         result |= 0x01U;
@@ -36,7 +37,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRec
     }
 
     const std::uint8_t buttonState2 =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.heldButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->heldButtons);
     if ((buttonState2 & 0x01U) != 0) {
         result |= 0x02U;
     }
@@ -45,7 +46,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRec
     }
 
     const std::uint8_t buttonState =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.pulseButtons);
+        static_cast<std::uint8_t>(session.UiFrame().mouse.state->pulseButtons);
     if ((buttonState & 0x01U) != 0) {
         result |= 0x10U;
     }
@@ -63,6 +64,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(const CharacterModalUiRec
 
 // 原函数：0x00503A20。
 std::int32_t DrawCharacterModalButton_503A20(
+    session::ClientSession& session,
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,
     std::int8_t color,
@@ -77,7 +79,7 @@ std::int32_t DrawCharacterModalButton_503A20(
         const std::int32_t hitWidth = uiRecord->width;
         const std::int32_t hitBottom = hitHeight + hitTop;
         const std::int32_t hitRight = hitLeft + hitWidth;
-        if (cg::ui::HitTestMouseRect_5049A0(
+        if (cg::ui::HitTestMouseRect_5049A0(session,
                 hitLeft,
                 hitTop,
                 hitRight,

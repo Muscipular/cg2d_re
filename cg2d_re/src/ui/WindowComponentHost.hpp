@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cg/session/ClientSession.hpp"
 #include "cg/text/Encoding.hpp"
 #include <string_view>
 #include <vector>
@@ -58,16 +59,10 @@ inline constexpr int KSF_TRIGGER = 0x10;
 inline constexpr int KEY_UP_EDGE = 1, KEY_DOWN = 2, KEY_DOWN_EDGE = 4, KEY_DOWN_LATCH = 8, KEY_DOWN_MESSAGE = 16;
 inline constexpr int MES_CAPTURED = 212, MES_CAPTURE_THRESHOLD = 212;
 inline constexpr int MCS_CALLBACK_A_ACTIVE = 1, MCS_CALLBACK_A_ENDING = 2, MCS_CALLBACK_B_ACTIVE = 4, MCS_CALLBACK_B_ENDING = 6;
-inline auto& gMouseX = platform::gLegacyMouseState.mouseX;
-inline auto& gMouseY = platform::gLegacyMouseState.mouseY;
-inline auto& gMouseBtnDown2 = platform::gLegacyMouseState.heldButtons;
-inline auto& gMouseClickState = platform::gLegacyMouseState.edgeButtons;
-inline auto& gMouseBtnDown = platform::gLegacyMouseState.pulseButtons;
-inline auto& gMouseEventState = platform::gLegacyMouseState.valueD68DB4;
 using ui::detail::WindowRuntime_States;
 
-inline bool MouseIsInRect(int x, int y, int w, int h) {
-    const int mx = static_cast<std::int32_t>(gMouseX), my = static_cast<std::int32_t>(gMouseY);
+inline bool MouseIsInRect(session::ClientSession& session, int x, int y, int w, int h) {
+    const int mx = static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX), my = static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     return mx >= x && mx < x + w && my >= y && my < y + h;
 }
 inline void InputSetContext(session::ClientSession& session, InputContext* context) { input::SetContext_44B330(session, context); }

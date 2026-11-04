@@ -712,22 +712,22 @@ static void WindowSkill_HandleDrag(
     if (message != 0) {
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         const auto y = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(session, 4, sourceIndex, x, y, WindowSkill_HandleDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         WindowDrag_Cancel(session);
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t y =
-        (platform::gLegacyMouseState.mouseY - 8);
+        (session.UiFrame().mouse.state->mouseY - 8);
     const std::int32_t x =
-        (platform::gLegacyMouseState.mouseX - 103);
+        (session.UiFrame().mouse.state->mouseX - 103);
     WindowSkill_DrawSkillRow(session, static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
@@ -2261,7 +2261,7 @@ static std::int32_t WindowSkill_Scroll(WindowInstance& callbackWindow, const Ele
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
         const std::int32_t maximum = skillState.maximum;
         const std::int32_t position = skillState.scroll;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowSkillElementId::HandleVerticalScroll);

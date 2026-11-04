@@ -117,6 +117,7 @@ static void WindowInput_FormatSkillSlotCount(session::ClientSession& session, st
 
 // 原函数：0x00472F00。
 static std::int32_t WindowRuntime_HitTestRect(
+    session::ClientSession& session,
     std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
 
 // 原函数：0x00473560。
@@ -614,16 +615,16 @@ std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
 }
 
 // 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
-static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
+static std::int32_t WindowRuntime_AppendMouseEvents(session::ClientSession& session, std::int32_t events)
 {
-    const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    const auto edge = static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
     if ((edge & platform::LegacyMouseEdge_LDown) != 0) {
         events |= MouseFlag_LDownEvent;
     }
     if ((edge & platform::LegacyMouseEdge_RDown) != 0) {
         events |= MouseFlag_RDownEvent;
     }
-    const auto held = static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons);
+    const auto held = static_cast<std::uint8_t>(session.UiFrame().mouse.state->heldButtons);
     if ((held & platform::LegacyMouseButton_Left) != 0) {
         events |= MouseFlag_LHoldPhysical;
     }
@@ -636,7 +637,7 @@ static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
     if ((edge & platform::LegacyMouseEdge_RDblClick) != 0) {
         events |= MouseFlag_RDblClickEvent;
     }
-    const auto pulse = static_cast<std::uint8_t>(platform::gLegacyMouseState.pulseButtons);
+    const auto pulse = static_cast<std::uint8_t>(session.UiFrame().mouse.state->pulseButtons);
     if ((pulse & platform::LegacyMouseButton_Left) != 0) {
         events |= MouseFlag_LRepeatDown;
     }
@@ -985,59 +986,59 @@ static void WindowPetDrag_Handle(
         }
     }
     const std::int32_t clickMode = interaction.petDragMode;
-    const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    const auto clicked = static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
     if (clickMode == 0) {
         if ((clicked & platform::LegacyMouseEdge_RDown) != 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+                static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+                static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(session, 3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
     } else {
         if ((clicked & platform::LegacyMouseEdge_LDown) != 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+                static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+                static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(session, 3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
-        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             WindowDrag_Cancel(session);
         }
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t drawMode = interaction.petDragMode;
     if (drawMode == 1) {
         const std::int32_t drawKind = WindowItem_ClassifyPetSlot(sourceIndex);
         if (drawKind == 1) {
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseY - 35)));
+                (session.UiFrame().mouse.state->mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseX - 120)));
+                (session.UiFrame().mouse.state->mouseX - 120)));
             WindowBank_DrawOwnPetTooltip(session, x, y, sourceIndex, 5);
         } else if (drawKind == 2) {
             const std::int32_t slot = sourceIndex - 100;
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseY - 35)));
+                (session.UiFrame().mouse.state->mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseX - 120)));
+                (session.UiFrame().mouse.state->mouseX - 120)));
             WindowBank_DrawStoredPetTooltip(session, x, y, slot, 5);
         } else {
             return;
         }
         const std::int32_t y =
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
         const std::int32_t x =
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
         static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && WindowItem_ClassifyPetSlot(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowPet_DrawTooltip(session, x, y, sourceIndex, 5, 230, color));
     }
 }
@@ -1102,18 +1103,18 @@ static void WindowItemDrag_Handle(
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&session.UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 2, sourceIndex, x, y, WindowItemDrag_Handle));
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&session.UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
     const std::int32_t drawKind = WindowItem_ClassifyItemSlot(sourceIndex);
     std::int32_t imageNo;
     const render::GraphicDescriptor16* drawDescriptor;
@@ -1137,9 +1138,9 @@ static void WindowItemDrag_Handle(
         return;
     }
     const std::int32_t y =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
     static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
@@ -1175,12 +1176,12 @@ std::uint8_t WindowInput_HandleNumber(
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
-            const auto hit = [](const std::int32_t left, const std::int32_t top,
+            const auto hit = [window](const std::int32_t left, const std::int32_t top,
                                const std::int32_t right, const std::int32_t bottom) {
-                return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
-                    && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
-                    && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
-                    && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
+                return (static_cast<std::int32_t>(left) <= window->ownerSession->UiFrame().mouse.state->mouseX)
+                    && (window->ownerSession->UiFrame().mouse.state->mouseX < static_cast<std::int32_t>(right))
+                    && (static_cast<std::int32_t>(top) <= window->ownerSession->UiFrame().mouse.state->mouseY)
+                    && (window->ownerSession->UiFrame().mouse.state->mouseY < static_cast<std::int32_t>(bottom));
             };
             std::int32_t selected = -1;
             for (std::int32_t row = 0; row < 3; ++row) {
@@ -2445,14 +2446,14 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
     auto& interaction = session.UiFrame().native.interaction;
     if (interaction.tooltipSource != index) {
         interaction.tooltipX = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         interaction.tooltipY = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (session.UiFrame().mouse.state->mouseX < 320);
         interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (session.UiFrame().mouse.state->mouseY < 240);
         interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection);
@@ -2490,14 +2491,14 @@ std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, 
     const std::int32_t key = index + 100;
     if (interaction.tooltipSource != key) {
         interaction.tooltipX = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         interaction.tooltipY = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (session.UiFrame().mouse.state->mouseX < 320);
         interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (session.UiFrame().mouse.state->mouseY < 240);
         interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     interaction.tooltipSource = key;
@@ -2520,14 +2521,14 @@ std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, const s
     auto& shop = session.UiFrame().native.shop;
     if (interaction.tooltipSource != 400) {
         interaction.tooltipX = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         interaction.tooltipY = static_cast<std::uint16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (session.UiFrame().mouse.state->mouseX < 320);
         interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (session.UiFrame().mouse.state->mouseY < 240);
         interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
@@ -3722,14 +3723,15 @@ void WindowElement_DrawHoverFrame(
 
 // 原函数：0x00472F00。
 static std::int32_t WindowRuntime_HitTestRect(
+    session::ClientSession& session,
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
-    const std::int32_t x = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(left));
+    const std::int32_t x = (session.UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(left));
     if (x < 0 || x >= width) {
         return 0;
     }
-    const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(top));
+    const std::int32_t y = (session.UiFrame().mouse.state->mouseY - static_cast<std::int32_t>(top));
     return y >= 0 && y < height ? 1 : 0;
 }
 
@@ -3885,24 +3887,24 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
         const std::uint32_t state = window->state;
         if ((state & 2u) == 0) {
             if ((state & 0x800u) != 0) {
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & platform::LegacyMouseButton_Left) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->heldButtons) & platform::LegacyMouseButton_Left) != 0) {
                     std::int32_t* const x = &window->x;
-                    const std::int32_t deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
+                    const std::int32_t deltaX = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
                     window = &callbackWindow;
                     std::int32_t* const y = &window->y;
-                    const std::int32_t deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->dragMouseY20));
+                    const std::int32_t deltaY = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseY - static_cast<std::int32_t>(window->dragMouseY20));
                     *y += deltaY;
-                    const std::int32_t mouseX = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+                    const std::int32_t mouseX = static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseX);
                     callbackWindow.dragMouseX1C = mouseX;
-                    const std::int32_t mouseY = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+                    const std::int32_t mouseY = static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseY);
                     callbackWindow.dragMouseY20 = mouseY;
                 } else {
                     window->state = state & ~std::uint32_t{0x800};
                 }
                 result = 2;
                 window = &callbackWindow;
-            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
                 std::int32_t count = window->secondaryCount;
                 for (std::int32_t index = 0; index < count; ++index) {
                     const WindowDragRect& rect = window->dragRects40[index];
@@ -3916,10 +3918,10 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
                     const bool focusAvailable = uiFrame.windowHasFocus == 0;
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
-                        if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
-                            const std::int32_t mouseX = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+                        if (WindowRuntime_HitTestRect(*callbackWindow.ownerSession, left, top, width, height) != 0) {
+                            const std::int32_t mouseX = static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseX);
                             callbackWindow.dragMouseX1C = mouseX;
-                            const std::int32_t mouseY = static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+                            const std::int32_t mouseY = static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseY);
                             callbackWindow.dragMouseY20 = mouseY;
                             callbackWindow.state |= 0x800u;
                             result |= 2;
@@ -3938,7 +3940,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
             const std::int32_t width = window->width;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            if (WindowRuntime_HitTestRect(x, y, width, height) != 0) {
+            if (WindowRuntime_HitTestRect(*callbackWindow.ownerSession, x, y, width, height) != 0) {
                 result |= 1;
             }
         } else if (uiFrame.windowHasFocus == 0) {
@@ -3946,9 +3948,9 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
             const std::int32_t width = window->width;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            if (WindowRuntime_HitTestRect(x, y, width, height) != 0) {
+            if (WindowRuntime_HitTestRect(*callbackWindow.ownerSession, x, y, width, height) != 0) {
                 result |= 1;
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
                     callbackWindow.state |= 0x2000u;
                 }
             }
@@ -4018,10 +4020,10 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
         const WindowDragCallback callback = pointer.callback;
         if (callback == nullptr) {
             uiFrame.windowHasFocus = 1;
-            *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+            *reinterpret_cast<unsigned char*>(&session.UiFrame().mouse.state->valueD68DB4) = 5;
             return;
         }
-        const std::int32_t events = WindowRuntime_AppendMouseEvents(MouseFlag_None);
+        const std::int32_t events = WindowRuntime_AppendMouseEvents(session, MouseFlag_None);
         callback(session, 0, events, pointer.sourceIndex);
         phase = pointer.phase;
     } else if (phase == 2) {
@@ -4032,7 +4034,7 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
     case 3:
         pointer.phase = 4;
         uiFrame.windowHasFocus = 1;
-        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&session.UiFrame().mouse.state->valueD68DB4) = 5;
         return;
     case 4: {
         const WindowDragCallback callback = pointer.callback;
@@ -4054,7 +4056,7 @@ static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
         return;
     case 1:
         uiFrame.windowHasFocus = 1;
-        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&session.UiFrame().mouse.state->valueD68DB4) = 5;
         break;
     default:
         break;
@@ -4087,31 +4089,31 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     std::int32_t events = MouseFlag_None;
     std::int32_t phase = pointer.phase;
     if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
-        if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
-            if (WindowRuntime_HitTestRect(left, top, width, height) != 0
-                && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
+        if (static_cast<std::uint8_t>(target.ownerSession->UiFrame().mouse.state->valueD68DB4) < 0xD4u) {
+            if (WindowRuntime_HitTestRect(*target.ownerSession, left, top, width, height) != 0
+                && UIPointInClipRect(target.ownerSession->UiFrame().mouse.state->mouseX, target.ownerSession->UiFrame().mouse.state->mouseY, clip)) {
                 phase = pointer.phase;
                 if (phase == 1 || phase == 4) {
                     events = MouseFlag_Dragging;
                 }
                 if (pointer.focusWindowId == pointer.currentWindowId
                     && pointer.focusElementId == pointer.currentElementId) {
-                    events = WindowRuntime_AppendMouseEvents(events);
+                    events = WindowRuntime_AppendMouseEvents(*target.ownerSession, events);
                 }
             } else {
                 phase = pointer.phase;
             }
         }
     } else if (uiFrame.windowHasFocus == 0) {
-        if (WindowRuntime_HitTestRect(left, top, width, height) != 0
-                && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
-            events = WindowRuntime_AppendMouseEvents(MouseFlag_Hover);
+        if (WindowRuntime_HitTestRect(*target.ownerSession, left, top, width, height) != 0
+                && UIPointInClipRect(target.ownerSession->UiFrame().mouse.state->mouseX, target.ownerSession->UiFrame().mouse.state->mouseY, clip)) {
+            events = WindowRuntime_AppendMouseEvents(*target.ownerSession, MouseFlag_Hover);
             WindowInstance* const currentWindow = &target;
             WindowElement* const currentElement = currentWindow->FindElementById(elementId);
             if (currentElement && currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = currentElement->data.mouse;
-                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(ox + currentElement->x));
-                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(oy + element->y));
+                data->deltaX = (target.ownerSession->UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(ox + currentElement->x));
+                data->deltaY = (target.ownerSession->UiFrame().mouse.state->mouseY - static_cast<std::int32_t>(oy + element->y));
             }
         }
         phase = pointer.phase;
@@ -4135,7 +4137,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     if (element->type == WindowElementType_MapEx && element->data.mapEx) element->data.mapEx->UpdateMouse(*element, ox, oy, clip, events);
     if (element->type == WindowElementType_Input) {
         if (events & MouseFlag_LDownEvent) WindowElement_FocusInput(*element);
-        else if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) && !(events & MouseFlag_Hover)) WindowElement_BlurInput(*element);
+        else if ((target.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) && !(events & MouseFlag_Hover)) WindowElement_BlurInput(*element);
     }
     if (element->type == WindowElementType_ScrollView && element->data.scrollView)
         handled = WindowElement_ProcessScroll(*element, events, ox, oy, clip);
@@ -4161,7 +4163,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     if (handled != 0) {
         phase = pointer.phase;
         auto* const eventByte = reinterpret_cast<unsigned char*>(
-            &platform::gLegacyMouseState.valueD68DB4);
+            &target.ownerSession->UiFrame().mouse.state->valueD68DB4);
         *eventByte = 0xD4;
         uiFrame.windowHasFocus = 1;
         if (phase == 4) {
@@ -4214,7 +4216,7 @@ std::int32_t WindowElement_HandleVerticalScroll(WindowInstance& callbackWindow, 
         result = 1;
     }
     if ((flags & 2u) != 0) {
-        const std::int32_t y = platform::gLegacyMouseState.mouseY - window->y;
+        const std::int32_t y = callbackWindow.ownerSession->UiFrame().mouse.state->mouseY - window->y;
         previous->y = y - (previous->height >> 1);
     }
     if (previous->y < scrollElement->y) previous->y = scrollElement->y;
@@ -4421,7 +4423,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             if (hasFocus) {
                 const std::int32_t phase = pointer.phase;
                 *reinterpret_cast<unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) = 212;
+                    &session.UiFrame().mouse.state->valueD68DB4) = 212;
                 const bool releaseDrag = phase == 4;
                 uiFrame.windowHasFocus = 1;
                 if (releaseDrag) {
@@ -4490,10 +4492,10 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     const std::int32_t phase = pointer.phase;
     pointer.currentWindowId = 0;
     if (phase == 1
-        && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
+        && static_cast<std::uint8_t>(session.UiFrame().mouse.state->valueD68DB4) < 212u) {
         session.WorldScene().movement.targetDrawOverride = 1;
         *reinterpret_cast<unsigned char*>(
-            &platform::gLegacyMouseState.valueD68DB4) = 212;
+            &session.UiFrame().mouse.state->valueD68DB4) = 212;
     }
     if (!encodingFailed) { frame.reportedFailure = false; frame.reportedContext = nullptr; frame.reportedText.clear(); }
     FinishWindowFrame(session);

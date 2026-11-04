@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
 #include "StartupNative.hpp"
@@ -41,7 +42,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        if ((static_cast<std::uint8_t>(gLegacyMouseState.edgeButtons) & 3u) != 0
+        if ((static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons) & 3u) != 0
             || (gKeyStates[13] & 2u) != 0
             || (gKeyStates[32] & 2u) != 0
             || (gKeyStates[27] & 2u) != 0) {
@@ -284,14 +285,14 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             }
             break;
         case 30:
-            gLegacyMouseState.drawingSuppression = 1;
+            connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             image = 99304;
             static_cast<void>(render::SelectPalette(38, 60));
             phase = 31;
             break;
         case 31: {
             const std::int32_t changing = render::gPaletteChanging;
-            gLegacyMouseState.drawingSuppression = 1;
+            connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             if (changing == 0) {
                 phaseTick = ReadTickCount64();
                 phase = 32;
@@ -299,7 +300,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             break;
         }
         case 32: {
-            gLegacyMouseState.drawingSuppression = 1;
+            connection.Owner().UiFrame().mouse.state->drawingSuppression = 1;
             const std::uint64_t now = ReadTickCount64();
             if (phaseTick + 2000u < now) {
                 static_cast<void>(render::SelectPalette(19, 30));
@@ -311,7 +312,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             static_cast<void>(render::SelectPalette(19, 0));
             std::int32_t mapped;
             static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
-            gLegacyMouseState.drawingSuppression = 0;
+            connection.Owner().UiFrame().mouse.state->drawingSuppression = 0;
             phase = mapped < 1 ? 13 : 17;
             break;
         }
@@ -323,7 +324,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
                 320, 240, 255, image, 0,
                 phase >= 26 && phase <= 29 ? &gLoadingDescriptor : nullptr)));
         }
-        UpdateCursor_506E00();
+        UpdateCursor_506E00(connection.Owner());
         render::SortTextures_520790();
         UpdateQueuedTextAndGraphicHover_507140(connection.Owner());
         static_cast<void>(render::UpdatePalette_450BB0());

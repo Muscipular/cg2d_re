@@ -4007,10 +4007,10 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::YobiAction* const action = battleScene.exitAction;
         const std::int32_t y = cg::yobi::GetYobiActionField34(action);
         const std::int32_t x = cg::yobi::GetYobiActionField30(action);
-        if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
+        if (cg::ui::HitTestMouseRect_5049A0(session, x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             uiFrame.hoverText = L"结束观战。" /* 原常量参考：0x00554194。 */;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
-                &platform::gLegacyMouseState.edgeButtons);
+                &session.UiFrame().mouse.state->edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;
             static_cast<void>(0);
             if (exitClicked) {
@@ -5107,9 +5107,9 @@ void AdvancePlayerLeaderFollowers_46A940(session::ClientSession& session)
 std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& session)
 {
     const float mouseY = static_cast<float>(
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
     const float mouseX = static_cast<float>(
-        static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+        static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -5135,9 +5135,9 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     session.WorldScene().movement.targetInteractionClick = 0;
     session.WorldScene().movement.targetRightHeld = 0;
 
-    if ((platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24)
+    if ((session.UiFrame().mouse.state->mouseY < platform::gWindowHeight - 24)
         && ((*reinterpret_cast<const unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) < 212
+                    &session.UiFrame().mouse.state->valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex(session) < 0)
             || session.WorldScene().movement.targetDrawOverride != 0 || session.WorldScene().movement.targetInputAndDrawOverride != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)
         && session.WorldScene().movement.continuousMovementActive == 0) {
@@ -5152,10 +5152,10 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         static_cast<void>(
             cg::render::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
-    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24);
+    const bool mouseBelowLimit = (session.UiFrame().mouse.state->mouseY < platform::gWindowHeight - 24);
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) < 212
+                    &session.UiFrame().mouse.state->valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex(session) < 0)
             || session.WorldScene().movement.targetInputOverride != 0 || session.WorldScene().movement.targetInputAndDrawOverride != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)) {
         session.WorldScene().movement.leftHoldDurationMs = 0;
@@ -5164,14 +5164,14 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     }
 
     const auto leftClick = *reinterpret_cast<const unsigned char*>(
-        &platform::gLegacyMouseState.edgeButtons);
+        &session.UiFrame().mouse.state->edgeButtons);
     if ((leftClick & 1u) != 0 && session.WorldScene().movement.leftButtonSuppressed == 0) {
         session.WorldScene().movement.targetLeftClick = 1;
         session.WorldScene().movement.leftHoldDurationMs = 0;
         session.WorldScene().movement.leftPressTick = platform::ReadTickCount64();
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::gLegacyMouseState.heldButtons) & 1u) != 0
+            &session.UiFrame().mouse.state->heldButtons) & 1u) != 0
         && session.WorldScene().movement.leftButtonSuppressed == 0) {
         const std::uint64_t baseline = session.WorldScene().movement.leftPressTick;
         session.WorldScene().movement.targetLeftHeld = 1;
@@ -5184,12 +5184,12 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         session.WorldScene().movement.leftPressTick = 0;
     }
     const auto rightClick = *reinterpret_cast<const unsigned char*>(
-        &platform::gLegacyMouseState.edgeButtons);
+        &session.UiFrame().mouse.state->edgeButtons);
     if ((rightClick & 2u) != 0 && session.WorldScene().movement.targetInteractionClick == 0) {
         session.WorldScene().movement.targetInteractionClick = 1;
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::gLegacyMouseState.heldButtons) & 2u) != 0
+            &session.UiFrame().mouse.state->heldButtons) & 2u) != 0
         && session.WorldScene().movement.targetInteractionClick == 0) {
         session.WorldScene().movement.targetRightHeld = 1;
     }
@@ -5384,7 +5384,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
         }
         if (forceContinuousMove || session.WorldScene().movement.continuousMovementActive == 1) {
             const auto click = *reinterpret_cast<const unsigned char*>(
-                &platform::gLegacyMouseState.edgeButtons);
+                &session.UiFrame().mouse.state->edgeButtons);
             if ((click & 1u) != 0) {
                 session.WorldScene().movement.continuousMovementActive = 0;
             } else {
@@ -5408,7 +5408,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
                     const float differenceX = static_cast<float>(deltaX);
                     const std::int32_t direction = static_cast<std::int32_t>(
                         GetEightWayMapDirection_46CDF0(differenceX, differenceY));
-                    static_cast<void>(platform::RequestCursorState_506DE0(direction + 3, 0));
+                    static_cast<void>(platform::RequestCursorState_506DE0(session, direction + 3, 0));
                 }
             }
         } else if (session.WorldScene().movement.targetLeftClick != 0) {

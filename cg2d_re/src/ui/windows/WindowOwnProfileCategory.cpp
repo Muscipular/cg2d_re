@@ -406,7 +406,7 @@ static std::int32_t WindowOwnProfileCategory_Scroll(WindowInstance& callbackWind
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                 : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);

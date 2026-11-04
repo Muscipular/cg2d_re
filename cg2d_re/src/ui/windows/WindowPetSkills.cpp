@@ -376,8 +376,8 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip(session::ClientSessi
     if (business.petTechniqueDragD460CC == 0) {
         return 0;
     }
-    const std::int32_t x = (platform::gLegacyMouseState.mouseX - 105);
-    const std::int32_t y = (platform::gLegacyMouseState.mouseY - 8);
+    const std::int32_t x = (session.UiFrame().mouse.state->mouseX - 105);
+    const std::int32_t y = (session.UiFrame().mouse.state->mouseY - 8);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
@@ -633,15 +633,15 @@ static void WindowPetSkills_HandleDrag(session::ClientSession& session, const st
         }
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));
         const auto y = static_cast<std::int16_t>(
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
+            static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(session, 11, source, x, y, WindowPetSkills_HandleDrag));
     }
-    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
 }
 
 // 原函数：0x0048F690。

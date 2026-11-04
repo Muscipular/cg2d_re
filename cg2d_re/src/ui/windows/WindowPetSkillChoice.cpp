@@ -1983,7 +1983,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, 
         case 0:
         case 1: {
             const std::int32_t count = choice.firstCount;
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             const std::int32_t position = choice.petScroll;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
             if (indexedElement) {
@@ -1997,7 +1997,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, 
         case 4:
         case 12:
         case 13: {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             if (elementId <= static_cast<ElementId>(WindowPetSkillChoiceElementId::Element18)) {
                 const std::int32_t count = choice.firstCount;
                 const std::int32_t position = choice.petScroll;
@@ -2300,12 +2300,12 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(240, 310, 306, 327, -1) != 0;
-    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(334, 310, 400, 327, -1) != 0;
+    const bool acceptHover = cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 240, 310, 306, 327, -1) != 0;
+    const bool cancelHover = cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 334, 310, 400, 327, -1) != 0;
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
         uiFrame.hoverText = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
@@ -2328,7 +2328,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     if (cancelHover) {
         cancelImage = 245328;
         uiFrame.hoverText = shop.confirmationCancelHint;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             cancelImage = 245327;

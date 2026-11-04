@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowComponents.hpp"
 namespace cg::ui {
 using namespace component_detail;
@@ -67,17 +68,17 @@ int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int 
         const int thumb = std::min(element.height, std::max(12, element.height * element.height / std::max(data.contentHeight, element.height)));
         const int range = std::max(1, element.height - thumb);
         const int thumbY = y + data.scrollY * range / maximum;
-        const bool inTrack = MouseIsInRect(x + element.width - bar, y, bar, element.height) && UIPointInClipRect(gMouseX, gMouseY, &view);
-        const bool inThumb = MouseIsInRect(x + element.width - bar, thumbY, bar, thumb) && UIPointInClipRect(gMouseX, gMouseY, &view);
+        const bool inTrack = MouseIsInRect(*element.owner->ownerSession, x + element.width - bar, y, bar, element.height) && UIPointInClipRect(element.owner->ownerSession->UiFrame().mouse.state->mouseX, element.owner->ownerSession->UiFrame().mouse.state->mouseY, &view);
+        const bool inThumb = MouseIsInRect(*element.owner->ownerSession, x + element.width - bar, thumbY, bar, thumb) && UIPointInClipRect(element.owner->ownerSession->UiFrame().mouse.state->mouseX, element.owner->ownerSession->UiFrame().mouse.state->mouseY, &view);
         if (data.draggingThumb) {
-            if (gMouseBtnDown2 & platform::LegacyMouseButton_Left) {
-                data.SetScrollY(element, (gMouseY - data.dragOffsetY - y) * maximum / range); handled = true;
+            if (element.owner->ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) {
+                data.SetScrollY(element, (element.owner->ownerSession->UiFrame().mouse.state->mouseY - data.dragOffsetY - y) * maximum / range); handled = true;
             } else data.draggingThumb = false;
         } else if (inTrack && (events & MouseFlag_LDownEvent)) {
-            data.draggingThumb = true; data.dragOffsetY = inThumb ? gMouseY - thumbY : thumb / 2;
-            data.SetScrollY(element, (gMouseY - data.dragOffsetY - y) * maximum / range); handled = true;
+            data.draggingThumb = true; data.dragOffsetY = inThumb ? element.owner->ownerSession->UiFrame().mouse.state->mouseY - thumbY : thumb / 2;
+            data.SetScrollY(element, (element.owner->ownerSession->UiFrame().mouse.state->mouseY - data.dragOffsetY - y) * maximum / range); handled = true;
         }
-    } else if (!(gMouseBtnDown2 & platform::LegacyMouseButton_Left)) data.draggingThumb = false;
+    } else if (!(element.owner->ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left)) data.draggingThumb = false;
     if (handled) { element.mouseState = WindowMouseState_Press; return 1; }
     int childrenHandled = 0;
     for (const auto& ref : WindowRuntime_Children(window, element.elementId)) {

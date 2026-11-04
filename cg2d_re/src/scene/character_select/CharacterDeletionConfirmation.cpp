@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -57,7 +58,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         return 0;
     }
 
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             x - 73,
             top + 59,
             left + 158,
@@ -66,7 +67,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         != 0) {
         hover = 1;
     }
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
             x + 7,
             top + 59,
             left + 158,
@@ -78,7 +79,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
     if (hover != 0) {
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
         if ((mouseClickState & 1U) != 0) {
             result = hover;
             login::detail::PlaySe(79, 320, 240);
@@ -177,9 +178,9 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         return 0;
     }
 
-    if ((detail::ReadCharacterModalButtonMouseState_503990(&confirmRecord) & 1) != 0) {
+    if ((detail::ReadCharacterModalButtonMouseState_503990(connection.Owner(), &confirmRecord) & 1) != 0) {
         result = 1;
-    } else if ((detail::ReadCharacterModalButtonMouseState_503990(&cancelRecord) & 1) != 0) {
+    } else if ((detail::ReadCharacterModalButtonMouseState_503990(connection.Owner(), &cancelRecord) & 1) != 0) {
         result = 2;
     }
 
@@ -192,14 +193,14 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         }
     }
 
-    detail::DrawCharacterModalButton_503A20(
+    detail::DrawCharacterModalButton_503A20(connection.Owner(),
         &confirmRecord,
         std::uint8_t{2},
         std::int8_t{4},
         std::int32_t{1},
         cg::render::gHoverFramePaletteIndex_D69768,
         std::uint8_t{214});
-    detail::DrawCharacterModalButton_503A20(
+    detail::DrawCharacterModalButton_503A20(connection.Owner(),
         &cancelRecord,
         std::uint8_t{2},
         std::int8_t{4},

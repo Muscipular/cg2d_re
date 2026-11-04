@@ -196,7 +196,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
         for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)) && slot < pet.values6D8[0]; ++slot) {
             const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
             const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
-            if (HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+            if (HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                 hovered = slot;
                 break;
             }
@@ -255,8 +255,8 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
         const auto& item = pet.items6E4[hovered];
         if (item.used != 0) {
             if (state.value14 >= static_cast<std::uint32_t>(item.pages)) state.value14 = 0;
-            const std::int32_t mouseX = platform::gLegacyMouseState.mouseX;
-            const std::int32_t mouseY = platform::gLegacyMouseState.mouseY;
+            const std::int32_t mouseX = callbackWindow.ownerSession->UiFrame().mouse.state->mouseX;
+            const std::int32_t mouseY = callbackWindow.ownerSession->UiFrame().mouse.state->mouseY;
             const bool specialTitle = (item.flags & 0x100u) != 0;
             static_cast<void>(WindowItem_DrawTooltip(
                 *callbackWindow.ownerSession,

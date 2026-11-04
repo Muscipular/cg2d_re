@@ -990,7 +990,7 @@ void DescribeHoveredYobi_507140(session::ClientSession& session, const render::G
                 name = action->nameC4.data();
             }
             cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kLevel58AD5C, action->field1D0, name);
-            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+            static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
         } else if ((flags & YobiActionFlag_GroundItem) != 0) {
             interaction.hoverObjectValue = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
@@ -1000,10 +1000,10 @@ void DescribeHoveredYobi_507140(session::ClientSession& session, const render::G
             } else {
                 cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", fixed->nameC4.c_str());
             }
-            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+            static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
         } else if ((flags & YobiActionFlag_GroundGold) != 0) {
             cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", action->nameC4.c_str());
-            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+            static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
         } else if ((flags & YobiActionFlag_OtherMapObjectName) != 0) {
             cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, L"{}", action->nameC4.c_str());
         }

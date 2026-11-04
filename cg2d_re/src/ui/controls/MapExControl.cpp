@@ -866,13 +866,13 @@ void WindowMapExData::UpdateMouse(const WindowElement& element, int ox, int oy, 
 
     const int absX = ox + element.x;
     const int absY = oy + element.y;
-    if (!MouseIsInRect(absX, absY, element.width, element.height) || !UIPointInClipRect(gMouseX, gMouseY, clipRect)) {
+    if (!MouseIsInRect(*element.owner->ownerSession, absX, absY, element.width, element.height) || !UIPointInClipRect(element.owner->ownerSession->UiFrame().mouse.state->mouseX, element.owner->ownerSession->UiFrame().mouse.state->mouseY, clipRect)) {
         lastMouseX = -1;
         lastMouseY = -1;
         return;
     }
 
-    const auto position = ScreenToMap(element, gMouseX - absX, gMouseY - absY);
+    const auto position = ScreenToMap(element, element.owner->ownerSession->UiFrame().mouse.state->mouseX - absX, element.owner->ownerSession->UiFrame().mouse.state->mouseY - absY);
     lastMouseX = position.first;
     lastMouseY = position.second;
     if (events & MouseFlag_LDownEvent) {

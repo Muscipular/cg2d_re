@@ -128,7 +128,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         }
 
         const std::uint8_t edgeButtons =
-            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
         if ((edgeButtons & 1U) != 0U) {
             connection.Owner().WorldScene().sceneState = 2;
         }

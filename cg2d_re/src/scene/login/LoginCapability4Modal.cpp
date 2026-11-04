@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -131,7 +132,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t leftHitTop = AddW32(leftHitBaseY, 61);
     const std::int32_t leftHitRight = AddW32(leftHitCenter, 33);
     const std::int32_t leftHitBottom = AddW32(leftHitBaseY, 78);
-    const bool leftHovered = cg::ui::HitTestMouseRect_5049A0(
+    const bool leftHovered = cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
         leftHitLeft,
         leftHitTop,
         leftHitRight,
@@ -151,7 +152,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t rightHitTop = AddW32(rightHitBaseY, 61);
     const std::int32_t rightHitRight = AddW32(rightHitCenter, 33);
     const std::int32_t rightHitBottom = AddW32(rightHitBaseY, 78);
-    const bool rightHovered = cg::ui::HitTestMouseRect_5049A0(
+    const bool rightHovered = cg::ui::HitTestMouseRect_5049A0(connection.Owner(),
         rightHitLeft,
         rightHitTop,
         rightHitRight,
@@ -159,7 +160,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
         -1) != 0;
 
     const std::uint8_t mouseClickState =
-        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
+        static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
     const bool clicked = (mouseClickState & 1U) != 0;
     std::int32_t selection = -1;
     if (leftHovered && clicked) {

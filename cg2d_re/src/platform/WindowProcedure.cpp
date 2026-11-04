@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "StartupNative.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "cg/text/Encoding.hpp"
@@ -172,6 +173,7 @@ LRESULT CALLBACK WindowProcedure(
 {
     const std::uint32_t wParam32 = static_cast<std::uint32_t>(wParam);
     const std::uint32_t lParam32 = static_cast<std::uint32_t>(lParam);
+    auto* const mouseSession = session::GetClientHost().CurrentSession();
 
     switch (message) {
     case WM_ACTIVATE: {
@@ -263,19 +265,20 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_SETCURSOR:
-        if (static_cast<std::uint16_t>(lParam32) == HTCLIENT) {
-            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[gConsumedCursorState_9A6F44]));
+        if (mouseSession != nullptr && static_cast<std::uint16_t>(lParam32) == HTCLIENT) {
+            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[mouseSession->UiFrame().mouse.consumedCursor]));
             return 1;
         }
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_NCMOUSEMOVE: {
-        const std::uint32_t oldSuppression = gLegacyMouseState.drawingSuppression;
-        gLegacyMouseState.heldButtons = 0;
-        gLegacyMouseState.edgeButtons = 0;
+        if (mouseSession == nullptr) return 0;
+        const std::uint32_t oldSuppression = mouseSession->UiFrame().mouse.state->drawingSuppression;
+        mouseSession->UiFrame().mouse.state->heldButtons = 0;
+        mouseSession->UiFrame().mouse.state->edgeButtons = 0;
         if (oldSuppression == 0u) {
             ShowCursor(TRUE);
-            gLegacyMouseState.drawingSuppression = 1;
+            mouseSession->UiFrame().mouse.state->drawingSuppression = 1;
         }
         return 0;
     }
@@ -373,65 +376,72 @@ LRESULT CALLBACK WindowProcedure(
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_MOUSEMOVE: {
+        if (mouseSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        ResetLegacyMousePosition_506890(coordinates.x, coordinates.y);
-        if (gLegacyMouseState.drawingSuppression == 1u) {
+        ResetLegacyMousePosition_506890(*mouseSession, coordinates.x, coordinates.y);
+        if (mouseSession->UiFrame().mouse.state->drawingSuppression == 1u) {
             ShowCursor(FALSE);
-            gLegacyMouseState.drawingSuppression = 0;
+            mouseSession->UiFrame().mouse.state->drawingSuppression = 0;
         }
         RebuildRendererIfGraphicDirty();
         return 0;
     }
 
     case WM_LBUTTONDOWN: {
+        if (mouseSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        UpdateLegacyMouseLeftDown_506900(coordinates.x, coordinates.y);
+        UpdateLegacyMouseLeftDown_506900(*mouseSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_LBUTTONUP: {
+        if (mouseSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseLeftUp_5069E0(coordinates.x, coordinates.y));
+            UpdateLegacyMouseLeftUp_5069E0(*mouseSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_LBUTTONDBLCLK: {
+        if (mouseSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseLeftDoubleClick_506A90(coordinates.x, coordinates.y));
+            UpdateLegacyMouseLeftDoubleClick_506A90(*mouseSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_RBUTTONDOWN: {
+        if (mouseSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        UpdateLegacyMouseRightDown_506B50(coordinates.x, coordinates.y);
+        UpdateLegacyMouseRightDown_506B50(*mouseSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_RBUTTONUP: {
+        if (mouseSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseRightUp_506C40(coordinates.x, coordinates.y));
+            UpdateLegacyMouseRightUp_506C40(*mouseSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_RBUTTONDBLCLK: {
+        if (mouseSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseRightDoubleClick_506CF0(coordinates.x, coordinates.y));
+            UpdateLegacyMouseRightDoubleClick_506CF0(*mouseSession, coordinates.x, coordinates.y));
         return 0;
     }
 
@@ -439,11 +449,11 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_MOUSEWHEEL:
-        if (gWindowActiveState == 2) {
+        if (mouseSession != nullptr && gWindowActiveState == 2) {
             const std::int16_t wheel = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(wParam32 >> 16));
             script::AddLuaMouseWheel(wheel);
-            static_cast<void>(AddLegacyMouseWheelDelta_506DB0(
+            static_cast<void>(AddLegacyMouseWheelDelta_506DB0(*mouseSession,
                 -static_cast<std::int32_t>(wheel)));
         }
         return 0;

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "UiControlRecord.hpp"
@@ -14,22 +15,23 @@ namespace cg::ui {
 // RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。
 // 原函数：0x005049A0。
 std::int32_t HitTestMouseRect_5049A0(
+    session::ClientSession& session,
     const std::int32_t left,
     const std::int32_t top,
     const std::int32_t right,
     const std::int32_t bottom,
     const std::int32_t layer)
 {
-    if (!(platform::gLegacyMouseState.mouseX < right + LegacyUiLayoutScope::GetOffsetX())) {
+    if (!(session.UiFrame().mouse.state->mouseX < right + LegacyUiLayoutScope::GetOffsetX())) {
         return 0;
     }
-    if (!(left + LegacyUiLayoutScope::GetOffsetX() <= platform::gLegacyMouseState.mouseX)) {
+    if (!(left + LegacyUiLayoutScope::GetOffsetX() <= session.UiFrame().mouse.state->mouseX)) {
         return 0;
     }
-    if (!(platform::gLegacyMouseState.mouseY < bottom + LegacyUiLayoutScope::GetOffsetY())) {
+    if (!(session.UiFrame().mouse.state->mouseY < bottom + LegacyUiLayoutScope::GetOffsetY())) {
         return 0;
     }
-    if (!(top + LegacyUiLayoutScope::GetOffsetY() <= platform::gLegacyMouseState.mouseY)) {
+    if (!(top + LegacyUiLayoutScope::GetOffsetY() <= session.UiFrame().mouse.state->mouseY)) {
         return 0;
     }
 

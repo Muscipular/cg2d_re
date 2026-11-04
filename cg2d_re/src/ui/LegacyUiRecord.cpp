@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "UiControlRecord.hpp"
 
@@ -63,6 +64,7 @@ LegacyUiLayoutScope::~LegacyUiLayoutScope()
 
 // 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
 std::int32_t QueryUiControlInputState_45F100(
+    session::ClientSession& session,
     const UiControlRecord* const controlRecord)
 {
     if (controlRecord == nullptr) {
@@ -74,11 +76,12 @@ std::int32_t QueryUiControlInputState_45F100(
     hitBounds.left = controlRecord->bounds.left;
     hitBounds.height = controlRecord->bounds.height;
     hitBounds.width = controlRecord->bounds.width;
-    return cg::login::QueryLoginControlState_5036F0(&hitBounds);
+    return cg::login::QueryLoginControlState_5036F0(session, &hitBounds);
 }
 
 // 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
 void DrawUiControl_45EFD0(
+    session::ClientSession& session,
     const UiControlRecord* const controlRecord,
     const std::uint8_t renderLayer,
     const std::int32_t hoverFrameMode,
@@ -92,7 +95,7 @@ void DrawUiControl_45EFD0(
     std::int32_t selectedImageNo = controlRecord->normalImageNo;
     if (imageStateMode == 0) {
         const std::uint8_t inputState =
-            static_cast<std::uint8_t>(QueryUiControlInputState_45F100(controlRecord));
+            static_cast<std::uint8_t>(QueryUiControlInputState_45F100(session, controlRecord));
         if ((inputState & 0x40U) != 0) {
             selectedImageNo = controlRecord->activeImageNo;
         }
@@ -120,7 +123,7 @@ void DrawUiControl_45EFD0(
     const std::int32_t hitBottom = hitHeight + hitTop;
     const std::int32_t hitWidth = controlRecord->bounds.width;
     const std::int32_t hitRight = hitWidth + hitLeft;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(session,
             hitLeft,
             hitTop,
             hitRight,

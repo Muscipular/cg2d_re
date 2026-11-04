@@ -569,7 +569,7 @@ static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, c
         const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
@@ -578,7 +578,7 @@ static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, c
                     indexedElement, page, maximum, wheel);
             }
         } else {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
@@ -672,7 +672,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWind
         const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
             WindowInstance* const window = currentWindow;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
             auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 42 : 37)));
@@ -1137,7 +1137,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
         window = currentWindow;
         const std::int32_t centerY = window->height / 2 + window->y;
         const std::int32_t centerX = window->x + window->width / 2;
-        const bool hit = cg::ui::HitTestMouseRect_5049A0(
+        const bool hit = cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession,
             centerX - 33, centerY + 18, centerX + 33, centerY + 35, -1) != 0;
         window = currentWindow;
         const std::int32_t buttonY = window->height / 2 + window->y + 27;
@@ -1788,7 +1788,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
                     223, 256, 0);
             }
             if (hovered < 0 && (state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
-                && cg::ui::HitTestMouseRect_5049A0(x, y, x + 48, y + 48, -1) != 0) {
+                && cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x, y, x + 48, y + 48, -1) != 0) {
                 hovered = slot;
                 if (callbackWindow.ownerSession->UiFrame().native.stall.inventoryHover != slot) {
                     callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
@@ -1891,7 +1891,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y + 115;
     const std::int32_t x = window->x + 206;
-    if (cg::ui::HitTestMouseRect_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 103, y + 6, x + 118, y + 19, -1) != 0) {
         if (clicked) {
             if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
                 WindowChat_RestoreInput(*callbackWindow.ownerSession);
@@ -1909,7 +1909,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
         const std::int32_t top = y + positions[digit][1];
         const std::int32_t left = x + positions[digit][0];
         std::int32_t imageState = 0;
-        if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 21, top + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 21, top + 19, -1) != 0) {
             if (clicked) {
                 callbackWindow.ownerSession->UiFrame().native.stall.price = digit + 10 * callbackWindow.ownerSession->UiFrame().native.stall.price;
             }
@@ -1924,7 +1924,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
         }
     }
     std::int32_t imageState = 0;
-    if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 64, x + 118, y + 83, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 93, y + 64, x + 118, y + 83, -1) != 0) {
         if (clicked) {
             callbackWindow.ownerSession->UiFrame().native.stall.price /= 10;
         }
@@ -1935,7 +1935,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
             x + 103, y + 74, 227, gNumericKeyImages54F030[10][imageState], 0, &descriptor));
     }
     imageState = 0;
-    if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 104, x + 118, y + 123, -1) != 0) {
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 93, y + 104, x + 118, y + 123, -1) != 0) {
         if (clicked) {
             callbackWindow.ownerSession->UiFrame().native.stall.price = 0;
         }
@@ -1947,7 +1947,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     }
     imageState = 1;
     if (callbackWindow.ownerSession->UiFrame().native.stall.price != 0) {
-        if (cg::ui::HitTestMouseRect_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 65, y + 104, x + 87, y + 123, -1) != 0) {
             if (clicked) {
                 static_cast<void>(WindowStall_AddListing(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().native.stall.price));
                 if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
@@ -2003,7 +2003,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     const std::int32_t acceptTop = y + buttonY;
     const std::int32_t acceptLeft = x + acceptX;
     std::int32_t imageState = 0;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession,
         acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowStall_RequestPurchase(&callbackWindow));
@@ -2019,7 +2019,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     const std::int32_t cancelTop = y + buttonY;
     const std::int32_t cancelLeft = x + cancelX;
     imageState = 0;
-    if (cg::ui::HitTestMouseRect_5049A0(
+    if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession,
         cancelLeft, cancelTop, cancelLeft + 49, cancelTop + 17, -1) != 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
@@ -2035,7 +2035,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     std::wstring details;
     if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 0) {
         auto* const item = callbackWindow.ownerSession->UiFrame().native.stall.browse->items.data() + (callbackWindow.ownerSession->UiFrame().native.stall.itemSelection - 20);
-        if (cg::ui::HitTestMouseRect_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 22, y + 58, x + 70, y + 106, -1) != 0) {
             if ((state & MouseFlag_Hover) != 0) {
                 callbackWindow.ownerSession->UiFrame().native.stall.hover = callbackWindow.ownerSession->UiFrame().native.stall.itemSelection + 180;
             }
@@ -2046,7 +2046,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
                 }
             }
         }
-        if (cg::ui::HitTestMouseRect_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 133, y + 6, x + 148, y + 19, -1) != 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
             } else {
@@ -2078,7 +2078,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
         }
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98856, 0, 1, 0, &descriptor));
     } else {
-        if (cg::ui::HitTestMouseRect_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
+        if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, x + 254, y + 6, x + 269, y + 19, -1) != 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
             } else {

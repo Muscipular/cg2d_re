@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/session/SessionStorage.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -74,7 +75,7 @@ struct MouseRuntimeState {
     MouseRuntimeState& operator=(const MouseRuntimeState&) = delete;
     MouseRuntimeState(MouseRuntimeState&&) = delete;
     MouseRuntimeState& operator=(MouseRuntimeState&&) = delete;
-    std::unique_ptr<LegacyMouseState> state; // 原D68CF8完整实际记录。
+    session::SessionStoragePtr<LegacyMouseState> state; // 原D68CF8完整实际记录。
     std::uint64_t rightRepeatAnchorMs = 0; // 原D68BF0，不并入中间连续状态。
     std::uint64_t leftRepeatAnchorMs = 0; // 原D68DC8。
     std::uint32_t requestedCursor = 0; // 原D68DC4，帧末消费后清零。

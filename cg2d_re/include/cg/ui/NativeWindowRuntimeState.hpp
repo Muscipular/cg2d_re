@@ -6,6 +6,7 @@
 #include "cg/ui/WindowStorageRecords.hpp"
 #include "cg/world/PlayerSlots.hpp"
 #include "cg/world/PetTechniqueRecord.hpp"
+#include "cg/session/SessionStorage.hpp"
 
 #include <array>
 #include <cstddef>
@@ -1354,7 +1355,7 @@ struct StallWindowRuntimeState {
     StallWindowRuntimeState(StallWindowRuntimeState&&) = delete;
     StallWindowRuntimeState& operator=(StallWindowRuntimeState&&) = delete;
 
-    std::unique_ptr<detail::StallBrowseData> browse;
+    session::SessionStoragePtr<detail::StallBrowseData> browse;
     std::wstring message {}; // 原C8A978。
     std::wstring name {}; // 原D67BE4。
     std::uint8_t pending = 0; // 原D67C31。

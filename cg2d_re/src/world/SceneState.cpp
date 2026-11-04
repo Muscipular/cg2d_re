@@ -77,7 +77,7 @@ void InitializeWorldMapCryptStorage(session::ClientSession& session)
 {
     auto& crypt = session.WorldScene().map.crypt;
     if (!crypt) {
-        crypt = std::make_unique<WorldMapCryptRuntimeState>();
+        crypt = session::MakeSessionStorage<WorldMapCryptRuntimeState>(session);
     }
 }
 
@@ -7671,7 +7671,7 @@ void InitializePlayerRuntimeStorage(session::ClientSession& session)
 {
     auto& player = session.WorldScene().player;
     if (player == nullptr) {
-        player = std::make_unique<PlayerRuntimeSlots>();
+        player = session::MakeSessionStorage<PlayerRuntimeSlots>(session);
     }
 }
 
@@ -7730,7 +7730,7 @@ void InitializePetRuntimeStorage(session::ClientSession& session)
 {
     auto& records = session.WorldScene().petRecords;
     if (records == nullptr) {
-        records = std::make_unique<std::array<PetRuntimeRecord, 5>>();
+        records = session::MakeSessionStorage<std::array<PetRuntimeRecord, 5>>(session);
     }
 }
 

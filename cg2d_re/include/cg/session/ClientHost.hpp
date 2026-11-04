@@ -1,11 +1,13 @@
 #pragma once
 
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/SessionStorage.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <iterator>
 #include <list>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -96,6 +98,16 @@ public:
     }
 
 private:
+    struct StorageOwner {
+        std::uintptr_t end;
+        ClientSession* session; // 非拥有，分配块释放前会话始终存活。
+    };
+    friend void BindSessionStorage(ClientSession&, const void*, std::size_t);
+    friend void UnbindSessionStorage(const void*) noexcept;
+    friend ClientSession& SessionStorageOwner(const void*);
+
+    // 先于集合构造、晚于集合析构，成员销毁期间仍可查询/撤销。
+    std::map<std::uintptr_t, StorageOwner> storageOwners_;
     std::list<SessionEntry> sessions_;
     std::list<SessionEntry>::iterator current_;
     std::uint64_t nextId_ = 2;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/session/SessionStorage.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -23,7 +25,7 @@ struct WindowSelectorPreviewRuntimeState {
     WindowSelectorPreviewRuntimeState& operator=(const WindowSelectorPreviewRuntimeState&) = delete;
     WindowSelectorPreviewRuntimeState(WindowSelectorPreviewRuntimeState&&) = delete;
     WindowSelectorPreviewRuntimeState& operator=(WindowSelectorPreviewRuntimeState&&) = delete;
-    std::array<std::unique_ptr<YobiAction>, 2> actions {};
+    std::array<session::SessionStoragePtr<YobiAction>, 2> actions {};
 };
 
 // 原生技能特效的元数据及配置容器由会话独占，完整类型留在实现边界。

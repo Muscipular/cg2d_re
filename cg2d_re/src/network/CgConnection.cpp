@@ -59,6 +59,7 @@
 #include <format>
 #include <list>
 #include <string>
+#include <stdexcept>
 #include <system_error>
 #include <tuple>
 #include <type_traits>
@@ -1379,8 +1380,36 @@ void CgConnection::StopIo() { impl_->StopIo(); }
 
 namespace cg::session {
 
-static ClientHost gClientHost;
-ClientHost& GetClientHost() noexcept { return gClientHost; }
+ClientHost& GetClientHost() noexcept
+{
+    static ClientHost host;
+    return host;
+}
+
+void BindSessionStorage(ClientSession& session, const void* const storage, const std::size_t extent)
+{
+    auto& host = GetClientHost();
+    const auto begin = reinterpret_cast<std::uintptr_t>(storage);
+    const bool inserted = host.storageOwners_.emplace(
+        begin, ClientHost::StorageOwner {begin + extent, &session}).second;
+    if (!inserted) throw std::logic_error("会话存储重复登记");
+}
+
+void UnbindSessionStorage(const void* const storage) noexcept
+{
+    GetClientHost().storageOwners_.erase(reinterpret_cast<std::uintptr_t>(storage));
+}
+
+ClientSession& SessionStorageOwner(const void* const member)
+{
+    auto& owners = GetClientHost().storageOwners_;
+    const auto address = reinterpret_cast<std::uintptr_t>(member);
+    auto position = owners.upper_bound(address);
+    if (position == owners.begin()) throw std::logic_error("会话存储未登记");
+    --position;
+    if (address >= position->second.end) throw std::logic_error("会话存储未登记");
+    return *position->second.session;
+}
 
 bool ClientHost::SelectSession(const std::uint64_t id) noexcept
 {

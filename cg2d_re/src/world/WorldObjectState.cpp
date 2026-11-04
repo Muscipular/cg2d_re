@@ -18,7 +18,7 @@ void InitializeWorldObjectStorage(session::ClientSession& session)
 {
     auto& objects = session.WorldScene().objects;
     if (objects == nullptr) {
-        objects = std::make_unique<std::array<WorldObjectRecord, kWorldObjectCapacity>>();
+        objects = session::MakeSessionStorage<std::array<WorldObjectRecord, kWorldObjectCapacity>>(session);
     }
 }
 

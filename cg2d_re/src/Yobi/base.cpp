@@ -2,6 +2,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/session/SessionStorage.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -11,6 +12,23 @@
 #include <memory>
 
 namespace cg::yobi {
+
+// 原calloc分配族保持；登记失败或成员构造失败只回收尚未发布的节点。
+static void ConstructSessionActionStorage(session::ClientSession& session, YobiAction* const storage)
+{
+    try {
+        session::BindSessionStorage(session, storage, sizeof(YobiAction));
+        try {
+            std::construct_at(storage, YobiAction::RawFields{});
+        } catch (...) {
+            session::UnbindSessionStorage(storage);
+            throw;
+        }
+    } catch (...) {
+        std::free(storage);
+        throw;
+    }
+}
 
 YobiAction::YobiAction(RawFields)
     : readiness(platform::LegacyCryptInt::RawPayload{}),
@@ -162,6 +180,7 @@ static void DeleteYobiAction_404D10(YobiAction* const action)
         std::free(payload);
     }
     std::destroy_at(action);
+    session::UnbindSessionStorage(action);
     std::free(action);
 }
 
@@ -184,8 +203,24 @@ YobiAction* InitializeYobiActionList_404A40(session::ClientSession& session)
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     YobiAction* const initialStart = list.start;
     list.end = allocatedEnd;
-    std::construct_at(initialStart, YobiAction::RawFields{});
-    std::construct_at(allocatedEnd, YobiAction::RawFields{});
+    try {
+        ConstructSessionActionStorage(session, initialStart);
+    } catch (...) {
+        std::free(allocatedEnd);
+        list.start = nullptr;
+        list.end = nullptr;
+        throw;
+    }
+    try {
+        ConstructSessionActionStorage(session, allocatedEnd);
+    } catch (...) {
+        std::destroy_at(initialStart);
+        session::UnbindSessionStorage(initialStart);
+        std::free(initialStart);
+        list.start = nullptr;
+        list.end = nullptr;
+        throw;
+    }
 
     initialStart->prev = nullptr;
     YobiAction* const forwardStart = list.start;
@@ -221,7 +256,7 @@ YobiAction* NewYobiAction_404AE0(
         return nullptr;
     }
 
-    std::construct_at(action, YobiAction::RawFields{});
+    ConstructSessionActionStorage(session, action);
     action->ownerSession = &session;
     if (payloadSize != 0) {
         void* const payload = std::calloc(std::size_t{1}, payloadSize);
@@ -247,6 +282,7 @@ YobiAction* NewYobiAction_404AE0(
         }
         if (missingPayload) {
             std::destroy_at(action);
+            session::UnbindSessionStorage(action);
             std::free(action);
             platform::ShowWideMessage(L"记忆体容量不足！yobi", L"GetYobi Erorr", 0);
             return nullptr;
@@ -361,8 +397,10 @@ void ShutdownYobiActionList_404D60(session::ClientSession& session)
     YobiClearUp_404D30(session);
     YobiUpdateAll_404C50(session);
     std::destroy_at(session.Yobi().start);
+    session::UnbindSessionStorage(session.Yobi().start);
     std::free(session.Yobi().start);
     std::destroy_at(session.Yobi().end);
+    session::UnbindSessionStorage(session.Yobi().end);
     std::free(session.Yobi().end);
     session.Yobi().start = nullptr;
     session.Yobi().end = nullptr;

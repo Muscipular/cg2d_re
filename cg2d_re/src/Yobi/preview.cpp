@@ -91,7 +91,7 @@ YobiAction* ConstructWindowSelectorPreview(
 {
     auto& slot = session.Yobi().selectorPreviews.actions[index];
     if (slot == nullptr) {
-        slot = std::make_unique<YobiAction>();
+        slot = session::MakeSessionStorage<YobiAction>(session);
         slot->ownerSession = &session;
     }
     YobiAction& action = *slot;

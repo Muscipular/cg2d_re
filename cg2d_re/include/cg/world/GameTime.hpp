@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::world {
 
 // 原 tm_cg@0x73ED50；六个 32 位值，不采用 CRT tm 或 Win32 SYSTEMTIME 布局。
@@ -22,15 +24,18 @@ static_assert(offsetof(GameTime, hours) == 12);
 static_assert(offsetof(GameTime, sTick) == 16);
 static_assert(offsetof(GameTime, minutes) == 20);
 
-extern GameTime gCgTime; // 原全局：0x0073ED50。
-extern std::uint32_t gGameTimeEpochSeconds_559508; // 原全局：0x00559508。 原静态字节 0x3AE805E7，时间计算基值。
-extern std::uint32_t gGameTimeAdjustmentSeconds_73ED40; // 原全局：0x0073ED40。 原 0x50C8C2 写入，完整业务角色仍待上游核对。
-extern std::uint32_t gServerTimeAtSyncSeconds_73ED4C; // 原全局：0x0073ED4C。 原 0x50C880 写入。
-extern std::uint64_t gLocalTimeAtSyncSeconds_73ED68; // 原全局：0x0073ED68。 原 0x50C890 写入，与输出对象不重叠。
+// 校时生产、逐帧更新及窗口/地图取数共用本会话的时间现场。
+struct GameTimeRuntimeState {
+    GameTime value {}; // 原73ED50。
+    std::uint32_t epochSeconds = 0x3AE805E7; // 原559508，保持可写。
+    std::uint32_t adjustmentSeconds = 0; // 原73ED40。
+    std::uint32_t serverSeconds = 0; // 原73ED4C。
+    std::uint64_t localSeconds = 0; // 原73ED68，与value不重叠。
+};
 
 // GTP01：原 [0x458DE0,0x458EBB)；六 W32 原写序/两独立采样合同，返回末次 phase/192 商。
 // output 须指向有效 GameTime；写入顺序为 year/month/day/hours/minutes/sTick。
-int UpdateGameTime(GameTime* output);
+int UpdateGameTime(session::ClientSession& session, GameTime* output);
 
 // MHT01：原 GetCate@0x458EC0；单读 hours W32，保有符号 19/24/0/4/7/16 分类门槛。
 // time 须指向有效 GameTime；仅读取 hours 一次，不做取值归一化。

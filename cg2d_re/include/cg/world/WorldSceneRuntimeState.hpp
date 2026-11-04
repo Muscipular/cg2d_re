@@ -8,6 +8,7 @@
 #include "cg/world/WorldObjectRecord.hpp"
 #include "cg/world/MapEffectRuntimeState.hpp"
 #include "cg/world/MapDataRuntimeState.hpp"
+#include "cg/world/GameTime.hpp"
 
 #include <array>
 #include <cstddef>
@@ -450,6 +451,7 @@ static_assert(sizeof(WorldMapRuntimeState::windowStartX) == 4);
 
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    GameTimeRuntimeState gameTime {};
     WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};
     WorldMovementRuntimeState movement {};

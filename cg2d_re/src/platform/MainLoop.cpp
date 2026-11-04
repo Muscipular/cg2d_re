@@ -143,7 +143,7 @@ int MainLoop(session::ClientSession& session)
         }
         auto& connection = session.Connection();
         KeepAlive_457AB0(connection);
-        world::UpdateGameTime(&world::gCgTime);
+        world::UpdateGameTime(session, &session.WorldScene().gameTime.value);
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         render::ResetGraphicCache_456D30();

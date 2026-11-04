@@ -3638,7 +3638,7 @@ void __cdecl UpdatePlayerCountdown_458F40(session::ClientSession& session)
 // GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
 void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(session::ClientSession& session)
 {
-    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    const std::int32_t category = GetCate_458EC0(&session.WorldScene().gameTime.value);
     if (session.WorldScene().map.currentDayPeriod != category) {
         const std::int32_t mode = session.WorldScene().map.dayPeriodPaletteEnabled;
         session.WorldScene().map.currentDayPeriod = category;
@@ -4308,7 +4308,7 @@ std::int32_t __cdecl IsMapTransitionCellActive_46AD00(session::ClientSession& se
     const std::int32_t top = session.WorldScene().map.yStart;
     const std::int32_t localX = x - left;
     const std::int32_t localY = y - top;
-    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    const std::int32_t category = GetCate_458EC0(&session.WorldScene().gameTime.value);
     const std::int32_t span = session.WorldScene().map.spanX;
     const std::int32_t index = span * localY + localX;
     const std::uint8_t value =
@@ -10096,15 +10096,15 @@ std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(cg::network::CgConnection
     const std::int32_t adjustment)
 {
     static_cast<void>(detail::SetPlayerObjectIndex_519EB0(connection.Owner(), playerValue));
-    gServerTimeAtSyncSeconds_73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
-    gLocalTimeAtSyncSeconds_73ED68 = static_cast<std::uint64_t>(
+    connection.Owner().WorldScene().gameTime.serverSeconds = std::bit_cast<std::uint32_t>(timeOffset);
+    connection.Owner().WorldScene().gameTime.localSeconds = static_cast<std::uint64_t>(
         ::_time64(nullptr));
-    static_cast<void>(UpdateGameTime(&gCgTime));
-    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    static_cast<void>(UpdateGameTime(connection.Owner(), &connection.Owner().WorldScene().gameTime.value));
+    const std::int32_t category = GetCate_458EC0(&connection.Owner().WorldScene().gameTime.value);
     connection.Owner().WorldScene().map.currentDayPeriod = category;
     static_cast<void>(render::SelectPalette(category, 0));
     connection.Owner().WorldScene().map.cachePathKey = pathValue;
-    gGameTimeAdjustmentSeconds_73ED40 = std::bit_cast<std::uint32_t>(adjustment);
+    connection.Owner().WorldScene().gameTime.adjustmentSeconds = std::bit_cast<std::uint32_t>(adjustment);
     return adjustment;
 }
 

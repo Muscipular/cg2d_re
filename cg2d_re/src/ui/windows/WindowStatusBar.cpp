@@ -366,11 +366,11 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     WindowInstance* const timeWindow = currentWindow;
     gStatusFpTextD45D50 = buffer;
     auto* elementsWindow = timeWindow;
-    const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
+    const std::int32_t hours = std::bit_cast<std::int32_t>(callbackWindow->ownerSession->WorldScene().gameTime.value.hours);
     auto* const element16 = elementsWindow->FindElementById(WindowStatusBarElementId::Element16);
     if (element16) {
         auto* const timeGraphic = element16->data.graphic;
-        const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
+        const std::int32_t minutes = std::bit_cast<std::int32_t>(callbackWindow->ownerSession->WorldScene().gameTime.value.minutes);
         const std::int32_t totalMinutes = hours * 60 + minutes;
         const double offset = totalMinutes * kStatusTimeScale54F638;
         timeGraphic->offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(offset));

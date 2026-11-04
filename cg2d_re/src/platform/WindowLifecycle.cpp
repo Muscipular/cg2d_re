@@ -1031,8 +1031,8 @@ void RefreshSessionWindow()
     }
     const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
     if (title != gTitle) {
-        gTitle = std::move(title);
-        SetWindowTextW(window, gTitle.c_str());
+        gTitle = title;
+        SetWindowTextW(window, title.c_str());
     }
     UpdateSystemCursorLocation(IsPointerInGameClient());
 }

@@ -1400,15 +1400,31 @@ void UnbindSessionStorage(const void* const storage) noexcept
     GetClientHost().storageOwners_.erase(reinterpret_cast<std::uintptr_t>(storage));
 }
 
-ClientSession& SessionStorageOwner(const void* const member)
+void UnbindSessionObjectStorage(const void* const storage, const std::size_t extent) noexcept
+{
+    auto& owners = GetClientHost().storageOwners_;
+    const auto begin = reinterpret_cast<std::uintptr_t>(storage);
+    const auto position = owners.find(begin);
+    if (position != owners.end() && position->second.end == begin + extent) {
+        owners.erase(position);
+    }
+}
+
+ClientSession* FindSessionStorageOwner(const void* const member) noexcept
 {
     auto& owners = GetClientHost().storageOwners_;
     const auto address = reinterpret_cast<std::uintptr_t>(member);
     auto position = owners.upper_bound(address);
-    if (position == owners.begin()) throw std::logic_error("会话存储未登记");
+    if (position == owners.begin()) return nullptr;
     --position;
-    if (address >= position->second.end) throw std::logic_error("会话存储未登记");
-    return *position->second.session;
+    return address < position->second.end ? position->second.session : nullptr;
+}
+
+ClientSession& SessionStorageOwner(const void* const member)
+{
+    auto* const owner = FindSessionStorageOwner(member);
+    if (owner == nullptr) throw std::logic_error("会话存储未登记");
+    return *owner;
 }
 
 bool ClientHost::SelectSession(const std::uint64_t id) noexcept

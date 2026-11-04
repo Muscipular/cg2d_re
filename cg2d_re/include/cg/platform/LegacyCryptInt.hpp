@@ -4,15 +4,17 @@
 #include <cstdint>
 #include <type_traits>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::platform {
 
 // 原 x86 CryptInt 的固定内存布局。legacyVftToken 保存原 32 位地址位模式，
 // 不是新端可解引用的虚表指针。
 class LegacyCryptInt {
 public:
-    // 原0x00401C70：默认构造零值，只消费一次RNG。
+    // 原0x00401C70：已登记的会话聚合内默认构造零值，只消费一次所属RNG。
     LegacyCryptInt();
-    // 原0x00401CF0：结束对象寿命，只恢复原token。
+    // 原0x00401CF0：恢复原token；NSM01随后只撤销独立16B对象的归属。
     // 原0x00401CA0销毁部分归入析构；动态释放沿标准delete表达式。
     ~LegacyCryptInt();
 
@@ -27,9 +29,9 @@ public:
     explicit LegacyCryptInt(const RawPayload& raw) noexcept; // 不消费RNG。
     void RestoreRaw(const RawPayload& raw) noexcept; // 恢复四个有效字段，不改变寿命。
 
-    explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
-    explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
-    LegacyCryptInt(const LegacyCryptInt&) = default; // 同类原始字段复制，不读取或取RNG。
+    LegacyCryptInt(session::ClientSession& session, std::int32_t value); // 栈值显式携owner，原401CC0一次RNG构造。
+    LegacyCryptInt(session::ClientSession& session, std::uint32_t value); // 同一W32位模式构造。
+    LegacyCryptInt(const LegacyCryptInt& source); // 原字段复制，不读取或取RNG，独立副本登记源owner。
     // 原0x00438270：仅复制三个载荷字段，保留目标token，不读取或取RNG。
     LegacyCryptInt& operator=(const LegacyCryptInt& source) noexcept;
 
@@ -111,6 +113,7 @@ public:
     // 原+0x0D～+0x0F：由编译器尾部padding承接。
 
 private:
+    explicit LegacyCryptInt(std::int32_t value); // 默认构造共用正文，只用于已登记聚合成员。
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
     // 供转换与运算符内部单次解码；外部读取经operator std::int32_t()。
     std::int32_t value();
@@ -119,8 +122,8 @@ private:
     static std::uint32_t ToBits(std::int32_t value);
     // 解码后的W32位模式恢复为有符号明文。
     static std::int32_t FromBits(std::uint32_t value);
-    // 沿共享NextRandom一次取mask，构造与读计数刷新共用。
-    static std::uint32_t NextMask();
+    // 按本对象真实地址查所属引擎，一次取mask，构造与读计数刷新共用。
+    std::uint32_t NextMask();
     // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
     void SetNorVal_401F50(std::int32_t value);
 };

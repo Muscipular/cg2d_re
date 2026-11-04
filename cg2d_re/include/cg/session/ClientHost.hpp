@@ -104,7 +104,8 @@ private:
     };
     friend void BindSessionStorage(ClientSession&, const void*, std::size_t);
     friend void UnbindSessionStorage(const void*) noexcept;
-    friend ClientSession& SessionStorageOwner(const void*);
+    friend void UnbindSessionObjectStorage(const void*, std::size_t) noexcept;
+    friend ClientSession* FindSessionStorageOwner(const void*) noexcept;
 
     // 先于集合构造、晚于集合析构，成员销毁期间仍可查询/撤销。
     std::map<std::uintptr_t, StorageOwner> storageOwners_;

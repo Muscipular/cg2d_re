@@ -11,6 +11,9 @@ class ClientSession;
 // 实际分配块的非拥有会话归属；成员构造/析构期间范围仍有效。
 void BindSessionStorage(ClientSession& session, const void* storage, std::size_t extent);
 void UnbindSessionStorage(const void* storage) noexcept;
+// 独立成员析构只撤销恰好匹配的自身范围，不移除包含它的聚合登记。
+void UnbindSessionObjectStorage(const void* storage, std::size_t extent) noexcept;
+[[nodiscard]] ClientSession* FindSessionStorageOwner(const void* member) noexcept;
 [[nodiscard]] ClientSession& SessionStorageOwner(const void* member);
 
 template <typename T>

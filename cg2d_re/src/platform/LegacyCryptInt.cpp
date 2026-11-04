@@ -1,4 +1,6 @@
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/session/ClientSession.hpp"
+#include "cg/session/SessionStorage.hpp"
 
 #include "MainLoopDependencies.hpp"
 
@@ -18,7 +20,7 @@ std::int32_t LegacyCryptInt::FromBits(std::uint32_t value)
 
 std::uint32_t LegacyCryptInt::NextMask()
 {
-    return ToBits(static_cast<std::int32_t>(Rand16()));
+    return ToBits(static_cast<std::int32_t>(Rand16(session::SessionStorageOwner(this).Connection())));
 }
 
 // 原0x00401C70 sub_401C70@[0x401C70,0x401C92)：零值默认构造复用有值构造，RNG一次。
@@ -36,11 +38,37 @@ LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
     SetNorVal_401F50(value);
 }
 
+LegacyCryptInt::LegacyCryptInt(session::ClientSession& session, const std::int32_t value)
+{
+    if (session::FindSessionStorageOwner(this) == nullptr) {
+        session::BindSessionStorage(session, this, sizeof(*this));
+    }
+    legacyVftToken = kLegacyCryptIntVftToken;
+    mask = NextMask();
+    readCount = 0;
+    SetNorVal_401F50(value);
+}
+
+LegacyCryptInt::LegacyCryptInt(session::ClientSession& session, const std::uint32_t value)
+    : LegacyCryptInt(session, std::bit_cast<std::int32_t>(value))
+{
+}
+
+LegacyCryptInt::LegacyCryptInt(const LegacyCryptInt& source)
+    : legacyVftToken(source.legacyVftToken), encoded(source.encoded),
+      mask(source.mask), readCount(source.readCount)
+{
+    if (session::FindSessionStorageOwner(this) == nullptr) {
+        session::BindSessionStorage(session::SessionStorageOwner(&source), this, sizeof(*this));
+    }
+}
+
 // 原0x00401CF0 CryptInt_delete@[0x401CF0,0x401CF7)：析构只恢复原token。
 // 原0x00401CA0：销毁部分并入析构；动态释放由标准delete表达式承接。
 LegacyCryptInt::~LegacyCryptInt()
 {
     legacyVftToken = kLegacyCryptIntVftToken;
+    session::UnbindSessionObjectStorage(this, sizeof(*this));
 }
 
 LegacyCryptInt::LegacyCryptInt(const RawPayload& raw) noexcept
@@ -90,14 +118,9 @@ std::int32_t LegacyCryptInt::value()
     return FromBits(this->encoded ^ this->mask);
 }
 
-LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
-    : LegacyCryptInt(std::bit_cast<std::int32_t>(value))
-{
-}
-
 LegacyCryptInt& LegacyCryptInt::operator=(const std::int32_t value)
 {
-    LegacyCryptInt temporary(value);
+    LegacyCryptInt temporary(session::SessionStorageOwner(this), value);
     *this = temporary;
     return *this;
 }

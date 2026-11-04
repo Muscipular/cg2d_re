@@ -21,11 +21,6 @@ static session::LegacyRandomEngine& SharedRandomEngine(network::CgConnection& co
     return connection.Owner().RandomEngine();
 }
 
-static session::LegacyRandomEngine& SharedRandomEngine()
-{
-    return SharedRandomEngine(network::GetGameConnection());
-}
-
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
 static volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
 
@@ -92,11 +87,6 @@ void KeepAlive_457AB0(network::CgConnection& connection)
 }
 
 // 原函数：0x0053B4BF。
-std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
-{
-    return SeedRandom_53B4BF(network::GetGameConnection(), seed);
-}
-
 std::uint32_t SeedRandom_53B4BF(network::CgConnection& connection, std::uint32_t seed)
 {
     SharedRandomEngine(connection).seed(seed);
@@ -104,11 +94,6 @@ std::uint32_t SeedRandom_53B4BF(network::CgConnection& connection, std::uint32_t
 }
 
 // 原函数：0x0053B4C9。
-int Rand16()
-{
-    return Rand16(network::GetGameConnection());
-}
-
 int Rand16(network::CgConnection& connection)
 {
     const std::uint32_t seed = SharedRandomEngine(connection)();
@@ -118,11 +103,6 @@ int Rand16(network::CgConnection& connection)
 
 // 原 0x46FAF0：保留上界-1哨兵；RRU01将合法闭区间改为标准均匀分布。
 // 倒置区间保留原Rand16取模算法；合法区间的随机值及引擎消费次数允许变化。
-std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
-{
-    return RandomRange_46FAF0(network::GetGameConnection(), lower, upper);
-}
-
 std::int32_t RandomRange_46FAF0(
     network::CgConnection& connection, std::int32_t lower, std::int32_t upper)
 {

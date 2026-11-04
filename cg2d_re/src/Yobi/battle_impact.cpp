@@ -81,7 +81,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -246,7 +246,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -415,7 +415,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(static_cast<std::int32_t>(0));
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -630,7 +630,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -877,7 +877,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[

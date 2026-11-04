@@ -907,7 +907,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
                 payload->effects1C[payload->effectRunningC9C].position];
             if ((compareTarget->readiness < 0)) {
                 std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(0));
+                temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                 const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                 const std::uint32_t encoded = temporary->encoded;
                 YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1108,7 +1108,7 @@ void UpdateBattleAction95_40D0B0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         payload->valueFF0 = 0;
         std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(0));
+        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
         const std::int32_t effectIndex = payload->effectRunningC9C;
         const std::uint32_t encoded = temporary->encoded;
         YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[
@@ -1360,7 +1360,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1607,7 +1607,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(static_cast<std::int32_t>(0));
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1738,7 +1738,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             effect->scaleY = 2.0F;
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(static_cast<std::int32_t>(0));
+                            temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::uint32_t encoded = temporary->encoded;
                             YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1761,7 +1761,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             effect->scaleY = 2.0F;
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(static_cast<std::int32_t>(0));
+                            temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                             const std::int32_t sourcePosition = payload->battlePosition18;
                             const std::uint32_t encoded = temporary->encoded;
                             YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[sourcePosition];
@@ -2004,7 +2004,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
+                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -2278,7 +2278,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         // 构造会消费共享随机数，每次之后按当前效果重新查对象，再复制并析构。
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(static_cast<std::int32_t>(
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(
                             payload->effects1C[payload->effectRunningC9C].position3));
                         const std::int32_t hpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -2288,7 +2288,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->readiness.mask = temporary->mask;
                         target->readiness.readCount = temporary->readCount;
                         temporary.reset();
-                        temporary.emplace(static_cast<std::int32_t>(
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(
                             payload->effects1C[payload->effectRunningC9C].position4));
                         const std::int32_t maxHpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -2299,7 +2299,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->maxHp.readCount = temporary->readCount;
                         temporary.reset();
                         static_cast<void>(AdvanceBattleEffect_439470(action));
-                        temporary.emplace(static_cast<std::int32_t>(
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(
                             payload->effects1C[payload->effectRunningC9C].position3));
                         const std::int32_t fpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -2309,7 +2309,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->barValue1B0.mask = temporary->mask;
                         target->barValue1B0.readCount = temporary->readCount;
                         temporary.reset();
-                        temporary.emplace(static_cast<std::int32_t>(
+                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(
                             payload->effects1C[payload->effectRunningC9C].position4));
                         const std::int32_t maxFpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -3123,7 +3123,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                                     payload->effects1C[payload->effectRunningC9C].position];
                                 if ((compareTarget->readiness < 0)) {
                                     std::optional<platform::LegacyCryptInt> temporary;
-                                    temporary.emplace(static_cast<std::int32_t>(0));
+                                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
                                     const std::int32_t copyIndex = payload->effectRunningC9C;
                                     const std::uint32_t encoded = temporary->encoded;
                                     const std::int32_t copyPosition = payload->effects1C[copyIndex].position;

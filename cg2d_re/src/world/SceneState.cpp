@@ -2821,7 +2821,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     static_cast<void>(SetPlayerMapPosition_468330(session, 0, 0));
 
     std::optional<platform::LegacyCryptInt> first;
-    first.emplace(static_cast<std::int32_t>(0));
+    first.emplace(session, static_cast<std::int32_t>(0));
     const std::uint32_t firstMask = first->mask;
     const std::uint32_t firstEncoded = first->encoded;
     const std::uint8_t firstReadCount = first->readCount;
@@ -2833,7 +2833,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     session.WorldScene().map.crypt->lastDrawPlayerY = std::int32_t{0};
     first.reset();
 
-    second.emplace(static_cast<std::int32_t>(0));
+    second.emplace(session, static_cast<std::int32_t>(0));
     const std::uint32_t thirdMask = second->mask;
     const std::uint32_t thirdEncoded = second->encoded;
     const std::uint8_t thirdReadCount = second->readCount;
@@ -7421,7 +7421,7 @@ static std::int32_t ProcessScanlineTransition(
         return 1;
     }
     std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
+    temporary.emplace(session, static_cast<std::int32_t>(nextState));
     if (direction < 0) {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;

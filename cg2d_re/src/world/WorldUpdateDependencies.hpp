@@ -95,28 +95,37 @@ std::uint32_t CaptureSceneAndSelectEvenVariant_51D750(session::ClientSession& se
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t ProcessSceneTransitionEffect_51FDE0(
-    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits,
+    bool completionPolledLater = false);
 // 51FDE0 原调用均压入三个 W32 槽；新端声明只保留目标实际读取的逻辑参数。
+// completeImmediately只跳视觉过程，仍复用各目标原有的正常完成分支。
 // 原函数：0x0051D790。
 std::int32_t ProcessSceneSlideOut_51D790(
-    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits,
+    bool completeImmediately);
 // 原函数：0x0051E0D0。
 std::int32_t ProcessSceneSlideIn_51E0D0(
-    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits,
+    bool completeImmediately);
 // 原函数：0x0051EC10。
 std::int32_t ProcessSceneQuadrantTransition_51EC10(
-    session::ClientSession& session, std::int32_t index, std::int32_t value);
+    session::ClientSession& session, std::int32_t index, std::int32_t value, bool completeImmediately);
 // 原函数：0x0051EF80。
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
-    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits,
+    bool completeImmediately);
 // 原函数：0x0051F610。
-std::int32_t ProcessSceneGridScaleTransition_51F610(session::ClientSession& session, std::int32_t value);
+std::int32_t ProcessSceneGridScaleTransition_51F610(
+    session::ClientSession& session, std::int32_t value, bool completeImmediately);
 // 原函数：0x0051F860。
-std::int32_t ProcessTopScanlineTransition_51F860(session::ClientSession& session, std::int32_t index, std::int32_t value);
+std::int32_t ProcessTopScanlineTransition_51F860(
+    session::ClientSession& session, std::int32_t index, std::int32_t value, bool completeImmediately);
 // 原函数：0x0051FA70。
-std::int32_t ProcessBottomScanlineTransition_51FA70(session::ClientSession& session, std::int32_t index, std::int32_t value);
+std::int32_t ProcessBottomScanlineTransition_51FA70(
+    session::ClientSession& session, std::int32_t index, std::int32_t value, bool completeImmediately);
 // 原函数：0x0051FC90。
-std::int32_t ProcessSceneCenterScanlineTransition_51FC90(session::ClientSession& session, std::int32_t index, std::int32_t value);
+std::int32_t ProcessSceneCenterScanlineTransition_51FC90(
+    session::ClientSession& session, std::int32_t index, std::int32_t value, bool completeImmediately);
 // 原函数：0x00455C90。
 std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session); // 原 0x455C90，返回值按任意非零判断。
 

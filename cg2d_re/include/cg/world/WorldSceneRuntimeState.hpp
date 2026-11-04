@@ -582,6 +582,8 @@ struct WorldSceneRuntimeState {
     ImageTransitionState imageTransition {};
     SlideTransitionState slideTransition {};
     std::uint32_t transitionResetPending = 1; // 原 0x58B6D0，各转场模式共用的首次初始化门禁。
+    bool skipTransitionPixels = false; // NSM01：后台开始的转场即使切回也直接完成，不借旧Temp画面。
+    bool transitionCompletionPending = false; // 三处启动后另帧轮询入口只消费一次后台完成结果。
     std::uint32_t capturedTransitionVariant = 0; // 原 0xFF48E4，捕获画面后的完整 W32 取样。
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。

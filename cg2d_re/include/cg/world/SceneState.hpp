@@ -46,6 +46,9 @@ std::int32_t SetCurrentSceneTypeAndState(session::ClientSession& session, std::i
 // 原 sub_51C7B0@0x51C7B0；先清待切换场景状态，再写待切换场景类型，返回 sceneType。
 std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t sceneType);
 
+// NSM01：原转场重置点同时锁定后台直接完成策略，清理上一转场的待消费结果。
+void BeginSceneTransition(session::ClientSession& session);
+
 // 原 sub_468FF0@0x468FF0；按原指令顺序把世界投影当前值复制到帧末快照，返回 D。
 std::uint32_t CopyWorldProjectionState_468FF0(session::ClientSession& session);
 

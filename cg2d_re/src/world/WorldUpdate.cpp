@@ -1,5 +1,6 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -44,6 +45,7 @@ namespace cg::world {
 // 原 [0x51C430,0x51C726)，188 条指令、13 项主分发表和 5 项次分发表。
 void Update(session::ClientSession& session)
 {
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
     auto& inventory = session.UiFrame().native.inventory;
     const std::int32_t pendingSceneType = session.WorldScene().pendingSceneType;
     if (pendingSceneType >= 0) {
@@ -165,12 +167,14 @@ void Update(session::ClientSession& session)
             cg::yobi::YobiClearUp_404D30(session);
             ui::WindowRuntime_ProcessScene(session);
             cg::yobi::ResetObservationGroupList_43F220(session);
-            session.WorldScene().transitionResetPending = 1;
+            BeginSceneTransition(session);
             detail::CaptureSceneAndSelectEvenVariant_51D750(session);
             session.WorldScene().frameBackgroundMode = 2;
             cg::audio::BeginBgmFadeOut_52B990(session);
             const std::uint64_t tick = platform::ReadTickCount64();
-            platform::gLastRenderDt = static_cast<double>(tick);
+            if (submitPixels) {
+                platform::gLastRenderDt = static_cast<double>(tick);
+            }
             ++session.WorldScene().sceneState;
         } else if (sceneState == 1
             && detail::ProcessSceneTransitionEffect_51FDE0(session, 2, 0, 0x3F19999Au) == 1) {
@@ -218,6 +222,14 @@ void Update(session::ClientSession& session)
 sceneSixTail:
     cg::yobi::YobiUpdateAll_404C50(session);
     detail::RenderChara_521F20(session);
+}
+
+void BeginSceneTransition(session::ClientSession& session)
+{
+    auto& scene = session.WorldScene();
+    scene.transitionResetPending = 1;
+    scene.skipTransitionPixels = cg::session::GetClientHost().CurrentSession() != &session;
+    scene.transitionCompletionPending = false;
 }
 
 namespace detail {
@@ -352,53 +364,70 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     return clicked;
 }
 
-// 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
+// 原sub_51FDE0@[0x51FDE0,0x5200D0)：当前保原分派；后台只跳过程，仍走目标完成尾。
 std::int32_t ProcessSceneTransitionEffect_51FDE0(
-    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)
+    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits,
+    const bool completionPolledLater)
 {
+    auto& scene = session.WorldScene();
+    if (completionPolledLater) {
+        scene.transitionCompletionPending = false;
+    }
+    if (scene.transitionCompletionPending) {
+        scene.transitionCompletionPending = false;
+        scene.frameBackgroundMode = 0;
+        return 1;
+    }
+    const bool completeImmediately = scene.skipTransitionPixels
+        || cg::session::GetClientHost().CurrentSession() != &session;
+    scene.skipTransitionPixels = false;
+    if (completeImmediately && static_cast<std::uint32_t>(selector) < 36U) {
+        scene.transitionCompletionPending = completionPolledLater;
+        scene.frameBackgroundMode = 0;
+    }
     switch (selector) {
-    case 0: return ProcessSceneSlideOut_51D790(session, 0, value, payloadBits);
-    case 1: return ProcessSceneSlideIn_51E0D0(session, 0, value, payloadBits);
-    case 2: return ProcessSceneSlideOut_51D790(session, 1, value, payloadBits);
-    case 3: return ProcessSceneSlideIn_51E0D0(session, 1, value, payloadBits);
-    case 4: return ProcessSceneSlideOut_51D790(session, 2, value, payloadBits);
-    case 5: return ProcessSceneSlideIn_51E0D0(session, 2, value, payloadBits);
-    case 6: return ProcessSceneSlideOut_51D790(session, 3, value, payloadBits);
-    case 7: return ProcessSceneSlideIn_51E0D0(session, 3, value, payloadBits);
-    case 8: return ProcessSceneSlideOut_51D790(session, 4, value, payloadBits);
-    case 9: return ProcessSceneSlideIn_51E0D0(session, 4, value, payloadBits);
-    case 10: return ProcessSceneSlideOut_51D790(session, 5, value, payloadBits);
-    case 11: return ProcessSceneSlideIn_51E0D0(session, 5, value, payloadBits);
-    case 12: return ProcessSceneSlideOut_51D790(session, 6, value, payloadBits);
-    case 13: return ProcessSceneSlideIn_51E0D0(session, 6, value, payloadBits);
-    case 14: return ProcessSceneSlideOut_51D790(session, 7, value, payloadBits);
-    case 15: return ProcessSceneSlideIn_51E0D0(session, 7, value, payloadBits);
-    case 16: return ProcessSceneSlideOut_51D790(session, 8, value, payloadBits);
-    case 17: return ProcessSceneSlideIn_51E0D0(session, 8, value, payloadBits);
-    case 18: return ProcessSceneQuadrantTransition_51EC10(session, 0, value);
-    case 19: return ProcessSceneQuadrantTransition_51EC10(session, 1, value);
-    case 20: return ProcessSceneRandomTileTransition_51EF80(session, 0, value, 0);
-    case 21: return ProcessSceneRandomTileTransition_51EF80(session, 1, value, 0);
-    case 22: return ProcessSceneRandomTileTransition_51EF80(session, 2, value, payloadBits);
-    case 23: return ProcessSceneRandomTileTransition_51EF80(session, 3, value, payloadBits);
+    case 0: return ProcessSceneSlideOut_51D790(session, 0, value, payloadBits, completeImmediately);
+    case 1: return ProcessSceneSlideIn_51E0D0(session, 0, value, payloadBits, completeImmediately);
+    case 2: return ProcessSceneSlideOut_51D790(session, 1, value, payloadBits, completeImmediately);
+    case 3: return ProcessSceneSlideIn_51E0D0(session, 1, value, payloadBits, completeImmediately);
+    case 4: return ProcessSceneSlideOut_51D790(session, 2, value, payloadBits, completeImmediately);
+    case 5: return ProcessSceneSlideIn_51E0D0(session, 2, value, payloadBits, completeImmediately);
+    case 6: return ProcessSceneSlideOut_51D790(session, 3, value, payloadBits, completeImmediately);
+    case 7: return ProcessSceneSlideIn_51E0D0(session, 3, value, payloadBits, completeImmediately);
+    case 8: return ProcessSceneSlideOut_51D790(session, 4, value, payloadBits, completeImmediately);
+    case 9: return ProcessSceneSlideIn_51E0D0(session, 4, value, payloadBits, completeImmediately);
+    case 10: return ProcessSceneSlideOut_51D790(session, 5, value, payloadBits, completeImmediately);
+    case 11: return ProcessSceneSlideIn_51E0D0(session, 5, value, payloadBits, completeImmediately);
+    case 12: return ProcessSceneSlideOut_51D790(session, 6, value, payloadBits, completeImmediately);
+    case 13: return ProcessSceneSlideIn_51E0D0(session, 6, value, payloadBits, completeImmediately);
+    case 14: return ProcessSceneSlideOut_51D790(session, 7, value, payloadBits, completeImmediately);
+    case 15: return ProcessSceneSlideIn_51E0D0(session, 7, value, payloadBits, completeImmediately);
+    case 16: return ProcessSceneSlideOut_51D790(session, 8, value, payloadBits, completeImmediately);
+    case 17: return ProcessSceneSlideIn_51E0D0(session, 8, value, payloadBits, completeImmediately);
+    case 18: return ProcessSceneQuadrantTransition_51EC10(session, 0, value, completeImmediately);
+    case 19: return ProcessSceneQuadrantTransition_51EC10(session, 1, value, completeImmediately);
+    case 20: return ProcessSceneRandomTileTransition_51EF80(session, 0, value, 0, completeImmediately);
+    case 21: return ProcessSceneRandomTileTransition_51EF80(session, 1, value, 0, completeImmediately);
+    case 22: return ProcessSceneRandomTileTransition_51EF80(session, 2, value, payloadBits, completeImmediately);
+    case 23: return ProcessSceneRandomTileTransition_51EF80(session, 3, value, payloadBits, completeImmediately);
     case 24:
     case 25: {
         const std::int32_t signedLow =
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
         const std::int32_t selected = signedLow != 0
             ? signedLow : (selector == 24 ? -1 : 1);
-        return ProcessSceneGridScaleTransition_51F610(session, selected);
+        return ProcessSceneGridScaleTransition_51F610(session, selected, completeImmediately);
     }
     case 26:
-    case 28: return ProcessTopScanlineTransition_51F860(session, -1, value);
+    case 28: return ProcessTopScanlineTransition_51F860(session, -1, value, completeImmediately);
     case 27:
-    case 33: return ProcessTopScanlineTransition_51F860(session, 1, value);
+    case 33: return ProcessTopScanlineTransition_51F860(session, 1, value, completeImmediately);
     case 29:
-    case 31: return ProcessBottomScanlineTransition_51FA70(session, 1, value);
+    case 31: return ProcessBottomScanlineTransition_51FA70(session, 1, value, completeImmediately);
     case 30:
-    case 32: return ProcessBottomScanlineTransition_51FA70(session, -1, value);
-    case 34: return ProcessSceneCenterScanlineTransition_51FC90(session, 0, value);
-    case 35: return ProcessSceneCenterScanlineTransition_51FC90(session, 1, value);
+    case 32: return ProcessBottomScanlineTransition_51FA70(session, -1, value, completeImmediately);
+    case 34: return ProcessSceneCenterScanlineTransition_51FC90(session, 0, value, completeImmediately);
+    case 35: return ProcessSceneCenterScanlineTransition_51FC90(session, 1, value, completeImmediately);
     default: return 1;
     }
 }

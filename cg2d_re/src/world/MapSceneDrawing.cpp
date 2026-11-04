@@ -9,6 +9,7 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "BattleState.hpp"
@@ -204,6 +205,7 @@ void DrawMapSceneWithMarkers_469020(session::ClientSession& session)
 // 原函数：0x0043CB10。
 void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 {
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
     cg::render::gGraphicQueue.count = 0;
     cg::render::gTextQueue.count = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
@@ -212,10 +214,14 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     const std::int32_t imageNo = session.WorldScene().battle.backgroundImage;
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
-    static_cast<void>(render::ClearSurface_4512C0());
+    if (submitPixels) {
+        static_cast<void>(render::ClearSurface_4512C0());
+    }
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
-    static_cast<void>(render::CopyBackToTemp());
+    if (submitPixels) {
+        static_cast<void>(render::CopyBackToTemp());
+    }
     render::gRenderQueueMode103CF10 = 1;
     cg::render::gGraphicQueue.count = 0;
     cg::render::gTextQueue.count = 0;

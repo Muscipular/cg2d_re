@@ -1,5 +1,6 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
@@ -3064,6 +3065,7 @@ void OpenPendingBattleResultWindow_504A50(session::ClientSession& session)
 // 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
 void DrawNormalScene_51C7D0(session::ClientSession& session)
 {
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
     auto& inputs = session.UiFrame().native.inputs;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& worldScene = session.WorldScene();
@@ -3114,10 +3116,14 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::BrowseChatHistory_44A1B0(session);
         RenderInput_4590E0(session);
         render::SortTextures_520790();
-        static_cast<void>(render::ClearSurface_4512C0());
+        if (submitPixels) {
+            static_cast<void>(render::ClearSurface_4512C0());
+        }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0(session);
-        static_cast<void>(render::CopyBackToTemp());
+        if (submitPixels) {
+            static_cast<void>(render::CopyBackToTemp());
+        }
         cg::render::gGraphicQueue.count = 0;
         render::gRenderQueueMode103CF10 = 1;
         cg::render::gTextQueue.count = 0;
@@ -3135,9 +3141,11 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;
-        platform::gLastRenderDt = static_cast<double>(tick);
-        session.WorldScene().transitionResetPending = 1;
-        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u));
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
+        BeginSceneTransition(session);
+        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u, true));
         session.WorldScene().sceneState = 103;
         ApplyPendingMapPaletteReply_51D6F0(session);
         return;
@@ -3151,9 +3159,11 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         return;
     case 200:
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
-        platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
+        }
         ui::WindowRuntime_ProcessScene(session);
         session.WorldScene().sceneState = 201;
         [[fallthrough]];
@@ -3208,7 +3218,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
         render::SortTextures_520790();
-        static_cast<void>(render::ClearSurface_4512C0());
+        if (submitPixels) {
+            static_cast<void>(render::ClearSurface_4512C0());
+        }
         ClearDirectionalMapEffects_46F160(session);
         if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
@@ -3217,15 +3229,19 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0(session);
-        static_cast<void>(render::CopyBackToTemp());
+        if (submitPixels) {
+            static_cast<void>(render::CopyBackToTemp());
+        }
         render::gRenderQueueMode103CF10 = 1;
         cg::render::gGraphicQueue.count = 0;
         cg::render::gTextQueue.count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         session.WorldScene().sceneState = 204;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
         ApplyPendingMapPaletteReply_51D6F0(session);
         [[fallthrough]];
     }
@@ -3268,9 +3284,11 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::render::gTextQueue.count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         session.WorldScene().sceneState = 204;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
         ApplyPendingMapPaletteReply_51D6F0(session);
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0(session);
         session.Audio().bgmTarget = bgm;
@@ -3319,7 +3337,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::uint64_t tick = platform::ReadTickCount64();
         cg::render::gGraphicQueue.count = 0;
         cg::render::gTextQueue.count = 0;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
         static_cast<void>(render::ResetGraphicCache_456D30());
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
@@ -3398,7 +3418,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             input::BrowseChatHistory_44A1B0(session);
             RenderInput_4590E0(session);
             render::SortTextures_520790();
-            static_cast<void>(render::ClearSurface_4512C0());
+            if (submitPixels) {
+                static_cast<void>(render::ClearSurface_4512C0());
+            }
             ClearDirectionalMapEffects_46F160(session);
             if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
                 || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
@@ -3410,17 +3432,21 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             UpdateDayPeriodPaletteAndTimers_458F00(session);
             render::gRenderQueueMode103CF10 = 0;
             render::DrawAllQueued_520DD0(session);
-            static_cast<void>(render::CopyBackToTemp());
+            if (submitPixels) {
+                static_cast<void>(render::CopyBackToTemp());
+            }
             render::gRenderQueueMode103CF10 = 1;
             cg::render::gGraphicQueue.count = 0;
             cg::render::gTextQueue.count = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
             const std::uint64_t tick = platform::ReadTickCount64();
             const std::uint32_t gate = session.WorldScene().logoutToTownPending;
-            platform::gLastRenderDt = static_cast<double>(tick);
+            if (submitPixels) {
+                platform::gLastRenderDt = static_cast<double>(tick);
+            }
             const std::int32_t selector = gate == 1 ? 15 : 13;
             session.WorldScene().frameBackgroundMode = 2;
-            static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000u));
+            static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000u, true));
         } else {
             const std::int32_t state = session.WorldScene().sceneState;
             worldScene.normalSceneInitialized = 1;
@@ -3495,7 +3521,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().map.crypt->rippleGate = std::int32_t{1};
         session.WorldScene().movement.directionalTransitionPending = 0;
         session.WorldScene().movement.continuousMovementActive = 0;
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         ui::WindowRuntime_ProcessScene(session);
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ResumePlayerAfterObservation_51BEF0(session);
@@ -3523,7 +3549,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
 
 waitFrame:
-    static_cast<void>(render::ClearSurface_4512C0());
+    if (submitPixels) {
+        static_cast<void>(render::ClearSurface_4512C0());
+    }
     ++worldScene.normalSceneWaitFrames;
     return;
 
@@ -3538,7 +3566,9 @@ inputTail:
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
 std::uint32_t CaptureSceneAndSelectEvenVariant_51D750(session::ClientSession& session)
 {
-    static_cast<void>(render::CopyBackToTemp());
+    if (cg::session::GetClientHost().CurrentSession() == &session) {
+        static_cast<void>(render::CopyBackToTemp());
+    }
     const std::uint32_t bits = static_cast<std::uint32_t>(
         platform::RandomRange_46FAF0(0, 35));
     const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
@@ -3615,6 +3645,7 @@ std::int32_t __cdecl SetPlayerObjectIndex_519EB0(session::ClientSession& session
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(session::ClientSession& session)
 {
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
     auto& uiFrame = session.UiFrame();
     auto& inputs = session.UiFrame().native.inputs;
     auto& battleScene = session.WorldScene().battle;
@@ -3657,7 +3688,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::InitializeBattleScene_4383F0(session);
         session.WorldScene().battle.entryNoticeAction = nullptr;
         battleScene.exitAction = nullptr;
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         session.WorldScene().battle.commandAction = nullptr;
         session.WorldScene().battleResult.pendingMode = 3;
         input::SetContext_44B330(session, &inputs.chat);
@@ -3711,8 +3742,10 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;
-        platform::gLastRenderDt = static_cast<double>(tick);
-        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 13, 8, 0x40000000U));
+        if (submitPixels) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
+        static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 13, 8, 0x40000000U, true));
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0(session);
         cg::core::NullSub_509080();
@@ -3725,7 +3758,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             session.WorldScene().frameBackgroundMode = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
             session.WorldScene().frameBackgroundMode = 3;
-            platform::gLastRenderDt = static_cast<double>(tick);
+            if (submitPixels) {
+                platform::gLastRenderDt = static_cast<double>(tick);
+            }
             input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0(session);
             static_cast<void>(ui::WindowRuntime_Render(session));
@@ -3907,7 +3942,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         const std::int32_t currentState = session.WorldScene().sceneState;
         const std::int32_t nextState = currentState + 1;
         clearBattleEffects();
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         session.WorldScene().sceneState = nextState;
         [[fallthrough]];
     }
@@ -6181,9 +6216,11 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
         cg::audio::BeginBgmFadeOut_52B990(session);
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = logout.transitionPhase + 1;
-        session.WorldScene().transitionResetPending = 1;
+        BeginSceneTransition(session);
         logout.transitionPhase = next;
-        platform::gLastRenderDt = static_cast<double>(tick);
+        if (cg::session::GetClientHost().CurrentSession() == &session) {
+            platform::gLastRenderDt = static_cast<double>(tick);
+        }
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ClearObservationGroups_43F230(session);
     }
@@ -6192,7 +6229,8 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
 
 // 原[51D790,51E0A0)：完整九模式；FST后仍参与计算的值保留PC53中间精度。
 std::int32_t ProcessSceneSlideOut_51D790(
-    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits,
+    const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& slide = session.WorldScene().slideTransition;
@@ -6203,166 +6241,124 @@ std::int32_t ProcessSceneSlideOut_51D790(
     auto& gTransitionVelocityFF48F8 = slide.velocity;
     auto& gTransitionActiveLinesFF48FC = slide.activeLines;
     auto& gTransitionLines = slide.lines;
-    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
-    std::int32_t completed = 0;
-    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
-    if (trigger == 1) {
-        completed = -1;
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        gTransitionXFF48E8 = 0.0f;
-        gTransitionAlternateXFF48EC = 0.0f;
-        gTransitionYFF48F0 = 0.0f;
-        gTransitionVelocityFF48F8 = 0.0f;
-    }
-    const float acceleration = std::bit_cast<float>(payloadBits);
-    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    constexpr float defaultX = 0.4F;
-    constexpr float defaultY = 0.3F;
-    // 原FCOMP的C3选择默认值；零及unordered均走默认。
-    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
-    auto& speeds = gTransitionLines.speed;
-    auto& offsetsX = gTransitionLines.x;
-    auto& offsetsY = gTransitionLines.y;
-    switch (mode) {
-    case 0: {
-        const double position = static_cast<double>(gTransitionYFF48F0)
-            - gTransitionVelocityFF48F8;
-        gTransitionYFF48F0 = static_cast<float>(position);
-        gTransitionVelocityFF48F8 = static_cast<float>(
-            static_cast<double>(gTransitionVelocityFF48F8)
-            + (customAcceleration ? acceleration : defaultY));
-        if (!(position > -480.0f)) {
-            completed = 1;
+    } else {
+        const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
+        std::int32_t completed = 0;
+        std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
+        if (trigger == 1) {
+            completed = -1;
+            gSceneTransitionResetPending_58B6D0 = 0;
+            gTransitionXFF48E8 = 0.0f;
+            gTransitionAlternateXFF48EC = 0.0f;
+            gTransitionYFF48F0 = 0.0f;
+            gTransitionVelocityFF48F8 = 0.0f;
         }
-        break;
-    }
-    case 1:
-    case 5: {
-        const double position = static_cast<double>(gTransitionVelocityFF48F8)
-            + gTransitionYFF48F0;
-        gTransitionYFF48F0 = static_cast<float>(position);
-        if (mode == 5) {
-            gTransitionAlternateYFF48F4 = static_cast<float>(
-                static_cast<double>(gTransitionAlternateYFF48F4)
-                - gTransitionVelocityFF48F8);
+        const float acceleration = std::bit_cast<float>(payloadBits);
+        const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        constexpr float defaultX = 0.4F;
+        constexpr float defaultY = 0.3F;
+        // 原FCOMP的C3选择默认值；零及unordered均走默认。
+        const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
+        auto& speeds = gTransitionLines.speed;
+        auto& offsetsX = gTransitionLines.x;
+        auto& offsetsY = gTransitionLines.y;
+        switch (mode) {
+        case 0: {
+            const double position = static_cast<double>(gTransitionYFF48F0)
+                - gTransitionVelocityFF48F8;
+            gTransitionYFF48F0 = static_cast<float>(position);
+            gTransitionVelocityFF48F8 = static_cast<float>(
+                static_cast<double>(gTransitionVelocityFF48F8)
+                + (customAcceleration ? acceleration : defaultY));
+            if (!(position > -480.0f)) {
+                completed = 1;
+            }
+            break;
         }
-        gTransitionVelocityFF48F8 = static_cast<float>(
-            static_cast<double>(gTransitionVelocityFF48F8)
-            + (customAcceleration ? acceleration : defaultY));
-        if (position >= 480.0f) {
-            completed = 1;
+        case 1:
+        case 5: {
+            const double position = static_cast<double>(gTransitionVelocityFF48F8)
+                + gTransitionYFF48F0;
+            gTransitionYFF48F0 = static_cast<float>(position);
+            if (mode == 5) {
+                gTransitionAlternateYFF48F4 = static_cast<float>(
+                    static_cast<double>(gTransitionAlternateYFF48F4)
+                    - gTransitionVelocityFF48F8);
+            }
+            gTransitionVelocityFF48F8 = static_cast<float>(
+                static_cast<double>(gTransitionVelocityFF48F8)
+                + (customAcceleration ? acceleration : defaultY));
+            if (position >= 480.0f) {
+                completed = 1;
+            }
+            break;
         }
-        break;
-    }
-    case 2: {
-        const double position = static_cast<double>(gTransitionXFF48E8)
-            - gTransitionVelocityFF48F8;
-        gTransitionXFF48E8 = static_cast<float>(position);
-        gTransitionVelocityFF48F8 = static_cast<float>(
-            static_cast<double>(gTransitionVelocityFF48F8)
-            + (customAcceleration ? acceleration : defaultX));
-        if (!(position > -640.0f)) {
-            completed = 1;
+        case 2: {
+            const double position = static_cast<double>(gTransitionXFF48E8)
+                - gTransitionVelocityFF48F8;
+            gTransitionXFF48E8 = static_cast<float>(position);
+            gTransitionVelocityFF48F8 = static_cast<float>(
+                static_cast<double>(gTransitionVelocityFF48F8)
+                + (customAcceleration ? acceleration : defaultX));
+            if (!(position > -640.0f)) {
+                completed = 1;
+            }
+            break;
         }
-        break;
-    }
-    case 3:
-    case 4: {
-        const double position = static_cast<double>(gTransitionVelocityFF48F8)
-            + gTransitionXFF48E8;
-        gTransitionXFF48E8 = static_cast<float>(position);
-        if (mode == 4) {
-            gTransitionAlternateXFF48EC = static_cast<float>(
-                static_cast<double>(gTransitionAlternateXFF48EC)
-                - gTransitionVelocityFF48F8);
+        case 3:
+        case 4: {
+            const double position = static_cast<double>(gTransitionVelocityFF48F8)
+                + gTransitionXFF48E8;
+            gTransitionXFF48E8 = static_cast<float>(position);
+            if (mode == 4) {
+                gTransitionAlternateXFF48EC = static_cast<float>(
+                    static_cast<double>(gTransitionAlternateXFF48EC)
+                    - gTransitionVelocityFF48F8);
+            }
+            gTransitionVelocityFF48F8 = static_cast<float>(
+                static_cast<double>(gTransitionVelocityFF48F8)
+                + (customAcceleration ? acceleration : defaultX));
+            if (position >= 640.0f) {
+                completed = 1;
+            }
+            break;
         }
-        gTransitionVelocityFF48F8 = static_cast<float>(
-            static_cast<double>(gTransitionVelocityFF48F8)
-            + (customAcceleration ? acceleration : defaultX));
-        if (position >= 640.0f) {
-            completed = 1;
-        }
-        break;
-    }
-    case 6: {
-        double active;
-        if (completed == -1) {
-            std::fill_n(speeds.begin(), 480, 0.0f);
-            std::fill_n(offsetsX.begin(), 480, 0.0f);
-            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
-            completed = 0;
-            active = 0.0;
-        } else {
-            active = gTransitionActiveLinesFF48FC;
-        }
-        for (std::int32_t index = 0; index < active; ++index) {
-            if ((index & 1) != 0) {
-                const double speed = static_cast<double>(gTransitionVelocityFF48F8)
-                    + speeds[index];
-                speeds[index] = static_cast<float>(speed);
-                offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
-                const std::int32_t reverse = 480 - index;
-                const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
-                    + speeds[reverse];
-                speeds[reverse] = static_cast<float>(reverseSpeed);
-                offsetsX[reverse] = static_cast<float>(
-                    reverseSpeed + offsetsX[reverse]);
+        case 6: {
+            double active;
+            if (completed == -1) {
+                std::fill_n(speeds.begin(), 480, 0.0f);
+                std::fill_n(offsetsX.begin(), 480, 0.0f);
+                gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
+                completed = 0;
+                active = 0.0;
             } else {
-                const double speed = static_cast<double>(speeds[index])
-                    - gTransitionVelocityFF48F8;
-                speeds[index] = static_cast<float>(speed);
-                offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
-                const std::int32_t reverse = 478 - index;
-                const double reverseSpeed = static_cast<double>(speeds[reverse])
-                    - gTransitionVelocityFF48F8;
-                speeds[reverse] = static_cast<float>(reverseSpeed);
-                offsetsX[reverse] = static_cast<float>(
-                    reverseSpeed + offsetsX[reverse]);
+                active = gTransitionActiveLinesFF48FC;
             }
-        }
-        gTransitionActiveLinesFF48FC = static_cast<float>(
-            active + (step != 0 ? step : 4.0));
-        if (gTransitionActiveLinesFF48FC > 241.0f) {
-            gTransitionActiveLinesFF48FC = 241.0f;
-        }
-        if (!(offsetsX[241] >= -640.0f)) {
-            completed = 1;
-        }
-        if (offsetsX[241] > 640.0f) {
-            completed = 1;
-        }
-        break;
-    }
-    case 7:
-    case 8: {
-        double active;
-        if (completed == -1) {
-            std::fill_n(speeds.begin(), 480, 0.0f);
-            for (std::int32_t index = 0; index < 480; ++index) {
-                offsetsY[index] = static_cast<float>(index);
-            }
-            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
-            completed = 0;
-            active = 0.0;
-        } else {
-            active = gTransitionActiveLinesFF48FC;
-        }
-        if (mode == 7) {
             for (std::int32_t index = 0; index < active; ++index) {
-                const std::int32_t reverse = 480 - index;
-                if (reverse >= 240) {
+                if ((index & 1) != 0) {
+                    const double speed = static_cast<double>(gTransitionVelocityFF48F8)
+                        + speeds[index];
+                    speeds[index] = static_cast<float>(speed);
+                    offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
+                    const std::int32_t reverse = 480 - index;
+                    const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
+                        + speeds[reverse];
+                    speeds[reverse] = static_cast<float>(reverseSpeed);
+                    offsetsX[reverse] = static_cast<float>(
+                        reverseSpeed + offsetsX[reverse]);
+                } else {
                     const double speed = static_cast<double>(speeds[index])
                         - gTransitionVelocityFF48F8;
                     speeds[index] = static_cast<float>(speed);
-                    offsetsY[index] = static_cast<float>(
-                        speed + offsetsY[index]);
-                    if (reverse > 240) {
-                        const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
-                            + speeds[reverse];
-                        speeds[reverse] = static_cast<float>(reverseSpeed);
-                        offsetsY[reverse] = static_cast<float>(
-                            reverseSpeed + offsetsY[reverse]);
-                    }
+                    offsetsX[index] = static_cast<float>(speed + offsetsX[index]);
+                    const std::int32_t reverse = 478 - index;
+                    const double reverseSpeed = static_cast<double>(speeds[reverse])
+                        - gTransitionVelocityFF48F8;
+                    speeds[reverse] = static_cast<float>(reverseSpeed);
+                    offsetsX[reverse] = static_cast<float>(
+                        reverseSpeed + offsetsX[reverse]);
                 }
             }
             gTransitionActiveLinesFF48FC = static_cast<float>(
@@ -6370,108 +6366,154 @@ std::int32_t ProcessSceneSlideOut_51D790(
             if (gTransitionActiveLinesFF48FC > 241.0f) {
                 gTransitionActiveLinesFF48FC = 241.0f;
             }
-            if (!(offsetsY[241] >= -640.0f)) {
+            if (!(offsetsX[241] >= -640.0f)) {
                 completed = 1;
             }
-            if (offsetsY[241] > 640.0f) {
+            if (offsetsX[241] > 640.0f) {
                 completed = 1;
             }
-        } else {
-            for (std::int32_t index = 0; index < active; ++index) {
-                const float speed = static_cast<float>(
-                    static_cast<double>(gTransitionVelocityFF48F8)
-                    + speeds[index]);
-                speeds[index] = speed;
-                // 原局部F32重读，不复用上方未舍入的和。
-                if (!(speed >= 100.0f)) {
-                    offsetsY[index] = static_cast<float>(
-                        static_cast<double>(speed) + offsetsY[index]);
-                } else {
-                    offsetsY[index] = static_cast<float>(
-                        offsetsY[index] + 100.0);
+            break;
+        }
+        case 7:
+        case 8: {
+            double active;
+            if (completed == -1) {
+                std::fill_n(speeds.begin(), 480, 0.0f);
+                for (std::int32_t index = 0; index < 480; ++index) {
+                    offsetsY[index] = static_cast<float>(index);
+                }
+                gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
+                completed = 0;
+                active = 0.0;
+            } else {
+                active = gTransitionActiveLinesFF48FC;
+            }
+            if (mode == 7) {
+                for (std::int32_t index = 0; index < active; ++index) {
+                    const std::int32_t reverse = 480 - index;
+                    if (reverse >= 240) {
+                        const double speed = static_cast<double>(speeds[index])
+                            - gTransitionVelocityFF48F8;
+                        speeds[index] = static_cast<float>(speed);
+                        offsetsY[index] = static_cast<float>(
+                            speed + offsetsY[index]);
+                        if (reverse > 240) {
+                            const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
+                                + speeds[reverse];
+                            speeds[reverse] = static_cast<float>(reverseSpeed);
+                            offsetsY[reverse] = static_cast<float>(
+                                reverseSpeed + offsetsY[reverse]);
+                        }
+                    }
+                }
+                gTransitionActiveLinesFF48FC = static_cast<float>(
+                    active + (step != 0 ? step : 4.0));
+                if (gTransitionActiveLinesFF48FC > 241.0f) {
+                    gTransitionActiveLinesFF48FC = 241.0f;
+                }
+                if (!(offsetsY[241] >= -640.0f)) {
+                    completed = 1;
+                }
+                if (offsetsY[241] > 640.0f) {
+                    completed = 1;
+                }
+            } else {
+                for (std::int32_t index = 0; index < active; ++index) {
+                    const float speed = static_cast<float>(
+                        static_cast<double>(gTransitionVelocityFF48F8)
+                        + speeds[index]);
+                    speeds[index] = speed;
+                    // 原局部F32重读，不复用上方未舍入的和。
+                    if (!(speed >= 100.0f)) {
+                        offsetsY[index] = static_cast<float>(
+                            static_cast<double>(speed) + offsetsY[index]);
+                    } else {
+                        offsetsY[index] = static_cast<float>(
+                            offsetsY[index] + 100.0);
+                    }
+                }
+                gTransitionActiveLinesFF48FC = static_cast<float>(
+                    active + (step != 0 ? step : 16.0));
+                if (gTransitionActiveLinesFF48FC > 480.0f) {
+                    gTransitionActiveLinesFF48FC = 480.0f;
+                }
+                if (offsetsY[479] > 600.0f) {
+                    completed = 1;
                 }
             }
-            gTransitionActiveLinesFF48FC = static_cast<float>(
-                active + (step != 0 ? step : 16.0));
-            if (gTransitionActiveLinesFF48FC > 480.0f) {
-                gTransitionActiveLinesFF48FC = 480.0f;
-            }
-            if (offsetsY[479] > 600.0f) {
-                completed = 1;
-            }
+            break;
         }
-        break;
-    }
-    default:
-        break;
-    }
+        default:
+            break;
+        }
 
-    static_cast<void>(render::ClearSurface_4512C0());
-    switch (mode) {
-    case 4:
-        for (std::int32_t row = 0; row < 480; ++row) {
+        static_cast<void>(render::ClearSurface_4512C0());
+        switch (mode) {
+        case 4:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t x = TruncateTransitionCoordinate(
+                    (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);
+                static_cast<void>(DrawTransitionRectangle(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+            }
+            break;
+        case 5:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const std::int32_t y = TruncateTransitionCoordinate(
+                    (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
+                static_cast<void>(DrawTransitionRectangle(
+                    0, static_cast<std::int16_t>(row + y), rectangle, source));
+            }
+            break;
+        case 6:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const double position = offsetsX[row];
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t x = TruncateTransitionCoordinate(position);
+                static_cast<void>(DrawTransitionRectangle(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+            }
+            break;
+        case 7:
+        case 8:
+            for (std::int32_t row = 479; row > 0; --row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const double position = offsetsY[row];
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t y = TruncateTransitionCoordinate(position);
+                static_cast<void>(DrawTransitionRectangle(
+                    0, static_cast<std::int16_t>(y), rectangle, source));
+            }
+            break;
+        default: {
             render::TextureSurface* const source = render::gCpuTempSurface;
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t x = TruncateTransitionCoordinate(
-                (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);
+            const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);
+            const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);
             static_cast<void>(DrawTransitionRectangle(
-                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
+            break;
         }
-        break;
-    case 5:
-        for (std::int32_t row = 0; row < 480; ++row) {
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t y = TruncateTransitionCoordinate(
-                (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
-            static_cast<void>(DrawTransitionRectangle(
-                0, static_cast<std::int16_t>(row + y), rectangle, source));
         }
-        break;
-    case 6:
-        for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = offsetsX[row];
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t x = TruncateTransitionCoordinate(position);
-            static_cast<void>(DrawTransitionRectangle(
-                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        if (completed != 1) {
+            return 0;
         }
-        break;
-    case 7:
-    case 8:
-        for (std::int32_t row = 479; row > 0; --row) {
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = offsetsY[row];
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t y = TruncateTransitionCoordinate(position);
-            static_cast<void>(DrawTransitionRectangle(
-                0, static_cast<std::int16_t>(y), rectangle, source));
-        }
-        break;
-    default: {
-        render::TextureSurface* const source = render::gCpuTempSurface;
-        const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);
-        const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);
-        static_cast<void>(DrawTransitionRectangle(
-            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
-        break;
-    }
-    }
-    if (completed != 1) {
-        return 0;
     }
     gTransitionXFF48E8 = 0.0f;
     gTransitionAlternateXFF48EC = 0.0f;
@@ -6493,7 +6535,8 @@ std::int32_t ProcessSceneSlideOut_51D790(
 
 // 原[51E0D0,51EBE0)：完整反向过渡；6/7/8初次预计算与恢复在同次调用完成。
 std::int32_t ProcessSceneSlideIn_51E0D0(
-    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits,
+    const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& slide = session.WorldScene().slideTransition;
@@ -6505,429 +6548,433 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
     auto& gReverseTransitionYFF4908 = slide.reverseY;
     auto& gReverseTransitionAlternateYFF490C = slide.reverseAlternateY;
     auto& gTransitionLines = slide.lines;
-    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
-    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
-    std::int32_t phase;
-    if (trigger == 1) {
-        phase = -1;
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        gReverseTransitionPhase58B6D4 = -1;
     } else {
-        phase = gReverseTransitionPhase58B6D4;
-    }
-    const float acceleration = std::bit_cast<float>(payloadBits);
-    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
-    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    constexpr float initialSpeedY = 17.4F;
-    constexpr float initialSpeedX = 22.8F;
-    constexpr float initialY = 513.2F;
-    constexpr float initialNegativeY = -513.2F;
-    constexpr float initialX = 661.0F;
-    constexpr float initialNegativeX = -661.0F;
-    constexpr float defaultX = 0.4F;
-    constexpr float defaultY = 0.3F;
-    auto& speeds = gTransitionLines.speed;
-    auto& offsetsX = gTransitionLines.x;
-    auto& offsetsY = gTransitionLines.y;
-    switch (mode) {
-    case 0: {
-        double position;
-        if (phase == -1) {
-            position = initialY;
-            gReverseTransitionVelocityFF47C4 = initialSpeedY;
-            gReverseTransitionXFF4900 = 0.0f;
-            position -= gReverseTransitionVelocityFF47C4;
-            gReverseTransitionPhase58B6D4 = 0;
+        const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
+        std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
+        std::int32_t phase;
+        if (trigger == 1) {
+            phase = -1;
+            gSceneTransitionResetPending_58B6D0 = 0;
+            gReverseTransitionPhase58B6D4 = -1;
         } else {
-            position = static_cast<double>(gReverseTransitionYFF4908)
-                - gReverseTransitionVelocityFF47C4;
+            phase = gReverseTransitionPhase58B6D4;
         }
-        gReverseTransitionYFF4908 = static_cast<float>(position);
-        break;
-    }
-    case 1:
-    case 5: {
-        double position;
-        if (phase == -1) {
-            position = initialNegativeY;
-            gReverseTransitionXFF4900 = 0.0f;
-            if (mode == 5) {
-                gReverseTransitionAlternateYFF490C = initialY;
-            }
-            gReverseTransitionVelocityFF47C4 = initialSpeedY;
-            gReverseTransitionPhase58B6D4 = 0;
-        } else {
-            position = gReverseTransitionYFF4908;
-        }
-        gReverseTransitionYFF4908 = static_cast<float>(
-            gReverseTransitionVelocityFF47C4 + position);
-        if (mode == 5) {
-            gReverseTransitionAlternateYFF490C = static_cast<float>(
-                static_cast<double>(gReverseTransitionAlternateYFF490C)
-                - gReverseTransitionVelocityFF47C4);
-        }
-        break;
-    }
-    case 2: {
-        double position;
-        if (phase == -1) {
-            position = initialX;
-            gReverseTransitionVelocityFF47C4 = initialSpeedX;
-            gReverseTransitionYFF4908 = 0.0f;
-            position -= gReverseTransitionVelocityFF47C4;
-            gReverseTransitionPhase58B6D4 = 0;
-        } else {
-            position = static_cast<double>(gReverseTransitionXFF4900)
-                - gReverseTransitionVelocityFF47C4;
-        }
-        gReverseTransitionXFF4900 = static_cast<float>(position);
-        break;
-    }
-    case 3:
-    case 4: {
-        double position;
-        if (phase == -1) {
-            position = initialNegativeX;
-            if (mode == 4) {
-                gReverseTransitionAlternateXFF4904 = initialX;
-            }
-            gReverseTransitionYFF4908 = 0.0f;
-            gReverseTransitionVelocityFF47C4 = initialSpeedX;
-            gReverseTransitionPhase58B6D4 = 0;
-        } else {
-            position = gReverseTransitionXFF4900;
-        }
-        gReverseTransitionXFF4900 = static_cast<float>(
-            gReverseTransitionVelocityFF47C4 + position);
-        if (mode == 4) {
-            gReverseTransitionAlternateXFF4904 = static_cast<float>(
-                static_cast<double>(gReverseTransitionAlternateXFF4904)
-                - gReverseTransitionVelocityFF47C4);
-        }
-        break;
-    }
-    case 6: {
-        std::int32_t active;
-        if (phase == -1) {
-            std::fill_n(speeds.begin(), 480, 0.0f);
-            std::fill_n(offsetsX.begin(), 480, 0.0f);
-            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
-            active = 0;
-            gReverseTransitionPhase58B6D4 = 0;
-            for (;;) {
-                for (std::int32_t index = 0; index < active; ++index) {
-                    if ((index & 1) != 0) {
-                        const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)
-                            + speeds[index];
-                        speeds[index] = static_cast<float>(speed);
-                        offsetsX[index] = static_cast<float>(
-                            speed + offsetsX[index]);
-                        const std::int32_t reverse = 480 - index;
-                        const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
-                            + speeds[reverse];
-                        speeds[reverse] = static_cast<float>(reverseSpeed);
-                        offsetsX[reverse] = static_cast<float>(
-                            reverseSpeed + offsetsX[reverse]);
-                    } else {
-                        const double speed = static_cast<double>(speeds[index])
-                            - gReverseTransitionVelocityFF47C4;
-                        speeds[index] = static_cast<float>(speed);
-                        offsetsX[index] = static_cast<float>(
-                            speed + offsetsX[index]);
-                        const std::int32_t reverse = 478 - index;
-                        const double reverseSpeed = static_cast<double>(speeds[reverse])
-                            - gReverseTransitionVelocityFF47C4;
-                        speeds[reverse] = static_cast<float>(reverseSpeed);
-                        offsetsX[reverse] = static_cast<float>(
-                            reverseSpeed + offsetsX[reverse]);
-                    }
-                }
-                active += step != 0 ? step : 4;
-                if (active > 240) {
-                    active = 240;
-                }
-                if (!(offsetsX[241] >= -640.0f)) {
-                    break;
-                }
-                if (offsetsX[241] > 640.0f) {
-                    break;
-                }
-            }
-        } else {
-            active = gReverseTransitionActiveLinesFF276C;
-        }
-        // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。
-        for (std::int32_t index = 0; index < 240; ++index) {
-            if ((index & 1) != 0) {
-                if (offsetsX[index] > 1.0f) {
-                    offsetsX[index] = static_cast<float>(
-                        static_cast<double>(offsetsX[index]) - speeds[index]);
-                    speeds[index] = static_cast<float>(
-                        static_cast<double>(speeds[index])
-                        - gReverseTransitionVelocityFF47C4);
-                } else {
-                    offsetsX[index] = 0.0f;
-                }
-                const std::int32_t reverse = 480 - index;
-                if (offsetsX[reverse] > 1.0f) {
-                    offsetsX[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
-                    speeds[reverse] = static_cast<float>(
-                        static_cast<double>(speeds[reverse])
-                        - gReverseTransitionVelocityFF47C4);
-                } else {
-                    offsetsX[reverse] = 0.0f;
-                }
+        const float acceleration = std::bit_cast<float>(payloadBits);
+        const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
+        const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        constexpr float initialSpeedY = 17.4F;
+        constexpr float initialSpeedX = 22.8F;
+        constexpr float initialY = 513.2F;
+        constexpr float initialNegativeY = -513.2F;
+        constexpr float initialX = 661.0F;
+        constexpr float initialNegativeX = -661.0F;
+        constexpr float defaultX = 0.4F;
+        constexpr float defaultY = 0.3F;
+        auto& speeds = gTransitionLines.speed;
+        auto& offsetsX = gTransitionLines.x;
+        auto& offsetsY = gTransitionLines.y;
+        switch (mode) {
+        case 0: {
+            double position;
+            if (phase == -1) {
+                position = initialY;
+                gReverseTransitionVelocityFF47C4 = initialSpeedY;
+                gReverseTransitionXFF4900 = 0.0f;
+                position -= gReverseTransitionVelocityFF47C4;
+                gReverseTransitionPhase58B6D4 = 0;
             } else {
-                if (!(offsetsX[index] >= -1.0f)) {
-                    offsetsX[index] = static_cast<float>(
-                        static_cast<double>(offsetsX[index]) - speeds[index]);
-                    speeds[index] = static_cast<float>(
-                        static_cast<double>(gReverseTransitionVelocityFF47C4)
-                        + speeds[index]);
-                } else {
-                    offsetsX[index] = 0.0f;
-                }
-                const std::int32_t reverse = 478 - index;
-                if (!(offsetsX[reverse] >= -1.0f)) {
-                    offsetsX[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
-                    speeds[reverse] = static_cast<float>(
-                        static_cast<double>(gReverseTransitionVelocityFF47C4)
-                        + speeds[reverse]);
-                } else {
-                    offsetsX[reverse] = 0.0f;
-                }
+                position = static_cast<double>(gReverseTransitionYFF4908)
+                    - gReverseTransitionVelocityFF47C4;
             }
+            gReverseTransitionYFF4908 = static_cast<float>(position);
+            break;
         }
-        active += step != 0 ? step : 1;
-        gReverseTransitionActiveLinesFF276C = active;
-        if (active > 240) {
-            gReverseTransitionActiveLinesFF276C = 240;
-        }
-        const float leadingOffset = offsetsX[0];
-        if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {
-            gReverseTransitionPhase58B6D4 = 1;
-        }
-        break;
-    }
-    case 7: {
-        std::int32_t active;
-        if (phase == -1) {
-            std::fill_n(speeds.begin(), 480, 0.0f);
-            for (std::int32_t index = 0; index < 480; ++index) {
-                offsetsY[index] = static_cast<float>(index);
+        case 1:
+        case 5: {
+            double position;
+            if (phase == -1) {
+                position = initialNegativeY;
+                gReverseTransitionXFF4900 = 0.0f;
+                if (mode == 5) {
+                    gReverseTransitionAlternateYFF490C = initialY;
+                }
+                gReverseTransitionVelocityFF47C4 = initialSpeedY;
+                gReverseTransitionPhase58B6D4 = 0;
+            } else {
+                position = gReverseTransitionYFF4908;
             }
-            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
-            active = 0;
-            gReverseTransitionPhase58B6D4 = 0;
-            gReverseTransitionActiveLinesFF276C = 0;
-            for (;;) {
-                for (std::int32_t index = 0; index < active; ++index) {
-                    const std::int32_t reverse = 480 - index;
-                    if (reverse >= 240) {
-                        const double speed = static_cast<double>(speeds[index])
-                            - gReverseTransitionVelocityFF47C4;
-                        speeds[index] = static_cast<float>(speed);
-                        offsetsY[index] = static_cast<float>(
-                            speed + offsetsY[index]);
-                        if (reverse > 240) {
+            gReverseTransitionYFF4908 = static_cast<float>(
+                gReverseTransitionVelocityFF47C4 + position);
+            if (mode == 5) {
+                gReverseTransitionAlternateYFF490C = static_cast<float>(
+                    static_cast<double>(gReverseTransitionAlternateYFF490C)
+                    - gReverseTransitionVelocityFF47C4);
+            }
+            break;
+        }
+        case 2: {
+            double position;
+            if (phase == -1) {
+                position = initialX;
+                gReverseTransitionVelocityFF47C4 = initialSpeedX;
+                gReverseTransitionYFF4908 = 0.0f;
+                position -= gReverseTransitionVelocityFF47C4;
+                gReverseTransitionPhase58B6D4 = 0;
+            } else {
+                position = static_cast<double>(gReverseTransitionXFF4900)
+                    - gReverseTransitionVelocityFF47C4;
+            }
+            gReverseTransitionXFF4900 = static_cast<float>(position);
+            break;
+        }
+        case 3:
+        case 4: {
+            double position;
+            if (phase == -1) {
+                position = initialNegativeX;
+                if (mode == 4) {
+                    gReverseTransitionAlternateXFF4904 = initialX;
+                }
+                gReverseTransitionYFF4908 = 0.0f;
+                gReverseTransitionVelocityFF47C4 = initialSpeedX;
+                gReverseTransitionPhase58B6D4 = 0;
+            } else {
+                position = gReverseTransitionXFF4900;
+            }
+            gReverseTransitionXFF4900 = static_cast<float>(
+                gReverseTransitionVelocityFF47C4 + position);
+            if (mode == 4) {
+                gReverseTransitionAlternateXFF4904 = static_cast<float>(
+                    static_cast<double>(gReverseTransitionAlternateXFF4904)
+                    - gReverseTransitionVelocityFF47C4);
+            }
+            break;
+        }
+        case 6: {
+            std::int32_t active;
+            if (phase == -1) {
+                std::fill_n(speeds.begin(), 480, 0.0f);
+                std::fill_n(offsetsX.begin(), 480, 0.0f);
+                gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+                active = 0;
+                gReverseTransitionPhase58B6D4 = 0;
+                for (;;) {
+                    for (std::int32_t index = 0; index < active; ++index) {
+                        if ((index & 1) != 0) {
+                            const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                                + speeds[index];
+                            speeds[index] = static_cast<float>(speed);
+                            offsetsX[index] = static_cast<float>(
+                                speed + offsetsX[index]);
+                            const std::int32_t reverse = 480 - index;
                             const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
                                 + speeds[reverse];
                             speeds[reverse] = static_cast<float>(reverseSpeed);
-                            offsetsY[reverse] = static_cast<float>(
-                                reverseSpeed + offsetsY[reverse]);
+                            offsetsX[reverse] = static_cast<float>(
+                                reverseSpeed + offsetsX[reverse]);
+                        } else {
+                            const double speed = static_cast<double>(speeds[index])
+                                - gReverseTransitionVelocityFF47C4;
+                            speeds[index] = static_cast<float>(speed);
+                            offsetsX[index] = static_cast<float>(
+                                speed + offsetsX[index]);
+                            const std::int32_t reverse = 478 - index;
+                            const double reverseSpeed = static_cast<double>(speeds[reverse])
+                                - gReverseTransitionVelocityFF47C4;
+                            speeds[reverse] = static_cast<float>(reverseSpeed);
+                            offsetsX[reverse] = static_cast<float>(
+                                reverseSpeed + offsetsX[reverse]);
                         }
                     }
-                }
-                if (active < 241) {
                     active += step != 0 ? step : 4;
+                    if (active > 240) {
+                        active = 240;
+                    }
+                    if (!(offsetsX[241] >= -640.0f)) {
+                        break;
+                    }
+                    if (offsetsX[241] > 640.0f) {
+                        break;
+                    }
                 }
-                if (!(offsetsY[241] >= -640.0f)) {
-                    break;
-                }
-                if (offsetsY[241] > 640.0f) {
-                    break;
-                }
+            } else {
+                active = gReverseTransitionActiveLinesFF276C;
             }
-            gReverseTransitionActiveLinesFF276C = active;
-        } else {
-            active = gReverseTransitionActiveLinesFF276C;
-        }
-        for (std::int32_t index = 0; index < active; ++index) {
-            const std::int32_t reverse = 480 - index;
-            if (reverse >= 240) {
-                offsetsY[index] = static_cast<float>(
-                    static_cast<double>(offsetsY[index]) - speeds[index]);
-                speeds[index] = static_cast<float>(
-                    static_cast<double>(gReverseTransitionVelocityFF47C4)
-                    + speeds[index]);
-                if (reverse > 240) {
-                    offsetsY[reverse] = static_cast<float>(
-                        static_cast<double>(offsetsY[reverse]) - speeds[reverse]);
-                    speeds[reverse] = static_cast<float>(
-                        static_cast<double>(speeds[reverse])
-                        - gReverseTransitionVelocityFF47C4);
-                }
-            }
-        }
-        if (offsetsY[240] >= 240.0f) {
-            active -= step != 0 ? step : 4;
-            gReverseTransitionActiveLinesFF276C = active;
-            if (active < 0) {
-                gReverseTransitionActiveLinesFF276C = 0;
-            }
-        }
-        if (offsetsY[0] >= 0.0f) {
-            gReverseTransitionPhase58B6D4 = 1;
-        }
-        break;
-    }
-    case 8: {
-        std::int32_t active;
-        if (phase == -1) {
-            std::fill_n(speeds.begin(), 480, 0.0f);
-            for (std::int32_t index = 0; index < 480; ++index) {
-                offsetsY[index] = static_cast<float>(index);
-            }
-            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
-            active = 0;
-            gReverseTransitionPhase58B6D4 = 0;
-            do {
-                const std::int32_t first = 479 - active;
-                for (std::int32_t index = 479; index >= first; --index) {
-                    if (index >= 0) {
-                        const float speed = static_cast<float>(
+            // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。
+            for (std::int32_t index = 0; index < 240; ++index) {
+                if ((index & 1) != 0) {
+                    if (offsetsX[index] > 1.0f) {
+                        offsetsX[index] = static_cast<float>(
+                            static_cast<double>(offsetsX[index]) - speeds[index]);
+                        speeds[index] = static_cast<float>(
                             static_cast<double>(speeds[index])
                             - gReverseTransitionVelocityFF47C4);
-                        speeds[index] = speed;
-                        if (speed > -100.0f) {
-                            offsetsY[index] = static_cast<float>(
-                                static_cast<double>(speed) + offsetsY[index]);
-                        } else {
-                            offsetsY[index] = static_cast<float>(
-                                offsetsY[index] - 100.0);
-                        }
+                    } else {
+                        offsetsX[index] = 0.0f;
+                    }
+                    const std::int32_t reverse = 480 - index;
+                    if (offsetsX[reverse] > 1.0f) {
+                        offsetsX[reverse] = static_cast<float>(
+                            static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
+                        speeds[reverse] = static_cast<float>(
+                            static_cast<double>(speeds[reverse])
+                            - gReverseTransitionVelocityFF47C4);
+                    } else {
+                        offsetsX[reverse] = 0.0f;
+                    }
+                } else {
+                    if (!(offsetsX[index] >= -1.0f)) {
+                        offsetsX[index] = static_cast<float>(
+                            static_cast<double>(offsetsX[index]) - speeds[index]);
+                        speeds[index] = static_cast<float>(
+                            static_cast<double>(gReverseTransitionVelocityFF47C4)
+                            + speeds[index]);
+                    } else {
+                        offsetsX[index] = 0.0f;
+                    }
+                    const std::int32_t reverse = 478 - index;
+                    if (!(offsetsX[reverse] >= -1.0f)) {
+                        offsetsX[reverse] = static_cast<float>(
+                            static_cast<double>(offsetsX[reverse]) - speeds[reverse]);
+                        speeds[reverse] = static_cast<float>(
+                            static_cast<double>(gReverseTransitionVelocityFF47C4)
+                            + speeds[reverse]);
+                    } else {
+                        offsetsX[reverse] = 0.0f;
                     }
                 }
-                active += step != 0 ? step : 16;
-                if (active > 480) {
-                    active = 480;
-                }
-            } while (offsetsY[0] >= 0.0f);
-            gReverseTransitionActiveLinesFF276C = active;
-        } else {
-            active = gReverseTransitionActiveLinesFF276C;
-        }
-        const std::int32_t first = 479 - active;
-        for (std::int32_t index = 479; index >= first; --index) {
-            if (index >= 0) {
-                const float oldSpeed = speeds[index];
-                const double position = offsetsY[index];
-                if (oldSpeed > -100.0f) {
-                    offsetsY[index] = static_cast<float>(
-                        position - speeds[index]);
-                } else {
-                    offsetsY[index] = static_cast<float>(position + 100.0);
-                }
-                speeds[index] = static_cast<float>(
-                    static_cast<double>(gReverseTransitionVelocityFF47C4)
-                    + speeds[index]);
             }
-        }
-        if (offsetsY[0] >= 0.0f) {
-            active -= step != 0 ? step : 16;
+            active += step != 0 ? step : 1;
             gReverseTransitionActiveLinesFF276C = active;
-            if (active < 0) {
+            if (active > 240) {
+                gReverseTransitionActiveLinesFF276C = 240;
+            }
+            const float leadingOffset = offsetsX[0];
+            if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {
+                gReverseTransitionPhase58B6D4 = 1;
+            }
+            break;
+        }
+        case 7: {
+            std::int32_t active;
+            if (phase == -1) {
+                std::fill_n(speeds.begin(), 480, 0.0f);
+                for (std::int32_t index = 0; index < 480; ++index) {
+                    offsetsY[index] = static_cast<float>(index);
+                }
+                gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+                active = 0;
+                gReverseTransitionPhase58B6D4 = 0;
                 gReverseTransitionActiveLinesFF276C = 0;
+                for (;;) {
+                    for (std::int32_t index = 0; index < active; ++index) {
+                        const std::int32_t reverse = 480 - index;
+                        if (reverse >= 240) {
+                            const double speed = static_cast<double>(speeds[index])
+                                - gReverseTransitionVelocityFF47C4;
+                            speeds[index] = static_cast<float>(speed);
+                            offsetsY[index] = static_cast<float>(
+                                speed + offsetsY[index]);
+                            if (reverse > 240) {
+                                const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                                    + speeds[reverse];
+                                speeds[reverse] = static_cast<float>(reverseSpeed);
+                                offsetsY[reverse] = static_cast<float>(
+                                    reverseSpeed + offsetsY[reverse]);
+                            }
+                        }
+                    }
+                    if (active < 241) {
+                        active += step != 0 ? step : 4;
+                    }
+                    if (!(offsetsY[241] >= -640.0f)) {
+                        break;
+                    }
+                    if (offsetsY[241] > 640.0f) {
+                        break;
+                    }
+                }
+                gReverseTransitionActiveLinesFF276C = active;
+            } else {
+                active = gReverseTransitionActiveLinesFF276C;
+            }
+            for (std::int32_t index = 0; index < active; ++index) {
+                const std::int32_t reverse = 480 - index;
+                if (reverse >= 240) {
+                    offsetsY[index] = static_cast<float>(
+                        static_cast<double>(offsetsY[index]) - speeds[index]);
+                    speeds[index] = static_cast<float>(
+                        static_cast<double>(gReverseTransitionVelocityFF47C4)
+                        + speeds[index]);
+                    if (reverse > 240) {
+                        offsetsY[reverse] = static_cast<float>(
+                            static_cast<double>(offsetsY[reverse]) - speeds[reverse]);
+                        speeds[reverse] = static_cast<float>(
+                            static_cast<double>(speeds[reverse])
+                            - gReverseTransitionVelocityFF47C4);
+                    }
+                }
+            }
+            if (offsetsY[240] >= 240.0f) {
+                active -= step != 0 ? step : 4;
+                gReverseTransitionActiveLinesFF276C = active;
+                if (active < 0) {
+                    gReverseTransitionActiveLinesFF276C = 0;
+                }
+            }
+            if (offsetsY[0] >= 0.0f) {
+                gReverseTransitionPhase58B6D4 = 1;
+            }
+            break;
+        }
+        case 8: {
+            std::int32_t active;
+            if (phase == -1) {
+                std::fill_n(speeds.begin(), 480, 0.0f);
+                for (std::int32_t index = 0; index < 480; ++index) {
+                    offsetsY[index] = static_cast<float>(index);
+                }
+                gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+                active = 0;
+                gReverseTransitionPhase58B6D4 = 0;
+                do {
+                    const std::int32_t first = 479 - active;
+                    for (std::int32_t index = 479; index >= first; --index) {
+                        if (index >= 0) {
+                            const float speed = static_cast<float>(
+                                static_cast<double>(speeds[index])
+                                - gReverseTransitionVelocityFF47C4);
+                            speeds[index] = speed;
+                            if (speed > -100.0f) {
+                                offsetsY[index] = static_cast<float>(
+                                    static_cast<double>(speed) + offsetsY[index]);
+                            } else {
+                                offsetsY[index] = static_cast<float>(
+                                    offsetsY[index] - 100.0);
+                            }
+                        }
+                    }
+                    active += step != 0 ? step : 16;
+                    if (active > 480) {
+                        active = 480;
+                    }
+                } while (offsetsY[0] >= 0.0f);
+                gReverseTransitionActiveLinesFF276C = active;
+            } else {
+                active = gReverseTransitionActiveLinesFF276C;
+            }
+            const std::int32_t first = 479 - active;
+            for (std::int32_t index = 479; index >= first; --index) {
+                if (index >= 0) {
+                    const float oldSpeed = speeds[index];
+                    const double position = offsetsY[index];
+                    if (oldSpeed > -100.0f) {
+                        offsetsY[index] = static_cast<float>(
+                            position - speeds[index]);
+                    } else {
+                        offsetsY[index] = static_cast<float>(position + 100.0);
+                    }
+                    speeds[index] = static_cast<float>(
+                        static_cast<double>(gReverseTransitionVelocityFF47C4)
+                        + speeds[index]);
+                }
+            }
+            if (offsetsY[0] >= 0.0f) {
+                active -= step != 0 ? step : 16;
+                gReverseTransitionActiveLinesFF276C = active;
+                if (active < 0) {
+                    gReverseTransitionActiveLinesFF276C = 0;
+                }
+            }
+            if (offsetsY[479] >= 479.0f) {
+                gReverseTransitionPhase58B6D4 = 1;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+        // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。
+        if (mode >= 0 && mode <= 5) {
+            const float decrement = customAcceleration ? acceleration
+                : (mode >= 2 && mode <= 4 ? defaultX : defaultY);
+            const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                - decrement;
+            gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);
+            if (!(velocity > 0.0)) {
+                gReverseTransitionPhase58B6D4 = 1;
             }
         }
-        if (offsetsY[479] >= 479.0f) {
-            gReverseTransitionPhase58B6D4 = 1;
-        }
-        break;
-    }
-    default:
-        break;
-    }
-    // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。
-    if (mode >= 0 && mode <= 5) {
-        const float decrement = customAcceleration ? acceleration
-            : (mode >= 2 && mode <= 4 ? defaultX : defaultY);
-        const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)
-            - decrement;
-        gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);
-        if (!(velocity > 0.0)) {
-            gReverseTransitionPhase58B6D4 = 1;
-        }
-    }
 
-    static_cast<void>(render::ClearSurface_4512C0());
-    switch (mode) {
-    case 4:
-        for (std::int32_t row = 0; row < 480; ++row) {
+        static_cast<void>(render::ClearSurface_4512C0());
+        switch (mode) {
+        case 4:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t x = TruncateTransitionCoordinate(
+                    (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);
+                static_cast<void>(DrawTransitionRectangle(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+            }
+            break;
+        case 5:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const std::int32_t y = TruncateTransitionCoordinate(
+                    (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
+                static_cast<void>(DrawTransitionRectangle(
+                    0, static_cast<std::int16_t>(row + y), rectangle, source));
+            }
+            break;
+        case 6:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const double position = offsetsX[row];
+                rectangle[1] = row;
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t x = TruncateTransitionCoordinate(position);
+                static_cast<void>(DrawTransitionRectangle(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+            }
+            break;
+        case 7:
+        case 8:
+            for (std::int32_t row = 0; row < 480; ++row) {
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                rectangle[1] = row;
+                const double position = offsetsY[row];
+                rectangle[3] = row + 1;
+                rectangle[0] = 0;
+                rectangle[2] = 640;
+                const std::int32_t y = TruncateTransitionCoordinate(position);
+                static_cast<void>(DrawTransitionRectangle(
+                    0, static_cast<std::int16_t>(y), rectangle, source));
+            }
+            break;
+        default: {
             render::TextureSurface* const source = render::gCpuTempSurface;
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t x = TruncateTransitionCoordinate(
-                (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);
+            const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);
+            const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);
             static_cast<void>(DrawTransitionRectangle(
-                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
+            break;
         }
-        break;
-    case 5:
-        for (std::int32_t row = 0; row < 480; ++row) {
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t y = TruncateTransitionCoordinate(
-                (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
-            static_cast<void>(DrawTransitionRectangle(
-                0, static_cast<std::int16_t>(row + y), rectangle, source));
         }
-        break;
-    case 6:
-        for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const double position = offsetsX[row];
-            rectangle[1] = row;
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t x = TruncateTransitionCoordinate(position);
-            static_cast<void>(DrawTransitionRectangle(
-                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        if (gReverseTransitionPhase58B6D4 != 1) {
+            return 0;
         }
-        break;
-    case 7:
-    case 8:
-        for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            rectangle[1] = row;
-            const double position = offsetsY[row];
-            rectangle[3] = row + 1;
-            rectangle[0] = 0;
-            rectangle[2] = 640;
-            const std::int32_t y = TruncateTransitionCoordinate(position);
-            static_cast<void>(DrawTransitionRectangle(
-                0, static_cast<std::int16_t>(y), rectangle, source));
-        }
-        break;
-    default: {
-        render::TextureSurface* const source = render::gCpuTempSurface;
-        const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);
-        const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);
-        static_cast<void>(DrawTransitionRectangle(
-            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
-        break;
-    }
-    }
-    if (gReverseTransitionPhase58B6D4 != 1) {
-        return 0;
     }
     std::int32_t nextState;
     if ((session.WorldScene().map.crypt->sceneTransitionValue == 2)) {
@@ -6945,151 +6992,155 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
 
 // 原[51EC10,51EF75)：四块画面分离/合拢，坐标发布和阈值清零沿原序。
 std::int32_t ProcessSceneQuadrantTransition_51EC10(
-    session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& gQuadrantTransitionPhase58B6D8 = session.WorldScene().quadrantTransition.phase;
     auto& gQuadrantTransitionXFF275C = session.WorldScene().quadrantTransition.x;
     auto& gQuadrantTransitionYFF47D0 = session.WorldScene().quadrantTransition.y;
-    std::array<std::array<std::int32_t, 4>, 4> rectangles {{
-        {0, 0, 320, 240},
-        {320, 0, 640, 240},
-        {0, 240, 320, 480},
-        {320, 240, 640, 480},
-    }};
-    const std::int8_t lowStep = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    const std::int32_t step = lowStep != 0 ? lowStep : 4;
-    std::int32_t phase;
-    if (gSceneTransitionResetPending_58B6D0 == 1) {
-        phase = -1;
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        gQuadrantTransitionPhase58B6D8 = -1;
     } else {
-        phase = gQuadrantTransitionPhase58B6D8;
-    }
-
-    if (mode == 1) {
-        std::int32_t x0;
-        std::int32_t x1;
-        std::int32_t x2;
-        std::int32_t y0;
-        std::int32_t y1;
-        if (phase == -1) {
-            x0 = -280;
-            x1 = 600;
-            y0 = -280;
-            y1 = -280;
-            x2 = -280;
-            gQuadrantTransitionYFF47D0[2] = 520;
-            gQuadrantTransitionXFF275C[3] = 600;
-            gQuadrantTransitionYFF47D0[3] = 520;
-            gQuadrantTransitionPhase58B6D8 = 0;
+        std::array<std::array<std::int32_t, 4>, 4> rectangles {{
+            {0, 0, 320, 240},
+            {320, 0, 640, 240},
+            {0, 240, 320, 480},
+            {320, 240, 640, 480},
+        }};
+        const std::int8_t lowStep = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        const std::int32_t step = lowStep != 0 ? lowStep : 4;
+        std::int32_t phase;
+        if (gSceneTransitionResetPending_58B6D0 == 1) {
+            phase = -1;
+            gSceneTransitionResetPending_58B6D0 = 0;
+            gQuadrantTransitionPhase58B6D8 = -1;
         } else {
-            x2 = gQuadrantTransitionXFF275C[2];
-            x1 = gQuadrantTransitionXFF275C[1];
-            x0 = gQuadrantTransitionXFF275C[0];
-            y1 = gQuadrantTransitionYFF47D0[1];
-            y0 = gQuadrantTransitionYFF47D0[0];
+            phase = gQuadrantTransitionPhase58B6D8;
         }
-        std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
-        x0 += step;
-        y2 -= step;
-        y0 += step;
-        gQuadrantTransitionYFF47D0[2] = y2;
-        std::int32_t x3 = gQuadrantTransitionXFF275C[3];
-        x3 -= step;
-        x1 -= step;
-        gQuadrantTransitionXFF275C[3] = x3;
-        std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
-        y3 -= step;
-        y1 += step;
-        gQuadrantTransitionYFF47D0[3] = y3;
-        x2 += step;
-        gQuadrantTransitionXFF275C[0] = x0;
-        gQuadrantTransitionYFF47D0[0] = y0;
-        gQuadrantTransitionXFF275C[1] = x1;
-        gQuadrantTransitionYFF47D0[1] = y1;
-        gQuadrantTransitionXFF275C[2] = x2;
-        if (x0 > 0) {
-            x0 = 0;
-            gQuadrantTransitionXFF275C[0] = 0;
-        }
-        if (y0 > 0) {
-            gQuadrantTransitionYFF47D0[0] = 0;
-        }
-        if (x1 < 320) {
-            gQuadrantTransitionXFF275C[1] = 0;
-        }
-        if (y1 > 0) {
-            gQuadrantTransitionYFF47D0[1] = 0;
-        }
-        if (x2 > 0) {
-            gQuadrantTransitionXFF275C[2] = 0;
-        }
-        if (gQuadrantTransitionYFF47D0[2] < 240) {
-            gQuadrantTransitionYFF47D0[2] = 0;
-        }
-        if (gQuadrantTransitionXFF275C[3] < 320) {
-            gQuadrantTransitionXFF275C[3] = 0;
-        }
-        if (gQuadrantTransitionYFF47D0[3] < 240) {
-            gQuadrantTransitionYFF47D0[3] = 0;
-        }
-        if (x0 >= 0) {
-            gQuadrantTransitionPhase58B6D8 = 1;
-        }
-    } else if (mode == 0) {
-        std::int32_t x0;
-        if (phase == -1) {
-            x0 = 0;
-            gQuadrantTransitionYFF47D0[0] = 0;
-            gQuadrantTransitionXFF275C[1] = 320;
-            gQuadrantTransitionYFF47D0[1] = 0;
-            gQuadrantTransitionXFF275C[2] = 0;
-            gQuadrantTransitionYFF47D0[2] = 240;
-            gQuadrantTransitionXFF275C[3] = 320;
-            gQuadrantTransitionYFF47D0[3] = 240;
-            gQuadrantTransitionPhase58B6D8 = 0;
-        } else {
-            x0 = gQuadrantTransitionXFF275C[0];
-        }
-        std::int32_t y0 = gQuadrantTransitionYFF47D0[0];
-        std::int32_t x1 = gQuadrantTransitionXFF275C[1];
-        std::int32_t y1 = gQuadrantTransitionYFF47D0[1];
-        y0 -= step;
-        gQuadrantTransitionYFF47D0[0] = y0;
-        std::int32_t x2 = gQuadrantTransitionXFF275C[2];
-        x1 += step;
-        y1 -= step;
-        x2 -= step;
-        gQuadrantTransitionXFF275C[1] = x1;
-        std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
-        gQuadrantTransitionYFF47D0[1] = y1;
-        std::int32_t x3 = gQuadrantTransitionXFF275C[3];
-        gQuadrantTransitionXFF275C[2] = x2;
-        std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
-        x0 -= step;
-        y2 += step;
-        x3 += step;
-        y3 += step;
-        gQuadrantTransitionXFF275C[0] = x0;
-        gQuadrantTransitionYFF47D0[2] = y2;
-        gQuadrantTransitionXFF275C[3] = x3;
-        gQuadrantTransitionYFF47D0[3] = y3;
-        if (x0 <= -320) {
-            gQuadrantTransitionPhase58B6D8 = 1;
-        }
-    }
 
-    static_cast<void>(render::ClearSurface_4512C0());
-    for (std::size_t index = 0; index < 4; ++index) {
-        render::TextureSurface* const source = render::gCpuTempSurface;
-        const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
-        const auto x = static_cast<std::int16_t>(gQuadrantTransitionXFF275C[index]);
-        static_cast<void>(DrawTransitionRectangle(x, y, rectangles[index], source));
-    }
-    if (gQuadrantTransitionPhase58B6D8 != 1) {
-        return 0;
+        if (mode == 1) {
+            std::int32_t x0;
+            std::int32_t x1;
+            std::int32_t x2;
+            std::int32_t y0;
+            std::int32_t y1;
+            if (phase == -1) {
+                x0 = -280;
+                x1 = 600;
+                y0 = -280;
+                y1 = -280;
+                x2 = -280;
+                gQuadrantTransitionYFF47D0[2] = 520;
+                gQuadrantTransitionXFF275C[3] = 600;
+                gQuadrantTransitionYFF47D0[3] = 520;
+                gQuadrantTransitionPhase58B6D8 = 0;
+            } else {
+                x2 = gQuadrantTransitionXFF275C[2];
+                x1 = gQuadrantTransitionXFF275C[1];
+                x0 = gQuadrantTransitionXFF275C[0];
+                y1 = gQuadrantTransitionYFF47D0[1];
+                y0 = gQuadrantTransitionYFF47D0[0];
+            }
+            std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
+            x0 += step;
+            y2 -= step;
+            y0 += step;
+            gQuadrantTransitionYFF47D0[2] = y2;
+            std::int32_t x3 = gQuadrantTransitionXFF275C[3];
+            x3 -= step;
+            x1 -= step;
+            gQuadrantTransitionXFF275C[3] = x3;
+            std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
+            y3 -= step;
+            y1 += step;
+            gQuadrantTransitionYFF47D0[3] = y3;
+            x2 += step;
+            gQuadrantTransitionXFF275C[0] = x0;
+            gQuadrantTransitionYFF47D0[0] = y0;
+            gQuadrantTransitionXFF275C[1] = x1;
+            gQuadrantTransitionYFF47D0[1] = y1;
+            gQuadrantTransitionXFF275C[2] = x2;
+            if (x0 > 0) {
+                x0 = 0;
+                gQuadrantTransitionXFF275C[0] = 0;
+            }
+            if (y0 > 0) {
+                gQuadrantTransitionYFF47D0[0] = 0;
+            }
+            if (x1 < 320) {
+                gQuadrantTransitionXFF275C[1] = 0;
+            }
+            if (y1 > 0) {
+                gQuadrantTransitionYFF47D0[1] = 0;
+            }
+            if (x2 > 0) {
+                gQuadrantTransitionXFF275C[2] = 0;
+            }
+            if (gQuadrantTransitionYFF47D0[2] < 240) {
+                gQuadrantTransitionYFF47D0[2] = 0;
+            }
+            if (gQuadrantTransitionXFF275C[3] < 320) {
+                gQuadrantTransitionXFF275C[3] = 0;
+            }
+            if (gQuadrantTransitionYFF47D0[3] < 240) {
+                gQuadrantTransitionYFF47D0[3] = 0;
+            }
+            if (x0 >= 0) {
+                gQuadrantTransitionPhase58B6D8 = 1;
+            }
+        } else if (mode == 0) {
+            std::int32_t x0;
+            if (phase == -1) {
+                x0 = 0;
+                gQuadrantTransitionYFF47D0[0] = 0;
+                gQuadrantTransitionXFF275C[1] = 320;
+                gQuadrantTransitionYFF47D0[1] = 0;
+                gQuadrantTransitionXFF275C[2] = 0;
+                gQuadrantTransitionYFF47D0[2] = 240;
+                gQuadrantTransitionXFF275C[3] = 320;
+                gQuadrantTransitionYFF47D0[3] = 240;
+                gQuadrantTransitionPhase58B6D8 = 0;
+            } else {
+                x0 = gQuadrantTransitionXFF275C[0];
+            }
+            std::int32_t y0 = gQuadrantTransitionYFF47D0[0];
+            std::int32_t x1 = gQuadrantTransitionXFF275C[1];
+            std::int32_t y1 = gQuadrantTransitionYFF47D0[1];
+            y0 -= step;
+            gQuadrantTransitionYFF47D0[0] = y0;
+            std::int32_t x2 = gQuadrantTransitionXFF275C[2];
+            x1 += step;
+            y1 -= step;
+            x2 -= step;
+            gQuadrantTransitionXFF275C[1] = x1;
+            std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
+            gQuadrantTransitionYFF47D0[1] = y1;
+            std::int32_t x3 = gQuadrantTransitionXFF275C[3];
+            gQuadrantTransitionXFF275C[2] = x2;
+            std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
+            x0 -= step;
+            y2 += step;
+            x3 += step;
+            y3 += step;
+            gQuadrantTransitionXFF275C[0] = x0;
+            gQuadrantTransitionYFF47D0[2] = y2;
+            gQuadrantTransitionXFF275C[3] = x3;
+            gQuadrantTransitionYFF47D0[3] = y3;
+            if (x0 <= -320) {
+                gQuadrantTransitionPhase58B6D8 = 1;
+            }
+        }
+
+        static_cast<void>(render::ClearSurface_4512C0());
+        for (std::size_t index = 0; index < 4; ++index) {
+            render::TextureSurface* const source = render::gCpuTempSurface;
+            const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
+            const auto x = static_cast<std::int16_t>(gQuadrantTransitionXFF275C[index]);
+            static_cast<void>(DrawTransitionRectangle(x, y, rectangles[index], source));
+        }
+        if (gQuadrantTransitionPhase58B6D8 != 1) {
+            return 0;
+        }
     }
     std::int32_t nextState;
     if ((session.WorldScene().map.crypt->sceneTransitionValue == 2)) {
@@ -7107,7 +7158,8 @@ std::int32_t ProcessSceneQuadrantTransition_51EC10(
 
 // 原[51EF80,51F5F5)：64画块随机显隐/下落；候选仅在原拒绝路径重抽。
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
-    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits,
+    const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& tile = session.WorldScene().tileTransition;
@@ -7120,163 +7172,167 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
     auto& gTileTransitionYFF0D7C = tile.y;
     auto& gTileTransitionXFF265C = tile.x;
     auto& gTileTransitionSourceXFF0E7C = tile.sourceX;
-    std::int32_t selected = platform::RandomRange_46FAF0(0, 63);
-    std::int32_t acceleration = static_cast<std::int32_t>(
-        static_cast<std::int64_t>(std::bit_cast<float>(payloadBits)));
-    if (acceleration < 1) {
-        acceleration = 1;
-    }
-    const std::int8_t lowCount = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    const std::int32_t count = lowCount != 0 ? lowCount : 1;
-    std::int32_t phase;
-    if (gSceneTransitionResetPending_58B6D0 == 1) {
-        phase = -1;
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        gTileTransitionPhase58B6DC = -1;
     } else {
-        phase = gTileTransitionPhase58B6DC;
-    }
-    if (phase == -1 && mode >= 0 && mode <= 3) {
-        InitializeTileTransitionGrid(tile, mode == 0 ? 1 : (mode == 2 ? 2 : 0), mode == 3);
-        gTileTransitionPhase58B6DC = 0;
-        gTileTransitionCompletedFF46C0 = 0;
-        if (mode >= 2) {
-            gTileTransitionStartedFF28BC = 0;
+        std::int32_t selected = platform::RandomRange_46FAF0(0, 63);
+        std::int32_t acceleration = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(std::bit_cast<float>(payloadBits)));
+        if (acceleration < 1) {
+            acceleration = 1;
         }
-    }
-    switch (mode) {
-    case 0:
-        for (std::int32_t index = 0; index < count; ++index) {
-            while (gTileTransitionStateFF27B8[selected] == 0) {
-                selected = platform::RandomRange_46FAF0(0, 63);
-            }
-            const std::int32_t completed = gTileTransitionCompletedFF46C0;
-            gTileTransitionStateFF27B8[selected] = 0;
-            const std::int32_t next = completed + 1;
-            gTileTransitionCompletedFF46C0 = next;
-            if (next >= 64) {
-                gTileTransitionPhase58B6DC = 1;
-                break;
-            }
+        const std::int8_t lowCount = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        const std::int32_t count = lowCount != 0 ? lowCount : 1;
+        std::int32_t phase;
+        if (gSceneTransitionResetPending_58B6D0 == 1) {
+            phase = -1;
+            gSceneTransitionResetPending_58B6D0 = 0;
+            gTileTransitionPhase58B6DC = -1;
+        } else {
+            phase = gTileTransitionPhase58B6DC;
         }
-        break;
-    case 1:
-        for (std::int32_t index = 0; index < count; ++index) {
-            while (gTileTransitionStateFF27B8[selected] == 1) {
-                selected = platform::RandomRange_46FAF0(0, 63);
-            }
-            const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
-            gTileTransitionStateFF27B8[selected] = 1;
-            gTileTransitionCompletedFF46C0 = next;
-            if (next >= 64) {
-                gTileTransitionPhase58B6DC = 1;
-                break;
+        if (phase == -1 && mode >= 0 && mode <= 3) {
+            InitializeTileTransitionGrid(tile, mode == 0 ? 1 : (mode == 2 ? 2 : 0), mode == 3);
+            gTileTransitionPhase58B6DC = 0;
+            gTileTransitionCompletedFF46C0 = 0;
+            if (mode >= 2) {
+                gTileTransitionStartedFF28BC = 0;
             }
         }
-        break;
-    case 2: {
-        for (std::int32_t index = 0; index < count; ++index) {
-            if (gTileTransitionStartedFF28BC >= 64) {
-                break;
-            }
-            while (gTileTransitionStateFF27B8[selected] <= 1) {
-                selected = platform::RandomRange_46FAF0(0, 63);
-            }
-            const std::int32_t started = gTileTransitionStartedFF28BC;
-            gTileTransitionStateFF27B8[selected] = 1;
-            gTileTransitionStartedFF28BC = started + 1;
-        }
-        std::int32_t completed = gTileTransitionCompletedFF46C0;
-        for (std::int32_t index = 0; index < 64; ++index) {
-            if (gTileTransitionStateFF27B8[index] == 1) {
-                const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
-                const std::int32_t oldY = gTileTransitionYFF0D7C[index];
-                const std::int32_t speed = oldSpeed + acceleration;
-                gTileTransitionSpeedFF46C4[index] = speed;
-                const std::int32_t y = oldY + speed;
-                gTileTransitionYFF0D7C[index] = y;
-                if (y >= 500) {
-                    gTileTransitionStateFF27B8[index] = 0;
-                    ++completed;
+        switch (mode) {
+        case 0:
+            for (std::int32_t index = 0; index < count; ++index) {
+                while (gTileTransitionStateFF27B8[selected] == 0) {
+                    selected = platform::RandomRange_46FAF0(0, 63);
+                }
+                const std::int32_t completed = gTileTransitionCompletedFF46C0;
+                gTileTransitionStateFF27B8[selected] = 0;
+                const std::int32_t next = completed + 1;
+                gTileTransitionCompletedFF46C0 = next;
+                if (next >= 64) {
+                    gTileTransitionPhase58B6DC = 1;
+                    break;
                 }
             }
-        }
-        gTileTransitionCompletedFF46C0 = completed;
-        if (completed >= 64) {
-            gTileTransitionPhase58B6DC = 1;
-        }
-        break;
-    }
-    case 3:
-        for (std::int32_t index = 0; index < count; ++index) {
-            if (gTileTransitionStartedFF28BC >= 64) {
-                break;
-            }
-            while (gTileTransitionStateFF27B8[selected] >= 1) {
-                selected = platform::RandomRange_46FAF0(0, 63);
-            }
-            const std::int32_t started = gTileTransitionStartedFF28BC;
-            gTileTransitionStateFF27B8[selected] = 1;
-            gTileTransitionStartedFF28BC = started + 1;
-        }
-        for (std::int32_t index = 0; index < 64; ++index) {
-            if (gTileTransitionStateFF27B8[index] == 1) {
-                const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
-                const std::int32_t oldY = gTileTransitionYFF0D7C[index];
-                const std::int32_t speed = oldSpeed + acceleration;
-                gTileTransitionSpeedFF46C4[index] = speed;
-                const std::int32_t y = oldY + speed;
-                const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
-                gTileTransitionYFF0D7C[index] = y;
-                if (y >= sourceY) {
-                    gTileTransitionYFF0D7C[index] = sourceY;
-                    const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
-                    gTileTransitionStateFF27B8[index] = 2;
-                    gTileTransitionCompletedFF46C0 = next;
+            break;
+        case 1:
+            for (std::int32_t index = 0; index < count; ++index) {
+                while (gTileTransitionStateFF27B8[selected] == 1) {
+                    selected = platform::RandomRange_46FAF0(0, 63);
+                }
+                const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
+                gTileTransitionStateFF27B8[selected] = 1;
+                gTileTransitionCompletedFF46C0 = next;
+                if (next >= 64) {
+                    gTileTransitionPhase58B6DC = 1;
+                    break;
                 }
             }
+            break;
+        case 2: {
+            for (std::int32_t index = 0; index < count; ++index) {
+                if (gTileTransitionStartedFF28BC >= 64) {
+                    break;
+                }
+                while (gTileTransitionStateFF27B8[selected] <= 1) {
+                    selected = platform::RandomRange_46FAF0(0, 63);
+                }
+                const std::int32_t started = gTileTransitionStartedFF28BC;
+                gTileTransitionStateFF27B8[selected] = 1;
+                gTileTransitionStartedFF28BC = started + 1;
+            }
+            std::int32_t completed = gTileTransitionCompletedFF46C0;
+            for (std::int32_t index = 0; index < 64; ++index) {
+                if (gTileTransitionStateFF27B8[index] == 1) {
+                    const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
+                    const std::int32_t oldY = gTileTransitionYFF0D7C[index];
+                    const std::int32_t speed = oldSpeed + acceleration;
+                    gTileTransitionSpeedFF46C4[index] = speed;
+                    const std::int32_t y = oldY + speed;
+                    gTileTransitionYFF0D7C[index] = y;
+                    if (y >= 500) {
+                        gTileTransitionStateFF27B8[index] = 0;
+                        ++completed;
+                    }
+                }
+            }
+            gTileTransitionCompletedFF46C0 = completed;
+            if (completed >= 64) {
+                gTileTransitionPhase58B6DC = 1;
+            }
+            break;
         }
-        if (gTileTransitionCompletedFF46C0 >= 64) {
-            gTileTransitionPhase58B6DC = 1;
+        case 3:
+            for (std::int32_t index = 0; index < count; ++index) {
+                if (gTileTransitionStartedFF28BC >= 64) {
+                    break;
+                }
+                while (gTileTransitionStateFF27B8[selected] >= 1) {
+                    selected = platform::RandomRange_46FAF0(0, 63);
+                }
+                const std::int32_t started = gTileTransitionStartedFF28BC;
+                gTileTransitionStateFF27B8[selected] = 1;
+                gTileTransitionStartedFF28BC = started + 1;
+            }
+            for (std::int32_t index = 0; index < 64; ++index) {
+                if (gTileTransitionStateFF27B8[index] == 1) {
+                    const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
+                    const std::int32_t oldY = gTileTransitionYFF0D7C[index];
+                    const std::int32_t speed = oldSpeed + acceleration;
+                    gTileTransitionSpeedFF46C4[index] = speed;
+                    const std::int32_t y = oldY + speed;
+                    const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+                    gTileTransitionYFF0D7C[index] = y;
+                    if (y >= sourceY) {
+                        gTileTransitionYFF0D7C[index] = sourceY;
+                        const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
+                        gTileTransitionStateFF27B8[index] = 2;
+                        gTileTransitionCompletedFF46C0 = next;
+                    }
+                }
+            }
+            if (gTileTransitionCompletedFF46C0 >= 64) {
+                gTileTransitionPhase58B6DC = 1;
+            }
+            break;
+        default:
+            break;
         }
-        break;
-    default:
-        break;
-    }
 
-    static_cast<void>(render::ClearSurface_4512C0());
-    std::array<std::int32_t, 4> rectangle;
-    // 原两遍有不同的源读取顺序，先画状态2再画状态1。
-    for (std::int32_t index = 0; index < 64; ++index) {
-        if (gTileTransitionStateFF27B8[index] == 2) {
-            const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
-            const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
-            const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
-            rectangle[0] = sourceX;
-            rectangle[1] = sourceY;
-            rectangle[2] = sourceX + 80;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            rectangle[3] = sourceY + 60;
-            const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
-            static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
+        static_cast<void>(render::ClearSurface_4512C0());
+        std::array<std::int32_t, 4> rectangle;
+        // 原两遍有不同的源读取顺序，先画状态2再画状态1。
+        for (std::int32_t index = 0; index < 64; ++index) {
+            if (gTileTransitionStateFF27B8[index] == 2) {
+                const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
+                const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+                const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
+                rectangle[0] = sourceX;
+                rectangle[1] = sourceY;
+                rectangle[2] = sourceX + 80;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                rectangle[3] = sourceY + 60;
+                const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
+                static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
+            }
         }
-    }
-    for (std::int32_t index = 0; index < 64; ++index) {
-        if (gTileTransitionStateFF27B8[index] == 1) {
-            const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
-            const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
-            rectangle[1] = sourceY;
-            rectangle[0] = sourceX;
-            rectangle[3] = sourceY + 60;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            rectangle[2] = sourceX + 80;
-            const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
-            const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
-            static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
+        for (std::int32_t index = 0; index < 64; ++index) {
+            if (gTileTransitionStateFF27B8[index] == 1) {
+                const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+                const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
+                rectangle[1] = sourceY;
+                rectangle[0] = sourceX;
+                rectangle[3] = sourceY + 60;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                rectangle[2] = sourceX + 80;
+                const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
+                const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
+                static_cast<void>(DrawTransitionRectangle(x, y, rectangle, source));
+            }
         }
-    }
-    if (gTileTransitionPhase58B6DC != 1) {
-        return 0;
+        if (gTileTransitionPhase58B6DC != 1) {
+            return 0;
+        }
     }
     std::int32_t nextState;
     if ((session.WorldScene().map.crypt->sceneTransitionValue == 2)) {
@@ -7293,56 +7349,61 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
 }
 
 // 原[51F610,51F85F)：960个20x16画块直接BltFast，绘制后才推进共享比例。
-std::int32_t ProcessSceneGridScaleTransition_51F610(session::ClientSession& session, const std::int32_t value)
+std::int32_t ProcessSceneGridScaleTransition_51F610(
+    session::ClientSession& session, const std::int32_t value, const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& gImageTransitionInitializedFF4910 = session.WorldScene().imageTransition.initialized;
     auto& gImageTransitionScaleFF0D78 = session.WorldScene().imageTransition.scale;
     auto& gGridTransitionOffsetsFF28C0 = session.WorldScene().imageTransition.offsets;
-    bool initialize;
-    if (gSceneTransitionResetPending_58B6D0 == 1) {
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        initialize = true;
     } else {
-        initialize = gImageTransitionInitializedFF4910 == 0;
-    }
-    if (initialize) {
-        gImageTransitionInitializedFF4910 = 1;
-        std::size_t index = 0;
-        for (std::int32_t y = -232; y < 248; y += 16) {
-            for (std::int32_t x = -310; x < 330; x += 20) {
-                gGridTransitionOffsetsFF28C0[index].x = x;
-                gGridTransitionOffsetsFF28C0[index].y = y;
-                ++index;
+        bool initialize;
+        if (gSceneTransitionResetPending_58B6D0 == 1) {
+            gSceneTransitionResetPending_58B6D0 = 0;
+            initialize = true;
+        } else {
+            initialize = gImageTransitionInitializedFF4910 == 0;
+        }
+        if (initialize) {
+            gImageTransitionInitializedFF4910 = 1;
+            std::size_t index = 0;
+            for (std::int32_t y = -232; y < 248; y += 16) {
+                for (std::int32_t x = -310; x < 330; x += 20) {
+                    gGridTransitionOffsetsFF28C0[index].x = x;
+                    gGridTransitionOffsetsFF28C0[index].y = y;
+                    ++index;
+                }
+            }
+            gImageTransitionScaleFF0D78 = value >= 0 ? 0 : 64;
+        }
+
+        static_cast<void>(render::ClearSurface_4512C0());
+        std::int32_t index = 959;
+        for (std::int32_t sourceY = 464; sourceY >= 0; sourceY -= 16) {
+            for (std::int32_t sourceX = 620; sourceX >= 0; sourceX -= 20) {
+                const std::int32_t scale = gImageTransitionScaleFF0D78;
+                std::array<std::int32_t, 4> rectangle;
+                rectangle[1] = sourceY;
+                rectangle[3] = sourceY + 16;
+                const std::int32_t yProduct = gGridTransitionOffsetsFF28C0[index].y * scale;
+                rectangle[0] = sourceX;
+                rectangle[2] = sourceX + 20;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const std::int32_t y = yProduct / 64 + 232;
+                const std::int32_t xProduct = gGridTransitionOffsetsFF28C0[index].x * scale;
+                const std::int32_t x = xProduct / 64 + 310;
+                static_cast<void>(DrawTransitionRectangle(
+                    x, y, rectangle, source, TransitionCopyMode::Direct));
+                --index;
             }
         }
-        gImageTransitionScaleFF0D78 = value >= 0 ? 0 : 64;
-    }
-
-    static_cast<void>(render::ClearSurface_4512C0());
-    std::int32_t index = 959;
-    for (std::int32_t sourceY = 464; sourceY >= 0; sourceY -= 16) {
-        for (std::int32_t sourceX = 620; sourceX >= 0; sourceX -= 20) {
-            const std::int32_t scale = gImageTransitionScaleFF0D78;
-            std::array<std::int32_t, 4> rectangle;
-            rectangle[1] = sourceY;
-            rectangle[3] = sourceY + 16;
-            const std::int32_t yProduct = gGridTransitionOffsetsFF28C0[index].y * scale;
-            rectangle[0] = sourceX;
-            rectangle[2] = sourceX + 20;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t y = yProduct / 64 + 232;
-            const std::int32_t xProduct = gGridTransitionOffsetsFF28C0[index].x * scale;
-            const std::int32_t x = xProduct / 64 + 310;
-            static_cast<void>(DrawTransitionRectangle(
-                x, y, rectangle, source, TransitionCopyMode::Direct));
-            --index;
+        const std::int32_t next = gImageTransitionScaleFF0D78 + value;
+        gImageTransitionScaleFF0D78 = next;
+        if (value < 0 ? next >= 0 : next <= 64) {
+            return 0;
         }
-    }
-    const std::int32_t next = gImageTransitionScaleFF0D78 + value;
-    gImageTransitionScaleFF0D78 = next;
-    if (value < 0 ? next >= 0 : next <= 64) {
-        return 0;
     }
 
     std::int32_t nextState;
@@ -7366,51 +7427,56 @@ enum class ScanlineOrigin {
 
 // 原51F860/51FA70的相同入口/推进尾；两者只改变逐行采样及目标方向。
 static std::int32_t ProcessScanlineTransition(
-    session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin,
+    const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& gImageTransitionInitializedFF4910 = session.WorldScene().imageTransition.initialized;
     auto& gImageTransitionScaleFF0D78 = session.WorldScene().imageTransition.scale;
-    const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
-    std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
-    bool initialize;
-    if (trigger == 1) {
+    if (completeImmediately) {
         gSceneTransitionResetPending_58B6D0 = 0;
-        initialize = true;
     } else {
-        initialize = gImageTransitionInitializedFF4910 == 0;
-    }
-    if (initialize) {
-        gImageTransitionInitializedFF4910 = 1;
-        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
-    }
+        const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
+        std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
+        bool initialize;
+        if (trigger == 1) {
+            gSceneTransitionResetPending_58B6D0 = 0;
+            initialize = true;
+        } else {
+            initialize = gImageTransitionInitializedFF4910 == 0;
+        }
+        if (initialize) {
+            gImageTransitionInitializedFF4910 = 1;
+            gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
+        }
 
-    static_cast<void>(render::ClearSurface_4512C0());
-    std::int32_t scale = gImageTransitionScaleFF0D78;
-    if (scale > 0) {
-        std::int32_t row = 0;
-        std::int32_t numerator = 0;
-        do {
-            const std::int32_t sampledRow = numerator / scale;
-            rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
-            rectangle[3] = rectangle[1] + 1;
-            render::TextureSurface* const source = render::gCpuTempSurface;
-            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
-            static_cast<void>(DrawTransitionRectangle(
-                0, destinationY, rectangle, source, TransitionCopyMode::Direct));
-            scale = gImageTransitionScaleFF0D78;
-            ++row;
-            numerator += 480;
-        } while (row < scale);
-    }
-    std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-    if (step == 0) {
-        step = 8;
-    }
-    const std::int32_t next = direction < 0 ? scale - step : scale + step;
-    gImageTransitionScaleFF0D78 = next;
-    if (direction < 0 ? next >= 0 : next <= 480) {
-        return 0;
+        static_cast<void>(render::ClearSurface_4512C0());
+        std::int32_t scale = gImageTransitionScaleFF0D78;
+        if (scale > 0) {
+            std::int32_t row = 0;
+            std::int32_t numerator = 0;
+            do {
+                const std::int32_t sampledRow = numerator / scale;
+                rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
+                rectangle[3] = rectangle[1] + 1;
+                render::TextureSurface* const source = render::gCpuTempSurface;
+                const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
+                static_cast<void>(DrawTransitionRectangle(
+                    0, destinationY, rectangle, source, TransitionCopyMode::Direct));
+                scale = gImageTransitionScaleFF0D78;
+                ++row;
+                numerator += 480;
+            } while (row < scale);
+        }
+        std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        if (step == 0) {
+            step = 8;
+        }
+        const std::int32_t next = direction < 0 ? scale - step : scale + step;
+        gImageTransitionScaleFF0D78 = next;
+        if (direction < 0 ? next >= 0 : next <= 480) {
+            return 0;
+        }
     }
 
     std::int32_t nextState;
@@ -7446,24 +7512,28 @@ static std::int32_t ProcessScanlineTransition(
 
 // 原函数：0x0051F860。
 std::int32_t ProcessTopScanlineTransition_51F860(
-    session::ClientSession& session, const std::int32_t direction, const std::int32_t value)
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const bool completeImmediately)
 {
-    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Top);
+    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Top, completeImmediately);
 }
 
 // 原函数：0x0051FA70。
 std::int32_t ProcessBottomScanlineTransition_51FA70(
-    session::ClientSession& session, const std::int32_t direction, const std::int32_t value)
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const bool completeImmediately)
 {
-    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Bottom);
+    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Bottom, completeImmediately);
 }
 
 // 原[51FC90,51FDDA)：中心上下半幅采样，每次直接复制后独立读取比例。
 std::int32_t ProcessSceneCenterScanlineTransition_51FC90(
-    session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const bool completeImmediately)
 {
     auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& gHalfTransitionScaleFF0F7C = session.WorldScene().imageTransition.halfScale;
+    if (completeImmediately) {
+        gSceneTransitionResetPending_58B6D0 = 0;
+        return 1;
+    }
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     if (step == 0) {
         step = 8;
@@ -10031,25 +10101,32 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connec
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
 std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& session)
 {
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
     cg::render::gGraphicQueue.count = 0;
     cg::render::gTextQueue.count = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(detail::LoadAndDrawMapTiles_469030(session));
     render::SortTextures_520790();
-    static_cast<void>(render::ClearSurface_4512C0());
+    if (submitPixels) {
+        static_cast<void>(render::ClearSurface_4512C0());
+    }
     const std::uint8_t previousC82204 = session.WorldScene().map.surfaceCacheEnabled;
     session.WorldScene().map.surfaceCacheEnabled = 0;
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
     session.WorldScene().map.surfaceCacheEnabled = previousC82204;
-    static_cast<void>(render::CopyBackToTemp());
+    if (submitPixels) {
+        static_cast<void>(render::CopyBackToTemp());
+    }
     render::gRenderQueueMode103CF10 = 1;
     cg::render::gGraphicQueue.count = 0;
     cg::render::gTextQueue.count = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     const std::uint64_t tick = platform::ReadTickCount64();
-    platform::gLastRenderDt = static_cast<double>(tick);
+    if (submitPixels) {
+        platform::gLastRenderDt = static_cast<double>(tick);
+    }
     return static_cast<std::uint32_t>(tick);
 }
 

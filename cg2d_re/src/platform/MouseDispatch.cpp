@@ -278,7 +278,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             }
             render::SortTextures_520790();
             if (world::gInputAndHoverSuppressed_D460C8 == 0 && interaction.hoverDescriptionEnabled != 0) {
-                cg::yobi::DescribeHoveredYobi_507140(&graphic);
+                cg::yobi::DescribeHoveredYobi_507140(session, &graphic);
                 if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
                     interaction.hoverObjectValue = 1;
                 } else if (uiFrame.hoverText.find(L"[kok]") != std::wstring::npos) {

@@ -10,6 +10,7 @@
 #include "cg/world/MapDataRuntimeState.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/GuildState.hpp"
+#include "cg/world/Blacklist.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>
@@ -533,6 +534,7 @@ struct WorldSceneRuntimeState {
     AlbumRuntimeState album {};
     MailRuntimeState mail {};
     GuildRuntimeState guild {};
+    blacklist::RuntimeState blacklist {};
     GameTimeRuntimeState gameTime {};
     WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};

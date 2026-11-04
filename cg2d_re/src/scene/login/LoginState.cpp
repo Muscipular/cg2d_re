@@ -230,7 +230,7 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
     if (phase == 2) {
         connection.Shutdown();
         connection.DisconnectState() = 0;
-        cg::world::blacklist::PersistAndReset_401000(request.selectedLoginServerGroup);
+        cg::world::blacklist::PersistAndReset_401000(connection.Owner(), request.selectedLoginServerGroup);
         if (connection.Initialize()) {
             connection.DisconnectState() = 0;
             request.serverConnectionPhase = 3;
@@ -265,7 +265,7 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
             cg::yobi::MarkDeath(sceneUi.serverConnectionAction);
             sceneUi.serverConnectionAction = nullptr;
         }
-        cg::world::blacklist::LoadBlacklistFile(request.selectedLoginServerGroup);
+        cg::world::blacklist::LoadBlacklistFile(connection.Owner(), request.selectedLoginServerGroup);
     }
 
     cg::yobi::YobiAction* const action = sceneUi.serverConnectionAction;

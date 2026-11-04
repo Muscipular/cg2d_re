@@ -479,7 +479,7 @@ std::int32_t ReadYobiGraphicOffsetY(const YobiAction* action) noexcept;
 std::uint32_t ReadYobiActionFlags(const YobiAction* action) noexcept;
 // 原5076E4..507BE4：完整对象描述阶段，按原位置重取队列中的非拥有对象。
 // 原函数：0x00507140。
-void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* graphic);
+void DescribeHoveredYobi_507140(session::ClientSession& session, const render::GraphicCacheItem32* graphic);
 
 // 当前角色预览/槽位调用所需的语义字段访问，不暴露原 x86 偏移。
 // 46F1D0 创建效果对象后清 +8，帧推进后读取 +20 图形索引。

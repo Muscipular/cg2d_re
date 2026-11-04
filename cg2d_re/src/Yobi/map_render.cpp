@@ -910,7 +910,7 @@ YobiAction* NewYobiGear_4410F0(YobiAction* const source, const std::int32_t imag
 }
 
 // 原函数：0x00507140。
-void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
+void DescribeHoveredYobi_507140(session::ClientSession& session, const render::GraphicCacheItem32* const graphic)
 {
     constexpr wchar_t kFull58AD04[] =
         L"等级 {:<3} {:<16}  生命 {:4}/{:<4}  魔力 {:4}/{:<4}";
@@ -954,7 +954,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             const std::uint8_t control = platform::gKeyStates[detail::HoverShortcutKey_Control] & detail::HoverShortcutKeyStateFlag_Down;
             if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Insert] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
-                if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
+                if (cg::world::blacklist::GetBlacklistCount_401190(session) >= 72) {
                     cg::world::AppendChatMessage_44B050(*action->ownerSession, L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
@@ -963,8 +963,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 std::wstring message;
-                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) == 0) {
-                    const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(graphic->reference.action->nameC4);
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(session, name) == 0) {
+                    const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(session, graphic->reference.action->nameC4);
                     cg::text::FormatTo(message, added != 0 ? L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, graphic->reference.action->nameC4.c_str());
                 } else {
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, graphic->reference.action->nameC4.c_str());
@@ -976,8 +976,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 std::wstring message;
-                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
-                    const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(graphic->reference.action->nameC4);
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(session, name) != 0) {
+                    const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(session, graphic->reference.action->nameC4);
                     cg::text::FormatTo(message, removed != 0 ? L"已将{}从黑名单中移除" /* 原常量参考：0x005532EC。 */ : L"从黑名单移除{}失败" /* 原常量参考：0x005532D8。 */, graphic->reference.action->nameC4.c_str());
                 } else {
                     cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, graphic->reference.action->nameC4.c_str());

@@ -250,7 +250,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
         if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(10 + row * 3)); indexedElement2) indexedElement2->visible = 0;
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(11 + row * 3)); indexedElement3) indexedElement3->visible = 0;
         const wchar_t* const recordAddress =
-            cg::world::blacklist::gRecords[row].c_str();
+            callbackWindow->ownerSession->WorldScene().blacklist.records[row].c_str();
         const wchar_t* text;
         WindowTextData* destination;
         // 原门禁比较静态记录地址，不是记录首字节；空记录也绘行号。
@@ -275,7 +275,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
                 }
             }
             const std::int32_t currentPage = business.valueD2E444;
-            text = cg::world::blacklist::gRecords[currentPage + row].c_str();
+            text = callbackWindow->ownerSession->WorldScene().blacklist.records[currentPage + row].c_str();
             auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(49 + row));
             destination = indexedElement4 ? indexedElement4->data.text : nullptr;
         } else {
@@ -331,12 +331,12 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     }
     if (business.blacklistDeleteModeD67BC4 == 1) {
         const std::int32_t recordIndex = business.valueD2E444 + index - 59;
-        const wchar_t* const record = cg::world::blacklist::gRecords[recordIndex].c_str();
+        const wchar_t* const record = callbackWindow.ownerSession->WorldScene().blacklist.records[recordIndex].c_str();
         if (record[0] != L'\0') {
             std::wstring message;
             const std::wstring name(record);
-            if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
-                const wchar_t* const format = cg::world::blacklist::RemoveBlacklistRecord_4012F0(name) != 0
+            if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(*callbackWindow.ownerSession, name) != 0) {
+                const wchar_t* const format = cg::world::blacklist::RemoveBlacklistRecord_4012F0(*callbackWindow.ownerSession, name) != 0
                     ? L"已从黑名单列表中移除{}" /* 原常量参考：0x0058863C。 */ : L"无法将{}从黑名单列表中移除" /* 原常量参考：0x00588620。 */;
                 cg::text::FormatTo(message, format, name.c_str());
             } else {
@@ -346,7 +346,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
         }
     }
     const std::int32_t currentIndex = business.valueD2E444 + index - 59;
-    const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
+    const wchar_t* const currentRecord = callbackWindow.ownerSession->WorldScene().blacklist.records[currentIndex].c_str();
     if (currentRecord[0] != L'\0') {
         inputs.blacklist.reset();
         input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.chat);
@@ -539,7 +539,7 @@ static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(session::ClientSession
 // 原函数：0x004CD1E0。
 static std::int32_t WindowBlacklist_Clear(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470() != 0
+    const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470(*callbackWindow.ownerSession) != 0
         ? L"已删除所有的黑名单。" /* 原常量参考：0x00588754。 */ : L"黑名单并没有内容可删除。" /* 原常量参考：0x00588738。 */;
     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, message, 4, 3);
     static_cast<void>(audio::PlaySe_52C450(78, 320));

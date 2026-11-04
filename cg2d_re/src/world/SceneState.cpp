@@ -8534,7 +8534,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
         } else if (name.starts_with(L"[GP]")) {
             name.erase(0, 4);
         }
-        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+        if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(networkConnection.Owner(), name) != 0) {
             return;
         }
         if (color < 0) {

@@ -1073,10 +1073,10 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = L"您…如此厌恶自己的声音吗？" /* 原常量参考：0x00554938。 */;
-        } else if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
+        } else if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(session, text) != 0) {
             message = std::format(L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, text);
         } else {
-            message = cg::world::blacklist::AddBlacklistRecord_401270(text) != 0
+            message = cg::world::blacklist::AddBlacklistRecord_401270(session, text) != 0
                 ? std::format(L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */, text)
                 : std::format(L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, text);
         }

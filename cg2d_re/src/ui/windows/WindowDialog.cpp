@@ -13,6 +13,8 @@
 #include "../../world/WorldObjectState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
+#include <cstring>
+
 namespace cg::ui {
 
 // 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
@@ -894,6 +896,8 @@ static void WindowDialog_Route(
         }
     }
     if (!enterNewType && npcDialog.type >= 0) {
+        m_logw(L"[BZ][route.blocked] owner=%p requested=%d current=%d request=%d target=%d\n",
+            static_cast<void*>(&session), type, npcDialog.type, request, target);
         return;
     }
     npcDialog.type = type;
@@ -920,10 +924,16 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShopChoice_OpenBuySell(session, text));
         return;
     case 6:
-        static_cast<void>(WindowShop_OpenBuy(session, text));
+        created = WindowShop_OpenBuy(session, text);
+        m_logw(L"[BZ][route.buy] owner=%p items=%d animation=%p dialog=%d\n",
+            static_cast<void*>(&session), session.UiFrame().native.shop.itemCount,
+            static_cast<void*>(created), npcDialog.type);
         return;
     case 7:
-        static_cast<void>(WindowShop_OpenSell(session, text));
+        created = WindowShop_OpenSell(session, text);
+        m_logw(L"[BZ][route.sell] owner=%p items=%d animation=%p dialog=%d\n",
+            static_cast<void*>(&session), session.UiFrame().native.shop.replyItemCount,
+            static_cast<void*>(created), npcDialog.type);
         return;
     case 16:
         static_cast<void>(WindowShopChoice_OpenSkillChoice(session, text));
@@ -1256,13 +1266,25 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
 void WindowDialog_ReceiveReply(cg::network::CgConnection& networkConnection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
+    m_logw(L"[BZ][ui.receive] owner=%p conn=%llu type=%d value=%d request=%d target=%d textBytes=%zu scene=%d/%d dialog=%d\n",
+        static_cast<void*>(&networkConnection.Owner()), static_cast<unsigned long long>(networkConnection.Id()),
+        type, value, request, target, std::strlen(text),
+        networkConnection.Owner().WorldScene().sceneType, networkConnection.Owner().WorldScene().sceneState,
+        networkConnection.Owner().WorldScene().npcDialog.type);
     if (networkConnection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
+        m_logw(L"[BZ][ui.drop] owner=%p reason=replies_suppressed\n",
+            static_cast<void*>(&networkConnection.Owner()));
         return;
     }
     if (networkConnection.Owner().WorldScene().logoutToTownPending != 0) {
+        m_logw(L"[BZ][ui.drop] owner=%p reason=logout_pending\n",
+            static_cast<void*>(&networkConnection.Owner()));
         return;
     }
-    if (world::ReadRippleGateOnce(networkConnection.Owner()) != 0) {
+    const std::int32_t rippleGate = world::ReadRippleGateOnce(networkConnection.Owner());
+    if (rippleGate != 0) {
+        m_logw(L"[BZ][ui.drop] owner=%p reason=ripple_gate value=%d\n",
+            static_cast<void*>(&networkConnection.Owner()), rippleGate);
         return;
     }
     detail::WindowDialog_RouteReply(networkConnection, type, value, request, target, text);

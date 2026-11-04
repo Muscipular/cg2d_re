@@ -1,5 +1,6 @@
 #include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -260,9 +261,14 @@ static void WindowShopChoice_Release(WindowInstance& releasedWindow)
 {
     auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = releasedWindow.ownerSession->UiFrame().native.shopChoice;
+    [[maybe_unused]] const std::int32_t previousType = npcDialog.type;
     if (choice.dialog.closeEnabled != 0 && npcDialog.type == choice.dialog.type) {
         npcDialog.type = -1;
     }
+    m_logw(L"[BZ][choice.released] owner=%p choice=%d closeEnabled=%u dialog=%d->%d state=0x%08X\n",
+        static_cast<void*>(releasedWindow.ownerSession), choice.dialog.type,
+        static_cast<unsigned>(choice.dialog.closeEnabled), previousType, npcDialog.type,
+        static_cast<unsigned>(releasedWindow.state));
 }
 
 // 原函数：0x0049FFA0。
@@ -302,6 +308,10 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             }
             static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
             currentWindow->state |= 0x8000u;
+            m_logw(L"[BZ][choice.pending_close] owner=%p selection=%d choice=%d dialog=%d state=0x%08X\n",
+                static_cast<void*>(callbackWindow.ownerSession), index, choice.dialog.type,
+                callbackWindow.ownerSession->WorldScene().npcDialog.type,
+                static_cast<unsigned>(currentWindow->state));
             break;
         }
     }

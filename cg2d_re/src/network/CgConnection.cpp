@@ -778,11 +778,26 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
     char head[1024];
     ReadProtocolCommandHeader_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
         this->pointerTable58B614);
+    const bool traceWindowReply = std::strcmp(head, "BZ") == 0;
+    if (traceWindowReply) {
+        m_logw(L"[BZ][dispatch.begin] owner=%p conn=%llu bytes=%zu tokens=%zu scene=%d/%d dialog=%d\n",
+            static_cast<void*>(&owner.Owner()), static_cast<unsigned long long>(connectionId),
+            receivedSize - 1, receivedArguments.size() - 1,
+            owner.Owner().WorldScene().sceneType, owner.Owner().WorldScene().sceneState,
+            owner.Owner().WorldScene().npcDialog.type);
+    }
     // 服务端明文头直接是原命令（如whV），不再执行原密文命令逆变换。
     for (auto& [header, handler] : this->receiveHandlers) {
         if (header == head) {
             handler(owner, head, this->pointerTable58B614);
-            if (expectedId != connectionId || !ioEnabled) return 0;
+            if (expectedId != connectionId || !ioEnabled) {
+                if (traceWindowReply) {
+                    m_logw(L"[BZ][dispatch.stop] owner=%p stage=handler expected=%llu actual=%llu io=%d\n",
+                        static_cast<void*>(&owner.Owner()), static_cast<unsigned long long>(expectedId),
+                        static_cast<unsigned long long>(connectionId), static_cast<int>(ioEnabled));
+                }
+                return 0;
+            }
             break;
         }
     }
@@ -795,8 +810,20 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
     };
     restoreArguments();
     script::LuaReceivePacket(owner, head, this->pointerTable58B614);
-    if (expectedId != connectionId || !ioEnabled) return 0;
+    if (expectedId != connectionId || !ioEnabled) {
+        if (traceWindowReply) {
+            m_logw(L"[BZ][dispatch.stop] owner=%p stage=lua expected=%llu actual=%llu io=%d\n",
+                static_cast<void*>(&owner.Owner()), static_cast<unsigned long long>(expectedId),
+                static_cast<unsigned long long>(connectionId), static_cast<int>(ioEnabled));
+        }
+        return 0;
+    }
     restoreArguments();
+    if (traceWindowReply) {
+        m_logw(L"[BZ][dispatch.ready] owner=%p conn=%llu dialog=%d\n",
+            static_cast<void*>(&owner.Owner()), static_cast<unsigned long long>(connectionId),
+            owner.Owner().WorldScene().npcDialog.type);
+    }
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;

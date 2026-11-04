@@ -9,6 +9,7 @@
 #include "cg/world/MapEffectRuntimeState.hpp"
 #include "cg/world/MapDataRuntimeState.hpp"
 #include "cg/world/GameTime.hpp"
+#include "cg/world/GuildState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>
@@ -531,6 +532,7 @@ struct MailRuntimeState {
 struct WorldSceneRuntimeState {
     AlbumRuntimeState album {};
     MailRuntimeState mail {};
+    GuildRuntimeState guild {};
     GameTimeRuntimeState gameTime {};
     WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};

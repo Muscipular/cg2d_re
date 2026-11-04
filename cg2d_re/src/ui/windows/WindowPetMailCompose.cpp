@@ -342,7 +342,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 std::int32_t target;
                 if (category == 1) {
                     const std::int32_t member = business.prefixD2F0B8.value04;
-                    target = cg::world::gOrderedRecords1051B14[member].value0C;
+                    target = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value0C;
                     text = input::ContextText(inputs.mail);
                 } else {
                     target = business.prefixD2F0B8.value04;
@@ -402,7 +402,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
         if (element7) {
             auto* const text = element7->data.text;
             text->text = category == 0 ? callbackWindow.ownerSession->WorldScene().mail.data->contacts[target].name10
-                : cg::world::gOrderedRecords1051B14[target].name18;
+                : callbackWindow.ownerSession->WorldScene().guild.orderedRecords[target].name18;
         }
     }
     const std::int32_t namePosition = business.prefixD2F0B8.value08;

@@ -319,7 +319,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                         } else if (groupMode == 1) {
                             const std::int32_t member = business.mailGroupCC1A30.indices[row];
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
-                            const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
+                            const std::int32_t key = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value0C;
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(key, packet, 0));
                             WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                             static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
@@ -329,11 +329,11 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(group + 0x400, packet, 0));
                             for (std::int32_t member = 0; member < 200; ++member) {
-                                const std::int32_t memberGroup = cg::world::gOrderedRecords1051B14[member].value00;
+                                const std::int32_t memberGroup = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value00;
                                 const std::int32_t currentGroup = business.mailGroupCC1A30.indices[row];
                                 if (memberGroup == currentGroup) {
                                     WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
-                                    const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
+                                    const std::int32_t key = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value0C;
                                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(*callbackWindow.ownerSession,
                                         key, 1, timestamp, storedText));
                                 }
@@ -376,7 +376,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 std::int32_t target;
                 if (category == 1) {
                     const std::int32_t member = business.prefixD2F0B8.value04;
-                    target = cg::world::gOrderedRecords1051B14[member].value0C;
+                    target = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value0C;
                     combined = input::ContextText(inputs.mail);
                     {
                         char fileBytes[300]{};
@@ -451,7 +451,7 @@ static std::uint8_t WindowMailCompose_RefreshRecipients(WindowInstance* callback
             name = callbackWindow->ownerSession->WorldScene().mail.data->contacts[business.prefixD2F0B8.value04].name10.data();
             break;
         case 1:
-            name = cg::world::gOrderedRecords1051B14[business.prefixD2F0B8.value04].name18;
+            name = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[business.prefixD2F0B8.value04].name18;
             break;
         case 2:
             name = world::detail::ReadMiniMailContact1075A90(*callbackWindow->ownerSession,

@@ -452,16 +452,16 @@ static void WindowPlayerProfile_Refresh(WindowInstance* callbackWindow)
     }
 
     WindowInstance* const guildWindow = currentWindow;
-    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
+    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0(*callbackWindow->ownerSession);
     auto* const element5 = guildWindow->FindElementById(WindowPlayerProfileElementId::Element5);
     if (guildIndex != -1) {
-        const wchar_t* const guild = cg::world::GetGuildName();
+        const wchar_t* const guild = cg::world::GetGuildName(*callbackWindow->ownerSession);
         if (element5) element5->data.text->text = guild;
-        const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
+        const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0(*callbackWindow->ownerSession);
         auto* const element6 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element6);
         if (element6) {
             auto* const rankData = element6->data.text;
-            const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
+            const wchar_t* const rank = cg::world::GetGuildRankText(*callbackWindow->ownerSession, rankIndex);
             rankData->text = rank;
         }
     } else {

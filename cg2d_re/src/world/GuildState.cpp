@@ -18,110 +18,84 @@
 
 namespace cg::world {
 
-std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {}; // 原全局：0x01051B14。
-static std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
-std::int32_t gOrderedRecordCount1051510 = 0; // 原全局：0x01051510。
-
-// 原10514A8的五S32和两条原字节文本；重置保留+0C/+10及文本尾部。
-struct GuildHeader10514A8 {
-    std::int32_t key00; // 原成员偏移：+0x00。
-    std::int32_t value04; // 原成员偏移：+0x04。
-    std::int32_t value08; // 原成员偏移：+0x08。
-    std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::int32_t value10; // 原成员偏移：+0x10。
-    std::array<std::wstring, 2> texts14; // 原成员偏移：+0x14。
-    std::array<std::byte, 2> bytes66; // 原成员偏移：+0x66。
-};
-
-// 原1051514的32条30H文本记录，末3B未消费，不据此补业务含义。
-struct GuildTextRecord1051514 {
-    std::int32_t value00; // 原成员偏移：+0x00。
-    std::wstring text04; // 原成员偏移：+0x04。
-    std::array<std::byte, 3> bytes2D; // 原成员偏移：+0x2D。
-};
-
-static GuildHeader10514A8 gGuildHeader10514A8 {}; // 原全局：0x010514A8。
-static std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {}; // 原全局：0x01051514。
-static std::array<std::wstring, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
-
 // 532D80和532DF0的同序窄写；两条路径的邮件副作用由各自caller处理。
-static void ResetGuildRuntimeFields()
+static void ResetGuildRuntimeFields(session::ClientSession& session)
 {
-    gGuildHeader10514A8.key00 = -1;
-    gGuildHeader10514A8.value08 = -1;
-    gGuildHeader10514A8.value04 = -1;
-    gGuildHeader10514A8.texts14[0].clear();
-    gGuildHeader10514A8.texts14[1].clear();
-    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+    session.WorldScene().guild.header.key00 = -1;
+    session.WorldScene().guild.header.value08 = -1;
+    session.WorldScene().guild.header.value04 = -1;
+    session.WorldScene().guild.header.texts14[0].clear();
+    session.WorldScene().guild.header.texts14[1].clear();
+    for (OrderedRecord1051B14& record : session.WorldScene().guild.orderedRecords) {
         record.value00 = -1;
         record.value08 = 0;
         record.name18.clear();
         record.title29.clear();
     }
-    for (GuildTextRecord1051514& record : gGuildTextRecords1051514) {
+    for (GuildTextRecord1051514& record : session.WorldScene().guild.textRecords) {
         record.value00 = 0;
         record.text04.clear();
     }
-    for (auto& text : gGuildTexts1057BF4) {
+    for (auto& text : session.WorldScene().guild.texts) {
         text.clear();
     }
-    gOrderedRecordCount1051510 = 0;
+    session.WorldScene().guild.orderedRecordCount = 0;
 }
 
-std::int32_t ReadGuildValue10514B4() noexcept
+std::int32_t ReadGuildValue10514B4(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.value0C;
+    return session.WorldScene().guild.header.value0C;
 }
 
-std::int32_t ReadGuildTextIndex10514B0() noexcept
+std::int32_t ReadGuildTextIndex10514B0(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.value08;
+    return session.WorldScene().guild.header.value08;
 }
 
-std::int32_t ReadGuildRankFlags1051514(const std::int32_t index) noexcept
+std::int32_t ReadGuildRankFlags1051514(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return 0; }
-    return gGuildTextRecords1051514[index].value00;
+    if (index < 0 || static_cast<std::size_t>(index) >= session.WorldScene().guild.textRecords.size()) { return 0; }
+    return session.WorldScene().guild.textRecords[index].value00;
 }
 
-std::uint8_t ReadGuildRankFlagsByte1051514(const std::int32_t index) noexcept
+std::uint8_t ReadGuildRankFlagsByte1051514(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return 0; }
+    if (index < 0 || static_cast<std::size_t>(index) >= session.WorldScene().guild.textRecords.size()) { return 0; }
     const auto* const bytes = reinterpret_cast<const unsigned char*>(
-        &gGuildTextRecords1051514[index].value00);
+        &session.WorldScene().guild.textRecords[index].value00);
     return bytes[0];
 }
 
-std::int32_t ReadGuildStatus10514AC() noexcept
+std::int32_t ReadGuildStatus10514AC(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.value04;
+    return session.WorldScene().guild.header.value04;
 }
 
-std::int32_t ReadGuildOwnKey10514B8() noexcept
+std::int32_t ReadGuildOwnKey10514B8(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.value10;
+    return session.WorldScene().guild.header.value10;
 }
 
-const wchar_t* GetGuildName() noexcept
+const wchar_t* GetGuildName(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.texts14[0].data();
+    return session.WorldScene().guild.header.texts14[0].data();
 }
 
-const wchar_t* GetGuildSecondText() noexcept
+const wchar_t* GetGuildSecondText(session::ClientSession& session) noexcept
 {
-    return gGuildHeader10514A8.texts14[1].data();
+    return session.WorldScene().guild.header.texts14[1].data();
 }
 
-const wchar_t* GetGuildAuxText(const std::int32_t index) noexcept
+const wchar_t* GetGuildAuxText(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTexts1057BF4.size()) { return L""; }
-    return gGuildTexts1057BF4[index].data();
+    if (index < 0 || static_cast<std::size_t>(index) >= session.WorldScene().guild.texts.size()) { return L""; }
+    return session.WorldScene().guild.texts[index].data();
 }
 
-const wchar_t* GetGuildRankText(const std::int32_t index) noexcept
+const wchar_t* GetGuildRankText(session::ClientSession& session, const std::int32_t index) noexcept
 {
-    if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) { return L""; }
-    return gGuildTextRecords1051514[index].text04.data();
+    if (index < 0 || static_cast<std::size_t>(index) >= session.WorldScene().guild.textRecords.size()) { return L""; }
+    return session.WorldScene().guild.textRecords[index].text04.data();
 }
 
 // 原函数：0x0050E850。
@@ -146,18 +120,18 @@ void HandleGuildInfoReply_50E850(cg::network::CgConnection& connection, const ch
         ++field;
     };
     if ((mask & 0x03u) != 0) {
-        gGuildHeader10514A8.key00 =
+        connection.Owner().WorldScene().guild.header.key00 =
             network::ParseDelimitedInteger_52CFA0(text, '|', field);
         ++field;
     }
     if ((mask & 0x05u) != 0) {
-        readText(first.data(), gGuildHeader10514A8.texts14[0]);
+        readText(first.data(), connection.Owner().WorldScene().guild.header.texts14[0]);
     }
     if ((mask & 0x09u) != 0) {
-        readText(second.data(), gGuildHeader10514A8.texts14[1]);
+        readText(second.data(), connection.Owner().WorldScene().guild.header.texts14[1]);
     }
     if ((mask & 0x11u) != 0) {
-        gGuildHeader10514A8.value08 =
+        connection.Owner().WorldScene().guild.header.value08 =
             network::ParseDelimitedInteger_52CFA0(text, '|', field);
         ++field;
     }
@@ -170,26 +144,26 @@ void HandleGuildInfoReply_50E850(cg::network::CgConnection& connection, const ch
         ++field;
     }
     if ((mask & 0x81u) != 0) {
-        gGuildHeader10514A8.value04 =
+        connection.Owner().WorldScene().guild.header.value04 =
             network::ParseDelimitedInteger_52CFA0(text, '|', field);
         ++field;
     }
     if ((mask & 0x101u) != 0) {
-        gGuildHeader10514A8.value0C =
+        connection.Owner().WorldScene().guild.header.value0C =
             network::ParseDelimitedInteger_52CFA0(text, '|', field);
         ++field;
     }
     if ((mask & 0x201u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[0]);
+        readText(tail.data(), connection.Owner().WorldScene().guild.texts[0]);
     }
     if ((mask & 0x401u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[1]);
+        readText(tail.data(), connection.Owner().WorldScene().guild.texts[1]);
     }
     if ((mask & 0x801u) != 0) {
-        readText(tail.data(), gGuildTexts1057BF4[2]);
+        readText(tail.data(), connection.Owner().WorldScene().guild.texts[2]);
     }
     if ((mask & 0x1001u) != 0) {
-        gGuildHeader10514A8.value10 =
+        connection.Owner().WorldScene().guild.header.value10 =
             network::ParseDelimitedInteger_52CFA0(text, '|', field);
     }
 }
@@ -211,21 +185,21 @@ void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection& connectio
             network::ParseDelimitedInteger_52CFA0(text, '|', field - 2);
         const std::int32_t value =
             network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
-        if (index < 0 || static_cast<std::size_t>(index) >= gGuildTextRecords1051514.size()) {
+        if (index < 0 || static_cast<std::size_t>(index) >= connection.Owner().WorldScene().guild.textRecords.size()) {
             field += 3;
             --remaining;
             continue;
         }
         if (value == -1) {
-            gGuildTextRecords1051514[index].value00 = 0;
-            gGuildTextRecords1051514[index].text04.clear();
+            connection.Owner().WorldScene().guild.textRecords[index].value00 = 0;
+            connection.Owner().WorldScene().guild.textRecords[index].text04.clear();
         } else {
             static_cast<void>(network::ExtractDelimitedField_52CED0(
                 text, '|', field, 255, buffer.data()));
             input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
             if (std::strlen(buffer.data()) <= 40) {
-                gGuildTextRecords1051514[index].value00 = value;
-                gGuildTextRecords1051514[index].text04 = cg::text::FromGbkWide(buffer.data());
+                connection.Owner().WorldScene().guild.textRecords[index].value00 = value;
+                connection.Owner().WorldScene().guild.textRecords[index].text04 = cg::text::FromGbkWide(buffer.data());
             }
         }
         field += 3;
@@ -236,10 +210,10 @@ void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection& connectio
 // 原函数：0x0050F280。
 void HandleGuildRemovalReply_50F280(cg::network::CgConnection& connection, const std::int32_t key)
 {
-    if (gGuildHeader10514A8.key00 != key) {
+    if (connection.Owner().WorldScene().guild.header.key00 != key) {
         return;
     }
-    ResetGuildRuntimeFields();
+    ResetGuildRuntimeFields(connection.Owner());
     static_cast<void>(cg::world::detail::ClearCurrentCharacterGuildMail_5194C0(connection.Owner()));
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(connection.Owner()));
     static_cast<void>(ui::WindowGuildDetails_RequestClose(connection.Owner()));
@@ -248,16 +222,16 @@ void HandleGuildRemovalReply_50F280(cg::network::CgConnection& connection, const
 // 原函数：0x00532D80。
 std::int32_t ResetGuildStateAndCloseDetails_532D80(session::ClientSession& session)
 {
-    ResetGuildRuntimeFields();
+    ResetGuildRuntimeFields(session);
     return ui::WindowGuildDetails_RequestClose(session);
 }
 
 // GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。
 // 原函数：0x0050EF50。
-std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
+std::int32_t CountRecordsValue08EqualOne_50EF50(session::ClientSession& session) noexcept
 {
     std::int32_t count = 0;
-    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+    for (const OrderedRecord1051B14& record : session.WorldScene().guild.orderedRecords) {
         if (record.value08 == 1) {
             ++count;
         }
@@ -284,13 +258,13 @@ static OrderedRecord1051B14* ResetOrderedRecord_50EF20(
 }
 
 // 原函数：0x0050EF70。
-static std::int32_t ParseOrderedRecord_50EF70(
+static std::int32_t ParseOrderedRecord_50EF70(session::ClientSession& session,
     const std::int32_t index, const char* const text)
 {
     const std::int32_t key =
         network::ParseDelimitedInteger_52CFA0(text, '|', 2);
     OrderedRecord1051B14& record =
-        gOrderedRecords1051B14[static_cast<std::size_t>(index)];
+        session.WorldScene().guild.orderedRecords[static_cast<std::size_t>(index)];
     if (network::ParseDelimitedInteger_52CFA0(text, '|', 1) <= 0) {
         ResetOrderedRecord_50EF20(&record);
         return 0;
@@ -336,23 +310,23 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection& connection
 
     const std::int32_t key =
         network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
-        if (gOrderedRecords1051B14[index].value0C == key) {
-            ParseOrderedRecord_50EF70(static_cast<std::int32_t>(index), text);
-            gOrderedRecordCount1051510 = CountRecordsValue08EqualOne_50EF50();
-            return static_cast<std::uintptr_t>(gOrderedRecordCount1051510);
+    for (std::size_t index = 0; index < connection.Owner().WorldScene().guild.orderedRecords.size(); ++index) {
+        if (connection.Owner().WorldScene().guild.orderedRecords[index].value0C == key) {
+            ParseOrderedRecord_50EF70(connection.Owner(), static_cast<std::int32_t>(index), text);
+            connection.Owner().WorldScene().guild.orderedRecordCount = CountRecordsValue08EqualOne_50EF50(connection.Owner());
+            return static_cast<std::uintptr_t>(connection.Owner().WorldScene().guild.orderedRecordCount);
         }
     }
-    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
-        if (gOrderedRecords1051B14[index].value0C == -1) {
-            ParseOrderedRecord_50EF70(static_cast<std::int32_t>(index), text);
-            gOrderedRecordCount1051510 = CountRecordsValue08EqualOne_50EF50();
-            return static_cast<std::uintptr_t>(gOrderedRecordCount1051510);
+    for (std::size_t index = 0; index < connection.Owner().WorldScene().guild.orderedRecords.size(); ++index) {
+        if (connection.Owner().WorldScene().guild.orderedRecords[index].value0C == -1) {
+            ParseOrderedRecord_50EF70(connection.Owner(), static_cast<std::int32_t>(index), text);
+            connection.Owner().WorldScene().guild.orderedRecordCount = CountRecordsValue08EqualOne_50EF50(connection.Owner());
+            return static_cast<std::uintptr_t>(connection.Owner().WorldScene().guild.orderedRecordCount);
         }
     }
 
-    return reinterpret_cast<std::uintptr_t>(gOrderedRecords1051B14.data())
-        + sizeof(gOrderedRecords1051B14)
+    return reinterpret_cast<std::uintptr_t>(connection.Owner().WorldScene().guild.orderedRecords.data())
+        + sizeof(connection.Owner().WorldScene().guild.orderedRecords)
         + offsetof(OrderedRecord1051B14, value0C);
 }
 
@@ -363,7 +337,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connec
     if (gate != 0) {
         return gate;
     }
-    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+    for (OrderedRecord1051B14& record : connection.Owner().WorldScene().guild.orderedRecords) {
         ResetOrderedRecord_50EF20(&record);
     }
 
@@ -371,7 +345,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connec
     std::array<char, 256> first;
     std::array<char, 256> second;
     std::int32_t field = 2;
-    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+    for (OrderedRecord1051B14& record : connection.Owner().WorldScene().guild.orderedRecords) {
         if (network::ParseDelimitedInteger_52CFA0(text, '|', field - 1) <= 0) {
             ResetOrderedRecord_50EF20(&record);
         } else {
@@ -409,19 +383,19 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connec
         field += 8;
     }
 
-    const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
+    const std::int32_t count = CountRecordsValue08EqualOne_50EF50(connection.Owner());
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
-    gOrderedRecordCount1051510 = count;
+    connection.Owner().WorldScene().guild.orderedRecordCount = count;
     return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(connection.Owner(), selected);
 }
 
 // GML01：原200排序项W16==1首匹配，计数/返回S32，无则-1。
 // 原函数：0x005195C0。
-std::int32_t FindActiveOrderedRecordIndex_5195C0(
+std::int32_t FindActiveOrderedRecordIndex_5195C0(session::ClientSession& session,
     const std::int32_t key) noexcept
 {
     for (std::int32_t index = 0; index < 200; ++index) {
-        const OrderedRecord1051B14& record = gOrderedRecords1051B14[index];
+        const OrderedRecord1051B14& record = session.WorldScene().guild.orderedRecords[index];
         if (record.value08 == 1 && record.value0C == key) {
             return index;
         }

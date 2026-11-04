@@ -907,11 +907,11 @@ std::int32_t WindowContacts_CompareGuildNumber(
     const cg::world::OrderedRecord1051B14* left,
     const cg::world::OrderedRecord1051B14* right); // 公会S16 value0A，零映射最大S32。
 // 原函数：0x004A3950。
-std::int32_t WindowGuildDetails_ReadRankPermissions(); // 当前公会职级权限80H。
+std::int32_t WindowGuildDetails_ReadRankPermissions(session::ClientSession& session); // 当前公会职级权限80H。
 // 原函数：0x004A3960。
-std::int32_t WindowGuildDetails_CanEdit(std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
+std::int32_t WindowGuildDetails_CanEdit(session::ClientSession& session, std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
 // 原函数：0x004A3990。
-std::int32_t WindowGuildDetails_CanEditRank(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
+std::int32_t WindowGuildDetails_CanEditRank(session::ClientSession& session, std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 // 原函数：0x004CC6A0。
 std::int32_t WindowBlacklist_ResetState(session::ClientSession& session); // 三个UI数值依序写5/0/0。
 // 原函数：0x004CBD30。

@@ -452,16 +452,16 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         callbackWindow->ownerSession->WorldScene().mail.data->fallbackPage = page;
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
-                const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions();
+                const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions(*callbackWindow->ownerSession);
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = allowed != 0 ? 1 : 0;
             }
-            if (WindowGuildDetails_ReadRankPermissions() != 0) {
+            if (WindowGuildDetails_ReadRankPermissions(*callbackWindow->ownerSession) != 0) {
                 for (std::int32_t row = 0; row < 3; ++row) {
                     const std::int32_t rowCategory = business.valuesD67B40[6];
                     const std::int32_t scroll = business.valuesD67B40[rowCategory];
                     const std::int32_t memberIndex = business.mailIndicesC9FCE4[scroll + row];
-                    const std::int32_t rank = cg::world::gOrderedRecords1051B14[memberIndex].value00;
-                    const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(rank);
+                    const std::int32_t rank = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[memberIndex].value00;
+                    const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(*callbackWindow->ownerSession, rank);
                     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(21 + row * 2)); indexedElement) indexedElement->visible = 0;
                     if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(22 + row * 2)); indexedElement2) indexedElement2->visible = (flags & 0x80) == 0 ? 1 : 0;
                 }
@@ -472,15 +472,15 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 }
             }
             for (std::int32_t index = 29; index < 46; index += 8) {
-                const std::int32_t allowed = WindowGuildDetails_CanEdit(2);
+                const std::int32_t allowed = WindowGuildDetails_CanEdit(*callbackWindow->ownerSession, 2);
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = allowed != 0 ? 1 : 0;
             }
-            if (cg::world::ReadGuildStatus10514AC() == -1) {
+            if (cg::world::ReadGuildStatus10514AC(*callbackWindow->ownerSession) == -1) {
                 if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 0;
             } else {
                 if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 1;
                 WindowInstance* const window = currentWindow;
-                const std::int32_t status = cg::world::ReadGuildStatus10514AC();
+                const std::int32_t status = cg::world::ReadGuildStatus10514AC(*callbackWindow->ownerSession);
                 auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
                 if (element212) {
                     auto* const data = element212->data.text;
@@ -508,7 +508,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement4) indexedElement4->data.graphic->imageNo = 0x3B9E0;
                 break;
             case 1:
-                record = WindowMail_MakeContactView(cg::world::gOrderedRecords1051B14[recordIndex]);
+                record = WindowMail_MakeContactView(callbackWindow->ownerSession->WorldScene().guild.orderedRecords[recordIndex]);
                 if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement5) indexedElement5->data.graphic->imageNo = 0x3B9E8;
                 break;
             case 2:
@@ -563,11 +563,11 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 break;
             }
             case 1: {
-                const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
-                privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
+                const auto* const member = &callbackWindow->ownerSession->WorldScene().guild.orderedRecords[recordIndex];
+                privileged = WindowGuildDetails_CanEditRank(*callbackWindow->ownerSession, member->value00, 0x80);
                 const std::int32_t rank = member->value00;
                 const wchar_t* const text = rank == -1
-                    ? L"" : cg::world::GetGuildRankText(rank);
+                    ? L"" : cg::world::GetGuildRankText(*callbackWindow->ownerSession, rank);
                 auto* const dataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 2));
                 if (dataElement) {
                     auto* const data = dataElement->data.text;
@@ -595,11 +595,11 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 }
                 break;
             case 1:
-                if (WindowGuildDetails_CanEdit(2) != 0) {
+                if (WindowGuildDetails_CanEdit(*callbackWindow->ownerSession, 2) != 0) {
                     if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = privileged == 0 ? 1 : 0;
                 } else {
-                    const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
-                    const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
+                    const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8(*callbackWindow->ownerSession);
+                    const std::int32_t memberKey = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[recordIndex].value0C;
                     if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = memberKey == ownKey ? 1 : 0;
                 }
                 if (world::detail::HasUnreadGuildMail_5190F0(*callbackWindow->ownerSession, recordIndex) != 0) {
@@ -619,7 +619,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
     if (business.valuesD67B40[6] == 1) {
         if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 1;
         WindowInstance* const window = currentWindow;
-        const std::int32_t status = cg::world::ReadGuildStatus10514AC();
+        const std::int32_t status = cg::world::ReadGuildStatus10514AC(*callbackWindow->ownerSession);
         auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
         if (element212) {
             auto* const data = element212->data.text;
@@ -643,14 +643,14 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement4) indexedElement4->visible = 1;
             break;
         case 1: {
-            const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
+            const auto* const member = &callbackWindow->ownerSession->WorldScene().guild.orderedRecords[recordIndex];
             record = WindowMail_MakeContactView(*member);
-            if (WindowGuildDetails_CanEdit(2) != 0) {
-                const std::int32_t privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
+            if (WindowGuildDetails_CanEdit(*callbackWindow->ownerSession, 2) != 0) {
+                const std::int32_t privileged = WindowGuildDetails_CanEditRank(*callbackWindow->ownerSession, member->value00, 0x80);
                 if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement5) indexedElement5->visible = privileged == 0 ? 1 : 0;
             } else {
                 const std::int32_t memberKey = member->value0C;
-                const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
+                const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8(*callbackWindow->ownerSession);
                 if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement5) indexedElement5->visible = memberKey == ownKey ? 1 : 0;
             }
             break;
@@ -859,7 +859,7 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
         if (category == 0) {
             maximum = mode == 0 ? 57 : 51;
         } else if (category == 1) {
-            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
+            const std::int32_t count = callbackWindow.ownerSession->WorldScene().guild.orderedRecordCount;
             maximum = count < 100 ? (mode == 0 ? 97 : 91) : count - (mode == 0 ? 3 : 9);
         } else {
             maximum = mode == 0 ? 17 : 11;
@@ -902,7 +902,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
         }
         case 1: {
             const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-            const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
+            const auto& record = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[recordIndex];
             if (record.value08 == 0) {
                 return 1;
             }
@@ -1132,7 +1132,7 @@ static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const 
         count = 60;
         break;
     case 1:
-        count = cg::world::gOrderedRecordCount1051510;
+        count = callbackWindow.ownerSession->WorldScene().guild.orderedRecordCount;
         if (count < 100) {
             count = 100;
         }
@@ -1197,14 +1197,14 @@ static void WindowContacts_OpenRankSelection(session::ClientSession& session, co
     const std::int32_t row = (index - 21) / 2;
     const std::int32_t position = business.valuesD67B40[category];
     const std::int32_t recordIndex = business.mailIndicesC9FCE4[position + row];
-    const std::int32_t key = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
-    const std::int32_t memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
+    const std::int32_t key = session.WorldScene().guild.orderedRecords[recordIndex].value0C;
+    const std::int32_t memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(session, key);
     const std::int32_t currentCategory = business.valuesD67B40[6];
     business.mailMemberIndexCB1D18 = memberIndex;
     const std::int32_t currentPosition = business.valuesD67B40[currentCategory];
     const std::int32_t currentIndex = business.mailIndicesC9FCE4[currentPosition + row];
-    business.mailMemberKeyD45F88 = cg::world::gOrderedRecords1051B14[currentIndex].value0C;
-    business.mailRankCF4A14 = cg::world::gOrderedRecords1051B14[memberIndex].value00 - 1;
+    business.mailMemberKeyD45F88 = session.WorldScene().guild.orderedRecords[currentIndex].value0C;
+    business.mailRankCF4A14 = session.WorldScene().guild.orderedRecords[memberIndex].value00 - 1;
     static_cast<void>(WindowRuntime_Open(WindowId_GuildRank));
 }
 
@@ -1293,12 +1293,12 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         if (position < 0) {
             return 0;
         }
-        if (position > cg::world::gOrderedRecordCount1051510 - 1) {
+        if (position > callbackWindow.ownerSession->WorldScene().guild.orderedRecordCount - 1) {
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
-            const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
+            const auto& record = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[recordIndex];
             if (record.value08 != 0) {
                 recordImage = &record.value14;
             }
@@ -1365,7 +1365,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
     }
     case 1: {
         const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
-        const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
+        const auto& record = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[recordIndex];
         if (record.value08 == 0) {
             return 1;
         }
@@ -1518,7 +1518,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(session::Cl
 从家族会员名单中删除吗？
 
  (确定删除时，请按住
-  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::world::gOrderedRecords1051B14[index].name18.c_str());
+  CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, session.WorldScene().guild.orderedRecords[index].name18.c_str());
     return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
@@ -1562,7 +1562,7 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow)
             }
             break;
         case 1: {
-            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
+            const std::int32_t count = callbackWindow->ownerSession->WorldScene().guild.orderedRecordCount;
             maximum = count < 100 ? 97 : count - 3;
             if (business.valuesD67B40[1] > maximum) {
                 business.valuesD67B40[1] = maximum;
@@ -1590,7 +1590,7 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow)
             }
             break;
         case 1: {
-            const std::int32_t count = cg::world::gOrderedRecordCount1051510;
+            const std::int32_t count = callbackWindow->ownerSession->WorldScene().guild.orderedRecordCount;
             maximum = count < 100 ? 91 : count - 9;
             if (business.valuesD67B40[4] > maximum) {
                 business.valuesD67B40[4] = maximum;
@@ -1648,8 +1648,8 @@ static std::int32_t WindowContacts_CompareRecords(session::ClientSession& sessio
             rightUsed = session.WorldScene().mail.data->contacts[*right].used != 0;
             leftUsed = session.WorldScene().mail.data->contacts[*left].used != 0;
         } else if (category == 1) {
-            rightUsed = cg::world::gOrderedRecords1051B14[*right].value08 != 0;
-            leftUsed = cg::world::gOrderedRecords1051B14[*left].value08 != 0;
+            rightUsed = session.WorldScene().guild.orderedRecords[*right].value08 != 0;
+            leftUsed = session.WorldScene().guild.orderedRecords[*left].value08 != 0;
         } else {
             rightUsed = world::detail::ReadMiniMailContact1075A90(session, *right).used != 0;
             leftUsed = world::detail::ReadMiniMailContact1075A90(session, *left).used != 0;
@@ -1692,8 +1692,8 @@ static std::int32_t WindowContacts_CompareRecords(session::ClientSession& sessio
         }
     } else {
         const std::int32_t leftIndex = *left;
-        const auto* const other = &cg::world::gOrderedRecords1051B14[rightIndex];
-        const auto* const current = &cg::world::gOrderedRecords1051B14[leftIndex];
+        const auto* const other = &session.WorldScene().guild.orderedRecords[rightIndex];
+        const auto* const current = &session.WorldScene().guild.orderedRecords[leftIndex];
         switch (mode) {
         case 0:
             return WindowContacts_CompareGuildName(current, other);
@@ -1874,7 +1874,7 @@ static std::int32_t WindowContacts_DragScroll(WindowInstance* callbackWindow, co
         count = 60;
         break;
     case 1:
-        count = cg::world::gOrderedRecordCount1051510;
+        count = callbackWindow->ownerSession->WorldScene().guild.orderedRecordCount;
         if (count < 100) {
             count = 100;
         }

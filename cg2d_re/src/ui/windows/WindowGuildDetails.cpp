@@ -107,13 +107,13 @@ struct GuildWindowDraft {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004AF960。
-static std::uint32_t WindowGuildDetails_RefreshDraft(); // 窗口48管理权限下复制草稿，返回末文本含NUL长度。
+static std::uint32_t WindowGuildDetails_RefreshDraft(session::ClientSession& session); // 窗口48管理权限下复制草稿，返回末文本含NUL长度。
 
 // 原函数：0x004AFE20。
-static std::int32_t WindowGuildDetails_HasChangedRank(std::int32_t index); // 公会草稿差异；原职级含80H时忽略纯flags变化。
+static std::int32_t WindowGuildDetails_HasChangedRank(session::ClientSession& session, std::int32_t index); // 公会草稿差异；原职级含80H时忽略纯flags变化。
 
 // 原函数：0x004AFEA0。
-static std::int32_t WindowGuildDetails_HasChangedRanks(); // 完整扫描32职级，不首个差异早返。
+static std::int32_t WindowGuildDetails_HasChangedRanks(session::ClientSession& session); // 完整扫描32职级，不首个差异早返。
 
 // 原函数：0x004AFB10。
 static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& session); // 公会名称变更校验/转义/Ufm类型2发送。
@@ -303,23 +303,23 @@ static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, co
     if (value == -1) {
         gGuildPageD67B78 = 0;
         gGuildEditing57F03C = -1;
-        static_cast<void>(WindowGuildDetails_RefreshDraft());
+        static_cast<void>(WindowGuildDetails_RefreshDraft(*callbackWindow.ownerSession));
         WindowGuildDetails_RefreshReadOnly(&callbackWindow);
-        gGuildDraftCF4018.name604 = cg::world::GetGuildName();
-        gGuildDraftCF4018.secondText634 = cg::world::GetGuildSecondText();
+        gGuildDraftCF4018.name604 = cg::world::GetGuildName(*callbackWindow.ownerSession);
+        gGuildDraftCF4018.secondText634 = cg::world::GetGuildSecondText(*callbackWindow.ownerSession);
         for (std::int32_t index = 0; index < 32; ++index) {
-            const wchar_t* const source = cg::world::GetGuildRankText(index);
+            const wchar_t* const source = cg::world::GetGuildRankText(*callbackWindow.ownerSession, index);
             gGuildDraftCF4018.ranks[index].text = source;
         }
         auto* const element10 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
         if (element10) {
             auto* const name = element10->data.text;
-            name->text = cg::world::GetGuildName();
+            name->text = cg::world::GetGuildName(*callbackWindow.ownerSession);
         }
         auto* const element11 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
         if (element11) {
             auto* const second = element11->data.text;
-            second->text = cg::world::GetGuildSecondText();
+            second->text = cg::world::GetGuildSecondText(*callbackWindow.ownerSession);
         }
     }
     if (WindowGuildDetails_CommitFocusedInput(&callbackWindow) == 0) {
@@ -342,7 +342,7 @@ static void WindowGuildDetails_RefreshReadOnly(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    if (WindowGuildDetails_ReadRankPermissions() != 0) {
+    if (WindowGuildDetails_ReadRankPermissions(*callbackWindow->ownerSession) != 0) {
         WindowGuildDetails_RefreshEditor(callbackWindow);
         return;
     }
@@ -400,7 +400,7 @@ static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
                 auto* const text = element102->data.text;
                 text->text = gGuildDraftCF4018.name604;
             }
-            const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
+            const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName(*callbackWindow->ownerSession)) != 0;
             auto* const element103 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
             if (element103) {
                 element103->data.text->style.color =
@@ -408,7 +408,7 @@ static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
             }
         }
     }
-    const bool nameChanged = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
+    const bool nameChanged = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName(*callbackWindow->ownerSession)) != 0;
     if (auto* const handleActionButtonElement2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement2) handleActionButtonElement2->visible = nameChanged ? 1 : 0;
 
     window = currentWindow;
@@ -431,7 +431,7 @@ static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
                 auto* const text = element112->data.text;
                 text->text = gGuildDraftCF4018.secondText634;
             }
-            const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
+            const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText(*callbackWindow->ownerSession)) != 0;
             auto* const element113 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
             if (element113) {
                 element113->data.text->style.color =
@@ -439,7 +439,7 @@ static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
             }
         }
     }
-    const bool secondChanged = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
+    const bool secondChanged = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText(*callbackWindow->ownerSession)) != 0;
     if (auto* const handleActionButton_66Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_66); handleActionButton_66Element2) handleActionButton_66Element2->visible = secondChanged ? 1 : 0;
 
     for (std::int32_t row = 0; row < 7; ++row) {
@@ -464,11 +464,11 @@ static void WindowGuildDetails_RefreshEditor(WindowInstance* callbackWindow)
         auto* const textElement = window->FindElementById(NativeElementKey(row + 11));
         if (textElement) {
             auto* const text = textElement->data.text;
-            const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
+            const std::int32_t changed = WindowGuildDetails_HasChangedRank(*callbackWindow->ownerSession, rank);
             text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
         }
     }
-    const std::int32_t changed = WindowGuildDetails_HasChangedRanks();
+    const std::int32_t changed = WindowGuildDetails_HasChangedRanks(*callbackWindow->ownerSession);
     if (auto* const handleActionButton_73Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element2) handleActionButton_73Element2->visible = changed;
 }
 
@@ -477,30 +477,30 @@ static std::int32_t WindowGuildDetails_RefreshRanks(WindowInstance* callbackWind
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
+    const std::int32_t editable = WindowGuildDetails_ReadRankPermissions(*callbackWindow->ownerSession);
     if (auto* const element54 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element54) element54->visible = 0;
     auto* const element10 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
     if (element10) {
         auto* const name = element10->data.text;
         name->text = editable != 0 ? gGuildDraftCF4018.name604.data()
-            : cg::world::GetGuildName();
+            : cg::world::GetGuildName(*callbackWindow->ownerSession);
     }
     auto* const element11 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
     if (element11) {
         auto* const second = element11->data.text;
         second->text = editable != 0 ? gGuildDraftCF4018.secondText634.data()
-            : cg::world::GetGuildSecondText();
+            : cg::world::GetGuildSecondText(*callbackWindow->ownerSession);
     }
     for (std::int32_t index = 0; index < 3; ++index) {
         WindowInstance* const window = currentWindow;
-        const wchar_t* const source = cg::world::GetGuildAuxText(index);
+        const wchar_t* const source = cg::world::GetGuildAuxText(*callbackWindow->ownerSession, index);
         if (auto* const indexedElement = window->FindElementById(NativeElementKey(index + 54)); indexedElement) indexedElement->data.text->text = source;
     }
     std::int32_t y = 164;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         const wchar_t* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
-            : cg::world::GetGuildRankText(rank);
+            : cg::world::GetGuildRankText(*callbackWindow->ownerSession, rank);
         auto* const textElement = currentWindow->FindElementById(NativeElementKey(row + 11));
         if (textElement) {
             auto* const text = textElement->data.text;
@@ -508,7 +508,7 @@ static std::int32_t WindowGuildDetails_RefreshRanks(WindowInstance* callbackWind
         }
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t flags = editable != 0 ? gGuildDraftCF4018.ranks[rank].flags
-                : cg::world::ReadGuildRankFlags1051514(rank);
+                : cg::world::ReadGuildRankFlags1051514(*callbackWindow->ownerSession, rank);
             auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(18 + row * 5 + column));
             if (graphicElement) {
                 auto* const graphic = graphicElement->data.graphic;
@@ -517,7 +517,7 @@ static std::int32_t WindowGuildDetails_RefreshRanks(WindowInstance* callbackWind
         }
         const std::uint8_t flags = editable != 0
             ? *reinterpret_cast<const unsigned char*>(&gGuildDraftCF4018.ranks[rank].flags)
-            : cg::world::ReadGuildRankFlagsByte1051514(rank);
+            : cg::world::ReadGuildRankFlagsByte1051514(*callbackWindow->ownerSession, rank);
         if ((flags & 0x80) != 0) {
             if (auto* const element542 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element542) element542->visible = 1;
             if (auto* const element543 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element543) element543->x = 23;
@@ -669,7 +669,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
+    const std::int32_t editable = WindowGuildDetails_ReadRankPermissions(*callbackWindow.ownerSession);
     if (editable == 0) {
         return editable;
     }
@@ -821,29 +821,29 @@ static std::int32_t WindowGuildDetails_ButtonClose(WindowInstance& callbackWindo
 }
 
 // 原函数：0x004AF960。
-static std::uint32_t WindowGuildDetails_RefreshDraft()
+static std::uint32_t WindowGuildDetails_RefreshDraft(session::ClientSession& session)
 {
-    if (WindowGuildDetails_ReadRankPermissions() == 0) {
+    if (WindowGuildDetails_ReadRankPermissions(session) == 0) {
         return 0;
     }
     for (std::int32_t index = 0; index < 32; ++index) {
-        const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(index);
-        const wchar_t* const text = cg::world::GetGuildRankText(index);
+        const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(session, index);
+        const wchar_t* const text = cg::world::GetGuildRankText(session, index);
         gGuildDraftCF4018.ranks[index].flags = flags;
         gGuildDraftCF4018.ranks[index].text = text;
     }
-    gGuildDraftCF4018.name604 = cg::world::GetGuildName();
-    const wchar_t* const text = cg::world::GetGuildSecondText();
+    gGuildDraftCF4018.name604 = cg::world::GetGuildName(session);
+    const wchar_t* const text = cg::world::GetGuildSecondText(session);
     const auto length = static_cast<std::uint32_t>(cg::text::ToGbk(text).size() + 1);
     gGuildDraftCF4018.secondText634 = text;
     return length;
 }
 
 // 原函数：0x004AFE20。
-static std::int32_t WindowGuildDetails_HasChangedRank(const std::int32_t index)
+static std::int32_t WindowGuildDetails_HasChangedRank(session::ClientSession& session, const std::int32_t index)
 {
-    std::int32_t changes = gGuildDraftCF4018.ranks[index].text.compare(cg::world::GetGuildRankText(index)) != 0 ? 1 : 0;
-    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(index);
+    std::int32_t changes = gGuildDraftCF4018.ranks[index].text.compare(cg::world::GetGuildRankText(session, index)) != 0 ? 1 : 0;
+    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(session, index);
     if ((flags & 0x80) == 0 && gGuildDraftCF4018.ranks[index].flags != flags) {
         ++changes;
     }
@@ -851,11 +851,11 @@ static std::int32_t WindowGuildDetails_HasChangedRank(const std::int32_t index)
 }
 
 // 原函数：0x004AFEA0。
-static std::int32_t WindowGuildDetails_HasChangedRanks()
+static std::int32_t WindowGuildDetails_HasChangedRanks(session::ClientSession& session)
 {
     std::int32_t changes = 0;
     for (std::int32_t index = 0; index < 32; ++index) {
-        if (WindowGuildDetails_HasChangedRank(index) != 0) {
+        if (WindowGuildDetails_HasChangedRank(session, index) != 0) {
             ++changes;
         }
     }
@@ -865,7 +865,7 @@ static std::int32_t WindowGuildDetails_HasChangedRanks()
 // 原函数：0x004AFB10。
 static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& session)
 {
-    std::int32_t result = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName());
+    std::int32_t result = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName(session));
     if (result == 0) {
         return result;
     }
@@ -886,7 +886,7 @@ static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& sessio
 // 原函数：0x004AFC00。
 static std::int32_t WindowGuildDetails_SubmitDescription(session::ClientSession& session)
 {
-    std::int32_t result = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText());
+    std::int32_t result = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText(session));
     if (result == 0) {
         return result;
     }
@@ -909,7 +909,7 @@ static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& sessi
 {
     for (std::int32_t index = 0; index < 32; ++index) {
         const wchar_t* const text = gGuildDraftCF4018.ranks[index].text.data();
-        if (WindowGuildDetails_HasChangedRank(index) != 0) {
+        if (WindowGuildDetails_HasChangedRank(session, index) != 0) {
             const std::int32_t valid = input::IsValidDelimitedFieldText_476740(text);
             if (valid == 0) {
                 return valid;
@@ -922,8 +922,8 @@ static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& sessi
     }
     for (std::int32_t index = 0; index < 32; ++index) {
         const wchar_t* const draft = gGuildDraftCF4018.ranks[index].text.data();
-        if (std::wstring_view(cg::world::GetGuildRankText(index)).compare(draft) != 0
-            || cg::world::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
+        if (std::wstring_view(cg::world::GetGuildRankText(session, index)).compare(draft) != 0
+            || cg::world::ReadGuildRankFlags1051514(session, index) != gGuildDraftCF4018.ranks[index].flags) {
             const std::wstring escapedText = input::EscapeTextAndNotify(draft, 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
             const auto networkSession = session.Connection().CaptureSession();
@@ -935,29 +935,29 @@ static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& sessi
 }
 
 // 原函数：0x004A3950。
-std::int32_t WindowGuildDetails_ReadRankPermissions()
+std::int32_t WindowGuildDetails_ReadRankPermissions(session::ClientSession& session)
 {
-    return WindowGuildDetails_CanEdit(0x80);
+    return WindowGuildDetails_CanEdit(session, 0x80);
 }
 
 // 原函数：0x004A3960。
-std::int32_t WindowGuildDetails_CanEdit(const std::int32_t mask)
+std::int32_t WindowGuildDetails_CanEdit(session::ClientSession& session, const std::int32_t mask)
 {
-    const std::int32_t index = cg::world::ReadGuildTextIndex10514B0();
+    const std::int32_t index = cg::world::ReadGuildTextIndex10514B0(session);
     if (index == -1) {
         return 0;
     }
-    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(index);
+    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(session, index);
     return (flags & mask) != 0 ? 1 : 0;
 }
 
 // 原函数：0x004A3990。
-std::int32_t WindowGuildDetails_CanEditRank(const std::int32_t index, const std::int32_t mask)
+std::int32_t WindowGuildDetails_CanEditRank(session::ClientSession& session, const std::int32_t index, const std::int32_t mask)
 {
-    if (cg::world::ReadGuildTextIndex10514B0() == -1) {
+    if (cg::world::ReadGuildTextIndex10514B0(session) == -1) {
         return 0;
     }
-    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(index);
+    const std::int32_t flags = cg::world::ReadGuildRankFlags1051514(session, index);
     return (flags & mask) != 0 ? 1 : 0;
 }
 

@@ -169,7 +169,7 @@ void WindowMail_WriteGuildStatus(session::ClientSession& session, WindowTextData
     auto& business = session.UiFrame().native.business;
     if (status == 0) {
         data->text = L"离线" /* 原常量参考：0x0058743C。 */;
-        const std::int32_t currentStatus = cg::world::ReadGuildStatus10514AC();
+        const std::int32_t currentStatus = cg::world::ReadGuildStatus10514AC(session);
         data->style.color = static_cast<std::byte>(
             business.mailGuildColorsD6784C[currentStatus]);
     } else {
@@ -245,7 +245,7 @@ std::int32_t WindowMail_DeleteGuildMember(WindowInstance& callbackWindow, const 
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = business.mailDeleteIndexD2DA8C;
     const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
-    const std::int32_t key = cg::world::gOrderedRecords1051B14[index].value0C;
+    const std::int32_t key = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[index].value0C;
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestGuildMemberDeletion(key));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));

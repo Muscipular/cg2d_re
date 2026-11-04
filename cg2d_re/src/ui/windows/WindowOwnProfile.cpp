@@ -256,12 +256,12 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
     }
 
     WindowInstance* const guildWindow = currentWindow;
-    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
+    const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0(*callbackWindow->ownerSession);
     auto* const element5 = guildWindow->FindElementById(WindowOwnProfileElementId::Element5);
     if (element5) {
         auto* const guildData = element5->data.text;
         const wchar_t* const guild = guildIndex == -1
-            ? L"" : cg::world::GetGuildName();
+            ? L"" : cg::world::GetGuildName(*callbackWindow->ownerSession);
         guildData->text = guild;
     }
 

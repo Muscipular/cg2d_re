@@ -304,7 +304,7 @@ static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row));
         if (dataElement) {
             auto* const data = dataElement->data.text;
-            const wchar_t* const rank = cg::world::GetGuildRankText(scroll + row + 1);
+            const wchar_t* const rank = cg::world::GetGuildRankText(*callbackWindow->ownerSession, scroll + row + 1);
             data->text = rank;
         }
     }
@@ -312,7 +312,7 @@ static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
     auto* const element11 = currentWindow->FindElementById(WindowGuildRankElementId::Element11);
     if (element11) {
         auto* const data = element11->data.text;
-        const wchar_t* const name = cg::world::gOrderedRecords1051B14[member].name18.c_str();
+        const wchar_t* const name = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[member].name18.c_str();
         const std::uint32_t length = static_cast<std::uint32_t>(cg::text::ToGbk(name).size() + 1);
         data->text = name;
         return length;

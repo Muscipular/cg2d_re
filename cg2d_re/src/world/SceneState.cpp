@@ -10548,8 +10548,8 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
-    const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0();
-    if ((cg::world::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
+    const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0(session);
+    if ((cg::world::ReadGuildRankFlagsByte1051514(session, rank) & 1u) == 0) {
         AppendChatMessage_44B050(session, LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;

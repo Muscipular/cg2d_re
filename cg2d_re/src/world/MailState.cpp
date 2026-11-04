@@ -533,7 +533,7 @@ std::int32_t UpdateUnreadMailPageHint_518DA0(session::ClientSession& session)
         }
     }
     for (std::int32_t position = 0; position < 200; ++position) {
-        const auto& record = cg::world::gOrderedRecords1051B14[position];
+        const auto& record = session.WorldScene().guild.orderedRecords[position];
         if (record.value08 == 0) {
             continue;
         }
@@ -597,7 +597,7 @@ void FindFirstUnreadMailContact_518F00(session::ClientSession& session, std::int
         }
     }
     for (std::int32_t position = 0; position < 200; ++position) {
-        const auto& member = cg::world::gOrderedRecords1051B14[position];
+        const auto& member = session.WorldScene().guild.orderedRecords[position];
         if (member.value08 == 0) {
             continue;
         }
@@ -619,7 +619,7 @@ void FindFirstUnreadMailContact_518F00(session::ClientSession& session, std::int
                 const GuildMailEntry* const keyEntry = session.WorldScene().mail.data->guildMessages.data()
                     + selectedForKey * 200 + static_cast<std::ptrdiff_t>(slot);
                 const std::int32_t key = keyEntry->key;
-                *index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
+                *index = cg::world::FindActiveOrderedRecordIndex_5195C0(session, key);
                 return;
             }
         }
@@ -665,7 +665,7 @@ std::int32_t HasUnreadContactMail_519090(session::ClientSession& session, const 
 // 原函数：0x005190F0。
 std::int32_t HasUnreadGuildMail_5190F0(session::ClientSession& session, const std::int32_t index)
 {
-    const auto& record = cg::world::gOrderedRecords1051B14[index];
+    const auto& record = session.WorldScene().guild.orderedRecords[index];
     const std::int32_t key = record.value0C;
     const std::int32_t slot = FindLastActiveGuildMailEntry_5195F0(session, key);
     if (slot == -1) {
@@ -1567,7 +1567,7 @@ std::uintptr_t PrependGuildMailMessage_519370(session::ClientSession& session,
     const std::int32_t key, const std::int32_t kind,
     const std::wstring_view name, const std::wstring_view text)
 {
-    if (cg::world::FindActiveOrderedRecordIndex_5195C0(key) == -1) {
+    if (cg::world::FindActiveOrderedRecordIndex_5195C0(session, key) == -1) {
         return 0xFFFFFFFFu;
     }
     const std::int32_t existingIndex = FindLastActiveGuildMailEntry_5195F0(session, key);
@@ -1612,15 +1612,15 @@ std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(session::ClientSession
     GuildMailEntry* entry = session.WorldScene().mail.data->guildMessages.data()
         + static_cast<std::ptrdiff_t>(selected) * 200;
     const std::uintptr_t keyEnd =
-        reinterpret_cast<std::uintptr_t>(cg::world::gOrderedRecords1051B14.data())
-        + sizeof(cg::world::gOrderedRecords1051B14)
+        reinterpret_cast<std::uintptr_t>(session.WorldScene().guild.orderedRecords.data())
+        + sizeof(session.WorldScene().guild.orderedRecords)
         + offsetof(cg::world::OrderedRecord1051B14, value0C);
     std::uintptr_t result = 0;
     for (std::int32_t index = 0; index < 200; ++index) {
         const std::int32_t key = entry->key;
         bool found = false;
         for (const cg::world::OrderedRecord1051B14& record :
-             cg::world::gOrderedRecords1051B14) {
+             session.WorldScene().guild.orderedRecords) {
             if (key == record.value0C) {
                 found = true;
             }

@@ -411,8 +411,8 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
         if (visible != 0) {
             WindowInstance* const window = currentWindow;
             const std::wstring name = mode == 0 ? callbackWindow->ownerSession->WorldScene().mail.data->contacts[source].name10
-                : mode == 1 ? cg::world::gOrderedRecords1051B14[source].name18
-                    : cg::world::GetGuildRankText(position);
+                : mode == 1 ? callbackWindow->ownerSession->WorldScene().guild.orderedRecords[source].name18
+                    : cg::world::GetGuildRankText(*callbackWindow->ownerSession, position);
             auto* const textElement = window->FindElementById(NativeElementKey(12 + row));
             if (textElement) {
                 auto* const text = textElement->data.text;
@@ -511,7 +511,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
                     if (mode == 2) {
                         business.mailGroupCC1A30.selected[row] = 1;
                     } else if (mode == 1) {
-                        if (cg::world::gOrderedRecords1051B14[source].value0A != 0) {
+                        if (callbackWindow.ownerSession->WorldScene().guild.orderedRecords[source].value0A != 0) {
                             business.mailGroupCC1A30.selected[row] = 1;
                         }
                     } else {
@@ -630,7 +630,7 @@ static void WindowGroupSelect_BuildRecipients(session::ClientSession& session, c
         WindowGroupSelect_SortRecipients(session, 1);
         for (std::int32_t index = 0; index < 200; ++index) {
             const std::int32_t source = business.mailGroupOrderCC2E6C[index];
-            if (cg::world::gOrderedRecords1051B14[source].value08 == 1) {
+            if (session.WorldScene().guild.orderedRecords[source].value08 == 1) {
                 business.mailGroupCC1A30.indices[index] = source;
                 ++business.mailGroupCC1A30.count;
             }
@@ -638,7 +638,7 @@ static void WindowGroupSelect_BuildRecipients(session::ClientSession& session, c
         break;
     case 2:
         for (std::int32_t index = 0; index < 32; ++index) {
-            if (cg::world::ReadGuildRankFlags1051514(index) != 0) {
+            if (cg::world::ReadGuildRankFlags1051514(session, index) != 0) {
                 business.mailGroupCC1A30.indices[index] = index;
                 ++business.mailGroupCC1A30.count;
             }
@@ -668,10 +668,10 @@ static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& 
     const std::int32_t leftIndex = *left;
     const bool leftUsed = category == 0
         ? session.WorldScene().mail.data->contacts[leftIndex].used != 0
-        : cg::world::gOrderedRecords1051B14[leftIndex].value08 != 0;
+        : session.WorldScene().guild.orderedRecords[leftIndex].value08 != 0;
     const bool rightUsed = category == 0
         ? session.WorldScene().mail.data->contacts[rightIndex].used != 0
-        : cg::world::gOrderedRecords1051B14[rightIndex].value08 != 0;
+        : session.WorldScene().guild.orderedRecords[rightIndex].value08 != 0;
     if (leftUsed != rightUsed) {
         return leftUsed ? -1 : 1;
     }
@@ -693,8 +693,8 @@ static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& 
         case 4: return WindowContacts_CompareContactNumber(current, other);
         }
     } else {
-        const auto* const other = &cg::world::gOrderedRecords1051B14[rightIndex];
-        const auto* const current = &cg::world::gOrderedRecords1051B14[leftIndex];
+        const auto* const other = &session.WorldScene().guild.orderedRecords[rightIndex];
+        const auto* const current = &session.WorldScene().guild.orderedRecords[leftIndex];
         switch (mode) {
         case 0: return WindowContacts_CompareGuildName(current, other);
         case 1: return WindowContacts_CompareGuildValue(current, other);

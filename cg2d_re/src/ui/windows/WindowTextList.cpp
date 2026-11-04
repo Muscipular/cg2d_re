@@ -327,7 +327,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
         if (auto* const element4 = currentWindow->FindElementById(WindowTextListElementId::Element4); element4) element4->visible = 1;
         if (auto* const element5 = currentWindow->FindElementById(WindowTextListElementId::Element5); element5) element5->visible = 0;
     }
-    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4(*callbackWindow.ownerSession)) & 4u) != 0) {
         if (auto* const submitSelectionElement = currentWindow->FindElementById(WindowTextListElementId::SubmitSelection); submitSelectionElement) submitSelectionElement->visible = 0;
         if (textList.selectedItem >= 0) {
             if (auto* const submitSelectionElement2 = currentWindow->FindElementById(WindowTextListElementId::SubmitSelection); submitSelectionElement2) submitSelectionElement2->visible = 1;
@@ -335,12 +335,12 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
     }
     if (auto* const editTitleElement = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement) editTitleElement->visible = 0;
     if (auto* const submitTitleElement = currentWindow->FindElementById(WindowTextListElementId::SubmitTitle); submitTitleElement) submitTitleElement->visible = 0;
-    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 0x80u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4(*callbackWindow.ownerSession)) & 0x80u) != 0) {
         if (auto* const editTitleElement2 = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement2) editTitleElement2->visible = 1;
         if (auto* const submitTitleElement2 = currentWindow->FindElementById(WindowTextListElementId::SubmitTitle); submitTitleElement2) submitTitleElement2->visible = 1;
     }
     if (auto* const submitSelectionElement = currentWindow->FindElementById(WindowTextListElementId::SubmitSelection); submitSelectionElement) submitSelectionElement->visible = 0;
-    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
+    if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4(*callbackWindow.ownerSession)) & 4u) != 0) {
         if (textList.selectedItem < 0) {
             return 1;
         }
@@ -754,7 +754,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
-            if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0
+            if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4(*callbackWindow.ownerSession)) & 4u) != 0
                 || callbackWindow.ownerSession->WorldScene().playerItems[source].itemType == 53) {
                 const unsigned char previous = occupancy[textList.selectedItem];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {

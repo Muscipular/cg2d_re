@@ -278,10 +278,10 @@ static void WindowMailRead_FindUnread(session::ClientSession& session)
     }
     case 1: {
         const std::int32_t member = session.WorldScene().mail.data->viewedContactId;
-        const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
-        static_cast<void>(cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey));
+        const std::int32_t memberKey = session.WorldScene().guild.orderedRecords[member].value0C;
+        static_cast<void>(cg::world::FindActiveOrderedRecordIndex_5195C0(session, memberKey));
         const std::int32_t mailMember = session.WorldScene().mail.data->viewedContactId;
-        const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = session.WorldScene().guild.orderedRecords[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(session, mailKey);
         if (slot == -1) {
             session.WorldScene().mail.data->viewedMessageIndex = 0;
@@ -324,10 +324,10 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
     std::int32_t mailSlot = 0;
     if (category == 1) {
         const std::int32_t member = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
-        const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
-        memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t memberKey = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[member].value0C;
+        memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(*callbackWindow->ownerSession, memberKey);
         const std::int32_t mailMember = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
-        const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[mailMember].value0C;
         mailSlot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(*callbackWindow->ownerSession, mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
@@ -388,7 +388,7 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
     }
     std::wstring name;
     if (category == 1) {
-        name = cg::world::gOrderedRecords1051B14[memberIndex].name18;
+        name = callbackWindow->ownerSession->WorldScene().guild.orderedRecords[memberIndex].name18;
     } else {
         const std::int32_t contact = callbackWindow->ownerSession->WorldScene().mail.data->viewedContactId;
         name = category == 0 ? callbackWindow->ownerSession->WorldScene().mail.data->contacts[contact].name10.data()
@@ -435,10 +435,10 @@ static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, 
     }
     case 1: {
         const std::int32_t member = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
-        const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
-        identity = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t memberKey = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[member].value0C;
+        identity = cg::world::FindActiveOrderedRecordIndex_5195C0(*callbackWindow.ownerSession, memberKey);
         const std::int32_t mailMember = callbackWindow.ownerSession->WorldScene().mail.data->viewedContactId;
-        const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t mailKey = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(*callbackWindow.ownerSession, mailKey);
         const std::int16_t selected = callbackWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
         const std::int32_t page = callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex;
@@ -472,7 +472,7 @@ static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, 
         if (category == 0) {
             source = callbackWindow.ownerSession->WorldScene().mail.data->contacts[identity].value0C;
         } else if (category == 1) {
-            source = cg::world::gOrderedRecords1051B14[identity].value14;
+            source = callbackWindow.ownerSession->WorldScene().guild.orderedRecords[identity].value14;
         } else {
             source = cg::world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, identity).value0C;
         }

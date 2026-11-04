@@ -391,17 +391,17 @@ std::int32_t HandleGuildMemberRemovalReply_50F130(cg::network::CgConnection& con
     if (gate != 0) {
         return std::bit_cast<std::int32_t>(gate);
     }
-    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    if (index >= 0 && static_cast<std::size_t>(index) < cg::world::gOrderedRecords1051B14.size()) {
-        auto& record = cg::world::gOrderedRecords1051B14[index];
+    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(connection.Owner(), key);
+    if (index >= 0 && static_cast<std::size_t>(index) < connection.Owner().WorldScene().guild.orderedRecords.size()) {
+        auto& record = connection.Owner().WorldScene().guild.orderedRecords[index];
         record.value00 = -1;
         record.value08 = 0;
         record.name18.clear();
         record.title29.clear();
         record.value0C = -1;
     }
-    cg::world::gOrderedRecordCount1051510 =
-        cg::world::CountRecordsValue08EqualOne_50EF50();
+    connection.Owner().WorldScene().guild.orderedRecordCount =
+        cg::world::CountRecordsValue08EqualOne_50EF50(connection.Owner());
     return world::detail::DeleteGuildMailEntry_5194F0(connection.Owner(), key);
 }
 
@@ -417,11 +417,11 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const st
     static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));
     const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
+    const std::int32_t index = cg::world::FindActiveOrderedRecordIndex_5195C0(connection.Owner(), key);
     static_cast<void>(world::detail::PrependGuildMailMessage_519370(connection.Owner(),
         key, 0, cg::text::FromGbkWide(name), cg::text::FromGbkWide(text)));
-    const wchar_t* const recordName = index >= 0 && static_cast<std::size_t>(index) < cg::world::gOrderedRecords1051B14.size()
-        ? cg::world::gOrderedRecords1051B14[index].name18.c_str() : L"";
+    const wchar_t* const recordName = index >= 0 && static_cast<std::size_t>(index) < connection.Owner().WorldScene().guild.orderedRecords.size()
+        ? connection.Owner().WorldScene().guild.orderedRecords[index].name18.c_str() : L"";
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, recordName);
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(connection.Owner()));
     static_cast<void>(audio::PlaySe_52C450(63, 320));

@@ -326,7 +326,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A5E70 = 0;
         connection.Owner().WorldScene().sceneState = 4;
         intro.phase9A5550 = 16;
-        static_cast<void>(cg::audio::LoadAndPlayBGM(33));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(connection.Owner(), 33));
         return DispatchCapability3FromCurrentState(connection);
     }
 
@@ -380,7 +380,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.leftAction9A50C0 = nullptr;
         login::InitializeCapabilityInput_45F970(connection);
         connection.Owner().WorldScene().sceneState = 6;
-        static_cast<void>(cg::audio::LoadAndPlayBGM(33));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(connection.Owner(), 33));
         return DispatchCapability3FromCurrentState(connection);
     }
 

@@ -339,7 +339,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         session.WorldScene().transitionResetPending = 1;
         request.serverHighlight = 0;
         static_cast<void>(render::SelectPalette(27, 0));
-        cg::audio::LoadAndPlayBGM(17);
+        cg::audio::LoadAndPlayBGM(session, 17);
     }
 
     if (session.WorldScene().sceneState == 1) {

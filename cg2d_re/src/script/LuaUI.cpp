@@ -2547,7 +2547,7 @@ LuaFunction(WinMgr_loadAndPlayBGM) {
     if (bgmNo < 0 || bgmNo >= 512) {
         return luaL_argerror(L, 1, "bgmNo must be in range 0..511");
     }
-    const int result = audio::LoadMappedBgm(bgmNo);
+    const int result = audio::LoadMappedBgm(GetLuaConnection(L).Owner(), bgmNo);
     lua_pushinteger(L, result);
     return 1;
 }

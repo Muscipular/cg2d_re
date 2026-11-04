@@ -279,7 +279,7 @@ void ResetBgmPlayback_52B940(session::ClientSession& session)
 // 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
 void ShutdownAudio_52B630()
 {
-    ShutdownFileBgm();
+    ShutdownAllFileBgm();
     if (gAudioDisabled_10507D4 != 0) {
         return;
     }
@@ -464,13 +464,13 @@ std::int32_t LoadBgmConfig_524060()
     return 1;
 }
 
-std::int32_t LoadMappedBgm(const std::int32_t index)
+std::int32_t LoadMappedBgm(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index >= static_cast<std::int32_t>(gBgmMapping103DFAC.size())) {
         return -1;
     }
     const auto target = gBgmMapping103DFAC[static_cast<std::size_t>(index)];
-    return target >= 0 && target < 128 ? LoadAndPlayBGM(target) : -1;
+    return target >= 0 && target < 128 ? LoadAndPlayBGM(session, target) : -1;
 }
 
 // 原函数：0x0052C9C0。
@@ -523,7 +523,7 @@ std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session)
     case 3: {
         const std::int32_t target = session.Audio().bgmTarget;
         const std::int32_t result = LoadAndPlayBGM(
-            std::bit_cast<std::uint32_t>(target));
+            session, std::bit_cast<std::uint32_t>(target));
         session.Audio().bgmStage = 0;
         return result;
     }
@@ -981,7 +981,7 @@ std::uint32_t BeginBgmFadeOut_52B990() noexcept
 }
 
 // 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
-std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
+std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t bgmId)
 {
     if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gBgmFadeOutActive_105080C == 0) {
         return 1;
@@ -994,7 +994,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         audio::StopAndReleaseStreamingBgm_52B8E0();
     }
     if (bgmId == 0xFFFFFFFEu) {
-        OnSceneBgmPlayback();
+        OnSceneBgmPlayback(session);
         gRecordIndex = -2;
         return -1;
     }
@@ -1002,7 +1002,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         return -1;
     }
 
-    OnSceneBgmPlayback();
+    OnSceneBgmPlayback(session);
     const LegacyAudioRecord& record =
         gRecords[static_cast<std::size_t>(bgmId)];
     std::uint32_t dataLength = 0;

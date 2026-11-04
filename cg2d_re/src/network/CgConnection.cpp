@@ -26,6 +26,7 @@
 #include "cg/scene/login/CharacterListRequest.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/audio/FileBgm.hpp"
 #include "cg/world/GuildState.hpp"
 #include "cg/scene/login/LoginConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
@@ -1392,6 +1393,7 @@ bool ClientHost::SelectSession(const std::uint64_t id) noexcept
         if (it == current_) return true;
         if (!platform::AssociateSessionIme(it->session)) return false;
         current_ = it;
+        audio::SelectFileBgmOutput();
         return true;
     }
     return false;

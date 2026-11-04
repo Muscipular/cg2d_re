@@ -60,15 +60,16 @@ struct AudioRuntimeState final {
     std::int32_t bgmTarget = 0; // 原1050818；切曲与角色保存共用目标。
     std::int32_t bgmRequest = 0; // 原1050810；地图生产、音频帧消费。
     std::int32_t bgmStage = 0; // 原1050814；请求处理阶段，清理入口也写入。
+    std::uint64_t foregroundFileBgm = 0; // 所属会话的replace/takeover实际播放编号；0为无。
 
     static_assert(sizeof(spatialSources) == 0x3E8);
     static_assert(sizeof(soundRequests) == 0x708);
 };
 
 // 原52BE60：普通BGM加载与播放；音频模块持有实际播放状态。
-std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
+std::int32_t LoadAndPlayBGM(session::ClientSession& session, std::uint32_t bgmId);
 // L04：按现有512项BGM映射播放，不修改场景的切曲请求状态。
-std::int32_t LoadMappedBgm(std::int32_t index);
+std::int32_t LoadMappedBgm(session::ClientSession& session, std::int32_t index);
 // 原454C30、454EE0：固定音乐初始化与关闭，由平台生命周期调用。
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 std::int32_t ShutdownFixedMusic_454EE0();

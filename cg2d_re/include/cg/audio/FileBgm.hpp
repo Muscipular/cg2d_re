@@ -4,6 +4,8 @@
 #include <string>
 #include <string_view>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::audio {
 
 // LBG01：replace/takeover共享前台，independent各自并行；详见文件BGM SPEC。
@@ -19,13 +21,15 @@ struct FileBgmResult {
 };
 
 // 只接受luaUI/audio根内相对路径；均在主线程调用。
-[[nodiscard]] FileBgmResult PlayFileBgm(std::wstring_view path, FileBgmMode mode,
+[[nodiscard]] FileBgmResult PlayFileBgm(session::ClientSession& session, std::wstring_view path, FileBgmMode mode,
     bool loop, FileBgmOwner owner);
-void StopFileBgm(FileBgmHandle handle) noexcept;
-[[nodiscard]] FileBgmState GetFileBgmState(FileBgmHandle handle) noexcept;
-void ForgetFileBgm(FileBgmHandle handle) noexcept; // Lua GC：停止并移除轻量状态。
-void UpdateFileBgm() noexcept; // 主线程轮询结束并同步音乐开关/音量。
-void OnSceneBgmPlayback() noexcept; // 旧入口通过门禁后的实际切曲/停止。
-void ShutdownFileBgm() noexcept; // Lua关闭和旧音频关闭均可幂等调用。
+void StopFileBgm(session::ClientSession& session, FileBgmHandle handle) noexcept;
+[[nodiscard]] FileBgmState GetFileBgmState(session::ClientSession& session, FileBgmHandle handle) noexcept;
+void ForgetFileBgm(session::ClientSession& session, FileBgmHandle handle) noexcept; // Lua GC：只清所属身份。
+void UpdateFileBgm() noexcept; // 进程音频帧轮询实际track，后台增益保持零。
+void SelectFileBgmOutput() noexcept; // 宿主发布当前项后，先静音后台再恢复当前输出。
+void OnSceneBgmPlayback(session::ClientSession& session) noexcept;
+void ShutdownFileBgm(session::ClientSession& session) noexcept; // Lua关闭只释放所属记录。
+void ShutdownAllFileBgm() noexcept; // 进程音频退出时统一关闭设备。
 
 } // namespace cg::audio

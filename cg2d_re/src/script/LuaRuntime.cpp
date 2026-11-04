@@ -66,7 +66,7 @@ void ShutdownLua(session::ClientSession& session)
 {
     auto& runtime = session.Lua();
     runtime.shuttingDown = true;
-    audio::ShutdownFileBgm();
+    audio::ShutdownFileBgm(session);
     yobi::ShutdownBattleEffects(session);
     stopCopilot(session);
     ShutdownAutoBattle(session);

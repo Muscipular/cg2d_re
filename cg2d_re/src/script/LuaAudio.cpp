@@ -13,7 +13,7 @@ struct LuaBgmHandle { audio::FileBgmHandle id = 0; };
 static int BgmStop(lua_State* L)
 {
     const auto* handle = static_cast<LuaBgmHandle*>(luaL_checkudata(L, 1, kBgmHandleMetatable));
-    audio::StopFileBgm(handle->id);
+    audio::StopFileBgm(GetLuaConnection(L).Owner(), handle->id);
     lua_pushboolean(L, true);
     return 1;
 }
@@ -22,7 +22,7 @@ static int BgmGetState(lua_State* L)
 {
     const auto* handle = static_cast<LuaBgmHandle*>(luaL_checkudata(L, 1, kBgmHandleMetatable));
     const char* state = "stopped";
-    switch (audio::GetFileBgmState(handle->id)) {
+    switch (audio::GetFileBgmState(GetLuaConnection(L).Owner(), handle->id)) {
     case audio::FileBgmState::Playing: state = "playing"; break;
     case audio::FileBgmState::Stopped: state = "stopped"; break;
     case audio::FileBgmState::Finished: state = "finished"; break;
@@ -36,7 +36,7 @@ static int BgmGetState(lua_State* L)
 static int BgmGc(lua_State* L)
 {
     auto* handle = static_cast<LuaBgmHandle*>(luaL_checkudata(L, 1, kBgmHandleMetatable));
-    audio::ForgetFileBgm(handle->id);
+    audio::ForgetFileBgm(GetLuaConnection(L).Owner(), handle->id);
     handle->id = 0;
     return 0;
 }
@@ -69,7 +69,7 @@ static int PlayBgmFile(lua_State* L)
     lua_setmetatable(L, -2);
     audio::FileBgmResult result;
     try {
-        result = audio::PlayFileBgm(text::FromGbkWide(std::string_view(path, length)), mode, loop,
+        result = audio::PlayFileBgm(GetLuaConnection(L).Owner(), text::FromGbkWide(std::string_view(path, length)), mode, loop,
             L == GetLuaState(GetLuaConnection(L).Owner()) ? audio::FileBgmOwner::Ui : audio::FileBgmOwner::Battle);
     } catch (const std::exception&) {
         result.error = "Cannot prepare BGM file (path conversion or allocation failed)";

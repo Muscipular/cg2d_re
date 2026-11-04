@@ -58,7 +58,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         sceneUi.capability4IntroAlpha = 0;
         sceneUi.capability4IntroPhase = 0;
         connection.Owner().WorldScene().sceneState = 1;
-        return cg::audio::LoadAndPlayBGM(42);
+        return cg::audio::LoadAndPlayBGM(connection.Owner(), 42);
 
     case 1: {
         const std::int32_t frameCounter = sceneUi.capability4FrameCounter;

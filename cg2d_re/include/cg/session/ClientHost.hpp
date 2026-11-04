@@ -76,7 +76,7 @@ public:
         return sessions_.back();
     }
 
-    // 取消切出会话的未提交IME输入，目标原生关联成功后才发布当前身份。
+    // 取消切出会话IME，原生关联成功后发布身份并同步文件音乐输出。
     [[nodiscard]] bool SelectSession(std::uint64_t id) noexcept;
 
     // 仅移除已保存、断线且完成会话资源清理的对象；当前项优先切向下一项。

@@ -2,6 +2,7 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/FileBgmBackend.hpp"
 #include "cg/core/m_log.hpp"
+#include "cg/session/ClientHost.hpp"
 
 #include <cwchar>
 #include <filesystem>
@@ -11,6 +12,7 @@
 namespace cg::audio {
 
 struct FileBgmRecord {
+    session::ClientSession* session; // 实际track的稳定owner；移除会话前须释放。
     FileBgmMode mode;
     FileBgmOwner owner;
     FileBgmState state {FileBgmState::Playing};
@@ -20,7 +22,6 @@ struct FileBgmRecord {
 static platform::FileBgmBackend gFileBgmBackend;
 static std::map<FileBgmHandle, FileBgmRecord> gFileBgms;
 static FileBgmHandle gNextFileBgmHandle = 1;
-static FileBgmHandle gForegroundFileBgm = 0;
 static bool gSceneBgmRestorePending = false; // 输出设置失败时由后续主线程更新重试。
 
 static void RestoreSceneBgm() noexcept
@@ -30,15 +31,31 @@ static void RestoreSceneBgm() noexcept
 }
 
 // 仅当前前台身份释放场景抑制；旧handle的Stop/GC不会解除后来者。
-static void EndPlayback(const FileBgmHandle handle, const FileBgmState state) noexcept
+static void EndPlayback(session::ClientSession& session, const FileBgmHandle handle,
+    const FileBgmState state) noexcept
 {
     const auto it = gFileBgms.find(handle);
-    if (it == gFileBgms.end() || it->second.state != FileBgmState::Playing) return;
+    if (it == gFileBgms.end() || it->second.session != &session
+        || it->second.state != FileBgmState::Playing) return;
     gFileBgmBackend.Release(handle);
     it->second.state = state;
-    if (gForegroundFileBgm == handle) {
-        gForegroundFileBgm = 0;
-        RestoreSceneBgm();
+    if (session.Audio().foregroundFileBgm == handle) {
+        session.Audio().foregroundFileBgm = 0;
+        if (cg::session::GetClientHost().CurrentSession() == &session) RestoreSceneBgm();
+    }
+}
+
+// 先处理所有切出track，避免恢复新会话增益时仍混入旧会话。
+static void MuteBackgroundFileBgms() noexcept
+{
+    const auto* const current = cg::session::GetClientHost().CurrentSession();
+    for (auto& [id, record] : gFileBgms) {
+        if (record.state != FileBgmState::Playing || record.session == current || record.gain == 0.0f)
+            continue;
+        if (!gFileBgmBackend.SetGain(id, 0.0f)) {
+            m_log_iw(L"[Lua BGM] 后台静音失败，停止对应文件音乐\n");
+            EndPlayback(*record.session, id, FileBgmState::Stopped);
+        } else record.gain = 0.0f;
     }
 }
 
@@ -72,7 +89,7 @@ static bool ResolveAudioPath(const std::wstring_view path, std::filesystem::path
     return true;
 }
 
-FileBgmResult PlayFileBgm(const std::wstring_view path, const FileBgmMode mode,
+FileBgmResult PlayFileBgm(session::ClientSession& session, const std::wstring_view path, const FileBgmMode mode,
     const bool loop, const FileBgmOwner owner)
 {
     FileBgmResult result;
@@ -84,9 +101,10 @@ FileBgmResult PlayFileBgm(const std::wstring_view path, const FileBgmMode mode,
         return result;
     }
     const auto id = gNextFileBgmHandle++;
-    const auto gain = GetFileBgmGain();
+    const bool audible = cg::session::GetClientHost().CurrentSession() == &session;
+    const auto gain = audible ? GetFileBgmGain() : 0.0f;
     try {
-        gFileBgms.emplace(id, FileBgmRecord {mode, owner, FileBgmState::Playing, gain});
+        gFileBgms.emplace(id, FileBgmRecord {&session, mode, owner, FileBgmState::Playing, gain});
         if (!gFileBgmBackend.Start(id, resolved.c_str(), loop, result.error)) {
             gFileBgmBackend.Release(id);
             gFileBgms.erase(id);
@@ -98,8 +116,8 @@ FileBgmResult PlayFileBgm(const std::wstring_view path, const FileBgmMode mode,
         throw;
     }
     const bool foreground = mode != FileBgmMode::Independent;
-    const auto previous = gForegroundFileBgm;
-    if (foreground && !SetSceneBgmSuppressed(true)) {
+    const auto previous = session.Audio().foregroundFileBgm;
+    if (foreground && audible && !SetSceneBgmSuppressed(true)) {
         gFileBgmBackend.Release(id);
         gFileBgms.erase(id);
         result.error = "Cannot suppress scene BGM";
@@ -108,68 +126,109 @@ FileBgmResult PlayFileBgm(const std::wstring_view path, const FileBgmMode mode,
     if (!gFileBgmBackend.SetGain(id, gain)) {
         gFileBgmBackend.Release(id);
         gFileBgms.erase(id);
-        if (foreground && !previous) RestoreSceneBgm();
+        if (foreground && audible && !previous) RestoreSceneBgm();
         result.error = "Cannot set file BGM gain";
         return result;
     }
     if (foreground) {
         // 先发布新owner再销毁旧track，旧身份不能解除当前抑制。
-        gForegroundFileBgm = id;
-        gSceneBgmRestorePending = false;
-        EndPlayback(previous, FileBgmState::Replaced);
+        session.Audio().foregroundFileBgm = id;
+        if (audible) gSceneBgmRestorePending = false;
+        EndPlayback(session, previous, FileBgmState::Replaced);
     }
     result.handle = id;
     return result;
 }
 
-void StopFileBgm(const FileBgmHandle handle) noexcept { EndPlayback(handle, FileBgmState::Stopped); }
+void StopFileBgm(session::ClientSession& session, const FileBgmHandle handle) noexcept
+{
+    EndPlayback(session, handle, FileBgmState::Stopped);
+}
 
-FileBgmState GetFileBgmState(const FileBgmHandle handle) noexcept
+FileBgmState GetFileBgmState(session::ClientSession& session, const FileBgmHandle handle) noexcept
 {
     UpdateFileBgm();
     const auto it = gFileBgms.find(handle);
-    return it != gFileBgms.end() ? it->second.state : FileBgmState::Stopped;
+    return it != gFileBgms.end() && it->second.session == &session
+        ? it->second.state : FileBgmState::Stopped;
 }
 
-void ForgetFileBgm(const FileBgmHandle handle) noexcept
+void ForgetFileBgm(session::ClientSession& session, const FileBgmHandle handle) noexcept
 {
-    StopFileBgm(handle);
-    gFileBgms.erase(handle);
+    StopFileBgm(session, handle);
+    const auto it = gFileBgms.find(handle);
+    if (it != gFileBgms.end() && it->second.session == &session) gFileBgms.erase(it);
 }
 
 void UpdateFileBgm() noexcept
 {
-    if (gSceneBgmRestorePending && !gForegroundFileBgm)
+    MuteBackgroundFileBgms();
+    auto* const current = cg::session::GetClientHost().CurrentSession();
+    if (gSceneBgmRestorePending && (current == nullptr || current->Audio().foregroundFileBgm == 0))
         gSceneBgmRestorePending = !SetSceneBgmSuppressed(false);
     const auto gain = GetFileBgmGain();
     const bool available = IsFileBgmAudioAvailable() && gFileBgmBackend.IsAvailable();
     for (auto& [id, record] : gFileBgms) {
         if (record.state != FileBgmState::Playing) continue;
-        if (!available) { EndPlayback(id, FileBgmState::Stopped); continue; }
-        if (!gFileBgmBackend.IsPlaying(id)) { EndPlayback(id, FileBgmState::Finished); continue; }
-        if (record.gain != gain) {
-            if (!gFileBgmBackend.SetGain(id, gain)) {
+        if (!available) { EndPlayback(*record.session, id, FileBgmState::Stopped); continue; }
+        if (!gFileBgmBackend.IsPlaying(id)) { EndPlayback(*record.session, id, FileBgmState::Finished); continue; }
+        const auto targetGain = record.session == current ? gain : 0.0f;
+        if (record.gain != targetGain) {
+            if (!gFileBgmBackend.SetGain(id, targetGain)) {
                 m_log_iw(L"[Lua BGM] 音量同步失败，停止对应文件音乐\n");
-                EndPlayback(id, FileBgmState::Stopped);
-            } else record.gain = gain;
+                EndPlayback(*record.session, id, FileBgmState::Stopped);
+            } else record.gain = targetGain;
         }
     }
     if (!available) gFileBgmBackend.Close();
 }
 
-void OnSceneBgmPlayback() noexcept
+void SelectFileBgmOutput() noexcept
 {
-    const auto it = gFileBgms.find(gForegroundFileBgm);
-    if (it != gFileBgms.end() && it->second.mode == FileBgmMode::Replace)
-        EndPlayback(it->first, FileBgmState::Replaced);
+    MuteBackgroundFileBgms();
+    auto* const current = cg::session::GetClientHost().CurrentSession();
+    const FileBgmHandle foreground = current != nullptr ? current->Audio().foregroundFileBgm : 0;
+    if (foreground != 0) {
+        if (!SetSceneBgmSuppressed(true)) {
+            m_log_iw(L"[Lua BGM] 切换时无法抑制场景音乐，停止对应文件音乐\n");
+            EndPlayback(*current, foreground, FileBgmState::Stopped);
+        } else gSceneBgmRestorePending = false;
+    } else RestoreSceneBgm();
+    UpdateFileBgm();
 }
 
-void ShutdownFileBgm() noexcept
+void OnSceneBgmPlayback(session::ClientSession& session) noexcept
+{
+    const auto it = gFileBgms.find(session.Audio().foregroundFileBgm);
+    if (it != gFileBgms.end() && it->second.mode == FileBgmMode::Replace)
+        EndPlayback(session, it->first, FileBgmState::Replaced);
+}
+
+void ShutdownFileBgm(session::ClientSession& session) noexcept
+{
+    for (auto it = gFileBgms.begin(); it != gFileBgms.end();) {
+        if (it->second.session != &session) { ++it; continue; }
+        gFileBgmBackend.Release(it->first);
+        it = gFileBgms.erase(it);
+    }
+    if (cg::session::GetClientHost().CurrentSession() == &session
+        && (session.Audio().foregroundFileBgm || gSceneBgmRestorePending)) RestoreSceneBgm();
+    session.Audio().foregroundFileBgm = 0;
+    if (gFileBgms.empty()) gFileBgmBackend.Close();
+}
+
+void ShutdownAllFileBgm() noexcept
 {
     gFileBgmBackend.Close();
+    bool hadForeground = false;
+    for (auto& [id, record] : gFileBgms) {
+        if (record.session->Audio().foregroundFileBgm == id) {
+            record.session->Audio().foregroundFileBgm = 0;
+            hadForeground = true;
+        }
+    }
     gFileBgms.clear();
-    if (gForegroundFileBgm || gSceneBgmRestorePending) RestoreSceneBgm();
-    gForegroundFileBgm = 0;
+    if (hadForeground || gSceneBgmRestorePending) RestoreSceneBgm();
     // 不重置身份代次；再次创建Lua状态也不会复用旧handle。
 }
 

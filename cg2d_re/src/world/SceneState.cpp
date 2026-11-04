@@ -3126,12 +3126,12 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
             static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(session.Audio().bgmTarget)));
             worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
             worldScene.mapBgmChangePending = 0;
             session.Audio().bgmRequest = 1;
         } else {
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(session.Audio().bgmTarget)));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;
@@ -3244,7 +3244,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
                 static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
                 static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-                static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(session.Audio().bgmTarget)));
                 worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
                 worldScene.mapBgmChangePending = 0;
                 session.Audio().bgmRequest = 1;
@@ -3274,7 +3274,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ApplyPendingMapPaletteReply_51D6F0(session);
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0(session);
         session.Audio().bgmTarget = bgm;
-        static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(bgm)));
         worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
         session.WorldScene().sceneState = 251;
         [[fallthrough]];
@@ -3333,7 +3333,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
             static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(session.Audio().bgmTarget)));
             worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
             worldScene.mapBgmChangePending = 0;
             session.Audio().bgmRequest = 1;
@@ -3375,14 +3375,14 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
                     static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
                     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+                    static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(session.Audio().bgmTarget)));
                     worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
                     worldScene.mapBgmChangePending = 0;
                     worldScene.pendingMapBgmIndex = 0xFFFFFFFFu;
                 } else {
                     const std::int32_t bgm = worldScene.worldBgmResumeIndex;
                     session.Audio().bgmTarget = bgm;
-                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+                    static_cast<void>(cg::audio::LoadAndPlayBGM(session, static_cast<std::uint32_t>(bgm)));
                 }
                 session.Audio().bgmRequest = 1;
             }
@@ -3670,17 +3670,17 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             switch (battleScene.battleType) {
             case 1:
             case 4:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(specialBackground ? 34 : 25));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, specialBackground ? 34 : 25));
                 break;
             case 2:
             case 3:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(16));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 16));
                 break;
             case 5:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(specialBackground ? 35 : 26));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, specialBackground ? 35 : 26));
                 break;
             case 6:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(26));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 26));
                 break;
             default:
                 break;
@@ -3689,17 +3689,17 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             switch (battleScene.battleType) {
             case 1:
             case 4:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(13));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 13));
                 break;
             case 2:
             case 3:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(16));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 16));
                 break;
             case 5:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(14));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 14));
                 break;
             case 6:
-                static_cast<void>(cg::audio::LoadAndPlayBGM(15));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(session, 15));
                 break;
             default:
                 break;
@@ -3707,7 +3707,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         const std::int32_t floor = session.WorldScene().map.floor;
         if (floor >= 1457 && floor <= 1480) {
-            static_cast<void>(cg::audio::LoadAndPlayBGM(16));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(session, 16));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;

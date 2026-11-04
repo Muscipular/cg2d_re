@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include "../login/LoginSavedState.hpp"
 
@@ -100,7 +101,8 @@ std::int32_t ConvertEarlierCharacterGraphicToModern_51BFF0(std::int32_t imageNo)
 // 原 [0x51BB80,0x51BC4E)：旧图号的分段换算，类别 3/4 交换。
 std::int32_t ConvertClassicCharacterGraphicToCompact_51BB80(std::int32_t imageNo);
 // 原 [0x51BC50,0x51BCFF)：按覆盖/Puk允许类别回退，独立于51B740。
-std::int32_t ResolveCompatibleCharacterGraphic_51BC50(std::int32_t imageNo);
+std::int32_t ResolveCompatibleCharacterGraphic_51BC50(
+    session::ClientSession& session, std::int32_t imageNo);
 // 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。
 std::int32_t ClassifyCharacterAnimationFamily_51B7D0(std::int32_t imageNo);
 // 原 [0x51B910,0x51BA08)：图号映射至 100900/100901/100902/110598 或 -1。

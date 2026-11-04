@@ -3122,7 +3122,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         if (auto* const buttonExecute_26Element = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute_26); buttonExecute_26Element) buttonExecute_26Element->visible = 0;
         if (auto* const buttonExecuteElement = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute); buttonExecuteElement) buttonExecuteElement->visible = 0;
     }
-    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(*callbackWindow.ownerSession, callbackWindow.ownerSession->WorldScene().player->imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
     auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element5) {

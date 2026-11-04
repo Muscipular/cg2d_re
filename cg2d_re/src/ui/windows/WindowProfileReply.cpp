@@ -118,7 +118,7 @@ static std::uint32_t WindowProfileReply_Refresh(WindowInstance* callbackWindow)
     if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
         callbackWindow->ownerSession->WorldScene().mail.data->receivedProfile;
-    const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(profile.value10C);
+    const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*callbackWindow->ownerSession, profile.value10C);
     if (auto* const element14 = currentWindow->FindElementById(WindowProfileReplyElementId::Element14); element14) element14->data.graphic->imageNo = image;
     for (std::int32_t index = 0; index < 3; ++index) {
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 14));

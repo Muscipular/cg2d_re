@@ -670,7 +670,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
             x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
-        character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
+        character_select::ResolveCharacterImageForVersion(*callbackWindow.ownerSession, callbackWindow.ownerSession->WorldScene().player->imageNo);
     auto* const element6 = currentWindow->FindElementById(WindowInventoryElementId::Element6);
     if (element6) {
         cg::yobi::SetYobiActionField2A8(

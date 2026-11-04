@@ -104,6 +104,7 @@ public:
     // 角色选择的请求进度与弹窗状态随所属连接保存。
     [[nodiscard]] character_select::CharacterSelectSceneState& CharacterSelectUi() noexcept;
     [[nodiscard]] std::uint8_t& PukVersion() noexcept;
+    [[nodiscard]] std::uint8_t& GraphicVersionOverride() noexcept;
     // 拥有式编码结果，复制原临时区字节；文本容量与编码合同保持。
     std::string EncodeInteger(std::int32_t value);
     std::string EscapeText(std::wstring_view text);

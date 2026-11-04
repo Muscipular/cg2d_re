@@ -322,7 +322,7 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
         copyBeforeScan(2, name);
 
         const std::int32_t image = selectedRecord()->imageNo;
-        const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(image);
+        const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(*callbackWindow->ownerSession, image);
         auto* const element2 = currentWindow->FindElementById(WindowAlbumDetailElementId::Element2);
         if (element2) {
             auto* const imageData = element2->data.animation;

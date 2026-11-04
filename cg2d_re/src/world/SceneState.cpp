@@ -8086,7 +8086,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
             cg::yobi::YobiAction* object;
             if (static_cast<std::uint32_t>(objectIndex) == connection.Owner().WorldScene().player->objectIndex) {
                 const std::int32_t mappedImage =
-                    character_select::ResolveCharacterImageForVersion(imageNo);
+                    character_select::ResolveCharacterImageForVersion(connection.Owner(), imageNo);
                 if (connection.Owner().WorldScene().player->direction < 0) {
                     connection.Owner().WorldScene().player->direction = direction;
                 }
@@ -8135,7 +8135,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                 }
             } else {
                 const std::int32_t mappedImage =
-                    character_select::ResolveCharacterImageForVersion(imageNo);
+                    character_select::ResolveCharacterImageForVersion(connection.Owner(), imageNo);
                 detail::UpsertWorldActor_445350(
                     connection.Owner(), objectIndex, mappedImage, x, y, direction, name, titles,
                     extraText, level, value40, flag1, flag2, type);
@@ -9231,7 +9231,7 @@ void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection& connection, co
         if ((flags & 0x3u) != 0) {
             const std::int32_t imageNo =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            record.imageNo6A0 = character_select::ResolveCharacterImageForVersion(imageNo);
+            record.imageNo6A0 = character_select::ResolveCharacterImageForVersion(connection.Owner(), imageNo);
             ++field;
         }
         if ((flags & 0x5u) != 0) {

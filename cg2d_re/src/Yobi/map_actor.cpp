@@ -356,6 +356,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
 
 // 原函数：0x0043DD00。
 std::int32_t ParseMapActorAttachments_43DD00(
+    session::ClientSession& session,
     YobiAction* const action, const char* const text, std::int32_t field)
 {
     MapActorPayload* const payload =
@@ -364,7 +365,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
     network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
     ++field;
     const auto flags = static_cast<std::uint8_t>(
-        character_select::ResolveCharacterImageForVersion(std::atoi(buffer)));
+        character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer)));
     if (payload != nullptr) {
         if (payload->mainGear30 != nullptr) {
             MarkDeath(payload->mainGear30);
@@ -386,12 +387,12 @@ std::int32_t ParseMapActorAttachments_43DD00(
         std::int32_t index = 0;
         while (std::strcmp(buffer, "EF") != 0) {
             const std::int32_t kind =
-                character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
+                character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer));
             if (kind == MapGearKind_MainGear) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
+                    character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer));
                 if (payload != nullptr) {
                     payload->mainGear30 = NewYobiGear_4410F0(action, imageNo);
                 }
@@ -399,7 +400,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
+                    character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer));
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
@@ -433,7 +434,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
+            character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
                 YobiAction* const player = action->ownerSession->WorldScene().player->action;
@@ -471,7 +472,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
+            character_select::ResolveCharacterImageForVersion(session, std::atoi(buffer));
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t packedDirection = std::atoi(buffer);
@@ -1002,7 +1003,7 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
     char buffer[2048];
     network::ExtractDelimitedField_52CED0(text, '|', 17, 2047, buffer);
     if (std::strlen(buffer) != 0) {
-        detail::ParseMapActorAttachments_43DD00(action, text, 17);
+        detail::ParseMapActorAttachments_43DD00(*action->ownerSession, action, text, 17);
     } else if (payload->attachedActor2C != nullptr) {
         MarkDeath(payload->attachedActor2C);
         payload->attachedActor2C = nullptr;
@@ -1083,11 +1084,11 @@ void ApplyPlayerAppearanceReply(
     if (payload == nullptr) {
         return;
     }
-    *playerImageNo = character_select::ResolveCharacterImageForVersion(imageNo);
-    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
+    *playerImageNo = character_select::ResolveCharacterImageForVersion(session, imageNo);
+    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(session, imageNo);
     session.WorldScene().player->action->imageNo = mappedImage;
     if (gearImage != 0) {
-        const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(gearImage);
+        const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(session, gearImage);
         bool hasGear = payload->mainGear30 != nullptr;
         if (!hasGear) {
             YobiAction* const gear = NewYobiGear_4410F0(session.WorldScene().player->action, mappedGear);
@@ -1096,7 +1097,7 @@ void ApplyPlayerAppearanceReply(
         }
         if (hasGear) {
             const std::int32_t converted =
-                character_select::ResolveCharacterImageForVersion(mappedGear);
+                character_select::ResolveCharacterImageForVersion(session, mappedGear);
             payload->mainGear30->imageNo = converted;
         }
     } else {
@@ -1108,7 +1109,7 @@ void ApplyPlayerAppearanceReply(
     }
 
     if (petImage != 0) {
-        std::int32_t mappedPet = character_select::ResolveCharacterImageForVersion(petImage);
+        std::int32_t mappedPet = character_select::ResolveCharacterImageForVersion(session, petImage);
         bool hasPet = payload->firstAuxiliaryGear34 != nullptr;
         if (!hasPet) {
             const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().player->action->mapY1F0);
@@ -1119,7 +1120,7 @@ void ApplyPlayerAppearanceReply(
         }
         if (hasPet) {
             const std::int32_t converted =
-                character_select::ResolveCharacterImageForVersion(mappedPet);
+                character_select::ResolveCharacterImageForVersion(session, mappedPet);
             payload->firstAuxiliaryGear34->imageNo = converted;
         }
         if (kind == MapGearKind_AdjacentImagePair) {
@@ -1135,7 +1136,7 @@ void ApplyPlayerAppearanceReply(
             }
             if (hasSecondPet) {
                 const std::int32_t converted =
-                    character_select::ResolveCharacterImageForVersion(mappedPet);
+                    character_select::ResolveCharacterImageForVersion(session, mappedPet);
                 payload->secondAuxiliaryGear38->imageNo = converted;
             }
         }
@@ -1171,7 +1172,7 @@ void ApplyPlayerRideReply(
             payload->rideActor44->flags = YobiActionMask_MapActorDefaults;
             payload->rideActor44->flags |= YobiActionFlag_PetOrRider;
         }
-        const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
+        const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(session, imageNo);
         payload->rideActor44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
             world::ResolveRidingCharacterImage_51C0D0(session.WorldScene().player->imageNo);
@@ -1206,7 +1207,7 @@ void ApplyPlayerPhase3Reply(session::ClientSession& session, const std::int32_t 
     YobiAction* const action = session.WorldScene().player->action;
     auto* const payload = action->payload.mapActor;
     action->phase = MapActorPhase_Spiral;
-    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
+    const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(session, imageNo);
     session.WorldScene().player->action->imageNo = mappedImage;
     payload->transitionProgress48 = 0;
 }

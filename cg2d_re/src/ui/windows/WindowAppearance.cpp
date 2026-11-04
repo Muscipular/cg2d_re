@@ -141,7 +141,7 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
     if (value != -1) {
         return 1;
     }
-    std::int32_t version = character_select::state::gGraphicVersionOverride58B6A0;
+    std::int32_t version = callbackWindow.ownerSession->Connection().GraphicVersionOverride();
     if (version == 0xFF) {
         version = callbackWindow.ownerSession->Connection().PukVersion();
     }

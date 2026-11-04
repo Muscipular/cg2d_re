@@ -1027,7 +1027,7 @@ std::int32_t HandleMapObservationActionReply_440920(
         values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
     }
     if (characterAction == detail::MapObservationReplyAction_ArrivingGroup) {
-        const std::int32_t imageNo = character_select::ResolveCharacterImageForVersion(values[0]);
+        const std::int32_t imageNo = character_select::ResolveCharacterImageForVersion(session, values[0]);
         YobiAction* const observer = detail::CreateArrivingObservationGroup_43FEB0(target, imageNo, x, y, values[1]);
         detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {

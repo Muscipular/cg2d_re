@@ -477,7 +477,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
         static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
         return 1;
     }
-    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(*callbackWindow.ownerSession, callbackWindow.ownerSession->WorldScene().player->imageNo);
     const std::int32_t kind = std::bit_cast<std::int8_t>(gather.kind);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);

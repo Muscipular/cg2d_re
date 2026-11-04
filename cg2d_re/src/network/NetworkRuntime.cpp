@@ -289,7 +289,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
         return;
     }
     const std::int32_t convertedImageNo =
-        character_select::ResolveCharacterImageForVersion(imageNo);
+        character_select::ResolveCharacterImageForVersion(connection.Owner(), imageNo);
     if (withRecord == 0) {
         std::int16_t actionMode;
         std::int16_t value02 = 0;
@@ -330,7 +330,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
     const std::int32_t recordDirection = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 6, 2047, field);
     const std::int32_t recordImageNo =
-        character_select::ResolveCharacterImageForVersion(std::atoi(field));
+        character_select::ResolveCharacterImageForVersion(connection.Owner(), std::atoi(field));
     ExtractDelimitedField_52CED0(payload, '|', 7, 2047, field);
     const std::int32_t level = std::atoi(field);
     const std::int32_t value40 = ParseDelimitedInteger_52CFA0(payload, '|', 8);

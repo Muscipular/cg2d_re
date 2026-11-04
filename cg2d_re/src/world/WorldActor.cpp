@@ -191,16 +191,16 @@ void ApplyWorldActorActionCommand_444410(
         (*action->ownerSession->WorldScene().objects)[index].value34 = -1;
         return;
     case 60: {
-        action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
-        const std::int32_t recordImage = character_select::ResolveCharacterImageForVersion(option1);
+        action->imageNo = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option1);
+        const std::int32_t recordImage = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option1);
         (*action->ownerSession->WorldScene().objects)[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
         if (option2 > 0) {
             if (payload->mainGear30 == nullptr) {
-                const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
+                const std::int32_t image = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option2);
                 payload->mainGear30 = cg::yobi::NewYobiGear_4410F0(action, image);
             }
             if (payload->mainGear30 != nullptr) {
-                const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
+                const std::int32_t image = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option2);
                 payload->mainGear30->imageNo = image;
             }
         } else {
@@ -211,7 +211,7 @@ void ApplyWorldActorActionCommand_444410(
             }
         }
         if (option3 > 0) {
-            std::int32_t image = character_select::ResolveCharacterImageForVersion(option3);
+            std::int32_t image = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option3);
             if (payload->firstAuxiliaryGear34 == nullptr) {
                 const std::int32_t petY =
                     static_cast<std::int32_t>(action->mapY1F0);
@@ -272,7 +272,7 @@ void ApplyWorldActorActionCommand_444410(
                 payload->rideActor44->flags = 0x34u;
                 payload->rideActor44->flags |= 0x200u;
             }
-            const std::int32_t image = character_select::ResolveCharacterImageForVersion(option1);
+            const std::int32_t image = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option1);
             payload->rideActor44->imageNo = image;
             const std::int32_t original =
                 std::bit_cast<std::int32_t>((*action->ownerSession->WorldScene().objects)[payload->index].imageNo);
@@ -295,7 +295,7 @@ void ApplyWorldActorActionCommand_444410(
         return;
     case 80:
         action->phase = cg::yobi::MapActorPhase_Spiral;
-        action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
+        action->imageNo = character_select::ResolveCharacterImageForVersion(*action->ownerSession, option1);
         payload->transitionProgress48 = 0;
         return;
     case 200:

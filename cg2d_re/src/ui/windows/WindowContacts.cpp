@@ -533,7 +533,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             const std::uint32_t color = 0xFFFFFFFFu;
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*record.imageNo);
+            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*callbackWindow->ownerSession, *record.imageNo);
             const std::int32_t anchorY = kMailImageAnchors56F790[row][1];
             WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y + anchorY - 5;
@@ -1339,7 +1339,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         auto* const elementPtr = activeWindow->FindElementById(elementId);
         if (elementPtr) {
             WindowElement* const element = elementPtr;
-            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
+            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*callbackWindow.ownerSession, *recordImage);
             const std::int32_t elementY = element->y;
             WindowInstance* const currentWindow = activeWindow;
             const std::int32_t windowY = currentWindow->y;

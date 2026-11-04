@@ -1,5 +1,6 @@
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectSceneState.hpp"
@@ -234,11 +235,12 @@ std::int32_t ConvertEarlierCharacterGraphicToModern_51BFF0(const std::int32_t im
 }
 
 // 原函数：0x0051BC50。
-std::int32_t ResolveCompatibleCharacterGraphic_51BC50(const std::int32_t imageNo)
+std::int32_t ResolveCompatibleCharacterGraphic_51BC50(
+    session::ClientSession& session, const std::int32_t imageNo)
 {
-    std::int32_t version = state::gGraphicVersionOverride58B6A0;
+    std::int32_t version = session.Connection().GraphicVersionOverride();
     if (version == 0xFF) {
-        version = cg::network::GetGameConnection().PukVersion();
+        version = session.Connection().PukVersion();
     }
     const std::int32_t category = ClassifyCharacterGraphicFamily_51BA10(imageNo);
     const std::int32_t allowedCategory = version >= 7 ? 6 : (version >= 3 ? 3 : 0);
@@ -268,11 +270,12 @@ std::int32_t ResolveCompatibleCharacterGraphic_51BC50(const std::int32_t imageNo
 
 // LDT01：版本低8值先取；FF回用Puk版本，再分类/按0、3、6、7门槛选择原图或回退。
 // 原函数：0x0051B740。
-std::int32_t ResolveCharacterImageForVersion(const std::int32_t imageNo)
+std::int32_t ResolveCharacterImageForVersion(
+    session::ClientSession& session, const std::int32_t imageNo)
 {
-    std::int32_t version = state::gGraphicVersionOverride58B6A0;
+    std::int32_t version = session.Connection().GraphicVersionOverride();
     if (version == 0xFF) {
-        version = cg::network::GetGameConnection().PukVersion();
+        version = session.Connection().PukVersion();
     }
     const std::int32_t category = detail::ClassifyCharacterAnimationFamily_51B7D0(imageNo);
     std::int32_t allowedCategory;

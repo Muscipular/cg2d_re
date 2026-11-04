@@ -207,7 +207,8 @@ YobiAction* NewYobiAction_404AE0(
 void ConfigureWindowElementAction(
     YobiAction* initialAction, YobiAction*& slot, std::int32_t* const& imageNoSlot);
 // 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
-void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
+void ConfigureWindowPetPreview(
+    session::ClientSession& session, YobiAction*& slot, std::int32_t imageNo);
 // 原CF3B88/D2F3B0两个固定预览由会话独占，不进入通用Yobi链。
 YobiAction* ConstructWindowSelectorPreview(
     session::ClientSession& session, std::int32_t index, std::uint32_t& flags); // 原入口首次构造，返回稳定对象及flags|2快照。

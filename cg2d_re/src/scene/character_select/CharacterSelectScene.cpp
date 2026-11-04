@@ -1191,12 +1191,6 @@ std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBound
 
 } // namespace cg::character_select::detail
 
-namespace cg::character_select::state {
-
-std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF; // 原全局：0x0058B6A0。
-
-} // namespace cg::character_select::state
-
 namespace cg::character_select {
 
 static constexpr std::size_t kLegacyNameCapacity = 20;

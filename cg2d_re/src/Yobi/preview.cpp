@@ -69,9 +69,10 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
 }
 
 
-void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
+void ConfigureWindowPetPreview(
+    session::ClientSession& session, YobiAction*& slot, const std::int32_t imageNo)
 {
-    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(session, imageNo);
     slot->imageNo = mapped;
     slot->displayPriority = 10;
     slot->flags |= YobiActionFlag_Hidden;

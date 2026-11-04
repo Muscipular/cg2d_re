@@ -270,7 +270,7 @@ static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, con
         static_cast<void>(WindowSkillResult_RefreshResult(session, currentWindow));
     }
     const std::int32_t imageNo =
-        WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo), 0);
+        WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(*callbackWindow.ownerSession, callbackWindow.ownerSession->WorldScene().player->imageNo), 0);
     auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
     if (element3) {
         cg::yobi::SetYobiActionField2A8(

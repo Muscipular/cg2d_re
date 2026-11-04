@@ -1223,7 +1223,7 @@ static std::int32_t WindowStall_DrawPetDetails(
         interaction.previewAction = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    cg::yobi::ConfigureWindowPetPreview(interaction.previewAction, imageNo);
+    cg::yobi::ConfigureWindowPetPreview(session, interaction.previewAction, imageNo);
     static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(interaction.previewAction, 100, 0, 0));
     cg::yobi::YobiAction* const action = interaction.previewAction;
     const std::int32_t shortX = static_cast<std::int16_t>(x);
@@ -2664,7 +2664,7 @@ static void WindowStall_OpenBrowse(
         ++field; // 原每条相对字段4不解析。
         pet.used = 1;
         const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        pet.imageNo6A0 = character_select::ResolveCharacterImageForVersion(imageNo);
+        pet.imageNo6A0 = character_select::ResolveCharacterImageForVersion(session, imageNo);
         pet.value04 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
         for (std::int32_t value = 0; value < 6; ++value) {

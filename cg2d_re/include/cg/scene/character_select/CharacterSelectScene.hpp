@@ -7,11 +7,14 @@ namespace cg::network {
 class CgConnection;
 }
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::character_select {
 
 // 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。
 // LDT01：以当前版本低8值选择图号；原图/分类3减5000/既有51B910回退。
-std::int32_t ResolveCharacterImageForVersion(std::int32_t imageNo);
+std::int32_t ResolveCharacterImageForVersion(
+    session::ClientSession& session, std::int32_t imageNo);
 
 
 // 原 sub_45DD50@[0x45DD50,0x45DD5A)。

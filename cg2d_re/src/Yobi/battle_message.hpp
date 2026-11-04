@@ -52,45 +52,6 @@ inline constexpr std::array<const char*, 25> kBattleMHeaders553E94 { // 原常�
     "BST", "GMN", "RID", "DSK", "END",
 };
 
-// 共享原状态，只在本组实现中定义；原全局：0x005AAA64。
-extern std::int32_t gBattleMCasterPosition5AAA64;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A4A20。
-extern std::uint32_t gBattleMResultFlags5A4A20;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005ABA7C。
-extern std::int32_t gBattleMValue5ABA7C;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005AAA40。
-extern std::int32_t gBattleMTargetPosition5AAA40;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005AAA78。
-extern std::int32_t gBattleMSkill5AAA78;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A4A38。
-extern std::int32_t gBattleMTechnique5A4A38;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A4A34。
-extern std::int32_t gBattleMSkill98Mode5A4A34;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005ABA90。
-extern std::int32_t gBattleMFeedbackSourcePosition5ABA90;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005ABA84。
-extern std::uint32_t gBattleMFlags5ABA84;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A4A28。
-extern std::int32_t gBattleMFeedbackEffectImage5A4A28;
-
-// 共享原状态，只在本组实现中定义；原全局：0x0059FA14。
-extern std::int32_t gBattleMMessageValue59FA14;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A4A2C。
-extern std::int32_t gBattleMSkillLevel5A4A2C;
-
-// 共享原状态，只在本组实现中定义；原全局：0x005A3A18。
-extern std::int32_t gBattleMSkillLevelIndex5A3A18;
-
 enum class BattleMDataHeader : std::int32_t {
     Action = BattleMHeader_ACT, ConsumeFp = BattleMHeader_CFP, Chat = BattleMHeader_CHT, ChangeBody = BattleMHeader_CBC, AppendSkill = BattleMHeader_DSK, End = BattleMHeader_END,
 };

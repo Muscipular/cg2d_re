@@ -96,8 +96,8 @@ void AppendBattleSkillTail_424500(
 static void ProcessBattleMSkillWaitingState(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
-    const std::int32_t skill = gBattleMSkill5AAA78;
-    const std::int32_t skill98Mode88 = gBattleMSkill98Mode5A4A34;
+    const std::int32_t skill = scene->ownerSession->WorldScene().battle.mSkill;
+    const std::int32_t skill98Mode88 = scene->ownerSession->WorldScene().battle.mSkill98Mode;
     if (subState == BattleMSkillPhase_WaitForEntryReady) {
         switch (skill) {
         case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicFire:
@@ -134,7 +134,7 @@ static void ProcessBattleMSkillWaitingState(
         if (readyCount < count) {
             return;
         }
-        const std::int32_t casterPhase = scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->phase;
+        const std::int32_t casterPhase = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->phase;
         if (casterPhase == BattleAction_Idle || casterPhase == BattleAction_WaitIdle) {
             // 原42A930传最后参与者ECX，而不是用于phase门禁的施法者。
             AdvanceBattleCastState_439340(last);
@@ -234,17 +234,17 @@ static void ProcessBattleMSkillWaitingState(
     }
     switch (kind) {
     case FinishKind::Caster:
-        FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]);
+        FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]);
         break;
     case FinishKind::LastCaster: {
-        YobiAction* const last = scene->ownerSession->WorldScene().battle.allEntries[gBattleMValue5ABA7C];
+        YobiAction* const last = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mValue5ABA7C];
         if (last != nullptr) {
             auto* const lastPayload = last->payload.battleActor;
             if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & BattleActorFlag_Dead) == 0) {
-                if (gBattleMSkill5AAA78 == BattleSkill_Ranbu) {
+                if (scene->ownerSession->WorldScene().battle.mSkill == BattleSkill_Ranbu) {
                     lastPayload->flash1004 = 0;
                 }
-                FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[gBattleMValue5ABA7C]);
+                FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mValue5ABA7C]);
             }
         }
         break;
@@ -252,23 +252,23 @@ static void ProcessBattleMSkillWaitingState(
     case FinishKind::OnlyFinish:
         break;
     case FinishKind::ClearCaster:
-        FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]);
+        FaceBattleActorTowardFormationPosition_406260(scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]);
         FinishBattleEvent_43B6C0(scene);
-        scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->frameEvent = 0;
-        scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_Hidden;
+        scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->frameEvent = 0;
+        scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->flags &= ~YobiActionFlag_Hidden;
         if (render::HasLegacy3DDevice_44B610() != 0) {
-            scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_ForceAlpha80;
+            scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->flags &= ~YobiActionFlag_ForceAlpha80;
         } else {
-            scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
+            scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
         }
         return;
     case FinishKind::BothCasters: {
-        YobiAction* const caster = scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64];
+        YobiAction* const caster = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &caster->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(caster);
         }
-        YobiAction* const last = scene->ownerSession->WorldScene().battle.allEntries[gBattleMValue5ABA7C];
+        YobiAction* const last = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mValue5ABA7C];
         if (last != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &last->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(last);
@@ -276,17 +276,17 @@ static void ProcessBattleMSkillWaitingState(
         break;
     }
     case FinishKind::CasterFlash: {
-        YobiAction* const caster = scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64];
+        YobiAction* const caster = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
                 &caster->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(caster);
-            scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->payload.battleActor
+            scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->payload.battleActor
                 ->flash1004 = 0;
         }
         break;
     }
     case FinishKind::EffectTargets: {
-        auto* const casterPayload = scene->ownerSession->WorldScene().battle.allEntries[gBattleMCasterPosition5AAA64]->payload.battleActor;
+        auto* const casterPayload = scene->ownerSession->WorldScene().battle.allEntries[scene->ownerSession->WorldScene().battle.mCasterPosition]->payload.battleActor;
         for (BattleEntryEffectRecord* effect = casterPayload->effects1C.data(); effect->position != -1; ++effect) {
             YobiAction* const target = scene->ownerSession->WorldScene().battle.allEntries[effect->position];
             if (target != nullptr && target->characterAction != CharacterAnimation_Down && target->phase != BattleAction_BounceOutAfterKnockout) {
@@ -304,55 +304,55 @@ static std::int32_t ReadBattleMSkillHeader(
     YobiAction* const scene, std::int32_t& fpUsed)
 {
     const std::int32_t initialTechnique = TakeBattleMInteger_438F70(scene);
-    gBattleMTechnique5A4A38 = initialTechnique;
+    scene->ownerSession->WorldScene().battle.mTechnique = initialTechnique;
     fpUsed = TakeBattleMInteger_438F70(scene);
-    gBattleMSkill5AAA78 = TakeBattleMInteger_438F70(scene);
+    scene->ownerSession->WorldScene().battle.mSkill = TakeBattleMInteger_438F70(scene);
     // E01／42AD06、42AD1A：在原技能／等级归一化前保留报文双 ID。
-    CaptureBattleSkillMeta(initialTechnique, gBattleMSkill5AAA78);
-    gBattleMSkillLevel5A4A2C = TakeBattleMInteger_438F70(scene);
+    CaptureBattleSkillMeta(initialTechnique, scene->ownerSession->WorldScene().battle.mSkill);
+    scene->ownerSession->WorldScene().battle.mSkillLevel = TakeBattleMInteger_438F70(scene);
     std::int32_t requestedLevel = TakeBattleMInteger_438F70(scene);
-    if (gBattleMTechnique5A4A38 >= 205000) {
-        const std::int32_t remainder = gBattleMSkillLevel5A4A2C % 30;
+    if (scene->ownerSession->WorldScene().battle.mTechnique >= 205000) {
+        const std::int32_t remainder = scene->ownerSession->WorldScene().battle.mSkillLevel % 30;
         const bool belowOne = remainder < 1;
-        gBattleMSkillLevel5A4A2C = remainder;
+        scene->ownerSession->WorldScene().battle.mSkillLevel = remainder;
         if (belowOne) {
-            gBattleMSkillLevel5A4A2C = 1;
+            scene->ownerSession->WorldScene().battle.mSkillLevel = 1;
         } else if (remainder >= 15) {
-            gBattleMSkillLevel5A4A2C = 15;
+            scene->ownerSession->WorldScene().battle.mSkillLevel = 15;
         }
         if (requestedLevel < 1) {
             requestedLevel = 1;
         } else if (requestedLevel >= 15) {
             requestedLevel = 15;
         }
-        gBattleMSkillLevelIndex5A3A18 = requestedLevel - 1;
-        return gBattleMSkill5AAA78;
+        scene->ownerSession->WorldScene().battle.mSkillLevelIndex = requestedLevel - 1;
+        return scene->ownerSession->WorldScene().battle.mSkill;
     }
     const std::int32_t skill = initialTechnique / 100;
     std::int32_t technique = initialTechnique % 100;
-    gBattleMSkill5AAA78 = skill;
+    scene->ownerSession->WorldScene().battle.mSkill = skill;
     const bool reduceByFifty = technique >= 50;
-    gBattleMTechnique5A4A38 = technique;
-    gBattleMSkillLevelIndex5A3A18 = technique;
+    scene->ownerSession->WorldScene().battle.mTechnique = technique;
+    scene->ownerSession->WorldScene().battle.mSkillLevelIndex = technique;
     if (reduceByFifty) {
         technique %= 50;
-        gBattleMTechnique5A4A38 = technique;
-        gBattleMSkillLevelIndex5A3A18 = technique;
+        scene->ownerSession->WorldScene().battle.mTechnique = technique;
+        scene->ownerSession->WorldScene().battle.mSkillLevelIndex = technique;
     } else if (technique >= 30) {
         technique %= 30;
-        gBattleMTechnique5A4A38 = technique;
-        gBattleMSkillLevelIndex5A3A18 = technique;
+        scene->ownerSession->WorldScene().battle.mTechnique = technique;
+        scene->ownerSession->WorldScene().battle.mSkillLevelIndex = technique;
     }
     if (technique >= 14) {
-        gBattleMTechnique5A4A38 = 14;
+        scene->ownerSession->WorldScene().battle.mTechnique = 14;
         technique = 14;
-        gBattleMSkillLevelIndex5A3A18 = 14;
+        scene->ownerSession->WorldScene().battle.mSkillLevelIndex = 14;
     } else if (technique <= 0) {
-        gBattleMTechnique5A4A38 = 0;
+        scene->ownerSession->WorldScene().battle.mTechnique = 0;
         technique = 0;
-        gBattleMSkillLevelIndex5A3A18 = 0;
+        scene->ownerSession->WorldScene().battle.mSkillLevelIndex = 0;
     }
-    gBattleMSkillLevel5A4A2C = technique + 1;
+    scene->ownerSession->WorldScene().battle.mSkillLevel = technique + 1;
     return skill;
 }
 
@@ -492,9 +492,9 @@ void ProcessBattleMSkillHeader(
     case BattleSkill_NormalAttack: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         if (mode == BattleAttackMode_Melee) {
-            const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
-            const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
-            const std::int32_t attackSkill = gBattleMSkill5AAA78;
+            const std::int32_t attackSkillLevelIndex = scene->ownerSession->WorldScene().battle.mSkillLevelIndex;
+            const std::int32_t attackSkillLevel = scene->ownerSession->WorldScene().battle.mSkillLevel;
+            const std::int32_t attackSkill = scene->ownerSession->WorldScene().battle.mSkill;
             ProcessBattleMSkillAttackTargets(
                 scene, payload, attackSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, false);
         } else {
@@ -504,9 +504,9 @@ void ProcessBattleMSkillHeader(
     }
     case BattleSkill_SwallowSlash: {
         TakeBattleMInteger_438F70(scene);
-        const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
-        const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
-        const std::int32_t attackSkill = gBattleMSkill5AAA78;
+        const std::int32_t attackSkillLevelIndex = scene->ownerSession->WorldScene().battle.mSkillLevelIndex;
+        const std::int32_t attackSkillLevel = scene->ownerSession->WorldScene().battle.mSkillLevel;
+        const std::int32_t attackSkill = scene->ownerSession->WorldScene().battle.mSkill;
         ProcessBattleMSkillAttackTargets(
             scene, payload, attackSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, true);
         break;
@@ -527,10 +527,10 @@ void ProcessBattleMSkillHeader(
     case BattleSkill_StatusAttackConfusion2100: case BattleSkill_StatusAttackForget2101:
     case 3019: case 3038: case 4002: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
-        const std::int32_t currentSkill = gBattleMSkill5AAA78;
+        const std::int32_t currentSkill = scene->ownerSession->WorldScene().battle.mSkill;
         if (currentSkill == BattleSkill_Steal || currentSkill == 113 || currentSkill == BattleSkill_ShadowHand || mode == BattleAttackMode_Melee) {
-            const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
-            const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
+            const std::int32_t attackSkillLevelIndex = scene->ownerSession->WorldScene().battle.mSkillLevelIndex;
+            const std::int32_t attackSkillLevel = scene->ownerSession->WorldScene().battle.mSkillLevel;
             ProcessBattleMSkillAttackTargets(
                 scene, payload, currentSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, false);
         } else {

@@ -187,6 +187,23 @@ struct BattleSceneState {
     std::uint32_t eventDispatchBusy = 0; // 原 0x5ABB1C，事件分发门禁。
     std::uint32_t turnMessagesExhausted = 0; // 原 0x5ABB28，当前回合 M 文本耗尽。
     std::int32_t pendingGroupCount = 0; // 原 0x5ABB24，延迟事件组数。
+    std::int32_t mCasterPosition = 0; // 原5AAA64，M消息执行现场。
+    std::uint32_t mResultFlags = 0; // 原5A4A20。
+    std::int32_t mValue5ABA7C = 0; // 原5ABA7C，位置及技能重复标记共用。
+    std::int32_t mDefenderPosition = 0; // 原5A4A24。
+    std::int32_t mTargetPosition = 0; // 原5AAA40。
+    std::int32_t mSkill = 0; // 原5AAA78。
+    std::int32_t mTechnique = 0; // 原5A4A38。
+    std::int32_t mItemMode = 0; // 原59FA10。
+    std::int32_t mSkill98Mode = 0; // 原5A4A34。
+    std::int32_t mFeedbackSourcePosition = 0; // 原5ABA90。
+    std::uint32_t mFlags = 0; // 原5ABA84。
+    std::int32_t mFeedbackEffectImage = 0; // 原5A4A28。
+    std::int32_t mMessageValue = 0; // 原59FA14。
+    std::int32_t mStatusMode = 0; // 原5ABA88，不在十三项快照内。
+    std::int32_t mSkillLevel = 0; // 原5A4A2C，不在十三项快照内。
+    std::int32_t mSkillLevelIndex = 0; // 原5A3A18。
+    std::int32_t mRedirectPosition = 0; // 原5AAA70，独立转向输出。
 };
 static_assert(sizeof(BattleSceneState::allEntries) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(BattleSceneState::entries)::extent == 20);

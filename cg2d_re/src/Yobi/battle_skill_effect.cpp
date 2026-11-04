@@ -44,7 +44,7 @@ void BindBattleSkillMeta(YobiAction* const action)
     if (!meta) return;
     for (std::size_t slot = 0; slot < 20; ++slot) {
         if (action->ownerSession->WorldScene().battle.allEntries[slot] != action) continue;
-        if (action->payload.battleActor->castSkill103C == gBattleMSkill5AAA78) {
+        if (action->payload.battleActor->castSkill103C == action->ownerSession->WorldScene().battle.mSkill) {
             *meta = skillContext;
         }
         return;

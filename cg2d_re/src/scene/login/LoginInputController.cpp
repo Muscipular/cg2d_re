@@ -149,7 +149,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
             && (static_cast<std::int32_t>(sceneUi.context9A5678Y) + offsetY
                 < connection.Owner().UiFrame().mouse.state->mouseY)
             && (connection.Owner().UiFrame().mouse.state->mouseY < static_cast<std::int32_t>(sceneUi.context9A5678Y) + offsetY + 26)
-            && (static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons)
+            && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()))
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
@@ -161,7 +161,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
             && (static_cast<std::int32_t>(sceneUi.context9A5960Y) + offsetY
                 < connection.Owner().UiFrame().mouse.state->mouseY)
             && (connection.Owner().UiFrame().mouse.state->mouseY < static_cast<std::int32_t>(sceneUi.context9A5960Y) + offsetY + 26)
-            && (static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons)
+            && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()))
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));

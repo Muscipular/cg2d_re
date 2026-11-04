@@ -580,7 +580,7 @@ static std::int32_t WindowGroupSelect_Scroll(WindowInstance& callbackWindow, con
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = business.mailGroupCC1A30.count;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t maximum = count - 7;
         WindowInstance* const window = currentWindow;
         const std::int32_t position = business.mailGroupScrollD67B88;

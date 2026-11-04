@@ -56,7 +56,8 @@ int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int 
     }
     const int maximum = data.MaxScrollY(element);
     bool handled = false;
-    if (maximum > 0 && !WindowRuntime_PointerDragBlocksMouse(window)) {
+    const bool acceptsInput = platform::IsSessionInputTarget(*window.ownerSession);
+    if (acceptsInput && maximum > 0 && !WindowRuntime_PointerDragBlocksMouse(window)) {
         const int wheel = WindowPeekMouseWheelDelta(*element.owner->ownerSession);
         if ((events & MouseFlag_Hover) && wheel != 0) {
             int step = wheel / 120;
@@ -71,14 +72,14 @@ int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int 
         const bool inTrack = MouseIsInRect(*element.owner->ownerSession, x + element.width - bar, y, bar, element.height) && UIPointInClipRect(element.owner->ownerSession->UiFrame().mouse.state->mouseX, element.owner->ownerSession->UiFrame().mouse.state->mouseY, &view);
         const bool inThumb = MouseIsInRect(*element.owner->ownerSession, x + element.width - bar, thumbY, bar, thumb) && UIPointInClipRect(element.owner->ownerSession->UiFrame().mouse.state->mouseX, element.owner->ownerSession->UiFrame().mouse.state->mouseY, &view);
         if (data.draggingThumb) {
-            if (element.owner->ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) {
+            if (platform::ReadSessionMouseHeldButtons(*element.owner->ownerSession) & platform::LegacyMouseButton_Left) {
                 data.SetScrollY(element, (element.owner->ownerSession->UiFrame().mouse.state->mouseY - data.dragOffsetY - y) * maximum / range); handled = true;
             } else data.draggingThumb = false;
         } else if (inTrack && (events & MouseFlag_LDownEvent)) {
             data.draggingThumb = true; data.dragOffsetY = inThumb ? element.owner->ownerSession->UiFrame().mouse.state->mouseY - thumbY : thumb / 2;
             data.SetScrollY(element, (element.owner->ownerSession->UiFrame().mouse.state->mouseY - data.dragOffsetY - y) * maximum / range); handled = true;
         }
-    } else if (!(element.owner->ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left)) data.draggingThumb = false;
+    } else if (acceptsInput && !(platform::ReadSessionMouseHeldButtons(*element.owner->ownerSession) & platform::LegacyMouseButton_Left)) data.draggingThumb = false;
     if (handled) { element.mouseState = WindowMouseState_Press; return 1; }
     int childrenHandled = 0;
     for (const auto& ref : WindowRuntime_Children(window, element.elementId)) {

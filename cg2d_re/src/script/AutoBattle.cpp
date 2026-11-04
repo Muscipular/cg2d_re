@@ -515,7 +515,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     }
     int update(int stage, int) override {
         auto& panel = window.ownerSession->Lua().autoBattlePanel;
-        if (window.id == WIN_AUTOBATTLE && panel.clicked && (window.ownerSession->UiFrame().mouse.state->heldButtons & CG_MBTN_LEFTDOWN)) {
+        if (window.id == WIN_AUTOBATTLE && panel.clicked && (platform::ReadSessionMouseHeldButtons(*window.ownerSession) & CG_MBTN_LEFTDOWN)) {
             window.x += window.ownerSession->UiFrame().mouse.state->mouseX - panel.lastX; window.y += window.ownerSession->UiFrame().mouse.state->mouseY - panel.lastY;
             panel.lastX = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseX)); panel.lastY = static_cast<short>(static_cast<std::int32_t>(window.ownerSession->UiFrame().mouse.state->mouseY));
         }

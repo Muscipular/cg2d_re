@@ -617,14 +617,14 @@ std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
 // 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
 static std::int32_t WindowRuntime_AppendMouseEvents(session::ClientSession& session, std::int32_t events)
 {
-    const auto edge = static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
+    const auto edge = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
     if ((edge & platform::LegacyMouseEdge_LDown) != 0) {
         events |= MouseFlag_LDownEvent;
     }
     if ((edge & platform::LegacyMouseEdge_RDown) != 0) {
         events |= MouseFlag_RDownEvent;
     }
-    const auto held = static_cast<std::uint8_t>(session.UiFrame().mouse.state->heldButtons);
+    const auto held = static_cast<std::uint8_t>(platform::ReadSessionMouseHeldButtons(session));
     if ((held & platform::LegacyMouseButton_Left) != 0) {
         events |= MouseFlag_LHoldPhysical;
     }
@@ -637,7 +637,7 @@ static std::int32_t WindowRuntime_AppendMouseEvents(session::ClientSession& sess
     if ((edge & platform::LegacyMouseEdge_RDblClick) != 0) {
         events |= MouseFlag_RDblClickEvent;
     }
-    const auto pulse = static_cast<std::uint8_t>(session.UiFrame().mouse.state->pulseButtons);
+    const auto pulse = static_cast<std::uint8_t>(platform::ReadSessionMousePulseButtons(session));
     if ((pulse & platform::LegacyMouseButton_Left) != 0) {
         events |= MouseFlag_LRepeatDown;
     }
@@ -986,7 +986,7 @@ static void WindowPetDrag_Handle(
         }
     }
     const std::int32_t clickMode = interaction.petDragMode;
-    const auto clicked = static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
+    const auto clicked = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
     if (clickMode == 0) {
         if ((clicked & platform::LegacyMouseEdge_RDown) != 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
@@ -1005,7 +1005,7 @@ static void WindowPetDrag_Handle(
                 static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(session, 3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
-        if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_RDown) != 0) {
             WindowDrag_Cancel(session);
         }
     }
@@ -1103,7 +1103,7 @@ static void WindowItemDrag_Handle(
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     }
-    if ((*reinterpret_cast<const unsigned char*>(&session.UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session)) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
@@ -1111,7 +1111,7 @@ static void WindowItemDrag_Handle(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 2, sourceIndex, x, y, WindowItemDrag_Handle));
     }
-    if ((*reinterpret_cast<const unsigned char*>(&session.UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session)) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
@@ -1178,6 +1178,7 @@ std::uint8_t WindowInput_HandleNumber(
             // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
             const auto hit = [window](const std::int32_t left, const std::int32_t top,
                                const std::int32_t right, const std::int32_t bottom) {
+                if (!platform::IsSessionInputTarget(*window->ownerSession)) return false;
                 return (static_cast<std::int32_t>(left) <= window->ownerSession->UiFrame().mouse.state->mouseX)
                     && (window->ownerSession->UiFrame().mouse.state->mouseX < static_cast<std::int32_t>(right))
                     && (static_cast<std::int32_t>(top) <= window->ownerSession->UiFrame().mouse.state->mouseY)
@@ -3727,6 +3728,7 @@ static std::int32_t WindowRuntime_HitTestRect(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
+    if (!platform::IsSessionInputTarget(session)) return 0;
     const std::int32_t x = (session.UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(left));
     if (x < 0 || x >= width) {
         return 0;
@@ -3877,6 +3879,7 @@ std::int32_t WindowDrag_ResetMouse(session::ClientSession& session)
 // 原函数：0x00472D20。
 static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
 {
+    if (!platform::IsSessionInputTarget(*callbackWindow.ownerSession)) return 0;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& session = *callbackWindow.ownerSession;
     auto& pointer = session.UiFrame().native.pointer;
@@ -3887,7 +3890,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
         const std::uint32_t state = window->state;
         if ((state & 2u) == 0) {
             if ((state & 0x800u) != 0) {
-                if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->heldButtons) & platform::LegacyMouseButton_Left) != 0) {
+                if ((static_cast<std::uint8_t>(platform::ReadSessionMouseHeldButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseButton_Left) != 0) {
                     std::int32_t* const x = &window->x;
                     const std::int32_t deltaX = (callbackWindow.ownerSession->UiFrame().mouse.state->mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
@@ -3904,7 +3907,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
                 }
                 result = 2;
                 window = &callbackWindow;
-            } else if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+            } else if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
                 std::int32_t count = window->secondaryCount;
                 for (std::int32_t index = 0; index < count; ++index) {
                     const WindowDragRect& rect = window->dragRects40[index];
@@ -3950,7 +3953,7 @@ static std::int32_t WindowDrag_Update(WindowInstance& callbackWindow)
             const std::int32_t x = window->x;
             if (WindowRuntime_HitTestRect(*callbackWindow.ownerSession, x, y, width, height) != 0) {
                 result |= 1;
-                if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+                if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
                     callbackWindow.state |= 0x2000u;
                 }
             }
@@ -4013,6 +4016,7 @@ static std::int32_t WindowRuntime_CompactAndReorder(session::ClientSession& sess
 // 原函数：0x00473E40。
 static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session)
 {
+    if (!platform::IsSessionInputTarget(session)) return;
     auto& uiFrame = session.UiFrame();
     auto& pointer = session.UiFrame().native.pointer;
     std::int32_t phase = pointer.phase;
@@ -4082,6 +4086,11 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
         WindowElement_SyncInputText(*element);
         if (WindowRuntime_ResolveElement(identity) != element || !WindowRuntime_IsElementInteractive(*window, *element)) return 0;
     }
+    if (!platform::IsSessionInputTarget(session)) {
+        if (element->type == WindowElementType_ScrollView && element->data.scrollView)
+            return WindowElement_ProcessScroll(*element, MouseFlag_None, ox, oy, clip);
+        return 0;
+    }
     const std::int32_t left = ox + element->x;
     const std::int32_t top = oy + element->y;
     const std::int32_t width = element->width;
@@ -4137,7 +4146,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     if (element->type == WindowElementType_MapEx && element->data.mapEx) element->data.mapEx->UpdateMouse(*element, ox, oy, clip, events);
     if (element->type == WindowElementType_Input) {
         if (events & MouseFlag_LDownEvent) WindowElement_FocusInput(*element);
-        else if ((target.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) && !(events & MouseFlag_Hover)) WindowElement_BlurInput(*element);
+        else if ((platform::ReadSessionMouseEdgeButtons(*target.ownerSession) & platform::LegacyMouseEdge_LDown) && !(events & MouseFlag_Hover)) WindowElement_BlurInput(*element);
     }
     if (element->type == WindowElementType_ScrollView && element->data.scrollView)
         handled = WindowElement_ProcessScroll(*element, events, ox, oy, clip);

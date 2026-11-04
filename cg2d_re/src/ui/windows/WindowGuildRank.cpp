@@ -327,7 +327,7 @@ static std::int32_t WindowGuildRank_Scroll(WindowInstance& callbackWindow, const
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         if (wheel != 0) {
             WindowInstance* const window = currentWindow;
             const std::int32_t position = business.mailRankScrollCA0474;

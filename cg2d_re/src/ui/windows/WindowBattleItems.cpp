@@ -247,10 +247,10 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
     } else {
         const std::int32_t kind = WindowDrag_ReadKind(*callbackWindow.ownerSession);
         if (kind == 2) {
-            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
-        } else if (kind == 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        } else if (kind == 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             currentWindow->state |= 0x8000u;
         }
     }
@@ -507,7 +507,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
         inventory.battleTooltipPage = 0;
     }
     inventory.battleBackpackHover = hovered;
-    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const auto& item = items[hovered + 8];
             bool useItem = false;
@@ -607,7 +607,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             const auto& item = items[hovered + 8];
             if (item.used != 0) {
                 const std::int32_t pages = item.pages;
@@ -892,7 +892,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
         uiFrame.hoverText = hint;
     }
-    if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             if (hovered == 2 || hovered == 3) {
                 std::int32_t weapons = 0;
@@ -928,7 +928,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
                 ++inventory.battleTooltipPage;
                 if (inventory.battleTooltipPage >= item->pages) {

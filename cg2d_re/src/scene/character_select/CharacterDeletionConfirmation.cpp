@@ -79,7 +79,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
     if (hover != 0) {
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
+            static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
             result = hover;
             login::detail::PlaySe(79, 320, 240);

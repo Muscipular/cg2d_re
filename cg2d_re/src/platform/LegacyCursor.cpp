@@ -132,7 +132,8 @@ static void UpdateNativeCursor(session::ClientSession& session)
     // 原全局：0x00D68BE8；本函数保存上一次光标状态。
     static std::uint32_t previousCursorState = 0;
     const std::uint32_t currentState = session.UiFrame().mouse.requestedCursor;
-    if (currentState != previousCursorState) {
+    const bool acceptsInput = IsSessionInputTarget(session);
+    if (acceptsInput && currentState != previousCursorState) {
         // 原端未检查 API 结果且会继续读取未初始化局部；新端只将局部清零以避免 UB。
         POINT point {};
         RECT clientRect {};
@@ -147,7 +148,7 @@ static void UpdateNativeCursor(session::ClientSession& session)
         }
     }
 
-    previousCursorState = session.UiFrame().mouse.requestedCursor;
+    if (acceptsInput) previousCursorState = session.UiFrame().mouse.requestedCursor;
 
     if (session.UiFrame().mouse.state->drawingSuppression == 0) {
         const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);

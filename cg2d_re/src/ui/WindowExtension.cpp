@@ -8,7 +8,7 @@ namespace cg::ui {
 using namespace component_detail;
 
 static std::uint32_t nextGeneration = 0;
-int WindowPeekMouseWheelDelta(session::ClientSession& session) { return session.UiFrame().mouseWheelDelta; }
+int WindowPeekMouseWheelDelta(session::ClientSession& session) { return platform::IsSessionInputTarget(session) ? session.UiFrame().mouseWheelDelta : 0; }
 void WindowConsumeMouseWheelDelta(session::ClientSession& session) { session.UiFrame().mouseWheelDelta = 0; }
 void WindowAddMouseWheelDelta(session::ClientSession& session, int delta) { session.UiFrame().mouseWheelDelta += delta; }
 
@@ -81,17 +81,18 @@ int WindowExtension::update(int, int hasFocused) {
     }
     WindowRuntime_UpdateElementOrder(window);
     const int captured = WindowRuntime_ProcessElements(window);
-    if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
-        && dragMove == 1 && (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse(window)) {
+    const bool acceptsInput = platform::IsSessionInputTarget(*window.ownerSession);
+    if (acceptsInput && !(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
+        && dragMove == 1 && (platform::ReadSessionMouseHeldButtons(*window.ownerSession) & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse(window)) {
         if (dragMoving && dragOwner == window.id) {
             window.x += window.ownerSession->UiFrame().mouse.state->mouseX - dragMoveLastX; window.y += window.ownerSession->UiFrame().mouse.state->mouseY - dragMoveLastY;
             dragMoveLastX = window.ownerSession->UiFrame().mouse.state->mouseX; dragMoveLastY = window.ownerSession->UiFrame().mouse.state->mouseY;
         } else if (dragMoving) dragMoving = false;
-        else if (hasFocused && !captured && dragOwner == -1 && (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown)) {
+        else if (hasFocused && !captured && dragOwner == -1 && (platform::ReadSessionMouseEdgeButtons(*window.ownerSession) & platform::LegacyMouseEdge_LDown)) {
             dragOwner = window.id; dragMoving = true;
             dragMoveLastX = window.ownerSession->UiFrame().mouse.state->mouseX; dragMoveLastY = window.ownerSession->UiFrame().mouse.state->mouseY;
         }
-    } else {
+    } else if (acceptsInput) {
         if (dragOwner == window.id) dragOwner = -1;
         dragMoving = false;
     }

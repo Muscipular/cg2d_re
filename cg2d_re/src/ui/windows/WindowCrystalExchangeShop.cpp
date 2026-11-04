@@ -992,7 +992,7 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(WindowInstance& callbackWin
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = shop.itemCount;
-        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t position = crystal.scroll;
         WindowInstance* const window = currentWindow;
         auto* const indexedElement = window->FindElementById(NativeElementKey(index - 5));
@@ -1198,7 +1198,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
         crystal.inventoryHover = hovered;
     }
     const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
-    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (items[hovered + 8].used != 0) {
@@ -1303,7 +1303,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession));
         uiFrame.hoverText = crystal.confirmAccept;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
@@ -1320,7 +1320,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
     if (cancelHover) {
         cancelImage = 245328;
         uiFrame.hoverText = crystal.confirmCancel;
-        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession));
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;

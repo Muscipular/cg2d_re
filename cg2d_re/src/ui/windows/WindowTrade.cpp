@@ -940,7 +940,7 @@ static std::int32_t WindowTrade_HandlePanel(
     const std::int16_t y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementY + windowY));
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(window->ownerSession->UiFrame().mouse.state->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*window->ownerSession));
         const std::int32_t scrollPosition = *scrollValue;
         auto* const wheelElementElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(scrollElement)) : nullptr;
         if (wheelElementElement) {
@@ -1156,7 +1156,7 @@ static void WindowTrade_HandleOwnInventory(
         }
         trade.hoverSlotCB0A4C = hovered;
     }
-    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
         && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
         if (session.WorldScene().playerItems[hovered].used != 0
             && (session.WorldScene().playerItems[hovered].flags & 1u) != 0
@@ -1323,7 +1323,7 @@ static void WindowTrade_HandleOwnPets(
         petIndex = std::bit_cast<std::int16_t>(session.WorldScene().petPairs[hovered].index);
         if (petIndex >= 0) {
             uiFrame.hoverText = L"用滑鼠拖放方式，登录此笔宠物交易。";
-            if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+            if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
                 && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
                 if ((*session.WorldScene().petRecords)[petIndex].used != 0
                     && trade.petMarks[petIndex] == 0) {
@@ -1482,7 +1482,7 @@ static void WindowTrade_HandleOwnItemDrag(
         || session.WorldScene().playerItems[WindowTrade_ReadSelectedItem(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
@@ -1490,7 +1490,7 @@ static void WindowTrade_HandleOwnItemDrag(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 6, sourceIndex, x, y, WindowTrade_HandleOwnItemDrag));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
@@ -1522,7 +1522,7 @@ static void WindowTrade_HandleOwnPetDrag(
         || (*session.WorldScene().petRecords)[WindowTrade_ReadSelectedPet(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
@@ -1530,7 +1530,7 @@ static void WindowTrade_HandleOwnPetDrag(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 7, sourceIndex, x, y, WindowTrade_HandleOwnPetDrag));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
@@ -1645,7 +1645,7 @@ static void WindowTrade_HandleSelectedItem(
         }
         trade.hoverSlotC8AA78 = hovered;
     }
-    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemoveItem(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1821,7 +1821,7 @@ static void WindowTrade_HandleSelectedPet(
     if (phase == 0 && hovered >= 0) {
         uiFrame.hoverText = L"用滑鼠拖放方式，取消此笔宠物交易。";
     }
-    if (hovered >= 0 && (session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemovePet(session, hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));

@@ -62,6 +62,7 @@ inline constexpr int MCS_CALLBACK_A_ACTIVE = 1, MCS_CALLBACK_A_ENDING = 2, MCS_C
 using ui::detail::WindowRuntime_States;
 
 inline bool MouseIsInRect(session::ClientSession& session, int x, int y, int w, int h) {
+    if (!platform::IsSessionInputTarget(session)) return false;
     const int mx = static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX), my = static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     return mx >= x && mx < x + w && my >= y && my < y + h;
 }

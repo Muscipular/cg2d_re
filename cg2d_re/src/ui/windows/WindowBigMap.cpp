@@ -912,8 +912,13 @@ struct BigMapWindowState final {
         mapReady = map.PrepareMap(*window.ownerSession);
         if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
         SyncControls();
+        if (!platform::IsSessionInputTarget(*window.ownerSession)) {
+            acceptsMouse = false;
+            RefreshText();
+            return stage;
+        }
         const int mx = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX), my = static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
-        const bool held = (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) != 0;
+        const bool held = (platform::ReadSessionMouseHeldButtons(*window.ownerSession) & platform::LegacyMouseButton_Left) != 0;
         const bool available = window.ownerSession->UiFrame().windowHasFocus == 0 && ui::WindowDrag_ReadMousePhase(*window.ownerSession) == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
@@ -926,7 +931,7 @@ struct BigMapWindowState final {
             }
         }
         RefreshText();
-        if (!acceptsMouse || (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
+        if (!acceptsMouse || (platform::ReadSessionMouseEdgeButtons(*window.ownerSession) & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
             WindowElement_HandleVerticalScroll(window, static_cast<ElementId>(WindowBigMapElementId::Element15), heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
@@ -944,7 +949,7 @@ struct BigMapWindowState final {
             } else movingWindow = false;
         } else if (dragging) {
             // 原生元素事件的0x100为双击；留给地图元素，优先于第二次按下的拖动捕获。
-            if (acceptsMouse && mapClickPending && (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) && MapHit()) {
+            if (acceptsMouse && mapClickPending && (platform::ReadSessionMouseEdgeButtons(*window.ownerSession) & platform::LegacyMouseEdge_LDblClick) && MapHit()) {
                 dragging = false;
                 return stage;
             }

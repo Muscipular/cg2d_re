@@ -4009,8 +4009,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         const std::int32_t x = cg::yobi::GetYobiActionField30(action);
         if (cg::ui::HitTestMouseRect_5049A0(session, x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             uiFrame.hoverText = L"结束观战。" /* 原常量参考：0x00554194。 */;
-            const auto clicked = *reinterpret_cast<const unsigned char*>(
-                &session.UiFrame().mouse.state->edgeButtons);
+            const auto clicked = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
             const bool exitClicked = (clicked & 1U) != 0;
             static_cast<void>(0);
             if (exitClicked) {
@@ -5106,6 +5105,14 @@ void AdvancePlayerLeaderFollowers_46A940(session::ClientSession& session)
 // 原函数：0x0046F680。
 std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& session)
 {
+    if (!platform::IsSessionInputTarget(session)) {
+        auto& movement = session.WorldScene().movement;
+        movement.targetLeftClick = 0;
+        movement.targetLeftHeld = 0;
+        movement.targetInteractionClick = 0;
+        movement.targetRightHeld = 0;
+        return 0;
+    }
     const float mouseY = static_cast<float>(
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY));
     const float mouseX = static_cast<float>(
@@ -5163,15 +5170,13 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         return static_cast<std::uint8_t>(mouseBelowLimit);
     }
 
-    const auto leftClick = *reinterpret_cast<const unsigned char*>(
-        &session.UiFrame().mouse.state->edgeButtons);
+    const auto leftClick = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
     if ((leftClick & 1u) != 0 && session.WorldScene().movement.leftButtonSuppressed == 0) {
         session.WorldScene().movement.targetLeftClick = 1;
         session.WorldScene().movement.leftHoldDurationMs = 0;
         session.WorldScene().movement.leftPressTick = platform::ReadTickCount64();
     }
-    if ((*reinterpret_cast<const unsigned char*>(
-            &session.UiFrame().mouse.state->heldButtons) & 1u) != 0
+    if ((static_cast<std::uint8_t>(platform::ReadSessionMouseHeldButtons(session)) & 1u) != 0
         && session.WorldScene().movement.leftButtonSuppressed == 0) {
         const std::uint64_t baseline = session.WorldScene().movement.leftPressTick;
         session.WorldScene().movement.targetLeftHeld = 1;
@@ -5183,13 +5188,11 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         session.WorldScene().movement.leftHoldDurationMs = 0;
         session.WorldScene().movement.leftPressTick = 0;
     }
-    const auto rightClick = *reinterpret_cast<const unsigned char*>(
-        &session.UiFrame().mouse.state->edgeButtons);
+    const auto rightClick = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
     if ((rightClick & 2u) != 0 && session.WorldScene().movement.targetInteractionClick == 0) {
         session.WorldScene().movement.targetInteractionClick = 1;
     }
-    if ((*reinterpret_cast<const unsigned char*>(
-            &session.UiFrame().mouse.state->heldButtons) & 2u) != 0
+    if ((static_cast<std::uint8_t>(platform::ReadSessionMouseHeldButtons(session)) & 2u) != 0
         && session.WorldScene().movement.targetInteractionClick == 0) {
         session.WorldScene().movement.targetRightHeld = 1;
     }
@@ -5383,8 +5386,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
             session.WorldScene().movement.continuousMovementActive = 1;
         }
         if (forceContinuousMove || session.WorldScene().movement.continuousMovementActive == 1) {
-            const auto click = *reinterpret_cast<const unsigned char*>(
-                &session.UiFrame().mouse.state->edgeButtons);
+            const auto click = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
             if ((click & 1u) != 0) {
                 session.WorldScene().movement.continuousMovementActive = 0;
             } else {

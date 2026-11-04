@@ -243,7 +243,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
     const bool hovered = cg::ui::HitTestMouseRect_5049A0(connection.Owner(), left, top, left + 66, top + 17, -1) != 0;
     if (hovered) {
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
+            static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
             detail::PlaySe(79, 320, 240);
             if (message.action != nullptr) {

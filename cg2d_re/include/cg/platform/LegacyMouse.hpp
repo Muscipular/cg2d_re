@@ -81,6 +81,12 @@ struct MouseRuntimeState {
     std::uint32_t consumedCursor = 0; // 原9A6F44，供原生窗口设置当前光标。
 };
 
+// 仅当前输入目标可读实际按钮/滚轮；后台返回零，不清记录或模拟释放。
+std::uint32_t ReadSessionMouseHeldButtons(session::ClientSession& session) noexcept;
+std::uint32_t ReadSessionMouseEdgeButtons(session::ClientSession& session) noexcept;
+std::uint32_t ReadSessionMousePulseButtons(session::ClientSession& session) noexcept;
+std::uint32_t ReadSessionMouseWheelDelta(session::ClientSession& session) noexcept;
+
 void InitializeLegacyMouseStorage(session::ClientSession& session);
 
 // 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。

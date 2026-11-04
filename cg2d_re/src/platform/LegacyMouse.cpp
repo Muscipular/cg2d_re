@@ -7,6 +7,26 @@
 
 namespace cg::platform {
 
+std::uint32_t ReadSessionMouseHeldButtons(session::ClientSession& session) noexcept
+{
+    return IsSessionInputTarget(session) ? session.UiFrame().mouse.state->heldButtons : 0;
+}
+
+std::uint32_t ReadSessionMouseEdgeButtons(session::ClientSession& session) noexcept
+{
+    return IsSessionInputTarget(session) ? session.UiFrame().mouse.state->edgeButtons : 0;
+}
+
+std::uint32_t ReadSessionMousePulseButtons(session::ClientSession& session) noexcept
+{
+    return IsSessionInputTarget(session) ? session.UiFrame().mouse.state->pulseButtons : 0;
+}
+
+std::uint32_t ReadSessionMouseWheelDelta(session::ClientSession& session) noexcept
+{
+    return IsSessionInputTarget(session) ? session.UiFrame().mouse.state->tailReset : 0;
+}
+
 void InitializeLegacyMouseStorage(session::ClientSession& session)
 {
     auto& state = session.UiFrame().mouse.state;

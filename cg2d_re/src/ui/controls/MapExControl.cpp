@@ -858,6 +858,7 @@ bool WindowMapExData::IsExplored(int gridX, int gridY) const {
 }
 
 void WindowMapExData::UpdateMouse(const WindowElement& element, int ox, int oy, const UIClipRect* clipRect, int events) {
+    if (!platform::IsSessionInputTarget(*element.owner->ownerSession)) return;
     if (element.visible != 1 || !element.hitable || element.width <= 0 || element.height <= 0) {
         lastMouseX = -1;
         lastMouseY = -1;

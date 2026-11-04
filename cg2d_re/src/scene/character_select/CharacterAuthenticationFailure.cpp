@@ -61,7 +61,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
         != 0) {
         hovered = true;
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
+            static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
             result = 1;
             login::detail::PlaySe(51, 320, 240);

@@ -265,7 +265,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     hovered = cg::ui::HitTestMouseRect_5049A0(session,
         left, top, right, bottom, -1) != 0;
     if (hovered
-        && (static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons) & 1U) != 0) {
+        && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session)) & 1U) != 0) {
         cg::yobi::MarkDeath(dialog.action);
         dialog.action = nullptr;
         clicked = 1;

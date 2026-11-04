@@ -160,7 +160,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
         -1) != 0;
 
     const std::uint8_t mouseClickState =
-        static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
+        static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
     const bool clicked = (mouseClickState & 1U) != 0;
     std::int32_t selection = -1;
     if (leftHovered && clicked) {

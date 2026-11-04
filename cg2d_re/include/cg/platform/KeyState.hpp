@@ -9,6 +9,9 @@ namespace cg::platform {
 
 inline constexpr std::size_t LegacyKeyStateCount = 256;
 
+// 宿主当前键鼠输入目标，只判断输入权限，不选择业务状态或连接。
+bool IsSessionInputTarget(const session::ClientSession& session) noexcept;
+
 // NSM01：仅当前输入目标返回原U8键态；后台返回零，不清原数组或模拟释放。
 std::uint8_t ReadSessionKeyState(session::ClientSession& session, std::int32_t key) noexcept;
 

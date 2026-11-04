@@ -895,7 +895,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
     storage.bankOwnHover = hovered;
-    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t target = 0;
@@ -921,7 +921,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20);
                 const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
@@ -1094,7 +1094,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
     storage.bankExternalHover = hovered;
-    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t target = 0;
@@ -1125,7 +1125,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
@@ -1305,7 +1305,7 @@ static std::int32_t WindowBank_ScrollPets(WindowInstance& callbackWindow, const 
     WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     std::uint32_t* const scroll = elementId >= static_cast<ElementId>(WindowBankElementId::Element26) ? &windowState->value28 : &windowState->value24;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
         if (indexedElement) {
@@ -1405,7 +1405,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     const std::uint16_t used = pet.used;
     if (used != 0 && (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
-        && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+        && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t target = 0;
@@ -1533,7 +1533,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0 && (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
-        && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+        && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t position = 0;

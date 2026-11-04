@@ -42,7 +42,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        if ((static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons) & 3u) != 0
+        if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 3u) != 0
             || (ReadSessionKeyState(connection.Owner(), 13) & 2u) != 0
             || (ReadSessionKeyState(connection.Owner(), 32) & 2u) != 0
             || (ReadSessionKeyState(connection.Owner(), 27) & 2u) != 0) {

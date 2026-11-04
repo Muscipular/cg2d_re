@@ -876,7 +876,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
     }
     inventory.backpackHover = hovered;
     if (inventory.selectedItem < 0 && hovered >= 0
-        && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+        && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
@@ -920,7 +920,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
                 const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
@@ -1124,7 +1124,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     const std::int32_t selectedItem = inventory.selectedItem;
     inventory.equipmentHover = hovered;
     if (selectedItem < 0 && hovered >= 0
-        && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+        && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             if (item->used != 0 && (*reinterpret_cast<const unsigned char*>(&item->canUseInField) & 1u) != 0) {
                 if (item->imageNo == 26569) {
@@ -1171,7 +1171,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
                 ++page;
@@ -1263,7 +1263,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
     auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 1 && WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14) {
         events |= MouseFlag_Hover;
-        if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+        if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
             events |= MouseFlag_LDownEvent;
         }
     }
@@ -1342,7 +1342,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
         }
         consumed = 1;
     }
-    if ((*reinterpret_cast<const unsigned char*>(&callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_RDown) != 0) {
         leaveSelection();
     }
     const std::int32_t imageNo = callbackWindow.ownerSession->WorldScene().playerItems[inventory.currentItem].imageNo;

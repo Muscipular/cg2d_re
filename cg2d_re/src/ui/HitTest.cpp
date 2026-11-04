@@ -22,6 +22,7 @@ std::int32_t HitTestMouseRect_5049A0(
     const std::int32_t bottom,
     const std::int32_t layer)
 {
+    if (!platform::IsSessionInputTarget(session)) return 0;
     if (!(session.UiFrame().mouse.state->mouseX < right + LegacyUiLayoutScope::GetOffsetX())) {
         return 0;
     }

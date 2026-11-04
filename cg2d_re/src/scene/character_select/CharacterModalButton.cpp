@@ -27,7 +27,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(session::ClientSession& s
     }
 
     const std::uint8_t clickState =
-        static_cast<std::uint8_t>(session.UiFrame().mouse.state->edgeButtons);
+        static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
     std::uint32_t result = 0x40U;
     if ((clickState & 0x01U) != 0) {
         result |= 0x01U;
@@ -37,7 +37,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(session::ClientSession& s
     }
 
     const std::uint8_t buttonState2 =
-        static_cast<std::uint8_t>(session.UiFrame().mouse.state->heldButtons);
+        static_cast<std::uint8_t>(platform::ReadSessionMouseHeldButtons(session));
     if ((buttonState2 & 0x01U) != 0) {
         result |= 0x02U;
     }
@@ -46,7 +46,7 @@ std::int32_t ReadCharacterModalButtonMouseState_503990(session::ClientSession& s
     }
 
     const std::uint8_t buttonState =
-        static_cast<std::uint8_t>(session.UiFrame().mouse.state->pulseButtons);
+        static_cast<std::uint8_t>(platform::ReadSessionMousePulseButtons(session));
     if ((buttonState & 0x01U) != 0) {
         result |= 0x10U;
     }

@@ -218,7 +218,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20);
                 const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
@@ -401,7 +401,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             }
             consumed = 1;
         }
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_RDown) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {

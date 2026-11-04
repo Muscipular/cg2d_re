@@ -43,6 +43,7 @@ static void ConsumePointerDragMouse(session::ClientSession& session) {
 }
 
 void WindowRuntime_BeginPointerDragFrame(session::ClientSession& session) {
+    if (!platform::IsSessionInputTarget(session)) return;
     auto& pointerDrag = session.UiFrame().pointerDrag;
     auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     pointerDragReserved = pointerDrag.windowId >= 0;
@@ -66,10 +67,11 @@ bool WindowRuntime_PointerDragBlocksMouse(const WindowInstance& window) {
 
 bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& element, int events) {
     auto& session = WindowOwner(window);
+    if (!platform::IsSessionInputTarget(session)) return false;
     auto& pointerDrag = session.UiFrame().pointerDrag;
     auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (pointerDragReserved || element.refDrag < 0 || !(events & MouseFlag_LDownEvent)
-        || !(window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase(session) != 0
+        || !(platform::ReadSessionMouseHeldButtons(*window.ownerSession) & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase(session) != 0
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
@@ -94,6 +96,7 @@ static void EmitPointerDrag(WindowInstance& window, WindowElement& element, int 
 
 int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     auto& session = WindowOwner(window);
+    if (!platform::IsSessionInputTarget(session)) return 0;
     auto& pointerDrag = session.UiFrame().pointerDrag;
     const bool pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (!pointerDragReserved) return 0;
@@ -103,8 +106,8 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     WindowInstance* owner = nullptr;
     auto* element = ResolvePointerDrag(session, owner);
     if (!element || WindowDrag_ReadMousePhase(session) != 0) { CancelPointerDrag(session); return 1; }
-    const bool released = (window.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LUp) != 0;
-    const bool held = (window.ownerSession->UiFrame().mouse.state->heldButtons & platform::LegacyMouseButton_Left) != 0;
+    const bool released = (platform::ReadSessionMouseEdgeButtons(*window.ownerSession) & platform::LegacyMouseEdge_LUp) != 0;
+    const bool held = (platform::ReadSessionMouseHeldButtons(*window.ownerSession) & platform::LegacyMouseButton_Left) != 0;
     if (!held && !released) { CancelPointerDrag(session); return 1; }
     const int x = released ? static_cast<int>(window.ownerSession->UiFrame().mouse.state->buttonCoordinates[2]) : static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseX);
     const int y = released ? static_cast<int>(window.ownerSession->UiFrame().mouse.state->buttonCoordinates[3]) : static_cast<int>(window.ownerSession->UiFrame().mouse.state->mouseY);
@@ -136,6 +139,7 @@ void WindowRuntime_CancelPointerDrag(WindowInstance& window) {
 }
 
 void WindowRuntime_EndPointerDragFrame(session::ClientSession& session) {
+    if (!platform::IsSessionInputTarget(session)) return;
     WindowInstance* window = nullptr;
     if (!ResolvePointerDrag(session, window) || WindowDrag_ReadMousePhase(session) != 0) CancelPointerDrag(session);
 }

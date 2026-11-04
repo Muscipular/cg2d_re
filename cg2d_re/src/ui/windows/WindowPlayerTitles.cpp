@@ -462,7 +462,7 @@ static std::int32_t WindowPlayerTitles_Scroll(WindowInstance& callbackWindow, co
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         WindowInstance* const window = currentWindow;
         const std::int32_t page = business.valuesCF4E50[1];
         auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);

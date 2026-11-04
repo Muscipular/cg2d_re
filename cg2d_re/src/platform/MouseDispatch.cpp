@@ -33,6 +33,7 @@ static constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量�
 // 原5071C6..507242：宽度留给命中后的绘框，四边各自读取CryptInt。
 static bool HitQueuedText(session::ClientSession& session, const render::TextPendingRecord& text, std::int32_t& width)
 {
+    if (!IsSessionInputTarget(session)) return false;
     width = cg::render::TextMeasure(text.text.c_str(), text.fontType);
     if (!(session.UiFrame().mouse.state->mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
         return false;
@@ -52,6 +53,7 @@ static bool HitQueuedText(session::ClientSession& session, const render::TextPen
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
 static bool HitQueuedGraphic(session::ClientSession& session, const render::GraphicCacheItem32& graphic)
 {
+    if (!IsSessionInputTarget(session)) return false;
     if (graphic.reference.action == nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;

@@ -569,7 +569,7 @@ static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, c
         const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
             const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
@@ -578,7 +578,7 @@ static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, c
                     indexedElement, page, maximum, wheel);
             }
         } else {
-            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
             const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
@@ -672,7 +672,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWind
         const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
             WindowInstance* const window = currentWindow;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
             auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 42 : 37)));

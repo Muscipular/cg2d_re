@@ -404,7 +404,7 @@ static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWind
     std::int32_t imageNo = 243048;
     if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, 287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
-        if ((static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
+        if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -576,7 +576,7 @@ static std::int32_t WindowTextList_Scroll(WindowInstance& callbackWindow, const 
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = textList.lineCount;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t position = textList.scroll;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {

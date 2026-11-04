@@ -48,9 +48,14 @@ int ResetKeyState_459780(session::ClientSession& session) noexcept
     return static_cast<int>(LegacyKeyStateCount);
 }
 
+bool IsSessionInputTarget(const session::ClientSession& session) noexcept
+{
+    return session::GetClientHost().CurrentSession() == &session;
+}
+
 std::uint8_t ReadSessionKeyState(session::ClientSession& session, const std::int32_t key) noexcept
 {
-    if (session::GetClientHost().CurrentSession() != &session) return 0;
+    if (!IsSessionInputTarget(session)) return 0;
     return session.UiFrame().keyStates[key];
 }
 

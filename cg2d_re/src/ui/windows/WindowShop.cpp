@@ -498,7 +498,7 @@ static void WindowShop_HandleSaleDrag(
     if (shop.items[item].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
@@ -506,7 +506,7 @@ static void WindowShop_HandleSaleDrag(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(session, 9, sourceIndex, x, y, &WindowShop_HandleSaleDrag));
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(session, 1, 0));
@@ -2550,7 +2550,7 @@ static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const Elem
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = shop.itemCount;
-        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t position = shop.scroll;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
@@ -3333,7 +3333,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             uiFrame.hoverText = kShopHints57E6C4[2];
         }
     }
-    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
         const std::int32_t item = std::bit_cast<std::int8_t>(shop.selectedSlots[row]);
         shop.selectedSlots[row] = static_cast<char>(-1);
@@ -3504,7 +3504,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
     }
     shop.inventoryHover = hovered;
     const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
-    if (hovered >= 0 && (callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
+    if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
             if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 53 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
                 const std::int32_t item = shop.inventoryMap[hovered];
@@ -3734,7 +3734,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     std::int32_t acceptImage = 245323;
     if (acceptHover) {
         acceptImage = 245325;
-        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession));
         uiFrame.hoverText = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
@@ -3751,7 +3751,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     if (cancelHover) {
         cancelImage = 245328;
         uiFrame.hoverText = shop.confirmationCancelHint;
-        const auto buttons = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession));
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;

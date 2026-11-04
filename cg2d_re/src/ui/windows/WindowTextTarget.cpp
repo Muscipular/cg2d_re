@@ -395,7 +395,7 @@ static std::int32_t WindowTextTarget_Scroll(WindowInstance& callbackWindow, cons
     auto& choice = session.UiFrame().native.textTarget;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = choice.count;
-        const auto wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
         const std::int32_t offset = choice.offset;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {

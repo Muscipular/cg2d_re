@@ -634,7 +634,7 @@ static void WindowPetSkills_HandleDrag(session::ClientSession& session, const st
         }
         return;
     }
-    if ((session.UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+    if ((platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_RDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX));

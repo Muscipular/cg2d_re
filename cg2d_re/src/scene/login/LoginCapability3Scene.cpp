@@ -146,7 +146,7 @@ static std::int32_t ProcessCapability3CommonDispatch(
 {
     if (std::bit_cast<std::uint32_t>(sampledState) < 4U) {
         const std::uint8_t clickState =
-            static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons);
+            static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((clickState & 1U) != 0U) {
             connection.Owner().WorldScene().sceneState = 5;
             cg::input::SetContext_44B330(connection.Owner(), nullptr);

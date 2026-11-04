@@ -295,7 +295,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             }
         }
         uiFrame.hoverText = choice.dialog.hints[index];
-        if ((callbackWindow.ownerSession->UiFrame().mouse.state->edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
+        if ((platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDown) != 0) {
             const WindowChoiceCallback callback = choice.dialog.callback;
             if (callback != nullptr) {
                 static_cast<void>(callback(*callbackWindow.ownerSession, index));

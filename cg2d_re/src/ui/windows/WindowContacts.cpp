@@ -1145,7 +1145,7 @@ static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const 
         break;
     }
     const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::ReadSessionMouseWheelDelta(*callbackWindow.ownerSession));
     const std::int32_t position = business.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {

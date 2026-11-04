@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/world/MapEffectRuntimeState.hpp"
+
 #include <cstdint>
 
 namespace cg::network {
@@ -74,10 +76,6 @@ std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
 extern std::uint32_t gMapTargetInputOverride_C8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
 extern std::uint32_t gMapTargetDrawOverride_C8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gCurrentDayPeriod_73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
-extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
-extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
-extern std::uint32_t& gBattleSceneEffectC8A768; // 原全局：0x00C8A768。 413070按两W16写入，别名既有场景效果owner。
-extern std::uint32_t& gBattleSceneEffectC8A76C; // 原全局：0x00C8A76C。 同源W32，不能拆成独立高/低槽。
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
 extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
@@ -154,54 +152,8 @@ void HandlePlayerPositionReply_5093C0(cg::network::CgConnection& networkConnecti
     std::int32_t direction); // 原坐标回复，无门禁，方向最后发布。
 // 原函数：0x0050D080。
 void Sub_50D080(cg::network::CgConnection& networkConnection, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
-// 原[C82258,C8A728)共500项，44H载荷及两链接；只拓宽链接，生产和渲染共享同一记录。
-struct MapEffectRecord {
-    std::int32_t x; // +00：当前位置。
-    std::int32_t y; // +04：当前位置。
-    std::int32_t value08; // +08：类别1/2/4的X速度，类别6/7/8的定点X。
-    std::int32_t value0C; // +0C：类别1/2/4的Y速度，类别6/7/8的定点Y。
-    std::int32_t speed; // +10：类别6/7/8的运动速度。
-    std::int32_t graphicIndex; // +14：类别6/7/8的图形参数。
-    std::array<std::byte, 8> reserved18; // +18：尚无字段依据。
-    std::int32_t value20; // +20：类别4绘制局部X。
-    std::int32_t value24; // +24：类别4绘制局部Y。
-    std::int32_t value28; // +28：类别4绘制宽度。
-    std::int32_t value2C; // +2C：类别4更新写入值，渲染作为高度消费。
-    std::uint32_t remaining; // +30：类别4更新倒计数。
-    std::array<std::byte, 8> reserved34; // +34：尚无字段依据。
-    std::uint16_t kind; // +3C：效果类别。
-    std::uint16_t phase; // +3E：类别4的颜色阶段。
-    std::uint16_t variant; // +40：图案／颜色分支。
-    std::array<std::byte, 2> reserved42; // +42：保留原字节。
-    MapEffectRecord* prev; // 原+44，x64 +48：活动／空闲链前项。
-    MapEffectRecord* next; // 原+48，x64 +50：活动／空闲链后项。
-};
-static_assert(std::is_standard_layout_v<MapEffectRecord>);
-static_assert(std::is_trivially_copyable_v<MapEffectRecord>);
-static_assert(offsetof(MapEffectRecord, x) == 0x0);
-static_assert(offsetof(MapEffectRecord, y) == 0x4);
-static_assert(offsetof(MapEffectRecord, value08) == 0x8);
-static_assert(offsetof(MapEffectRecord, value0C) == 0xC);
-static_assert(offsetof(MapEffectRecord, speed) == 0x10);
-static_assert(offsetof(MapEffectRecord, graphicIndex) == 0x14);
-static_assert(offsetof(MapEffectRecord, reserved18) == 0x18);
-static_assert(offsetof(MapEffectRecord, value20) == 0x20);
-static_assert(offsetof(MapEffectRecord, value24) == 0x24);
-static_assert(offsetof(MapEffectRecord, value28) == 0x28);
-static_assert(offsetof(MapEffectRecord, value2C) == 0x2C);
-static_assert(offsetof(MapEffectRecord, remaining) == 0x30);
-static_assert(offsetof(MapEffectRecord, reserved34) == 0x34);
-static_assert(offsetof(MapEffectRecord, kind) == 0x3C);
-static_assert(offsetof(MapEffectRecord, phase) == 0x3E);
-static_assert(offsetof(MapEffectRecord, variant) == 0x40);
-static_assert(offsetof(MapEffectRecord, reserved42) == 0x42);
-static_assert(offsetof(MapEffectRecord, prev) == 0x48);
-static_assert(offsetof(MapEffectRecord, next) == 0x50);
-static_assert(sizeof(MapEffectRecord) == 0x58);
-static_assert(alignof(MapEffectRecord) == 8);
-extern MapEffectRecord* gActiveMapEffectHead; // 原0x00C8A72C；唯一活动链首。
 // 原函数：0x0046E480。
-void DrawPendingMapEffects_46E480();                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
+void DrawPendingMapEffects_46E480(session::ClientSession& session);                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
 // 原函数：0x0046BD40。
 std::int32_t ResetMapDrawCacheCounts_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 // 原 46FB80：先X差再Y差，返回Y平方+X平方的F64值。
@@ -457,15 +409,15 @@ network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90(sessio
 std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0(session::ClientSession& session); // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
 // 原函数：0x0046AB60。
 std::int32_t __cdecl DispatchPendingPathEvent_46AB60(session::ClientSession& session); // 原 [0x46AB60,0x46ABCD)，pending 倒计时与分发。
-// render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
+// render 只借用所属会话的活动链及已证数值字段，不截断原生next。
 // 原函数：0x0046E2A0。
-MapEffectRecord* InitializeMapEffectPool_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
+MapEffectRecord* InitializeMapEffectPool_46E2A0(session::ClientSession& session);             // 原 0x46E2A0；返回末项非拥有指针。
 // 原函数：0x0046E340。
-MapEffectRecord* AcquireMapEffectRecord_46E340();             // 原 0x46E340；空闲首项转为活动首项。
+MapEffectRecord* AcquireMapEffectRecord_46E340(session::ClientSession& session);             // 原 0x46E340；空闲首项转为活动首项。
 // 原函数：0x0046E390。
-MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
+MapEffectRecord* ReleaseMapEffectRecord_46E390(session::ClientSession& session, MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
 // 原函数：0x0046E3E0。
-std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
+std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(session::ClientSession& session, std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
 // 原函数：0x0046E4E0。
 void UpdateMapStreakParticles_46E4E0(session::ClientSession& session); // 原 0x46E4E0；EAX 不具统一返回合同。
 // 原函数：0x0046E6C0。
@@ -485,16 +437,17 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session); // 原
 // 原函数：0x00440FF0。
 std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& session); // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
 // 原函数：0x0046E0D0。
-void __cdecl ConfigureDirectionalMapEffects_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
+void __cdecl ConfigureDirectionalMapEffects_46E0D0(session::ClientSession& session, std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 // 原函数：0x0046F160。
-void ClearDirectionalMapEffects_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
+void ClearDirectionalMapEffects_46F160(session::ClientSession& session);                          // 原 0x46F160；清活动链的 kind 6/7/8。
 // 原函数：0x0046F090。
 MapEffectRecord* CreateDirectionalMapEffect_46F090(
+    session::ClientSession& session,
     std::int16_t kind, std::int32_t horizontalSign,
     std::int32_t verticalSign, std::int32_t phase,
     std::int32_t speed, std::int32_t graphicIndex); // 原 0x46F090；效果记录生产。
 // 原函数：0x0046F000。
-std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
+std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(session::ClientSession& session, std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
 // 原函数：0x00469C90。
 std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& session); // 完整移动输入、目标交互与普通/跟随分流。
 // 原函数：0x0046F680。

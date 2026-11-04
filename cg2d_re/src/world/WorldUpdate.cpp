@@ -119,7 +119,7 @@ void Update(session::ClientSession& session)
         detail::ResetWorldObjectTable_446470(session);
         detail::ResetCurrentDialogType_4D3170(session);
         detail::InitializeWorldSceneFlags_455BD0(session);
-        detail::InitializeMapEffectPool_46E2A0();
+        detail::InitializeMapEffectPool_46E2A0(session);
         ResetMapDrawCacheCounts_46BD40();
         session.WorldScene().battle.entryPending = 0;
         session.WorldScene().gameplayRepliesSuppressed = 0;

@@ -15,6 +15,7 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/WorldMapState.hpp"
 
 #include <bit>
@@ -388,7 +389,7 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
 }
 
 // 原函数：0x00520DD0。
-void DrawAllQueued_520DD0()
+void DrawAllQueued_520DD0(session::ClientSession& session)
 {
     gGraphicPaletteUploadCount = 0;
     GraphicCache3* order = gLegacyPendingStorage.cache3.data();
@@ -455,7 +456,7 @@ void DrawAllQueued_520DD0()
                 static_cast<void>(ApplyScreenRipple_521870());
                 break;
             case 9:
-                world::DrawPendingMapEffects_46E480();
+                world::DrawPendingMapEffects_46E480(session);
                 break;
             case 10:
                 DrawFixedScaleSprite(graphic, 0.25f);

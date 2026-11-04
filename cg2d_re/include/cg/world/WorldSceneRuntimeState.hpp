@@ -6,6 +6,7 @@
 #include "cg/world/PetRuntimeRecord.hpp"
 #include "cg/world/SkillRuntimeSlots.hpp"
 #include "cg/world/WorldObjectRecord.hpp"
+#include "cg/world/MapEffectRuntimeState.hpp"
 
 #include <array>
 #include <cstddef>
@@ -384,6 +385,7 @@ static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    MapEffectRuntimeState mapEffects {};
     WorldMovementRuntimeState movement {};
     std::int32_t sceneType = 0; // 原FF0D40，平台与世界共用的唯一当前类型。
     std::int32_t pendingSceneState = 0; // 原FF0D60。

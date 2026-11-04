@@ -48,7 +48,7 @@ void RebuildRenderer_466B80(session::ClientSession& session)
         SortTextures_520790();
         static_cast<void>(ClearSurface_4512C0());
         gRenderQueueMode103CF10 = 0;
-        DrawAllQueued_520DD0();
+        DrawAllQueued_520DD0(session);
         static_cast<void>(CopyBackToTemp());
         gRenderQueueMode103CF10 = previousQueueMode;
         platform::gPendingGraphicCount = 0;
@@ -56,7 +56,7 @@ void RebuildRenderer_466B80(session::ClientSession& session)
         static_cast<void>(ResetGraphicCache_456D30());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
     } else if (sceneType == 9) {
-        static_cast<void>(world::CaptureMapTilesForTransition_51D640());
+        static_cast<void>(world::CaptureMapTilesForTransition_51D640(session));
     }
 
     auto* palette = GetRendererPalette(gRenderer);

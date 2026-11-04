@@ -3202,8 +3202,6 @@ YobiAction* UpdateBattleAction210_412F70(YobiAction* const action)
 // 原函数：0x00413070。
 void ApplyBattleSceneEffects_413070(YobiAction* const action)
 {
-    using world::gBattleSceneEffectC8A768;
-    using world::gBattleSceneEffectC8A76C;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     const std::int32_t firstIndex = payload->effectRunningC9C;
     const std::uint8_t firstFlags =
@@ -3211,7 +3209,7 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     if ((firstFlags & BattleResultFlag_Normal) != 0) {
         std::uint16_t value;
         std::memcpy(&value, &payload->effects1C[firstIndex].position3, sizeof(value));
-        std::memcpy(&cg::world::gBattleSceneEffectC8A768, &value, sizeof(value));
+        std::memcpy(&action->ownerSession->WorldScene().mapEffects.scene.valueC8A768, &value, sizeof(value));
     }
     const std::int32_t secondIndex = payload->effectRunningC9C;
     const std::uint8_t secondFlags =
@@ -3219,7 +3217,7 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     if ((secondFlags & BattleResultFlag_Critical) != 0) {
         std::uint16_t value;
         std::memcpy(&value, &payload->effects1C[secondIndex].position3, sizeof(value));
-        std::memcpy(reinterpret_cast<std::byte*>(&cg::world::gBattleSceneEffectC8A768) + 2, &value, sizeof(value));
+        std::memcpy(reinterpret_cast<std::byte*>(&action->ownerSession->WorldScene().mapEffects.scene.valueC8A768) + 2, &value, sizeof(value));
     }
     const std::int32_t thirdIndex = payload->effectRunningC9C;
     const std::uint8_t thirdFlags =
@@ -3227,7 +3225,7 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     if ((thirdFlags & BattleResultFlag_Guard) != 0) {
         std::uint16_t value;
         std::memcpy(&value, &payload->effects1C[thirdIndex].position3, sizeof(value));
-        std::memcpy(&cg::world::gBattleSceneEffectC8A76C, &value, sizeof(value));
+        std::memcpy(&action->ownerSession->WorldScene().mapEffects.scene.valueC8A76C, &value, sizeof(value));
     }
     const std::int32_t fourthIndex = payload->effectRunningC9C;
     const std::uint8_t fourthFlags =
@@ -3235,7 +3233,7 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     if ((fourthFlags & BattleResultFlag_Avoidance) != 0) {
         std::uint16_t value;
         std::memcpy(&value, &payload->effects1C[fourthIndex].position3, sizeof(value));
-        std::memcpy(reinterpret_cast<std::byte*>(&cg::world::gBattleSceneEffectC8A76C) + 2, &value, sizeof(value));
+        std::memcpy(reinterpret_cast<std::byte*>(&action->ownerSession->WorldScene().mapEffects.scene.valueC8A76C) + 2, &value, sizeof(value));
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));
     AdvanceBattleCastState_439340(action);

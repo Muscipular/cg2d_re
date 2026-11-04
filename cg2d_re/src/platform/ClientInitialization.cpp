@@ -51,7 +51,7 @@ static constexpr std::uint32_t kErrorMessageFlags = 0x10;
 static std::int32_t gLoadingGraphicImageNo = 0;
 
 // 原 458489–458598 / 458695–4587A0 的相同公共段；不代替普通 MainLoop。
-static void AdvanceLoadingFadeFrame()
+static void AdvanceLoadingFadeFrame(session::ClientSession& session)
 {
     render::SortTextures_520790();
     static_cast<void>(render::UpdatePalette_450BB0());
@@ -73,7 +73,7 @@ static void AdvanceLoadingFadeFrame()
             std::bit_cast<std::uint32_t>(render::gPaletteFrameVersion) + 1u);
     }
     static_cast<void>(render::ClearSurface_4512C0());
-    render::DrawAllQueued_520DD0();
+    render::DrawAllQueued_520DD0(session);
     if (gPendingPaletteReload == 1) {
         auto* palette = render::GetRendererPalette(render::gRenderer);
         static_cast<void>(render::SetPaletteEntries(palette, 0, 0, 256, render::gPalette));
@@ -129,12 +129,12 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
                 keepRunning = false;
             }
         }
-        AdvanceLoadingFadeFrame();
+        AdvanceLoadingFadeFrame(session);
         if (!keepRunning) {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             static_cast<void>(render::ClearSurface_4512C0());
-            render::DrawAllQueued_520DD0();
+            render::DrawAllQueued_520DD0(session);
             render::Flip_44C560();
             return 1;
         }
@@ -164,7 +164,7 @@ static std::int32_t FadeOutLoading_4585F0(session::ClientSession& session)
                 keepRunning = false;
             }
         }
-        AdvanceLoadingFadeFrame();
+        AdvanceLoadingFadeFrame(session);
         if (!keepRunning) {
             return 1;
         }

@@ -348,7 +348,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             if (gWindowActiveState == 1) {
                 gWindowActiveState = 2;
             }
-            render::DrawAllQueued_520DD0();
+            render::DrawAllQueued_520DD0(connection.Owner());
             if (gPendingPaletteReload == 1) {
                 auto* palette = render::GetRendererPalette(render::gRenderer);
                 static_cast<void>(render::SetPaletteEntries(

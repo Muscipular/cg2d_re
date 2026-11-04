@@ -12,6 +12,8 @@ namespace cg::yobi {
 struct YobiAction;
 }
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
 struct PngImageBatch; // R04：render私有帧批次；队列只借用。
@@ -182,7 +184,7 @@ std::int32_t ApplyScreenRipple_521870();
 void SortTextures_520790();
 
 // 原 520DD0：原 0..12 及已迁入扩展批次消费，不清队列计数；末尾老化调色板并清特殊标志。
-void DrawAllQueued_520DD0();
+void DrawAllQueued_520DD0(session::ClientSession& session);
 
 // 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，
 // 按图号高位标志选择真实 451350 绘制模式；不修改记录。

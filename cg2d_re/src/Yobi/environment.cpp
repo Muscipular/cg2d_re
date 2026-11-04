@@ -585,21 +585,21 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         progress = static_cast<std::int32_t>(elapsed * 130 / total);
     }
     if (elapsed > total || elapsed < 0) {
-        world::gMapEffectOffsetXBits = 0;
-        world::gMapEffectOffsetYBits = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else if (elapsed > 200 * (5 * duration - 75)) {
         if (elapsed < 200 * (5 * duration - 10) && elapsed % 40 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
         if (associated != nullptr) {
-            world::gMapEffectOffsetXBits =
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 =
                 std::bit_cast<std::uint32_t>(associated->motionMagnitude54);
-            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->motionMagnitude54) * -0.14F));
         }
     } else if (elapsed > 200 * (5 * duration - 80)) {
-        world::gMapEffectOffsetXBits = 0;
-        world::gMapEffectOffsetYBits = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else if (elapsed > 200 * (5 * duration - 85)) {
         if (elapsed % 40 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
@@ -611,7 +611,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
         platform::detail::Cg2dMapTimedOffset(
             (progress + 250) % 360, &action->motionMagnitude54,
-            &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
+            &action->ownerSession->WorldScene().mapEffects.scene.valueC8A758, &action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C);
     } else if (elapsed <= 14000) {
         if (elapsed >= 13000 && elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
@@ -620,9 +620,9 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
         if (associated != nullptr) {
-            world::gMapEffectOffsetXBits =
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 =
                 std::bit_cast<std::uint32_t>(-associated->motionMagnitude54);
-            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->motionMagnitude54) * 0.14F));
         }
     } else if (elapsed <= 15000) {
@@ -638,17 +638,17 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
             if (amplitude < 0.0) {
                 associated->motionMagnitude54 = 0.0F;
             }
-            world::gMapEffectOffsetXBits =
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 =
                 std::bit_cast<std::uint32_t>(-associated->motionMagnitude54);
-            world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
+            action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = std::bit_cast<std::uint32_t>(
                 static_cast<float>(static_cast<double>(associated->motionMagnitude54) * 0.14F));
         }
     } else if (elapsed <= 16000) {
         if (elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
         }
-        world::gMapEffectOffsetXBits = 0;
-        world::gMapEffectOffsetYBits = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 = 0;
+        action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else {
         if (elapsed <= 200 * (5 * duration - 150) && elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
@@ -661,7 +661,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         const bool increasing = elapsed <= 200 * (5 * duration - 125);
         platform::detail::Cg2dMapTimedOffset(
             (progress + 250) % 360, &action->motionMagnitude54,
-            &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
+            &action->ownerSession->WorldScene().mapEffects.scene.valueC8A758, &action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C);
         if (increasing) {
             const double amplitude = static_cast<double>(action->motionMagnitude54) + 0.1F;
             action->motionMagnitude54 = static_cast<float>(amplitude);

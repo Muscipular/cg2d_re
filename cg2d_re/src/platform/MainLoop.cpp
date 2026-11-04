@@ -90,7 +90,7 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
 }
 
 // 原函数：0x00458A40。
-void ShowModeChange_458A40()
+void ShowModeChange_458A40(session::ClientSession& session)
 {
     gPendingGraphicCount = 0;
     gPendingGraphicCount2 = 0;
@@ -104,7 +104,7 @@ void ShowModeChange_458A40()
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;
-    render::DrawAllQueued_520DD0();
+    render::DrawAllQueued_520DD0(session);
     render::gRenderQueueMode103CF10 = 1;
     gPendingGraphicCount = 0;
     gPendingGraphicCount2 = 0;
@@ -122,7 +122,7 @@ int MainLoop(session::ClientSession& session)
 
     for (;;) {
         if (gRendererMode != gSupportedRenderMode) {
-            ShowModeChange_458A40();
+            ShowModeChange_458A40(session);
             render::RebuildRenderer_466B80(session);
             auto* palette = render::GetRendererPalette(render::gRenderer);
             if (palette != nullptr) {
@@ -220,7 +220,7 @@ int MainLoop(session::ClientSession& session)
             ApplyScreenShake_423640(session);
         }
         UpdateFrameDiagnostics(session);
-        render::DrawAllQueued_520DD0();
+        render::DrawAllQueued_520DD0(session);
         world::CopyWorldProjectionState_468FF0();
         render::Flip_44C560();
 

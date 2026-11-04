@@ -54,7 +54,7 @@ void RequestPlayerEmote_4FA8E0(session::ClientSession& session, std::int32_t ind
 // 原函数：0x004410E0。
 std::int32_t GetActorStatusIconCount_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
-std::uint32_t CaptureMapTilesForTransition_51D640();
+std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& session);
 
 // 原 dword_D460C8@0xD460C8；只保留地址身份和 W32 宽度。
 extern std::int32_t gInputAndHoverSuppressed_D460C8;

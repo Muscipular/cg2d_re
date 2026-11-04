@@ -1,4 +1,5 @@
 #include "cg/render/SurfaceState.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -253,7 +254,7 @@ bool CreateCpuBackSurface() noexcept
 }
 
 // 原函数：0x00452840。
-std::int32_t DrawMapEffects32_452840()
+std::int32_t DrawMapEffects32_452840(session::ClientSession& session)
 {
     constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
     constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
@@ -264,7 +265,7 @@ std::int32_t DrawMapEffects32_452840()
     if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
         return surfaceBusy;
     }
-    if (world::gActiveMapEffectHead == nullptr) { return 0; }
+    if (session.WorldScene().mapEffects.active == nullptr) { return 0; }
     if (!SynchronizeBackToCpu()) { return failure; }
     if (!SDL_LockSurface(back)) {
         return failure;
@@ -272,7 +273,7 @@ std::int32_t DrawMapEffects32_452840()
 
     const std::int32_t pitch = back->pitch >> 2;
     auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
-    const world::MapEffectRecord* record = world::gActiveMapEffectHead;
+    const world::MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         const std::int32_t x = record->x;
         if (x >= 0 && x < 636) {
@@ -426,9 +427,9 @@ std::int32_t DrawMapEffects32_452840()
 }
 
 // 原函数：0x00453580。
-std::int32_t DrawMapEffects_453580()
+std::int32_t DrawMapEffects_453580(session::ClientSession& session)
 {
-    return DrawMapEffects32_452840();
+    return DrawMapEffects32_452840(session);
 }
 
 // 原函数：0x0044F330。

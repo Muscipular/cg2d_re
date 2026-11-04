@@ -325,47 +325,8 @@ static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
-// 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
-struct MapCharaSceneSlots {
-    std::uint16_t valueC8A73C; // 原全局：0x00C8A73C。
-    std::uint16_t valueC8A73E; // 原全局：0x00C8A73E。
-    std::uint16_t valueC8A740; // 原全局：0x00C8A740。
-    std::uint16_t valueC8A742; // 原全局：0x00C8A742。
-    std::uint32_t valueC8A744; // 原全局：0x00C8A744。
-    std::uint16_t valueC8A748; // 原全局：0x00C8A748。
-    std::uint16_t value55DE98 {0xFFFF}; // 原全局：0x0055DE98。
-    std::uint16_t valueC8A74A; // 原全局：0x00C8A74A。
-    std::uint16_t valueC8A74C; // 原全局：0x00C8A74C。
-    std::uint16_t valueC8A74E; // 原全局：0x00C8A74E。
-    std::uint16_t valueC8A750; // 原全局：0x00C8A750。
-    std::uint16_t valueC8A752; // 原全局：0x00C8A752。
-    std::uint16_t valueC8A754; // 原全局：0x00C8A754。
-    std::uint16_t valueC8A756; // 原全局：0x00C8A756。
-    std::uint32_t valueC8A758; // 原全局：0x00C8A758。
-    std::uint32_t valueC8A75C; // 原全局：0x00C8A75C。
-    std::int16_t valueC8A760; // 原全局：0x00C8A760。
-    std::int16_t valueC8A762; // 原全局：0x00C8A762。
-    cg::yobi::YobiAction* actionC8A764; // 原全局：0x00C8A764。
-    std::uint32_t valueC8A768 = 0; // 原全局：0x00C8A768。 原PE未初始化区装载清零；413070仅覆写命中半字。
-    std::uint32_t valueC8A76C = 0; // 原全局：0x00C8A76C。
-    float value55DE9C {5.0F}; // 原全局：0x0055DE9C。
-    std::int16_t value55DEA0 {315}; // 原全局：0x0055DEA0。
-    std::int16_t value55DEA2 {-1}; // 原全局：0x0055DEA2。
-};
 
-static MapCharaSceneSlots gMapCharaSceneSlots {};
 
-// 原 .data [55DEB0,55DF10)：前/后三项分别供 46F1D0 的 kind 6/7 绘图。
-static std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全局：0x0055DEB0。
-    {0, -240, 320, 290, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-    {-320, 64, 320, 270, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-    {0, 64, 320, 370, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-    {-320, -480, 320, 290, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-    {0, -480, 320, 240, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-    {-320, -181, 320, 240, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
-}};
-
-static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
 static constexpr wchar_t kCutReadMode554920[] = L"rb"; // 原常量参考：0x00554920。
 
@@ -634,10 +595,6 @@ std::uint32_t InitializeAlbum_518C20()
 
  // 原全局：0x0073ECD0。
 
-std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758; // 原全局：0x00C8A758。
-std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C; // 原全局：0x00C8A75C。
-std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768; // 原全局：0x00C8A768。
-std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // 原全局：0x00C8A76C。
 
 namespace detail {
 
@@ -835,20 +792,9 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
 
 } // namespace detail
 
-MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
 
 namespace detail {
 
-static std::array<MapEffectRecord, 500> gMapEffectRecords {};
-static MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
-static std::uint8_t gMapEffectStartedC8A728 = 0; // 原全局：0x00C8A728。
-static std::uint64_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
-static std::uint8_t gMapEffectStartedC82240 = 0; // 原全局：0x00C82240。
-static std::uint64_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
-static std::uint8_t gMapEffectStartedC8224C = 0; // 原全局：0x00C8224C。
-static std::uint64_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
-static std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
-static std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
 static void ClearMapEffectAction(cg::yobi::YobiAction* const action)
 {
@@ -856,8 +802,8 @@ static void ClearMapEffectAction(cg::yobi::YobiAction* const action)
         return;
     }
     cg::yobi::MarkDeath(action);
-    MapEffectRecord* record = gActiveMapEffectHead;
-    gMapCharaSceneSlots.actionC8A764 = nullptr;
+    MapEffectRecord* record = action->ownerSession->WorldScene().mapEffects.active;
+    action->ownerSession->WorldScene().mapEffects.scene.actionC8A764 = nullptr;
     while (record != nullptr) {
         if (record->kind == 8) {
             record->kind = 6;
@@ -868,64 +814,64 @@ static void ClearMapEffectAction(cg::yobi::YobiAction* const action)
 }
 
 // 原函数：0x0046E2A0。
-MapEffectRecord* InitializeMapEffectPool_46E2A0()
+MapEffectRecord* InitializeMapEffectPool_46E2A0(session::ClientSession& session)
 {
-    gFreeMapEffectHead = &gMapEffectRecords[0];
-    gMapEffectRecords[0].prev = nullptr;
-    for (std::size_t index = 0; index + 1 < gMapEffectRecords.size(); ++index) {
-        MapEffectRecord* const current = &gMapEffectRecords[index];
-        MapEffectRecord* const next = &gMapEffectRecords[index + 1];
+    session.WorldScene().mapEffects.free = &session.WorldScene().mapEffects.records[0];
+    session.WorldScene().mapEffects.records[0].prev = nullptr;
+    for (std::size_t index = 0; index + 1 < session.WorldScene().mapEffects.records.size(); ++index) {
+        MapEffectRecord* const current = &session.WorldScene().mapEffects.records[index];
+        MapEffectRecord* const next = &session.WorldScene().mapEffects.records[index + 1];
         current->next = next;
         next->prev = current;
     }
-    MapEffectRecord* const last = &gMapEffectRecords.back();
+    MapEffectRecord* const last = &session.WorldScene().mapEffects.records.back();
     last->next = nullptr;
-    gActiveMapEffectHead = nullptr;
+    session.WorldScene().mapEffects.active = nullptr;
 
-    gMapCharaSceneSlots.valueC8A73E = 0;
-    gMapCharaSceneSlots.valueC8A742 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A73E = 0;
+    session.WorldScene().mapEffects.scene.valueC8A742 = 0;
     const std::uint16_t clearedHalf = 0;
-    std::memcpy(&gMapCharaSceneSlots.valueC8A744, &clearedHalf, sizeof(clearedHalf));
-    gMapCharaSceneSlots.valueC8A748 = 0;
-    gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
-    gMapCharaSceneSlots.valueC8A74A = 0;
-    gMapCharaSceneSlots.valueC8A74C = 1;
-    gMapCharaSceneSlots.valueC8A74E = 0;
-    gMapCharaSceneSlots.valueC8A750 = 0;
-    gMapCharaSceneSlots.valueC8A752 = 0;
-    gMapCharaSceneSlots.valueC8A754 = 0;
-    gMapCharaSceneSlots.valueC8A756 = 0;
-    gMapCharaSceneSlots.valueC8A758 = 0;
-    gMapCharaSceneSlots.valueC8A75C = 0;
+    std::memcpy(&session.WorldScene().mapEffects.scene.valueC8A744, &clearedHalf, sizeof(clearedHalf));
+    session.WorldScene().mapEffects.scene.valueC8A748 = 0;
+    session.WorldScene().mapEffects.scene.value55DE98 = 0xFFFFu;
+    session.WorldScene().mapEffects.scene.valueC8A74A = 0;
+    session.WorldScene().mapEffects.scene.valueC8A74C = 1;
+    session.WorldScene().mapEffects.scene.valueC8A74E = 0;
+    session.WorldScene().mapEffects.scene.valueC8A750 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A752 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A754 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A756 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A758 = 0;
+    session.WorldScene().mapEffects.scene.valueC8A75C = 0;
     return last;
 }
 
 // 原函数：0x0046E340。
-MapEffectRecord* AcquireMapEffectRecord_46E340()
+MapEffectRecord* AcquireMapEffectRecord_46E340(session::ClientSession& session)
 {
-    MapEffectRecord* const record = gFreeMapEffectHead;
+    MapEffectRecord* const record = session.WorldScene().mapEffects.free;
     if (record == nullptr) {
         return record;
     }
 
     MapEffectRecord* const nextFree = record->next;
-    gFreeMapEffectHead = nextFree;
+    session.WorldScene().mapEffects.free = nextFree;
     if (nextFree != nullptr) {
         nextFree->prev = nullptr;
     }
-    MapEffectRecord* const activeHead = gActiveMapEffectHead;
+    MapEffectRecord* const activeHead = session.WorldScene().mapEffects.active;
     record->prev = nullptr;
     record->next = activeHead;
-    MapEffectRecord* const currentActiveHead = gActiveMapEffectHead;
+    MapEffectRecord* const currentActiveHead = session.WorldScene().mapEffects.active;
     if (currentActiveHead != nullptr) {
         currentActiveHead->prev = record;
     }
-    gActiveMapEffectHead = record;
+    session.WorldScene().mapEffects.active = record;
     return record;
 }
 
 // 原函数：0x0046E390。
-MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* const record)
+MapEffectRecord* ReleaseMapEffectRecord_46E390(session::ClientSession& session, MapEffectRecord* const record)
 {
     if (record == nullptr) {
         return record;
@@ -939,22 +885,22 @@ MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* const record)
     if (next != nullptr) {
         next->prev = record->prev;
     }
-    if (gActiveMapEffectHead == record) {
-        gActiveMapEffectHead = record->next;
+    if (session.WorldScene().mapEffects.active == record) {
+        session.WorldScene().mapEffects.active = record->next;
     }
-    MapEffectRecord* const freeHead = gFreeMapEffectHead;
+    MapEffectRecord* const freeHead = session.WorldScene().mapEffects.free;
     record->prev = nullptr;
     record->next = freeHead;
-    gFreeMapEffectHead = record;
+    session.WorldScene().mapEffects.free = record;
     record->kind = 0;
     return record;
 }
 
 // 原函数：0x0046E3E0。
-std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* const x, std::int32_t* const y)
+std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(session::ClientSession& session, std::int32_t* const x, std::int32_t* const y)
 {
     const std::int16_t direction =
-        std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
+        std::bit_cast<std::int16_t>(session.WorldScene().mapEffects.scene.value55DE98);
     switch (direction) {
     case 0:
         ++*x;
@@ -989,11 +935,11 @@ std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* co
     }
 }
 
-static void ApplyMapEffectDirection(MapEffectRecord& record)
+static void ApplyMapEffectDirection(session::ClientSession& session, MapEffectRecord& record)
 {
     // 原46E3E0单读方向；按触达轴读/算/写，见CAC09。
     const std::int16_t direction =
-        std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
+        std::bit_cast<std::int16_t>(session.WorldScene().mapEffects.scene.value55DE98);
     switch (direction) {
     case 0:
         record.x += 1;
@@ -1030,7 +976,7 @@ static void ApplyMapEffectDirection(MapEffectRecord& record)
 
 static MapEffectRecord* CreateMapEffectKind1AtZero(session::ClientSession& session)
 {
-    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340(session);
     if (record == nullptr) {
         return nullptr;
     }
@@ -1051,15 +997,15 @@ static void CreateMapEffectKind1(session::ClientSession& session)
         return;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
-    ++gMapCharaSceneSlots.valueC8A742;
-    gMapEffectTickC8A734 = tick;
+    ++session.WorldScene().mapEffects.scene.valueC8A742;
+    session.WorldScene().mapEffects.tickC8A734 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 // 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
 static MapEffectRecord* CreateMapEffectKind2AtZero(session::ClientSession& session)
 {
-    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340(session);
     if (record == nullptr) {
         return nullptr;
     }
@@ -1086,14 +1032,14 @@ static void CreateMapEffectKind2(session::ClientSession& session)
         return;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
-    ++gMapCharaSceneSlots.valueC8A748;
-    gMapEffectTickC82250 = tick;
+    ++session.WorldScene().mapEffects.scene.valueC8A748;
+    session.WorldScene().mapEffects.tickC82250 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 static void CreateMapEffectKind4(session::ClientSession& session)
 {
-    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340(session);
     if (record == nullptr) {
         return;
     }
@@ -1109,23 +1055,23 @@ static void CreateMapEffectKind4(session::ClientSession& session)
         record->value0C = direction + 2;
     }
     const std::uint64_t tick = platform::ReadTickCount64();
-    ++gMapCharaSceneSlots.valueC8A750;
-    gMapEffectTickC8A730 = tick;
+    ++session.WorldScene().mapEffects.scene.valueC8A750;
+    session.WorldScene().mapEffects.tickC8A730 = tick;
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 // 原函数：0x0046E4E0。
 void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
 {
-    const std::uint8_t started = gMapEffectStartedC8224C;
+    const std::uint8_t started = session.WorldScene().mapEffects.startedC8224C;
     if ((started & 1u) == 0) {
-        gMapEffectStartedC8224C = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC8A734 = platform::ReadTickCount64();
+        session.WorldScene().mapEffects.startedC8224C = static_cast<std::uint8_t>(started | 1u);
+        session.WorldScene().mapEffects.tickC8A734 = platform::ReadTickCount64();
     }
 
     const std::uint32_t selected = session.WorldScene().sceneType == 10
-        ? gMapCharaSceneSlots.valueC8A768
-        : gMapCharaSceneSlots.valueC8A73E;
+        ? session.WorldScene().mapEffects.scene.valueC8A768
+        : session.WorldScene().mapEffects.scene.valueC8A73E;
     const std::int16_t selectedLow =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(selected));
     if (selectedLow != 0) {
@@ -1139,7 +1085,7 @@ void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
             const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - selected * 25u));
-            const std::uint64_t deadline = gMapEffectTickC8A734
+            const std::uint64_t deadline = session.WorldScene().mapEffects.tickC8A734
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind1(session);
@@ -1147,7 +1093,7 @@ void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
         }
     }
 
-    MapEffectRecord* record = gActiveMapEffectHead;
+    MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         if (record->kind == 1) {
             const std::int32_t velocityX = record->value08;
@@ -1158,35 +1104,35 @@ void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
             const std::int32_t y = oldY + velocityY;
             record->x = x;
             record->y = y;
-            ApplyMapEffectDirection(*record);
+            ApplyMapEffectDirection(session, *record);
             const std::int32_t finalX = record->x;
             if (finalX >= platform::gWindowWidth
                 || record->y >= platform::gWindowHeight) {
                 MapEffectRecord* const next = record->next;
-                ReleaseMapEffectRecord_46E390(record);
-                --gMapCharaSceneSlots.valueC8A742;
+                ReleaseMapEffectRecord_46E390(session, record);
+                --session.WorldScene().mapEffects.scene.valueC8A742;
                 record = next;
                 continue;
             }
         }
         record = record->next;
-        gMapCharaSceneSlots.valueC8A73C = 1;
+        session.WorldScene().mapEffects.scene.valueC8A73C = 1;
     }
 }
 
 // 原函数：0x0046E6C0。
 void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
 {
-    const std::uint8_t started = gMapEffectStartedC82240;
+    const std::uint8_t started = session.WorldScene().mapEffects.startedC82240;
     if ((started & 1u) == 0) {
-        gMapEffectStartedC82240 = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC82250 = platform::ReadTickCount64();
+        session.WorldScene().mapEffects.startedC82240 = static_cast<std::uint8_t>(started | 1u);
+        session.WorldScene().mapEffects.tickC82250 = platform::ReadTickCount64();
     }
 
     const std::uint16_t selected = static_cast<std::uint16_t>(
         session.WorldScene().sceneType == 10
-            ? gMapCharaSceneSlots.valueC8A768 >> 16
-            : gMapCharaSceneSlots.valueC8A744);
+            ? session.WorldScene().mapEffects.scene.valueC8A768 >> 16
+            : session.WorldScene().mapEffects.scene.valueC8A744);
     const std::int16_t selectedLow = std::bit_cast<std::int16_t>(selected);
     if (selectedLow != 0) {
         if (selectedLow >= 3) {
@@ -1199,7 +1145,7 @@ void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
             const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - 25u * selected));
-            const std::uint64_t deadline = gMapEffectTickC82250
+            const std::uint64_t deadline = session.WorldScene().mapEffects.tickC82250
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind2(session);
@@ -1207,7 +1153,7 @@ void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
         }
     }
 
-    MapEffectRecord* record = gActiveMapEffectHead;
+    MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         if (record->kind == 2) {
             const std::int32_t velocityX = record->value08;
@@ -1216,19 +1162,19 @@ void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
             record->x = oldX + velocityX;
             const std::int32_t velocityY = record->value0C;
             record->y = oldY + velocityY;
-            ApplyMapEffectDirection(*record);
+            ApplyMapEffectDirection(session, *record);
             const std::int32_t finalX = record->x;
             if (finalX >= 740
                 || record->y >= 480) {
                 MapEffectRecord* const next = record->next;
-                ReleaseMapEffectRecord_46E390(record);
-                --gMapCharaSceneSlots.valueC8A748;
+                ReleaseMapEffectRecord_46E390(session, record);
+                --session.WorldScene().mapEffects.scene.valueC8A748;
                 record = next;
                 continue;
             }
         }
         record = record->next;
-        gMapCharaSceneSlots.valueC8A73C = 1;
+        session.WorldScene().mapEffects.scene.valueC8A73C = 1;
     }
 }
 
@@ -1238,8 +1184,8 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         session.WorldScene().sceneType == 10
-            ? gMapCharaSceneSlots.valueC8A768 >> 16
-            : gMapCharaSceneSlots.valueC8A744);
+            ? session.WorldScene().mapEffects.scene.valueC8A768 >> 16
+            : session.WorldScene().mapEffects.scene.valueC8A744);
     if (cycles <= 0) {
         return cycles;
     }
@@ -1254,7 +1200,7 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
                 for (std::int32_t index = 0; index < attempts; ++index) {
                     if (CreateMapEffectKind2AtZero(session) != nullptr) {
                         streak = 0;
-                        ++gMapCharaSceneSlots.valueC8A748;
+                        ++session.WorldScene().mapEffects.scene.valueC8A748;
                     }
                 }
             } else {
@@ -1263,12 +1209,12 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
                 if (streak >= threshold
                     && CreateMapEffectKind2AtZero(session) != nullptr) {
                     streak = 0;
-                    ++gMapCharaSceneSlots.valueC8A748;
+                    ++session.WorldScene().mapEffects.scene.valueC8A748;
                 }
             }
         }
 
-        MapEffectRecord* record = gActiveMapEffectHead;
+        MapEffectRecord* record = session.WorldScene().mapEffects.active;
         while (record != nullptr) {
             if (record->kind == 2) {
                 const std::int32_t velocityX = record->value08;
@@ -1277,19 +1223,19 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
                 const std::int32_t oldY = record->y;
                 record->x = oldX + velocityX;
                 record->y = oldY + velocityY;
-                ApplyMapEffectDirection(*record);
+                ApplyMapEffectDirection(session, *record);
                 const std::int32_t finalX = record->x;
                 if (finalX >= 740
                     || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
-                    ReleaseMapEffectRecord_46E390(record);
-                    --gMapCharaSceneSlots.valueC8A748;
+                    ReleaseMapEffectRecord_46E390(session, record);
+                    --session.WorldScene().mapEffects.scene.valueC8A748;
                     record = next;
                     continue;
                 }
             }
             record = record->next;
-            gMapCharaSceneSlots.valueC8A73C = 1;
+            session.WorldScene().mapEffects.scene.valueC8A73C = 1;
         }
         ++streak;
     } while (--cycles != 0);
@@ -1302,8 +1248,8 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         session.WorldScene().sceneType == 10
-            ? gMapCharaSceneSlots.valueC8A768
-            : gMapCharaSceneSlots.valueC8A73E);
+            ? session.WorldScene().mapEffects.scene.valueC8A768
+            : session.WorldScene().mapEffects.scene.valueC8A73E);
     if (cycles <= 0) {
         return cycles;
     }
@@ -1316,7 +1262,7 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
                     static_cast<std::uint16_t>(4u * selected - 8u));
                 for (std::int32_t index = 0; index < attempts; ++index) {
                     if (CreateMapEffectKind1AtZero(session) != nullptr) {
-                        ++gMapCharaSceneSlots.valueC8A742;
+                        ++session.WorldScene().mapEffects.scene.valueC8A742;
                     }
                 }
             } else {
@@ -1324,12 +1270,12 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
                     static_cast<std::uint16_t>(2u * (2u - selected)));
                 if (threshold <= 0
                     && CreateMapEffectKind1AtZero(session) != nullptr) {
-                    ++gMapCharaSceneSlots.valueC8A742;
+                    ++session.WorldScene().mapEffects.scene.valueC8A742;
                 }
             }
         }
 
-        MapEffectRecord* record = gActiveMapEffectHead;
+        MapEffectRecord* record = session.WorldScene().mapEffects.active;
         while (record != nullptr) {
             if (record->kind == 1) {
                 const std::int32_t velocityX = record->value08;
@@ -1338,19 +1284,19 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
                 const std::int32_t oldY = record->y;
                 record->x = oldX + velocityX;
                 record->y = oldY + velocityY;
-                ApplyMapEffectDirection(*record);
+                ApplyMapEffectDirection(session, *record);
                 const std::int32_t finalX = record->x;
                 if (finalX >= 640
                     || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
-                    ReleaseMapEffectRecord_46E390(record);
-                    --gMapCharaSceneSlots.valueC8A742;
+                    ReleaseMapEffectRecord_46E390(session, record);
+                    --session.WorldScene().mapEffects.scene.valueC8A742;
                     record = next;
                     continue;
                 }
             }
             record = record->next;
-            gMapCharaSceneSlots.valueC8A73C = 1;
+            session.WorldScene().mapEffects.scene.valueC8A73C = 1;
         }
     } while (--cycles != 0);
     return cycles;
@@ -1367,15 +1313,15 @@ std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(
 // 原函数：0x0046ED50。
 void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
 {
-    const std::uint8_t started = gMapEffectStartedC8A728;
+    const std::uint8_t started = session.WorldScene().mapEffects.startedC8A728;
     if ((started & 1u) == 0) {
-        gMapEffectStartedC8A728 = static_cast<std::uint8_t>(started | 1u);
-        gMapEffectTickC8A730 = platform::ReadTickCount64();
+        session.WorldScene().mapEffects.startedC8A728 = static_cast<std::uint8_t>(started | 1u);
+        session.WorldScene().mapEffects.tickC8A730 = platform::ReadTickCount64();
     }
 
     const std::uint32_t selected = session.WorldScene().sceneType == 10
-        ? gMapCharaSceneSlots.valueC8A76C
-        : gMapCharaSceneSlots.valueC8A74E;
+        ? session.WorldScene().mapEffects.scene.valueC8A76C
+        : session.WorldScene().mapEffects.scene.valueC8A74E;
     const std::int16_t selectedLow =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(selected));
     if (selectedLow != 0) {
@@ -1389,7 +1335,7 @@ void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
             const std::uint64_t now = platform::ReadTickCount64();
             const std::int16_t interval = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(51u - 25u * selected));
-            const std::uint64_t deadline = gMapEffectTickC8A730
+            const std::uint64_t deadline = session.WorldScene().mapEffects.tickC8A730
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
                 CreateMapEffectKind4(session);
@@ -1397,7 +1343,7 @@ void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
         }
     }
 
-    MapEffectRecord* record = gActiveMapEffectHead;
+    MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         if (record->kind == 4) {
             const std::int32_t randomX = platform::Rand16(session.Connection()) % 3;
@@ -1420,17 +1366,17 @@ void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
             } else {
                 record->remaining = remaining - 1u;
             }
-            ApplyMapEffectDirection(*record);
+            ApplyMapEffectDirection(session, *record);
             if (record->y >= 480) {
                 MapEffectRecord* const next = record->next;
-                ReleaseMapEffectRecord_46E390(record);
-                --gMapCharaSceneSlots.valueC8A750;
+                ReleaseMapEffectRecord_46E390(session, record);
+                --session.WorldScene().mapEffects.scene.valueC8A750;
                 record = next;
                 continue;
             }
         }
         record = record->next;
-        gMapCharaSceneSlots.valueC8A73C = 1;
+        session.WorldScene().mapEffects.scene.valueC8A73C = 1;
     }
 }
 
@@ -1445,53 +1391,53 @@ void UpdateMapEffects_46E4A0(session::ClientSession& session)
 }
 
 // 原函数：0x0046E0D0。
-void __cdecl ConfigureDirectionalMapEffects_46E0D0(const std::int32_t mask, const std::int32_t value)
+void __cdecl ConfigureDirectionalMapEffects_46E0D0(session::ClientSession& session, const std::int32_t mask, const std::int32_t value)
 {
     if (mask == 0) {
-        cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
-        gMapCharaSceneSlots.valueC8A752 = 0;
-        gMapCharaSceneSlots.valueC8A754 = 0;
-        gMapCharaSceneSlots.value55DEA2 = -1;
+        cg::yobi::YobiAction* const action = session.WorldScene().mapEffects.scene.actionC8A764;
+        session.WorldScene().mapEffects.scene.valueC8A752 = 0;
+        session.WorldScene().mapEffects.scene.valueC8A754 = 0;
+        session.WorldScene().mapEffects.scene.value55DEA2 = -1;
         ClearMapEffectAction(action);
         return;
     }
 
     if ((mask & 8) != 0) {
-        gMapCharaSceneSlots.valueC8A752 =
+        session.WorldScene().mapEffects.scene.valueC8A752 =
             static_cast<std::uint16_t>(value % 10);
-        gMapCharaSceneSlots.value55DEA0 =
+        session.WorldScene().mapEffects.scene.value55DEA0 =
             static_cast<std::int16_t>((value % 10000) / 10);
-        gMapCharaSceneSlots.value55DE9C =
+        session.WorldScene().mapEffects.scene.value55DE9C =
             static_cast<float>(value / 10000);
     }
     if ((mask & 0x10) != 0) {
-        gMapCharaSceneSlots.valueC8A754 =
+        session.WorldScene().mapEffects.scene.valueC8A754 =
             static_cast<std::uint16_t>(value % 10);
-        gMapCharaSceneSlots.value55DEA0 =
+        session.WorldScene().mapEffects.scene.value55DEA0 =
             static_cast<std::int16_t>((value % 10000) / 10);
-        gMapCharaSceneSlots.value55DE9C =
+        session.WorldScene().mapEffects.scene.value55DE9C =
             static_cast<float>(value / 10000);
     }
     if ((mask & 0x20) == 0) {
         return;
     }
-    ClearMapEffectAction(gMapCharaSceneSlots.actionC8A764);
+    ClearMapEffectAction(session.WorldScene().mapEffects.scene.actionC8A764);
     if (value == -1) {
-        gMapCharaSceneSlots.value55DEA2 = -1;
+        session.WorldScene().mapEffects.scene.value55DEA2 = -1;
         return;
     }
-    gMapCharaSceneSlots.value55DEA2 = std::bit_cast<std::int16_t>(
+    session.WorldScene().mapEffects.scene.value55DEA2 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(60 * (value / 100000)));
-    gMapCharaSceneSlots.valueC8A762 =
+    session.WorldScene().mapEffects.scene.valueC8A762 =
         static_cast<std::int16_t>((value / 10000 % 10) % 8);
-    gMapCharaSceneSlots.valueC8A760 =
+    session.WorldScene().mapEffects.scene.valueC8A760 =
         static_cast<std::int16_t>(value % 10000);
 }
 
 // 原函数：0x0046F160。
-void ClearDirectionalMapEffects_46F160()
+void ClearDirectionalMapEffects_46F160(session::ClientSession& session)
 {
-    MapEffectRecord* record = gActiveMapEffectHead;
+    MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         const std::uint16_t kind = record->kind;
         if (kind != 6 && kind != 7 && kind != 8) {
@@ -1499,23 +1445,24 @@ void ClearDirectionalMapEffects_46F160()
             continue;
         }
         if (kind == 8) {
-            cg::yobi::MarkDeath(gMapCharaSceneSlots.actionC8A764);
-            gMapCharaSceneSlots.actionC8A764 = nullptr;
+            cg::yobi::MarkDeath(session.WorldScene().mapEffects.scene.actionC8A764);
+            session.WorldScene().mapEffects.scene.actionC8A764 = nullptr;
         }
         MapEffectRecord* const next = record->next;
-        ReleaseMapEffectRecord_46E390(record);
-        --gMapCharaSceneSlots.valueC8A756;
+        ReleaseMapEffectRecord_46E390(session, record);
+        --session.WorldScene().mapEffects.scene.valueC8A756;
         record = next;
     }
 }
 
 // 原函数：0x0046F090。
 MapEffectRecord* CreateDirectionalMapEffect_46F090(
+    session::ClientSession& session,
     const std::int16_t kind, const std::int32_t horizontalSign,
     const std::int32_t verticalSign, const std::int32_t phase,
     const std::int32_t speed, const std::int32_t graphicIndex)
 {
-    MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
+    MapEffectRecord* const record = AcquireMapEffectRecord_46E340(session);
     if (record == nullptr) {
         return record;
     }
@@ -1552,12 +1499,12 @@ MapEffectRecord* CreateDirectionalMapEffect_46F090(
     record->value0C = fixedY;
     record->speed = speed;
     record->graphicIndex = graphicIndex;
-    ++gMapCharaSceneSlots.valueC8A756;
+    ++session.WorldScene().mapEffects.scene.valueC8A756;
     return record;
 }
 
 // 原函数：0x0046F000。
-std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* const x, std::int32_t* const y)
+std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(session::ClientSession& session, std::int32_t* const x, std::int32_t* const y)
 {
     float projectedX;
     float projectedY;
@@ -1569,18 +1516,18 @@ std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* cons
         static_cast<std::uint32_t>(static_cast<std::int64_t>(
             projectedY + 0.5)));
 
-    if (gProjectedX55DEA4 == -1) {
-        gProjectedX55DEA4 = currentX;
-        gProjectedY55DEA8 = currentY;
+    if (session.WorldScene().mapEffects.projectedX == -1) {
+        session.WorldScene().mapEffects.projectedX = currentX;
+        session.WorldScene().mapEffects.projectedY = currentY;
         return currentY;
     }
 
-    const std::int32_t deltaX = currentX - gProjectedX55DEA4;
+    const std::int32_t deltaX = currentX - session.WorldScene().mapEffects.projectedX;
     *x += deltaX;
-    const std::int32_t deltaY = currentY - gProjectedY55DEA8;
+    const std::int32_t deltaY = currentY - session.WorldScene().mapEffects.projectedY;
     *y += deltaY;
-    gProjectedX55DEA4 = currentX;
-    gProjectedY55DEA8 = currentY;
+    session.WorldScene().mapEffects.projectedX = currentX;
+    session.WorldScene().mapEffects.projectedY = currentY;
     return currentY;
 }
 
@@ -1593,48 +1540,48 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
 
     double direction[2];
     platform::detail::Cg2dMapEffectDirection(
-        gMapCharaSceneSlots.value55DEA0,
-        &gMapCharaSceneSlots.value55DE9C,
-        &gMapCharaSceneSlots.valueC8A758,
-        &gMapCharaSceneSlots.valueC8A75C, direction);
+        session.WorldScene().mapEffects.scene.value55DEA0,
+        &session.WorldScene().mapEffects.scene.value55DE9C,
+        &session.WorldScene().mapEffects.scene.valueC8A758,
+        &session.WorldScene().mapEffects.scene.valueC8A75C, direction);
     std::int32_t cameraX = 0;
     std::int32_t cameraY = 0;
-    ApplyMapCameraDeltaToEffectOffset_46F000(&cameraX, &cameraY);
+    ApplyMapCameraDeltaToEffectOffset_46F000(session, &cameraX, &cameraY);
     platform::detail::MapEffectMotion motion;
     platform::detail::Cg2dMapEffectMotion(
         direction, cameraX, cameraY, &motion);
 
-    if (gMapCharaSceneSlots.value55DEA2 == 0) {
-        const std::int32_t phase = gMapCharaSceneSlots.valueC8A760;
-        CreateDirectionalMapEffect_46F090(8, motion.horizontalSign, motion.verticalSign,
+    if (session.WorldScene().mapEffects.scene.value55DEA2 == 0) {
+        const std::int32_t phase = session.WorldScene().mapEffects.scene.valueC8A760;
+        CreateDirectionalMapEffect_46F090(session, 8, motion.horizontalSign, motion.verticalSign,
             phase, 2000, phase % 3);
-        gMapCharaSceneSlots.actionC8A764 =
+        session.WorldScene().mapEffects.scene.actionC8A764 =
             cg::yobi::NewYobiAction_404AE0(session, 3, 0);
-        if (gMapCharaSceneSlots.actionC8A764 != nullptr) {
+        if (session.WorldScene().mapEffects.scene.actionC8A764 != nullptr) {
             cg::yobi::SetYobiActionField2A8(
-                gMapCharaSceneSlots.actionC8A764, 110308);
+                session.WorldScene().mapEffects.scene.actionC8A764, 110308);
             cg::yobi::SetYobiActionField2B0(
-                gMapCharaSceneSlots.actionC8A764, 3);
+                session.WorldScene().mapEffects.scene.actionC8A764, 3);
             cg::yobi::SetYobiActionField2B8(
-                gMapCharaSceneSlots.actionC8A764,
-                gMapCharaSceneSlots.valueC8A762 % 8);
+                session.WorldScene().mapEffects.scene.actionC8A764,
+                session.WorldScene().mapEffects.scene.valueC8A762 % 8);
             cg::yobi::ClearYobiActionCallback(
-                gMapCharaSceneSlots.actionC8A764);
+                session.WorldScene().mapEffects.scene.actionC8A764);
             cg::yobi::SetYobiActionField15(
-                gMapCharaSceneSlots.actionC8A764, 26);
+                session.WorldScene().mapEffects.scene.actionC8A764, 26);
         }
     }
-    if (gMapCharaSceneSlots.value55DEA2 >= 0) {
-        --gMapCharaSceneSlots.value55DEA2;
+    if (session.WorldScene().mapEffects.scene.value55DEA2 >= 0) {
+        --session.WorldScene().mapEffects.scene.value55DEA2;
     }
 
-    const auto spawn = [&motion](
+    const auto spawn = [&motion, &session](
         const std::int16_t kind, const std::uint16_t level,
         const std::int32_t minimumSpeed) {
         if (level == 0) {
             return;
         }
-        const float speed = gMapCharaSceneSlots.value55DE9C;
+        const float speed = session.WorldScene().mapEffects.scene.value55DE9C;
         if (!(speed > 0.0F || speed < 0.0F)) {
             return;
         }
@@ -1651,13 +1598,13 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
         const std::int32_t recordSpeed =
             platform::Rand16(session.Connection()) % 1000 + minimumSpeed;
         const std::int32_t phase = platform::Rand16(session.Connection());
-        CreateDirectionalMapEffect_46F090(kind, motion.horizontalSign, motion.verticalSign,
+        CreateDirectionalMapEffect_46F090(session, kind, motion.horizontalSign, motion.verticalSign,
             phase, recordSpeed, graphicIndex);
     };
-    spawn(6, gMapCharaSceneSlots.valueC8A752, 1000);
-    spawn(7, gMapCharaSceneSlots.valueC8A754, 500);
+    spawn(6, session.WorldScene().mapEffects.scene.valueC8A752, 1000);
+    spawn(7, session.WorldScene().mapEffects.scene.valueC8A754, 500);
 
-    MapEffectRecord* record = gActiveMapEffectHead;
+    MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         const std::uint16_t kind = record->kind;
         if (kind == 6 || kind == 7 || kind == 8) {
@@ -1683,26 +1630,26 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
             record->y = y;
             if (x < -400 || x > 640 || y < -400 || y > 480) {
                 if (record->kind == 8) {
-                    cg::yobi::MarkDeath(gMapCharaSceneSlots.actionC8A764);
-                    gMapCharaSceneSlots.actionC8A764 = nullptr;
+                    cg::yobi::MarkDeath(session.WorldScene().mapEffects.scene.actionC8A764);
+                    session.WorldScene().mapEffects.scene.actionC8A764 = nullptr;
                 }
                 MapEffectRecord* const next = record->next;
-                ReleaseMapEffectRecord_46E390(record);
-                --gMapCharaSceneSlots.valueC8A756;
+                ReleaseMapEffectRecord_46E390(session, record);
+                --session.WorldScene().mapEffects.scene.valueC8A756;
                 record = next;
                 continue;
             }
 
             const std::uint16_t drawKind = record->kind;
-            if (drawKind == 8 && gMapCharaSceneSlots.actionC8A764 != nullptr) {
+            if (drawKind == 8 && session.WorldScene().mapEffects.scene.actionC8A764 != nullptr) {
                 cg::yobi::SetYobiActionField30(
-                    gMapCharaSceneSlots.actionC8A764, x + 150);
+                    session.WorldScene().mapEffects.scene.actionC8A764, x + 150);
                 const auto actionY = record->y;
                 cg::yobi::SetYobiActionField34(
-                    gMapCharaSceneSlots.actionC8A764, actionY + 150);
+                    session.WorldScene().mapEffects.scene.actionC8A764, actionY + 150);
                 cg::yobi::AdvanceYobiAnimationFrame_517880(
-                    gMapCharaSceneSlots.actionC8A764, 100, 0, 0);
-                cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
+                    session.WorldScene().mapEffects.scene.actionC8A764, 100, 0, 0);
+                cg::yobi::YobiAction* const action = session.WorldScene().mapEffects.scene.actionC8A764;
                 const std::int32_t imageNo = cg::yobi::GetYobiActionField20(action);
                 const std::int32_t drawY = cg::yobi::GetYobiActionField34(action);
                 const std::int32_t drawX = cg::yobi::GetYobiActionField30(action);
@@ -1712,7 +1659,7 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
                 const auto index = record->graphicIndex;
                 render::DrawGraphic3_520970(
                     x, y, 1, 14648, 0, 1, 0,
-                    gEffectDrawModes55DEB0.data() + 3 + index);
+                    session.WorldScene().mapEffects.drawModes.data() + 3 + index);
             } else if (drawKind == 6 || drawKind == 8) {
                 const auto index = record->graphicIndex;
                 const auto speed = record->speed;
@@ -1720,11 +1667,11 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
                 const auto drawY = record->y;
                 render::DrawGraphic3_520970(
                     drawX, drawY, static_cast<std::uint8_t>(speed / 200 + 15),
-                    14648, 0, 1, 0, gEffectDrawModes55DEB0.data() + index);
+                    14648, 0, 1, 0, session.WorldScene().mapEffects.drawModes.data() + index);
             }
         }
         record = record->next;
-        gMapCharaSceneSlots.valueC8A73C = 1;
+        session.WorldScene().mapEffects.scene.valueC8A73C = 1;
     }
 }
 
@@ -1737,10 +1684,10 @@ std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& sess
     const render::GraphicDescriptor16 descriptor {
         -320, 340, 64, 48, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0,
     };
-    gMapCharaSceneSlots.valueC8A752 = 2;
-    gMapCharaSceneSlots.valueC8A754 = 2;
-    gMapCharaSceneSlots.value55DE9C = 6.0F;
-    gMapCharaSceneSlots.value55DEA0 = angle;
+    session.WorldScene().mapEffects.scene.valueC8A752 = 2;
+    session.WorldScene().mapEffects.scene.valueC8A754 = 2;
+    session.WorldScene().mapEffects.scene.value55DE9C = 6.0F;
+    session.WorldScene().mapEffects.scene.value55DEA0 = angle;
     UpdateDirectionalMapEffects_46F1D0(session);
 
     std::int32_t result = 0;
@@ -3327,7 +3274,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
         render::gRenderQueueMode103CF10 = 0;
-        render::DrawAllQueued_520DD0();
+        render::DrawAllQueued_520DD0(session);
         static_cast<void>(render::CopyBackToTemp());
         platform::gPendingGraphicCount = 0;
         render::gRenderQueueMode103CF10 = 1;
@@ -3409,25 +3356,25 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         InvalidateMapDrawPosition_4691D0();
         DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
-        if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
-            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
-                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
-            InitializeMapEffectPool_46E2A0();
+        if ((session.WorldScene().mapEffects.scene.valueC8A73E == 0 && session.WorldScene().mapEffects.scene.valueC8A740 != 0)
+            || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) == 0
+                && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) != 0)) {
+            InitializeMapEffectPool_46E2A0(session);
         }
-        gMapCharaSceneSlots.valueC8A75C = 0;
-        gMapCharaSceneSlots.valueC8A758 = 0;
+        session.WorldScene().mapEffects.scene.valueC8A75C = 0;
+        session.WorldScene().mapEffects.scene.valueC8A758 = 0;
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
-        ClearDirectionalMapEffects_46F160();
-        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
-            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
-                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+        ClearDirectionalMapEffects_46F160(session);
+        if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
+                && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) == 0)) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         render::gRenderQueueMode103CF10 = 0;
-        render::DrawAllQueued_520DD0();
+        render::DrawAllQueued_520DD0(session);
         static_cast<void>(render::CopyBackToTemp());
         render::gRenderQueueMode103CF10 = 1;
         platform::gPendingGraphicCount = 0;
@@ -3466,14 +3413,14 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 250: {
         ui::WindowRuntime_ProcessScene(session);
-        ClearDirectionalMapEffects_46F160();
-        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
-            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
-                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+        ClearDirectionalMapEffects_46F160(session);
+        if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
+                && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) == 0)) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         render::gRenderQueueMode103CF10 = 0;
-        render::DrawAllQueued_520DD0();
+        render::DrawAllQueued_520DD0(session);
         platform::gPendingGraphicCount = 0;
         render::gRenderQueueMode103CF10 = 1;
         platform::gPendingGraphicCount2 = 0;
@@ -3510,10 +3457,10 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().observationTravelTransitionCount = 0;
         ui::WindowRuntime_ProcessScene(session);
         session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
-        ClearDirectionalMapEffects_46F160();
-        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
-            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
-                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+        ClearDirectionalMapEffects_46F160(session);
+        if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
+                && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) == 0)) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3525,7 +3472,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render(session));
         render::gRenderQueueMode103CF10 = 0;
-        render::DrawAllQueued_520DD0();
+        render::DrawAllQueued_520DD0(session);
         render::gRenderQueueMode103CF10 = 1;
         const std::uint64_t tick = platform::ReadTickCount64();
         platform::gPendingGraphicCount = 0;
@@ -3598,29 +3545,29 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 audio::gBgmRequest1050810 = 1;
             }
             static_cast<void>(ui::WindowRuntime_Render(session));
-            if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
-                || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
-                    && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
-                InitializeMapEffectPool_46E2A0();
+            if ((session.WorldScene().mapEffects.scene.valueC8A73E == 0 && session.WorldScene().mapEffects.scene.valueC8A740 != 0)
+                || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) == 0
+                    && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) != 0)) {
+                InitializeMapEffectPool_46E2A0(session);
             }
-            gMapCharaSceneSlots.valueC8A75C = 0;
-            gMapCharaSceneSlots.valueC8A758 = 0;
+            session.WorldScene().mapEffects.scene.valueC8A75C = 0;
+            session.WorldScene().mapEffects.scene.valueC8A758 = 0;
             input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0(session);
             RenderInput_4590E0(session);
             render::SortTextures_520790();
             static_cast<void>(render::ClearSurface_4512C0());
-            ClearDirectionalMapEffects_46F160();
-            if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
-                || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
-                    && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+            ClearDirectionalMapEffects_46F160(session);
+            if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
+                || (static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0
+                    && static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744 >> 16) == 0)) {
                 static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
             }
             ApplyPendingMapPaletteReply_51D6F0(session);
             static_cast<void>(render::UpdatePalette_450BB0());
             UpdateDayPeriodPaletteAndTimers_458F00(session);
             render::gRenderQueueMode103CF10 = 0;
-            render::DrawAllQueued_520DD0();
+            render::DrawAllQueued_520DD0(session);
             static_cast<void>(render::CopyBackToTemp());
             render::gRenderQueueMode103CF10 = 1;
             platform::gPendingGraphicCount = 0;
@@ -3661,7 +3608,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 20:
         session.WorldScene().frameBackgroundMode = 0;
-        static_cast<void>(CaptureMapTilesForTransition_51D640());
+        static_cast<void>(CaptureMapTilesForTransition_51D640(session));
         session.WorldScene().sceneState = 3;
         [[fallthrough]];
     case 3: {
@@ -3842,9 +3789,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         std::memcpy(&value, reinterpret_cast<const std::byte*>(&effect) + offset, sizeof(value));
         return value;
     };
-    const auto clearBattleEffects = [] {
-        gBattleSceneEffectC8A768 = 0;
-        gBattleSceneEffectC8A76C = 0;
+    const auto clearBattleEffects = [&session] {
+        session.WorldScene().mapEffects.scene.valueC8A768 = 0;
+        session.WorldScene().mapEffects.scene.valueC8A76C = 0;
     };
     switch (state) {
     case 0: {
@@ -3860,8 +3807,8 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         if (titleFound) {
             battleScene.attributeEffectFlags = 5;
         }
-        if (gMapCharaSceneSlots.valueC8A73E != 0
-            || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
+        if (session.WorldScene().mapEffects.scene.valueC8A73E != 0
+            || static_cast<std::uint16_t>(session.WorldScene().mapEffects.scene.valueC8A744) != 0) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
         cg::yobi::YobiClearUp_404D30(session);
@@ -4105,13 +4052,13 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().battle.allEntries.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
-        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
+        const std::uint16_t firstEffect = readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
         session.WorldScene().frameBackgroundMode = 2;
         if (firstEffectPresent
-            || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
-            || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
-            || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 2) != 0
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A76C, 0) != 0
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A76C, 2) != 0) {
             clearBattleEffects();
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
@@ -4149,13 +4096,13 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().battle.allEntries.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
-        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
+        const std::uint16_t firstEffect = readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
         session.WorldScene().frameBackgroundMode = 2;
         if (firstEffectPresent
-            || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
-            || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
-            || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 2) != 0
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A76C, 0) != 0
+            || readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A76C, 2) != 0) {
             clearBattleEffects();
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
@@ -4242,13 +4189,13 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
 // 原函数：0x0051D5B0。
 void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession& session)
 {
-    const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;
+    const std::uint16_t current = session.WorldScene().mapEffects.scene.valueC8A73E;
     std::uint16_t low;
-    std::memcpy(&low, &gMapCharaSceneSlots.valueC8A744, sizeof(low));
-    gMapCharaSceneSlots.valueC8A740 = current;
+    std::memcpy(&low, &session.WorldScene().mapEffects.scene.valueC8A744, sizeof(low));
+    session.WorldScene().mapEffects.scene.valueC8A740 = current;
     const std::uint32_t gate = session.WorldScene().logoutToTownPending;
     std::memcpy(
-        reinterpret_cast<std::uint8_t*>(&gMapCharaSceneSlots.valueC8A744) + sizeof(low),
+        reinterpret_cast<std::uint8_t*>(&session.WorldScene().mapEffects.scene.valueC8A744) + sizeof(low),
         &low, sizeof(low));
 
     if (gate != 0
@@ -5795,7 +5742,7 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
             SetPlayerAnimationState_51A060(session, 0);
             static_cast<void>(ClearPlayerMovementActive_51A660(session));
         }
-        gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
+        session.WorldScene().mapEffects.scene.value55DE98 = 0xFFFFu;
         static_cast<void>(StorePlayerMapCoordinateSum_46CEE0());
         SynchronizePlayerMapActionPosition_519EE0(session);
         return;
@@ -5863,7 +5810,7 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
     static_cast<void>(MarkPlayerMovementActive_51A640(session));
     cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     if (action != nullptr) {
-        gMapCharaSceneSlots.value55DE98 =
+        session.WorldScene().mapEffects.scene.value55DE98 =
             cg::yobi::ReadYobiDirectionLow16(action);
     }
     static_cast<void>(StorePlayerMapCoordinateSum_46CEE0());
@@ -8077,11 +8024,11 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const s
 }
 
 // 原函数：0x0046E480。
-void DrawPendingMapEffects_46E480()
+void DrawPendingMapEffects_46E480(session::ClientSession& session)
 {
-    if (gMapCharaSceneSlots.valueC8A73C != 0) {
-        static_cast<void>(render::DrawMapEffects_453580());
-        gMapCharaSceneSlots.valueC8A73C = 0;
+    if (session.WorldScene().mapEffects.scene.valueC8A73C != 0) {
+        static_cast<void>(render::DrawMapEffects_453580(session));
+        session.WorldScene().mapEffects.scene.valueC8A73C = 0;
     }
 }
 
@@ -8604,27 +8551,27 @@ std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection& connection,
 }
 
 // 原函数：0x0050E1A0。
-void HandleDirectionalMapEffectsReply_50E1A0(cg::network::CgConnection&, const std::int32_t mask,
+void HandleDirectionalMapEffectsReply_50E1A0(cg::network::CgConnection& connection, const std::int32_t mask,
     const std::int32_t value, const char* const /*unusedText*/)
 {
     if (mask == 0) {
         const std::uint16_t zero = 0;
-        gMapCharaSceneSlots.valueC8A73E = 0;
-        std::memcpy(&gMapCharaSceneSlots.valueC8A744, &zero, sizeof(zero));
-        gMapCharaSceneSlots.valueC8A74E = 0;
+        connection.Owner().WorldScene().mapEffects.scene.valueC8A73E = 0;
+        std::memcpy(&connection.Owner().WorldScene().mapEffects.scene.valueC8A744, &zero, sizeof(zero));
+        connection.Owner().WorldScene().mapEffects.scene.valueC8A74E = 0;
     } else {
         const auto low = static_cast<std::uint16_t>(value);
         if ((mask & 1) != 0) {
-            gMapCharaSceneSlots.valueC8A73E = low;
+            connection.Owner().WorldScene().mapEffects.scene.valueC8A73E = low;
         }
         if ((mask & 2) != 0) {
-            std::memcpy(&gMapCharaSceneSlots.valueC8A744, &low, sizeof(low));
+            std::memcpy(&connection.Owner().WorldScene().mapEffects.scene.valueC8A744, &low, sizeof(low));
         }
         if ((mask & 4) != 0) {
-            gMapCharaSceneSlots.valueC8A74E = low;
+            connection.Owner().WorldScene().mapEffects.scene.valueC8A74E = low;
         }
     }
-    detail::ConfigureDirectionalMapEffects_46E0D0(mask, value);
+    detail::ConfigureDirectionalMapEffects_46E0D0(connection.Owner(), mask, value);
 }
 
 // 原函数：0x0050E650。
@@ -10233,7 +10180,7 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connec
 }
 
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
-std::uint32_t CaptureMapTilesForTransition_51D640()
+std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& session)
 {
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
     platform::gPendingGraphicCount = 0;
@@ -10245,7 +10192,7 @@ std::uint32_t CaptureMapTilesForTransition_51D640()
     const std::uint8_t previousC82204 = gMapSurfaceCacheEnabled_C82204;
     gMapSurfaceCacheEnabled_C82204 = 0;
     render::gRenderQueueMode103CF10 = 0;
-    render::DrawAllQueued_520DD0();
+    render::DrawAllQueued_520DD0(session);
     gMapSurfaceCacheEnabled_C82204 = previousC82204;
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;

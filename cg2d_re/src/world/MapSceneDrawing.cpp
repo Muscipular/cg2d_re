@@ -216,7 +216,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;
-    render::DrawAllQueued_520DD0();
+    render::DrawAllQueued_520DD0(session);
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
     platform::gPendingGraphicCount = 0;

@@ -499,6 +499,21 @@ struct WindowMailGroupSlotsCC1A30 {
     std::int32_t initialize;
 };
 
+struct GuildRankDraft {
+    std::int32_t flags;
+    std::wstring text; // 原成员偏移：+0x04。
+    std::array<std::byte, 3> bytes2D; // 原成员偏移：+0x2D。
+};
+
+// CF401C+48*33与CF464C是同一草稿文本；仅保留已证字段及间隔，不解释未消费字节。
+struct GuildWindowDraft {
+    std::array<GuildRankDraft, 32> ranks;
+    std::array<std::byte, 4> bytes600; // 原成员偏移：+0x600。
+    std::wstring name604; // 原成员偏移：+0x604。
+    std::array<std::byte, 7> bytes62D; // 原成员偏移：+0x62D。
+    std::wstring secondText634; // 原成员偏移：+0x634。
+};
+
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
 
 struct LoginWindowRuntimeSlots {
@@ -511,6 +526,9 @@ struct LoginWindowRuntimeSlots {
     WindowRuntimePrefixD2F0B8 prefixD2F0B8; // 原全局：0x00D2F0B8。
     WindowRuntimePrefixD2F0B8 mailDraftCF4BC8; // 原全局：0x00CF4BC8。 4A5650只更新五字段和正文，保留其余字节。
     WindowMailGroupSlotsCC1A30 mailGroupCC1A30; // 原全局：0x00CC1A30。
+    GuildWindowDraft guildDraftCF4018 {}; // 原CF4018，公会编辑与提交共用实际草稿。
+    std::int32_t guildPageD67B78 = 0; // 原D67B78。
+    std::int32_t guildEditing57F03C = -1; // 原57F03C，九输入共用的草稿编号。
     std::int32_t mailGroupScrollD67B88; // 原全局：0x00D67B88。
     std::int32_t mailGroupSortCategoryCB0600; // 原全局：0x00CB0600。
     std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原全局：0x00CC2E6C。 原排序索引，末地址CC318C，不与技能HP区重叠。

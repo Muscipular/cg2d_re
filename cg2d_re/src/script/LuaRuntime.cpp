@@ -68,7 +68,7 @@ void ShutdownLua(session::ClientSession& session)
     runtime.shuttingDown = true;
     audio::ShutdownFileBgm();
     yobi::ShutdownBattleEffects(session);
-    stopCopilot();
+    stopCopilot(session);
     ShutdownAutoBattle(session);
     ShutdownLuaUI(session);
     session.UiFrame().lastScene = session.UiFrame().lastSceneState = -1;

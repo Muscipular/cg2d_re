@@ -20,8 +20,8 @@
 
 namespace cg::script {
 void startCopilot(session::ClientSession& session, int x, int y);
-void stopCopilot();
-int getAutoCopliotState();
+void stopCopilot(session::ClientSession& session);
+int getAutoCopliotState(session::ClientSession& session);
 std::vector<std::pair<int, int> > getAutoCopliotRoute(session::ClientSession& session);
 
 //std::vector<std::shared_ptr<UIWindowInstanceEx>> winList;
@@ -2123,13 +2123,12 @@ LuaFunction(WinMgr_autoCopilot) {
 }
 
 LuaFunction(WinMgr_stopCopilot) {
-    static_cast<void>(L);
-    stopCopilot();
+    stopCopilot(GetLuaConnection(L).Owner());
     return 0;
 }
 
 LuaFunction(WinMgr_getAutoCopliotState) {
-    lua_pushinteger(L, getAutoCopliotState());
+    lua_pushinteger(L, getAutoCopliotState(GetLuaConnection(L).Owner()));
     return 1;
 }
 

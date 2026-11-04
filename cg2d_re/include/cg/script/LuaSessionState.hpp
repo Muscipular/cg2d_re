@@ -10,6 +10,18 @@ struct lua_State;
 namespace cg::script {
 
 struct LuaPacketBridgeState;
+namespace copilot_detail { struct CopilotState; }
+
+// Copilot实际规划状态在原实现构造/析构，会话只持稳定的不透明owner。
+struct CopilotRuntimeState {
+    CopilotRuntimeState();
+    ~CopilotRuntimeState();
+    CopilotRuntimeState(const CopilotRuntimeState&) = delete;
+    CopilotRuntimeState& operator=(const CopilotRuntimeState&) = delete;
+    CopilotRuntimeState(CopilotRuntimeState&&) = delete;
+    CopilotRuntimeState& operator=(CopilotRuntimeState&&) = delete;
+    std::unique_ptr<copilot_detail::CopilotState> data;
+};
 
 namespace autobattle_detail {
 
@@ -72,6 +84,7 @@ struct AutoBattlePanelState {
 
 // 两套 Lua VM 及其关闭门禁属于同一账号会话，关闭前由脚本模块按原顺序释放。
 struct LuaSessionState {
+    CopilotRuntimeState copilot {};
     lua_State* uiState = nullptr;
     lua_State* battleState = nullptr;
     bool shuttingDown = false;

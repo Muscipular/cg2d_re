@@ -1067,7 +1067,7 @@ struct BigMapWindowState final {
                         }
                     }
                     const bool doubleClick = (events & MouseFlag_LDblClickEvent) && lastListClickX == point.x && lastListClickY == point.y;
-                    const bool retarget = getAutoCopliotState() && (targetX != point.x || targetY != point.y);
+                    const bool retarget = getAutoCopliotState(*window.ownerSession) && (targetX != point.x || targetY != point.y);
                     targetX = point.x; targetY = point.y;
                     followPlayer = false;
                     // 列表保持展开，目标居中到其右侧可见地图，避免标记落在面板后面。
@@ -1149,7 +1149,7 @@ struct BigMapWindowState final {
         }
         if ((events & MouseFlag_RDownEvent) && valid) {
             mapClickPending = false;
-            const bool retarget = getAutoCopliotState() && (targetX != point.first || targetY != point.second);
+            const bool retarget = getAutoCopliotState(*window.ownerSession) && (targetX != point.first || targetY != point.second);
             targetX = point.first; targetY = point.second;
             if (retarget) {
                 startCopilot(*window.ownerSession, targetX, targetY);

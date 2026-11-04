@@ -50,6 +50,13 @@ public:
     [[nodiscard]] std::size_t SessionCount() const noexcept { return sessions_.size(); }
     [[nodiscard]] const std::list<SessionEntry>& Sessions() const noexcept { return sessions_; }
     [[nodiscard]] std::vector<MenuEntry> MenuEntries();
+    [[nodiscard]] ClientSession* FindSession(const std::uint64_t id) noexcept
+    {
+        for (auto& entry : sessions_) {
+            if (entry.id == id) return &entry.session;
+        }
+        return nullptr;
+    }
 
     // 只创建稳定对象；初始化成功后调用方再选中，失败不改变原当前会话。
     [[nodiscard]] SessionEntry& AddSession()

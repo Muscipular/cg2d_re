@@ -1,8 +1,8 @@
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "imeImpl.hpp"
 
 #include "StartupNative.hpp"
-#include "WindowProcedureState.hpp"
 
 #include "cg/input/Input.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -22,15 +22,69 @@
 
 namespace cg::platform {
 
+// 原73EDDC改为窗口唯一借用基线，后台会话不保存另一会话的上下文。
+static HIMC gWindowDefaultImeContext = nullptr;
+static bool gWindowDefaultImeContextCaptured = false;
+
+static HIMC ReadWindowImeContext() noexcept
+{
+    const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
+    const HIMC context = ImmGetContext(window);
+    if (context != nullptr) {
+        ImmReleaseContext(window, context);
+    }
+    return context;
+}
+
+static void ReleaseOwnedImeContext(std::uintptr_t& slot) noexcept
+{
+    const HIMC context = reinterpret_cast<HIMC>(slot);
+    if (context == nullptr) return;
+    if (ReadWindowImeContext() == context) {
+        ImmAssociateContext(reinterpret_cast<HWND>(gLegacyWindow), gWindowDefaultImeContext);
+        if (ReadWindowImeContext() == context) return;
+    }
+    if (ImmDestroyContext(context) != FALSE) {
+        slot = 0;
+    }
+}
+
 ImeRuntimeState::~ImeRuntimeState()
 {
+    ReleaseOwnedImeContext(context);
     std::free(candidateList);
 }
 
-// W接口的字符串长度始终是字节；属性仍为BYTE，光标值单独映射。
-static std::optional<std::wstring> ReadImeString(const DWORD kind)
+bool AssociateSessionIme(session::ClientSession& session) noexcept
 {
-    const HIMC context = reinterpret_cast<HIMC>(gImeContext);
+    const HIMC context = reinterpret_cast<HIMC>(session.UiFrame().ime.context);
+    if (context == nullptr) return false;
+    const HIMC previous = ImmAssociateContext(reinterpret_cast<HWND>(gLegacyWindow), context);
+    if (ReadWindowImeContext() != context) return false;
+    if (!gWindowDefaultImeContextCaptured) {
+        gWindowDefaultImeContext = previous;
+        gWindowDefaultImeContextCaptured = true;
+    }
+    return true;
+}
+
+session::ClientSession* FindWindowImeSession() noexcept
+{
+    const HIMC context = ReadWindowImeContext();
+    if (context == nullptr) return nullptr;
+    auto& host = session::GetClientHost();
+    for (const auto& entry : host.Sessions()) {
+        if (reinterpret_cast<HIMC>(entry.session.UiFrame().ime.context) == context) {
+            return host.FindSession(entry.id);
+        }
+    }
+    return nullptr;
+}
+
+// W接口的字符串长度始终是字节；属性仍为BYTE，光标值单独映射。
+static std::optional<std::wstring> ReadImeString(session::ClientSession& session, const DWORD kind)
+{
+    const HIMC context = reinterpret_cast<HIMC>(session.UiFrame().ime.context);
     const LONG bytes = ::ImmGetCompositionStringW(context, kind, nullptr, 0);
     if (bytes < 0) {
         return std::nullopt;
@@ -44,24 +98,28 @@ static std::optional<std::wstring> ReadImeString(const DWORD kind)
     return result;
 }
 
-// 原 sub_458FD0@[0x458FD0,0x459032)。调用顺序与旧端一致。
+// 原 sub_458FD0@[0x458FD0,0x459032)；NSM01只在初始化当前会话时关联窗口。
 int InitializeIme_458FD0(session::ClientSession& session)
 {
-    const std::uintptr_t previousActiveContext = gImeContext;
+    const std::uintptr_t previousActiveContext = session.UiFrame().ime.context;
     session.UiFrame().ime.composition.clear();
     session.UiFrame().ime.attributes.assign(1, 0);
     session.UiFrame().ime.state73EFF0 = 0;
     if (previousActiveContext != 0) {
         ShutdownIme_459040(session);
+        if (session.UiFrame().ime.context != 0) return -1;
     }
 
     const HIMC createdContext = ImmCreateContext();
-    gImeContext = reinterpret_cast<std::uintptr_t>(createdContext);
-    const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
-    const HIMC previousContext = ImmAssociateContext(window, createdContext);
-    // 原459007先重取当前context，459018再发布previous槽。
-    const HIMC currentContext = reinterpret_cast<HIMC>(gImeContext);
-    gPreviousImeContext = reinterpret_cast<std::uintptr_t>(previousContext);
+    if (createdContext == nullptr) return -1;
+    session.UiFrame().ime.context = reinterpret_cast<std::uintptr_t>(createdContext);
+    if (&session == session::GetClientHost().CurrentSession()) {
+        if (!AssociateSessionIme(session)) {
+            ReleaseOwnedImeContext(session.UiFrame().ime.context);
+            return -1;
+        }
+    }
+    const HIMC currentContext = reinterpret_cast<HIMC>(session.UiFrame().ime.context);
 
     static_assert(sizeof(DWORD) == sizeof(session.UiFrame().ime.conversionMode));
     ImmGetConversionStatus(
@@ -72,15 +130,10 @@ int InitializeIme_458FD0(session::ClientSession& session)
     return 0;
 }
 
-// 原 sub_459040@[0x459040,0x459081)。原函数不销毁或清空 IME context。
+// 原 sub_459040@[0x459040,0x459081)；NSM01在解除自身关联后销毁独占上下文。
 void ShutdownIme_459040(session::ClientSession& session)
 {
-    const HIMC currentContext = reinterpret_cast<HIMC>(gImeContext);
-    const HWND releaseWindow = reinterpret_cast<HWND>(gLegacyWindow);
-    ImmReleaseContext(releaseWindow, currentContext);
-    const HIMC previousContext = reinterpret_cast<HIMC>(gPreviousImeContext);
-    const HWND associateWindow = reinterpret_cast<HWND>(gLegacyWindow);
-    ImmAssociateContext(associateWindow, previousContext);
+    ReleaseOwnedImeContext(session.UiFrame().ime.context);
     if (session.UiFrame().ime.candidateList != nullptr) {
         std::free(session.UiFrame().ime.candidateList);
         session.UiFrame().ime.candidateList = nullptr;
@@ -98,19 +151,19 @@ std::int32_t IsImeKeyboardLayout_459090() noexcept
 }
 
 // 原函数：0x004590A0。
-std::int32_t ResetImeOpenStatus_4590A0() noexcept
+std::int32_t ResetImeOpenStatus_4590A0(session::ClientSession& session) noexcept
 {
     const std::int32_t isIme = IsImeKeyboardLayout_459090();
     if (isIme != 1) {
         return isIme;
     }
 
-    const std::uintptr_t closeContext = gImeContext;
+    const std::uintptr_t closeContext = session.UiFrame().ime.context;
     static_cast<void>(ImmSetOpenStatus(
         reinterpret_cast<HIMC>(closeContext),
         FALSE));
 
-    const std::uintptr_t openContext = gImeContext;
+    const std::uintptr_t openContext = session.UiFrame().ime.context;
     const BOOL result = ImmSetOpenStatus(
         reinterpret_cast<HIMC>(openContext),
         TRUE);
@@ -133,17 +186,17 @@ char HandleImeCompositionFlags_459580(session::ClientSession& session, const std
     const std::uint16_t flagBits = std::bit_cast<std::uint16_t>(flags);
     std::uint8_t returnByte = static_cast<std::uint8_t>(flagBits);
     if ((flagBits & GCS_RESULTSTR) != 0u) {
-        if (const auto result = ReadImeString(GCS_RESULTSTR)) {
+        if (const auto result = ReadImeString(session, GCS_RESULTSTR)) {
             input::AppendText(session, *result);
         }
     }
     if ((flagBits & GCS_COMPSTR) != 0u) {
-        if (const auto composition = ReadImeString(GCS_COMPSTR)) {
+        if (const auto composition = ReadImeString(session, GCS_COMPSTR)) {
             session.UiFrame().ime.composition = *composition;
         }
     }
     if ((flagBits & GCS_COMPATTR) != 0u) {
-        const HIMC context = reinterpret_cast<HIMC>(gImeContext);
+        const HIMC context = reinterpret_cast<HIMC>(session.UiFrame().ime.context);
         const LONG bytes = ::ImmGetCompositionStringW(context, GCS_COMPATTR, nullptr, 0);
         if (bytes >= 0) {
             std::vector<std::uint8_t> attributes(static_cast<std::size_t>(bytes));
@@ -156,7 +209,7 @@ char HandleImeCompositionFlags_459580(session::ClientSession& session, const std
         }
     }
     if ((flagBits & GCS_CURSORPOS) != 0u) {
-        const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(gImeContext), GCS_CURSORPOS, nullptr, 0);
+        const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(session.UiFrame().ime.context), GCS_CURSORPOS, nullptr, 0);
         if (cursor >= 0) {
             session.UiFrame().ime.cursorPosition = static_cast<std::int32_t>(text::Prefix(session.UiFrame().ime.composition, static_cast<std::size_t>(cursor)));
             session.UiFrame().inputState.caretBlinkPhase = 20;

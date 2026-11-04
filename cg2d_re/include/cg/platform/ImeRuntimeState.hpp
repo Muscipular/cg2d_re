@@ -6,7 +6,7 @@
 
 namespace cg::platform {
 
-// 会话自己的IME文本与候选内存；原生窗口上下文关联另由平台生命周期接线。
+// 会话独占IME上下文、文本与候选内存；窗口默认上下文只由平台借用。
 struct ImeRuntimeState {
     ImeRuntimeState() = default;
     ~ImeRuntimeState();
@@ -14,6 +14,7 @@ struct ImeRuntimeState {
     ImeRuntimeState& operator=(const ImeRuntimeState&) = delete;
     ImeRuntimeState(ImeRuntimeState&&) = delete;
     ImeRuntimeState& operator=(ImeRuntimeState&&) = delete;
+    std::uintptr_t context = 0; // 原73EDD8；本会话创建的实际原生上下文。
     std::wstring description; // 原73ED70，借用到本会话后续更新。
     std::wstring composition; // 原73EDE0，完整UTF-16组合正文。
     std::vector<std::uint8_t> attributes; // 原73EEE0，按UTF-16码元位置对应。

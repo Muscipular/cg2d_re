@@ -31,6 +31,7 @@ public:
     [[nodiscard]] LegacyRandomEngine& RandomEngine() noexcept { return randomEngine_; }
     [[nodiscard]] script::LuaSessionState& Lua() noexcept { return lua_; }
     [[nodiscard]] ui::UiFrameRuntimeState& UiFrame() noexcept { return uiFrame_; }
+    [[nodiscard]] const ui::UiFrameRuntimeState& UiFrame() const noexcept { return uiFrame_; }
     // 原同线程CRT日历别名收敛为会话唯一对象；后续转换仍覆盖同会话的长期借用。
     [[nodiscard]] std::tm* LocalTime(const std::int64_t* timestamp) noexcept
     {

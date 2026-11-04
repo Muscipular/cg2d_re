@@ -111,7 +111,7 @@ void Update(session::ClientSession& session)
         return;
     case 5:
         session.WorldScene().frameBackgroundMode = 0;
-        static_cast<void>(platform::ResetImeOpenStatus_4590A0());
+        static_cast<void>(platform::ResetImeOpenStatus_4590A0(session));
         detail::InitializeChatInputAndLog_449DA0(session);
         detail::ResetPendingPathEvent_46A9E0(session);
         detail::InitializeWorldMapState_467F30(session);

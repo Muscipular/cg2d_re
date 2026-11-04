@@ -1,5 +1,4 @@
 #include "cg/network/CgConnection.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -2738,7 +2737,7 @@ void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_vie
         }
     }
 }
-void AddLuaMouseWheel(int delta) { ui::WindowAddMouseWheelDelta(delta); }
+void AddLuaMouseWheel(session::ClientSession& session, int delta) { ui::WindowAddMouseWheelDelta(session, delta); }
 void ShutdownLuaUIEvents(session::ClientSession& session)
 {
     const auto belongsToSession = [&session](const auto& event) {
@@ -2769,7 +2768,6 @@ void ShutdownLuaUIEvents(session::ClientSession& session)
         state->bridgeStateTypes.clear();
         state.reset();
     }
-    if (session::GetClientHost().CurrentSession() == &session)
-        ui::WindowConsumeMouseWheelDelta();
+    ui::WindowConsumeMouseWheelDelta(session);
 }
 } // namespace cg::script

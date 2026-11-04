@@ -51,6 +51,7 @@ struct ExtensionWindowState {
 // 原生/扩展窗口、输入选择、Lua 场景通知及输入编码诊断的会话帧状态。
 struct UiFrameRuntimeState {
     platform::MouseRuntimeState mouse {};
+    int mouseWheelDelta = 0; // 扩展UI/Lua共用的本会话滚轮增量，与原鼠标尾字段独立。
     NativeWindowRuntimeState native {};
     input::InputRuntimeState inputState {};
     std::uint32_t windowHasFocus = 0; // 原0xCA0AB4，元素派发成功后占用，独立于焦点窗口ID。

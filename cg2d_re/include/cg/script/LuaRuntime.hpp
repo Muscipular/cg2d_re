@@ -13,7 +13,7 @@ namespace cg::script {
 bool InitializeLua(session::ClientSession& session);
 void ShutdownLua(session::ClientSession& session);
 void UpdateLuaScene(session::ClientSession& session);
-void AddLuaMouseWheel(int delta);
+void AddLuaMouseWheel(session::ClientSession& session, int delta);
 int LuaProcessWinMgrChatMessage(session::ClientSession& session, std::wstring_view text);
 void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* header, char** arguments);
 void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_view packet);

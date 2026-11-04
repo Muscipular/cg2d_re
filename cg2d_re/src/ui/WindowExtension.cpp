@@ -1,7 +1,6 @@
 #include "WindowComponents.hpp"
 #include "../script/LuaUI.hpp"
 #include "cg/script/LuaRuntime.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include <utility>
 
@@ -9,11 +8,9 @@ namespace cg::ui {
 using namespace component_detail;
 
 static std::uint32_t nextGeneration = 0;
-static int mouseWheelDelta = 0;
-
-int WindowPeekMouseWheelDelta() { return mouseWheelDelta; }
-void WindowConsumeMouseWheelDelta() { mouseWheelDelta = 0; }
-void WindowAddMouseWheelDelta(int delta) { mouseWheelDelta += delta; }
+int WindowPeekMouseWheelDelta(session::ClientSession& session) { return session.UiFrame().mouseWheelDelta; }
+void WindowConsumeMouseWheelDelta(session::ClientSession& session) { session.UiFrame().mouseWheelDelta = 0; }
+void WindowAddMouseWheelDelta(session::ClientSession& session, int delta) { session.UiFrame().mouseWheelDelta += delta; }
 
 void WindowRuntime_EnsureIdentity(WindowInstance& window) {
     if (!window.generation) {
@@ -279,7 +276,7 @@ void FinishWindowFrame(session::ClientSession& session)
 {
     script::LuaProcessWinMgrKeyPress(session);
     WindowRuntime_EndPointerDragFrame(session);
-    WindowConsumeMouseWheelDelta();
+    WindowConsumeMouseWheelDelta(session);
     script::AutoBattleProc(session);
     script::CopilotProc(session);
 }
@@ -292,7 +289,7 @@ void ShutdownExtensionWindows(session::ClientSession& session)
     retiring.swap(state.windows); // 先清空活动注册表，析构查询不能看到正在销毁的shared_ptr。
     retiring.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
     state.dragOwner = -1;
-    if (&session == session::GetClientHost().CurrentSession()) mouseWheelDelta = 0;
+    session.UiFrame().mouseWheelDelta = 0;
     for (auto* window : detail::WindowRuntime_Windows(session)) if (window) {
         delete window->binding;
         window->binding = nullptr;

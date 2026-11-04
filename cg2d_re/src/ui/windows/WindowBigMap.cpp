@@ -918,11 +918,11 @@ struct BigMapWindowState final {
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
         if (listOpen && acceptsMouse && ElementHit(ListPanelArea)) {
-            const int wheel = LuaPeekMouseWheelDelta();
+            const int wheel = LuaPeekMouseWheelDelta(*window.ownerSession);
             if (wheel != 0) {
                 const int step = wheel / 120 != 0 ? wheel / 120 : wheel > 0 ? 1 : -1;
                 SetListFirstRow(listFirstRow - step);
-                LuaConsumeMouseWheelDelta();
+                LuaConsumeMouseWheelDelta(*window.ownerSession);
             }
         }
         RefreshText();

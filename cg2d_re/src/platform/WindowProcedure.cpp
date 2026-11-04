@@ -452,7 +452,7 @@ LRESULT CALLBACK WindowProcedure(
         if (mouseSession != nullptr && gWindowActiveState == 2) {
             const std::int16_t wheel = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(wParam32 >> 16));
-            script::AddLuaMouseWheel(wheel);
+            script::AddLuaMouseWheel(*mouseSession, wheel);
             static_cast<void>(AddLegacyMouseWheelDelta_506DB0(*mouseSession,
                 -static_cast<std::int32_t>(wheel)));
         }

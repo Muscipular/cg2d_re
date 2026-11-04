@@ -57,12 +57,12 @@ int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int 
     const int maximum = data.MaxScrollY(element);
     bool handled = false;
     if (maximum > 0 && !WindowRuntime_PointerDragBlocksMouse(window)) {
-        const int wheel = WindowPeekMouseWheelDelta();
+        const int wheel = WindowPeekMouseWheelDelta(*element.owner->ownerSession);
         if ((events & MouseFlag_Hover) && wheel != 0) {
             int step = wheel / 120;
             if (!step) step = wheel > 0 ? 1 : -1;
             data.SetScrollY(element, data.scrollY - step * data.scrollStep);
-            WindowConsumeMouseWheelDelta(); handled = true;
+            WindowConsumeMouseWheelDelta(*element.owner->ownerSession); handled = true;
         }
         const int bar = std::clamp(data.barWidth, 1, element.width);
         const int thumb = std::min(element.height, std::max(12, element.height * element.height / std::max(data.contentHeight, element.height)));

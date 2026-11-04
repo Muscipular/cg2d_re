@@ -336,14 +336,14 @@ static std::int32_t WindowPetSkills_HandleMouseWheel(WindowInstance& callbackWin
 {
     auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if ((state & MouseFlag_Hover) == 0 || WindowDrag_ReadMousePhase(*callbackWindow.ownerSession) != 0) return 0;
-    const std::int32_t wheel = WindowPeekMouseWheelDelta();
+    const std::int32_t wheel = WindowPeekMouseWheelDelta(*callbackWindow.ownerSession);
     if (wheel == 0) return 0;
     const auto selected = std::bit_cast<std::int16_t>(
         callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
     const std::int32_t slotCount = std::clamp((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].value6A4, 0, world::kPetTechniqueSlotCount);
     const std::int32_t step = wheel / 120 != 0 ? wheel / 120 : wheel > 0 ? 1 : -1;
     gPetTechniqueScroll = std::clamp(gPetTechniqueScroll - step, 0, std::max(0, slotCount - 10));
-    WindowConsumeMouseWheelDelta();
+    WindowConsumeMouseWheelDelta(*callbackWindow.ownerSession);
     static_cast<void>(WindowPetSkills_Refresh(&callbackWindow));
     return 1;
 }

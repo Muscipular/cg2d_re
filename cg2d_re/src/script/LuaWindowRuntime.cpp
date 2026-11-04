@@ -6,6 +6,6 @@ void ShutdownLuaUI(session::ClientSession& session) {
     ShutdownLuaUIEvents(session);
     ui::ShutdownExtensionWindows(session);
 }
-int LuaPeekMouseWheelDelta() { return ui::WindowPeekMouseWheelDelta(); }
-void LuaConsumeMouseWheelDelta() { ui::WindowConsumeMouseWheelDelta(); }
+int LuaPeekMouseWheelDelta(session::ClientSession& session) { return ui::WindowPeekMouseWheelDelta(session); }
+void LuaConsumeMouseWheelDelta(session::ClientSession& session) { ui::WindowConsumeMouseWheelDelta(session); }
 } // namespace cg::script

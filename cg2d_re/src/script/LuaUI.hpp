@@ -67,8 +67,8 @@ int LuaProcessWinMgrChatMessage(session::ClientSession& session, std::wstring_vi
 void LuaProcessWinMgrWindowFocusChanged(session::ClientSession& session, int focus, int blur);
 void LuaProcessWinMgrWindowOpen(session::ClientSession& session, int winId);
 void LuaProcessWinMgrWindowClose(session::ClientSession& session, int winId);
-int LuaPeekMouseWheelDelta();
-void LuaConsumeMouseWheelDelta();
+int LuaPeekMouseWheelDelta(session::ClientSession& session);
+void LuaConsumeMouseWheelDelta(session::ClientSession& session);
 void startCopilot(session::ClientSession& session, int x, int y);
 void stopCopilot(session::ClientSession& session);
 int getAutoCopliotState(session::ClientSession& session);

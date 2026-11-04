@@ -37,9 +37,9 @@ struct ScheduledWindow {
     std::shared_ptr<WindowExtension> extension; // 当帧租借，避免回调期间释放窗口。
 };
 
-int WindowPeekMouseWheelDelta();
-void WindowConsumeMouseWheelDelta();
-void WindowAddMouseWheelDelta(int delta);
+int WindowPeekMouseWheelDelta(session::ClientSession& session);
+void WindowConsumeMouseWheelDelta(session::ClientSession& session);
+void WindowAddMouseWheelDelta(session::ClientSession& session, int delta);
 void WindowRuntime_EnsureIdentity(WindowInstance& window);
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
 std::shared_ptr<WindowExtension> GetExtWindowById(session::ClientSession& session, int id);

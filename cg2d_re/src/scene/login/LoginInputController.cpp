@@ -89,7 +89,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
     const std::int32_t measureFontType =
         connection.Owner().UiFrame().inputState.currentContext->fontType;
     const std::int32_t compositionWidth = cg::render::TextMeasure(
-        platform::gImeComposition,
+        connection.Owner().UiFrame().ime.composition,
         measureFontType);
     input::InputContext* const drawContext = connection.Owner().UiFrame().inputState.currentContext;
     const std::int32_t drawY = drawContext->y;

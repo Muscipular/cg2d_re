@@ -403,7 +403,7 @@ static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const
         if (auto* const element122 = currentWindow->FindElementById(WindowBottomBarElementId::Element12); element122) element122->visible = 1;
     }
 
-    const std::wstring_view description = platform::QueryWindowImeDescription_4734F0();
+    const std::wstring_view description = platform::QueryWindowImeDescription_4734F0(*callbackWindow.ownerSession);
     auto* elementsWindow = currentWindow;
     auto* const element10 = elementsWindow->FindElementById(WindowBottomBarElementId::Element10);
     if (element10) {

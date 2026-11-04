@@ -22,6 +22,11 @@
 
 namespace cg::platform {
 
+ImeRuntimeState::~ImeRuntimeState()
+{
+    std::free(candidateList);
+}
+
 // W接口的字符串长度始终是字节；属性仍为BYTE，光标值单独映射。
 static std::optional<std::wstring> ReadImeString(const DWORD kind)
 {
@@ -40,14 +45,14 @@ static std::optional<std::wstring> ReadImeString(const DWORD kind)
 }
 
 // 原 sub_458FD0@[0x458FD0,0x459032)。调用顺序与旧端一致。
-int InitializeIme_458FD0()
+int InitializeIme_458FD0(session::ClientSession& session)
 {
     const std::uintptr_t previousActiveContext = gImeContext;
-    gImeComposition.clear();
-    gImeAttributes.assign(1, 0);
-    gImeState73EFF0 = 0;
+    session.UiFrame().ime.composition.clear();
+    session.UiFrame().ime.attributes.assign(1, 0);
+    session.UiFrame().ime.state73EFF0 = 0;
     if (previousActiveContext != 0) {
-        ShutdownIme_459040();
+        ShutdownIme_459040(session);
     }
 
     const HIMC createdContext = ImmCreateContext();
@@ -58,17 +63,17 @@ int InitializeIme_458FD0()
     const HIMC currentContext = reinterpret_cast<HIMC>(gImeContext);
     gPreviousImeContext = reinterpret_cast<std::uintptr_t>(previousContext);
 
-    static_assert(sizeof(DWORD) == sizeof(gImeConversionMode));
+    static_assert(sizeof(DWORD) == sizeof(session.UiFrame().ime.conversionMode));
     ImmGetConversionStatus(
         currentContext,
-        reinterpret_cast<DWORD*>(&gImeConversionMode),
-        reinterpret_cast<DWORD*>(&gImeSentenceMode));
-    gImeDescription.clear();
+        reinterpret_cast<DWORD*>(&session.UiFrame().ime.conversionMode),
+        reinterpret_cast<DWORD*>(&session.UiFrame().ime.sentenceMode));
+    session.UiFrame().ime.description.clear();
     return 0;
 }
 
 // 原 sub_459040@[0x459040,0x459081)。原函数不销毁或清空 IME context。
-void ShutdownIme_459040()
+void ShutdownIme_459040(session::ClientSession& session)
 {
     const HIMC currentContext = reinterpret_cast<HIMC>(gImeContext);
     const HWND releaseWindow = reinterpret_cast<HWND>(gLegacyWindow);
@@ -76,9 +81,9 @@ void ShutdownIme_459040()
     const HIMC previousContext = reinterpret_cast<HIMC>(gPreviousImeContext);
     const HWND associateWindow = reinterpret_cast<HWND>(gLegacyWindow);
     ImmAssociateContext(associateWindow, previousContext);
-    if (gImeCandidateList != nullptr) {
-        std::free(gImeCandidateList);
-        gImeCandidateList = nullptr;
+    if (session.UiFrame().ime.candidateList != nullptr) {
+        std::free(session.UiFrame().ime.candidateList);
+        session.UiFrame().ime.candidateList = nullptr;
     }
 }
 
@@ -114,12 +119,12 @@ std::int32_t ResetImeOpenStatus_4590A0() noexcept
 }
 
 // HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
-std::wstring_view QueryWindowImeDescription_4734F0() noexcept
+std::wstring_view QueryWindowImeDescription_4734F0(session::ClientSession& session) noexcept
 {
     static_cast<void>(IsImeKeyboardLayout_459090());
     std::array<BYTE, 256> keyboardState;
     static_cast<void>(GetKeyboardState(keyboardState.data()));
-    return gImeDescription; // 原0x004590D0：借用同一描述，不更新或复制。
+    return session.UiFrame().ime.description; // 原0x004590D0：借用同一描述，不更新或复制。
 }
 
 // 原 sub_459580@[0x459580,0x4596C8)。四个标志分支彼此独立，顺序与旧端一致。
@@ -134,7 +139,7 @@ char HandleImeCompositionFlags_459580(session::ClientSession& session, const std
     }
     if ((flagBits & GCS_COMPSTR) != 0u) {
         if (const auto composition = ReadImeString(GCS_COMPSTR)) {
-            gImeComposition = *composition;
+            session.UiFrame().ime.composition = *composition;
         }
     }
     if ((flagBits & GCS_COMPATTR) != 0u) {
@@ -145,17 +150,17 @@ char HandleImeCompositionFlags_459580(session::ClientSession& session, const std
             const LONG copied = ::ImmGetCompositionStringW(context, GCS_COMPATTR, attributes.data(), static_cast<DWORD>(bytes));
             if (copied >= 0) {
                 attributes.resize(static_cast<std::size_t>(copied));
-                attributes.resize(gImeComposition.size(), 0);
-                gImeAttributes = std::move(attributes);
+                attributes.resize(session.UiFrame().ime.composition.size(), 0);
+                session.UiFrame().ime.attributes = std::move(attributes);
             }
         }
     }
     if ((flagBits & GCS_CURSORPOS) != 0u) {
         const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(gImeContext), GCS_CURSORPOS, nullptr, 0);
         if (cursor >= 0) {
-            gImeCompositionCursorPosition = static_cast<std::int32_t>(text::Prefix(gImeComposition, static_cast<std::size_t>(cursor)));
+            session.UiFrame().ime.cursorPosition = static_cast<std::int32_t>(text::Prefix(session.UiFrame().ime.composition, static_cast<std::size_t>(cursor)));
             session.UiFrame().inputState.caretBlinkPhase = 20;
-            returnByte = static_cast<std::uint8_t>(gImeCompositionCursorPosition);
+            returnByte = static_cast<std::uint8_t>(session.UiFrame().ime.cursorPosition);
         }
     }
     return std::bit_cast<char>(returnByte);

@@ -165,7 +165,7 @@ std::vector<TextLine> SplitLines(const InputContext& context)
 void MoveCaretLine(session::ClientSession& session, const std::int32_t direction)
 {
     InputContext* const context = session.UiFrame().inputState.currentContext;
-    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+    if (context == nullptr || session.UiFrame().ime.composition[0] != '\0') {
         return;
     }
     session.UiFrame().inputState.caretBlinkPhase = 20;
@@ -358,7 +358,7 @@ void MoveInputCaretUp_44A5D0(session::ClientSession& session)
 std::uintptr_t MoveInputCaretLeft_44A540(session::ClientSession& session)
 {
     InputContext* const context = session.UiFrame().inputState.currentContext;
-    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+    if (context == nullptr || session.UiFrame().ime.composition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
     EditText edit(*context);
@@ -377,7 +377,7 @@ std::uintptr_t MoveInputCaretLeft_44A540(session::ClientSession& session)
 std::uintptr_t MoveInputCaretRight_44A580(session::ClientSession& session)
 {
     InputContext* const context = session.UiFrame().inputState.currentContext;
-    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+    if (context == nullptr || session.UiFrame().ime.composition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
     EditText edit(*context);
@@ -952,7 +952,7 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
     auto& history = session.WorldScene().chatInputHistory;
     cg::core::NullSub_509080();
     InputContext* const initialContext = session.UiFrame().inputState.currentContext;
-    if (initialContext != &inputs.chat || platform::gImeComposition[0] != '\0') {
+    if (initialContext != &inputs.chat || session.UiFrame().ime.composition[0] != '\0') {
         return;
     }
     const std::uint8_t control = session.UiFrame().keyStates[17] & 2u;
@@ -1010,7 +1010,7 @@ namespace detail {
 void HandleInputEnterKey_44AB60(session::ClientSession& session)
 {
     auto& inputs = session.UiFrame().native.inputs;
-    if (platform::gImeComposition[0] != '\0') {
+    if (session.UiFrame().ime.composition[0] != '\0') {
         return;
     }
     InputContext* context = session.UiFrame().inputState.currentContext;

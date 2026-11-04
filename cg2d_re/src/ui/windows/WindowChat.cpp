@@ -911,7 +911,7 @@ static std::int32_t WindowChat_RefreshCompactHeight(session::ClientSession& sess
 void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* const context)
 {
     const std::int32_t font = session.UiFrame().inputState.currentContext->fontType;
-    static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
+    static_cast<void>(cg::render::TextMeasure(session.UiFrame().ime.composition, font));
     const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t widthUnits = WindowRuntime_Settings(session).chatWidthUnits;
     const std::int32_t width = fontWidth * widthUnits;
@@ -923,7 +923,7 @@ void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* 
 void WindowChat_DrawFixedWidthInput(session::ClientSession& session, input::InputContext* const context)
 {
     const std::int32_t font = session.UiFrame().inputState.currentContext->fontType;
-    static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
+    static_cast<void>(cg::render::TextMeasure(session.UiFrame().ime.composition, font));
     WindowInput_ScrollAndDraw(session, context, 1024);
 }
 

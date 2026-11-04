@@ -48,9 +48,9 @@ static_assert(offsetof(CANDIDATELIST, dwPageStart) == 0x10);
 static_assert(offsetof(CANDIDATELIST, dwPageSize) == 0x14);
 static_assert(offsetof(CANDIDATELIST, dwOffset) == 0x18);
 
-static const CANDIDATELIST* CurrentCandidateList() noexcept
+static const CANDIDATELIST* CurrentCandidateList(session::ClientSession& session) noexcept
 {
-    return static_cast<const CANDIDATELIST*>(platform::gImeCandidateList);
+    return static_cast<const CANDIDATELIST*>(session.UiFrame().ime.candidateList);
 }
 
 static std::uint32_t ReadCandidateOffset(
@@ -90,13 +90,13 @@ static void DrawCandidateEntry(
     const std::int32_t left = (context->x + targetStart) + oldUnits;
     const std::int32_t top = context->y + height;
     static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
-    const CANDIDATELIST* const candidateList = CurrentCandidateList();
+    const CANDIDATELIST* const candidateList = CurrentCandidateList(session);
     const std::wstring body = CandidateText(candidateList, pageIndex);
     const std::int32_t bodyWidth = cg::render::TextMeasure(body.c_str(), fontType);
     const std::int32_t bodyX = left + numberWidth + 10;
     static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(bodyX), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, body.c_str(), 0));
     units = oldUnits + numberWidth + bodyWidth + 15;
-    const CANDIDATELIST* const selectionList = CurrentCandidateList();
+    const CANDIDATELIST* const selectionList = CurrentCandidateList(session);
     const bool selected = selectionList->dwSelection == selectionList->dwPageStart + pageIndex;
     cg::render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
         selected ? std::uint8_t{0xD9} : std::uint8_t{0xD8}, selected ? 0U : 252U, 1);
@@ -117,7 +117,7 @@ static void DrawCandidates(
         if (candidateIndex < count) {
             DrawCandidateEntry(session, pageIndex, targetStart, units);
             // 原459556只在有效项绘框后重读；跳过项沿本轮表。
-            candidateList = CurrentCandidateList();
+            candidateList = CurrentCandidateList(session);
         }
         pageSize = candidateList->dwPageSize;
         pageIndex += 1U;
@@ -127,13 +127,13 @@ static void DrawCandidates(
 // 原 World::RenderInput@[0x4590E0,0x45957E)。
 void RenderInput_4590E0(session::ClientSession& session)
 {
-    const wchar_t initialCompositionUnit = platform::gImeComposition[0];
+    const wchar_t initialCompositionUnit = session.UiFrame().ime.composition[0];
     std::size_t compositionOffset = 0;
     std::int32_t scannedWidth = 0;
     std::int32_t targetStart = 0;
     bool foundTarget = false;
 
-    platform::gImeState73EFF0 = static_cast<std::uint8_t>(
+    session.UiFrame().ime.state73EFF0 = static_cast<std::uint8_t>(
         initialCompositionUnit != 0 ? 1 : 0);
     const std::int32_t isIme = platform::IsImeKeyboardLayout_459090();
 
@@ -158,12 +158,12 @@ void RenderInput_4590E0(session::ClientSession& session)
                 }
                 end = next;
             }
-            platform::gImeDescription.assign(contents, 0, end);
+            session.UiFrame().ime.description.assign(contents, 0, end);
         } else {
             const auto& description = capsState != 0
                 ? kUppercaseDescription
                 : kLowercaseDescription;
-            platform::gImeDescription = text::FromLegacyDisplayWide(std::string_view(
+            session.UiFrame().ime.description = text::FromLegacyDisplayWide(std::string_view(
                 reinterpret_cast<const char*>(description.data()), description.size() - 1));
         }
 
@@ -175,14 +175,14 @@ void RenderInput_4590E0(session::ClientSession& session)
             3,
             1,
             8,
-            platform::gImeDescription,
+            session.UiFrame().ime.description,
             0,
             0));
         context = session.UiFrame().inputState.currentContext;
     }
 
     if (isIme == 0
-        || platform::gImeComposition[0] == '\0'
+        || session.UiFrame().ime.composition[0] == '\0'
         || context == nullptr) {
         return;
     }
@@ -196,11 +196,11 @@ void RenderInput_4590E0(session::ClientSession& session)
     const std::int32_t compositionX = context->x;
     static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(compositionX), static_cast<std::int16_t>(compositionY), compositionMode,
-        static_cast<std::int8_t>(compositionFontType), 0, platform::gImeComposition, 0));
+        static_cast<std::int8_t>(compositionFontType), 0, session.UiFrame().ime.composition, 0));
 
     input::InputContext* const measureContext = session.UiFrame().inputState.currentContext;
     const std::int32_t compositionWidth = cg::render::TextMeasure(
-        platform::gImeComposition, measureContext->fontType);
+        session.UiFrame().ime.composition, measureContext->fontType);
     input::InputContext* const boxContext = session.UiFrame().inputState.currentContext;
     const std::int32_t boxY = boxContext->y;
     const std::int32_t boxX = boxContext->x;
@@ -211,9 +211,9 @@ void RenderInput_4590E0(session::ClientSession& session)
         static_cast<std::uint16_t>(boxX + compositionWidth), static_cast<std::uint16_t>(boxY + boxHeight),
         baseLayer, 1, 1);
 
-    const std::wstring_view composition(platform::gImeComposition);
+    const std::wstring_view composition(session.UiFrame().ime.composition);
     while (compositionOffset < composition.size()) {
-        const std::uint8_t attribute = compositionOffset < platform::gImeAttributes.size() ? platform::gImeAttributes[compositionOffset] : 0;
+        const std::uint8_t attribute = compositionOffset < session.UiFrame().ime.attributes.size() ? session.UiFrame().ime.attributes[compositionOffset] : 0;
         if (attribute == 1U || attribute == 3U) {
             if (!foundTarget) {
                 targetStart = scannedWidth;
@@ -226,7 +226,7 @@ void RenderInput_4590E0(session::ClientSession& session)
             }
         }
         compositionOffset = text::Next(composition, compositionOffset);
-        scannedWidth = render::Font::measure(platform::gImeComposition, session.UiFrame().inputState.currentContext->fontType,
+        scannedWidth = render::Font::measure(session.UiFrame().ime.composition, session.UiFrame().inputState.currentContext->fontType,
             static_cast<std::int32_t>(compositionOffset));
     }
 
@@ -244,7 +244,7 @@ void RenderInput_4590E0(session::ClientSession& session)
             static_cast<std::uint8_t>(baseLayer + 1U), 252, 1);
     }
 
-    const CANDIDATELIST* const candidateList = CurrentCandidateList();
+    const CANDIDATELIST* const candidateList = CurrentCandidateList(session);
     if (candidateList != nullptr && candidateList->dwPageSize != 0U) {
         DrawCandidates(session, targetStart, candidateList);
     }

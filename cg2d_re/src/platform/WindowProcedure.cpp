@@ -30,16 +30,8 @@ std::uint32_t gCurrentClientWidth = 0; // 原全局：0x009A6F2C。
 std::uint32_t gCurrentClientHeight = 0; // 原全局：0x009A6F30。
 std::uint32_t gWindowResizePhase = 0; // 原全局：0x009A7F68。
 
-std::wstring gImeDescription; // 原全局：0x0073ED70。
 std::uintptr_t gImeContext = 0; // 原全局：0x0073EDD8。
 std::uintptr_t gPreviousImeContext = 0; // 原全局：0x0073EDDC。
-std::wstring gImeComposition; // 原全局：0x0073EDE0。
-std::vector<std::uint8_t> gImeAttributes; // 原全局：0x0073EEE0。
-std::int32_t gImeCompositionCursorPosition = 0;
-std::uint32_t gImeConversionMode = 0; // 原全局：0x0073EFE4。
-std::uint32_t gImeSentenceMode = 0; // 原全局：0x0073EFE8。
-void* gImeCandidateList = nullptr;
-std::uint8_t gImeState73EFF0 = 0; // 原全局：0x0073EFF0。
 
 // 原函数：0x00459760。
 int ClearKeyFlags_459760(session::ClientSession& session) noexcept
@@ -336,7 +328,7 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         // W窗口的WM_CHAR按UTF-16码元发送；跨消息组合代理对，不能截成W8。
-        static wchar_t highSurrogate = 0;
+        auto& highSurrogate = currentSession->UiFrame().ime.highSurrogate;
         if (unit >= 0xD800 && unit <= 0xDBFF) {
             highSurrogate = unit;
             return 0;
@@ -355,7 +347,9 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_IME_ENDCOMPOSITION:
-        gImeComposition.clear();
+        if (inputSession != nullptr) {
+            inputSession->UiFrame().ime.composition.clear();
+        }
         return 0;
 
     case WM_IME_COMPOSITION:
@@ -462,13 +456,14 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_IME_NOTIFY: {
+        if (inputSession == nullptr) return 0;
         HIMC context = reinterpret_cast<HIMC>(gImeContext);
         if (context != nullptr) {
             static_assert(sizeof(DWORD) == sizeof(std::uint32_t));
             ImmGetConversionStatus(
                 context,
-                reinterpret_cast<DWORD*>(&gImeConversionMode),
-                reinterpret_cast<DWORD*>(&gImeSentenceMode));
+                reinterpret_cast<DWORD*>(&inputSession->UiFrame().ime.conversionMode),
+                reinterpret_cast<DWORD*>(&inputSession->UiFrame().ime.sentenceMode));
             // 原467809：外部调用后重取共享上下文，不沿用调用前快照。
             context = reinterpret_cast<HIMC>(gImeContext);
         }
@@ -477,18 +472,18 @@ LRESULT CALLBACK WindowProcedure(
             || wParam32 == IMN_CHANGECANDIDATE) {
             const DWORD requiredSize =
                 ImmGetCandidateListW(context, 0, nullptr, 0);
-            if (gImeCandidateList != nullptr) {
-                std::free(gImeCandidateList);
+            if (inputSession->UiFrame().ime.candidateList != nullptr) {
+                std::free(inputSession->UiFrame().ime.candidateList);
             }
             if (requiredSize != 0) {
                 void* const candidates = std::calloc(1, requiredSize);
                 if (wParam32 == IMN_CHANGECANDIDATE) {
                     // 原4678B5/4678BE：变化通知先重取上下文，再发布候选表。
                     context = reinterpret_cast<HIMC>(gImeContext);
-                    gImeCandidateList = candidates;
+                    inputSession->UiFrame().ime.candidateList = candidates;
                 } else {
                     // 原467849/467850：打开通知先发布候选表，再重取上下文。
-                    gImeCandidateList = candidates;
+                    inputSession->UiFrame().ime.candidateList = candidates;
                     context = reinterpret_cast<HIMC>(gImeContext);
                 }
                 ImmGetCandidateListW(
@@ -498,14 +493,14 @@ LRESULT CALLBACK WindowProcedure(
                     requiredSize);
                 return 0;
             }
-            gImeCandidateList = nullptr;
+            inputSession->UiFrame().ime.candidateList = nullptr;
             return 0;
         }
         if (wParam32 == IMN_CLOSECANDIDATE) {
-            if (gImeCandidateList != nullptr) {
-                std::free(gImeCandidateList);
+            if (inputSession->UiFrame().ime.candidateList != nullptr) {
+                std::free(inputSession->UiFrame().ime.candidateList);
             }
-            gImeCandidateList = nullptr;
+            inputSession->UiFrame().ime.candidateList = nullptr;
         }
         return 0;
     }

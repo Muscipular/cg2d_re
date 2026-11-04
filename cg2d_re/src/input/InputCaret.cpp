@@ -48,10 +48,10 @@ static void DrawImeCaret(session::ClientSession& session)
         static_cast<std::uint8_t>(preMeasureContext->renderMode) + 1U);
     const std::int32_t y = preMeasureContext->y;
     const std::int32_t cursorPosition =
-        platform::gImeCompositionCursorPosition;
+        session.UiFrame().ime.cursorPosition;
 
     const std::int32_t measuredWidth = render::Font::measure(
-        platform::gImeComposition,
+        session.UiFrame().ime.composition,
         fontType,
         cursorPosition);
 
@@ -103,12 +103,12 @@ void DrawAndAdvanceInputCaret_44A410(session::ClientSession& session)
             DrawBasicCaret(session);
         } else {
             const wchar_t firstCompositionByte =
-                platform::gImeComposition[0];
+                session.UiFrame().ime.composition[0];
             if (firstCompositionByte == '\0') {
                 DrawBasicCaret(session);
             } else {
                 const std::uint8_t firstAttribute =
-                    platform::gImeAttributes.empty() ? 0 : platform::gImeAttributes[0];
+                    session.UiFrame().ime.attributes.empty() ? 0 : session.UiFrame().ime.attributes[0];
                 if (firstAttribute == 0) {
                     DrawImeCaret(session);
                 }

@@ -8,10 +8,10 @@ namespace cg::session { class ClientSession; }
 namespace cg::platform {
 
 // 原 sub_458FD0@[0x458FD0,0x459032)：初始化并关联 IME context。
-int InitializeIme_458FD0();
+int InitializeIme_458FD0(session::ClientSession& session);
 
 // 原 sub_459040@[0x459040,0x459081)：恢复旧 context 并释放候选表。
-void ShutdownIme_459040();
+void ShutdownIme_459040(session::ClientSession& session);
 
 // 原 sub_459090@[0x459090,0x45909F)：保留 ImmIsIME 的完整 Win32 BOOL 位值。
 // HWT01：当前线程布局先查询，再返回ImmIsIME完整Win32 BOOL，不转bool或补默认值。
@@ -22,7 +22,7 @@ void ShutdownIme_459040();
 
 // 原4734F0..473500的窄平台边界；保留IME查询及未使用键表采样后再借用描述。
 // HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
-[[nodiscard]] std::wstring_view QueryWindowImeDescription_4734F0() noexcept;
+[[nodiscard]] std::wstring_view QueryWindowImeDescription_4734F0(session::ClientSession& session) noexcept;
 
 // 原 sub_459580@[0x459580,0x4596C8)：处理 WM_IME_COMPOSITION 标志。
 char HandleImeCompositionFlags_459580(session::ClientSession& session, std::int16_t flags);

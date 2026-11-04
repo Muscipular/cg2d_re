@@ -102,6 +102,27 @@ static FrameLayout Layout(HWND window) noexcept
     return value;
 }
 
+static void UpdateRectangularRegion(HWND window) noexcept
+{
+    if (IsIconic(window)) return;
+    RECT rectangle {};
+    if (!GetWindowRect(window, &rectangle)) return;
+    HRGN region = CreateRectRgn(0, 0,
+        rectangle.right - rectangle.left, rectangle.bottom - rectangle.top);
+    if (region == nullptr) return;
+    HRGN current = CreateRectRgn(0, 0, 0, 0);
+    if (current == nullptr) {
+        DeleteObject(region);
+        return;
+    }
+    const bool unchanged = GetWindowRgn(window, current) != ERROR && EqualRgn(current, region);
+    DeleteObject(current);
+    // SetWindowRgn会重入窗口位置消息；区域相同时不再提交，成功后的区域归系统所有。
+    if (unchanged || SetWindowRgn(window, region, TRUE) == 0) {
+        DeleteObject(region);
+    }
+}
+
 static HFONT Font(const UINT dpi)
 {
     if (gFontDpi != dpi) {
@@ -605,7 +626,15 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
             }
             FreeLibrary(module);
         }
+        UpdateRectangularRegion(window);
         return false;
+    case WM_WINDOWPOSCHANGED: {
+        const auto& position = *reinterpret_cast<const WINDOWPOS*>(lParam);
+        if ((position.flags & SWP_NOSIZE) == 0 || (position.flags & SWP_FRAMECHANGED) != 0) {
+            UpdateRectangularRegion(window);
+        }
+        return false;
+    }
     case WM_NCCALCSIZE: {
         RECT& rectangle = wParam != 0 ? reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam)->rgrc[0]
             : *reinterpret_cast<RECT*>(lParam);

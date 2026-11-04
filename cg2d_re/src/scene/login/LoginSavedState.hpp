@@ -28,6 +28,8 @@ std::int32_t DecodeLegacyBytes_52D460(
 
 // 原函数：0x005201B0。
 std::int32_t RestoreCurrentSavedState_5201B0(session::ClientSession& session);
+// NSM01：后建会话只恢复自身快捷正文，不覆盖进程共享音量或其他偏好。
+std::int32_t RestoreSessionSavedInputContexts(session::ClientSession& session);
 
 // 原函数：0x00533300。
 std::int32_t InitializeSavedState_533300(session::ClientSession& session);

@@ -12,6 +12,7 @@
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
@@ -113,7 +114,7 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
     bool keepRunning = true;
     for (;;) {
         if (PumpWindowMessages() == 0) {
-            static_cast<void>(ShutdownClient_457A40(session));
+            static_cast<void>(ShutdownClient_457A40());
             return 0;
         }
         if (firstFrame) {
@@ -149,7 +150,7 @@ static std::int32_t FadeOutLoading_4585F0(session::ClientSession& session)
     bool keepRunning = true;
     for (;;) {
         if (PumpWindowMessages() == 0) {
-            static_cast<void>(ShutdownClient_457A40(session));
+            static_cast<void>(ShutdownClient_457A40());
             return 0;
         }
         if (firstFrame) {
@@ -239,7 +240,10 @@ int InitializeClient_4576B0(session::ClientSession& session)
     static_cast<void>(ResetLegacyMouseState_506870(session));
     static_cast<void>(cg::yobi::InitializeYobiActionList_404A40(session));
     static_cast<void>(render::InitializeFont_456190(0));
-    static_cast<void>(InitializeIme_458FD0(session));
+    if (InitializeIme_458FD0(session) != 0) {
+        ShowWideMessage(L"输入法初始化失败。", kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
     if (cg::login::detail::RestoreCurrentSavedState_5201B0(session) == 0) {
         const std::wstring message = std::format(L"读入存档失败。(code = {})", static_cast<int>(session.SavedLogin().loadErrorCode));
         ShowWideMessage(message, kConfirmCaption, kErrorMessageFlags);
@@ -281,6 +285,51 @@ int InitializeClient_4576B0(session::ClientSession& session)
     login::detail::AppendSystemLog_44B5C0(L"initGame OK");
     static_cast<void>(ui::detail::WindowRuntime_Initialize(session));
     return script::InitializeLua(session) ? 1 : 0;
+}
+
+static bool InitializeAdditionalClientSession(session::ClientSession& session)
+{
+    InitializeAdditionalSessionStorage(session);
+    if (login::detail::InitializeSavedState_533300(session) == 0) {
+        return false;
+    }
+    static_cast<void>(world::InitializeRotationTable_46FB20(session));
+    static_cast<void>(ResetLegacyMouseState_506870(session));
+    static_cast<void>(cg::yobi::InitializeYobiActionList_404A40(session));
+    if (InitializeIme_458FD0(session) != 0) {
+        return false;
+    }
+    static_cast<void>(login::detail::RestoreSessionSavedInputContexts(session));
+    audio::InitializeSessionSoundRequests(session);
+    static_cast<void>(audio::ResetSpatialSoundSources_52CD40(session));
+    static_cast<void>(world::InitializeAlbum_518C20(session));
+    session.WorldScene().sceneType = 2;
+    session.WorldScene().sceneState = 0;
+    session.WorldScene().pendingSceneType = -1;
+    static_cast<void>(ui::detail::WindowRuntime_Initialize(session));
+    return script::InitializeLua(session);
+}
+
+std::uint64_t CreateClientSession()
+{
+    auto& host = session::GetClientHost();
+    std::uint64_t createdId = 0;
+    try {
+        auto& entry = host.AddSession();
+        createdId = entry.id;
+        if (InitializeAdditionalClientSession(entry.session) && host.SelectSession(createdId)) {
+            entry.initialized = true;
+            return createdId;
+        }
+    } catch (...) {
+        // 仅回收本次已发布的条目；AddSession自身负责构造失败的未发布前缀。
+    }
+    if (auto* const failed = host.FindSession(createdId)) {
+        ShutdownSessionRuntime(*failed, false);
+        static_cast<void>(host.RemoveSession(createdId));
+    }
+    ShowWideMessage(L"新增会话失败。", kConfirmCaption, kErrorMessageFlags);
+    return 0;
 }
 
 } // namespace cg::platform

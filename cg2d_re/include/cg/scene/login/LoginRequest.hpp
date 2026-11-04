@@ -76,6 +76,8 @@ struct LoginRequestState {
     std::int32_t openUrlAfterMessage = 0; // 原 0x9A6EA8，提示完成后的链接请求。
     std::wstring password; // 原 0xDA38DC，账号登录第2文本。
     std::wstring account; // 原 0xDA3A5C，账号登录第3文本。
+    bool autoLoginPending = false; // 命令行只为发起连接请求一次自动选角。
+    std::int32_t autoLoginCharacterSlot = -1; // 后建会话不继承首会话的命令行角色槽。
 };
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。

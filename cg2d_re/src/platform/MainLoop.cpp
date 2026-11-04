@@ -115,8 +115,12 @@ void ShowModeChange_458A40(session::ClientSession& session)
 int MainLoop(session::ClientSession& session)
 {
     if (InitializeClient_4576B0(session) == 0) {
+        if (cg::session::GetClientHost().SessionCount() != 0) {
+            static_cast<void>(ShutdownClient_457A40());
+        }
         return 0;
     }
+    cg::session::GetClientHost().Sessions().front().initialized = true;
     const auto getTickCount = &ReadTickCount64;
 
     for (;;) {
@@ -137,7 +141,7 @@ int MainLoop(session::ClientSession& session)
         }
 
         if (PumpWindowMessages() == 0) {
-            ShutdownClient_457A40(session);
+            ShutdownClient_457A40();
             return 0;
         }
         const bool paletteReady = render::PrepareSessionPalette(session);

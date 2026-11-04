@@ -26,6 +26,10 @@ std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fc
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。
 // 原函数：0x004576B0。
 int InitializeClient_4576B0(session::ClientSession& session);
+// NSM01：新增仅在帧边界执行；完成所属初始化和切换后返回稳定ID，失败返回0。
+std::uint64_t CreateClientSession();
+// 后建会话复用中央原构造入口及相对顺序，不重跑进程设备/资源初始化。
+void InitializeAdditionalSessionStorage(session::ClientSession& session);
 // 原函数：0x00458A40。
 void ShowModeChange_458A40(session::ClientSession& session);
 // 原函数：0x00457AB0。

@@ -25,6 +25,7 @@ public:
         explicit SessionEntry(std::uint64_t value) : id(value) {}
         const std::uint64_t id; // 菜单项与关闭请求的稳定身份，不是账号或角色编号。
         ClientSession session;
+        bool initialized = false; // 只有完整会话初始化成功后才允许调度和关闭保存。
     };
 
     ClientHost()

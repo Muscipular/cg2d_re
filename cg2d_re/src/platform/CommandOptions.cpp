@@ -63,10 +63,6 @@ std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStor
 static_assert(sizeof(int) == 4);
 static_assert(std::endian::native == std::endian::little);
 
-// ALM01：启动参数生产一次选人标记；凭据仍由 login 的既有变量持有。
-static bool gAutoLoginPending = false;
-static std::int32_t gAutoLoginCharacterSlot = -1;
-
 // A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
 __declspec(noinline)
 static bool ParseCommandArgumentValue(
@@ -120,6 +116,7 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
     std::wstring serverText;
     std::wstring characterSlotText;
     std::int32_t serverIndex = -1;
+    auto& request = connection.LoginRequests();
     VM_LIGHT_START
 
     if (ParseCommandArgumentValue(commandLine, L"/uu:", account)
@@ -132,10 +129,10 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
             ? static_cast<std::int32_t>(value) : -1;
         endPtr = nullptr;
         value = std::wcstol(characterSlotText.c_str(), &endPtr, 10);
-        gAutoLoginCharacterSlot = (endPtr != nullptr && *endPtr == '\0')
+        request.autoLoginCharacterSlot = (endPtr != nullptr && *endPtr == '\0')
             ? static_cast<std::int32_t>(value) : -1;
-        if (gAutoLoginCharacterSlot > 1) {
-            gAutoLoginCharacterSlot = -1;
+        if (request.autoLoginCharacterSlot > 1) {
+            request.autoLoginCharacterSlot = -1;
         }
     }
 
@@ -145,25 +142,25 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
         login::detail::CacheAutoLoginInputValues(connection.Owner(), account, password);
         connection.Owner().WorldScene().sceneState = 2;
         connection.Owner().WorldScene().sceneType = 2;
-        auto& request = connection.LoginRequests();
         request.password = password;
         request.account = account;
         request.selectedServerIndex = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(serverIndex));
-        gAutoLoginPending = true;
+        request.autoLoginPending = true;
     }
     VM_LIGHT_END
 }
 
 __declspec(noinline)
-bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
+bool ConsumeAutoLoginCharacterSlot(network::CgConnection& connection, const std::uint32_t slot) noexcept
 {
     VM_LIGHT_START
     bool ret = false;
-    if (gAutoLoginPending && gAutoLoginCharacterSlot >= 0
-        && slot == static_cast<std::uint32_t>(gAutoLoginCharacterSlot))
+    auto& request = connection.LoginRequests();
+    if (request.autoLoginPending && request.autoLoginCharacterSlot >= 0
+        && slot == static_cast<std::uint32_t>(request.autoLoginCharacterSlot))
     {
-        gAutoLoginPending = false;
+        request.autoLoginPending = false;
         ret = true;
     }
     VM_LIGHT_END

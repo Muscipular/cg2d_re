@@ -297,4 +297,16 @@ static const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C; // 原�
 static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160; // 原全局：0x00553160。
 static const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164; // 原全局：0x00553164。
 
+void InitializeAdditionalSessionStorage(session::ClientSession& session)
+{
+    world::detail::InitializeWorldObjectStorage(session);
+    world::InitializeWorldMapCryptStorage(session);
+    static_cast<void>(ui::FirstItemSelectorStartup {session});
+    static_cast<void>(ui::SecondItemSelectorStartup {session});
+    static_cast<void>(ui::StallBrowsePetValuesStartup {session});
+    InitializeLegacyMouseStorage(session);
+    world::InitializePlayerRuntimeStorage(session);
+    world::InitializePetRuntimeStorage(session);
+}
+
 } // namespace cg::platform

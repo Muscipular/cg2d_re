@@ -105,6 +105,9 @@ std::int32_t PlayFixedMusic_455280(session::ClientSession& session, std::int32_t
 std::int32_t LoadBgmConfig_524060();
 // 原函数：0x005241A0。
 std::int32_t InitializeAudio_5241A0(session::ClientSession& session); // 进程启动初始化设备，并初始化首会话请求。
+// NSM01：会话请求初始化与播放释放，不重开设备或清共享通道/样本。
+void InitializeSessionSoundRequests(session::ClientSession& session);
+void ShutdownSessionPlayback(session::ClientSession& session);
 // 原函数：0x0052B630。
 void ShutdownAudio_52B630(); // 原退出入口；先处理流式 BGM，再按序释放音效与设备。
 // 原函数：0x0052C9C0。

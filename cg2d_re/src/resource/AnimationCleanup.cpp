@@ -160,9 +160,7 @@ void CloseCoordinateFiles()
     }
 }
 
-// 原函数：0x0045BEF0。
-// BLM01：关闭32动画槽和共享坐标文件，再按原活动槽清理并返回真实末值。
-std::int32_t AnimeUnload_45BEF0()
+static void CloseAnimationFiles()
 {
     for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
         std::FILE* const current = file;
@@ -171,6 +169,13 @@ std::int32_t AnimeUnload_45BEF0()
             file = nullptr;
         }
     }
+}
+
+// 原函数：0x0045BEF0。
+// BLM01：关闭32动画槽和共享坐标文件，再按原活动槽清理并返回真实末值。
+std::int32_t AnimeUnload_45BEF0()
+{
+    CloseAnimationFiles();
     CloseCoordinateFiles();
     return ReleaseAllAnimationSlotResources_45B630();
 }
@@ -187,6 +192,19 @@ std::int32_t CloseFlaggedAnimationFilesAndClearCache_45BF20()
         }
     }
     return ReleaseAllAnimationCacheSlotResources_45B740();
+}
+
+void ShutdownAnimationResources()
+{
+    CloseAnimationFiles();
+    detail::gFileCloseFlags9A29D0.fill(0);
+    CloseCoordinateFiles();
+    if (gAnimateRecords9A4A58 != nullptr) {
+        static_cast<void>(ReleaseAllAnimationSlotResources_45B630());
+    }
+    if (gAnimateCache9A4A5C != nullptr) {
+        static_cast<void>(ReleaseAllAnimationCacheSlotResources_45B740());
+    }
 }
 
 } // namespace cg::resource::animation

@@ -36,7 +36,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
     auto* const colorBytes = reinterpret_cast<unsigned char*>(&descriptor.color);
     for (;;) {
         if (PumpWindowMessages() == 0) {
-            static_cast<void>(ShutdownClient_457A40(connection.Owner()));
+            static_cast<void>(ShutdownClient_457A40());
             return 0;
         }
         cg::render::gGraphicQueue.count = 0;

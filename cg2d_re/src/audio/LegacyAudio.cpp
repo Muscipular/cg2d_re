@@ -297,6 +297,13 @@ void ResetBgmPlayback_52B940(session::ClientSession& session)
     session.Audio().bgmStage = 0;
 }
 
+void ShutdownSessionPlayback(session::ClientSession& session)
+{
+    ResetBgmPlayback_52B940(session);
+    gSdlAudioBackend.StopFixedMusic(session.Audio().fixedMusicPlayback);
+    gSdlAudioBackend.ShutdownFixedMusicPlayback(session.Audio().fixedMusicPlayback);
+}
+
 // 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
 void ShutdownAudio_52B630()
 {
@@ -579,6 +586,14 @@ SpatialAudioRecord* __cdecl ResetSpatialSoundSources_52CD40(session::ClientSessi
     return session.Audio().spatialSources.data() + session.Audio().spatialSources.size();
 }
 
+void InitializeSessionSoundRequests(session::ClientSession& session)
+{
+    for (SoundRequestRecord& request : session.Audio().soundRequests) {
+        request.channelIndex = -1;
+        request.requestCount = 0;
+    }
+}
+
 // 原 [0x52B9E0,0x52BBD6)：按通道、清零区、请求、声像/音量表顺序初始化。
 SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSession& session)
 {
@@ -592,11 +607,7 @@ SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSe
     gAudioBytes103DD7C.fill(std::byte {0});
     gAudioBytes104A334.fill(std::byte {0});
 
-    for (SoundRequestRecord& request : session.Audio().soundRequests) {
-        request.channelIndex = -1;
-        request.requestCount = 0;
-    }
-
+    InitializeSessionSoundRequests(session);
     platform::Cg2dInitializeSoundTablesX87(gPanVal103CFBC.data(), gSoundVolValue10505D0.data());
     return ResetSpatialSoundSources_52CD40(session);
 }
@@ -1120,8 +1131,10 @@ std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t
         session.Audio().bgmPlayback, audio::gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
     static_cast<void>(audio::gSdlAudioBackend.PlayBgm(session.Audio().bgmPlayback, record.value44 != 0));
     session.Audio().bgmRecordIndex = static_cast<std::int32_t>(bgmId);
-    platform::gLastRenderDt =
-        static_cast<double>(platform::ReadTickCount64());
+    const auto tick = platform::ReadTickCount64();
+    if (cg::session::GetClientHost().CurrentSession() == &session) {
+        platform::gLastRenderDt = static_cast<double>(tick);
+    }
     session.Audio().bgmActive = 1;
     return 1;
 }

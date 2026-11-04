@@ -1,9 +1,11 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "ClientShutdown.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
 #include "../ui/WindowRuntimeState.hpp"
+#include "../scene/login/LoginSavedState.hpp"
 
 #include "cg/resource/GraphicRead.hpp"
 #include "cg/resource/GraphicAlloc.hpp"
@@ -36,28 +38,45 @@ static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0(session::ClientSession
 
 static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 
-// 原函数：0x00457A40。
-int ShutdownClient_457A40(session::ClientSession& session)
+void ShutdownSessionRuntime(session::ClientSession& session, const bool save)
 {
     session.Connection().StopIo();
     script::ShutdownLua(session);
-    shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0(session);
+    if (save) {
+        static_cast<void>(login::detail::SaveCurrentClientPreferences_520160(session.Connection()));
+        static_cast<void>(shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0(session));
+    } else {
+        static_cast<void>(ui::WindowRuntime_CloseAll(session));
+    }
+    audio::ShutdownSessionPlayback(session);
+    ShutdownIme_459040(session);
+    if (session.Yobi().start != nullptr && session.Yobi().end != nullptr) {
+        cg::yobi::ShutdownYobiActionList_404D60(session);
+    }
+    session.Connection().Shutdown();
+    session.Connection().DisconnectState() = 0;
+}
+
+// 原函数：0x00457A40；NSM01先完整释放各会话，再销毁唯一共享设备和资源。
+int ShutdownClient_457A40()
+{
+    auto& host = session::GetClientHost();
+    while (!host.Sessions().empty()) {
+        auto& entry = host.Sessions().front();
+        const std::uint64_t id = entry.id;
+        ShutdownSessionRuntime(entry.session, entry.initialized);
+        static_cast<void>(host.RemoveSession(id));
+    }
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();
     cg::audio::ShutdownFixedMusic_454EE0();
     audio::ShutdownAudio_52B630();
     audio::StopAndCloseMciDevice_52CCE0();
-    cg::resource::animation::AnimeUnload_45BEF0();
-    cg::resource::animation::CloseFlaggedAnimationFilesAndClearCache_45BF20();
+    cg::resource::animation::ShutdownAnimationResources();
     cg::resource::CloseGraphicFiles();
     cg::resource::FreePrimaryGraphicResourceTables_457670();
     static_cast<void>(render::ReleaseFont_456530());
-    ShutdownIme_459040(session);
-    cg::yobi::ShutdownYobiActionList_404D60(session);
-    session.Connection().Shutdown();
-    session.Connection().DisconnectState() = 0;
-
     const INT element = COLOR_BACKGROUND;
     const COLORREF color = static_cast<COLORREF>(gDesktopColor);
     return SetSysColors(1, &element, &color);

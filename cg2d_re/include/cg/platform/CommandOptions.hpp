@@ -41,7 +41,7 @@ extern std::uint8_t& gRendererMode;       // 原 0x62A640，与 MainLoop.hpp 的
 extern int ParseIpOptions_507C80(const wchar_t* commandLine);
 
 // A08：选人入口在状态11且角色存在时调用；仅目标槽成功消费一次标记。
-bool ConsumeAutoLoginCharacterSlot(std::uint32_t slot) noexcept;
+bool ConsumeAutoLoginCharacterSlot(network::CgConnection& connection, std::uint32_t slot) noexcept;
 
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 

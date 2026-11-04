@@ -703,6 +703,11 @@ static std::int32_t RestoreSavedInputContexts_520690(session::ClientSession& ses
     return 0;
 }
 
+std::int32_t RestoreSessionSavedInputContexts(session::ClientSession& session)
+{
+    return RestoreSavedInputContexts_520690(session, session.SavedLogin().data->current);
+}
+
 // 原 sub_520700@[0x520700,0x520712)：从记录恢复单字节状态。
 static std::uint32_t RestoreSavedByteState_520700(
     const SavedPhysicalRecord& current)

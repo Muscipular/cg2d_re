@@ -767,11 +767,11 @@ static void WindowPetSkillChoice_RefreshLearn(session::ClientSession& session, W
     choice.firstCount = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
-    for (const world::SkillPairRecord& pair : world::gSkillPairsF63370) {
+    for (const world::SkillPairRecord& pair : session.WorldScene().playerSkills.pairs) {
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             usedSlots += std::bit_cast<std::int8_t>(
-                world::gSkillsF1BAFC[index].requiredSlots19[0]);
+                session.WorldScene().playerSkills.skills[index].requiredSlots19[0]);
             ++count;
         }
     }
@@ -825,12 +825,12 @@ static void WindowPetSkillChoice_RefreshForget(session::ClientSession& session, 
     if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 0;
     if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
     for (std::int32_t row = 0; row < world::kSkillSlotCount; ++row) {
-        const world::SkillPairRecord& pair = world::gSkillPairsF63370[row];
+        const world::SkillPairRecord& pair = session.WorldScene().playerSkills.pairs[row];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t skill = 0; skill < index; ++skill) {
-                if (world::gSkillsF1BAFC[skill].name[0] == '\0') {
+                if (session.WorldScene().playerSkills.skills[skill].name[0] == '\0') {
                     ++empty;
                 }
             }
@@ -844,11 +844,11 @@ static void WindowPetSkillChoice_RefreshForget(session::ClientSession& session, 
     choice.firstCount = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
-    for (const world::SkillPairRecord& pair : world::gSkillPairsF63370) {
+    for (const world::SkillPairRecord& pair : session.WorldScene().playerSkills.pairs) {
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             usedSlots += std::bit_cast<std::int8_t>(
-                world::gSkillsF1BAFC[index].requiredSlots19[0]);
+                session.WorldScene().playerSkills.skills[index].requiredSlots19[0]);
             ++count;
         }
     }
@@ -1109,13 +1109,13 @@ static void WindowPetSkillChoice_RefreshLearnRows(
         choice.secondValueTexts[row].clear();
         if (scroll + row < count) {
             if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement5) indexedElement5->visible = 1;
-            const world::SkillPairRecord& pair = world::gSkillPairsF63370[scroll + row];
+            const world::SkillPairRecord& pair = session.WorldScene().playerSkills.pairs[scroll + row];
             if (pair.used != 0) {
                 const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
                 if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement6) indexedElement6->visible = 1;
                 if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement7) indexedElement7->visible = 1;
                 if (auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement8) indexedElement8->visible = 1;
-                const world::SkillRuntimeRecord& skill = world::gSkillsF1BAFC[index];
+                const world::SkillRuntimeRecord& skill = session.WorldScene().playerSkills.skills[index];
                 if (auto* const indexedElement9 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement9) indexedElement9->data.text->text = skill.name;
                 cg::text::FormatTo(choice.firstValueTexts[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);

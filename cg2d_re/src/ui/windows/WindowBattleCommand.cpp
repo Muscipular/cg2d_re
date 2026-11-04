@@ -1009,7 +1009,7 @@ static void WindowBattleCommand_SelectSkill(
     world::gBattleSelectedSkill5ABB5C = skillIndex;
     world::gBattleSelectedTechnique5ABC78 = technique;
     const auto target = std::bit_cast<std::uint32_t>(
-        world::gSkillsF1BAFC[skillIndex].techniques3C[technique].value84);
+        session.WorldScene().playerSkills.skills[skillIndex].techniques3C[technique].value84);
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     if (cg::yobi::CheckBattleCommand_43C560(position, target) != 0) {
         session.UiFrame().native.battleCommand.skillTargetPending = 1;

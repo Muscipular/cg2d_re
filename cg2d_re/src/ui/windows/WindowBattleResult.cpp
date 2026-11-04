@@ -325,13 +325,13 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
 
         const auto& skillResults = currentWindow->ownerSession->WorldScene().battleResult.skills;
         std::int32_t row = 0;
-        for (const auto& pair : world::gSkillPairsF63370) {
+        for (const auto& pair : callbackWindow.ownerSession->WorldScene().playerSkills.pairs) {
             const std::uint16_t used = pair.used;
             const auto index = static_cast<std::int16_t>(pair.index);
             if (used == 0) {
                 continue;
             }
-            const auto* const skill = &world::gSkillsF1BAFC[index];
+            const auto* const skill = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[index];
             const std::int32_t category = skill->canRebirth;
             if (category != 0 && category != 5) {
                 continue;

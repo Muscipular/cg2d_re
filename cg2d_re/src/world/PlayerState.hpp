@@ -18,6 +18,7 @@ namespace cg::session { class ClientSession; }
 #include "cg/world/PlayerRuntimeSlots.hpp"
 #include "cg/world/PetRuntimeRecord.hpp"
 #include "cg/world/PlayerSlots.hpp"
+#include "cg/world/SkillRuntimeSlots.hpp"
 #include "PetTechniqueRecord.hpp"
 
 // 玩家、技能、宠物与称号的共享声明。
@@ -30,65 +31,10 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(cg::network::CgConnection& net
 void HandlePlayerSecondaryStatsReply_509BA0(cg::network::CgConnection& networkConnection, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
 void HandlePlayerProfessionReply_509E30(cg::network::CgConnection& networkConnection, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
-const std::wstring& GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
+const std::wstring& GetPlayerJobName(session::ClientSession& session) noexcept; // F1BAE0职业名，同源28B字段只读借用。
 
-// 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
-struct SkillTechniqueRecord {
-    std::wstring name; // 原成员偏移：+0x00。
-    std::wstring description; // 原成员偏移：+0x19。
-    std::array<std::byte, 2> bytes7A; // 原成员偏移：+0x7A。
-    std::int32_t value7C; // 原成员偏移：+0x7C。
-    std::int32_t value80; // 原成员偏移：+0x80。
-    std::int32_t value84; // 原成员偏移：+0x84。
-    std::uint8_t used88; // 原成员偏移：+0x88。
-    std::array<std::byte, 3> bytes89; // 原成员偏移：+0x89。
-    std::int32_t value8C; // 原成员偏移：+0x8C。
-    std::int32_t value90; // 原成员偏移：+0x90。
-};
-
-// 原技能配方材料0x28字节，50C580生产、519950只清itemId、4F4630查count。
-struct SkillRecipeItem {
-    std::int32_t itemId;
-    std::int32_t count; // 原成员偏移：+0x04。
-    std::wstring name; // 原成员偏移：+0x08。
-    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
-};
-
-struct SkillRecipeRecord {
-    std::int32_t itemId;
-    std::int32_t value04; // 原成员偏移：+0x04。
-    std::int32_t level; // 原成员偏移：+0x08。
-    std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::int32_t value10; // 原成员偏移：+0x10。
-    std::wstring name; // 原成员偏移：+0x14。
-    std::wstring description; // 原成员偏移：+0x31。
-    std::array<std::byte, 2> bytes6A; // 原成员偏移：+0x6A。
-    std::array<SkillRecipeItem, 5> items6C; // 原成员偏移：+0x6C。
-};
-
-// 原F1BAFC起的技能记录；未消费字段不计最终业务映射。
-struct SkillRuntimeRecord {
-    std::wstring name;
-    std::array<std::uint8_t, 2> requiredSlots19; // 原成员偏移：+0x19。 回复写低U8；4740F0读S16，窗口54读低S8。
-    std::byte byte1B; // 原成员偏移：+0x1B。
-    std::int32_t level; // 原成员偏移：+0x1C。
-    std::int32_t maxLevel; // 原成员偏移：+0x20。
-    std::int32_t experience; // 原成员偏移：+0x24。
-    std::int32_t nextExperience; // 原成员偏移：+0x28。
-    std::int32_t canRebirth; // 原成员偏移：+0x2C。
-    std::int32_t skillId; // 原成员偏移：+0x30。
-    std::int32_t fpReduce; // 原成员偏移：+0x34。
-    std::int32_t sequence; // 原成员偏移：+0x38。
-    std::array<SkillTechniqueRecord, kTechniqueSlotCount> techniques3C; // 原成员偏移：+0x3C；现扩为30栏。
-    std::array<SkillRecipeRecord, 56> recipes8E8; // 原成员偏移：+0x8E8。
-    std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
-};
-
-extern std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC; // 原全局：0x00F1BAFC。 同一第四清零块成员别名。
-extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原全局：0x00F63370。
 // 原479FBE按S8索引读取U16；按用户确认，-1现表示未选中，不再读取原末条技能+4C44。
-std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
-extern std::uint16_t gSkillReorderPending_DA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
+std::uint16_t ReadSkillPairUsed(session::ClientSession& session, std::int8_t pairIndex);
 // 原函数：0x00505040。
 std::int32_t IsItemEligibleForDecoration_505040(session::ClientSession& session, std::int32_t slot); // 说明/类别/flag800及制造配方条件。
 // 原函数：0x005050B0。
@@ -218,9 +164,9 @@ std::int8_t RequestPlayerStatusIcon_51BE50(session::ClientSession& session, std:
 
 namespace detail {
 // 原函数：0x00504F10。
-std::int32_t HasSkillRecipeForItem_504F10(std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
+std::int32_t HasSkillRecipeForItem_504F10(session::ClientSession& session, std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
 // 原函数：0x00519950。
-void ResetSkillRecipeSlots_519950(std::int32_t index); // 仅重置技能尾槽及56行配方编号。
+void ResetSkillRecipeSlots_519950(session::ClientSession& session, std::int32_t index); // 仅重置技能尾槽及56行配方编号。
 // 原函数：0x00518600。
 void BuildSortedSkillDisplayEntries_518600(
     const SkillRuntimeRecord* source, SkillPairRecord* destination, std::int32_t count);

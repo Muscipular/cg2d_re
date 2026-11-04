@@ -109,7 +109,7 @@ static void WindowCraft_ReleaseMaterialSlot(
     std::int32_t destination, std::int32_t source, std::int32_t material); // 先释放再发布材料槽/占用。
 
 // 原函数：0x004880D0。
-static std::int32_t WindowCraft_ReadRequiredSkillLevel(std::int32_t skillId, std::int32_t extraLevel); // 完整快照后查技能等级，附加值只读低U8。
+static std::int32_t WindowCraft_ReadRequiredSkillLevel(session::ClientSession& session, std::int32_t skillId, std::int32_t extraLevel); // 完整快照后查技能等级，附加值只读低U8。
 
 // 原函数：0x00488160。
 static std::int32_t WindowCraft_ReadMaxMaterialLevel(session::ClientSession& session); // 前三材料占用等级与0的最大值。
@@ -270,9 +270,9 @@ std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, co
     auto& craft = session.UiFrame().native.craft;
     const std::int8_t pairIndex = std::bit_cast<std::int8_t>(craft.lookupSkillPair);
     if (pairIndex < 0 || pairIndex >= world::kSkillSlotCount) return 0;
-    const std::int16_t skillIndex = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+    const std::int16_t skillIndex = std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[pairIndex].index);
     if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount) return 0;
-    const auto& recipes = world::gSkillsF1BAFC[skillIndex].recipes8E8;
+    const auto& recipes = session.WorldScene().playerSkills.skills[skillIndex].recipes8E8;
     const std::int32_t recipeIndex = craft.lookupRecipe;
     // IWT01：未选择时不再将技术区解释为配方；有效索引直接按材料结构读取。
     if (recipeIndex < 0 || recipeIndex >= static_cast<std::int32_t>(recipes.size())) return 0;
@@ -568,7 +568,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& sessio
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t skill = craft.skillIndex;
     const std::int32_t recipe = craft.recipeIndex;
-    const std::int32_t level = world::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
+    const std::int32_t level = session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
     craft.selectionMode = 1;
@@ -584,14 +584,14 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     std::int32_t skill;
     if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skill = craft.skillIndex;
-        if (world::gSkillsF1BAFC[skill].skillId != 220) {
+        if (session.WorldScene().playerSkills.skills[skill].skillId != 220) {
             skillOperation.sendMode = 1;
         }
     } else {
         skill = craft.skillIndex;
     }
     const std::int32_t active = skillOperation.sendMode;
-    const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+    const std::int32_t skillId = session.WorldScene().playerSkills.skills[skill].skillId;
     craft.petAssistActive = active;
     const wchar_t* hint = nullptr;
     switch (skillId) {
@@ -618,7 +618,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
     if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
     if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
-    if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+    if (session.WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
         if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
@@ -641,7 +641,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0
-        && world::gSkillsF1BAFC[craft.skillIndex].skillId != 2026) {
+        && session.WorldScene().playerSkills.skills[craft.skillIndex].skillId != 2026) {
         skillOperation.sendMode = 1;
     }
     craft.petAssistActive = skillOperation.sendMode;
@@ -754,7 +754,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     craft.requestValue = request;
     craft.recipeIndex = recipe;
     craft.selectionMode = 0;
-    craft.recipeId = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
+    craft.recipeId = session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].itemId;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
@@ -764,7 +764,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.skillCount = references;
-    const std::int32_t skillId = world::gSkillsF1BAFC[currentSkill].skillId;
+    const std::int32_t skillId = session.WorldScene().playerSkills.skills[currentSkill].skillId;
     operations.statusIconReferences = skillReferences;
     WindowCraft_SelectState(session, skillId);
     return WindowCraft_Create(session);
@@ -788,7 +788,7 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
     operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
-    WindowCraft_SelectState(session, world::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(session, session.WorldScene().playerSkills.skills[currentSkill].skillId);
     return WindowCraft_Create(session);
 }
 
@@ -814,7 +814,7 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
-    WindowCraft_SelectState(session, world::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(session, session.WorldScene().playerSkills.skills[currentSkill].skillId);
     return WindowCraft_Create(session);
 }
 
@@ -992,14 +992,14 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                         count = 1;
                     }
                     std::int32_t skill = craft.skillIndex;
-                    const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+                    const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
                     if (skillId != 215 && skillId != 216) {
                         if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                             for (std::int32_t position = 0; position < 6; ++position) {
                                 const std::int32_t selected = craft.selectedSlots[position];
                                 if (selected >= 0) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                                     const std::int32_t type =
                                         callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].itemType;
                                     if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
@@ -1026,7 +1026,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     }
                     const std::int32_t recipeIndex = craft.recipeIndex;
                     const auto* const materials =
-                        world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex].items6C.data();
+                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipeIndex].items6C.data();
                     std::int32_t material = 0;
                     for (; material < 5; ++material) {
                         const std::int32_t itemId = materials[material].itemId;
@@ -1152,11 +1152,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                 const std::int32_t recipe = craft.recipeIndex;
                 const std::int32_t itemId = item->itemId;
                 const auto* const requirement =
-                    &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
+                    &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipe].items6C[material];
                 accepted = itemId == requirement->itemId && count >= requirement->count;
             } else {
                 const std::int32_t skillId =
-                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                    callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                 accepted = skillId != 215 && skillId != 216
                     && WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0;
             }
@@ -1302,7 +1302,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession&
         const std::int32_t skill = craft.skillIndex;
         materialState.materialValues[material] = 1;
         const auto* const requirement =
-            &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
+            &session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].items6C[material];
         if (requirement->itemId < 0) {
             continue;
         }
@@ -1380,13 +1380,13 @@ static void WindowCraft_ReleaseMaterialSlot(
 }
 
 // 原函数：0x004880D0。
-static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, const std::int32_t extraLevel)
+static std::int32_t WindowCraft_ReadRequiredSkillLevel(session::ClientSession& session, const std::int32_t skillId, const std::int32_t extraLevel)
 {
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-        const world::SkillPairRecord pair = world::gSkillPairsF63370[index];
+        const world::SkillPairRecord pair = session.WorldScene().playerSkills.pairs[index];
         const std::int16_t skillIndex = std::bit_cast<std::int16_t>(pair.index);
         if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount) continue;
-        const auto& skill = world::gSkillsF1BAFC[skillIndex];
+        const auto& skill = session.WorldScene().playerSkills.skills[skillIndex];
         if (skill.skillId != skillId || pair.used == 0) {
             continue;
         }
@@ -1463,7 +1463,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
     }
     const std::uint8_t crystal = skillOperation.rebirthEnabled;
     const std::int32_t level = item->level;
-    if (level > WindowCraft_ReadRequiredSkillLevel(2026, crystal != 0 ? 1 : 0)) {
+    if (level > WindowCraft_ReadRequiredSkillLevel(session, 2026, crystal != 0 ? 1 : 0)) {
         return;
     }
     if (material >= 0 && material <= 2) {
@@ -1595,10 +1595,10 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     auto* const graphic = element->data.graphic;
     std::int32_t consumed = 0;
     bool enabled = false;
-    const auto recipeCost = [] {
+    const auto recipeCost = [&craft, &callbackWindow] {
         const std::int32_t skill = craft.skillIndex;
         const std::int32_t recipe = craft.recipeIndex;
-        const auto* const record = &world::gSkillsF1BAFC[skill];
+        const auto* const record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill];
         return record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     };
     switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
@@ -1618,7 +1618,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             if (auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12); element12) element12->data.text->text = L"";
             return 0;
         }
-        if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+        if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
             enabled = !(callbackWindow.ownerSession->WorldScene().player->fp < 10);
         } else {
             enabled = !(callbackWindow.ownerSession->WorldScene().player->fp <
@@ -1630,7 +1630,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             }
         }
         const std::int32_t skill = craft.skillIndex;
-        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+        const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
         if (skillId == 220) {
             const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem];
             const std::uint16_t flags = item->flags;
@@ -1645,7 +1645,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
+                    callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
                 if (item->level > level) {
                     enabled = false;
                 }
@@ -1656,14 +1656,14 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             } else if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                 const std::int32_t currentId =
-                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                    callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                 if (currentId == 217 || currentId == 2031) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
                            callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 1) {
                 const std::int32_t currentId =
-                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                    callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
@@ -1673,7 +1673,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             } else {
                 const std::int32_t currentSkill = craft.skillIndex;
                 const std::uint8_t crystal = skillOperation.rebirthEnabled;
-                const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
+                const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerSkills.skills[currentSkill].level;
                 const std::int32_t slot = craft.selectedItem;
                 if (callbackWindow.ownerSession->WorldScene().playerItems[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
@@ -1724,7 +1724,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             insufficient = (callbackWindow.ownerSession->WorldScene().player->fp < recipeCost());
             break;
         case 3:
-            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                 insufficient = (callbackWindow.ownerSession->WorldScene().player->fp < 10);
             } else {
                 insufficient = (callbackWindow.ownerSession->WorldScene().player->fp <
@@ -1754,7 +1754,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-        } else if (world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
+        } else if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(*callbackWindow.ownerSession, currentWindow));
             if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
                 static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
@@ -1803,7 +1803,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
-                if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+                if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                     buffer = input::ContextText(inputs.engraving);
                 } else {
                     buffer.clear();
@@ -1907,7 +1907,7 @@ static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (craft.selectionMode == 2) {
             const std::int32_t skillId =
-                world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
             switch (skillId) {
             case 255:
                 static_cast<void>(WindowCraft_InitializeDecoration(*callbackWindow.ownerSession, window));
@@ -2103,14 +2103,14 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             count = 1;
                         }
                         std::int32_t skill = craft.skillIndex;
-                        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+                        const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
                         if (skillId != 215 && skillId != 216) {
                             if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                                 for (std::int32_t current = 0; current < 6; ++current) {
                                     const std::int32_t selected = craft.selectedSlots[current];
                                     if (selected >= 0) {
                                         const std::int32_t currentId =
-                                            world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                                            callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                                         const std::int32_t type =
                                             callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].itemType;
                                         if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
@@ -2125,7 +2125,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             skill = craft.skillIndex;
                         }
                         const std::int32_t recipeIndex = craft.recipeIndex;
-                        const auto* const recipe = &world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
+                        const auto* const recipe = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipeIndex];
                         for (std::int32_t material = 0; material < 5; ++material) {
                             const auto* const required = &recipe->items6C[material];
                             const std::int32_t itemId = required->itemId;
@@ -2148,7 +2148,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                         }
                         const std::int32_t skill = craft.skillIndex;
-                        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+                        const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
                         if (skillId == 220) {
                             const std::uint16_t flags = item->flags;
                             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -2164,7 +2164,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                 return;
                             }
                             const std::uint8_t crystal = skillOperation.rebirthEnabled;
-                            const std::int32_t level = world::gSkillsF1BAFC[skill].level;
+                            const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].level;
                             if (item->level > level + (crystal != 0 ? 1 : 0)) {
                                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不可鉴定的物品", 4, 3);
                                 fail();
@@ -2175,18 +2175,18 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             if (!rejected) {
                                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                                     rejected = currentId == 217 || currentId == 2031;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 1) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                                     rejected = currentId == 218 || currentId == 2032;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 0) {
                                     rejected = true;
                                 } else {
                                     const std::int32_t currentSkill = craft.skillIndex;
                                     const std::uint8_t crystal = skillOperation.rebirthEnabled;
-                                    const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
+                                    const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerSkills.skills[currentSkill].level;
                                     rejected = item->level > level + (crystal != 0 ? 1 : 0);
                                 }
                             }
@@ -2202,7 +2202,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         craft.selectedCount = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
                         const std::int32_t currentSkill = craft.skillIndex;
                         const unsigned char previous = hoverMarks[hovered + 8];
-                        const std::int32_t currentId = world::gSkillsF1BAFC[currentSkill].skillId;
+                        const std::int32_t currentId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[currentSkill].skillId;
                         hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
                         craft.itemMarks[hovered + 8] = 1;
                         if (currentId == 220) {
@@ -2542,7 +2542,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
             const std::int32_t skill = craft.skillIndex;
             auto* const hover = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const unsigned char previous = hover[source];
-            const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+            const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
             hover[source] = static_cast<unsigned char>(previous + 1);
             craft.itemMarks[source] = 1;
             if (skillId == 220) {
@@ -2561,7 +2561,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     const std::int32_t selected = craft.selectedItem;
     if (selected >= 0) {
         const std::int32_t skill = craft.skillIndex;
-        const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
+        const std::int32_t skillId = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].skillId;
         const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[selected];
         if (skillId == 220) {
             const std::uint16_t flags = item->flags;
@@ -2576,7 +2576,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
+                    callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
                 if (item->level > level) {
                     static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不可鉴定的物品", 4, 3);
@@ -2588,12 +2588,12 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 // 原分类1/2分支直接结束校验，不落入末尾等级判断。
                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                     const std::int32_t currentId =
-                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (WindowCraft_ClassifyWork(
                                callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 1) {
                     const std::int32_t currentId =
-                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
+                        callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (WindowCraft_ClassifyWork(
                                callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 0) {
@@ -2601,7 +2601,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 } else {
                     const std::int32_t currentSkill = craft.skillIndex;
                     const std::uint8_t crystal = skillOperation.rebirthEnabled;
-                    const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
+                    const std::int32_t skillLevel = callbackWindow.ownerSession->WorldScene().playerSkills.skills[currentSkill].level;
                     const std::int32_t slot = craft.selectedItem;
                     rejected = callbackWindow.ownerSession->WorldScene().playerItems[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
@@ -2707,7 +2707,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSessio
     craft.selectedSlots.fill(-1);
     craft.selectionCounts.fill(0);
     craft.selectionImages.fill(-1);
-    const std::int32_t skillId = world::gSkillsF1BAFC[craft.skillIndex].skillId;
+    const std::int32_t skillId = session.WorldScene().playerSkills.skills[craft.skillIndex].skillId;
     const wchar_t* hint = nullptr;
     switch (skillId) {
     case 220:
@@ -2773,7 +2773,7 @@ static std::int32_t WindowCraft_HasRecipeCrystalLevel(session::ClientSession& se
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     const std::int32_t skill = craft.skillIndex;
     const std::int32_t recipe = craft.recipeIndex;
-    return world::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
+    return session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D4F0。
@@ -2863,7 +2863,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         const std::int32_t skill = craft.skillIndex;
         const std::int32_t recipe = craft.recipeIndex;
         const std::int32_t expected = craft.recipeId;
-        const auto* const record = &world::gSkillsF1BAFC[skill];
+        const auto* const record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill];
         if (expected != record->recipes8E8[recipe].itemId) {
             const std::int32_t skillId = record->skillId;
             if (skillId != 255 && skillId != 606 && skillId != 2026 && skillId != 2025) {
@@ -2903,7 +2903,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         }
         bool engraving = false;
         if (craft.selectionMode == 3) {
-            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                 engraving = true;
             } else if (WindowCraft_HasSelectedCrystalLevel(*callbackWindow.ownerSession) != 0) {
                 matchingCrystal = true;
@@ -2943,7 +2943,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             }
             break;
         case 5:
-            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                 break;
             }
             [[fallthrough]];
@@ -3002,7 +3002,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     if (craft.selectionMode == 1 && expired()) {
         const std::int32_t skill = craft.skillIndex;
         const std::int32_t recipe = craft.recipeIndex;
-        cg::text::FormatTo(buffer, L"{}", world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        cg::text::FormatTo(buffer, L"{}", callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = craft.selectedSlots[index];
             if (slot >= 0 && craft.materialIndices[index] >= 0) {
@@ -3022,7 +3022,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         craft.selectionMode = 2;
         hideControls = true;
     } else if (craft.selectionMode == 4 && expired()) {
-        if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+        if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
             buffer = input::ContextText(inputs.engraving);
         } else {
             buffer.clear();
@@ -3101,7 +3101,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     if (!hideControls) {
         const std::uint8_t mode = craft.selectionMode;
         if (mode == 3) {
-            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                 if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"刻印的物品";
                 if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"　请选择。";
                 if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.engraving) {
@@ -3358,10 +3358,10 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession&
         static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
     }
     const std::int32_t skillIndex = craft.skillIndex;
-    const std::int32_t skillId = world::gSkillsF1BAFC[skillIndex].skillId;
+    const std::int32_t skillId = session.WorldScene().playerSkills.skills[skillIndex].skillId;
     const std::wstring name = skillId == 255 || skillId == 2026
         ? craft.name
-        : world::gSkillsF1BAFC[skillIndex].recipes8E8[craft.recipeIndex].name;
+        : session.WorldScene().playerSkills.skills[skillIndex].recipes8E8[craft.recipeIndex].name;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = name;
     const std::int32_t result = craft.result;
     auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
@@ -3595,12 +3595,12 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
     const std::int32_t entryResult = craft.itemWorkResult;
     const std::int32_t selected = craft.selectedItem;
     craft.petAssistActive = 0;
-    if (entryResult != 0 && world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
+    if (entryResult != 0 && session.WorldScene().playerSkills.skills[craft.skillIndex].skillId != 220) {
         static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
     }
     const auto* const item = &session.WorldScene().playerItems[selected];
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = item->name;
-    const std::int32_t skillId = world::gSkillsF1BAFC[craft.skillIndex].skillId;
+    const std::int32_t skillId = session.WorldScene().playerSkills.skills[craft.skillIndex].skillId;
     const wchar_t* message = nullptr;
     switch (skillId) {
     case 217:
@@ -3665,7 +3665,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
     if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
     if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
     if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
-    if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
+    if (session.WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
         if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;

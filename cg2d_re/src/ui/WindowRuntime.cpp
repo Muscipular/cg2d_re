@@ -4310,10 +4310,10 @@ static void WindowInput_FormatSkillSlotCount(session::ClientSession& session, st
 {
     std::int32_t count = 0;
     for (std::size_t position = 0; position < world::kSkillSlotCount; ++position) {
-        const auto& pair = world::gSkillPairsF63370[position];
+        const auto& pair = session.WorldScene().playerSkills.pairs[position];
         if (pair.used != 0) {
             const std::int16_t index = std::bit_cast<std::int16_t>(pair.index);
-            const auto& skill = world::gSkillsF1BAFC[index];
+            const auto& skill = session.WorldScene().playerSkills.skills[index];
             std::int16_t requiredSlots;
             std::memcpy(&requiredSlots, skill.requiredSlots19.data(), sizeof(requiredSlots));
             count += requiredSlots;

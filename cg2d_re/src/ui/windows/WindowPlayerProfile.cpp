@@ -444,7 +444,7 @@ static void WindowPlayerProfile_Refresh(WindowInstance* callbackWindow)
     }
 
     auto* jobElementsWindow = currentWindow;
-    const auto& job = world::GetPlayerJobName();
+    const auto& job = world::GetPlayerJobName(*callbackWindow->ownerSession);
     auto* const element4 = jobElementsWindow->FindElementById(WindowPlayerProfileElementId::Element4);
     if (element4) {
         auto* const jobData = element4->data.text;

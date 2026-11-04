@@ -321,7 +321,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     std::int32_t skillIndex = -1;
     std::int32_t usableLevel = -1;
     for (std::int32_t position = 0; position < world::kSkillSlotCount; ++position) {
-        const auto& skill = world::gSkillsF1BAFC[position];
+        const auto& skill = callbackWindow.ownerSession->WorldScene().playerSkills.skills[position];
         if (skill.skillId != 2002) {
             continue;
         }
@@ -343,9 +343,9 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
         usableLevel = levelLimit;
     }
     // 原+24+94H*等级：等级0为experience，等级1起为前一技术的FP字段。
-    const auto readBombCost = [skillIndex](const std::int32_t level) {
+    const auto readBombCost = [skillIndex, &callbackWindow](const std::int32_t level) {
         if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount || level < 0 || level > world::kTechniqueSlotCount) return 0;
-        const auto& skill = world::gSkillsF1BAFC[skillIndex];
+        const auto& skill = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillIndex];
         return level == 0 ? skill.experience : skill.techniques3C[level - 1].value7C;
     };
     render::GraphicDescriptor16 descriptor {};

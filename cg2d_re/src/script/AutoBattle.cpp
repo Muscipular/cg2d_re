@@ -123,14 +123,14 @@ static void MakeAutoBattle(session::ClientSession& session);
 
 static int takeRandomTarget(session::ClientSession& session, int attacker, B_TARGET_FLAGS flags);
 
-static int getSkillId(int index) {
-    return index >= 0 && index < cg::world::kSkillSlotCount ? cg::world::gSkillsF1BAFC[index].skillId : -1;
+static int getSkillId(session::ClientSession& session, int index) {
+    return index >= 0 && index < cg::world::kSkillSlotCount ? session.WorldScene().playerSkills.skills[index].skillId : -1;
 }
 
-static int getSkillIndex(int id) {
+static int getSkillIndex(session::ClientSession& session, int id) {
     for (int j = 0; j < cg::world::kSkillSlotCount; ++j) {
-        if (cg::world::gSkillPairsF63370[j].used && cg::world::gSkillPairsF63370[j].index < cg::world::kSkillSlotCount && cg::world::gSkillsF1BAFC[cg::world::gSkillPairsF63370[j].index].skillId == id) {
-            return cg::world::gSkillPairsF63370[j].index;
+        if (session.WorldScene().playerSkills.pairs[j].used && session.WorldScene().playerSkills.pairs[j].index < cg::world::kSkillSlotCount && session.WorldScene().playerSkills.skills[session.WorldScene().playerSkills.pairs[j].index].skillId == id) {
+            return session.WorldScene().playerSkills.pairs[j].index;
         }
     }
     return -1;
@@ -247,7 +247,7 @@ static int SendBattleAction(lua_State* L)
     };
     switch (param1) {
         case B_ACTION_SKILL: {
-            auto skIndex = getSkillIndex(param2);
+            auto skIndex = getSkillIndex(connection.Owner(), param2);
             if (skIndex < 0) {
                 sendNone();
                 break;
@@ -256,7 +256,7 @@ static int SendBattleAction(lua_State* L)
                 sendNone();
                 break;
             }
-            const auto& data = cg::world::gSkillsF1BAFC[skIndex].techniques3C[param3];
+            const auto& data = connection.Owner().WorldScene().playerSkills.skills[skIndex].techniques3C[param3];
             const auto targetFlags = static_cast<B_TARGET_FLAGS>(data.value84);
             if (!data.used88 || !data.value8C || !(data.value80 == 0 || data.value80 == 1)) {
                 sendNone();
@@ -686,7 +686,7 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     autobattle_detail::Action action{};
     action.target = -1;
     switch (body[0]) {
-    case 'S': action.type = autobattle_detail::B_ACTION_SKILL; action.skillId = autobattle_detail::getSkillId(values[0]); action.techId = values[1]; action.target = values[2]; break;
+    case 'S': action.type = autobattle_detail::B_ACTION_SKILL; action.skillId = autobattle_detail::getSkillId(networkConnection.Owner(), values[0]); action.techId = values[1]; action.target = values[2]; break;
     case 'W': action.type = autobattle_detail::B_ACTION_PET_SKILL; action.techId = autobattle_detail::getPetTechId(networkConnection.Owner(), values[0]); action.target = values[1]; break;
     case 'H': action.type = autobattle_detail::B_ACTION_ATTACK; action.target = values[0]; break;
     case 'Q': case 'M': case 'R': action.type = autobattle_detail::B_ACTION_ATTACK; break;

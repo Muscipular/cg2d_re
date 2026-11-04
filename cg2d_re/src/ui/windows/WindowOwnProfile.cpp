@@ -248,7 +248,7 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
         titleData->text = title;
     }
     auto* jobElementsWindow = currentWindow;
-    const auto& job = world::GetPlayerJobName();
+    const auto& job = world::GetPlayerJobName(*callbackWindow->ownerSession);
     auto* const element4 = jobElementsWindow->FindElementById(WindowOwnProfileElementId::Element4);
     if (element4) {
         auto* const jobData = element4->data.text;

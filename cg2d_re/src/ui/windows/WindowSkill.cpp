@@ -67,6 +67,7 @@ static void WindowSkill_ShowSkillList(session::ClientSession& session, WindowIns
 
 // 原函数：0x0047B6C0。
 static void WindowSkill_DrawSkillRow(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
     std::int32_t enabled, std::int32_t textLayer, std::int32_t graphicLayer,
     std::uint32_t color); // 固定配对对应技能，需求槽数按S8。
@@ -174,7 +175,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSes
 static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, std::int32_t index, const wchar_t* unusedText); // 按属性目标编号发送技能。
 
 // 原函数：0x00479820。
-static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009，按S16读取槽号。
+static std::int32_t WindowSkill_FindSpecialSkill(session::ClientSession& session); // 技能索引对中查1009，按S16读取槽号。
 
 // 原函数：0x00479920。
 static std::int32_t WindowSkill_ReadCrystalElement(session::ClientSession& session); // 同一槽7的属性0..3；未用0，未知ID为-1。
@@ -341,12 +342,12 @@ void WindowSkill_AdjustSpecialHoverCount(session::ClientSession& session, const 
 }
 
 // 原函数：0x00479820。
-static std::int32_t WindowSkill_FindSpecialSkill()
+static std::int32_t WindowSkill_FindSpecialSkill(session::ClientSession& session)
 {
-    for (const auto& pair : world::gSkillPairsF63370) {
+    for (const auto& pair : session.WorldScene().playerSkills.pairs) {
         if (pair.used != 0) {
             const auto index = std::bit_cast<std::int16_t>(pair.index);
-            if (world::gSkillsF1BAFC[index].skillId == 1009) {
+            if (session.WorldScene().playerSkills.skills[index].skillId == 1009) {
                 return 1;
             }
         }
@@ -442,7 +443,7 @@ std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session)
 // 原函数：0x00479B00。
 std::int32_t WindowSkill_CanUseSpecialSkill(session::ClientSession& session)
 {
-    if (WindowSkill_FindSpecialSkill() == 0) {
+    if (WindowSkill_FindSpecialSkill(session) == 0) {
         return 0;
     }
     const std::int32_t level = WindowSkill_ReadCrystalLevel(session);
@@ -467,7 +468,7 @@ static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& sess
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     const std::int32_t skill = request.index;
     const std::int32_t level = request.level;
-    return world::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
+    return session.WorldScene().playerSkills.skills[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x004872E0。
@@ -671,6 +672,7 @@ static std::int32_t WindowSkill_ClassifyAttributeSkill(const std::int32_t skillI
 
 // 原函数：0x0047B6C0。
 static void WindowSkill_DrawSkillRow(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t enabled,
     const std::int32_t textLayer, const std::int32_t graphicLayer, const std::uint32_t color)
@@ -678,11 +680,11 @@ static void WindowSkill_DrawSkillRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    if (world::gSkillPairsF63370[pairIndex].used == 0) {
+    if (session.WorldScene().playerSkills.pairs[pairIndex].used == 0) {
         return;
     }
-    const auto skillIndex = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
-    const auto* const skill = &world::gSkillsF1BAFC[skillIndex];
+    const auto skillIndex = std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[pairIndex].index);
+    const auto* const skill = &session.WorldScene().playerSkills.skills[skillIndex];
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
@@ -726,7 +728,7 @@ static void WindowSkill_HandleDrag(
         (platform::gLegacyMouseState.mouseY - 8);
     const std::int32_t x =
         (platform::gLegacyMouseState.mouseX - 103);
-    WindowSkill_DrawSkillRow(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
+    WindowSkill_DrawSkillRow(session, static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
 
@@ -747,7 +749,7 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t pairIndex = skillState.scroll + index - 17;
-    if (world::gSkillPairsF63370[pairIndex].used == 0) {
+    if (callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].used == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -759,13 +761,13 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
     }
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
-        if (source != pairIndex && world::gSkillReorderPending_DA3B20 == 0) {
+        if (source != pairIndex && callbackWindow.ownerSession->WorldScene().skillReorderPending == 0) {
             const std::int32_t targetSkill =
-                std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+                std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
             const std::int32_t sourceSkill =
-                std::bit_cast<std::int16_t>(world::gSkillPairsF63370[source].index);
+                std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().playerSkills.pairs[source].index);
             static_cast<void>(session.Connection().SwapPlayerSkillOrderRequest(sourceSkill, targetSkill));
-            world::gSkillReorderPending_DA3B20 = 1;
+            callbackWindow.ownerSession->WorldScene().skillReorderPending = 1;
         }
         WindowDrag_Reset(*callbackWindow.ownerSession);
     }
@@ -798,7 +800,7 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
         const WindowElement* const element = elementPtr;
         const auto y = static_cast<std::int16_t>(element->y + window->y);
         const auto x = static_cast<std::int16_t>(element->x + window->x);
-        WindowSkill_DrawSkillRow(x, y, visualState, pairIndex, 1, 3, 223, 0xFFFFFFFFu);
+        WindowSkill_DrawSkillRow(*callbackWindow.ownerSession, x, y, visualState, pairIndex, 1, 3, 223, 0xFFFFFFFFu);
     }
     return consumed;
 }
@@ -809,7 +811,7 @@ static void WindowSkill_ShowSkillList(session::ClientSession& session, WindowIns
     auto& skillState = session.UiFrame().native.skill;
     std::int32_t row = 0;
     while (row < world::kSkillSlotCount
-        && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
+        && std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[row].index) != skillIndex) {
         ++row;
     }
     if (row >= world::kSkillSlotCount) {
@@ -838,7 +840,7 @@ static void WindowSkill_ShowSkillList(session::ClientSession& session, WindowIns
     if (auto* const element4 = window ? window->FindElementById(WindowSkillElementId::Element4) : nullptr; element4) element4->visible = 1;
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-        if (world::gSkillPairsF63370[index].used != 0) {
+        if (session.WorldScene().playerSkills.pairs[index].used != 0) {
             ++count;
         }
     }
@@ -869,7 +871,7 @@ static void WindowSkill_HandleTechniqueRow(
     if (battle) {
         technique -= 100;
     }
-    const auto* record = &world::gSkillsF1BAFC[skillState.index];
+    const auto* record = &session.WorldScene().playerSkills.skills[skillState.index];
     if (record->techniques3C[technique].name[0] == '\0') {
         return;
     }
@@ -888,16 +890,16 @@ static void WindowSkill_HandleTechniqueRow(
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const auto& name =
-        world::gSkillsF1BAFC[skillState.index].techniques3C[technique].name;
+        session.WorldScene().playerSkills.skills[skillState.index].techniques3C[technique].name;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, name, 0, 0));
     std::wstring buffer;
     const std::int32_t level =
-        world::gSkillsF1BAFC[skillState.index].techniques3C[technique].value90;
+        session.WorldScene().playerSkills.skills[skillState.index].techniques3C[technique].value90;
     cg::text::FormatTo(buffer, L"{:2}", level);
     WindowNumber_Draw(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    record = &world::gSkillsF1BAFC[skillState.index];
+    record = &session.WorldScene().playerSkills.skills[skillState.index];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
@@ -908,7 +910,7 @@ static void WindowSkill_HandleTechniqueRow(
             static_cast<std::int16_t>(x + 189), static_cast<std::int16_t>(y + 3),
             static_cast<std::uint8_t>(textLayer), 12, nameColor, kWindow12Unknown554590, 0, 0));
     }
-    const std::int32_t currentKind = world::gSkillsF1BAFC[skillState.index].canRebirth;
+    const std::int32_t currentKind = session.WorldScene().playerSkills.skills[skillState.index].canRebirth;
     const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
     static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
@@ -924,23 +926,23 @@ static void WindowSkill_HandleRecipeRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    if (world::gSkillsF1BAFC[skillState.index].recipes8E8[recipe].itemId < 0) {
+    if (session.WorldScene().playerSkills.skills[skillState.index].recipes8E8[recipe].itemId < 0) {
         return;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
         0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
-    const auto* const row = &world::gSkillsF1BAFC[skillState.index].recipes8E8[recipe];
+    const auto* const row = &session.WorldScene().playerSkills.skills[skillState.index].recipes8E8[recipe];
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, row->name, 0, 0));
-    const auto* const record = &world::gSkillsF1BAFC[skillState.index];
+    const auto* const record = &session.WorldScene().playerSkills.skills[skillState.index];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", cost);
     WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    const std::int32_t kind = world::gSkillsF1BAFC[skillState.index].canRebirth;
+    const std::int32_t kind = session.WorldScene().playerSkills.skills[skillState.index].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
     static_cast<void>(cg::render::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
@@ -954,7 +956,7 @@ static void WindowSkill_ShowTechniques(session::ClientSession& session, WindowIn
     skillState.scroll = 0;
     if (pairIndex >= 0) {
         skillState.index = std::bit_cast<std::int16_t>(
-            world::gSkillPairsF63370[pairIndex].index);
+            session.WorldScene().playerSkills.pairs[pairIndex].index);
     }
     const std::int32_t oldMaximum = skillState.maximum;
     auto* const handleVerticalScrollElement = window ? window->FindElementById(WindowSkillElementId::HandleVerticalScroll) : nullptr;
@@ -970,7 +972,7 @@ static void WindowSkill_ShowTechniques(session::ClientSession& session, WindowIn
     if (auto* const element10 = window ? window->FindElementById(WindowSkillElementId::Element10) : nullptr; element10) element10->visible = 1;
     if (auto* const buttonUseElement = window ? window->FindElementById(WindowSkillElementId::ButtonUse) : nullptr; buttonUseElement) buttonUseElement->visible = 0;
     const auto* const techniques =
-        world::gSkillsF1BAFC[skillState.index].techniques3C.data();
+        session.WorldScene().playerSkills.skills[skillState.index].techniques3C.data();
     std::int32_t count = 0;
     while (count < world::kTechniqueSlotCount && techniques[count].name[0] != '\0') {
         ++count;
@@ -1012,7 +1014,7 @@ static void WindowSkill_ShowBattleSkills(session::ClientSession& session, Window
     auto& skillState = session.UiFrame().native.skill;
     std::int32_t row = 0;
     while (row < world::kSkillSlotCount
-        && std::bit_cast<std::int16_t>(world::gSkillPairsF63370[row].index) != skillIndex) {
+        && std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[row].index) != skillIndex) {
         ++row;
     }
     if (row >= world::kSkillSlotCount) {
@@ -1037,9 +1039,9 @@ static void WindowSkill_ShowBattleSkills(session::ClientSession& session, Window
     if (auto* const element28 = window ? window->FindElementById(WindowSkillElementId::Element28) : nullptr; element28) element28->data.graphic->imageNo = 0x3BA24;
     std::int32_t end = 0;
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-        if (world::gSkillPairsF63370[index].used != 0) {
-            const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
-            const std::int32_t kind = world::gSkillsF1BAFC[skill].canRebirth;
+        if (session.WorldScene().playerSkills.pairs[index].used != 0) {
+            const auto skill = std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[index].index);
+            const std::int32_t kind = session.WorldScene().playerSkills.skills[skill].canRebirth;
             if (kind == 0 || kind == 5) {
                 skillState.battleRows[end++] = static_cast<std::int8_t>(index);
             }
@@ -1051,7 +1053,7 @@ static void WindowSkill_ShowBattleSkills(session::ClientSession& session, Window
     // 原479FA9／479FBE读取末尾及-1别名；按用户确认，仅统计有效槽，-1表示未选中。
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-        if (world::ReadSkillPairUsed(skillState.battleRows[index]) != 0) {
+        if (world::ReadSkillPairUsed(session, skillState.battleRows[index]) != 0) {
             ++count;
         }
     }
@@ -1074,7 +1076,7 @@ static void WindowSkill_ShowBattleTechniques(
     if (directSkill != 0) {
         skillState.index = index;
     } else if (index >= 0) {
-        skillState.index = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
+        skillState.index = std::bit_cast<std::int16_t>(session.WorldScene().playerSkills.pairs[index].index);
     }
     const std::int32_t oldMaximum = skillState.maximum;
     auto* const handleVerticalScrollElement = window ? window->FindElementById(WindowSkillElementId::HandleVerticalScroll) : nullptr;
@@ -1089,12 +1091,12 @@ static void WindowSkill_ShowBattleTechniques(
     if (auto* const element6 = window ? window->FindElementById(WindowSkillElementId::Element6) : nullptr; element6) element6->visible = 1;
     if (auto* const element10 = window ? window->FindElementById(WindowSkillElementId::Element10) : nullptr; element10) element10->visible = 1;
     std::int32_t selectedSkill = skillState.index;
-    if (world::gSkillsF1BAFC[selectedSkill].canRebirth != 0) {
+    if (session.WorldScene().playerSkills.skills[selectedSkill].canRebirth != 0) {
         if (auto* const buttonUseElement = window ? window->FindElementById(WindowSkillElementId::ButtonUse) : nullptr; buttonUseElement) buttonUseElement->visible = 1;
         selectedSkill = skillState.index;
     }
     const auto* const techniques =
-        world::gSkillsF1BAFC[selectedSkill].techniques3C.data();
+        session.WorldScene().playerSkills.skills[selectedSkill].techniques3C.data();
     std::int32_t count = 0;
     while (count < world::kTechniqueSlotCount && techniques[count].name[0] != '\0') {
         ++count;
@@ -1124,7 +1126,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t pairIndex = skillState.battleRows[skillState.scroll + index - 17];
-    if (pairIndex < 0 || world::gSkillPairsF63370[pairIndex].used == 0) {
+    if (pairIndex < 0 || callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].used == 0) {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -1132,7 +1134,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         const std::int32_t skillIndex =
-            std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
+            std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
         const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
         const std::uint32_t mask = 1u << (static_cast<std::uint32_t>(skillIndex) & 31u);
         if ((flags & mask) != 0) {
@@ -1140,7 +1142,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         } else {
-            if (world::gSkillsF1BAFC[skillIndex].skillId == 72
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillIndex].skillId == 72
                 && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
@@ -1150,7 +1152,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
     const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
     if ((state & MouseFlag_Hover) != 0) {
         const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
-            &world::gSkillPairsF63370[pairIndex].index);
+            &callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
         visualState = 2;
         skillState.hover = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
@@ -1165,7 +1167,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
-            &world::gSkillPairsF63370[pairIndex].index);
+            &callbackWindow.ownerSession->WorldScene().playerSkills.pairs[pairIndex].index);
         const std::int32_t enabled = (flags & (1u << (skillIndex & 31u))) != 0 ? 1 : 0;
         // 原47C6DA..47C6E6依次读取元素Y/X、窗口Y/X低W16；共享坐标仍为W32。
         std::uint16_t elementY;
@@ -1180,7 +1182,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
         std::memcpy(&windowX, &window->x, sizeof(windowX));
         const auto x = static_cast<std::int16_t>(
             std::bit_cast<std::int16_t>(elementX) + std::bit_cast<std::int16_t>(windowX));
-        WindowSkill_DrawSkillRow(x, y, visualState, pairIndex, enabled, 3, 223, 0xFFFFFFFFu);
+        WindowSkill_DrawSkillRow(*callbackWindow.ownerSession, x, y, visualState, pairIndex, enabled, 3, 223, 0xFFFFFFFFu);
     }
     return consumed;
 }
@@ -1195,7 +1197,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t technique = skillState.scroll + index - 17;
-    const auto* record = &world::gSkillsF1BAFC[skillState.index];
+    const auto* record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
     if (record->techniques3C[technique].name[0] == '\0') {
         return 0;
     }
@@ -1224,7 +1226,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_Hover) != 0) {
-        record = &world::gSkillsF1BAFC[skillState.index];
+        record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         visualState = 2;
         skillState.hover = technique;
         const wchar_t* hint = L"由于能力不足，无法使用此技能。" /* 原常量参考：0x00586588。 */;
@@ -1235,7 +1237,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
         }
         uiFrame.hoverText = hint;
     }
-    if (clicked && world::gSkillsF1BAFC[skillState.index].techniques3C[technique].value8C != 0) {
+    if (clicked && callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].techniques3C[technique].value8C != 0) {
         const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)) {
             visualState = 1;
@@ -1753,7 +1755,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
             || world::IsObservationSceneTransitionActive_440B50() != 0
             || callbackWindow.ownerSession->WorldScene().player->value08 == 0
             || callbackWindow.ownerSession->WorldScene().player->timerRemaining0C <= 0
-            || world::gSkillsF1BAFC[skillState.index].canRebirth == 0) {
+            || callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].canRebirth == 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }
@@ -1900,7 +1902,7 @@ static std::int32_t WindowSkill_Update(WindowInstance& callbackWindow, const std
     const std::int32_t mode = skillState.mode;
     skillState.hover = -1;
     if ((mode == 1 || mode == 2 || mode == 4)
-        && world::gSkillsF1BAFC[skillState.index].name[0] == '\0') {
+        && callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].name[0] == '\0') {
         if (mode == 2) {
             WindowRuntime_DecrementGatherOperationCount(*callbackWindow.ownerSession);
             --operations.skillCount;
@@ -1963,7 +1965,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
         if (mode == 0) {
             std::int32_t count = 0;
             for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-                if (world::gSkillPairsF63370[index].used != 0) {
+                if (callbackWindow.ownerSession->WorldScene().playerSkills.pairs[index].used != 0) {
                     ++count;
                 }
             }
@@ -1975,12 +1977,12 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
                 skillState.scroll = skillState.maximum;
             }
         }
-        if (auto* const element2 = currentWindow->FindElementById(WindowSkillElementId::Element2); element2) element2->data.text->text = world::GetPlayerJobName();
+        if (auto* const element2 = currentWindow->FindElementById(WindowSkillElementId::Element2); element2) element2->data.text->text = world::GetPlayerJobName(*callbackWindow.ownerSession);
         std::int32_t usedSlots = 0;
         for (std::int32_t index = 0; index < world::kSkillSlotCount; ++index) {
-            if (world::gSkillPairsF63370[index].used != 0) {
-                const auto skill = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[index].index);
-                const auto* const record = &world::gSkillsF1BAFC[skill];
+            if (callbackWindow.ownerSession->WorldScene().playerSkills.pairs[index].used != 0) {
+                const auto skill = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().playerSkills.pairs[index].index);
+                const auto* const record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill];
                 if (mode == 3) {
                     const std::int32_t kind = record->canRebirth;
                     if (kind != 0 && kind != 5) {
@@ -1997,7 +1999,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
     }
     case 1:
     case 4: {
-        const auto* record = &world::gSkillsF1BAFC[skillState.index];
+        const auto* record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         if (mode == 1) {
             std::int32_t count = 0;
             while (count < world::kTechniqueSlotCount && record->techniques3C[count].name[0] != '\0') {
@@ -2012,7 +2014,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
             }
         }
         if (auto* const element3 = currentWindow->FindElementById(WindowSkillElementId::Element3); element3) element3->data.text->text = record->name;
-        record = &world::gSkillsF1BAFC[skillState.index];
+        record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
             const std::int32_t experience = record->experience;
@@ -2021,7 +2023,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
             cg::text::FormatTo(buffer, L"{:4}/ -- ", record->experience);
         }
         if (auto* const element6 = currentWindow->FindElementById(WindowSkillElementId::Element6); element6) element6->data.text->text = buffer;
-        record = &world::gSkillsF1BAFC[skillState.index];
+        record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", level, maximum);
@@ -2030,13 +2032,13 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
             for (std::int32_t line = 0; line < 4; ++line) {
                 const std::int32_t hover = skillState.hover;
                 const std::int32_t skill = skillState.index;
-                drawDescription(world::gSkillsF1BAFC[skill].techniques3C[hover].description.data(), line, 26);
+                drawDescription(callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].techniques3C[hover].description.data(), line, 26);
             }
         }
         break;
     }
     case 2: {
-        const auto* const record = &world::gSkillsF1BAFC[skillState.index];
+        const auto* const record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         std::int32_t count = 0;
         while (record->recipes8E8[count].itemId >= 0) {
             ++count;
@@ -2050,14 +2052,14 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
         }
         const std::int32_t levelIndex = skillState.recipeLevel;
         if (auto* const element3 = currentWindow->FindElementById(WindowSkillElementId::Element3); element3) element3->data.text->text = record->techniques3C[levelIndex].name;
-        const std::int32_t level = world::gSkillsF1BAFC[skillState.index].level;
+        const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].level;
         cg::text::FormatTo(buffer, L"{:5}", level);
         if (auto* const element10 = currentWindow->FindElementById(WindowSkillElementId::Element10); element10) element10->data.text->text = buffer;
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = skillState.index;
             const std::int32_t hover = skillState.hover;
             // IWT01：未悬停(-1)不读前一条记录区域，有效索引直接读取配方说明。
-            const auto& recipes = world::gSkillsF1BAFC[skill].recipes8E8;
+            const auto& recipes = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8;
             if (hover >= 0 && hover < static_cast<std::int32_t>(recipes.size()))
                 drawDescription(recipes[hover].description, line, 28);
         }
@@ -2291,7 +2293,7 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
     if (auto* const element3 = window ? window->FindElementById(WindowSkillElementId::Element3) : nullptr; element3) element3->visible = 1;
     if (auto* const buttonBackElement = window ? window->FindElementById(WindowSkillElementId::ButtonBack) : nullptr; buttonBackElement) buttonBackElement->visible = 1;
     if (auto* const element10 = window ? window->FindElementById(WindowSkillElementId::Element10) : nullptr; element10) element10->visible = 1;
-    const auto* const recipes = world::gSkillsF1BAFC[skillState.index].recipes8E8.data();
+    const auto* const recipes = session.WorldScene().playerSkills.skills[skillState.index].recipes8E8.data();
     std::int32_t count = 0;
     while (recipes[count].itemId >= 0) {
         ++count;
@@ -2319,7 +2321,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t recipe = skillState.scroll + index - 17;
-    const auto* const record = &world::gSkillsF1BAFC[skillState.index];
+    const auto* const record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
     const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     if ((record->rebirthState4C48 != 0) != (rebirthMode != 0)
         || record->recipes8E8[recipe].itemId < 0) {
@@ -2332,7 +2334,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
             && world::IsObservationSceneTransitionActive_440B50() == 0;
         if (allowed) {
             const std::int32_t skill = skillState.index;
-            allowed = world::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
+            allowed = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipe].value0C != 0;
             if (allowed) {
                 bool create;
                 if (WindowRuntime_States(session)[WindowId_Craft].window != nullptr) {
@@ -2388,7 +2390,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
     auto& request = session.UiFrame().native.skillRequest;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t technique = skillState.scroll + index - 17;
-    const auto* record = &world::gSkillsF1BAFC[skillState.index];
+    const auto* record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
     if (record->techniques3C[technique].name[0] == '\0') {
         return 0;
     }
@@ -2406,7 +2408,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
         skillState.hover = technique;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        record = &world::gSkillsF1BAFC[skillState.index];
+        record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         if (record->techniques3C[technique].value8C == 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
@@ -2417,7 +2419,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         || world::IsObservationSceneTransitionActive_440B50() != 0;
                 };
                 const auto insufficientFp = [&] {
-                    const auto* const current = &world::gSkillsF1BAFC[skillState.index];
+                    const auto* const current = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
                     const std::int32_t cost =
                         current->techniques3C[technique].value7C * current->fpReduce / 100;
                     return (callbackWindow.ownerSession->WorldScene().player->fp < cost);
@@ -2501,7 +2503,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     const std::uint8_t previous = operations.skillCount;
                     const std::int32_t skill = skillState.index;
                     operations.skillCount = static_cast<std::uint8_t>(previous + 1);
-                    const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
+                    const std::int32_t rebirth = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].rebirthState4C48;
                     const bool enabled = skillOperation.rebirthEnabled != 0;
                     if ((rebirth != 0) != enabled) {
                         static_cast<void>(session.Connection().SendSkillRebirthSelection(skill + (enabled ? 100 : 0)));
@@ -2556,7 +2558,7 @@ void WindowSkill_SyncStates(session::ClientSession& session)
         return;
     }
     const std::int32_t index = skillState.index;
-    const std::int32_t rebirth = world::gSkillsF1BAFC[index].rebirthState4C48;
+    const std::int32_t rebirth = session.WorldScene().playerSkills.skills[index].rebirthState4C48;
     const bool enabled = skillOperation.rebirthEnabled != 0;
     if ((rebirth != 0) != enabled) {
         static_cast<void>(session.Connection().SendSkillRebirthSelection(index + (enabled ? 100 : 0)));
@@ -2632,7 +2634,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
     }
     const std::int32_t skillIndex = request.index;
     ++operations.statusIconReferences;
-    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
+    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(session.WorldScene().playerSkills.skills[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
         if (world::GetPlayerStatusIcon_51BEC0(session) != 13) {
             static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 13));
@@ -2663,7 +2665,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
-    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[request.index].skillId);
+    const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(session.WorldScene().playerSkills.skills[request.index].skillId);
     request.targetKind = kind;
     targets.count = 0;
     targets.page = 0;

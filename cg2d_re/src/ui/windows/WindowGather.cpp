@@ -117,7 +117,7 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     gather.skillIndex = skillByte;
     gather.skillLevel = static_cast<std::uint8_t>(level);
     const std::int32_t skillId =
-        world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
+        session.WorldScene().playerSkills.skills[std::bit_cast<std::int8_t>(skillByte)].skillId;
     skillOperation.sendMode = 0;
     gather.extra = 0;
     switch (skillId) {
@@ -151,7 +151,7 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     operations.skillCount = references;
     operations.statusIconReferences = skillReferences;
     std::int32_t mode = 0;
-    switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gather.skillIndex)].skillId) {
+    switch (session.WorldScene().playerSkills.skills[std::bit_cast<std::int8_t>(gather.skillIndex)].skillId) {
         case 225:
         case 251:
             mode = 5;
@@ -631,8 +631,8 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
         if (gather.tick + 2000u < tick) {
             const std::int32_t skill = std::bit_cast<std::int8_t>(gather.skillIndex);
             const std::int32_t level = std::bit_cast<std::int8_t>(gather.skillLevel);
-            const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
-                * world::gSkillsF1BAFC[skill].fpReduce / 100;
+            const std::int32_t cost = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].techniques3C[level].value7C
+                * callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].fpReduce / 100;
             if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -776,8 +776,8 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t skill = std::bit_cast<std::int8_t>(gather.skillIndex);
-        const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
-            * world::gSkillsF1BAFC[skill].fpReduce / 100;
+        const std::int32_t cost = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].techniques3C[level].value7C
+            * callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].fpReduce / 100;
         const bool enoughFp = !(callbackWindow.ownerSession->WorldScene().player->fp < cost);
         if (!enoughFp && (state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = kWindow12NoFp5864F0;

@@ -325,17 +325,6 @@ static std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
-// 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
-struct SkillRuntimeSlots {
-    std::wstring jobName;
-    std::array<SkillRuntimeRecord, kSkillSlotCount> skills;
-    std::array<SkillPairRecord, kSkillSlotCount> pairs;
-    std::uint32_t valueF633E8; // 原全局：0x00F633E8。 509E30只写低U8，保留其余字节。
-};
-
-// 内部文本对象采用正常赋值，旧清零块的二进制偏移不再约束此类型。
-static SkillRuntimeSlots gSkillRuntimeSlots {};
-
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
     std::uint16_t flags;
@@ -1822,18 +1811,13 @@ void MarkPlayerChatActive(session::ClientSession& session) noexcept
 
 } // namespace detail
 
-// 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
-std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
-std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
-std::uint16_t gSkillReorderPending_DA3B20 = 0; // 原全局：0x00DA3B20。
-
 namespace detail {
 
 // 原函数：0x00504F10。
-std::int32_t HasSkillRecipeForItem_504F10(const std::int32_t value, const std::int32_t mode)
+std::int32_t HasSkillRecipeForItem_504F10(session::ClientSession& session, const std::int32_t value, const std::int32_t mode)
 {
     // 原额外F633A0读取别名为pairs[6]；按用户确认，仅搜索实际技能槽。
-    for (const SkillRuntimeRecord& record : gSkillsF1BAFC) {
+    for (const SkillRuntimeRecord& record : session.WorldScene().playerSkills.skills) {
         const std::int32_t skillId = record.skillId;
         const bool matches = mode == 1
             ? skillId >= 601 && skillId <= 605
@@ -1851,9 +1835,9 @@ std::int32_t HasSkillRecipeForItem_504F10(const std::int32_t value, const std::i
 }
 
 // 原函数：0x00519950。
-void ResetSkillRecipeSlots_519950(const std::int32_t index)
+void ResetSkillRecipeSlots_519950(session::ClientSession& session, const std::int32_t index)
 {
-    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+    SkillRuntimeRecord& record = session.WorldScene().playerSkills.skills[index];
     record.rebirthState4C48 = 0;
     for (SkillRecipeRecord& recipe : record.recipes8E8) {
         recipe.itemId = -1;
@@ -6468,10 +6452,10 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
         record.ClearRaw();
     }
     gPetMapCharaSlots.fill({});
-    gSkillRuntimeSlots.jobName.clear();
-    for (auto& skill : gSkillRuntimeSlots.skills) skill = {};
-    gSkillRuntimeSlots.pairs = {};
-    gSkillRuntimeSlots.valueF633E8 = 0;
+    connection.Owner().WorldScene().playerSkills.jobName.clear();
+    for (auto& skill : connection.Owner().WorldScene().playerSkills.skills) skill = {};
+    connection.Owner().WorldScene().playerSkills.pairs = {};
+    connection.Owner().WorldScene().playerSkills.valueF633E8 = 0;
     gContactsF19FB0.fill({});
     std::memset(connection.Owner().WorldScene().petPairs.data(), 0, sizeof(connection.Owner().WorldScene().petPairs));
 
@@ -6497,7 +6481,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
         title.id = -1;
     }
     for (std::int32_t index = 0; index < kSkillSlotCount; ++index) {
-        ResetSkillRecipeSlots_519950(index);
+        ResetSkillRecipeSlots_519950(connection.Owner(), index);
     }
     connection.Owner().WorldScene().player->direction = -1;
 }
@@ -9123,20 +9107,20 @@ void HandlePlayerSecondaryStatsReply_509BA0(cg::network::CgConnection& connectio
 }
 
 // 原函数：0x00509E30。
-void HandlePlayerProfessionReply_509E30(cg::network::CgConnection&, const std::int32_t value, char* const text)
+void HandlePlayerProfessionReply_509E30(cg::network::CgConnection& connection, const std::int32_t value, char* const text)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    gSkillRuntimeSlots.valueF633E8 =
-        (gSkillRuntimeSlots.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
+    connection.Owner().WorldScene().playerSkills.valueF633E8 =
+        (connection.Owner().WorldScene().playerSkills.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    gSkillRuntimeSlots.jobName = cg::text::FromGbkWide(std::strlen(text) < 24 ? text : kUnknownText554590);
+    connection.Owner().WorldScene().playerSkills.jobName = cg::text::FromGbkWide(std::strlen(text) < 24 ? text : kUnknownText554590);
 }
 
-std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
+std::uint16_t ReadSkillPairUsed(session::ClientSession& session, const std::int8_t pairIndex)
 {
-    return pairIndex >= 0 && pairIndex < kSkillSlotCount ? gSkillPairsF63370[pairIndex].used : 0;
+    return pairIndex >= 0 && pairIndex < kSkillSlotCount ? session.WorldScene().playerSkills.pairs[pairIndex].used : 0;
 }
 
 // 原函数：0x00505040。
@@ -9153,7 +9137,7 @@ std::int32_t IsItemEligibleForDecoration_505040(session::ClientSession& session,
     if ((item->flags & 0x800u) == 0) {
         return 0;
     }
-    return detail::HasSkillRecipeForItem_504F10(item->itemId, 0) != 0 ? 1 : 0;
+    return detail::HasSkillRecipeForItem_504F10(session, item->itemId, 0) != 0 ? 1 : 0;
 }
 
 // 原函数：0x005050B0。
@@ -9169,7 +9153,7 @@ std::int32_t IsItemEligibleForPetDecoration_5050B0(session::ClientSession& sessi
     if ((item->flags & 0x800u) == 0) {
         return 0;
     }
-    return detail::HasSkillRecipeForItem_504F10(item->itemId, 1) != 0 ? 1 : 0;
+    return detail::HasSkillRecipeForItem_504F10(session, item->itemId, 1) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00505110。
@@ -9225,13 +9209,13 @@ void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection
             field += 11;
             continue;
         }
-        SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+        SkillRuntimeRecord& record = networkConnection.Owner().WorldScene().playerSkills.skills[index];
         if (std::strlen(name) == 0 && level < 0 && experience < 0) {
             record.name.clear();
             record.level = 0;
             record.experience = 0;
             record.techniques3C.fill({});
-            detail::ResetSkillRecipeSlots_519950(index);
+            detail::ResetSkillRecipeSlots_519950(networkConnection.Owner(), index);
         } else {
             record.name = cg::text::FromGbkWide(std::strlen(name) <= 24 ? name : kUnknownText554590);
             record.level = level;
@@ -9252,12 +9236,12 @@ void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection
         }
         field += 11;
     }
-    detail::BuildSortedSkillDisplayEntries_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), kSkillSlotCount);
-    gSkillReorderPending_DA3B20 = 0;
+    detail::BuildSortedSkillDisplayEntries_518600(networkConnection.Owner().WorldScene().playerSkills.skills.data(), networkConnection.Owner().WorldScene().playerSkills.pairs.data(), kSkillSlotCount);
+    networkConnection.Owner().WorldScene().skillReorderPending = 0;
 }
 
 // 原函数：0x0050A120。
-void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection&, const std::int32_t skillIndex, const char* const payload)
+void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection& connection, const std::int32_t skillIndex, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9265,7 +9249,7 @@ void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection&, const s
     if (skillIndex < 0 || skillIndex >= kSkillSlotCount) {
         return;
     }
-    auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
+    auto& techniques = connection.Owner().WorldScene().playerSkills.skills[skillIndex].techniques3C;
     techniques.fill({});
     SkillTechniqueRecord* target = techniques.data();
     char name[256];
@@ -9309,7 +9293,7 @@ void HandleSkillRecipesReply_50C580(cg::network::CgConnection& networkConnection
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
         return;
     }
-    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+    SkillRuntimeRecord& record = networkConnection.Owner().WorldScene().playerSkills.skills[index];
     record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag(networkConnection.Owner()));
     char name[256];
     char description[256];
@@ -10594,9 +10578,9 @@ std::int32_t CountFreeInventorySlots_518C60(session::ClientSession& session)
     return count;
 }
 
-const std::wstring& GetPlayerJobName() noexcept
+const std::wstring& GetPlayerJobName(session::ClientSession& session) noexcept
 {
-    return gSkillRuntimeSlots.jobName;
+    return session.WorldScene().playerSkills.jobName;
 }
 
 void ConsumeBattlePlayerTimer(session::ClientSession& session, const std::int32_t seconds)

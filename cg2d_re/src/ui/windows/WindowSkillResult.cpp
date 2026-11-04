@@ -338,8 +338,8 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t skill = request.index;
-        const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
-            * world::gSkillsF1BAFC[skill].fpReduce / 100;
+        const std::int32_t cost = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].techniques3C[level].value7C
+            * callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].fpReduce / 100;
         if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
             graphic->imageNo = 0x3BA32;
             if ((state & MouseFlag_LDownEvent) != 0) {

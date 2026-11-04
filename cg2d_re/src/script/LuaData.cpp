@@ -136,7 +136,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "skillList") {
         lua_createtable(L, cg::world::kSkillSlotCount, 0);
         for (int i = 0; i < cg::world::kSkillSlotCount; ++i) {
-            const auto& pair = cg::world::gSkillPairsF63370[i];
+            const auto& pair = GetLuaConnection(L).Owner().WorldScene().playerSkills.pairs[i];
             if (pair.used) PushData(L, DataKind::Skill, pair.index); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }
@@ -198,7 +198,7 @@ static int ReadPet(lua_State* L, int index, std::string_view key)
 }
 static int ReadSkill(lua_State* L, int index, std::string_view key)
 {
-    const auto& p = cg::world::gSkillsF1BAFC[index];
+    const auto& p = GetLuaConnection(L).Owner().WorldScene().playerSkills.skills[index];
     if (key == "lv") { Push(L, p.level); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
     if (key == "exp") { Push(L, p.experience); return 1; }
@@ -211,7 +211,7 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
     if (key == "index") { Push(L, index); return 1; }
     if (key == "canUse") {
         bool used = false;
-        for (const auto& pair : cg::world::gSkillPairsF63370) if (pair.used && pair.index == index) used = true;
+        for (const auto& pair : GetLuaConnection(L).Owner().WorldScene().playerSkills.pairs) if (pair.used && pair.index == index) used = true;
         Push(L, used && (cg::world::gBattleSkillFlags5ABC04 & (1u << index)) != 0); return 1;
     }
     if (key == "techList") {
@@ -226,7 +226,7 @@ static int ReadSkill(lua_State* L, int index, std::string_view key)
 }
 static int ReadTechnique(lua_State* L, int index, int sub, std::string_view key)
 {
-    const auto& p = cg::world::gSkillsF1BAFC[index].techniques3C[sub];
+    const auto& p = GetLuaConnection(L).Owner().WorldScene().playerSkills.skills[index].techniques3C[sub];
     if (key == "reqLv") { Push(L, p.value90); return 1; }
     if (key == "field") { Push(L, p.value80); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }

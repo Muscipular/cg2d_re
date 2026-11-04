@@ -4,6 +4,7 @@
 #include "cg/world/PlayerItemRecord.hpp"
 #include "cg/world/PlayerRuntimeSlots.hpp"
 #include "cg/world/PetRuntimeRecord.hpp"
+#include "cg/world/SkillRuntimeSlots.hpp"
 
 #include <array>
 #include <cstddef>
@@ -281,6 +282,8 @@ struct WorldSceneRuntimeState {
     std::array<PetPairRecord, 5> petPairs {}; // 原DE0B08，同会话宠物显示排序对。
     std::int32_t petCount = 0; // 原DE0B00。
     std::uint32_t petDetailDraftChanged = 0; // 原D67B28，详情与属性/技能窗口共用。
+    SkillRuntimeSlots playerSkills {}; // 原F1BAE0，职业名/技能/索引对的实际唯一owner。
+    std::uint16_t skillReorderPending = 0; // 原DA3B20，独立于技能聚合清理的拖放门禁。
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};

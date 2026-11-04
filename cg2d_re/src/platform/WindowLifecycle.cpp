@@ -25,6 +25,8 @@
 #include <utility>
 #include <vector>
 
+#include "cg/core/vm.h"
+
 namespace cg::platform {
 
 // 原465A30：改变系统桌面背景色；原颜色由启动链保存，ShutdownClient_457A40末尾恢复。
@@ -182,7 +184,7 @@ static FrameLayout Layout(HWND window) noexcept
     value.close = {width - value.border - buttonWidth, top, width - value.border, top + height};
     value.minimize = value.close;
     OffsetRect(&value.minimize, -buttonWidth, 0);
-    value.sessions = {value.minimize.left - Scale(112, value.dpi), top,
+    value.sessions = {value.minimize.left - Scale(98, value.dpi), top,
         value.minimize.left, top + height};
     const int iconSize = Scale(18, value.dpi);
     const int iconTop = top + (height - iconSize) / 2;
@@ -1030,6 +1032,7 @@ void RefreshSessionWindow()
 {
     using namespace session_window_detail;
     gReady = true;
+    VM_LIGHT_START
     auto& host = session::GetClientHost();
     std::wstring title = L"CG2D RE";
     if (const auto* current = host.CurrentSession()) {
@@ -1044,6 +1047,7 @@ void RefreshSessionWindow()
         SetWindowTextW(window, title.c_str());
     }
     UpdateSystemCursorLocation(IsPointerInGameClient());
+    VM_LIGHT_END
 }
 
 void ShutdownSessionWindow() noexcept

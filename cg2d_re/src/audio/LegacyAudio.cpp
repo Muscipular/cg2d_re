@@ -240,9 +240,6 @@ static std::int32_t LoadStreamingBgm_52C160(
 
 std::uint32_t gSkipMciDeviceClose_103DE80 = 0; // 原全局：0x0103DE80。
 std::uint32_t gAudioDisabled_10507D4 = 0; // 原全局：0x010507D4。
-std::int32_t gBgmTarget1050818 = 0; // 原全局：0x01050818。
-std::int32_t gBgmRequest1050810 = 0; // 原全局：0x01050810。
-std::int32_t gBgmStage1050814 = 0; // 原全局：0x01050814。
 volatile std::uint32_t gMciDeviceId = 0; // 原全局：0x010507EC。
 std::uint32_t gMciCloseResult = 0; // 原全局：0x010507FC。
 
@@ -266,8 +263,8 @@ void StopAndReleaseStreamingBgm_52B8E0()
     gSdlAudioBackend.ReleaseBgm();
 }
 
-// 原 [0x52B940,0x52B98E)：两路资源清理后依次清三个共享状态。
-void ResetBgmPlayback_52B940()
+// 原 [0x52B940,0x52B98E)：两路资源清理后依次清淡出、播放和所属请求阶段。
+void ResetBgmPlayback_52B940(session::ClientSession& session)
 {
     if (gBgmMode1050820 != 0) {
         StopAndReleaseStreamingBgm_52B8E0();
@@ -276,7 +273,7 @@ void ResetBgmPlayback_52B940()
     }
     gBgmFadeOutActive_105080C = 0;
     gBgmActive1050808 = 0;
-    gBgmStage1050814 = 0;
+    session.Audio().bgmStage = 0;
 }
 
 // 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
@@ -477,57 +474,57 @@ std::int32_t LoadMappedBgm(const std::int32_t index)
 }
 
 // 原函数：0x0052C9C0。
-std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
+std::int32_t SelectBgmTarget_52C9C0(session::ClientSession& session, const std::int32_t index)
 {
     const std::int32_t target =
         gBgmMapping103DFAC[static_cast<std::size_t>(index)];
     if (target >= 0) {
-        gBgmTarget1050818 = target;
+        session.Audio().bgmTarget = target;
     }
     return 0;
 }
 
 // 原函数：0x0052C910。
-std::int32_t UpdateBgmRequest_52C910()
+std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session)
 {
-    const std::int32_t stage = gBgmStage1050814;
+    const std::int32_t stage = session.Audio().bgmStage;
     switch (stage) {
     case 0: {
-        const std::int32_t request = gBgmRequest1050810;
+        const std::int32_t request = session.Audio().bgmRequest;
         std::int32_t result = request;
         if (request != 0) {
             const std::int32_t current = gRecordIndex;
-            const std::int32_t target = gBgmTarget1050818;
+            const std::int32_t target = session.Audio().bgmTarget;
             result = current;
             if (current != target) {
                 const volatile std::int16_t& selected =
-                    cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+                    session.Connection().LoginRequests().selectedCharacterIndex;
                 const std::int32_t selectedValue = selected;
-                gBgmStage1050814 = 1;
-                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(selectedValue));
+                session.Audio().bgmStage = 1;
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, selectedValue));
                 result = login::detail::SaveCurrentLoginRecord_520200();
             }
         }
-        gBgmRequest1050810 = 0;
+        session.Audio().bgmRequest = 0;
         return result;
     }
     case 1: {
         const std::uint32_t result = BeginBgmFadeOut_52B990();
-        ++gBgmStage1050814;
+        ++session.Audio().bgmStage;
         return std::bit_cast<std::int32_t>(result);
     }
     case 2: {
         const std::int32_t flag = gBgmFadeOutActive_105080C;
         if (flag == 0) {
-            gBgmStage1050814 = 3;
+            session.Audio().bgmStage = 3;
         }
         return flag;
     }
     case 3: {
-        const std::int32_t target = gBgmTarget1050818;
+        const std::int32_t target = session.Audio().bgmTarget;
         const std::int32_t result = LoadAndPlayBGM(
             std::bit_cast<std::uint32_t>(target));
-        gBgmStage1050814 = 0;
+        session.Audio().bgmStage = 0;
         return result;
     }
     default:
@@ -917,7 +914,7 @@ void UpdateAudioPlayback_52CCA0(session::ClientSession& session)
         }
     }
     static_cast<void>(ProcessSpatialSoundRequests_52CB50(session));
-    static_cast<void>(UpdateBgmRequest_52C910());
+    static_cast<void>(UpdateBgmRequest_52C910(session));
 
     if (gBgmActive1050808 == 0) {
         gBgmFadeOutActive_105080C = 0;
@@ -933,7 +930,7 @@ void UpdateAudioPlayback_52CCA0(session::ClientSession& session)
         return;
     }
 
-    ResetBgmPlayback_52B940();
+    ResetBgmPlayback_52B940(session);
     gRecordIndex = -1;
 }
 

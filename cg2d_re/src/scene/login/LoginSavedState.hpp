@@ -39,10 +39,10 @@ std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& sess
 std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& session, const std::int32_t selected);
 
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
-std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected);
+std::int32_t CaptureCharacterBgmTarget_520750(session::ClientSession& session, const std::int32_t selected);
 
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
-std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected);
+std::int32_t RestoreCharacterBgmTarget_520770(session::ClientSession& session, const std::int32_t selected);
 
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
 std::int32_t CaptureAudioPreferences_520470();

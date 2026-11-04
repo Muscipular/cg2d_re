@@ -809,24 +809,24 @@ std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& sess
 }
 
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
-std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected)
+std::int32_t CaptureCharacterBgmTarget_520750(session::ClientSession& session, const std::int32_t selected)
 {
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const std::uint16_t target =
-        static_cast<std::uint16_t>(cg::audio::gBgmTarget1050818);
+        static_cast<std::uint16_t>(session.Audio().bgmTarget);
     current.bgm316[selected] = target;
     return selected;
 }
 
 // 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
-std::int32_t RestoreCharacterBgmTarget_520770(const std::int32_t selected)
+std::int32_t RestoreCharacterBgmTarget_520770(session::ClientSession& session, const std::int32_t selected)
 {
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     std::uint16_t target;
     target = current.bgm316[selected];
-    cg::audio::gBgmTarget1050818 = target;
+    session.Audio().bgmTarget = target;
     return target;
 }
 
@@ -942,7 +942,7 @@ try {
     static_cast<void>(CaptureContactSortMode_5206F0());
 
     const std::int32_t selectedForAudio = selectedCharacter;
-    static_cast<void>(CaptureCharacterBgmTarget_520750(selectedForAudio));
+    static_cast<void>(CaptureCharacterBgmTarget_520750(connection.Owner(), selectedForAudio));
     static_cast<void>(Sub_520720());
     return SaveCurrentLoginRecord_520200();
 }

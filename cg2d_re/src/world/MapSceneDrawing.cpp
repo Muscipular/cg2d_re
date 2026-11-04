@@ -140,8 +140,8 @@ static void DrawNormalMapCell(session::ClientSession& session,
         if (tile >= 250 && tile <= 299) {
             static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(session, tile, screenX, screenY));
         } else if (tile >= 200 && tile <= 249) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(tile));
-            audio::gBgmRequest1050810 = 1;
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(session, tile));
+            session.Audio().bgmRequest = 1;
         }
     }
 
@@ -188,8 +188,8 @@ static void DrawNormalMapCell(session::ClientSession& session,
             const std::int32_t rawObject = session.WorldScene().map.data.objects[span * row + diagonal + row];
             static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(session, rawObject, screenX, screenY));
         } else if (object >= 200 && object <= 249) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(object));
-            audio::gBgmRequest1050810 = 1;
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(session, object));
+            session.Audio().bgmRequest = 1;
         }
     }
 }
@@ -233,7 +233,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t mode = session.WorldScene().map.resourceMode;
     const std::uint32_t previousCount = session.WorldScene().map.framesSinceWindowReload;
-    audio::gBgmRequest1050810 = 0;
+    session.Audio().bgmRequest = 0;
     const bool cutMode = mode == 1;
     session.WorldScene().map.framesSinceWindowReload = previousCount + 1u;
     if ((session.WorldScene().map.crypt->playerX != session.WorldScene().map.crypt->lastDrawPlayerX)

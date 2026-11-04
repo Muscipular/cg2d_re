@@ -57,6 +57,9 @@ static_assert(sizeof(SoundRequestRecord) == 0x24);
 struct AudioRuntimeState final {
     std::array<SpatialAudioRecord, 50> spatialSources {}; // 原103D1C0。
     std::array<SoundRequestRecord, 50> soundRequests {}; // 原104C9B8。
+    std::int32_t bgmTarget = 0; // 原1050818；切曲与角色保存共用目标。
+    std::int32_t bgmRequest = 0; // 原1050810；地图生产、音频帧消费。
+    std::int32_t bgmStage = 0; // 原1050814；请求处理阶段，清理入口也写入。
 
     static_assert(sizeof(spatialSources) == 0x3E8);
     static_assert(sizeof(soundRequests) == 0x708);
@@ -76,9 +79,6 @@ std::int32_t CheckAudioAndInputAvailability_458AE0();
 
 extern std::uint32_t gSkipMciDeviceClose_103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
 extern std::uint32_t gAudioDisabled_10507D4; // 原 0x10507D4；5241A0 写入，音效/BGM/更新入口共读。
-extern std::int32_t gBgmTarget1050818; // 原 0x1050818；BGM 请求与当前存档共用的目标 W32。
-extern std::int32_t gBgmRequest1050810; // 原 0x1050810；世界场景生产、52C910 消费的请求 W32。
-extern std::int32_t gBgmStage1050814; // 原 0x1050814；52C910 与清理入口共用的阶段 W32。
 extern volatile std::uint32_t gMciDeviceId; // 原 0x10507EC；两次 MCI 调用各自重读。
 extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返回的完整 W32。
 
@@ -92,9 +92,9 @@ std::int32_t InitializeAudio_5241A0(session::ClientSession& session); // 进程�
 // 原函数：0x0052B630。
 void ShutdownAudio_52B630(); // 原退出入口；先处理流式 BGM，再按序释放音效与设备。
 // 原函数：0x0052C9C0。
-std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
+std::int32_t SelectBgmTarget_52C9C0(session::ClientSession& session, std::int32_t index);
 // 原函数：0x0052C910。
-std::int32_t UpdateBgmRequest_52C910(); // 原四阶段跳表，完整透传各分支返回。
+std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session); // 原四阶段跳表，完整透传各分支返回。
 // 原函数：0x0052C3D0。
 std::int32_t ApplyBgmVolume_52C3D0(); // 原 [52C3D0,52C449)，沿原门槛和音量表应用实际SDL BGM音量。
 
@@ -121,7 +121,7 @@ void __cdecl SubmitSpatialSoundSources_52CD60(session::ClientSession& session); 
 // 原函数：0x0052B990。
 std::uint32_t BeginBgmFadeOut_52B990() noexcept;
 // 原函数：0x0052B940。
-void ResetBgmPlayback_52B940(); // 原资源清理入口，普通场景复用既有实现。
+void ResetBgmPlayback_52B940(session::ClientSession& session); // 原资源清理入口，普通场景复用既有实现。
 std::int32_t ReadBgmRecordIndex58D4F8() noexcept; // 只读真实当前BGM号，不替代目标1050818。
 
 } // namespace cg::audio

@@ -3107,7 +3107,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
-        audio::ResetBgmPlayback_52B940();
+        audio::ResetBgmPlayback_52B940(session);
         DrawMapSceneWithMarkers_469020(session);
         static_cast<void>(ui::WindowRuntime_Render(session));
         input::ProcessKeyInput_4596D0(session);
@@ -3123,15 +3123,15 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         if (worldScene.mapBgmChangePending != 0) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-            worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+            worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
             worldScene.mapBgmChangePending = 0;
-            audio::gBgmRequest1050810 = 1;
+            session.Audio().bgmRequest = 1;
         } else {
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;
@@ -3241,13 +3241,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             session.WorldScene().sceneState = 20;
             session.WorldScene().logoutToTownPending = 0;
             if (changeBgm != 0) {
-                static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
-                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
+                static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
                 static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-                static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-                worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+                static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+                worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
                 worldScene.mapBgmChangePending = 0;
-                audio::gBgmRequest1050810 = 1;
+                session.Audio().bgmRequest = 1;
             }
             static_cast<void>(ui::WindowRuntime_Render(session));
         }
@@ -3273,9 +3273,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0(session);
-        audio::gBgmTarget1050818 = bgm;
+        session.Audio().bgmTarget = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
-        worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+        worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
         session.WorldScene().sceneState = 251;
         [[fallthrough]];
     }
@@ -3330,13 +3330,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
         session.WorldScene().logoutToTownPending = 0;
         if (changeBgm != 0) {
-            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-            worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+            worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
             worldScene.mapBgmChangePending = 0;
-            audio::gBgmRequest1050810 = 1;
+            session.Audio().bgmRequest = 1;
         }
         session.WorldScene().sceneState = 20;
         return;
@@ -3366,25 +3366,25 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             ResetMapDrawCacheCounts_46BD40();
             static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
             RenderChara_521F20(session);
-            audio::ResetBgmPlayback_52B940();
+            audio::ResetBgmPlayback_52B940(session);
             static_cast<void>(UpdatePlayerMapWindow_468200(session));
             InvalidateMapDrawPosition_4691D0(session);
             DrawMapSceneWithMarkers_469020(session);
-            if (audio::gBgmRequest1050810 == 0) {
+            if (session.Audio().bgmRequest == 0) {
                 if (worldScene.mapBgmChangePending != 0) {
-                    static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
-                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session.Connection().LoginRequests().selectedCharacterIndex));
+                    static_cast<void>(audio::SelectBgmTarget_52C9C0(session, std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
+                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, session.Connection().LoginRequests().selectedCharacterIndex));
                     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
-                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
-                    worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
+                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(session.Audio().bgmTarget)));
+                    worldScene.worldBgmResumeIndex = session.Audio().bgmTarget;
                     worldScene.mapBgmChangePending = 0;
                     worldScene.pendingMapBgmIndex = 0xFFFFFFFFu;
                 } else {
                     const std::int32_t bgm = worldScene.worldBgmResumeIndex;
-                    audio::gBgmTarget1050818 = bgm;
+                    session.Audio().bgmTarget = bgm;
                     static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
                 }
-                audio::gBgmRequest1050810 = 1;
+                session.Audio().bgmRequest = 1;
             }
             static_cast<void>(ui::WindowRuntime_Render(session));
             if ((session.WorldScene().mapEffects.scene.valueC8A73E == 0 && session.WorldScene().mapEffects.scene.valueC8A740 != 0)
@@ -3502,7 +3502,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::RequestRender_457010(session);
         static_cast<void>(audio::PlaySe_52C450(201, 320));
         worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8();
-        audio::ResetBgmPlayback_52B940();
+        audio::ResetBgmPlayback_52B940(session);
         ++session.WorldScene().sceneState;
         return;
     }
@@ -6106,7 +6106,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     static_cast<void>(unusedSelected);
     cg::core::NullSub_509080();
     static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(connection.Owner(), selected));
-    static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(selected));
+    static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(connection.Owner(), selected));
 
     connection.Owner().WorldScene().partyActive = 0;
     for (PetMapCharaSlot& slot : connection.Owner().WorldScene().petMapSlots) {

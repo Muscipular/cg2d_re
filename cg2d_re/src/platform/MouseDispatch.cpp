@@ -21,7 +21,6 @@
 
 namespace cg::platform {
 
-static std::uint32_t gHoverColorIndexD6978C = 0; // 原全局：0x00D6978C。
 static constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考：0x0058ACC8。
     0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA,
     0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA, 0xFA,
@@ -199,9 +198,9 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     auto& uiFrame = session.UiFrame();
     const std::int16_t initialCount = std::bit_cast<std::int16_t>(gPendingGraphicCount);
     std::int32_t orderIndex = static_cast<std::int32_t>(initialCount) - 1;
-    const std::uint32_t oldColorIndex = gHoverColorIndexD6978C;
+    const std::uint32_t oldColorIndex = uiFrame.hoverColorIndex;
     const std::uint32_t colorIndex = oldColorIndex < 59 ? oldColorIndex + 1 : 0;
-    gHoverColorIndexD6978C = colorIndex;
+    uiFrame.hoverColorIndex = colorIndex;
     const std::uint32_t color = kHoverColors58ACC8[colorIndex];
     const std::uint32_t focus = uiFrame.windowHasFocus;
     const bool hasFocus = focus != 0;
@@ -242,7 +241,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                     type == 2 ? 218 : 214, marker, type == 2 ? 0 : 1);
                 render::SortTextures_520790();
             }
-            const std::int32_t inputGate = world::gInputAndHoverSuppressed_D460C8;
+            const std::int32_t inputGate = uiFrame.inputAndHoverSuppressed;
             render::gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = 0xD4;
@@ -277,7 +276,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                 render::DrawMatchingGraphicHover_507090(value4);
             }
             render::SortTextures_520790();
-            if (world::gInputAndHoverSuppressed_D460C8 == 0 && interaction.hoverDescriptionEnabled != 0) {
+            if (uiFrame.inputAndHoverSuppressed == 0 && interaction.hoverDescriptionEnabled != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(session, &graphic);
                 if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
                     interaction.hoverObjectValue = 1;

@@ -21,16 +21,7 @@
 #include <cstring>
 #include <cstdlib> // 原CRT接口：0x0054ABDD；原参数／返回合同由直接调用承接。
 
-namespace cg::world {
-
-std::int32_t gInputAndHoverSuppressed_D460C8 = 0; // 原全局：0x00D460C8。
-
-} // namespace cg::world
-
 namespace cg::world::detail {
-// 原.data两说明坐标；本体按Y→X独立读取，保持S16和已加载初值。
-static std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
-static std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。
 
 static inline constexpr std::array<std::uint8_t, 12> kLowercaseDescription {{
     0xAD, 0x5E, 0xBC, 0xC6, 0x2F, 0xA2,
@@ -140,7 +131,7 @@ void RenderInput_4590E0(session::ClientSession& session)
     std::array<BYTE, 256> keyboardState;
     static_cast<void>(GetKeyboardState(keyboardState.data()));
 
-    const std::int32_t descriptionGate = gInputAndHoverSuppressed_D460C8;
+    const std::int32_t descriptionGate = session.UiFrame().inputAndHoverSuppressed;
     const std::uint8_t capsState = keyboardState[VK_CAPITAL];
     input::InputContext* context = session.UiFrame().inputState.currentContext;
     if (descriptionGate == 0 && context != nullptr) {
@@ -167,8 +158,8 @@ void RenderInput_4590E0(session::ClientSession& session)
                 reinterpret_cast<const char*>(description.data()), description.size() - 1));
         }
 
-        const std::int16_t descriptionY = gImeDescriptionY5595F0;
-        const std::int16_t descriptionX = gImeDescriptionX5595EC;
+        const std::int16_t descriptionY = session.UiFrame().ime.descriptionY;
+        const std::int16_t descriptionX = session.UiFrame().ime.descriptionX;
         static_cast<void>(render::DrawText_456780(
             descriptionX,
             descriptionY,

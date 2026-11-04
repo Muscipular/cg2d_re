@@ -38,6 +38,7 @@ namespace cg::ui::detail {
 
 struct WindowElementPrototype;
 struct BigMapWindowState;
+struct WindowPagePresentation;
 
 // 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
 struct WindowPrototype {
@@ -1386,6 +1387,7 @@ struct StallWindowRuntimeState {
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
     std::array<detail::WindowState, detail::kWindowCount> states {}; // 原0xC9A9B0，按ID寻址。
+    detail::WindowPagePresentation* pagePresentation = nullptr; // 仅借用所属会话当前窗口调度栈记录。
     detail::WindowPrototype dialogPrototype {}; // 原36/37共用的可变原型，只在首次借用时从宿主布局基线初始化。
     bool dialogPrototypeInitialized = false;
     WindowLayoutSettings settings {};

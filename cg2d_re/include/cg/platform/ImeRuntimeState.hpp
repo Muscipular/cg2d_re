@@ -23,6 +23,8 @@ struct ImeRuntimeState {
     std::uint32_t sentenceMode = 0; // 原73EFE8。
     void* candidateList = nullptr; // 原calloc候选表，由本会话释放。
     std::uint8_t state73EFF0 = 0;
+    std::int16_t descriptionX = 542; // 原5595EC，保留可写S16说明位置。
+    std::int16_t descriptionY = 461; // 原5595F0，绘制仍先读Y再读X。
     wchar_t highSurrogate = 0; // WM_CHAR跨消息待组合的高代理码元。
 };
 

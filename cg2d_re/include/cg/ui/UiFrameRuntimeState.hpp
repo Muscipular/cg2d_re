@@ -61,6 +61,8 @@ struct UiFrameRuntimeState {
     std::uint32_t windowHasFocus = 0; // 原0xCA0AB4，元素派发成功后占用，独立于焦点窗口ID。
     std::int32_t nativeWindowCount = 0; // 原0xCC4844，原生帧发布的窗口数量。
     std::wstring hoverText; // 原0xD68AE8，同会话各提示来源共用的正文。
+    std::int32_t inputAndHoverSuppressed = 0; // 原D460C8，输入说明与悬停共用门禁。
+    std::uint32_t hoverColorIndex = 0; // 原D6978C，同会话悬停配色的逐帧相位。
     ExtensionWindowState extension {};
     ElementPointerDragState pointerDrag {};
     bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。

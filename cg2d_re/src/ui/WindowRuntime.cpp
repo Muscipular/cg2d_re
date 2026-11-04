@@ -553,16 +553,15 @@ static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24
     &gDragPrototypes[8], // 72：沿用宠物详情页的标题拖动区域。
 };
 
-struct WindowPagePresentation;
-static WindowPagePresentation* gPagePresentation = nullptr; // 仅借用当前窗口调度栈上的切页记录。
-
 // PSF01：记录不持有窗口，回调退出后按ID/代次复查；离开当前窗口调度即失效。
 struct WindowPagePresentation {
     explicit WindowPagePresentation(const WindowInstance& source)
-        : sourceId(source.id), sourceGeneration(source.generation), previous(gPagePresentation)
-    { gPagePresentation = this; }
-    ~WindowPagePresentation() { gPagePresentation = previous; }
+        : ownerSession(*source.ownerSession), sourceId(source.id), sourceGeneration(source.generation),
+          previous(ownerSession.UiFrame().native.pagePresentation)
+    { ownerSession.UiFrame().native.pagePresentation = this; }
+    ~WindowPagePresentation() { ownerSession.UiFrame().native.pagePresentation = previous; }
 
+    session::ClientSession& ownerSession;
     int sourceId;
     std::uint32_t sourceGeneration;
     int targetId = -1;
@@ -4329,11 +4328,12 @@ std::int32_t WindowRuntime_UpdateDefault(WindowInstance&, const std::int32_t val
 
 void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const WindowInstance& target)
 {
-    if (!gPagePresentation || !gPagePresentation->accepting
-        || gPagePresentation->sourceId != source.id
-        || gPagePresentation->sourceGeneration != source.generation) return;
-    gPagePresentation->targetId = target.id;
-    gPagePresentation->targetGeneration = target.generation;
+    auto* const pagePresentation = source.ownerSession->UiFrame().native.pagePresentation;
+    if (!pagePresentation || !pagePresentation->accepting
+        || pagePresentation->sourceId != source.id
+        || pagePresentation->sourceGeneration != source.generation) return;
+    pagePresentation->targetId = target.id;
+    pagePresentation->targetGeneration = target.generation;
 }
 
 } // namespace detail

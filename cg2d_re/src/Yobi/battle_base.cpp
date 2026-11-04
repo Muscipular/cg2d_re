@@ -8,7 +8,6 @@
 #include "battle_attachment.hpp"
 #include "battle_display.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -869,11 +868,6 @@ std::int32_t SortBattleActions_405C30(session::ClientSession& session)
         }
     }
     return index;
-}
-
-std::int32_t SortBattleActions_405C30()
-{
-    return SortBattleActions_405C30(session::GetClientHost().FirstSession());
 }
 
 YobiAction* const* FindBattleRebirthSlot(const YobiAction* const action) noexcept

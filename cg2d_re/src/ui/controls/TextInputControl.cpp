@@ -1,11 +1,10 @@
 #include "../WindowComponents.hpp"
-#include "cg/session/ClientHost.hpp"
+#include "cg/session/ClientSession.hpp"
 
 namespace cg::ui {
 using namespace component_detail;
 static session::ClientSession& InputOwnerFor(const WindowElement& element) {
-    return element.owner->ownerSession ? *element.owner->ownerSession
-        : session::GetClientHost().FirstSession();
+    return *element.owner->ownerSession;
 }
 int ClampTextInputMaxLength(int length) { return length <= 0 || length > TEXT_INPUT_MAX_LENGTH ? TEXT_INPUT_MAX_LENGTH : length; }
 static std::size_t GbkPrefixLength(std::string_view value, int limit)
@@ -68,8 +67,7 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
 void WindowElement_ForgetInputRestore(const WindowElement& element) {
     auto& owner = InputOwnerFor(element);
     auto& focusedInput = owner.UiFrame().focusedInput;
-    auto* window = focusedInput.ownerSession ? WindowRuntime_FindInstance(*focusedInput.ownerSession, focusedInput.winId)
-        : WindowRuntime_FindInstance(focusedInput.winId);
+    auto* window = focusedInput.ownerSession ? WindowRuntime_FindInstance(*focusedInput.ownerSession, focusedInput.winId) : nullptr;
     if (!window || window->generation != focusedInput.generation) return;
     auto* focused = window->FindElementById(focusedInput.elementId);
     if (!focused || focused->creationSerial != focusedInput.creationSerial || focused == &element

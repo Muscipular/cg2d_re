@@ -21,18 +21,16 @@ void WindowRuntime_EnsureIdentity(WindowInstance& window) {
         window.refUpdate = window.refDraw = window.refEvent = -1;
     }
 }
-WindowInstance* WindowRuntime_FindInstance(int id) {
-    return id >= 0 && id < WIN_MAX ? WindowRuntime_States(session::GetClientHost().FirstSession())[id].window : nullptr;
-}
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id) {
     if (id >= 0 && id < WIN_MAX) {
         auto* window = WindowRuntime_States(session)[id].window;
-        return window && (!window->ownerSession || window->ownerSession == &session) ? window : nullptr;
+        return window && window->ownerSession == &session ? window : nullptr;
     }
     const auto extension = GetExtWindowById(session, id);
     return extension ? &extension->window : nullptr;
 }
-WindowExtension::WindowExtension() {
+WindowExtension::WindowExtension(session::ClientSession& session) {
+    window.ownerSession = &session;
     state.window = &window;
     WindowRuntime_EnsureIdentity(window);
 }
@@ -131,7 +129,7 @@ void WindowExOpen(std::shared_ptr<WindowExtension>& window)
 
 void WindowRuntime_QueueWindowOpen(const WindowInstance& window)
 {
-    auto& owner = window.ownerSession ? *window.ownerSession : session::GetClientHost().FirstSession();
+    auto& owner = *window.ownerSession;
     owner.UiFrame().extension.pendingWindowOpens.emplace_back(window.id, window.generation);
 }
 
@@ -155,10 +153,6 @@ static bool IsDefaultWindow(const WindowInstance& window)
     return window.category == 0;
 }
 
-void CloseNonDefaultWindows(int exceptId)
-{
-    CloseNonDefaultWindows(session::GetClientHost().FirstSession(), exceptId);
-}
 void CloseNonDefaultWindows(session::ClientSession& session, int exceptId)
 {
     auto& state = session.UiFrame().extension;
@@ -196,7 +190,7 @@ bool CloseTopmostNonDefaultWindow(session::ClientSession& session)
 
 void NativeWindowClosed(WindowInstance& window)
 {
-    auto& owner = window.ownerSession ? *window.ownerSession : cg::session::GetClientHost().FirstSession();
+    auto& owner = *window.ownerSession;
     owner.UiFrame().extension.windowOrder.erase(window.id);
     script::LuaProcessWinMgrWindowClose(owner, window.id);
 }

@@ -746,7 +746,7 @@ ui::WindowElement* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int
     PendingLuaElement pending{ui::WindowElementType_Animation, {}, callbacks};
     pending.data.animation = AllocatePlainPayload<ui::WindowAnimationData>();
     pending.data.animation->options = new ui::WindowAnimationOptions(data);
-    ui::WindowElement_PrepareAnimation(*pending.data.animation);
+    ui::WindowElement_PrepareAnimation(*window.ownerSession, *pending.data.animation);
     return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
@@ -2083,7 +2083,7 @@ LuaFunction(WinMgr_newWindow) {
         return 2;
     }
 
-    std::shared_ptr<UIWindowInstanceEx> windowBase = std::make_shared<ui::WindowExtension>();
+    std::shared_ptr<UIWindowInstanceEx> windowBase = std::make_shared<ui::WindowExtension>(session);
     auto view = LuaWindow(windowBase->window, L);
     auto* window = &view;
     LuaApplyNewWindowParam(L, 1, window);

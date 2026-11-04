@@ -1,12 +1,12 @@
 #include "WindowComponents.hpp"
 #include "cg/platform/Startup.hpp"
-#include "cg/session/ClientHost.hpp"
+#include "cg/session/ClientSession.hpp"
 
 namespace cg::ui {
 using namespace component_detail;
 
 static session::ClientSession& WindowOwner(const WindowInstance& window) {
-    return window.ownerSession ? *window.ownerSession : session::GetClientHost().FirstSession();
+    return *window.ownerSession;
 }
 
 bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const WindowElement& element) {
@@ -147,8 +147,7 @@ WindowElementRef WindowRuntime_ElementRef(const WindowElement& element) {
         element.creationSerial, element.owner->ownerSession};
 }
 WindowElement* WindowRuntime_ResolveElement(const WindowElementRef& ref) {
-    auto* window = ref.ownerSession ? WindowRuntime_FindInstance(*ref.ownerSession, ref.winId)
-        : WindowRuntime_FindInstance(ref.winId);
+    auto* window = ref.ownerSession ? WindowRuntime_FindInstance(*ref.ownerSession, ref.winId) : nullptr;
     if (!window || window->generation != ref.generation || (window->state & WIN_STATE_CLOSE)) return nullptr;
     auto* element = window->FindElementById(ref.elementId);
     return element && element->creationSerial == ref.creationSerial ? element : nullptr;

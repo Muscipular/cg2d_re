@@ -1,5 +1,4 @@
 #include "cg/network/CgConnection.hpp"
-#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -4149,8 +4148,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     const auto ownerGeneration = window->generation;
     if (element->visible == 1 && !handled) {
         if (element->mouseCallback) handled = element->mouseCallback(*window, elementId, events);
-        const auto* live = window->ownerSession ? WindowRuntime_FindInstance(*window->ownerSession, ownerId)
-            : WindowRuntime_FindInstance(ownerId);
+        const auto* live = WindowRuntime_FindInstance(session, ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
             && WindowRuntime_ResolveElement(identity) == element && WindowRuntime_IsElementInteractive(*window, *element)) {
             if (WindowRuntime_BeginPointerDrag(*window, *element, events)) handled |= 1;
@@ -4524,11 +4522,6 @@ std::int32_t WindowRuntime_Render(session::ClientSession& session)
 
 // WPL01：七类载荷创建/owner与动画现场源槽，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
-WindowInstance* WindowRuntime_Open(const std::int32_t id)
-{
-    return WindowRuntime_Open(session::GetClientHost().FirstSession(), id);
-}
-
 WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::int32_t id)
 {
     auto& pointer = session.UiFrame().native.pointer;
@@ -4754,13 +4747,6 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
 }
 
 // 原函数：0x00475AA0。
-cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
-    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
-    cg::yobi::YobiAction** const completionSlot)
-{
-    return WindowRuntime_CreateAnimation(session::GetClientHost().FirstSession(), id, flags, mode, completionSlot);
-}
-
 cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     session::ClientSession& session, const std::int32_t id,
     const std::uint32_t flags, const std::uint32_t mode,
@@ -5005,11 +4991,6 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
 }
 
 // 原函数：0x00472240。
-void WindowRuntime_CloseByCategory(const std::uint32_t mask)
-{
-    WindowRuntime_CloseByCategory(session::GetClientHost().FirstSession(), mask);
-}
-
 void WindowRuntime_CloseByCategory(session::ClientSession& session, const std::uint32_t mask)
 {
     auto& pointer = session.UiFrame().native.pointer;
@@ -5121,7 +5102,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
     }
     case WindowElementType_Animation: {
         auto* const data = element->data.animation;
-        WindowElement_PrepareAnimation(*data);
+        WindowElement_PrepareAnimation(*element->owner->ownerSession, *data);
         if (data->options && !data->action) break;
         const std::uint32_t stop = data->value04;
         cg::yobi::YobiAction* const action = data->action;

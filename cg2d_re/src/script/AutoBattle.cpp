@@ -490,11 +490,11 @@ static int takeRandomTarget(session::ClientSession& session, int attacker, B_TAR
 // 面板沿原坐标、图号、互斥选项和鼠标规则；载荷由C++容器持有。
 struct AutoBattleWindow final : UIWindowInstanceEx {
     std::array<ui::WindowGraphicData, CHK_MAX + 3> graphics{};
-    AutoBattleWindow(session::ClientSession& session, int id, int x, int width, int height, int count) {
+    AutoBattleWindow(session::ClientSession& session, int id, int x, int width, int height, int count)
+        : UIWindowInstanceEx(session) {
         window.id = id; window.x = x; window.y = 100;
         window.width = width; window.height = height;
         window.state = WIN_STATE_ACTIVE; window.layer = 4;
-        window.ownerSession = &session;
         for (int slot = 0; slot < count; ++slot) {
             auto& element = ui::WindowRuntime_AddElement(window, ui::NativeElementKey(slot));
             element.seqNo = slot;

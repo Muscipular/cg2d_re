@@ -1205,7 +1205,7 @@ static void WindowContacts_OpenRankSelection(session::ClientSession& session, co
     const std::int32_t currentIndex = business.mailIndicesC9FCE4[currentPosition + row];
     business.mailMemberKeyD45F88 = session.WorldScene().guild.orderedRecords[currentIndex].value0C;
     business.mailRankCF4A14 = session.WorldScene().guild.orderedRecords[memberIndex].value00 - 1;
-    static_cast<void>(WindowRuntime_Open(WindowId_GuildRank));
+    static_cast<void>(WindowRuntime_Open(session, WindowId_GuildRank));
 }
 
 // 原函数：0x004A2B00。

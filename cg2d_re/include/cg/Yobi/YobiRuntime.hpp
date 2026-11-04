@@ -192,15 +192,10 @@ void DrawNineGrid_49BE00(
 
 // 原 sub_404A40@[0x404A40,0x404AD1)；初始化首尾哨兵并返回尾哨兵。
 // 与原端相同，调用前提是尚未初始化，且不注册进程退出析构。
-YobiAction* InitializeYobiActionList_404A40();
 YobiAction* InitializeYobiActionList_404A40(session::ClientSession& session);
 
 // 原 YobiAction::new@[0x404AE0,0x404C42)。priority 的有效范围为 [0, 0xFE]。
 // payloadKind只标记本机指针类型；默认Raw保留原按字节分配的调用形式。
-YobiAction* NewYobiAction_404AE0(
-    std::uint8_t priority,
-    std::uint32_t payloadSize,
-    YobiPayloadKind payloadKind = YobiPayloadKind::Raw);
 YobiAction* NewYobiAction_404AE0(
     session::ClientSession& session,
     std::uint8_t priority,
@@ -218,10 +213,6 @@ YobiAction* ConstructWindowSelectorPreview(
     session::ClientSession& session, std::int32_t index, std::uint32_t& flags); // 原入口首次构造，返回稳定对象及flags|2快照。
 void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags); // IWT01：初始化预览属性；图号由有效宠物选择后的DrawPreview设置。
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
-YobiAction* CreateWindowOpeningAnimation_475950(
-    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
-    std::int32_t id, std::uint32_t flags, std::uint32_t mode,
-    YobiAction** completionSlot);
 YobiAction* CreateWindowOpeningAnimation_475950(
     session::ClientSession& session, std::int32_t x, std::int32_t y,
     std::int32_t width, std::int32_t height, std::int32_t id,
@@ -375,11 +366,9 @@ YobiAction* NewYobiGearPet_441130(
     YobiAction* source, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 
 // 原 Yobi::UpdateAll@[0x404C50,0x404CF7)。
-std::int32_t YobiUpdateAll_404C50();
 std::int32_t YobiUpdateAll_404C50(session::ClientSession& session);
 // 原函数：0x00405C30。
-std::int32_t SortBattleActions_405C30(); // flags筛选、原次序排序及低W8绘制层级发布。
-std::int32_t SortBattleActions_405C30(session::ClientSession& session);
+std::int32_t SortBattleActions_405C30(session::ClientSession& session); // flags筛选、原次序排序及低W8绘制层级发布。
 
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
@@ -423,10 +412,8 @@ YobiAction* const* FindBattleRebirthSlot(const YobiAction* action) noexcept;
 YobiAction* const* FindBattleRiderSlot(const YobiAction* action) noexcept;
 
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
-void YobiClearUp_404D30();
 void YobiClearUp_404D30(session::ClientSession& session);
 // 原函数：0x00404D60。
-void ShutdownYobiActionList_404D60();
 void ShutdownYobiActionList_404D60(session::ClientSession& session);
 
 // 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。

@@ -150,18 +150,14 @@ void WindowRuntime_SetInventoryPages(session::ClientSession& session,
 
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
-WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
-WindowInstance* WindowRuntime_Open(session::ClientSession& session, std::int32_t id);
+WindowInstance* WindowRuntime_Open(session::ClientSession& session, std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
 void WindowBigMap_Open(session::ClientSession& session); // 小地图按钮唯一入口，复用原生原型与各会话单实例生命周期。
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(session::ClientSession& session); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。
 cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
-    std::int32_t id, std::uint32_t flags, std::uint32_t mode,
-    cg::yobi::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
-cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     session::ClientSession& session, std::int32_t id, std::uint32_t flags, std::uint32_t mode,
-    cg::yobi::YobiAction** completionSlot);
+    cg::yobi::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
 
 // 原函数：0x004CD3E0。
 WindowInstance* WindowStallBrowse_RequestClose(session::ClientSession& session); // 原窗口68的state置0x8000，返回原借用引用。
@@ -189,8 +185,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session); // 完整鼠
 // 原函数：0x00504120。
 std::int32_t WindowRuntime_Render(session::ClientSession& session); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 // 原函数：0x00472240。
-void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
-void WindowRuntime_CloseByCategory(session::ClientSession& session, std::uint32_t mask);
+void WindowRuntime_CloseByCategory(session::ClientSession& session, std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 // 原函数：0x00476410。
 void WindowDrag_Cancel(session::ClientSession& session); // 回调后重读阶段，最后进入2或6，不等同通用重置。

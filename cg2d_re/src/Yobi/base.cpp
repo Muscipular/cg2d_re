@@ -2,7 +2,6 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
-#include "cg/session/ClientHost.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -207,11 +206,6 @@ YobiAction* InitializeYobiActionList_404A40(session::ClientSession& session)
     return result;
 }
 
-YobiAction* InitializeYobiActionList_404A40()
-{
-    return InitializeYobiActionList_404A40(session::GetClientHost().FirstSession());
-}
-
 // 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
     session::ClientSession& session,
@@ -297,14 +291,6 @@ YobiAction* NewYobiAction_404AE0(
     return action;
 }
 
-YobiAction* NewYobiAction_404AE0(
-    const std::uint8_t priority,
-    const std::uint32_t payloadSize,
-    const YobiPayloadKind payloadKind)
-{
-    return NewYobiAction_404AE0(session::GetClientHost().FirstSession(), priority, payloadSize, payloadKind);
-}
-
 // 原函数：0x00404C50。
 std::int32_t YobiUpdateAll_404C50(session::ClientSession& session)
 {
@@ -344,11 +330,6 @@ std::int32_t YobiUpdateAll_404C50(session::ClientSession& session)
     return result;
 }
 
-std::int32_t YobiUpdateAll_404C50()
-{
-    return YobiUpdateAll_404C50(session::GetClientHost().FirstSession());
-}
-
 // 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
@@ -374,11 +355,6 @@ void YobiClearUp_404D30(session::ClientSession& session)
     }
 }
 
-void YobiClearUp_404D30()
-{
-    YobiClearUp_404D30(session::GetClientHost().FirstSession());
-}
-
 // 原函数：0x00404D60。
 void ShutdownYobiActionList_404D60(session::ClientSession& session)
 {
@@ -390,11 +366,6 @@ void ShutdownYobiActionList_404D60(session::ClientSession& session)
     std::free(session.Yobi().end);
     session.Yobi().start = nullptr;
     session.Yobi().end = nullptr;
-}
-
-void ShutdownYobiActionList_404D60()
-{
-    ShutdownYobiActionList_404D60(session::GetClientHost().FirstSession());
 }
 
 bool IsYobiActionReady(

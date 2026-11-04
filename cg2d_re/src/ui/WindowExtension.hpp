@@ -25,7 +25,7 @@ struct WindowExtension {
     bool dragMoving = false;
     int dragMoveLastX = 0;
     int dragMoveLastY = 0;
-    WindowExtension();
+    explicit WindowExtension(session::ClientSession& session);
     virtual ~WindowExtension();
     virtual int render(int stage);
     virtual int update(int stage, int hasFocused);
@@ -41,14 +41,12 @@ int WindowPeekMouseWheelDelta();
 void WindowConsumeMouseWheelDelta();
 void WindowAddMouseWheelDelta(int delta);
 void WindowRuntime_EnsureIdentity(WindowInstance& window);
-WindowInstance* WindowRuntime_FindInstance(int id);
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
 std::shared_ptr<WindowExtension> GetExtWindowById(session::ClientSession& session, int id);
 void WindowExOpen(std::shared_ptr<WindowExtension>& window);
 // 创建成功后排队，在下一次UI更新中按实例代次派发打开事件。
 void WindowRuntime_QueueWindowOpen(const WindowInstance& window);
 void CgWindowClose(session::ClientSession& session, int id);
-void CloseNonDefaultWindows(int exceptId);
 void CloseNonDefaultWindows(session::ClientSession& session, int exceptId);
 bool CloseTopmostNonDefaultWindow(session::ClientSession& session);
 void NativeWindowClosed(WindowInstance& window);

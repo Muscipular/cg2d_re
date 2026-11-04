@@ -3,7 +3,6 @@
 #include "base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "cg/audio/LegacyAudio.hpp"
-#include "cg/session/ClientHost.hpp"
 
 #include <array>
 #include <bit>
@@ -698,16 +697,6 @@ void DrawNineGrid_49BE00(
 }
 
 // 原函数：0x00475950。
-YobiAction* CreateWindowOpeningAnimation_475950(
-    std::int32_t x, std::int32_t y,
-    const std::int32_t width, const std::int32_t height,
-    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
-    YobiAction** const completionSlot)
-{
-    return CreateWindowOpeningAnimation_475950(
-        session::GetClientHost().FirstSession(), x, y, width, height, id, flags, mode, completionSlot);
-}
-
 YobiAction* CreateWindowOpeningAnimation_475950(
     session::ClientSession& session, std::int32_t x, std::int32_t y,
     const std::int32_t width, const std::int32_t height,

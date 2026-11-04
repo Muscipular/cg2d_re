@@ -323,7 +323,6 @@ struct WindowElementCursor {
 };
 
 // 旧选择器缓存改为身份引用，元素删除后查询返回空。
-WindowInstance* WindowRuntime_FindInstance(int id);
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
 
 namespace detail {

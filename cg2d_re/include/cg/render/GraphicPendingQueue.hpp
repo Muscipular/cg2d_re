@@ -162,13 +162,13 @@ void AdvanceRipplePhase_520910(session::ClientSession& session);
 // 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
 void WrapRipplePhase_520930(float* value);
 
-// 原 sub_521870@[0x521870,0x5219B5)：共享 CPU Back/Temp 的波纹条带回拷。
-std::int32_t ApplyScreenRipple_521870(session::ClientSession& session);
+// 原 sub_521870@[0x521870,0x5219B5)：后台只推进原波纹状态，不触碰共享Back/Temp。
+std::int32_t ApplyScreenRipple_521870(session::ClientSession& session, bool submitPixels = true);
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
 void SortTextures_520790();
 
-// 原 520DD0：原 0..12 及已迁入扩展批次消费，不清队列计数；末尾老化调色板并清特殊标志。
+// 原520DD0：仅当前会话提交像素，后台仍消费地图/波纹/效果业务；不清队列计数。
 void DrawAllQueued_520DD0(session::ClientSession& session);
 
 // 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，

@@ -7868,10 +7868,12 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const s
 }
 
 // 原函数：0x0046E480。
-void DrawPendingMapEffects_46E480(session::ClientSession& session)
+void DrawPendingMapEffects_46E480(session::ClientSession& session, const bool submitPixels)
 {
     if (session.WorldScene().mapEffects.scene.valueC8A73C != 0) {
-        static_cast<void>(render::DrawMapEffects_453580(session));
+        if (submitPixels) {
+            static_cast<void>(render::DrawMapEffects_453580(session));
+        }
         session.WorldScene().mapEffects.scene.valueC8A73C = 0;
     }
 }
@@ -9524,7 +9526,8 @@ std::wstring FormatMapDataPath_468520(
 }
 
 // 原函数：0x0046C760。
-std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
+std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, const std::int32_t x, const std::int32_t y,
+    const bool submitPixels)
 {
     if (session.WorldScene().map.resourceMode == 1) {
         session.WorldScene().map.autoMapWindowDirty = 1;
@@ -9535,7 +9538,8 @@ std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, const st
         session.WorldScene().map.autoMapWindowDirty = 0;
         const std::int32_t height = session.WorldScene().map.data.autoMapWindowSizes[index].height;
         const std::int32_t width = session.WorldScene().map.data.autoMapWindowSizes[index].width;
-        return render::DrawColorAutoMap_44FEB0(x, y, session.WorldScene().map.data.autoMapColors, width, height);
+        return submitPixels
+            ? render::DrawColorAutoMap_44FEB0(x, y, session.WorldScene().map.data.autoMapColors, width, height) : 0;
     }
     if (session.WorldScene().map.autoMapWindowDirty != 0) {
         const std::int32_t playerY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
@@ -9546,7 +9550,8 @@ std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, const st
     const std::int32_t index = session.WorldScene().map.data.autoMapWindowIndex;
     const std::int32_t height = session.WorldScene().map.data.autoMapWindowSizes[index].height;
     const std::int32_t width = session.WorldScene().map.data.autoMapWindowSizes[index].width;
-    return render::DrawIndexedAutoMap_44F5C0(x, y, session.WorldScene().map.data.autoMapIndices, width, height);
+    return submitPixels
+        ? render::DrawIndexedAutoMap_44F5C0(x, y, session.WorldScene().map.data.autoMapIndices, width, height) : 0;
 }
 
 // 原 [0x4681B0,0x4681F6)：先读 Y/X 快照并恢复窗口，随后顺序清六槽。

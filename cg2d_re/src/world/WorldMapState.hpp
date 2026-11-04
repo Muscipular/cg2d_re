@@ -77,7 +77,8 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& netw
 // 原函数：0x00509550。
 std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& networkConnection, char* payload); // PTR01：原完整回复，地图名整词/状态/尾字节及解析持值顺序保持。
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
-std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, std::int32_t x, std::int32_t y);
+std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, std::int32_t x, std::int32_t y,
+    bool submitPixels = true); // 后台保留缓存生产，未提交像素返回0；队列消费者不消费结果。
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
 void __cdecl DrawMapScene_46CF60(session::ClientSession& session, std::int32_t value);
 // 原函数：0x0046CF00。
@@ -102,7 +103,7 @@ void HandlePlayerPositionReply_5093C0(cg::network::CgConnection& networkConnecti
 // 原函数：0x0050D080。
 void Sub_50D080(cg::network::CgConnection& networkConnection, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
 // 原函数：0x0046E480。
-void DrawPendingMapEffects_46E480(session::ClientSession& session);                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
+void DrawPendingMapEffects_46E480(session::ClientSession& session, bool submitPixels = true); // 原46E480；后台也消费非零标志并清W16。
 // 原函数：0x0046BD40。
 std::int32_t ResetMapDrawCacheCounts_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 // 原 46FB80：先X差再Y差，返回Y平方+X平方的F64值。

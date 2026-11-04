@@ -298,7 +298,7 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 }
 
 // 原函数：0x00521870。
-std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
+std::int32_t ApplyScreenRipple_521870(session::ClientSession& session, const bool submitPixels)
 {
     // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。
     std::array<std::int32_t, 4> sourceRectangle;
@@ -325,7 +325,9 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
         session.WorldScene().map.rippleStrengthBits = 0;
     }
 
-    static_cast<void>(CopyBackToTemp());
+    if (submitPixels) {
+        static_cast<void>(CopyBackToTemp());
+    }
 
     float xDelta;
     float yDelta;
@@ -361,8 +363,10 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
         const std::int32_t sourceBottom = sourceTop + 8;
         sourceRectangle[3] = sourceBottom;
         TextureSurface* const temp = cg::render::gCpuTempSurface;
-        static_cast<void>(BlitSurfaceRectangleToBack(
-            0, destinationY, sourceRectangle, temp));
+        if (submitPixels) {
+            static_cast<void>(BlitSurfaceRectangleToBack(
+                0, destinationY, sourceRectangle, temp));
+        }
         destinationY += 8;
         ++strip;
     } while (destinationY < GetCpuSurfaceHeight());

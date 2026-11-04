@@ -16,6 +16,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "../world/WorldMapState.hpp"
 
 #include <bit>
@@ -391,12 +392,15 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
 // 原函数：0x00520DD0。
 void DrawAllQueued_520DD0(session::ClientSession& session)
 {
-    gGraphicPaletteUploadCount = 0;
+    const bool submitPixels = cg::session::GetClientHost().CurrentSession() == &session;
+    if (submitPixels) {
+        gGraphicPaletteUploadCount = 0;
+    }
     GraphicCache3* order = cg::render::gGraphicQueue.pending.cache3.data();
     if (GetCpuBackSdlSurface() == nullptr) {
         return;
     }
-    if (HasLegacy3DDevice_44B610() != 0) {
+    if (submitPixels && HasLegacy3DDevice_44B610() != 0) {
         static_cast<void>(BeginLegacyTextureScene(GetRendererTextureDevice()));
     }
     std::int32_t index = 0;
@@ -408,25 +412,27 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
             switch (batchType) {
             case 0:
             case 1:
-                DrawSprite(graphic);
+                if (submitPixels) { DrawSprite(graphic); }
                 break;
             case 2:
-                DrawQueuedPaletteRect_522210(graphic, std::bit_cast<std::uint32_t>(graphic->imageNo));
+                if (submitPixels) {
+                    DrawQueuedPaletteRect_522210(graphic, std::bit_cast<std::uint32_t>(graphic->imageNo));
+                }
                 break;
             case 3:
-                FillDirtyArea_520AD0(graphic);
+                if (submitPixels) { FillDirtyArea_520AD0(graphic); }
                 break;
             case 4:
-                RenderTextToSurface_456D70(graphic->reference.textToken);
+                if (submitPixels) { RenderTextToSurface_456D70(graphic->reference.textToken); }
                 break;
             case 5: {
                 const std::int32_t y = graphic->y;
                 const std::int32_t x = graphic->x;
-                static_cast<void>(world::DrawCurrentAutoMap_46C760(session, x, y));
+                static_cast<void>(world::DrawCurrentAutoMap_46C760(session, x, y, submitPixels));
                 break;
             }
             case 6:
-                if (session.WorldScene().map.surfaceCacheEnabled != 0) {
+                if (submitPixels && session.WorldScene().map.surfaceCacheEnabled != 0) {
                     const auto offsetX = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionOffsetX);
                     std::int32_t destinationX = 0;
                     std::int32_t destinationY = 0;
@@ -448,24 +454,24 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                 }
                 break;
             case 7:
-                if (session.WorldScene().map.surfaceCacheEnabled != 0) {
+                if (submitPixels && session.WorldScene().map.surfaceCacheEnabled != 0) {
                     static_cast<void>(CopyBackToTemp());
                 }
                 break;
             case 8:
-                static_cast<void>(ApplyScreenRipple_521870(session));
+                static_cast<void>(ApplyScreenRipple_521870(session, submitPixels));
                 break;
             case 9:
-                world::DrawPendingMapEffects_46E480(session);
+                world::DrawPendingMapEffects_46E480(session, submitPixels);
                 break;
             case 10:
-                DrawFixedScaleSprite(graphic, 0.25f);
+                if (submitPixels) { DrawFixedScaleSprite(graphic, 0.25f); }
                 break;
             case 11:
-                DrawFixedScaleSprite(graphic, 0.5f);
+                if (submitPixels) { DrawFixedScaleSprite(graphic, 0.5f); }
                 break;
             case 12:
-                DrawFixedScaleSprite(graphic, 0.75f);
+                if (submitPixels) { DrawFixedScaleSprite(graphic, 0.75f); }
                 break;
             case GraphicBatch_Rectangle: {
                 const auto xBits = std::bit_cast<std::uint32_t>(graphic->x);
@@ -476,19 +482,21 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(xBits >> 16)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(yBits >> 16))
                 };
-                static_cast<void>(RenderColorRectangle(rectangle, graphic->descriptor.color));
+                if (submitPixels) {
+                    static_cast<void>(RenderColorRectangle(rectangle, graphic->descriptor.color));
+                }
                 break;
             }
             case GraphicBatch_PngImage:
-                DrawPngImageBatch(*graphic->reference.pngImage);
+                if (submitPixels) { DrawPngImageBatch(*graphic->reference.pngImage); }
                 break;
             case GraphicBatch_FullscreenBackground:
             case GraphicBatch_FullscreenBackgroundTrimmed:
             case GraphicBatch_BattleBackground:
-                DrawFullscreenBackground(graphic);
+                if (submitPixels) { DrawFullscreenBackground(graphic); }
                 break;
             case GraphicBatch_Canvas:
-                DrawCanvasBatch(*graphic->reference.canvas);
+                if (submitPixels) { DrawCanvasBatch(*graphic->reference.canvas); }
                 break;
             default:
                 break;
@@ -501,13 +509,15 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
             }
         }
     }
-    if (HasLegacy3DDevice_44B610() != 0) {
+    if (submitPixels && HasLegacy3DDevice_44B610() != 0) {
         static_cast<void>(EndLegacyTextureScene(GetRendererTextureDevice()));
     }
-    if (gGraphicPaletteUploadCount == 0) {
-        gLastUnrefreshedPaletteFrameVersion = gPaletteFrameVersion;
+    if (submitPixels) {
+        if (gGraphicPaletteUploadCount == 0) {
+            gLastUnrefreshedPaletteFrameVersion = gPaletteFrameVersion;
+        }
+        AgeGraphicPaletteCache_44E230();
     }
-    AgeGraphicPaletteCache_44E230();
     cg::render::gGraphicQueue.specialGraphicPending = 0;
 }
 

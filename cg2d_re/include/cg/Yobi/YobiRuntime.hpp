@@ -333,7 +333,8 @@ void SetMapActorAnimationState_43EFC0(
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* CreateRegisteredMapGraphicAction_46DE50(session::ClientSession& session, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 // 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。
-void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* action);
+// NSM01：背景重建只按已有坐标/图帧入队，不额外投影或推进动画。
+void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* action, bool advanceState = true);
 // 46CF60 同步借用当前会话的 399x399 注册表槽；指针不拥有对象，不新增索引门禁。
 std::uint8_t& MapYobiRegistryFlagAt(session::ClientSession& session, std::int32_t index) noexcept;
 YobiAction*& MapYobiRegistryActionAt(session::ClientSession& session, std::int32_t index) noexcept;

@@ -600,6 +600,7 @@ struct WorldSceneRuntimeState {
     std::uint16_t pendingMapTransitionSequence = 0; // 原 0x9DAD54，普通转场回复匹配。
     std::uint16_t pendingDirectionalTransitionSequence = 0; // 原 0x9FB92C，定向转场回复匹配。
     std::int32_t frameBackgroundMode = 0; // 原 0x73ECC0，世界场景生产、主循环清屏消费。
+    std::uint32_t backgroundColor = 0; // 原0x62B0A8，登录动画跨帧保留的清屏颜色意图。
     std::int32_t forceRender = 0; // 原 0x73ECE4，普通场景请求、主循环消费。
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。
     std::uint32_t mapBgmChangePending = 0; // 原 0xFF0D58。

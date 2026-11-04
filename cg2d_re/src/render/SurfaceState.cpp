@@ -204,7 +204,6 @@ static std::int32_t DrawAutoMap32(
     return BlitTextureToBack(gCpuAutoMapSurface, rectangle, destination, true);
 }
 
-std::uint32_t gBackgroundColor = 0; // 原全局：0x0062B0A8。
 
 std::int32_t GetCpuSurfaceWidth() noexcept { return platform::gWindowWidth; }
 std::int32_t GetCpuSurfaceHeight() noexcept { return platform::gWindowHeight; }
@@ -591,12 +590,12 @@ void ReleaseCpuBackTextDc(const HDC dc) noexcept
 }
 
 // 原函数：0x004512C0。
-std::int32_t ClearSurface_4512C0() noexcept
+std::int32_t ClearSurface_4512C0(const std::uint32_t backgroundColor) noexcept
 {
     if (gCpuBackSurface == nullptr) {
         return -1;
     }
-    return ClearGpuBack(gBackgroundColor) ? 0 : -1;
+    return ClearGpuBack(backgroundColor) ? 0 : -1;
 }
 
 // 原函数：0x00451350。

@@ -3117,7 +3117,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RenderInput_4590E0(session);
         render::SortTextures_520790();
         if (submitPixels) {
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0(session);
@@ -3221,7 +3221,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::BrowseChatHistory_44A1B0(session);
         render::SortTextures_520790();
         if (submitPixels) {
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         }
         ClearDirectionalMapEffects_46F160(session);
         if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
@@ -3421,7 +3421,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             RenderInput_4590E0(session);
             render::SortTextures_520790();
             if (submitPixels) {
-                static_cast<void>(render::ClearSurface_4512C0());
+                static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
             }
             ClearDirectionalMapEffects_46F160(session);
             if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
@@ -3554,7 +3554,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
 
 waitFrame:
     if (submitPixels) {
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     }
     ++worldScene.normalSceneWaitFrames;
     return;
@@ -6451,7 +6451,7 @@ std::int32_t ProcessSceneSlideOut_51D790(
             break;
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         switch (mode) {
         case 4:
             for (std::int32_t row = 0; row < 480; ++row) {
@@ -6912,7 +6912,7 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
             }
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         switch (mode) {
         case 4:
             for (std::int32_t row = 0; row < 480; ++row) {
@@ -7135,7 +7135,7 @@ std::int32_t ProcessSceneQuadrantTransition_51EC10(
             }
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         for (std::size_t index = 0; index < 4; ++index) {
             render::TextureSurface* const source = render::gCpuTempSurface;
             const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
@@ -7303,7 +7303,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
             break;
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         std::array<std::int32_t, 4> rectangle;
         // 原两遍有不同的源读取顺序，先画状态2再画状态1。
         for (std::int32_t index = 0; index < 64; ++index) {
@@ -7383,7 +7383,7 @@ std::int32_t ProcessSceneGridScaleTransition_51F610(
             gImageTransitionScaleFF0D78 = value >= 0 ? 0 : 64;
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         std::int32_t index = 959;
         for (std::int32_t sourceY = 464; sourceY >= 0; sourceY -= 16) {
             for (std::int32_t sourceX = 620; sourceX >= 0; sourceX -= 20) {
@@ -7454,7 +7454,7 @@ static std::int32_t ProcessScanlineTransition(
             gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
         }
 
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
         std::int32_t scale = gImageTransitionScaleFF0D78;
         if (scale > 0) {
             std::int32_t row = 0;
@@ -7548,7 +7548,7 @@ std::int32_t ProcessSceneCenterScanlineTransition_51FC90(
         gHalfTransitionScaleFF0F7C = mode == 0 ? 240 : 0;
     }
 
-    static_cast<void>(render::ClearSurface_4512C0());
+    static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     std::int32_t scale = gHalfTransitionScaleFF0F7C;
     std::array<std::int32_t, 4> upperRectangle;
     std::array<std::int32_t, 4> lowerRectangle;
@@ -10113,7 +10113,7 @@ std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& sessio
     static_cast<void>(detail::LoadAndDrawMapTiles_469030(session));
     render::SortTextures_520790();
     if (submitPixels) {
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     }
     const std::uint8_t previousC82204 = session.WorldScene().map.surfaceCacheEnabled;
     session.WorldScene().map.surfaceCacheEnabled = 0;

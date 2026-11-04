@@ -382,24 +382,26 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session, const boo
 }
 
 // 原函数：0x00520790。
-void SortTextures_520790()
+void SortTextures_520790(const bool includeFrameEffects)
 {
-    const bool hasSpecialGraphic = cg::render::gGraphicQueue.specialGraphicPending != 0;
-    const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;
     std::uint16_t countBits = cg::render::gGraphicQueue.count;
-    const std::int16_t initialCount = std::bit_cast<std::int16_t>(countBits);
-    if (static_cast<std::int32_t>(initialCount) + reserveCount
-        >= MAX_QUEUE_SIZE) {
-        countBits = static_cast<std::uint16_t>(MAX_QUEUE_SIZE - reserveCount);
-        cg::render::gGraphicQueue.count = countBits;
-    }
+    if (includeFrameEffects) {
+        const bool hasSpecialGraphic = cg::render::gGraphicQueue.specialGraphicPending != 0;
+        const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;
+        const std::int16_t initialCount = std::bit_cast<std::int16_t>(countBits);
+        if (static_cast<std::int32_t>(initialCount) + reserveCount
+            >= MAX_QUEUE_SIZE) {
+            countBits = static_cast<std::uint16_t>(MAX_QUEUE_SIZE - reserveCount);
+            cg::render::gGraphicQueue.count = countBits;
+        }
 
-    if (hasSpecialGraphic) {
-        countBits = AppendReservedGraphic(countBits, 2, 8);
+        if (hasSpecialGraphic) {
+            countBits = AppendReservedGraphic(countBits, 2, 8);
+        }
+        countBits = AppendReservedGraphic(countBits, 5, 6);
+        countBits = AppendReservedGraphic(countBits, 6, 7);
+        countBits = AppendReservedGraphic(countBits, 20, 9);
     }
-    countBits = AppendReservedGraphic(countBits, 5, 6);
-    countBits = AppendReservedGraphic(countBits, 6, 7);
-    countBits = AppendReservedGraphic(countBits, 20, 9);
 
     const std::int32_t sortCount = std::bit_cast<std::int16_t>(countBits);
     std::qsort(

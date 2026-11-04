@@ -1394,6 +1394,7 @@ bool ClientHost::SelectSession(const std::uint64_t id) noexcept
         if (!platform::AssociateSessionIme(it->session)) return false;
         current_ = it;
         render::InvalidatePalettePresentation();
+        world::InvalidateSessionBackground();
         audio::SelectFileBgmOutput();
         return true;
     }

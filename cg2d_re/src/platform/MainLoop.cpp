@@ -101,7 +101,7 @@ void ShowModeChange_458A40(session::ClientSession& session)
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),
         74, 54);
     render::SortTextures_520790();
-    static_cast<void>(render::ClearSurface_4512C0());
+    static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
     render::gRenderQueueMode103CF10 = 1;
@@ -140,6 +140,8 @@ int MainLoop(session::ClientSession& session)
             ShutdownClient_457A40(session);
             return 0;
         }
+        const bool paletteReady = render::PrepareSessionPalette(session);
+        const bool presentationReady = paletteReady && world::PrepareSessionBackground(session);
         auto& connection = session.Connection();
         KeepAlive_457AB0(connection);
         world::UpdateGameTime(session, &session.WorldScene().gameTime.value);
@@ -163,7 +165,6 @@ int MainLoop(session::ClientSession& session)
             }
         }
         UpdateAudioAndSkipMciClose_52CD30(session, -1);
-        const bool paletteReady = render::PrepareSessionPalette(session);
         world::Update(session);
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
@@ -217,16 +218,16 @@ int MainLoop(session::ClientSession& session)
         const std::int32_t clearMode = session.WorldScene().frameBackgroundMode;
         session.WorldScene().forceRender = 0;
         if (clearMode == 0) {
-            render::ClearSurface_4512C0();
+            render::ClearSurface_4512C0(session.WorldScene().backgroundColor);
         } else if (clearMode == 3) {
             ApplyScreenShake_423640(session);
         }
-        if (paletteReady) {
+        if (presentationReady) {
             UpdateFrameDiagnostics(session);
         }
         render::DrawAllQueued_520DD0(session);
         world::CopyWorldProjectionState_468FF0(session);
-        if (paletteReady) {
+        if (presentationReady) {
             render::Flip_44C560();
         }
 

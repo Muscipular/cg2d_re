@@ -11,9 +11,6 @@ namespace cg::render {
 
 struct TextureSurface;
 
-// 原 gBackgroundColor@0x62B0A8；固定 32bpp 路径使用 0x00RRGGBB 位模式。
-extern std::uint32_t gBackgroundColor;
-
 // RHM01/R02：查询既有启动尺寸；CPU Back、缓存、输入和呈现共用同一逻辑画布。
 std::int32_t GetCpuSurfaceWidth() noexcept;
 std::int32_t GetCpuSurfaceHeight() noexcept;
@@ -37,8 +34,8 @@ void DestroyCpuBackSurface() noexcept;
 // CPU 镜像的非拥有视图；GPU 绘制后像素消费者须先显式同步，未创建时返回空。
 std::span<const std::uint32_t> ReadCpuBackPixels() noexcept;
 
-// 原 4512C0／GRT01：GPU Back 按当次背景色清屏；失败返回非零。
-std::int32_t ClearSurface_4512C0() noexcept;
+// 原 4512C0／GRT01：共享GPU Back按当次0x00RRGGBB清屏；失败返回非零。
+std::int32_t ClearSurface_4512C0(std::uint32_t backgroundColor) noexcept;
 
 // 原 452840：一次锁定同一 Back，按 world 活动链绘制 kind 1/2/3/4 后解锁。
 std::int32_t DrawMapEffects32_452840(session::ClientSession& session);

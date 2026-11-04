@@ -58,7 +58,7 @@ static void DrawCutObject(
     session::ClientSession& session,
     const std::uint16_t object, const std::int32_t column, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY,
-    render::GraphicDescriptor16& descriptor)
+    render::GraphicDescriptor16& descriptor, const bool updateMapActions)
 {
     if (object <= 999) {
         return;
@@ -70,6 +70,13 @@ static void DrawCutObject(
         const std::int32_t startY = session.WorldScene().map.yStart;
         const std::int32_t mapX = startX + column;
         const std::int32_t index = 399 * mapX + startY + row;
+        if (!updateMapActions) {
+            if (cg::yobi::MapYobiRegistryFlagAt(session, index) != 0) {
+                cg::yobi::UpdateRegisteredMapGraphicAction_46DD90(
+                    cg::yobi::MapYobiRegistryActionAt(session, index), false);
+            }
+            return;
+        }
         if (cg::yobi::MapYobiRegistryFlagAt(session, index) != 0) {
             cg::yobi::YobiAction* const action = cg::yobi::MapYobiRegistryActionAt(session, index);
             cg::yobi::UpdateRegisteredMapGraphicAction_46DD90(action);
@@ -195,6 +202,53 @@ static void DrawNormalMapCell(session::ClientSession& session,
     }
 }
 
+// NSM01：正常地图与切回背景共用逐格入队；后者不重复登记或更新地图动作。
+static void QueueMapLayers(session::ClientSession& session,
+    const bool cutMode, const std::int32_t markers,
+    render::GraphicDescriptor16& descriptor, const bool updateMapActions)
+{
+    const std::int32_t xStart = session.WorldScene().map.xStart;
+    const std::int32_t yEnd = session.WorldScene().map.yEnd;
+    const auto projectionX = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceC);
+    std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
+    const std::int32_t rawY = 48 * (yEnd - xStart - 1);
+    const auto projectionY = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceD);
+    std::int32_t drawY = rawY / 2 + projectionY;
+    std::int32_t firstRow = session.WorldScene().map.spanY - 1;
+    std::int32_t firstColumn = 0;
+    while (firstRow >= 0) {
+        std::int32_t drawX = baseX;
+        const std::int32_t diagonal = firstColumn - firstRow;
+        std::int32_t row = firstRow;
+        while (row >= 0) {
+            const std::int32_t column = diagonal + row;
+            if (column < 0) {
+                break;
+            }
+            const std::int32_t index = session.WorldScene().map.spanX * row + column;
+            if (cutMode) {
+                DrawCutTile(session, session.WorldScene().map.data.tiles[index], drawX, drawY, descriptor);
+                DrawCutObject(session, session.WorldScene().map.data.objects[index], column, row, drawX, drawY, descriptor, updateMapActions);
+            } else {
+                DrawNormalMapCell(session, index, diagonal, row, drawX, drawY, markers);
+            }
+            --row;
+            drawX -= 64;
+        }
+        if (firstColumn < session.WorldScene().map.spanX - 1) {
+            ++firstColumn;
+            baseX += 32;
+        } else {
+            --firstRow;
+            baseX -= 32;
+        }
+        drawY -= 24;
+    }
+
+    SortAndMergeMapDrawCache_46C2F0();
+    static_cast<void>(QueueMergedMapDrawCache_46C1C0());
+}
+
 // 原函数：0x00469020。
 void DrawMapSceneWithMarkers_469020(session::ClientSession& session)
 {
@@ -215,7 +269,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
     if (submitPixels) {
-        static_cast<void>(render::ClearSurface_4512C0());
+        static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     }
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
@@ -232,6 +286,54 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 } // namespace cg::world::detail
 
 namespace cg::world {
+
+// 仅标记进程共享像素失效；不保存会话画面或隐式活动会话。
+static bool gSessionBackgroundInvalid = false;
+
+void InvalidateSessionBackground() noexcept
+{
+    gSessionBackgroundInvalid = true;
+}
+
+bool PrepareSessionBackground(session::ClientSession& session)
+{
+    if (cg::session::GetClientHost().CurrentSession() != &session) {
+        return false;
+    }
+    if (!gSessionBackgroundInvalid) {
+        return true;
+    }
+    if (render::ClearSurface_4512C0(session.WorldScene().backgroundColor) != 0) {
+        return false;
+    }
+
+    const auto& scene = session.WorldScene();
+    if (scene.sceneType == 10 && static_cast<std::uint32_t>(scene.sceneState) >= 2u
+        && static_cast<std::uint32_t>(scene.sceneState) <= 6u) {
+        render::gGraphicQueue.count = 0;
+        render::gTextQueue.count = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        static_cast<void>(ResetMapDrawCacheCounts_46BD40());
+        render::GraphicDescriptor16 descriptor {};
+        detail::QueueMapLayers(session, scene.map.resourceMode == 1, 0, descriptor, false);
+        static_cast<void>(render::DrawBattleBackgroundScaled(200, scene.battle.backgroundImage));
+        render::SortTextures_520790(false);
+        const std::uint32_t previousQueueMode = render::gRenderQueueMode103CF10;
+        render::gRenderQueueMode103CF10 = 0;
+        render::DrawAllQueued_520DD0(session);
+        const bool copied = render::CopyBackToTemp();
+        render::gRenderQueueMode103CF10 = previousQueueMode;
+        render::gGraphicQueue.count = 0;
+        render::gTextQueue.count = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        static_cast<void>(ResetMapDrawCacheCounts_46BD40());
+        if (!copied) {
+            return false;
+        }
+    }
+    gSessionBackgroundInvalid = false;
+    return true;
+}
 
 // 原函数：0x0046CF60。
 void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int32_t markers)
@@ -285,46 +387,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     }
 
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
-    const std::int32_t xStart = session.WorldScene().map.xStart;
-    const std::int32_t yEnd = session.WorldScene().map.yEnd;
-    const auto projectionX = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceC);
-    std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
-    const std::int32_t rawY = 48 * (yEnd - xStart - 1);
-    const auto projectionY = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceD);
-    std::int32_t drawY = rawY / 2 + projectionY;
-    std::int32_t firstRow = session.WorldScene().map.spanY - 1;
-    std::int32_t firstColumn = 0;
-    while (firstRow >= 0) {
-        std::int32_t drawX = baseX;
-        const std::int32_t diagonal = firstColumn - firstRow;
-        std::int32_t row = firstRow;
-        while (row >= 0) {
-            const std::int32_t column = diagonal + row;
-            if (column < 0) {
-                break;
-            }
-            const std::int32_t index = session.WorldScene().map.spanX * row + column;
-            if (cutMode) {
-                detail::DrawCutTile(session, session.WorldScene().map.data.tiles[index], drawX, drawY, descriptor);
-                detail::DrawCutObject(session, session.WorldScene().map.data.objects[index], column, row, drawX, drawY, descriptor);
-            } else {
-                detail::DrawNormalMapCell(session, index, diagonal, row, drawX, drawY, markers);
-            }
-            --row;
-            drawX -= 64;
-        }
-        if (firstColumn < session.WorldScene().map.spanX - 1) {
-            ++firstColumn;
-            baseX += 32;
-        } else {
-            --firstRow;
-            baseX -= 32;
-        }
-        drawY -= 24;
-    }
-
-    detail::SortAndMergeMapDrawCache_46C2F0();
-    static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0());
+    detail::QueueMapLayers(session, cutMode, markers, descriptor, true);
     const std::int32_t playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));

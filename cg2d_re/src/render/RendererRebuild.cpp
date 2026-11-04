@@ -46,7 +46,7 @@ void RebuildRenderer_466B80(session::ClientSession& session)
         static_cast<void>(cg::render::DrawBattleBackgroundScaled(
             200, session.WorldScene().battle.backgroundImage));
         SortTextures_520790();
-        static_cast<void>(ClearSurface_4512C0());
+        static_cast<void>(ClearSurface_4512C0(session.WorldScene().backgroundColor));
         gRenderQueueMode103CF10 = 0;
         DrawAllQueued_520DD0(session);
         static_cast<void>(CopyBackToTemp());

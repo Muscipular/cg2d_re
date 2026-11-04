@@ -165,8 +165,9 @@ void WrapRipplePhase_520930(float* value);
 // 原 sub_521870@[0x521870,0x5219B5)：后台只推进原波纹状态，不触碰共享Back/Temp。
 std::int32_t ApplyScreenRipple_521870(session::ClientSession& session, bool submitPixels = true);
 
-// 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
-void SortTextures_520790();
+// 原 Renderer::SortTextures@[0x520790,0x5208E8)；只排序cache3，主记录不重排。
+// NSM01：背景重建不追加帧效果保留项，正常帧默认保持原追加顺序。
+void SortTextures_520790(bool includeFrameEffects = true);
 
 // 原520DD0：仅当前会话提交像素，后台仍消费地图/波纹/效果业务；不清队列计数。
 void DrawAllQueued_520DD0(session::ClientSession& session);

@@ -1105,22 +1105,26 @@ YobiAction* CreateRegisteredMapGraphicAction_46DE50(
 }
 
 // 原函数：0x0046DD90。
-void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* const action)
+void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* const action, const bool advanceState)
 {
-    const float sceneY = action->worldY;
-    const float sceneX = action->worldX;
-    float screenX;
-    float screenY;
-    world::ProjectWorldToScreen_46CE30(*action->ownerSession, sceneX, sceneY, &screenX, &screenY);
-    const auto x = static_cast<std::int64_t>(screenX + 0.5);
-    const double y = screenY + 0.5;
-    action->x = static_cast<std::int32_t>(x);
-    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
-    const auto worldX = static_cast<float>(
-        (action->mapX1E0 * 64));
-    const auto worldY = static_cast<float>(
-        (action->mapY1F0 * 64));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
+    if (advanceState) {
+        const float sceneY = action->worldY;
+        const float sceneX = action->worldX;
+        float screenX;
+        float screenY;
+        world::ProjectWorldToScreen_46CE30(*action->ownerSession, sceneX, sceneY, &screenX, &screenY);
+        const auto x = static_cast<std::int64_t>(screenX + 0.5);
+        const double y = screenY + 0.5;
+        action->x = static_cast<std::int32_t>(x);
+        action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
+    }
+    const auto worldX = advanceState ? static_cast<float>(
+        (action->mapX1E0 * 64)) : action->worldX;
+    const auto worldY = advanceState ? static_cast<float>(
+        (action->mapY1F0 * 64)) : action->worldY;
+    if (advanceState) {
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
+    }
     const std::int32_t offsetY = action->mapOffsetY;
     const std::int32_t offsetX = action->mapOffsetX;
     const std::int32_t drawY = offsetY + action->y;

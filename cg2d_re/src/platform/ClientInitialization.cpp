@@ -72,7 +72,7 @@ static void AdvanceLoadingFadeFrame(session::ClientSession& session)
         render::gPaletteFrameVersion = std::bit_cast<std::int32_t>(
             std::bit_cast<std::uint32_t>(render::gPaletteFrameVersion) + 1u);
     }
-    static_cast<void>(render::ClearSurface_4512C0());
+    static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
     render::DrawAllQueued_520DD0(session);
     if (gPendingPaletteReload == 1) {
         auto* palette = render::GetRendererPalette(render::gRenderer);
@@ -133,7 +133,7 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
         if (!keepRunning) {
             static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(session.WorldScene().backgroundColor));
             render::DrawAllQueued_520DD0(session);
             render::Flip_44C560();
             return 1;

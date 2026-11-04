@@ -201,14 +201,14 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         const std::int32_t fade = intro.phase9A5550 + 4;
         intro.phase9A5550 = fade;
         const std::uint32_t fadeBits = std::bit_cast<std::uint32_t>(fade);
-        render::gBackgroundColor =
+        connection.Owner().WorldScene().backgroundColor =
             fadeBits | ((fadeBits | (fadeBits << 8U)) << 8U);
         if (fade < 255) {
             return DispatchCapability3FromCurrentState(connection);
         }
 
         intro.phase9A5550 = 0;
-        render::gBackgroundColor = 0x00FFFFFFU;
+        connection.Owner().WorldScene().backgroundColor = 0x00FFFFFFU;
         connection.Owner().WorldScene().sceneState = 2;
         return ProcessCapability3CommonDispatch(connection, 2);
     }
@@ -352,7 +352,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
                 intro.phase9A5550 = 60;
                 cg::yobi::MarkDeath(action);
                 intro.leftAction9A50C0 = nullptr;
-                render::gBackgroundColor = 0;
+                connection.Owner().WorldScene().backgroundColor = 0;
                 intro.alpha9A4D08 = 0;
             }
             return DispatchCapability3FromCurrentState(connection);
@@ -373,7 +373,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A4D08 = 0;
         intro.alpha9A4CA0 = 0;
         intro.alpha9A5E70 = 255;
-        render::gBackgroundColor = 0;
+        connection.Owner().WorldScene().backgroundColor = 0;
         cg::yobi::MarkDeath(leftAction);
         cg::yobi::YobiAction* const rightAction = intro.rightAction9A50C4;
         cg::yobi::MarkDeath(rightAction);
@@ -415,7 +415,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
     case 10:
         static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));
         cg::yobi::YobiClearUp_404D30(connection.Owner());
-        render::gBackgroundColor = 0;
+        connection.Owner().WorldScene().backgroundColor = 0;
         return DispatchCapability3FromCurrentState(connection);
     }
 

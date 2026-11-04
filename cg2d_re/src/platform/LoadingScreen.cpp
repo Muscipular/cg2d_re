@@ -53,7 +53,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
 
         switch (phase) {
         case 0: {
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(connection.Owner().WorldScene().backgroundColor));
             descriptor = {};
             colorBytes[3] = 0xFF;
             static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 1));
@@ -191,7 +191,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 21:
             image = 0;
             static_cast<void>(render::SelectSessionPalette(connection.Owner(), 0, 1));
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(connection.Owner().WorldScene().backgroundColor));
             phase = 22;
             if (resource::ProbePaletteCapability_45C970() < 0) {
                 phase = 24;
@@ -200,7 +200,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         case 22:
             image = 0;
             static_cast<void>(render::SelectSessionPalette(connection.Owner(), 19, 1));
-            static_cast<void>(render::ClearSurface_4512C0());
+            static_cast<void>(render::ClearSurface_4512C0(connection.Owner().WorldScene().backgroundColor));
             phase = 23;
             break;
         case 23:

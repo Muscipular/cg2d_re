@@ -49,6 +49,10 @@ std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t s
 // NSM01：原转场重置点同时锁定后台直接完成策略，清理上一转场的待消费结果。
 void BeginSceneTransition(session::ClientSession& session);
 
+// NSM01：切换只失效共享背景；安全帧边界按已有地图/投影恢复像素，不推进业务。
+void InvalidateSessionBackground() noexcept;
+bool PrepareSessionBackground(session::ClientSession& session);
+
 // 原 sub_468FF0@0x468FF0；按原指令顺序把世界投影当前值复制到帧末快照，返回 D。
 std::uint32_t CopyWorldProjectionState_468FF0(session::ClientSession& session);
 

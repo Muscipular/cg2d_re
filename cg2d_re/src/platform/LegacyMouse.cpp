@@ -11,7 +11,7 @@ void InitializeLegacyMouseStorage(session::ClientSession& session)
 {
     auto& state = session.UiFrame().mouse.state;
     if (!state) {
-        state = session::MakeSessionStorage<LegacyMouseState>(session);
+        state = std::make_unique<LegacyMouseState>();
     }
 }
 

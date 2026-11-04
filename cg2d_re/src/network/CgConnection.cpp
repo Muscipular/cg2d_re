@@ -59,7 +59,6 @@
 #include <format>
 #include <list>
 #include <string>
-#include <stdexcept>
 #include <system_error>
 #include <tuple>
 #include <type_traits>
@@ -1386,47 +1385,6 @@ ClientHost& GetClientHost() noexcept
     return host;
 }
 
-void BindSessionStorage(ClientSession& session, const void* const storage, const std::size_t extent)
-{
-    auto& host = GetClientHost();
-    const auto begin = reinterpret_cast<std::uintptr_t>(storage);
-    const bool inserted = host.storageOwners_.emplace(
-        begin, ClientHost::StorageOwner {begin + extent, &session}).second;
-    if (!inserted) throw std::logic_error("会话存储重复登记");
-}
-
-void UnbindSessionStorage(const void* const storage) noexcept
-{
-    GetClientHost().storageOwners_.erase(reinterpret_cast<std::uintptr_t>(storage));
-}
-
-void UnbindSessionObjectStorage(const void* const storage, const std::size_t extent) noexcept
-{
-    auto& owners = GetClientHost().storageOwners_;
-    const auto begin = reinterpret_cast<std::uintptr_t>(storage);
-    const auto position = owners.find(begin);
-    if (position != owners.end() && position->second.end == begin + extent) {
-        owners.erase(position);
-    }
-}
-
-ClientSession* FindSessionStorageOwner(const void* const member) noexcept
-{
-    auto& owners = GetClientHost().storageOwners_;
-    const auto address = reinterpret_cast<std::uintptr_t>(member);
-    auto position = owners.upper_bound(address);
-    if (position == owners.begin()) return nullptr;
-    --position;
-    return address < position->second.end ? position->second.session : nullptr;
-}
-
-ClientSession& SessionStorageOwner(const void* const member)
-{
-    auto* const owner = FindSessionStorageOwner(member);
-    if (owner == nullptr) throw std::logic_error("会话存储未登记");
-    return *owner;
-}
-
 bool ClientHost::SelectSession(const std::uint64_t id) noexcept
 {
     for (auto it = sessions_.begin(); it != sessions_.end(); ++it) {
@@ -2148,8 +2106,8 @@ SendResult CgConnection::SendPositionDirectionInteraction(const std::int32_t x,
         if (spaces > 0) {
             const __time64_t seconds = ::_time64(nullptr);
             static_cast<void>(
-                platform::SeedRandom_53B4BF(*this, static_cast<std::uint32_t>(seconds)));
-            selected = platform::Rand16(*this) % spaces;
+                platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seconds)));
+            selected = platform::Rand16() % spaces;
             if (selected == 0) {
                 selected = 1;
             }

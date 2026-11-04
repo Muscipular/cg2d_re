@@ -12,7 +12,6 @@
 #include "cg/world/GuildState.hpp"
 #include "cg/world/Blacklist.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
-#include "cg/session/SessionStorage.hpp"
 
 #include <array>
 #include <cstddef>
@@ -439,7 +438,7 @@ void InitializeWorldMapCryptStorage(session::ClientSession& session);
 
 // 地图实际数据、投影/波纹、移动分量与矩形请求窗口，由世界会话持有。
 struct WorldMapRuntimeState {
-    session::SessionStoragePtr<WorldMapCryptRuntimeState> crypt;
+    std::unique_ptr<WorldMapCryptRuntimeState> crypt;
     MapDataRuntimeState data {};
     std::uint32_t mapId = 0; // 原9A86DC。
     volatile std::int32_t floor = 0; // 原9EE8F0，保留逐次volatile读取。
@@ -544,13 +543,13 @@ struct WorldSceneRuntimeState {
     std::int32_t pendingSceneState = 0; // 原FF0D60。
     std::int32_t sceneState = 0; // 原FF0D64。
     std::int32_t pendingSceneType = 0; // 原FF0D6C，宿主原初始化位置置-1。
-    session::SessionStoragePtr<std::array<detail::WorldObjectRecord, detail::kWorldObjectCapacity>> objects; // 原5AC4C0，中央位置构造。
+    std::unique_ptr<std::array<detail::WorldObjectRecord, detail::kWorldObjectCapacity>> objects; // 原5AC4C0，中央位置构造。
     std::int32_t objectFindCursor = 0; // 原5AC498。
     std::int32_t objectFreeCursor = 0; // 原5AC49C。
     std::int32_t objectUsedCount = 0; // 原5AC4B4。
     std::int32_t objectUpperBound = 0; // 原5F9738，不是占用数量。
-    session::SessionStoragePtr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
-    session::SessionStoragePtr<std::array<PetRuntimeRecord, 5>> petRecords; // 原F633F8，原中央位置构造五宠物。
+    std::unique_ptr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
+    std::unique_ptr<std::array<PetRuntimeRecord, 5>> petRecords; // 原F633F8，原中央位置构造五宠物。
     std::array<PetPairRecord, 5> petPairs {}; // 原DE0B08，同会话宠物显示排序对。
     std::int32_t petCount = 0; // 原DE0B00。
     std::uint32_t petDetailDraftChanged = 0; // 原D67B28，详情与属性/技能窗口共用。

@@ -3025,7 +3025,7 @@ void WindowStall_ConstructBrowsePetValues(session::ClientSession& session)
     // 原0x004CD360／0x004CD2D0：独立浏览区五项各六成员构造，退出自动逆序析构。
     auto& browse = session.UiFrame().native.stall.browse;
     if (!browse) {
-        browse = session::MakeSessionStorage<detail::StallBrowseData>(session);
+        browse = std::make_unique<detail::StallBrowseData>();
     }
 }
 

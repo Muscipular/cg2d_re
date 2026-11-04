@@ -565,7 +565,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& sessio
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(session, window);
-    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t skill = craft.skillIndex;
     const std::int32_t recipe = craft.recipeIndex;
     const std::int32_t level = session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].level;
@@ -625,7 +625,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(session, window);
-    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = session.WorldScene().playerItems[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
@@ -664,7 +664,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(session, window);
-    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = session.WorldScene().playerItems[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
@@ -738,7 +738,7 @@ static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& ses
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(session, window, false);
-    const auto duration = static_cast<std::uint32_t>(platform::Rand16(session.Connection()) % 6 + 5) * 1000u;
+    const auto duration = static_cast<std::uint32_t>(platform::Rand16() % 6 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
     craft.selectionMode = 10;
     return result;

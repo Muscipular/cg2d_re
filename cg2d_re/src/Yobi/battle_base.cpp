@@ -449,7 +449,7 @@ std::int32_t SeedBattleRandom_4065A0(YobiAction* const source, const std::int32_
     }
     const auto length = static_cast<std::int32_t>(std::strlen(source->ownerSession->WorldScene().battle.mText.data()));
     const std::int32_t seed = length * count * value;
-    static_cast<void>(platform::SeedRandom_53B4BF(source->ownerSession->Connection(), static_cast<std::uint32_t>(seed)));
+    static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seed)));
     return seed;
 }
 

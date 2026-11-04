@@ -321,7 +321,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0());
     const std::int32_t playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(session, static_cast<std::int32_t>(playerX));
+    temporary.emplace(static_cast<std::int32_t>(playerX));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
@@ -339,7 +339,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     }
     temporary.reset();
     const std::int32_t playerY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
-    temporary.emplace(session, static_cast<std::int32_t>(playerY));
+    temporary.emplace(static_cast<std::int32_t>(playerY));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;

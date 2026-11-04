@@ -11,11 +11,6 @@ namespace cg::session { class ClientSession; }
 
 namespace cg::character_select {
 
-#ifndef _DEBUG
-// NSM01：保原非Debug两次早期构造/取样，实际值归会话，不再由线程附着初始化。
-void InitializeUsageNoticeCryptValues(network::CgConnection& connection);
-#endif
-
 // 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。
 // LDT01：以当前版本低8值选择图号；原图/分类3减5000/既有51B910回退。
 std::int32_t ResolveCharacterImageForVersion(

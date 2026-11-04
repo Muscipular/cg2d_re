@@ -12,19 +12,28 @@
 #include <bit>
 #include <cstdint>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。
+#include <mutex>
 #include <random>
 
 namespace cg::platform {
 
-static session::LegacyRandomEngine& SharedRandomEngine(network::CgConnection& connection)
+static auto& SharedRandomEngine()
 {
-    return connection.Owner().RandomEngine();
+    static std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0> engine {1};
+    return engine;
+}
+
+// 原非Debug TLS构造也会取数，与主循环共用同一把进程锁。
+static std::mutex& SharedRandomMutex()
+{
+    static std::mutex mutex;
+    return mutex;
 }
 
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
 static volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
 
-static std::uint32_t RandomSymmetricW32(network::CgConnection& connection, const std::uint32_t amplitudeBits)
+static std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
     const std::uint32_t lowerBits = std::uint32_t{0} - amplitudeBits;
     const std::uint32_t upperBits = amplitudeBits;
@@ -38,7 +47,7 @@ static std::uint32_t RandomSymmetricW32(network::CgConnection& connection, const
     const std::int32_t divisor =
         std::bit_cast<std::int32_t>(divisorBits);
     const std::int32_t remainder =
-        static_cast<std::int32_t>(Rand16(connection)) % divisor;
+        static_cast<std::int32_t>(Rand16()) % divisor;
     return std::bit_cast<std::uint32_t>(remainder) + lowerBits;
 }
 
@@ -87,24 +96,25 @@ void KeepAlive_457AB0(network::CgConnection& connection)
 }
 
 // 原函数：0x0053B4BF。
-std::uint32_t SeedRandom_53B4BF(network::CgConnection& connection, std::uint32_t seed)
+std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 {
-    SharedRandomEngine(connection).seed(seed);
+    const std::lock_guard lock(SharedRandomMutex());
+    SharedRandomEngine().seed(seed);
     return seed;
 }
 
 // 原函数：0x0053B4C9。
-int Rand16(network::CgConnection& connection)
+int Rand16()
 {
-    const std::uint32_t seed = SharedRandomEngine(connection)();
+    const std::lock_guard lock(SharedRandomMutex());
+    const std::uint32_t seed = SharedRandomEngine()();
     // 原 sar 后的 0x7FFF 掩码只保留原位 16..30，无符号移位得到相同结果。
     return static_cast<int>((seed >> 16) & 0x7FFFu);
 }
 
 // 原 0x46FAF0：保留上界-1哨兵；RRU01将合法闭区间改为标准均匀分布。
 // 倒置区间保留原Rand16取模算法；合法区间的随机值及引擎消费次数允许变化。
-std::int32_t RandomRange_46FAF0(
-    network::CgConnection& connection, std::int32_t lower, std::int32_t upper)
+std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 {
     if (upper == -1) {
         return 0;
@@ -112,10 +122,11 @@ std::int32_t RandomRange_46FAF0(
 
     if (lower <= upper) {
         std::uniform_int_distribution<std::int32_t> distribution(lower, upper);
-        return distribution(SharedRandomEngine(connection));
+        const std::lock_guard lock(SharedRandomMutex());
+        return distribution(SharedRandomEngine());
     }
 
-    const std::int32_t random = Rand16(connection);
+    const std::int32_t random = Rand16();
     const std::int32_t divisor = upper - lower + 1;
     return random % divisor + lower;
 }
@@ -130,12 +141,12 @@ void ApplyScreenShake_423640(session::ClientSession& session)
     } else {
         const std::uint32_t amplitudeX =
             session.Yobi().screenOffsetAmplitude;
-        const std::uint32_t randomXBits = RandomSymmetricW32(session.Connection(), amplitudeX);
+        const std::uint32_t randomXBits = RandomSymmetricW32(amplitudeX);
         session.Yobi().screenOffsetX = randomXBits;
 
         const std::uint32_t amplitudeY =
             session.Yobi().screenOffsetAmplitude;
-        offsetYBits = RandomSymmetricW32(session.Connection(), amplitudeY);
+        offsetYBits = RandomSymmetricW32(amplitudeY);
         session.Yobi().screenOffsetY = offsetYBits;
     }
 

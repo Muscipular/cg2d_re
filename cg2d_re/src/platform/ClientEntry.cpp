@@ -1,5 +1,4 @@
 #include "cg/session/ClientSession.hpp"
-#include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
@@ -312,10 +311,6 @@ WNDCLASSW gWindowClass {}; // 原全局：0x009A6ED0。
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR commandLine, int showCommand)
 {
     using namespace cg::platform;
-#ifndef _DEBUG
-    cg::character_select::InitializeUsageNoticeCryptValues(
-        cg::session::GetClientHost().FirstSession().Connection());
-#endif
     static_cast<void>(ReadTickCount64()); // CTM01：在入口建立统一启动计时基线。
 
     const ClientTimerResolution timerResolution;

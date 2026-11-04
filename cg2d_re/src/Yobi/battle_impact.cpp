@@ -59,7 +59,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             imageNo = 110098;
         } else {
-            imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         FaceBattleActorTowardFormationPosition_406260(target);
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
@@ -81,7 +81,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -224,7 +224,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             imageNo = 110098;
         } else {
-            imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         FaceBattleActorTowardFormationPosition_406260(target);
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
@@ -246,7 +246,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -389,7 +389,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             imageNo = 110098;
         } else {
-            imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         FaceBattleActorTowardFormationPosition_406260(target);
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
@@ -415,7 +415,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         payload->effects1C[payload->effectRunningC9C].position];
                     if ((compareTarget->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                        temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -610,7 +610,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             imageNo = 110098;
         } else {
-            imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         FaceBattleActorTowardFormationPosition_406260(target);
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
@@ -630,7 +630,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -750,7 +750,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     if (previousDelay <= 0) {
         if (previousDelay == 0) {
             static_cast<void>(audio::PlaySe_52C450(262, action->x));
-            const std::int32_t frames = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 32);
+            const std::int32_t frames = platform::RandomRange_46FAF0(0, 32);
             for (std::int32_t remaining = frames; remaining > 0; --remaining) {
                 static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             }
@@ -858,7 +858,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             imageNo = 110098;
         } else {
-            imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
@@ -877,7 +877,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1020,32 +1020,32 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             if (image == 111011) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
             } else if (image == 110044) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
             } else if (image == 110045) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -6, 6);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -6, 6);
+                    randomX = platform::RandomRange_46FAF0(-6, 6);
                     emitTrail = true;
                 }
             } else if (image == 110046) {
                 if (action->nameX == 0) {
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -4, 4);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
                     const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    const std::int32_t xOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -4, 4);
+                    const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
                     const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
                     static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
@@ -1053,9 +1053,9 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             } else if (image == 110047) {
                 if (action->nameX == 0) {
                     trailImage = 110006;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -2, 2);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -2, 2);
+                    randomX = platform::RandomRange_46FAF0(-2, 2);
                     emitTrail = true;
                 }
             }
@@ -1191,32 +1191,32 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             if (image == 111011) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
             } else if (image == 110044) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -10, 10);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
             } else if (image == 110045) {
                 if (action->nameX == 0) {
                     trailImage = 110007;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -6, 6);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -6, 6);
+                    randomX = platform::RandomRange_46FAF0(-6, 6);
                     emitTrail = true;
                 }
             } else if (image == 110046) {
                 if (action->nameX == 0) {
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -4, 4);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
                     const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    const std::int32_t xOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -4, 4);
+                    const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
                     const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
                     static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
@@ -1224,9 +1224,9 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             } else if (image == 110047) {
                 if (action->nameX == 0) {
                     trailImage = 110006;
-                    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -2, 2);
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
                     trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
-                    randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -2, 2);
+                    randomX = platform::RandomRange_46FAF0(-2, 2);
                     emitTrail = true;
                 }
             }
@@ -1275,7 +1275,7 @@ void InitBattleTargetEffect_422E50(
     }
     action->framePlayingRate = 100;
     if (sourcePayload->effectRunningC9C != 0) {
-        action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
     action->imageNo = sourcePayload->image102C;
     switch (action->imageNo) {
@@ -1337,9 +1337,9 @@ void InitBattleOffsetEffect_423040(
     }
     action->framePlayingRate = 100;
     if (sourcePayload->effectRunningC9C != 0) {
-        action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
-    const std::int32_t imageOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2);
+    const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
     action->imageNo = imageOffset + sourcePayload->image102C;
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
@@ -1387,12 +1387,12 @@ void InitBattleCenterEffect_4231D0(
     }
     action->framePlayingRate = 100;
     if (sourcePayload->effectRunningC9C != 0) {
-        action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
     action->imageNo = sourcePayload->image102C;
     action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
     action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
-    const std::int32_t speed = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 4, 8);
+    const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
     action->motionMagnitude54 = static_cast<float>(speed);
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
@@ -1402,7 +1402,7 @@ void InitBattleCenterEffect_4231D0(
     YobiAction* const target = action->ownerSession->WorldScene().battle.allEntries[
         sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
     TurnBattleToward_406190(action, target, 0, 0.0F);
-    const std::int32_t angleOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -90, 90);
+    const std::int32_t angleOffset = platform::RandomRange_46FAF0(-90, 90);
     action->pathCountOrDrawOrder_270 = 0;
     action->angle50 = static_cast<float>(static_cast<double>(angleOffset) + action->angle50);
 }
@@ -1440,9 +1440,9 @@ void InitBattleLowerEffect_423350(
     }
     action->framePlayingRate = 100;
     if (sourcePayload->effectRunningC9C != 0) {
-        action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
-    const std::int32_t imageOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2);
+    const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
     action->imageNo = imageOffset + sourcePayload->image102C;
     action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
     action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
@@ -1485,7 +1485,7 @@ void InitBattleScreenYEffect_4234B0(
     }
     action->framePlayingRate = 100;
     if (sourcePayload->effectRunningC9C != 0) {
-        action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
     const std::int32_t skill = sourcePayload->castSkill103C;
     std::int32_t image;
@@ -1493,7 +1493,7 @@ void InitBattleScreenYEffect_4234B0(
         || skill == BattleSkill_AttackMagicWaterSuper) {
         image = sourcePayload->image102C;
     } else {
-        const std::int32_t imageOffset = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2);
+        const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
         image = imageOffset + sourcePayload->image102C;
     }
     action->imageNo = image;

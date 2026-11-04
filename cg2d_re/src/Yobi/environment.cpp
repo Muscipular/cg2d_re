@@ -879,34 +879,34 @@ void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
     action->mapY1F0 = static_cast<std::int32_t>(session.WorldScene().map.floor);
     const auto timeCategory = static_cast<std::uint8_t>(session.WorldScene().map.currentDayPeriod);
     action->imageNo = (timeCategory & 1u) != 0
-        ? platform::RandomRange_46FAF0(session.Connection(), detail::SceneDriftVariant_FromPositiveWorldX, detail::SceneDriftVariant_FromNegativeWorldX) : platform::RandomRange_46FAF0(session.Connection(), detail::SceneDriftVariant_FromNegativeWorldY, detail::SceneDriftVariant_FromPositiveWorldY);
-    const std::int32_t speed = platform::RandomRange_46FAF0(session.Connection(), 0, 200);
+        ? platform::RandomRange_46FAF0(detail::SceneDriftVariant_FromPositiveWorldX, detail::SceneDriftVariant_FromNegativeWorldX) : platform::RandomRange_46FAF0(detail::SceneDriftVariant_FromNegativeWorldY, detail::SceneDriftVariant_FromPositiveWorldY);
+    const std::int32_t speed = platform::RandomRange_46FAF0(0, 200);
     action->motionMagnitude54 = static_cast<float>(static_cast<double>(speed) * 0.01F + 2.0F);
-    const std::int32_t offset = platform::RandomRange_46FAF0(session.Connection(), 0, 2048) - 1024;
+    const std::int32_t offset = platform::RandomRange_46FAF0(0, 2048) - 1024;
     switch (action->imageNo & 3) {
     case detail::SceneDriftVariant_FromPositiveWorldX:
-        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 213);
+        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 213);
         action->worldX = static_cast<float>(
             session.WorldScene().player->action->worldX + 550.0);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + session.WorldScene().player->action->worldY);
         break;
     case detail::SceneDriftVariant_FromNegativeWorldX:
-        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 33);
+        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 33);
         action->worldX = static_cast<float>(
             session.WorldScene().player->action->worldX - 400.0 - 150.0F);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + session.WorldScene().player->action->worldY);
         break;
     case detail::SceneDriftVariant_FromNegativeWorldY:
-        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 107);
+        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 107);
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + session.WorldScene().player->action->worldX);
         action->worldY = static_cast<float>(
             session.WorldScene().player->action->worldY - 400.0 - 150.0F);
         break;
     case detail::SceneDriftVariant_FromPositiveWorldY:
-        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 287);
+        action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 287);
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + session.WorldScene().player->action->worldX);
         action->worldY = static_cast<float>(

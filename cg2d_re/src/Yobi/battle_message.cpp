@@ -1461,14 +1461,14 @@ static void ProcessBattleMTransitionHeader(
             FinishBattleEvent_43B6C0(scene);
             return;
         }
-        static_cast<void>(platform::SeedRandom_53B4BF(scene->ownerSession->Connection(), static_cast<std::uint32_t>(position)));
-        const std::int32_t xIndex = platform::RandomRange_46FAF0(scene->ownerSession->Connection(), 0, 19);
+        static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(position)));
+        const std::int32_t xIndex = platform::RandomRange_46FAF0(0, 19);
         // 原X先借角色、读坐标，再借载荷；Y先借角色及载荷，再读坐标。
         const std::int32_t xPosition = scene->ownerSession->WorldScene().battle.mCasterPosition;
         YobiAction* const xActor = scene->ownerSession->WorldScene().battle.allEntries[xPosition];
         const std::int32_t x = scene->ownerSession->WorldScene().battle.graphicPoints[xIndex][0];
         xActor->payload.battleActor->x08 = x;
-        const std::int32_t yIndex = platform::RandomRange_46FAF0(scene->ownerSession->Connection(), 0, 19);
+        const std::int32_t yIndex = platform::RandomRange_46FAF0(0, 19);
         const std::int32_t yPosition = scene->ownerSession->WorldScene().battle.mCasterPosition;
         YobiAction* const yActor = scene->ownerSession->WorldScene().battle.allEntries[yPosition];
         auto* const yPayload = yActor->payload.battleActor;
@@ -2581,7 +2581,7 @@ static void ProcessBattleMGmnHeader(
     if (mode == BattleMGmnMode_EnterWithEntrance2) {
         entrance = 2;
     } else if (mode == BattleMGmnMode_EnterWithRandomEntranceAndEmitter) {
-        entrance = static_cast<std::int8_t>((platform::Rand16(scene->ownerSession->Connection()) & 1) + 1);
+        entrance = static_cast<std::int8_t>((platform::Rand16() & 1) + 1);
         static_cast<void>(NewBattleScreenEmitter_421700(scene, 150));
     }
     scene->ownerSession->WorldScene().battle.mCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));

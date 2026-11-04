@@ -1243,12 +1243,8 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
 #ifndef _DEBUG
 // CUN01：本端人物页扩展状态；等待明确选择，不复用原0..21业务状态。
 static constexpr std::int32_t kUsageNoticeState = 22;
-void InitializeUsageNoticeCryptValues(network::CgConnection& connection)
-{
-    auto& values = connection.CharacterSelectUi().usageNoticeCryptValues;
-    if (!values[0]) values[0].emplace(connection.Owner(), std::int32_t{1});
-    if (!values[1]) values[1].emplace(connection.Owner(), std::random_device().operator()());
-}
+thread_local cg::platform::LegacyCryptInt state1(1);
+thread_local cg::platform::LegacyCryptInt state2(std::random_device().operator()());
 
 #define MIXVL 0x1a57b94f
 #define MXTRUE 0x8ef61
@@ -1578,7 +1574,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     EnterSelectedCharacter(connection);
                 } else if (choice == 2) {
                     // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
-                    std::_Exit(cg::platform::Rand16(connection));
+                    std::_Exit(cg::platform::Rand16());
                 }
             }
 #endif

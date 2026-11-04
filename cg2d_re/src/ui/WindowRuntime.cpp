@@ -2928,24 +2928,24 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session)
         // window->y += offsetY;
         // window = state.window;
         if (window->x < 0) {
-            const std::int32_t x = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
+            const std::int32_t x = platform::RandomRange_46FAF0(10, 20);
             state.window->x = x;
         }
         window = state.window;
         if (window->y < 0) {
-            const std::int32_t y = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
+            const std::int32_t y = platform::RandomRange_46FAF0(10, 20);
             state.window->y = y;
         }
         window = state.window;
         const std::int32_t width = prototype->width;
         if (window->x + width > platform::gWindowWidth) {
-            const std::int32_t x = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
+            const std::int32_t x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
             state.window->x = x;
         }
         window = state.window;
         const std::int32_t height = prototype->height;
         if (window->y + height > platform::gWindowHeight) {
-            const std::int32_t y = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
+            const std::int32_t y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
             state.window->y = y;
         }
         // 保留上方随机数消费；仅原型中心符合±50规则的窗口按实例尺寸居中。
@@ -3133,7 +3133,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 }
             }
             if ((platform::ReadSessionKeyState(session, 0xDC) & 4u) != 0) {
-                const std::int32_t remainder = platform::Rand16(session.Connection()) % 3;
+                const std::int32_t remainder = platform::Rand16() % 3;
                 if (remainder == 0) {
                     WindowRuntime_PlayShortcutEmote(session, 14, 7);
                 } else if (remainder == 1) {
@@ -4761,21 +4761,21 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
     if (id == 10 || id == 11 || id == 12 || id == 14 || id == 27) {
-        const std::int32_t offsetX = platform::RandomRange_46FAF0(session.Connection(), -15, 15);
+        const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
         states[id].x += offsetX;
-        const std::int32_t offsetY = platform::RandomRange_46FAF0(session.Connection(), -15, 15);
+        const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
         states[id].y += offsetY;
         if (states[id].x < 0) {
-            states[id].x = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
+            states[id].x = platform::RandomRange_46FAF0(10, 20);
         }
         if (states[id].y < 0) {
-            states[id].y = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
+            states[id].y = platform::RandomRange_46FAF0(10, 20);
         }
         if (states[id].x + width > platform::gWindowWidth) {
-            states[id].x = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
+            states[id].x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
         }
         if (states[id].y + height > platform::gWindowHeight) {
-            states[id].y = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
+            states[id].y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
         }
     }
     WindowInstance* const window = states[id].window;

@@ -77,7 +77,7 @@ void InitializeWorldMapCryptStorage(session::ClientSession& session)
 {
     auto& crypt = session.WorldScene().map.crypt;
     if (!crypt) {
-        crypt = session::MakeSessionStorage<WorldMapCryptRuntimeState>(session);
+        crypt = std::make_unique<WorldMapCryptRuntimeState>();
     }
 }
 
@@ -552,7 +552,7 @@ std::uint32_t CopyWorldProjectionState_468FF0(session::ClientSession& session)
 std::int32_t InitializeRotationTable_46FB20(session::ClientSession& session)
 {
     auto& rotation = session.WorldScene().rotation;
-    std::int32_t index = platform::Rand16(session.Connection()) % 100;
+    std::int32_t index = platform::Rand16() % 100;
     for (std::int32_t value = 0; value < 100; ++value) {
         rotation.table[static_cast<std::size_t>(index)] = value;
         ++index;
@@ -978,10 +978,10 @@ static MapEffectRecord* CreateMapEffectKind1AtZero(session::ClientSession& sessi
         return nullptr;
     }
     record->kind = 1;
-    const std::int32_t randomX = platform::Rand16(session.Connection());
+    const std::int32_t randomX = platform::Rand16();
     record->y = 0;
     record->x = randomX % 840 - 200;
-    const std::int32_t randomSpeed = platform::Rand16(session.Connection());
+    const std::int32_t randomSpeed = platform::Rand16();
     record->value0C = 9;
     record->value08 = randomSpeed % 2 + 2;
     return record;
@@ -1007,17 +1007,17 @@ static MapEffectRecord* CreateMapEffectKind2AtZero(session::ClientSession& sessi
         return nullptr;
     }
     record->kind = 2;
-    const std::int32_t randomX = platform::Rand16(session.Connection());
+    const std::int32_t randomX = platform::Rand16();
     record->y = 0;
     record->x = randomX % 940 - 200;
-    record->variant = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 2);
-    const std::int32_t direction = platform::Rand16(session.Connection()) % 2;
+    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 2);
+    const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0) {
-        record->value08 = platform::Rand16(session.Connection()) % 2;
-        record->value0C = platform::Rand16(session.Connection()) % 2 + 3;
+        record->value08 = platform::Rand16() % 2;
+        record->value0C = platform::Rand16() % 2 + 3;
     } else if (direction == 1) {
         record->value08 = 1;
-        record->value0C = platform::Rand16(session.Connection()) % 2 + 4;
+        record->value0C = platform::Rand16() % 2 + 4;
     }
     return record;
 }
@@ -1041,12 +1041,12 @@ static void CreateMapEffectKind4(session::ClientSession& session)
         return;
     }
     record->kind = 4;
-    const std::int32_t randomX = platform::Rand16(session.Connection());
+    const std::int32_t randomX = platform::Rand16();
     record->y = 0;
     record->x = randomX % 1240 - 100;
-    record->variant = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 4);
+    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 4);
     record->remaining = 4;
-    const std::int32_t direction = platform::Rand16(session.Connection()) % 2;
+    const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0 || direction == 1) {
         record->value08 = static_cast<std::int32_t>(0xFFFFFFFFu);
         record->value0C = direction + 2;
@@ -1343,21 +1343,21 @@ void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
     MapEffectRecord* record = session.WorldScene().mapEffects.active;
     while (record != nullptr) {
         if (record->kind == 4) {
-            const std::int32_t randomX = platform::Rand16(session.Connection()) % 3;
+            const std::int32_t randomX = platform::Rand16() % 3;
             const std::int32_t oldX = record->x;
             const std::int32_t velocityX = record->value08;
             record->x = oldX + velocityX + (randomX - 1);
 
-            const std::int32_t randomY = platform::Rand16(session.Connection()) % 3;
+            const std::int32_t randomY = platform::Rand16() % 3;
             const std::int32_t velocityY = record->value0C;
             const std::int32_t oldY = record->y;
             const std::uint32_t remaining = record->remaining;
             record->y = oldY + velocityY + (randomY - 1);
             if (std::bit_cast<std::int32_t>(remaining) <= 0) {
-                record->phase = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 3);
-                record->value28 = platform::Rand16(session.Connection()) % 8 + 1;
+                record->phase = static_cast<std::uint16_t>(platform::Rand16() % 3);
+                record->value28 = platform::Rand16() % 8 + 1;
                 const std::uint32_t nextVelocityY =
-                    static_cast<std::uint32_t>(platform::Rand16(session.Connection()) % 8 + 1);
+                    static_cast<std::uint32_t>(platform::Rand16() % 8 + 1);
                 record->remaining = 4;
                 record->value2C = static_cast<std::int32_t>(nextVelocityY);
             } else {
@@ -1588,13 +1588,13 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
         if (divisor == 0) {
             divisor = 1;
         }
-        if (platform::Rand16(session.Connection()) % divisor != 0) {
+        if (platform::Rand16() % divisor != 0) {
             return;
         }
-        const std::int32_t graphicIndex = platform::Rand16(session.Connection()) % 3;
+        const std::int32_t graphicIndex = platform::Rand16() % 3;
         const std::int32_t recordSpeed =
-            platform::Rand16(session.Connection()) % 1000 + minimumSpeed;
-        const std::int32_t phase = platform::Rand16(session.Connection());
+            platform::Rand16() % 1000 + minimumSpeed;
+        const std::int32_t phase = platform::Rand16();
         CreateDirectionalMapEffect_46F090(session, kind, motion.horizontalSign, motion.verticalSign,
             phase, recordSpeed, graphicIndex);
     };
@@ -2821,7 +2821,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     static_cast<void>(SetPlayerMapPosition_468330(session, 0, 0));
 
     std::optional<platform::LegacyCryptInt> first;
-    first.emplace(session, static_cast<std::int32_t>(0));
+    first.emplace(static_cast<std::int32_t>(0));
     const std::uint32_t firstMask = first->mask;
     const std::uint32_t firstEncoded = first->encoded;
     const std::uint8_t firstReadCount = first->readCount;
@@ -2833,7 +2833,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     session.WorldScene().map.crypt->lastDrawPlayerY = std::int32_t{0};
     first.reset();
 
-    second.emplace(session, static_cast<std::int32_t>(0));
+    second.emplace(static_cast<std::int32_t>(0));
     const std::uint32_t thirdMask = second->mask;
     const std::uint32_t thirdEncoded = second->encoded;
     const std::uint8_t thirdReadCount = second->readCount;
@@ -3540,7 +3540,7 @@ std::uint32_t CaptureSceneAndSelectEvenVariant_51D750(session::ClientSession& se
 {
     static_cast<void>(render::CopyBackToTemp());
     const std::uint32_t bits = static_cast<std::uint32_t>(
-        platform::RandomRange_46FAF0(session.Connection(), 0, 35));
+        platform::RandomRange_46FAF0(0, 35));
     const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
     const std::uint32_t result = (bits & 0xFFFFFF00u) | low;
     session.WorldScene().capturedTransitionVariant = result;
@@ -7118,7 +7118,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
     auto& gTileTransitionYFF0D7C = tile.y;
     auto& gTileTransitionXFF265C = tile.x;
     auto& gTileTransitionSourceXFF0E7C = tile.sourceX;
-    std::int32_t selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
+    std::int32_t selected = platform::RandomRange_46FAF0(0, 63);
     std::int32_t acceleration = static_cast<std::int32_t>(
         static_cast<std::int64_t>(std::bit_cast<float>(payloadBits)));
     if (acceleration < 1) {
@@ -7146,7 +7146,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
     case 0:
         for (std::int32_t index = 0; index < count; ++index) {
             while (gTileTransitionStateFF27B8[selected] == 0) {
-                selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
+                selected = platform::RandomRange_46FAF0(0, 63);
             }
             const std::int32_t completed = gTileTransitionCompletedFF46C0;
             gTileTransitionStateFF27B8[selected] = 0;
@@ -7161,7 +7161,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
     case 1:
         for (std::int32_t index = 0; index < count; ++index) {
             while (gTileTransitionStateFF27B8[selected] == 1) {
-                selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
+                selected = platform::RandomRange_46FAF0(0, 63);
             }
             const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
             gTileTransitionStateFF27B8[selected] = 1;
@@ -7178,7 +7178,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
                 break;
             }
             while (gTileTransitionStateFF27B8[selected] <= 1) {
-                selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
+                selected = platform::RandomRange_46FAF0(0, 63);
             }
             const std::int32_t started = gTileTransitionStartedFF28BC;
             gTileTransitionStateFF27B8[selected] = 1;
@@ -7211,7 +7211,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
                 break;
             }
             while (gTileTransitionStateFF27B8[selected] >= 1) {
-                selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
+                selected = platform::RandomRange_46FAF0(0, 63);
             }
             const std::int32_t started = gTileTransitionStartedFF28BC;
             gTileTransitionStateFF27B8[selected] = 1;
@@ -7421,7 +7421,7 @@ static std::int32_t ProcessScanlineTransition(
         return 1;
     }
     std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(session, static_cast<std::int32_t>(nextState));
+    temporary.emplace(static_cast<std::int32_t>(nextState));
     if (direction < 0) {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
@@ -7671,7 +7671,7 @@ void InitializePlayerRuntimeStorage(session::ClientSession& session)
 {
     auto& player = session.WorldScene().player;
     if (player == nullptr) {
-        player = session::MakeSessionStorage<PlayerRuntimeSlots>(session);
+        player = std::make_unique<PlayerRuntimeSlots>();
     }
 }
 
@@ -7730,7 +7730,7 @@ void InitializePetRuntimeStorage(session::ClientSession& session)
 {
     auto& records = session.WorldScene().petRecords;
     if (records == nullptr) {
-        records = session::MakeSessionStorage<std::array<PetRuntimeRecord, 5>>(session);
+        records = std::make_unique<std::array<PetRuntimeRecord, 5>>();
     }
 }
 

@@ -75,7 +75,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
             }
             case BattleSkill_DelayAttack258: secondaryImage = 110477; break;
             case BattleSkill_StatusAttackPoisonStrike:
-                image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                image = platform::RandomRange_46FAF0(0, 2) + 110001;
                 secondaryImage = 110470;
                 break;
             case BattleSkill_Wattack: image = payload->castSkillLevel1044 < 12 ? 110473 : 111054; break;
@@ -95,7 +95,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
                     image = 110074;
                 } else {
-                    image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    image = platform::RandomRange_46FAF0(0, 2) + 110001;
                 }
                 break;
             }
@@ -264,7 +264,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             if ((action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 std::optional<platform::LegacyCryptInt> temporary;
-                                temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                                temporary.emplace(static_cast<std::int32_t>(0));
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary->encoded;
                                 YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -303,7 +303,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             if ((action->ownerSession->WorldScene().battle.allEntries[
                                     payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 std::optional<platform::LegacyCryptInt> temporary;
-                                temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                                temporary.emplace(static_cast<std::int32_t>(0));
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary->encoded;
                                 YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -458,7 +458,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         if ((action->ownerSession->WorldScene().battle.allEntries[
                                 payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                            temporary.emplace(static_cast<std::int32_t>(0));
                             const std::int32_t currentIndex = payload->effectRunningC9C;
                             const std::uint32_t temporaryEncoded = temporary->encoded;
                             YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -517,7 +517,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 if ((action->ownerSession->WorldScene().battle.allEntries[
                                         payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                                     std::optional<platform::LegacyCryptInt> temporary;
-                                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                                    temporary.emplace(static_cast<std::int32_t>(0));
                                     const std::int32_t currentIndex = payload->effectRunningC9C;
                                     const std::uint32_t temporaryEncoded = temporary->encoded;
                                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -933,7 +933,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             }
             case BattleSkill_DelayAttack258: secondaryImage = 110477; break;
             case BattleSkill_StatusAttackPoisonStrike:
-                image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                image = platform::RandomRange_46FAF0(0, 2) + 110001;
                 secondaryImage = 110470;
                 break;
             case BattleSkill_Wattack: image = payload->castSkillLevel1044 < 12 ? 110473 : 111054; break;
@@ -950,7 +950,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
                     image = 110074;
                 } else {
-                    image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    image = platform::RandomRange_46FAF0(0, 2) + 110001;
                 }
                 break;
             }
@@ -1025,7 +1025,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 if ((action->ownerSession->WorldScene().battle.allEntries[
                         payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t zeroEncoded = temporary->encoded;
                     YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[
@@ -1270,7 +1270,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
         } else if ((initialFlags & BattleResultFlag_SpecialGuard) != 0) {
             image = FindBattleAppendEffectTechnique_43BEA0(action, BattleSkill_SpecialGuard, position) < 12 ? 110098 : 111048;
         } else {
-            image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+            image = platform::RandomRange_46FAF0(0, 2) + 110001;
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
         target->battleOpponent10 = action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18];
@@ -1301,7 +1301,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                     if ((action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                        temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -1437,7 +1437,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 }
                 case BattleSkill_DelayAttack258: secondaryImage = 110477; break;
                 case BattleSkill_StatusAttackPoisonStrike:
-                    image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    image = platform::RandomRange_46FAF0(0, 2) + 110001;
                     secondaryImage = 110470;
                     break;
                 case BattleSkill_Wattack: image = payload->castSkillLevel1044 < 12 ? 110473 : 111054; break;
@@ -1467,7 +1467,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
                         image = 110074;
                     } else {
-                        image = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                        image = platform::RandomRange_46FAF0(0, 2) + 110001;
                     }
                     break;
                 }
@@ -1507,7 +1507,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     if ((action->ownerSession->WorldScene().battle.allEntries[
                             payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                        temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary->encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -2127,7 +2127,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110008, 0));
                     }
-                    const std::int32_t imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                     NewBattleRebirthEffects_4208F0(action, target);
                     const std::int32_t skill = payload->castSkill103C;
@@ -2147,7 +2147,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                     }
-                    const std::int32_t imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                     NewBattleRebirthEffects_4208F0(action, target);
                     if ((flags & BattleResultFlag_Death) != 0) {
@@ -2218,7 +2218,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                            temporary.emplace(static_cast<std::int32_t>(0));
                             // 原416753..416781先取位置/encoded，再借目标；后两字段交替读写。
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -2251,7 +2251,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         static_cast<void>(AdvanceBattleEffect_439470(action));
     }
-    const std::int32_t imageNo = (platform::Rand16(action->ownerSession->Connection()) & 1) != 0 ? 110006 : 110004;
+    const std::int32_t imageNo = (platform::Rand16() & 1) != 0 ? 110006 : 110004;
     static_cast<void>(NewBattlePositionEffect_41E680(action, imageNo));
     return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
@@ -2461,7 +2461,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110008, 0));
                     }
-                    const std::int32_t imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                     NewBattleRebirthEffects_4208F0(action, target);
                     payload->effectFlagsFE4 = static_cast<std::int32_t>(BattleResultFlag_ReflectPhysical);
@@ -2480,7 +2480,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                     }
-                    const std::int32_t imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                     NewBattleRebirthEffects_4208F0(action, target);
                     if ((flags & BattleResultFlag_Death) != 0) {
@@ -2552,7 +2552,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                             payload->effects1C[payload->effectRunningC9C].position];
                         if ((compareTarget->readiness < 0)) {
                             std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                            temporary.emplace(static_cast<std::int32_t>(0));
                             // 原4172E8..417316先取索引/encoded，再取位置/目标；后两字段交替。
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::uint32_t encoded = temporary->encoded;
@@ -2635,7 +2635,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             if (skill == BattleSkill_MagicMissile || skill == BattleSkill_ConfusionShockwave) {
                 secondImageNo = 110477;
             } else {
-                imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
             }
         }
         TurnBattleToward_406190(target, action, 1, 0.0F);
@@ -2671,7 +2671,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position];
                 if ((compareTarget->readiness < 0)) {
                     std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                    temporary.emplace(static_cast<std::int32_t>(0));
                     // 原4176DA..41770C先取索引/encoded，再借共享目标；后两字段交替。
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary->encoded;
@@ -2877,7 +2877,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             }
             case BattleSkill_DelayAttack258: secondImageNo = 110477; break;
             case BattleSkill_StatusAttackPoisonStrike:
-                imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                 secondImageNo = 110470;
                 break;
             case BattleSkill_Wattack: imageNo = payload->castSkillLevel1044 < 12 ? 110473 : 111054; break;
@@ -2895,7 +2895,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                     || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
                     imageNo = 110074;
                 } else {
-                    imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                    imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                 }
                 break;
             }
@@ -3119,7 +3119,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
             } else if (payload->effectRunningC9C == 0) {
                 imageNo = 110135;
             } else {
-                imageNo = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 2) + 110001;
+                imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
             }
             targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(effect.flags);
             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
@@ -3146,7 +3146,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     YobiAction* const compareTarget = action->ownerSession->WorldScene().battle.allEntries[effect.position];
                     if ((compareTarget->readiness < 0)) {
                         std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(*action->ownerSession, static_cast<std::int32_t>(0));
+                        temporary.emplace(static_cast<std::int32_t>(0));
                         const std::int32_t copyPosition = effect.position;
                         const std::uint32_t encoded = temporary->encoded;
                         YobiAction* const copyTarget = action->ownerSession->WorldScene().battle.allEntries[copyPosition];

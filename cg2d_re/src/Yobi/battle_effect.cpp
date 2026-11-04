@@ -249,7 +249,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
         if (action->phase == 40) {
             parent->flags |= YobiActionFlag_Hidden;
         }
-        const std::int32_t index = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 15);
+        const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
         YobiAction* const particle = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
         if (particle != nullptr) {
             particle->callback = UpdateBattleRisingEffect_41A200;
@@ -257,7 +257,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             if (render::HasLegacy3DDevice_44B610() != 0) {
                 flags = particle->flags | YobiActionFlag_ForceAlpha80;
             } else {
-                const std::int32_t mode = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 1);
+                const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
                 flags = particle->flags | (mode == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero);
             }
             particle->flags = flags;
@@ -408,7 +408,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
 // 原函数：0x00420D50。
 YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
 {
-    const std::int32_t index = platform::RandomRange_46FAF0(parent->ownerSession->Connection(), 0, 15);
+    const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
     YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
@@ -418,7 +418,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     if (render::HasLegacy3DDevice_44B610() != 0) {
         flags = action->flags | YobiActionFlag_ForceAlpha80;
     } else {
-        const std::int32_t mode = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 1);
+        const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
         flags = action->flags | (mode == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero);
     }
     const std::int32_t xOffset = kBattleRadialXOffsets[index];
@@ -653,12 +653,12 @@ YobiAction* NewBattleEffect_41CD00(
                 }
                 action->framePlayingRate = 100;
                 if (sourcePayload->effectRunningC9C != 0) {
-                    action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+                    action->field58 = platform::RandomRange_46FAF0(0, 30);
                 }
                 action->imageNo = sourcePayload->image102C;
                 action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
                 action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
-                const std::int32_t speed = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 4, 8);
+                const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
                 action->motionMagnitude54 = static_cast<float>(speed);
                 payload->castSkill103C = sourcePayload->castSkill103C;
                 payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
@@ -667,7 +667,7 @@ YobiAction* NewBattleEffect_41CD00(
                 action->origin_y_offset44 = 260.0F;
                 TurnBattleToward_406190(action, source->ownerSession->WorldScene().battle.allEntries[
                     sourcePayload->effects1C[sourcePayload->effectRunningC9C].position], 0, 0.0F);
-                const std::int32_t angle = platform::RandomRange_46FAF0(action->ownerSession->Connection(), -90, 90);
+                const std::int32_t angle = platform::RandomRange_46FAF0(-90, 90);
                 action->pathCountOrDrawOrder_270 = 0;
                 action->angle50 = static_cast<float>(static_cast<double>(angle) + action->angle50);
             } else if (fixedTargetMode) {
@@ -695,7 +695,7 @@ YobiAction* NewBattleEffect_41CD00(
                 }
                 action->framePlayingRate = 100;
                 if (sourcePayload->effectRunningC9C != 0) {
-                    action->field58 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 30);
+                    action->field58 = platform::RandomRange_46FAF0(0, 30);
                 }
                 action->imageNo = sourcePayload->image102C;
                 action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
@@ -909,11 +909,11 @@ YobiAction* NewBattleEffect_41CD00(
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
                 action->flags |= hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero;
                 const std::int32_t halfWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 2;
-                const std::int32_t randomX = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, halfWidth);
+                const std::int32_t randomX = platform::RandomRange_46FAF0(0, halfWidth);
                 const std::int32_t quarterWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 4;
                 const std::int32_t x = source->x - quarterWidth + randomX;
                 action->origin_x_offset40 = static_cast<float>(x);
-                const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, source->graphicOffsetY / 3);
+                const std::int32_t randomY = platform::RandomRange_46FAF0(0, source->graphicOffsetY / 3);
                 const std::int32_t quarterOffset = source->graphicOffsetY / 4;
                 const std::int32_t y = source->y + quarterOffset - randomY;
                 action->origin_y_offset44 = static_cast<float>(y);
@@ -1137,7 +1137,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     payload->x00 = static_cast<std::int32_t>(target->origin_x_offset40) + offsetX;
     payload->y04 = static_cast<std::int32_t>(target->origin_y_offset44) + offsetY;
     TurnBattleToward_406190(action, target, 0, 0.0F);
-    const std::int32_t randomAngle = platform::Rand16(action->ownerSession->Connection()) % 90;
+    const std::int32_t randomAngle = platform::Rand16() % 90;
     const std::int32_t angle = static_cast<std::int32_t>(
         static_cast<double>(randomAngle) + action->angle50 + 135.0) % 360;
     action->angle50 = static_cast<float>(angle);
@@ -1756,14 +1756,14 @@ YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::i
     }
     action->callback = UpdateBattleScatterEffect_41E4D0;
     action->displayPriority = 0xCC;
-    const std::int32_t rate = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 10, 200);
+    const std::int32_t rate = platform::RandomRange_46FAF0(10, 200);
     const std::uint32_t flags = action->flags;
     action->framePlayingRate = rate;
     action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 359));
-    action->motionMagnitude54 = static_cast<float>(platform::RandomRange_46FAF0(action->ownerSession->Connection(), 5, 20));
+    action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 359));
+    action->motionMagnitude54 = static_cast<float>(platform::RandomRange_46FAF0(5, 20));
     action->origin_x_offset40 = parent->origin_x_offset40;
     const std::int32_t halfOffsetY = parent->graphicOffsetY / 2;
     const double y = static_cast<double>(halfOffsetY) + parent->origin_y_offset44;
@@ -1852,7 +1852,7 @@ YobiAction* NewBattleTrailEffect_41E7C0(
     if (render::HasLegacy3DDevice_44B610() != 0) {
         action->flags |= YobiActionFlag_ForceAlpha80;
     } else {
-        const std::int32_t modeFlag = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, 1);
+        const std::int32_t modeFlag = platform::RandomRange_46FAF0(0, 1);
         action->flags |= modeFlag == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero;
     }
     if (mode == BattleTrailRenderMode_AddFlag20000) {
@@ -1898,10 +1898,10 @@ YobiAction* NewBattleRandomEffect_419FC0(
     action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     const std::int32_t randomX = platform::RandomRange_46FAF0(
-        action->ownerSession->Connection(), 0, render::ReadGraphicDxWidth(parent->graphicIndex) / 2);
+        0, render::ReadGraphicDxWidth(parent->graphicIndex) / 2);
     const std::int32_t quarterWidth = render::ReadGraphicDxWidth(parent->graphicIndex) / 4;
     action->x = parent->x - quarterWidth + randomX;
-    const std::int32_t randomY = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 0, parent->graphicOffsetY / 3);
+    const std::int32_t randomY = platform::RandomRange_46FAF0(0, parent->graphicOffsetY / 3);
     const std::int32_t quarterHeight = parent->graphicOffsetY / 4;
     const std::int32_t y = quarterHeight + parent->y - randomY;
     action->direction = direction;
@@ -2772,8 +2772,8 @@ YobiAction* NewBattleScreenEffect_421610(YobiAction* const source, const std::in
 void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
 {
     if ((static_cast<std::uint8_t>(action->phase) & 7u) == 0) {
-        const std::int32_t y = platform::Rand16(action->ownerSession->Connection()) % 480;
-        const std::int32_t x = platform::Rand16(action->ownerSession->Connection()) % 640;
+        const std::int32_t y = platform::Rand16() % 480;
+        const std::int32_t x = platform::Rand16() % 640;
         static_cast<void>(NewBattleScreenEffect_421610(action, x, y));
     }
     const std::int32_t phase = action->phase - 1;

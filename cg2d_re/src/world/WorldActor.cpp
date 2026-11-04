@@ -659,7 +659,7 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
     }
     const float movementY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
     if (movementY < 0.0F || movementY > 0.0F
-        || gPlayerMovementAndFacingBlocked_62B5AA != 0 || session.WorldScene().movement.inputBlocked != 0
+        || session.WorldScene().movement.movementAndFacingBlocked != 0 || session.WorldScene().movement.inputBlocked != 0
         || action->direction == direction) {
         return;
     }

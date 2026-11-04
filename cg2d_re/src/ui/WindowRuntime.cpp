@@ -4374,8 +4374,8 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
         }
     };
     std::int32_t carried = 1;
-    world::gMapTargetInputOverride_C8A77C = 0;
-    world::gMapTargetDrawOverride_C8A780 = 0;
+    session.WorldScene().movement.targetInputOverride = 0;
+    session.WorldScene().movement.targetDrawOverride = 0;
     uiFrame.windowHasFocus = 0;
     WindowRuntime_AdvanceMousePhase(session);
     PrepareWindowFrame(session);
@@ -4501,7 +4501,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     pointer.currentWindowId = 0;
     if (phase == 1
         && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
-        world::gMapTargetDrawOverride_C8A780 = 1;
+        session.WorldScene().movement.targetDrawOverride = 1;
         *reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }

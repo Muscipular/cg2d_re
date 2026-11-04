@@ -362,6 +362,23 @@ inline constexpr std::size_t kMovePathCapacity = 100;
 
 // 原移动路径、两项方向队列及转场事件门禁，普通移动和Copilot共用。
 struct WorldMovementRuntimeState {
+    std::uint16_t movementAndFacingBlocked = 0; // 原62B5AA。
+    std::uint32_t targetInputAndDrawOverride = 0; // 原62B308。
+    std::uint32_t leftButtonSuppressed = 0; // 原C8A774。
+    std::uint64_t leftHoldDurationMs = 0; // 原C8A778。
+    std::uint32_t targetInputOverride = 0; // 原C8A77C。
+    std::uint32_t targetDrawOverride = 0; // 原C8A780。
+    std::int32_t cursorTargetX = 0; // 原C8A784，独立S32，不是目标CryptInt。
+    std::int32_t cursorTargetY = 0; // 原C8A788。
+    std::int32_t mouseWorldPixelX = 0; // 原C8A78C。
+    std::int32_t mouseWorldPixelY = 0; // 原C8A790。
+    std::uint64_t leftPressTick = 0; // 原C8A794。
+    std::uint32_t targetLeftClick = 0; // 原C8A7A0。
+    std::uint32_t targetLeftHeld = 0; // 原C8A7A4。
+    std::uint32_t targetInteractionClick = 0; // 原C8A7A8。
+    std::uint32_t targetRightHeld = 0; // 原C8A7AC。
+    std::uint64_t lastMoveTargetTick = UINT64_MAX; // 原55DDAC。
+    std::uint64_t emoteRequestTick = 0; // 原D67D20。
     std::array<std::uint16_t, kMovePathCapacity> pathDirections {}; // 原AF0FF8。
     std::array<std::uint16_t, kMovePathCapacity> pathX {}; // 原C75014。
     std::array<std::uint16_t, kMovePathCapacity> pathY {}; // 原C750DC。

@@ -320,7 +320,6 @@ static constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原�
 static constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
     11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-static std::uint64_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
 
 struct DirectionDelta {
     std::int16_t x;
@@ -560,7 +559,7 @@ std::int32_t InitializeRotationTable_46FB20(session::ClientSession& session)
 // 原 455C70 跳入独占尾块 [46FB50,46FB74)：先清状态，再推进游标。
 std::int32_t NextRotationValue_455C70(session::ClientSession& session)
 {
-    detail::gMapTargetInputAndDrawOverride_62B308 = 0;
+    session.WorldScene().movement.targetInputAndDrawOverride = 0;
     auto& rotation = session.WorldScene().rotation;
     const std::int32_t value =
         rotation.table[static_cast<std::size_t>(rotation.cursor)];
@@ -2025,14 +2024,6 @@ std::int32_t CompareTitleRecordsById_5198F0(const void* const left, const void* 
 
 namespace detail {
 
-// 原455BD0保留的移动门禁；无消费者槽已按GVC01清理。
-std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA = 0; // 原全局：0x0062B5AA。
-
-} // namespace detail
-
-namespace detail {
-std::uint32_t gMapTargetInputAndDrawOverride_62B308 = 0; // 原全局：0x0062B308。
-
 // 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
 std::uint32_t gPrimaryMapGraphicCount_9FB934 = 0; // 原全局：0x009FB934。
 std::uint32_t gMapObjectGraphicCount_9FB928 = 0; // 原全局：0x009FB928。
@@ -2046,53 +2037,6 @@ const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}
 const std::array<std::int32_t, 22> gBattlePointIndices5536FC { // 原全局：0x005536FC。
     2, 1, 3, 0, 4, 7, 6, 8, 5, 9, 12, 11, 13, 10, 14, 17, 16, 18, 15, 19, 20, 21
 };
-
-
-
-namespace detail {
- // 原全局：0x009EE8A8。
- // 原全局：0x009EE8C0。
- // 原全局：0x009EE8D0。
- // 原全局：0x009EE8E0。
- // 原全局：0x00C27FF8。
- // 原全局：0x00C27FE8。
- // 原全局：0x009A7F88。
- // 原全局：0x009A7F98。
- // 原全局：0x00C821E8。
- // 原全局：0x009E03C0。
- // 原全局：0x009FB918。
- // 原全局：0x00AF0FE8。
- // 原全局：0x00C821D8。
-
-} // namespace detail
-
-
-
-
-
-namespace detail {
-std::uint32_t gMapLeftButtonSuppressed_C8A774 = 0; // 原全局：0x00C8A774。
-std::uint64_t gMapLeftHoldDurationMs_C8A778 = 0; // 原全局：0x00C8A778。
-
-} // namespace detail
-std::uint32_t gMapTargetInputOverride_C8A77C = 0; // 原全局：0x00C8A77C。
-std::uint32_t gMapTargetDrawOverride_C8A780 = 0; // 原全局：0x00C8A780。
-
-namespace detail {
-std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
-std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
-std::int32_t gMouseWorldPixelX_C8A78C = 0; // 原全局：0x00C8A78C。
-std::int32_t gMouseWorldPixelY_C8A790 = 0; // 原全局：0x00C8A790。
-std::uint64_t gMapLeftPressTick_C8A794 = 0; // 原全局：0x00C8A794。
-std::uint32_t gMapTargetLeftClick_C8A7A0 = 0; // 原全局：0x00C8A7A0。
-std::uint32_t gMapTargetLeftHeld_C8A7A4 = 0; // 原全局：0x00C8A7A4。
-std::uint32_t gMapTargetInteractionClick_C8A7A8 = 0; // 原全局：0x00C8A7A8。
-std::uint32_t gMapTargetRightHeld_C8A7AC = 0; // 原全局：0x00C8A7AC。
-std::uint64_t gLastMapMoveTargetTick_55DDAC = UINT64_MAX; // 原全局：0x0055DDAC。
-
-} // namespace detail
-
-
 
 namespace detail {
 
@@ -2916,8 +2860,8 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     session.WorldScene().movement.transitionRequestPending = 0;
     session.WorldScene().movement.directionalTransitionPending = 0;
     session.WorldScene().movement.inputBlocked = 0;
-    gMapLeftHoldDurationMs_C8A778 = 0;
-    gMapLeftPressTick_C8A794 = 0;
+    session.WorldScene().movement.leftHoldDurationMs = 0;
+    session.WorldScene().movement.leftPressTick = 0;
     session.WorldScene().mapTransitionObservationPrepared = 0;
     session.WorldScene().mapTransitionReplyPending = 0;
     session.WorldScene().mapTransitionAwaitingRectangle = 0;
@@ -5169,29 +5113,29 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     const std::int32_t pixelX = static_cast<std::int32_t>(
         static_cast<std::int64_t>(projectedX + 0.5));
     const double biasedY = projectedY + 0.5;
-    gMouseWorldPixelX_C8A78C = pixelX;
+    session.WorldScene().movement.mouseWorldPixelX = pixelX;
     const std::int32_t pixelY =
         static_cast<std::int32_t>(static_cast<std::int64_t>(biasedY));
     const std::int32_t adjustedX = pixelX + 32;
-    gMouseWorldPixelY_C8A790 = pixelY;
+    session.WorldScene().movement.mouseWorldPixelY = pixelY;
     const std::int32_t targetY = (pixelY + 32) / 64;
-    gPlayerMoveTargetY = targetY;
+    session.WorldScene().movement.cursorTargetY = targetY;
     const std::int32_t snappedY = targetY * 64;
     const std::int32_t targetX = adjustedX / 64;
-    gPlayerMoveTargetX = targetX;
+    session.WorldScene().movement.cursorTargetX = targetX;
     const float gridY = static_cast<float>(snappedY);
     const float gridX = static_cast<float>(targetX * 64);
     ProjectWorldToScreen_46CE30(session, gridX, gridY, &projectedX, &projectedY);
-    gMapTargetLeftClick_C8A7A0 = 0;
-    gMapTargetLeftHeld_C8A7A4 = 0;
-    gMapTargetInteractionClick_C8A7A8 = 0;
-    gMapTargetRightHeld_C8A7AC = 0;
+    session.WorldScene().movement.targetLeftClick = 0;
+    session.WorldScene().movement.targetLeftHeld = 0;
+    session.WorldScene().movement.targetInteractionClick = 0;
+    session.WorldScene().movement.targetRightHeld = 0;
 
     if ((platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24)
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex(session) < 0)
-            || gMapTargetDrawOverride_C8A780 != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)
+            || session.WorldScene().movement.targetDrawOverride != 0 || session.WorldScene().movement.targetInputAndDrawOverride != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)
         && session.WorldScene().movement.continuousMovementActive == 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0xFFFFFFFFu;
@@ -5209,41 +5153,41 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex(session) < 0)
-            || gMapTargetInputOverride_C8A77C != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)) {
-        gMapLeftHoldDurationMs_C8A778 = 0;
-        gMapLeftPressTick_C8A794 = 0;
+            || session.WorldScene().movement.targetInputOverride != 0 || session.WorldScene().movement.targetInputAndDrawOverride != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)) {
+        session.WorldScene().movement.leftHoldDurationMs = 0;
+        session.WorldScene().movement.leftPressTick = 0;
         return static_cast<std::uint8_t>(mouseBelowLimit);
     }
 
     const auto leftClick = *reinterpret_cast<const unsigned char*>(
         &platform::gLegacyMouseState.edgeButtons);
-    if ((leftClick & 1u) != 0 && gMapLeftButtonSuppressed_C8A774 == 0) {
-        gMapTargetLeftClick_C8A7A0 = 1;
-        gMapLeftHoldDurationMs_C8A778 = 0;
-        gMapLeftPressTick_C8A794 = platform::ReadTickCount64();
+    if ((leftClick & 1u) != 0 && session.WorldScene().movement.leftButtonSuppressed == 0) {
+        session.WorldScene().movement.targetLeftClick = 1;
+        session.WorldScene().movement.leftHoldDurationMs = 0;
+        session.WorldScene().movement.leftPressTick = platform::ReadTickCount64();
     }
     if ((*reinterpret_cast<const unsigned char*>(
             &platform::gLegacyMouseState.heldButtons) & 1u) != 0
-        && gMapLeftButtonSuppressed_C8A774 == 0) {
-        const std::uint64_t baseline = gMapLeftPressTick_C8A794;
-        gMapTargetLeftHeld_C8A7A4 = 1;
+        && session.WorldScene().movement.leftButtonSuppressed == 0) {
+        const std::uint64_t baseline = session.WorldScene().movement.leftPressTick;
+        session.WorldScene().movement.targetLeftHeld = 1;
         if (baseline != 0) {
             const std::uint64_t now = platform::ReadTickCount64();
-            gMapLeftHoldDurationMs_C8A778 = now - gMapLeftPressTick_C8A794;
+            session.WorldScene().movement.leftHoldDurationMs = now - session.WorldScene().movement.leftPressTick;
         }
     } else {
-        gMapLeftHoldDurationMs_C8A778 = 0;
-        gMapLeftPressTick_C8A794 = 0;
+        session.WorldScene().movement.leftHoldDurationMs = 0;
+        session.WorldScene().movement.leftPressTick = 0;
     }
     const auto rightClick = *reinterpret_cast<const unsigned char*>(
         &platform::gLegacyMouseState.edgeButtons);
-    if ((rightClick & 2u) != 0 && gMapTargetInteractionClick_C8A7A8 == 0) {
-        gMapTargetInteractionClick_C8A7A8 = 1;
+    if ((rightClick & 2u) != 0 && session.WorldScene().movement.targetInteractionClick == 0) {
+        session.WorldScene().movement.targetInteractionClick = 1;
     }
     if ((*reinterpret_cast<const unsigned char*>(
             &platform::gLegacyMouseState.heldButtons) & 2u) != 0
-        && gMapTargetInteractionClick_C8A7A8 == 0) {
-        gMapTargetRightHeld_C8A7AC = 1;
+        && session.WorldScene().movement.targetInteractionClick == 0) {
+        session.WorldScene().movement.targetRightHeld = 1;
     }
     return 2;
 }
@@ -5270,7 +5214,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(session::ClientSession& session, co
         return static_cast<std::uintptr_t>(comparisonResult);
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gEmoteRequestTickD67D20 + 500u >= now) {
+    if (session.WorldScene().movement.emoteRequestTick + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
     cg::yobi::YobiAction* const action = session.WorldScene().player->action;
@@ -5298,7 +5242,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(session::ClientSession& session, co
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     SetPlayerAnimationState_51A060(session, localAction);
     const std::uint64_t completedAt = platform::ReadTickCount64();
-    gEmoteRequestTickD67D20 = completedAt;
+    session.WorldScene().movement.emoteRequestTick = completedAt;
     return static_cast<std::uintptr_t>(completedAt);
 }
 
@@ -5312,8 +5256,8 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& ses
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signX =
-        (session.WorldScene().map.crypt->playerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
-    result = (session.WorldScene().map.crypt->playerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
+        (session.WorldScene().map.crypt->playerX - static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX));
+    result = (session.WorldScene().map.crypt->playerX - static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX));
     if (signX < 0) {
         result = -result;
     }
@@ -5321,23 +5265,23 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& ses
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signY =
-        (session.WorldScene().map.crypt->playerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
-    result = (session.WorldScene().map.crypt->playerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
+        (session.WorldScene().map.crypt->playerY - static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY));
+    result = (session.WorldScene().map.crypt->playerY - static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY));
     if (signY < 0) {
         result = -result;
     }
     if (result > 1) {
         return std::bit_cast<std::uint32_t>(result);
     }
-    const std::int32_t targetY = gPlayerMoveTargetY;
-    const std::int32_t targetX = gPlayerMoveTargetX;
+    const std::int32_t targetY = session.WorldScene().movement.cursorTargetY;
+    const std::int32_t targetX = session.WorldScene().movement.cursorTargetX;
     result = HasWorldObjectAt_4450D0(session, targetX, targetY, 7);
     if (result == 0) {
         return 0;
     }
     const std::int32_t deltaX =
-        (static_cast<std::int32_t>(gPlayerMoveTargetX) - session.WorldScene().map.crypt->playerX);
-    const std::int32_t secondTargetY = gPlayerMoveTargetY;
+        (static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX) - session.WorldScene().map.crypt->playerX);
+    const std::int32_t secondTargetY = session.WorldScene().movement.cursorTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
         (static_cast<std::int32_t>(secondTargetY) - session.WorldScene().map.crypt->playerY);
@@ -5368,16 +5312,16 @@ void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session)
     }
     const float movementY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
     if (movementY < 0.0F || movementY > 0.0F
-        || gPlayerMovementAndFacingBlocked_62B5AA != 0 || session.WorldScene().movement.inputBlocked != 0) {
+        || session.WorldScene().movement.movementAndFacingBlocked != 0 || session.WorldScene().movement.inputBlocked != 0) {
         return;
     }
-    if ((session.WorldScene().map.crypt->playerX == static_cast<std::int32_t>(gPlayerMoveTargetX))
-        && (session.WorldScene().map.crypt->playerY == static_cast<std::int32_t>(gPlayerMoveTargetY))) {
+    if ((session.WorldScene().map.crypt->playerX == static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX))
+        && (session.WorldScene().map.crypt->playerY == static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY))) {
         return;
     }
     const std::int32_t deltaX =
-        (static_cast<std::int32_t>(gPlayerMoveTargetX) - session.WorldScene().map.crypt->playerX);
-    const std::int32_t targetY = gPlayerMoveTargetY;
+        (static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX) - session.WorldScene().map.crypt->playerX);
+    const std::int32_t targetY = session.WorldScene().movement.cursorTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
         (static_cast<std::int32_t>(targetY) - session.WorldScene().map.crypt->playerY);
@@ -5410,9 +5354,9 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
     if ((ReadPlayerActionFlagsByte(session) & 0x80u) != 0) {
         return static_cast<std::uint8_t>(pendingIsZero);
     }
-    if (gMapTargetInteractionClick_C8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
-        const std::int32_t targetY = gPlayerMoveTargetY;
-        const std::int32_t targetX = gPlayerMoveTargetX;
+    if (session.WorldScene().movement.targetInteractionClick != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+        const std::int32_t targetY = session.WorldScene().movement.cursorTargetY;
+        const std::int32_t targetX = session.WorldScene().movement.cursorTargetX;
         const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(session, targetX, targetY, 8, 0x1000);
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose(session));
@@ -5421,16 +5365,16 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
         }
         TurnPlayerTowardCursorTarget_46B370(session);
         static_cast<void>(RequestAdjacentWorldInteraction_51B3E0(session));
-        const std::int32_t secondY = gPlayerMoveTargetY;
-        const std::int32_t secondX = gPlayerMoveTargetX;
+        const std::int32_t secondY = session.WorldScene().movement.cursorTargetY;
+        const std::int32_t secondX = session.WorldScene().movement.cursorTargetX;
         const std::int32_t secondIndex = FindWorldObjectAt_445160(session, secondX, secondY, 8);
         if (secondIndex != -1) {
             static_cast<void>(session.Connection().RequestPlayerProfile(3, secondIndex));
         }
     }
     if ((session.WorldScene().partyActive == 0 || (ReadPlayerFlags18A(session) & 0x100u) != 0)
-        && gPlayerMovementAndFacingBlocked_62B5AA == 0 && session.WorldScene().movement.inputBlocked == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
-        const bool forceContinuousMove = gMapLeftHoldDurationMs_C8A778 >= 500u;
+        && session.WorldScene().movement.movementAndFacingBlocked == 0 && session.WorldScene().movement.inputBlocked == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+        const bool forceContinuousMove = session.WorldScene().movement.leftHoldDurationMs >= 500u;
         if (forceContinuousMove) {
             session.WorldScene().movement.continuousMovementActive = 1;
         }
@@ -5441,19 +5385,19 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
                 session.WorldScene().movement.continuousMovementActive = 0;
             } else {
                 const std::uint64_t now = platform::ReadTickCount64();
-                if (gLastMapMoveTargetTick_55DDAC + 250u <= now) {
+                if (session.WorldScene().movement.lastMoveTargetTick + 250u <= now) {
                     const std::uint64_t sampledTick = platform::ReadTickCount64();
-                    const std::int32_t targetX = gPlayerMoveTargetX;
-                    gLastMapMoveTargetTick_55DDAC = sampledTick;
+                    const std::int32_t targetX = session.WorldScene().movement.cursorTargetX;
+                    session.WorldScene().movement.lastMoveTargetTick = sampledTick;
                     session.WorldScene().map.crypt->moveTargetX = static_cast<std::int32_t>(targetX);
-                    session.WorldScene().map.crypt->moveTargetY = static_cast<std::int32_t>(gPlayerMoveTargetY);
+                    session.WorldScene().map.crypt->moveTargetY = static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY);
                     session.WorldScene().movement.pathRebuildPending = 1;
                 }
-                if ((static_cast<std::int32_t>(gPlayerMoveTargetX) - session.WorldScene().map.crypt->playerX) != 0
-                    || (static_cast<std::int32_t>(gPlayerMoveTargetY) - session.WorldScene().map.crypt->playerY) != 0) {
+                if ((static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX) - session.WorldScene().map.crypt->playerX) != 0
+                    || (static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY) - session.WorldScene().map.crypt->playerY) != 0) {
                     const std::int32_t deltaY =
-                        (static_cast<std::int32_t>(gPlayerMoveTargetY) - session.WorldScene().map.crypt->playerY);
-                    const std::int32_t targetX = gPlayerMoveTargetX;
+                        (static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY) - session.WorldScene().map.crypt->playerY);
+                    const std::int32_t targetX = session.WorldScene().movement.cursorTargetX;
                     const float differenceY = static_cast<float>(deltaY);
                     const std::int32_t deltaX =
                         (static_cast<std::int32_t>(targetX) - session.WorldScene().map.crypt->playerX);
@@ -5463,13 +5407,13 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
                     static_cast<void>(platform::RequestCursorState_506DE0(direction + 3, 0));
                 }
             }
-        } else if (gMapTargetLeftClick_C8A7A0 != 0) {
+        } else if (session.WorldScene().movement.targetLeftClick != 0) {
             const std::uint64_t now = platform::ReadTickCount64();
-            if (gLastMapMoveTargetTick_55DDAC + 250u <= now) {
+            if (session.WorldScene().movement.lastMoveTargetTick + 250u <= now) {
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
-                gLastMapMoveTargetTick_55DDAC = platform::ReadTickCount64();
-                session.WorldScene().map.crypt->moveTargetX = static_cast<std::int32_t>(gPlayerMoveTargetX);
-                session.WorldScene().map.crypt->moveTargetY = static_cast<std::int32_t>(gPlayerMoveTargetY);
+                session.WorldScene().movement.lastMoveTargetTick = platform::ReadTickCount64();
+                session.WorldScene().map.crypt->moveTargetX = static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetX);
+                session.WorldScene().map.crypt->moveTargetY = static_cast<std::int32_t>(session.WorldScene().movement.cursorTargetY);
                 session.WorldScene().movement.pathRebuildPending = 1;
             }
         }
@@ -6181,9 +6125,9 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
 // 原 [0x455BD0,0x455C56)：GVC01清理无消费者槽，保留有效状态重置顺序及返回零。
 std::int32_t InitializeWorldSceneFlags_455BD0(session::ClientSession& session)
 {
-    gPlayerMovementAndFacingBlocked_62B5AA = 0;
+    session.WorldScene().movement.movementAndFacingBlocked = 0;
     session.WorldScene().mapNotice.startTick = 0;
-    gMapTargetInputAndDrawOverride_62B308 = 0;
+    session.WorldScene().movement.targetInputAndDrawOverride = 0;
     return 0;
 }
 
@@ -9611,8 +9555,8 @@ std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0(session::ClientSession
     session.WorldScene().movement.pathCount = 0;
     session.WorldScene().movement.pendingDirectionCount = 0;
     session.WorldScene().movement.pathRebuildPending = 0;
-    detail::gMapLeftHoldDurationMs_C8A778 = 0;
-    detail::gMapLeftPressTick_C8A794 = 0;
+    session.WorldScene().movement.leftHoldDurationMs = 0;
+    session.WorldScene().movement.leftPressTick = 0;
     return 0;
 }
 

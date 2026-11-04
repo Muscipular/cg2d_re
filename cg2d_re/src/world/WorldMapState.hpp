@@ -47,8 +47,6 @@ void DrawGearNormal_46C060(
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
 std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
-extern std::uint32_t gMapTargetInputOverride_C8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
-extern std::uint32_t gMapTargetDrawOverride_C8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 // 原468520；调用方传入9E0434当前值，内部路径改为宽字符串。
 std::wstring FormatMapDataPath_468520( std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
 
@@ -125,19 +123,6 @@ void CacheMapGraphicByResourceType_46BE50(
 void SortAndMergeMapDrawCache_46C2F0();
 // 原函数：0x0046C1C0。
 std::int32_t QueueMergedMapDrawCache_46C1C0();
-
-extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
-extern std::uint64_t gMapLeftHoldDurationMs_C8A778; // 原全局：0x00C8A778。
-extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
-extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
-extern std::int32_t gMouseWorldPixelX_C8A78C; // 原全局：0x00C8A78C。 原鼠标世界像素X。
-extern std::int32_t gMouseWorldPixelY_C8A790; // 原全局：0x00C8A790。 原鼠标世界像素Y。
-extern std::uint64_t gMapLeftPressTick_C8A794; // 原全局：0x00C8A794。
-extern std::uint32_t gMapTargetLeftClick_C8A7A0; // 原全局：0x00C8A7A0。 原46F680目标格左键单次事件。
-extern std::uint32_t gMapTargetLeftHeld_C8A7A4; // 原全局：0x00C8A7A4。 原目标格左键持续事件。
-extern std::uint32_t gMapTargetInteractionClick_C8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
-extern std::uint32_t gMapTargetRightHeld_C8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
-extern std::uint64_t gLastMapMoveTargetTick_55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
 
 // 原函数：0x00468570。
 std::int32_t __cdecl EnsureMapCacheFile_468570(

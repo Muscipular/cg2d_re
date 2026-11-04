@@ -3433,12 +3433,7 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
     auto& states = WindowRuntime_States(session);
     const auto& request = session.Connection().LoginRequests();
     const auto& character = request.characters[static_cast<std::size_t>(request.selectedCharacterIndex)];
-    std::wstring accountKey;
-    constexpr wchar_t hex[] = L"0123456789ABCDEF";
-    for (const unsigned char byte : text::ToGbk(request.account)) {
-        accountKey += hex[byte >> 4];
-        accountKey += hex[byte & 15];
-    }
+    const auto accountKey = login::detail::EncodeSavedAccountName(request.account);
     session.UiFrame().native.savedSettingsPath = accountKey.empty() ? std::wstring {}
         : std::format(L"{}\\layout\\{}\\g{}_s{}_r{}\\{}x{}\\WinSaveDate", platform::gDataPath,
             accountKey, request.selectedLoginServerGroup, request.selectedServerIndex,

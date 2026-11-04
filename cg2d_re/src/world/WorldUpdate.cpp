@@ -113,6 +113,7 @@ void Update(session::ClientSession& session)
         return;
     case 5:
         session.WorldScene().frameBackgroundMode = 0;
+        login::detail::BindSessionSavedAccount(session);
         static_cast<void>(platform::ResetImeOpenStatus_4590A0(session));
         detail::InitializeChatInputAndLog_449DA0(session);
         detail::ResetPendingPathEvent_46A9E0(session);

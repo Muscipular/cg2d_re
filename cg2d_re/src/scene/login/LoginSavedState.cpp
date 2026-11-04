@@ -43,6 +43,23 @@ static const std::array<SavedPath, 10> kSavedPaths {{
     {L"data\\5"}, {L"data\\6"}, {L"data\\7"}, {L"data\\8"}, {L"data\\9"},
 }};
 
+std::wstring EncodeSavedAccountName(const std::wstring_view account)
+{
+    std::wstring encoded;
+    constexpr wchar_t hex[] = L"0123456789ABCDEF";
+    for (const unsigned char byte : text::ToGbk(account)) {
+        encoded += hex[byte >> 4];
+        encoded += hex[byte & 15];
+    }
+    return encoded;
+}
+
+std::wstring MakeSavedAccountDirectory(const std::wstring_view account)
+{
+    return account.empty() ? std::wstring {}
+        : std::format(L"{}\\accounts\\{}", platform::gDataPath, EncodeSavedAccountName(account));
+}
+
 // 旧save.dat的0x510字节磁盘格式。未解释区域按原字节保留。
 struct SavedDiskRecord final {
     std::int32_t version;
@@ -116,6 +133,8 @@ struct SavedStateStorage final {
     std::int32_t logicalToPhysical[10]; // 原成员偏移：+0x3CD4。
     SavedPhysicalRecord current {}; // 原FF4918，完整当前运行记录。
     std::int32_t autoLoginCachedPhysicalSlot = -1; // ALM02，仅标记所属记录中的内存凭据。
+    std::array<bool, 10> credentialsDirty {}; // 只提交本会话实际编辑过的凭据，不能重写浏览快照。
+    std::wstring boundAccountDirectory; // 只在角色进入时重绑，旧角色收尾不跟随登录草稿。
 };
 
 static SavedDiskRecord EncodeSavedRecord(const SavedPhysicalRecord& record, const bool savePassword = true)
@@ -350,18 +369,12 @@ std::int32_t DecodeLegacyBytes_52D460(
     return lastDecodedBytes;
 }
 
-// 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
-static std::int32_t LoadSavedPhysicalRecord_532ED0(
-    session::ClientSession& session,
-    const std::int32_t physicalSlot)
+// 原532ED0的文件/编解码正文；实际记录作为参数，不借会话挑选临时存储。
+static std::int32_t LoadSavedRecordFile(
+    const std::wstring& path, SavedPhysicalRecord& record)
 {
-    auto& saved = *session.SavedLogin().data;
-    session.SavedLogin().loadErrorCode = 0;
-
-    std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t decodedBytes;
-    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
 
     std::FILE* const file =
         _wfopen(path.c_str(), L"rb+");
@@ -379,20 +392,155 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
 
     std::fclose(file);
     if (bytesRead <= 1 || bytesRead > sizeof(SavedDiskRecord) + 1) { return 0; }
-    auto disk = EncodeSavedRecord(saved.records[physicalSlot]);
+    auto disk = EncodeSavedRecord(record);
     (void)cg::login::detail::DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
         0,
         reinterpret_cast<std::uint8_t*>(&disk),
         &decodedBytes);
-    DecodeSavedRecord(saved.records[physicalSlot], disk, static_cast<std::size_t>(decodedBytes));
+    DecodeSavedRecord(record, disk, static_cast<std::size_t>(decodedBytes));
     if (decodedBytes != 0x510) {
         return 0;
     }
-    return saved.records[physicalSlot].version == 0x7002
+    return record.version == 0x7002
         ? 1
         : 0;
+}
+
+// 原 sub_532ED0@[0x532ED0,0x532FB9)：历史身份沿旧文件，实际偏好优先取账号文件。
+static std::int32_t LoadSavedPhysicalRecord_532ED0(
+    session::ClientSession& session, const std::int32_t physicalSlot)
+{
+    session.SavedLogin().loadErrorCode = 0;
+    auto& record = session.SavedLogin().data->records[physicalSlot];
+    const auto path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
+    const auto result = LoadSavedRecordFile(path, record);
+    if (result != 0 && !record.inputs04[2].empty()) {
+        auto current = record;
+        const auto accountPath = std::format(L"{}\\save.dat", MakeSavedAccountDirectory(record.inputs04[2]));
+        if (LoadSavedRecordFile(accountPath, current) != 0) {
+            current.inputs04 = record.inputs04;
+            record = std::move(current);
+        }
+    }
+    return result;
+}
+
+static std::int32_t WriteSavedRecordFile(const std::wstring& path, const SavedPhysicalRecord& record)
+{
+    auto disk = EncodeSavedRecord(record, false);
+    std::array<std::uint8_t, sizeof(SavedDiskRecord) + 1> encoded {};
+    std::int32_t count = 0;
+    EncodeLegacyBytes_52D310(reinterpret_cast<std::uint8_t*>(&disk), static_cast<std::int32_t>(sizeof(disk)),
+        0, encoded.data(), &count, static_cast<std::int32_t>(encoded.size()));
+    std::FILE* const file = _wfopen(path.c_str(), L"wb+");
+    if (file == nullptr) {
+        m_log_iw(L"无法打开账号记录保存文件，错误 %d。", errno);
+        return 0;
+    }
+    const auto written = std::fwrite(encoded.data(), 1, static_cast<std::size_t>(count), file);
+    const int closed = std::fclose(file);
+    if (written != static_cast<std::size_t>(count) || closed != 0) {
+        m_log_iw(L"账号记录写入失败。");
+        return 0;
+    }
+    return 1;
+}
+
+static std::int32_t FindSavedAccountHistory(const std::wstring_view account)
+{
+    for (std::int32_t index = 0; index < 10; ++index) {
+        SavedPhysicalRecord record;
+        if (LoadSavedRecordFile(std::format(L"{}\\save.dat", kSavedPaths[index].text), record) != 0
+            && record.inputs04[2] == account) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+static bool PrepareSavedAccountDirectory(const std::wstring_view account, const std::wstring& directory)
+{
+    std::error_code error;
+    const bool created = std::filesystem::create_directories(std::filesystem::path(directory), error);
+    if (error) {
+        m_log_iw(L"无法创建账号保存目录，错误 %d。", error.value());
+        return false;
+    }
+    if (!created) return true;
+    const auto copy = [&](const std::wstring& source, const wchar_t* const name) {
+        const auto target = std::format(L"{}\\{}", directory, name);
+        if (!CopyFileW(source.c_str(), target.c_str(), TRUE)) {
+            const DWORD code = GetLastError();
+            if (code != ERROR_FILE_NOT_FOUND && code != ERROR_PATH_NOT_FOUND
+                && code != ERROR_FILE_EXISTS && code != ERROR_ALREADY_EXISTS) {
+                m_log_iw(L"旧账号数据复制失败，错误 %lu。", code);
+            }
+        }
+    };
+    const std::int32_t legacySlot = FindSavedAccountHistory(account);
+    if (legacySlot != -1) {
+        for (const auto* const name : {L"mail.dat", L"guildmail.dat", L"profile.dat"}) {
+            copy(std::format(L"{}\\{}", kSavedPaths[legacySlot].text, name), name);
+        }
+    }
+    copy(std::format(L"{}\\album.dat", platform::gDataPath), L"album.dat");
+    copy(std::format(L"{}\\chathis.dat", platform::gDataPath), L"chathis.dat");
+    copy(L"bin\\category.dat", L"category.dat");
+    return true;
+}
+
+// 十槽只保存可合并的历史；满槽不阻止账号目录保存。
+static std::int32_t UpdateSavedAccountHistory(const SavedPhysicalRecord& record)
+{
+    std::int32_t target = -1;
+    std::int32_t empty = -1;
+    for (std::int32_t index = 0; index < 10; ++index) {
+        const auto path = std::format(L"{}\\save.dat", kSavedPaths[index].text);
+        SavedPhysicalRecord existing;
+        if (LoadSavedRecordFile(path, existing) != 0) {
+            if (existing.inputs04[2] == record.inputs04[2]) {
+                target = index;
+                break;
+            }
+            if (existing.inputs04[2].empty() && empty == -1) empty = index;
+        } else {
+            std::error_code error;
+            const bool exists = std::filesystem::exists(std::filesystem::path(path), error);
+            if (!exists && !error && empty == -1) empty = index;
+        }
+    }
+    if (target == -1) target = empty;
+    if (target == -1) {
+        m_log_iw(L"登录历史十槽已满，账号数据仍按账号目录保存。");
+        return 2;
+    }
+    std::error_code error;
+    static_cast<void>(std::filesystem::create_directories(std::filesystem::path(kSavedPaths[target].text), error));
+    if (error) {
+        m_log_iw(L"无法创建登录历史目录，错误 %d。", error.value());
+        return 0;
+    }
+    return WriteSavedRecordFile(std::format(L"{}\\save.dat", kSavedPaths[target].text), record);
+}
+
+static std::int32_t SaveAccountRecord(const SavedPhysicalRecord& record, const bool credentialsOnly)
+{
+    const auto& account = record.inputs04[2];
+    const auto directory = MakeSavedAccountDirectory(account);
+    if (directory.empty() || !PrepareSavedAccountDirectory(account, directory)) return 0;
+    const auto path = std::format(L"{}\\save.dat", directory);
+    auto output = record;
+    if (credentialsOnly) {
+        auto existing = record;
+        if (LoadSavedRecordFile(path, existing) != 0) {
+            output = std::move(existing);
+            output.inputs04 = record.inputs04;
+        }
+    }
+    if (WriteSavedRecordFile(path, output) == 0) return 0;
+    return UpdateSavedAccountHistory(output) != 0 ? 1 : 0;
 }
 
 // 原 sub_532FC0@[0x532FC0,0x53319A)：写出一份默认保存记录。
@@ -446,6 +594,7 @@ static std::int32_t ResetSavedState_533360(session::ClientSession& session)
     session.SavedLogin().visibleSlotCount = 0;
     session.SavedLogin().selectedSlot = 0;
     saved.mappingCount = 0;
+    saved.credentialsDirty.fill(false);
 
     for (std::int32_t index = 0; index < 10; ++index) {
         saved.active[index] = 0;
@@ -566,7 +715,9 @@ static std::int32_t LoadSelectedPhysicalRecord_5336D0(session::ClientSession& se
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
     if (selected < 0 || selected >= 10) { return -1; }
-    saved.current = saved.records[selected];
+    const auto physicalSlot = saved.logicalToPhysical[selected];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return -1; }
+    saved.current = saved.records[physicalSlot];
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
@@ -578,7 +729,9 @@ static std::int32_t StoreCurrentRecordToSelectedPhysical_533700(session::ClientS
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
     if (selected < 0 || selected >= 10) { return -1; }
-    saved.records[selected] = saved.current;
+    const auto physicalSlot = saved.logicalToPhysical[selected];
+    if (physicalSlot < 0 || physicalSlot >= 10) { return -1; }
+    saved.records[physicalSlot] = saved.current;
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
@@ -586,44 +739,18 @@ static std::int32_t StoreCurrentRecordToSelectedPhysical_533700(session::ClientS
 static std::int32_t PersistCurrentSavedRecord_520200(session::ClientSession& session)
 {
     auto& saved = *session.SavedLogin().data;
-    auto localRecord = EncodeSavedRecord(saved.current, false);
-    std::wstring path;
-    std::uint8_t encoded[0xA20];
-    std::int32_t encodedBytes;
-
-
-    auto* const localBytes =
-        reinterpret_cast<std::uint8_t*>(&localRecord);
-    cg::login::detail::EncodeLegacyBytes_52D310(
-        localBytes,
-        0x510,
-        0,
-        encoded,
-        &encodedBytes,
-        0xA20);
-
     const std::int32_t selected = session.SavedLogin().selectedSlot;
     if (selected < 0 || selected >= 10) { return 0; }
     const std::int32_t physicalSlot =
         saved.logicalToPhysical[selected];
     if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
-    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
-
-    std::FILE* const file =
-        _wfopen(path.c_str(), L"wb+");
-    std::int32_t result = file != nullptr ? 1 : 0;
-    const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
-        encoded,
-        1,
-        static_cast<std::uint32_t>(encodedBytes),
-        file));
-    const std::uint32_t expectedBytes =
-        static_cast<std::uint32_t>(encodedBytes);
-    if (bytesWritten < expectedBytes) {
-        result = 0;
-    }
-    std::fclose(file);
+    const auto directory = MakeSavedAccountDirectory(saved.current.inputs04[2]);
+    const bool credentialsOnly = directory.empty() || directory != saved.boundAccountDirectory;
+    if (credentialsOnly && !saved.credentialsDirty[physicalSlot]
+        && saved.current.inputs04 == saved.records[physicalSlot].inputs04) return 0;
+    const auto result = SaveAccountRecord(saved.current, credentialsOnly);
     (void)StoreCurrentRecordToSelectedPhysical_533700(session);
+    if (result != 0) saved.credentialsDirty[physicalSlot] = false;
     return result;
 }
 
@@ -634,19 +761,28 @@ static std::int32_t DeleteSavedFiles_533860(
 {
     auto& saved = *session.SavedLogin().data;
     if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
+    const auto account = saved.records[physicalSlot].inputs04[2];
+    if (account.empty()) return 0;
     if (saved.autoLoginCachedPhysicalSlot == physicalSlot) {
         saved.autoLoginCachedPhysicalSlot = -1;
     }
-    std::wstring path;
-
-    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
-    (void)::DeleteFileW(path.c_str());
-
-    path = std::format(L"{}\\mail.dat", kSavedPaths[physicalSlot].text);
-    (void)::DeleteFileW(path.c_str());
-
-    path = std::format(L"{}\\guildmail.dat", kSavedPaths[physicalSlot].text);
-    return static_cast<std::int32_t>(::DeleteFileW(path.c_str()));
+    for (std::int32_t index = 0; index < 10; ++index) {
+        SavedPhysicalRecord record;
+        if (LoadSavedRecordFile(std::format(L"{}\\save.dat", kSavedPaths[index].text), record) == 0
+            || record.inputs04[2] != account) continue;
+        for (const auto* const name : {L"save.dat", L"mail.dat", L"guildmail.dat"}) {
+            const auto path = std::format(L"{}\\{}", kSavedPaths[index].text, name);
+            static_cast<void>(::DeleteFileW(path.c_str()));
+        }
+    }
+    std::int32_t result = 0;
+    const auto directory = MakeSavedAccountDirectory(account);
+    for (const auto* const name : {L"save.dat", L"mail.dat", L"guildmail.dat"}) {
+        const auto path = std::format(L"{}\\{}", directory, name);
+        result = static_cast<std::int32_t>(::DeleteFileW(path.c_str()));
+    }
+    saved.credentialsDirty[physicalSlot] = false;
+    return result;
 }
 
 // 存档无参调用适配；原4A4210不读取参数，共用窗口侧真实实现。
@@ -1055,11 +1191,26 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(
 
 const wchar_t* ReadSelectedSavedDirectory(session::ClientSession& session)
 {
-    const std::int32_t selected = session.SavedLogin().selectedSlot;
-    if (selected < 0 || selected >= 10) { return L""; }
-    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[selected];
-    if (physicalSlot < 0 || physicalSlot >= 10) { return L""; }
-    return kSavedPaths[physicalSlot].text.c_str();
+    return session.SavedLogin().data->boundAccountDirectory.c_str();
+}
+
+void BindSessionSavedAccount(session::ClientSession& session)
+{
+    auto& saved = *session.SavedLogin().data;
+    const auto& request = session.Connection().LoginRequests();
+    saved.boundAccountDirectory = MakeSavedAccountDirectory(request.account);
+    if (saved.boundAccountDirectory.empty()) return;
+    static_cast<void>(PrepareSavedAccountDirectory(request.account, saved.boundAccountDirectory));
+    auto current = saved.current;
+    const auto path = std::format(L"{}\\save.dat", saved.boundAccountDirectory);
+    if (LoadSavedRecordFile(path, current) != 0) {
+        current.inputs04 = saved.current.inputs04;
+        saved.current = std::move(current);
+    }
+    saved.current.inputs04[1] = request.password;
+    saved.current.inputs04[2] = request.account;
+    static_cast<void>(StoreCurrentRecordToSelectedPhysical_533700(session));
+    static_cast<void>(RestoreSessionSavedInputContexts(session));
 }
 
 // 原函数：0x005336D0。
@@ -1123,7 +1274,9 @@ void Sub_533570(
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    session.SavedLogin().data->records[physicalSlot].inputs04[0] = source;
+    auto& saved = *session.SavedLogin().data;
+    if (saved.records[physicalSlot].inputs04[0] != source) saved.credentialsDirty[physicalSlot] = true;
+    saved.records[physicalSlot].inputs04[0] = source;
 }
 
 // 原函数：0x005335B0。
@@ -1136,7 +1289,9 @@ void WriteSavedPassword_5335B0(
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    session.SavedLogin().data->records[physicalSlot].inputs04[1] = source;
+    auto& saved = *session.SavedLogin().data;
+    if (saved.records[physicalSlot].inputs04[1] != source) saved.credentialsDirty[physicalSlot] = true;
+    saved.records[physicalSlot].inputs04[1] = source;
 }
 
 // 原函数：0x00533640。
@@ -1149,7 +1304,9 @@ void WriteSavedAccount_533640(
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    session.SavedLogin().data->records[physicalSlot].inputs04[2] = source;
+    auto& saved = *session.SavedLogin().data;
+    if (saved.records[physicalSlot].inputs04[2] != source) saved.credentialsDirty[physicalSlot] = true;
+    saved.records[physicalSlot].inputs04[2] = source;
 }
 
 // 原函数：0x005335F0。
@@ -1180,50 +1337,18 @@ std::wstring& ReadSavedAccount_533680(
 void SaveCredentialRecordsWithoutPasswords_533730(session::ClientSession& session)
 {
     auto& saved = *session.SavedLogin().data;
-    SavedDiskRecord localRecord;
-    std::uint8_t encoded[0xA20];
-    std::int32_t encodedBytes;
-    std::wstring path;
 
     for (std::int32_t physicalSlot = 0;
          physicalSlot < 10;
          ++physicalSlot) {
-        if (saved.active[physicalSlot] != 1) {
+        if (saved.active[physicalSlot] != 1 || !saved.credentialsDirty[physicalSlot]) {
             continue;
         }
 
         const auto& record = saved.records[physicalSlot];
         if (record.inputs04[2].empty() || record.inputs04[1].empty()) { continue; }
-        localRecord = EncodeSavedRecord(record, false);
-        auto* const localBytes = reinterpret_cast<std::uint8_t*>(&localRecord);
-
-        cg::login::detail::EncodeLegacyBytes_52D310(
-            localBytes,
-            0x510,
-            0,
-            encoded,
-            &encodedBytes,
-            0xA20);
-        path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
-
-        std::FILE* const file =
-            _wfopen(path.c_str(), L"wb+");
-        if (file == nullptr) {
-            return;
-        }
-
-        const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
-            encoded,
-            1,
-            static_cast<std::uint32_t>(encodedBytes),
-            file));
-        const std::uint32_t expectedBytes =
-            static_cast<std::uint32_t>(encodedBytes);
-        if (bytesWritten < expectedBytes) {
-            std::fclose(file);
-            return;
-        }
-        std::fclose(file);
+        if (SaveAccountRecord(record, true) == 0) return;
+        saved.credentialsDirty[physicalSlot] = false;
     }
 }
 

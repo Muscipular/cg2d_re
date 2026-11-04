@@ -307,7 +307,7 @@ static bool InitializeAdditionalClientSession(session::ClientSession& session)
     audio::InitializeSessionSoundRequests(session);
     static_cast<void>(audio::ResetSpatialSoundSources_52CD40(session));
     static_cast<void>(world::InitializeAlbum_518C20(session));
-    session.WorldScene().sceneType = 2;
+    session.WorldScene().sceneType = 1;
     session.WorldScene().sceneState = 0;
     session.WorldScene().pendingSceneType = -1;
     static_cast<void>(ui::detail::WindowRuntime_Initialize(session));

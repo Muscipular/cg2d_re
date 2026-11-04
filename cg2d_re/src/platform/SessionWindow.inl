@@ -9,6 +9,8 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/session/ClientHost.hpp"
 
+#include <dwmapi.h>
+
 #include <algorithm>
 #include <array>
 #include <deque>
@@ -169,16 +171,35 @@ static void PaintFrame(HWND window)
 {
     if (IsIconic(window)) return;
     const FrameLayout layout = Layout(window);
-    HDC dc = GetWindowDC(window);
-    if (dc == nullptr) return;
-    const int saved = SaveDC(dc);
     const LONG width = layout.window.right - layout.window.left;
     const LONG height = layout.window.bottom - layout.window.top;
+    HDC target = GetWindowDC(window);
+    if (target == nullptr) return;
+    HDC dc = CreateCompatibleDC(target);
+    BITMAPINFO info {};
+    info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    info.bmiHeader.biWidth = width;
+    info.bmiHeader.biHeight = -height;
+    info.bmiHeader.biPlanes = 1;
+    info.bmiHeader.biBitCount = 32;
+    info.bmiHeader.biCompression = BI_RGB;
+    void* bits = nullptr;
+    HBITMAP bitmap = CreateDIBSection(target, &info, DIB_RGB_COLORS, &bits, nullptr, 0);
+    if (dc == nullptr || bitmap == nullptr) {
+        if (bitmap != nullptr) DeleteObject(bitmap);
+        if (dc != nullptr) DeleteDC(dc);
+        ReleaseDC(window, target);
+        return;
+    }
+    const HGDIOBJ previousBitmap = SelectObject(dc, bitmap);
+    if (previousBitmap == nullptr) {
+        DeleteObject(bitmap);
+        DeleteDC(dc);
+        ReleaseDC(window, target);
+        return;
+    }
     const COLORREF border = RGB(74, 78, 82);
-    Fill(dc, RECT {0, 0, width, layout.border}, border);
-    Fill(dc, RECT {0, height - layout.border, width, height}, border);
-    Fill(dc, RECT {0, layout.border, layout.border, height - layout.border}, border);
-    Fill(dc, RECT {width - layout.border, layout.border, width, height - layout.border}, border);
+    Fill(dc, RECT {0, 0, width, height}, border);
     Fill(dc, layout.title, RGB(27, 29, 32));
     const COLORREF textColor = gCaptionActive ? RGB(240, 242, 244) : RGB(159, 164, 170);
     for (const auto button : {Button::Sessions, Button::Minimize, Button::Close}) {
@@ -197,8 +218,28 @@ static void PaintFrame(HWND window)
     RECT text = layout.text;
     DrawTextW(dc, gTitle.c_str(), static_cast<int>(gTitle.size()), &text,
         DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
-    RestoreDC(dc, saved);
-    ReleaseDC(window, dc);
+    // 透明DX11窗口仍按像素Alpha合成；普通GDI绘制后显式发布不透明的非客户区。
+    if (GdiFlush()) {
+        auto* const pixels = static_cast<std::uint32_t*>(bits);
+        const std::size_t count = static_cast<std::size_t>(width) * height;
+        for (std::size_t index = 0; index < count; ++index) {
+            pixels[index] |= 0xFF000000u;
+        }
+        const RECT regions[] {
+            {0, 0, width, layout.title.bottom},
+            {0, layout.title.bottom, layout.border, height - layout.border},
+            {width - layout.border, layout.title.bottom, width, height - layout.border},
+            {0, height - layout.border, width, height}
+        };
+        for (const RECT& region : regions) {
+            static_cast<void>(BitBlt(target, region.left, region.top, region.right - region.left,
+                region.bottom - region.top, dc, region.left, region.top, SRCCOPY));
+        }
+    }
+    SelectObject(dc, previousBitmap);
+    DeleteObject(bitmap);
+    DeleteDC(dc);
+    ReleaseDC(window, target);
 }
 
 static int AddHeight() noexcept { return Scale(36, WindowDpi(reinterpret_cast<HWND>(gLegacyWindow))); }
@@ -554,6 +595,17 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
     using namespace session_window_detail;
     result = 0;
     switch (message) {
+    case WM_CREATE:
+        if (HMODULE module = LoadLibraryExW(L"dwmapi.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32)) {
+            const auto setAttribute = reinterpret_cast<decltype(&DwmSetWindowAttribute)>(
+                GetProcAddress(module, "DwmSetWindowAttribute"));
+            if (setAttribute != nullptr) {
+                const DWM_WINDOW_CORNER_PREFERENCE corner = DWMWCP_DONOTROUND;
+                static_cast<void>(setAttribute(window, DWMWA_WINDOW_CORNER_PREFERENCE, &corner, sizeof(corner)));
+            }
+            FreeLibrary(module);
+        }
+        return false;
     case WM_NCCALCSIZE: {
         RECT& rectangle = wParam != 0 ? reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam)->rgrc[0]
             : *reinterpret_cast<RECT*>(lParam);

@@ -55,7 +55,7 @@ static void AdvanceLoadingFadeFrame(session::ClientSession& session)
 {
     render::SortTextures_520790();
     static_cast<void>(render::UpdatePalette_450BB0());
-    ClearKeyFlags_459760();
+    ClearKeyFlags_459760(session);
     const double threshold = gFrameThreshold + gLastRenderDt;
     const std::uint64_t tick = ReadTickCount64();
     if (static_cast<double>(tick) > threshold) {

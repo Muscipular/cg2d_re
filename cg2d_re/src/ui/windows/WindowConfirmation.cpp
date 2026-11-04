@@ -172,7 +172,7 @@ static std::int32_t WindowConfirmation_HandleButton(
             graphic->imageNo = idleImage + 2;
         }
     }
-    if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
+    if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (callbackWindow.ownerSession->UiFrame().keyStates[17] & 2) == 0)) {
         return 0;
     }
     static_cast<void>(WindowConfirmation_RequestClose(callbackWindow));

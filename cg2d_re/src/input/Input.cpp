@@ -773,15 +773,15 @@ std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session)
 {
     auto& inputs = session.UiFrame().native.inputs;
     std::int32_t base = 0;
-    if ((platform::gKeyStates[0x10] & 2u) != 0) {
+    if ((session.UiFrame().keyStates[0x10] & 2u) != 0) {
         base = 16;
-    } else if ((platform::gKeyStates[0x11] & 2u) != 0) {
+    } else if ((session.UiFrame().keyStates[0x11] & 2u) != 0) {
         base = 8;
     }
     std::int32_t selected = -1;
     std::int32_t result = 0;
     for (std::int32_t index = 0; index < 8; ++index) {
-        result = platform::ReadKeyPressFlag_4597B0(0x70 + index);
+        result = platform::ReadKeyPressFlag_4597B0(session, 0x70 + index);
         if (result != 0) {
             selected = base + index;
         }
@@ -955,9 +955,9 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
     if (initialContext != &inputs.chat || platform::gImeComposition[0] != '\0') {
         return;
     }
-    const std::uint8_t control = platform::gKeyStates[17] & 2u;
-    if (control == 0 && (platform::gKeyStates[16] & 2u) == 0
-        && (platform::gKeyStates[38] & 0x10u) != 0) {
+    const std::uint8_t control = session.UiFrame().keyStates[17] & 2u;
+    if (control == 0 && (session.UiFrame().keyStates[16] & 2u) == 0
+        && (session.UiFrame().keyStates[38] & 0x10u) != 0) {
         const std::int32_t previous = history.cursor62683C;
         const auto tail = std::bit_cast<std::int32_t>(history.tail626838);
         std::int32_t selected = previous == -1 ? tail : previous - 1;
@@ -973,7 +973,7 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
         }
     } else {
         // 向下复用已读Ctrl位，不增加Shift门禁或空记录检查。
-        if (control != 0 || (platform::gKeyStates[40] & 0x10u) == 0) {
+        if (control != 0 || (session.UiFrame().keyStates[40] & 0x10u) == 0) {
             return;
         }
         const std::int32_t selected = history.cursor62683C;

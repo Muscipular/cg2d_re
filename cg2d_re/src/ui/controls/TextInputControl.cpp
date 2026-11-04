@@ -132,7 +132,7 @@ void WindowElement_SyncInputText(WindowElement& element) {
     auto& owner = InputOwnerFor(element);
     bool enter = RemoveInputContextLineBreaks(data->context);
     ClampInputContextText(data->context, data->maxLength);
-    if (data->focused && owner.UiFrame().inputState.currentContext == &data->context && (platform::gKeyStates[0x0D] & KSF_TRIGGER)) enter = true;
+    if (data->focused && owner.UiFrame().inputState.currentContext == &data->context && (element.owner->ownerSession->UiFrame().keyStates[0x0D] & KSF_TRIGGER)) enter = true;
     const std::wstring value = data->context.text;
     const auto ref = WindowRuntime_ElementRef(element);
     if (value != data->lastText) {

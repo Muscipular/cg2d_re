@@ -1751,7 +1751,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         }
     }
     if (craft.selectionMode == 3
-        && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
+        && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, 13) != 0)) {
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId != 220) {

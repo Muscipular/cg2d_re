@@ -952,8 +952,8 @@ void DescribeHoveredYobi_507140(session::ClientSession& session, const render::G
                 interaction.hoverTitle = std::format(L"{:<16}", title);
                 interaction.hoverTitleValue = 4;
             }
-            const std::uint8_t control = platform::gKeyStates[detail::HoverShortcutKey_Control] & detail::HoverShortcutKeyStateFlag_Down;
-            if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Insert] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
+            const std::uint8_t control = session.UiFrame().keyStates[detail::HoverShortcutKey_Control] & detail::HoverShortcutKeyStateFlag_Down;
+            if (control != 0 && (session.UiFrame().keyStates[detail::HoverShortcutKey_Insert] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190(session) >= 72) {
                     cg::world::AppendChatMessage_44B050(*action->ownerSession, L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
@@ -970,7 +970,7 @@ void DescribeHoveredYobi_507140(session::ClientSession& session, const render::G
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, graphic->reference.action->nameC4.c_str());
                 }
                 cg::world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
-            } else if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Delete] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
+            } else if (control != 0 && (session.UiFrame().keyStates[detail::HoverShortcutKey_Delete] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 const wchar_t* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
                     return;

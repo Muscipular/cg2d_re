@@ -605,7 +605,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
             if ((state & MouseFlag_Hover) != 0) {
                 uiFrame.hoverText = L"变更家族兽名称。";
             }
-            if ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, 13) != 0) {
                 const std::wstring proposedTitle = input::ContextText(inputs.textListTitle);
                 const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
                 const std::wstring packet = input::EscapeText(L"N|" + name, 255);

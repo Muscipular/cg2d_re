@@ -26,8 +26,6 @@
 
 namespace cg::platform {
 
-std::uint8_t gKeyStates[LegacyKeyStateCount] {}; // 原全局：0x0073EFF8。
-
 std::uint32_t gCurrentClientWidth = 0; // 原全局：0x009A6F2C。
 std::uint32_t gCurrentClientHeight = 0; // 原全局：0x009A6F30。
 std::uint32_t gWindowResizePhase = 0; // 原全局：0x009A7F68。
@@ -44,33 +42,33 @@ void* gImeCandidateList = nullptr;
 std::uint8_t gImeState73EFF0 = 0; // 原全局：0x0073EFF0。
 
 // 原函数：0x00459760。
-int ClearKeyFlags_459760() noexcept
+int ClearKeyFlags_459760(session::ClientSession& session) noexcept
 {
     for (std::size_t index = 0; index < LegacyKeyStateCount; ++index) {
-        gKeyStates[index] &= 0xEAu;
+        session.UiFrame().keyStates[index] &= 0xEAu;
     }
     return static_cast<int>(LegacyKeyStateCount);
 }
 
 // 原函数：0x00459780。
-int ResetKeyState_459780() noexcept
+int ResetKeyState_459780(session::ClientSession& session) noexcept
 {
     for (std::size_t index = 0; index < LegacyKeyStateCount; ++index) {
-        gKeyStates[index] &= 0xE8u;
+        session.UiFrame().keyStates[index] &= 0xE8u;
     }
     return static_cast<int>(LegacyKeyStateCount);
 }
 
 // 原函数：0x004597B0。
-int ReadKeyPressFlag_4597B0(const std::int32_t key) noexcept
+int ReadKeyPressFlag_4597B0(session::ClientSession& session, const std::int32_t key) noexcept
 {
-    return static_cast<int>(gKeyStates[key] & 0x10u);
+    return static_cast<int>(session.UiFrame().keyStates[key] & 0x10u);
 }
 
 // 原函数：0x004597A0。
-int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
+int ReadKeyFlag4_4597A0(session::ClientSession& session, const std::int32_t key) noexcept
 {
-    return static_cast<int>(gKeyStates[key] & 4u);
+    return static_cast<int>(session.UiFrame().keyStates[key] & 4u);
 }
 
 // CTM01/A07：复制后释放剪贴板，再交给既有输入上下文按完整Unicode字符插入。
@@ -128,22 +126,22 @@ static void RebuildRendererIfGraphicDirty()
     }
 }
 
-static void UpdateKeyDownState(const std::uint32_t key)
+static void UpdateKeyDownState(session::ClientSession& session, const std::uint32_t key)
 {
     const std::uint8_t pressed = static_cast<std::uint8_t>(
-        gKeyStates[key] | 2u);
-    gKeyStates[key] = pressed;
+        session.UiFrame().keyStates[key] | 2u);
+    session.UiFrame().keyStates[key] = pressed;
     if ((pressed & 8u) == 0) {
-        gKeyStates[key] = static_cast<std::uint8_t>(pressed | 0x0Cu);
+        session.UiFrame().keyStates[key] = static_cast<std::uint8_t>(pressed | 0x0Cu);
     }
-    gKeyStates[key] = static_cast<std::uint8_t>(
-        gKeyStates[key] | 0x10u);
+    session.UiFrame().keyStates[key] = static_cast<std::uint8_t>(
+        session.UiFrame().keyStates[key] | 0x10u);
 }
 
-static void UpdateKeyUpState(const std::uint32_t key)
+static void UpdateKeyUpState(session::ClientSession& session, const std::uint32_t key)
 {
-    gKeyStates[key] = static_cast<std::uint8_t>(
-        (gKeyStates[key] & 0xF5u) | 1u);
+    session.UiFrame().keyStates[key] = static_cast<std::uint8_t>(
+        (session.UiFrame().keyStates[key] & 0xF5u) | 1u);
 }
 
 static MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
@@ -173,11 +171,13 @@ LRESULT CALLBACK WindowProcedure(
 {
     const std::uint32_t wParam32 = static_cast<std::uint32_t>(wParam);
     const std::uint32_t lParam32 = static_cast<std::uint32_t>(lParam);
-    auto* const mouseSession = session::GetClientHost().CurrentSession();
+    auto* const inputSession = session::GetClientHost().CurrentSession();
 
     switch (message) {
     case WM_ACTIVATE: {
-        static_cast<void>(ResetKeyState_459780());
+        if (inputSession != nullptr) {
+            static_cast<void>(ResetKeyState_459780(*inputSession));
+        }
         const bool activating = wParam32 == WA_ACTIVE || wParam32 == WA_CLICKACTIVE;
         if (activating && render::gRenderer != nullptr) {
             if (render::IsLost_4536D0() == 1) {
@@ -265,25 +265,26 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_SETCURSOR:
-        if (mouseSession != nullptr && static_cast<std::uint16_t>(lParam32) == HTCLIENT) {
-            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[mouseSession->UiFrame().mouse.consumedCursor]));
+        if (inputSession != nullptr && static_cast<std::uint16_t>(lParam32) == HTCLIENT) {
+            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[inputSession->UiFrame().mouse.consumedCursor]));
             return 1;
         }
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_NCMOUSEMOVE: {
-        if (mouseSession == nullptr) return 0;
-        const std::uint32_t oldSuppression = mouseSession->UiFrame().mouse.state->drawingSuppression;
-        mouseSession->UiFrame().mouse.state->heldButtons = 0;
-        mouseSession->UiFrame().mouse.state->edgeButtons = 0;
+        if (inputSession == nullptr) return 0;
+        const std::uint32_t oldSuppression = inputSession->UiFrame().mouse.state->drawingSuppression;
+        inputSession->UiFrame().mouse.state->heldButtons = 0;
+        inputSession->UiFrame().mouse.state->edgeButtons = 0;
         if (oldSuppression == 0u) {
             ShowCursor(TRUE);
-            mouseSession->UiFrame().mouse.state->drawingSuppression = 1;
+            inputSession->UiFrame().mouse.state->drawingSuppression = 1;
         }
         return 0;
     }
 
     case WM_KEYDOWN:
+        if (inputSession == nullptr) return 0;
         if ((wParam32 == 'V' && (::GetKeyState(VK_CONTROL) & 0x8000) != 0)
             || (wParam32 == VK_INSERT && (::GetKeyState(VK_SHIFT) & 0x8000) != 0)) {
             if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
@@ -293,13 +294,14 @@ LRESULT CALLBACK WindowProcedure(
         }
         RebuildRendererIfGraphicDirty();
         if (gWindowActiveState == 2) {
-            UpdateKeyDownState(wParam32);
+            UpdateKeyDownState(*inputSession, wParam32);
         }
         return 0;
 
     case WM_KEYUP:
+        if (inputSession == nullptr) return 0;
         RebuildRendererIfGraphicDirty();
-        UpdateKeyUpState(wParam32);
+        UpdateKeyUpState(*inputSession, wParam32);
         return 0;
 
     case WM_PASTE:
@@ -315,12 +317,13 @@ LRESULT CALLBACK WindowProcedure(
         }
         RebuildRendererIfGraphicDirty();
         if (wParam32 == VK_F10) {
+            if (inputSession == nullptr) return 0;
             // 原 4671C3..4671D4 仅在按位更新完成后写一次键状态。
-            std::uint8_t pressed = static_cast<std::uint8_t>(gKeyStates[VK_F10] | 2u);
+            std::uint8_t pressed = static_cast<std::uint8_t>(inputSession->UiFrame().keyStates[VK_F10] | 2u);
             if ((pressed & 8u) == 0) {
                 pressed = static_cast<std::uint8_t>(pressed | 0x0Cu);
             }
-            gKeyStates[VK_F10] = static_cast<std::uint8_t>(pressed | 0x10u);
+            inputSession->UiFrame().keyStates[VK_F10] = static_cast<std::uint8_t>(pressed | 0x10u);
             return 0;
         }
         return DefWindowProcW(window, message, wParam, lParam);
@@ -376,72 +379,72 @@ LRESULT CALLBACK WindowProcedure(
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_MOUSEMOVE: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        ResetLegacyMousePosition_506890(*mouseSession, coordinates.x, coordinates.y);
-        if (mouseSession->UiFrame().mouse.state->drawingSuppression == 1u) {
+        ResetLegacyMousePosition_506890(*inputSession, coordinates.x, coordinates.y);
+        if (inputSession->UiFrame().mouse.state->drawingSuppression == 1u) {
             ShowCursor(FALSE);
-            mouseSession->UiFrame().mouse.state->drawingSuppression = 0;
+            inputSession->UiFrame().mouse.state->drawingSuppression = 0;
         }
         RebuildRendererIfGraphicDirty();
         return 0;
     }
 
     case WM_LBUTTONDOWN: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        UpdateLegacyMouseLeftDown_506900(*mouseSession, coordinates.x, coordinates.y);
+        UpdateLegacyMouseLeftDown_506900(*inputSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_LBUTTONUP: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseLeftUp_5069E0(*mouseSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseLeftUp_5069E0(*inputSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_LBUTTONDBLCLK: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseLeftDoubleClick_506A90(*mouseSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseLeftDoubleClick_506A90(*inputSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_RBUTTONDOWN: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
-        UpdateLegacyMouseRightDown_506B50(*mouseSession, coordinates.x, coordinates.y);
+        UpdateLegacyMouseRightDown_506B50(*inputSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_RBUTTONUP: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseRightUp_506C40(*mouseSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseRightUp_506C40(*inputSession, coordinates.x, coordinates.y));
         return 0;
     }
 
     case WM_RBUTTONDBLCLK: {
-        if (mouseSession == nullptr) return 0;
+        if (inputSession == nullptr) return 0;
         if (gWindowActiveState != 2) {
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseRightDoubleClick_506CF0(*mouseSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseRightDoubleClick_506CF0(*inputSession, coordinates.x, coordinates.y));
         return 0;
     }
 
@@ -449,11 +452,11 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_MOUSEWHEEL:
-        if (mouseSession != nullptr && gWindowActiveState == 2) {
+        if (inputSession != nullptr && gWindowActiveState == 2) {
             const std::int16_t wheel = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(wParam32 >> 16));
-            script::AddLuaMouseWheel(*mouseSession, wheel);
-            static_cast<void>(AddLegacyMouseWheelDelta_506DB0(*mouseSession,
+            script::AddLuaMouseWheel(*inputSession, wheel);
+            static_cast<void>(AddLegacyMouseWheelDelta_506DB0(*inputSession,
                 -static_cast<std::int32_t>(wheel)));
         }
         return 0;

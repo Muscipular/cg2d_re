@@ -2,6 +2,7 @@
 
 #include "cg/ui/NativeWindowRuntimeState.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/KeyState.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -52,6 +53,7 @@ struct ExtensionWindowState {
 struct UiFrameRuntimeState {
     platform::MouseRuntimeState mouse {};
     int mouseWheelDelta = 0; // 扩展UI/Lua共用的本会话滚轮增量，与原鼠标尾字段独立。
+    std::uint8_t keyStates[platform::LegacyKeyStateCount] {}; // 原73EFF8完整U8键态数组。
     NativeWindowRuntimeState native {};
     input::InputRuntimeState inputState {};
     std::uint32_t windowHasFocus = 0; // 原0xCA0AB4，元素派发成功后占用，独立于焦点窗口ID。

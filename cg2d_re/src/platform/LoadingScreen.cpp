@@ -43,9 +43,9 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         if ((static_cast<std::uint8_t>(connection.Owner().UiFrame().mouse.state->edgeButtons) & 3u) != 0
-            || (gKeyStates[13] & 2u) != 0
-            || (gKeyStates[32] & 2u) != 0
-            || (gKeyStates[27] & 2u) != 0) {
+            || (connection.Owner().UiFrame().keyStates[13] & 2u) != 0
+            || (connection.Owner().UiFrame().keyStates[32] & 2u) != 0
+            || (connection.Owner().UiFrame().keyStates[27] & 2u) != 0) {
             if (phase < 21 || (phase >= 30 && phase <= 33)) {
                 phase = 21;
             }
@@ -328,7 +328,7 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
         render::SortTextures_520790();
         UpdateQueuedTextAndGraphicHover_507140(connection.Owner());
         static_cast<void>(render::UpdatePalette_450BB0());
-        ClearKeyFlags_459760();
+        ClearKeyFlags_459760(connection.Owner());
         const double threshold = gFrameThreshold + gLastRenderDt;
         const std::uint64_t tick = ReadTickCount64();
         bool skipDrawing = false;

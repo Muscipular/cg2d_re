@@ -91,14 +91,14 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
     }
 
     std::int32_t requestedFocus = -1;
-    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(9) != 0;
+    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 9) != 0;
     if (!keyTriggered) {
-        keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
+        keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0;
     }
     if (keyTriggered) {
         const std::int32_t focus = sceneUi.capability3InputFocus;
         if (focus == 1) {
-            if (platform::ReadKeyPressFlag_4597B0(13) != 0
+            if (platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0
                 && sceneUi.context9A5960.length() != 0
                 && sceneUi.context9A5678.length() != 0
                 && !input::IsRejectedInputText_404060(input::ContextText(sceneUi.context9A5960))

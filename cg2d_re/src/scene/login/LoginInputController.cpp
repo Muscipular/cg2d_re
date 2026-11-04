@@ -110,14 +110,14 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
     render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5960);
     render::DrawInputText_4568A0(connection.Owner(), &sceneUi.context9A5678);
 
-    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(9) != 0;
+    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 9) != 0;
     if (!keyTriggered) {
-        keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
+        keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0;
     }
     if (keyTriggered) {
         const std::int32_t focus = sceneUi.inputFocusIndex;
         if (focus == 0) {
-            if (platform::ReadKeyPressFlag_4597B0(13) != 0
+            if (platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0
                 && sceneUi.context9A5960.length() != 0
                 && sceneUi.context9A5678.length() != 0
                 && !input::IsRejectedInputText_404060(input::ContextText(sceneUi.context9A5960))
@@ -245,14 +245,14 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
     }
 
     std::int32_t candidate = -1;
-    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(9) != 0;
+    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 9) != 0;
     if (!keyTriggered) {
-        keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
+        keyTriggered = platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0;
     }
     if (keyTriggered) {
         const std::int32_t rawFocus = sceneUi.loginInputFocus;
         if (rawFocus == 0) {
-            if (platform::ReadKeyPressFlag_4597B0(13) != 0
+            if (platform::ReadKeyPressFlag_4597B0(connection.Owner(), 13) != 0
                 && sceneUi.context9A5960.length() != 0
                 && sceneUi.context9A5678.length() != 0
                 && !input::IsRejectedInputText_404060(input::ContextText(sceneUi.context9A5960))

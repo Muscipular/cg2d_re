@@ -206,10 +206,10 @@ std::int32_t WindowPetSkills_GetPreviewPage(session::ClientSession& session, con
         interaction.previewPageCount = pageCount;
         interaction.previewPage = 0;
     }
-    if ((platform::gKeyStates[0x21] & 4u) != 0 && interaction.previewPage > 0) { // PageUp。
+    if ((session.UiFrame().keyStates[0x21] & 4u) != 0 && interaction.previewPage > 0) { // PageUp。
         --interaction.previewPage;
     }
-    if ((platform::gKeyStates[0x22] & 4u) != 0 && interaction.previewPage + 1 < pageCount) { // PageDown。
+    if ((session.UiFrame().keyStates[0x22] & 4u) != 0 && interaction.previewPage + 1 < pageCount) { // PageDown。
         ++interaction.previewPage;
     }
     return interaction.previewPage;

@@ -175,7 +175,7 @@ int MainLoop(session::ClientSession& session)
         if (gWindowActiveState != 0) {
             cg::yobi::UpdateMapEnvironmentEffects_449160(session);
         }
-        ClearKeyFlags_459760();
+        ClearKeyFlags_459760(session);
 
         if (session.WorldScene().forceRender == 0) {
             const std::int32_t windowActiveState = gWindowActiveState;

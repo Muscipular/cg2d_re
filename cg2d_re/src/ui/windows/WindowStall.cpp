@@ -1868,15 +1868,15 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     }
     if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {
-            if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
-                || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
+            if (platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, digit + 48) != 0
+                || platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, digit + 96) != 0) {
                 callbackWindow.ownerSession->UiFrame().native.stall.price = digit + 10 * callbackWindow.ownerSession->UiFrame().native.stall.price;
             }
             if (callbackWindow.ownerSession->UiFrame().native.stall.price > 9999999) {
                 callbackWindow.ownerSession->UiFrame().native.stall.price = 9999999;
             }
         }
-        if (platform::ReadKeyFlag4_4597A0(8) != 0) {
+        if (platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, 8) != 0) {
             callbackWindow.ownerSession->UiFrame().native.stall.price /= 10;
         }
     }

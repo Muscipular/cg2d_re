@@ -815,7 +815,7 @@ void WindowItem_RequestTransfer(
     if (source < 0 || target < 0 || source == target) {
         return;
     }
-    bool split = (platform::gKeyStates[0x11] & 2u) == 0;
+    bool split = (session.UiFrame().keyStates[0x11] & 2u) == 0;
     if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
         split = !split;
     }
@@ -1271,14 +1271,14 @@ std::uint8_t WindowInput_HandleNumber(
             }
             if ((flags & 2u) != 0) {
                 for (std::int32_t digit = 0; digit < 10; ++digit) {
-                    if (platform::ReadKeyFlag4_4597A0(48 + digit) != 0
-                        || platform::ReadKeyFlag4_4597A0(96 + digit) != 0) {
+                    if (platform::ReadKeyFlag4_4597A0(*window->ownerSession, 48 + digit) != 0
+                        || platform::ReadKeyFlag4_4597A0(*window->ownerSession, 96 + digit) != 0) {
                         selected = digit;
                         break;
                     }
                 }
             }
-            if (platform::ReadKeyFlag4_4597A0(8) != 0) {
+            if (platform::ReadKeyFlag4_4597A0(*window->ownerSession, 8) != 0) {
                 auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
                 if (elementPtr) {
                     WindowElement* const element = elementPtr;
@@ -2978,8 +2978,8 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 {
     auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& chatWindow = session.UiFrame().native.chat;
-    if ((platform::gKeyStates[0x1B] & 4u) != 0) {
-        platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
+    if ((session.UiFrame().keyStates[0x1B] & 4u) != 0) {
+        session.UiFrame().keyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
         if (script::CloseTopmostNonDefaultWindow(session)) {
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         } else {
@@ -2992,14 +2992,14 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         return;
     }
     const bool modeOne = mode == 1;
-    if ((platform::gKeyStates[0x23] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x23] & 4u) != 0) {
         WindowRuntime_ToggleShortcutWindow(session, 65);
     }
-    if ((platform::gKeyStates[0x78] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x78] & 4u) != 0) {
         WindowRuntime_ToggleShortcutWindow(session, 66);
     }
-    if ((platform::gKeyStates[0x11] & 2u) != 0) {
-        if ((platform::gKeyStates[modeOne ? 0x51 : 0x57] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x11] & 2u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x51 : 0x57] & 4u) != 0) {
             constexpr std::int32_t ids[] {7, 8, 9, 58};
             bool found = false;
             for (const std::int32_t id : ids) {
@@ -3014,7 +3014,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_PlayerProfile, 1, 0, nullptr));
             }
         }
-        if ((platform::gKeyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
             if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenSkills(session);
             } else {
@@ -3027,112 +3027,112 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 }
             }
         }
-        if ((platform::gKeyStates[modeOne ? 0x45 : 0x52] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x45 : 0x52] & 4u) != 0) {
             if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenItems(session);
             } else {
                 WindowRuntime_ToggleShortcutWindow(session, 14);
             }
         }
-        if ((platform::gKeyStates[modeOne ? 0x52 : 0x41] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x52 : 0x41] & 4u) != 0) {
             if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenPets(session);
             } else {
                 WindowRuntime_ToggleShortcutWindow(session, 15);
             }
         }
-        if ((platform::gKeyStates[modeOne ? 0x54 : 0x53] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x54 : 0x53] & 4u) != 0) {
             WindowRuntime_ToggleShortcutWindow(session, 21);
         }
-        if ((platform::gKeyStates[modeOne ? 0x59 : 0x44] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x59 : 0x44] & 4u) != 0) {
             WindowRuntime_ToggleShortcutWindow(session, 19);
         }
-        if ((platform::gKeyStates[modeOne ? 0x41 : 0x46] & 4u) != 0
+        if ((session.UiFrame().keyStates[modeOne ? 0x41 : 0x46] & 4u) != 0
             && session.WorldScene().sceneType != 10) {
             WindowRuntime_ToggleShortcutWindow(session, 34);
         }
-        if ((platform::gKeyStates[modeOne ? 0x53 : 0x51] & 4u) != 0
+        if ((session.UiFrame().keyStates[modeOne ? 0x53 : 0x51] & 4u) != 0
             && session.WorldScene().sceneType != 10) {
             WindowRuntime_ToggleShortcutWindow(session, 33);
         }
-        if ((platform::gKeyStates[modeOne ? 0x44 : 0x59] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x44 : 0x59] & 4u) != 0) {
             WindowRuntime_ToggleShortcutWindow(session, 25);
         }
-        if ((platform::gKeyStates[modeOne ? 0x5A : 0x4F] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x5A : 0x4F] & 4u) != 0) {
             static_cast<void>(WindowRuntime_CycleNameMode());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x26] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x26] & 4u) != 0) {
             WindowChat_RequestHeightIncrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x28] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x28] & 4u) != 0) {
             WindowChat_RequestHeightDecrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x27] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x27] & 4u) != 0) {
             WindowChat_RequestWidthDecrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x25] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x25] & 4u) != 0) {
             WindowChat_RequestWidthIncrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::ToggleDuelPermission_472F40(session));
         }
-        if ((platform::gKeyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::TogglePartyChat_472F70(session));
         }
-        if ((platform::gKeyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::TogglePartyJoinPermission_472FA0(session));
         }
-        if ((platform::gKeyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::ToggleContactCardExchangePermission_472FD0(session));
         }
-        if ((platform::gKeyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::ToggleTradePermission_473000(session));
         }
-        if ((platform::gKeyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(world::ToggleGuildInvitePermission_473030(session));
         }
 
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
         if (session.WorldScene().sceneType != 10) {
-            if ((platform::gKeyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
                 world::RequestDuelWithFacingPlayer_470050(session);
             }
-            if ((platform::gKeyStates[modeOne ? 0x4B : 0x56] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0x4B : 0x56] & 4u) != 0) {
                 world::RequestSpectateFacingBattle_470150(session);
             }
-            if (!modeOne && (platform::gKeyStates[0x48] & 4u) != 0) {
+            if (!modeOne && (session.UiFrame().keyStates[0x48] & 4u) != 0) {
                 WindowRuntime_PlayShortcutEmote(session, 9, 13);
             }
-            if ((platform::gKeyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
                 world::RequestPartyJoinOrLeave_470270(session);
             }
-            if ((platform::gKeyStates[modeOne ? 0xBA : 0xDB] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0xBA : 0xDB] & 4u) != 0) {
                 world::RequestFacingPlayerContactCard_4703C0(session);
             }
-            if ((platform::gKeyStates[modeOne ? 0xDE : 0xDD] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0xDE : 0xDD] & 4u) != 0) {
                 world::RequestNearbyPlayerTrade_4704A0(session);
             }
-            if ((platform::gKeyStates[modeOne ? 0xDD : 0x4D] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[modeOne ? 0xDD : 0x4D] & 4u) != 0) {
                 world::RequestFacingPlayerGuildInvitation_470670(session);
             }
             for (const ShortcutEmoteBinding& binding : kShortcutEmotes) {
                 const std::uint8_t key = modeOne ? binding.keyMode1 : binding.keyMode0;
-                if ((platform::gKeyStates[key] & 4u) != 0) {
+                if ((session.UiFrame().keyStates[key] & 4u) != 0) {
                     WindowRuntime_PlayShortcutEmote(session, binding.action, binding.selected);
                 }
             }
-            if ((platform::gKeyStates[0xDC] & 4u) != 0) {
+            if ((session.UiFrame().keyStates[0xDC] & 4u) != 0) {
                 const std::int32_t remainder = platform::Rand16(session.Connection()) % 3;
                 if (remainder == 0) {
                     WindowRuntime_PlayShortcutEmote(session, 14, 7);
@@ -3143,26 +3143,26 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 }
             }
         }
-        if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x7B] & 4u) != 0) {
             WindowRuntime_RestorePositions(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x7A] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x7A] & 4u) != 0) {
             auto& enabled = WindowRuntime_Settings(session).actorBarsEnabled;
             enabled = enabled != 1 ? 1u : 0u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x24] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x24] & 4u) != 0) {
             static_cast<void>(WindowChat_SwitchMode(session));
         }
         return;
     }
-    if ((platform::gKeyStates[0x10] & 2u) != 0) {
-        if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x10] & 2u) != 0) {
+        if ((session.UiFrame().keyStates[0x7B] & 4u) != 0) {
             WindowRuntime_CloseByCategory(session, 7);
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
-        if ((platform::gKeyStates[0x24] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x24] & 4u) != 0) {
             if (session.UiFrame().inputState.chatPanelVisible == 1) {
                 session.UiFrame().inputState.chatPanelVisible = 0;
                 session.UiFrame().inputState.chatLogSuppressed = 1;
@@ -3172,7 +3172,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x27] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x27] & 4u) != 0) {
             const std::int32_t range = chatDisplay.range + 1;
             const bool pastLastRange = range > 5;
             chatDisplay.range = range;
@@ -3182,7 +3182,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             chatDisplay.rangeOverlayFrames = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x25] & 4u) != 0) {
+        if ((session.UiFrame().keyStates[0x25] & 4u) != 0) {
             const std::int32_t range = chatDisplay.range - 1;
             const bool belowFirstRange = range < 1;
             chatDisplay.range = range;
@@ -3192,7 +3192,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             chatDisplay.rangeOverlayFrames = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
+        if ((session.UiFrame().keyStates[0x26] & 0x10u) != 0) {
             const std::int32_t previous = chatWindow.scrollOffset;
             const std::int32_t count = chatDisplay.count;
             const std::int32_t scroll = previous + 1;
@@ -3205,7 +3205,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
-        if ((platform::gKeyStates[0x28] & 0x10u) != 0) {
+        if ((session.UiFrame().keyStates[0x28] & 0x10u) != 0) {
             const std::int32_t scroll = chatWindow.scrollOffset - 1;
             const bool belowFirstChatLine = scroll < 0;
             chatWindow.scrollOffset = scroll;
@@ -3218,15 +3218,15 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         return;
     }
-    if ((platform::gKeyStates[0x7A] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x7A] & 4u) != 0) {
         static_cast<void>(WindowRuntime_IncrementNameMode());
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x7B] & 4u) != 0) {
         static_cast<void>(render::TakeScreenshotThrottled_503C80(session));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    if ((platform::gKeyStates[0x24] & 4u) != 0) {
+    if ((session.UiFrame().keyStates[0x24] & 4u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         static_cast<void>(WindowChat_ClearHistory(session));
     }

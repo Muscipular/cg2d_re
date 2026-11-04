@@ -153,7 +153,7 @@ static int LuaCheckVkCode(lua_State* L, int index);
 
 static void LuaReadVkList(lua_State* L, int index, std::vector<int>& vkList);
 
-static bool WinMgrKeyPressed(const WinMgrKeyPressOption& option);
+static bool WinMgrKeyPressed(session::ClientSession& session, const WinMgrKeyPressOption& option);
 
 static void CliSendMsg(session::ClientSession& session, std::wstring_view msg, const MsgOption& option) {
     if (msg.empty()) return;
@@ -1457,7 +1457,7 @@ LuaFunctionEx(LuaWindowRef, CheckKeyState) {
     if (option.stateMask <= 0 || option.stateMask > 0xff) {
         return luaL_argerror(L, stateArg, "StateMask must be in range 1..255");
     }
-    lua_pushboolean(L, WinMgrKeyPressed(option));
+    lua_pushboolean(L, WinMgrKeyPressed(GetLuaConnection(L).Owner(), option));
     return 1;
 }
 
@@ -2433,13 +2433,13 @@ static void LuaReadVkList(lua_State* L, int index, std::vector<int>& vkList) {
     }
 }
 
-static bool WinMgrKeyPressed(const WinMgrKeyPressOption& option) {
-    int state = static_cast<int>(platform::gKeyStates[option.vkMain]);
+static bool WinMgrKeyPressed(session::ClientSession& session, const WinMgrKeyPressOption& option) {
+    int state = static_cast<int>(session.UiFrame().keyStates[option.vkMain]);
     if ((state & option.stateMask) == 0) {
         return false;
     }
     for (int vk: option.vkList) {
-        if ((static_cast<int>(platform::gKeyStates[vk]) & KEY_DOWN) == 0) {
+        if ((static_cast<int>(session.UiFrame().keyStates[vk]) & KEY_DOWN) == 0) {
             return false;
         }
     }
@@ -2456,7 +2456,7 @@ void LuaProcessWinMgrKeyPress(session::ClientSession& session) {
         const auto option = gWinMgrKeyPressOptions[i];
         auto event = option.event;
         if (!event || !event->active || event->callbackRef == LUA_REF_NONE
-            || &GetLuaConnection(event->owner).Owner() != &session || !WinMgrKeyPressed(option)) {
+            || &GetLuaConnection(event->owner).Owner() != &session || !WinMgrKeyPressed(session, option)) {
             continue;
         }
 

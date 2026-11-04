@@ -1496,7 +1496,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
                     cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                     if (result == 1) {
-                        if ((platform::gKeyStates[17] & 2u) != 0) {
+                        if ((connection.Owner().UiFrame().keyStates[17] & 2u) != 0) {
                             connection.Owner().WorldScene().sceneState = 14;
                             login::detail::PlaySe(284, 320, 240);
                             if (sceneUi.deleteConfirmationAction != nullptr) {

@@ -4959,7 +4959,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
         WindowRuntime_MarkExistingWindows(session);
         static_cast<void>(WindowRuntime_CloseAll(session));
         static_cast<void>(WindowRuntime_SaveSettings(session));
-        world::SaveAlbumData_5186A0();
+        world::SaveAlbumData_5186A0(session);
         static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
         static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
         static_cast<void>(world::detail::SavePlayerProfilesFile_534770());

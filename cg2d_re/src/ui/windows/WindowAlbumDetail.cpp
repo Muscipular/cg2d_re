@@ -275,8 +275,8 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& business = callbackWindow->ownerSession->UiFrame().native.business;
-    const auto selectedRecord = [&business]() {
-        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
+    const auto selectedRecord = [&business, callbackWindow]() {
+        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords(*callbackWindow->ownerSession);
         const std::int32_t index = business.valueCB2200;
         return records + index;
     };
@@ -316,9 +316,9 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(33 + slot)); indexedElement3) indexedElement3->visible = 1;
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 1;
         }
-        const std::int16_t nameCharacter = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::int16_t nameCharacter = callbackWindow->ownerSession->Connection().LoginRequests().selectedCharacterIndex;
         const std::int32_t nameIndex = business.valueCB2200;
-        const auto& name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
+        const auto& name = world::ClearAlbumNewFlagAndGetName(*callbackWindow->ownerSession, nameCharacter, nameIndex);
         copyBeforeScan(2, name);
 
         const std::int32_t image = selectedRecord()->imageNo;
@@ -370,7 +370,7 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
         }
 
         const std::int32_t firstRatingIndex = business.valueCB2200;
-        const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords();
+        const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords(*callbackWindow->ownerSession);
         WindowAlbumDetail_DrawRating(callbackWindow, firstRatingRecords[firstRatingIndex].ratings[0], 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
             WindowAlbumDetail_DrawRating(callbackWindow, selectedRecord()->ratings[rating], 53 + rating * 5);

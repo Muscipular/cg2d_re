@@ -1609,7 +1609,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
 
             if (actionIndex == 0u) {
                 connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
-                world::ClearCurrentCharacterAlbum_518BE0();
+                world::ClearCurrentCharacterAlbum_518BE0(connection.Owner());
                 cg::world::detail::ClearCurrentCharacterContactMail_519290();
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
                 cg::world::detail::SaveContactMailFile_519300();

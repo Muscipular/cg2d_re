@@ -219,7 +219,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
+        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords(*callbackWindow->ownerSession);
         const std::int32_t scroll = business.valueC8A95C;
         const bool used = records[scroll + row].used != 0;
         const std::int32_t firstDigit = 8 + row * 3;
@@ -265,7 +265,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
                 }
             }
 
-            const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords();
+            const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords(*callbackWindow->ownerSession);
             WindowInstance* const nameWindow = currentWindow;
             const std::int32_t nameScroll = business.valueC8A95C;
             auto* const textElement = nameWindow->FindElementById(NativeElementKey(48 + row));
@@ -274,7 +274,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
                 const auto& name = nameRecords[nameScroll + row].name;
                 text->text = name;
             }
-            const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
+            const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords(*callbackWindow->ownerSession);
             const std::int32_t flagScroll = business.valueC8A95C;
             const bool fresh = flagRecords[flagScroll + row].fresh != 0;
             WindowInstance* const flagWindow = currentWindow;
@@ -322,7 +322,7 @@ static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, 
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
+        const world::AlbumRecord* const records = world::GetSelectedAlbumRecords(*callbackWindow.ownerSession);
         const std::int32_t scroll = business.valueC8A95C;
         if (records[scroll + index - 58].used != 0) {
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_AlbumDetail].window == nullptr) {

@@ -201,7 +201,6 @@ struct AlbumStorage {
     std::array<std::int32_t, 2> versions;
     std::array<AlbumRecord, 2 * 960> records;
 };
-static AlbumStorage gAlbumStorage{};
 
 // ABS01：图鉴业务每批最多20条，收齐本批dM后才发送下一批。
 constexpr std::size_t kAlbumRequestBatchSize = 20;
@@ -216,23 +215,31 @@ struct AlbumSynchronization {
     std::optional<std::pair<std::int32_t, std::string>> deferredMask; // 本批收齐后处理最新Ilz。
     std::uint64_t generation = 0; // 清理后递增，旧回调不能修改新任务。
 };
-static AlbumSynchronization gAlbumSynchronization {};
+namespace detail {
+struct AlbumRuntimeData {
+    AlbumStorage storage {};
+    AlbumSynchronization synchronization {};
+};
+} // namespace detail
+
+AlbumRuntimeState::AlbumRuntimeState() : data(std::make_unique<detail::AlbumRuntimeData>()) {}
+AlbumRuntimeState::~AlbumRuntimeState() = default;
 
 // 初始化、角色图鉴加载/清空及任务结束共用；序号不随状态清空归零。
-static void ResetAlbumSynchronization()
+static void ResetAlbumSynchronization(session::ClientSession& session)
 {
-    const auto generation = gAlbumSynchronization.generation + 1;
-    gAlbumSynchronization = {};
-    gAlbumSynchronization.generation = generation;
+    const auto generation = session.WorldScene().album.data->synchronization.generation + 1;
+    session.WorldScene().album.data->synchronization = {};
+    session.WorldScene().album.data->synchronization.generation = generation;
 }
 
-static void DecodeAlbumStorage(const AlbumDiskStorage& disk)
+static void DecodeAlbumStorage(session::ClientSession& session, const AlbumDiskStorage& disk)
 {
-    gAlbumStorage.signature = disk.signature;
-    gAlbumStorage.versions = disk.versions;
+    session.WorldScene().album.data->storage.signature = disk.signature;
+    session.WorldScene().album.data->storage.versions = disk.versions;
     for (std::size_t i = 0; i < disk.records.size(); ++i) {
         const auto& source = disk.records[i];
-        auto& target = gAlbumStorage.records[i];
+        auto& target = session.WorldScene().album.data->storage.records[i];
         target.used = source.used;
         target.mark1 = source.mark1;
         target.mark2 = source.mark2;
@@ -249,12 +256,12 @@ static void DecodeAlbumStorage(const AlbumDiskStorage& disk)
     }
 }
 
-static void EncodeAlbumStorage(AlbumDiskStorage& disk)
+static void EncodeAlbumStorage(session::ClientSession& session, AlbumDiskStorage& disk)
 {
-    disk.signature = gAlbumStorage.signature;
-    disk.versions = gAlbumStorage.versions;
+    disk.signature = session.WorldScene().album.data->storage.signature;
+    disk.versions = session.WorldScene().album.data->storage.versions;
     for (std::size_t i = 0; i < disk.records.size(); ++i) {
-        const auto& source = gAlbumStorage.records[i];
+        const auto& source = session.WorldScene().album.data->storage.records[i];
         auto& target = disk.records[i];
         target.used = source.used;
         target.mark1 = source.mark1;
@@ -273,10 +280,10 @@ static void EncodeAlbumStorage(AlbumDiskStorage& disk)
 }
 
 // 借用唯一相册记录；index从0开始，selected保持原S16符号扩展。
-static AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
+static AlbumRecord* AlbumRecordAt(session::ClientSession& session, const std::int32_t index, const std::int16_t selected)
 {
     const std::ptrdiff_t record = index + static_cast<std::ptrdiff_t>(selected) * 960;
-    return gAlbumStorage.records.data() + record;
+    return session.WorldScene().album.data->storage.records.data() + record;
 }
 
 static constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
@@ -572,14 +579,14 @@ std::int32_t NextRotationValue_455C70(session::ClientSession& session)
 }
 
 // 原函数：0x00518C20。
-std::uint32_t InitializeAlbum_518C20()
+std::uint32_t InitializeAlbum_518C20(session::ClientSession& session)
 {
-    ResetAlbumSynchronization();
+    ResetAlbumSynchronization(session);
     constexpr char kAlbumSignature[] = "CCA";
-    gAlbumStorage.signature = {};
-    gAlbumStorage.versions = {};
-    for (auto& record : gAlbumStorage.records) record = {};
-    std::memcpy(gAlbumStorage.signature.data(), kAlbumSignature, sizeof(kAlbumSignature));
+    session.WorldScene().album.data->storage.signature = {};
+    session.WorldScene().album.data->storage.versions = {};
+    for (auto& record : session.WorldScene().album.data->storage.records) record = {};
+    std::memcpy(session.WorldScene().album.data->storage.signature.data(), kAlbumSignature, sizeof(kAlbumSignature));
     return 4;
 }
 
@@ -589,9 +596,9 @@ std::uint32_t InitializeAlbum_518C20()
 namespace detail {
 
 // 原[518780,518865)：ANP01改读完整快照及控制字节；错误先关闭，长度不符调用同源保存。
-void LoadAlbumData_518780()
+void LoadAlbumData_518780(session::ClientSession& session)
 {
-    ResetAlbumSynchronization();
+    ResetAlbumSynchronization(session);
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
     auto* const decoded = static_cast<std::uint8_t*>(
@@ -600,7 +607,7 @@ void LoadAlbumData_518780()
     std::FILE* const stream =
         _wfopen(path.c_str(), L"rb");
     if (stream == nullptr) {
-        SaveAlbumData_5186A0();
+        SaveAlbumData_5186A0(session);
     } else {
         const std::uint32_t count =
             static_cast<std::uint32_t>(std::fread(encoded, 1, sizeof(AlbumDiskStorage) + 1, stream));
@@ -618,9 +625,9 @@ void LoadAlbumData_518780()
         if (decodedBytes == 0x3C00C) {
             auto disk = std::make_unique<AlbumDiskStorage>();
             std::memcpy(disk.get(), decoded, sizeof(*disk));
-            DecodeAlbumStorage(*disk);
+            DecodeAlbumStorage(session, *disk);
         } else {
-            SaveAlbumData_5186A0();
+            SaveAlbumData_5186A0(session);
         }
     }
     std::free(encoded);
@@ -640,7 +647,7 @@ void UpdateAlbumEntry_518870(
         return;
     }
     const std::int32_t index = number - 1;
-    AlbumRecord* record = AlbumRecordAt(index, connection.LoginRequests().selectedCharacterIndex);
+    AlbumRecord* record = AlbumRecordAt(connection.Owner(), index, connection.LoginRequests().selectedCharacterIndex);
     const bool added = record->used == 0;
     record->used = 1;
     record->number = number;
@@ -654,39 +661,39 @@ void UpdateAlbumEntry_518870(
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     for (std::int32_t line = 0; line < 2; ++line) {
-        auto& destination = AlbumRecordAt(index, selected)->description[line];
+        auto& destination = AlbumRecordAt(connection.Owner(), index, selected)->description[line];
         char bytes[29]{}; // 协议行按原28字节容量提取后解码。
         const std::int32_t result = input::ExtractLegacyLine_503AB0(
             bytes, 29, text, line, 28);
         destination = cg::text::FromGbkWide(bytes);
         selected = connection.LoginRequests().selectedCharacterIndex;
         if (result == 0) {
-            AlbumRecordAt(index, selected)->description[line].clear();
+            AlbumRecordAt(connection.Owner(), index, selected)->description[line].clear();
         }
     }
     const char* const displayedName = std::strlen(name) > 16 ? "???" : name;
-    record = AlbumRecordAt(index, selected);
+    record = AlbumRecordAt(connection.Owner(), index, selected);
     record->name = cg::text::FromGbkWide(displayedName);
     record->fresh = static_cast<std::uint8_t>(added);
-    SaveAlbumData_5186A0();
+    SaveAlbumData_5186A0(connection.Owner());
 }
 
 // ABS01：仅在上批收齐后调用；最后一批完成才发布同步版本。
 static void SendNextAlbumBatch(network::CgConnection& connection)
 {
-    auto& sync = gAlbumSynchronization;
+    auto& sync = connection.Owner().WorldScene().album.data->synchronization;
     if (sync.connection != &connection || sync.connectionId != connection.Id()
         || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
-        ResetAlbumSynchronization();
+        ResetAlbumSynchronization(connection.Owner());
         return;
     }
     if (!sync.waiting.empty()) {
         return;
     }
     if (sync.nextRequest == sync.requests.size()) {
-        gAlbumStorage.versions[sync.selected] = sync.version;
-        ResetAlbumSynchronization();
-        SaveAlbumData_5186A0();
+        connection.Owner().WorldScene().album.data->storage.versions[sync.selected] = sync.version;
+        ResetAlbumSynchronization(connection.Owner());
+        SaveAlbumData_5186A0(connection.Owner());
         return;
     }
 
@@ -703,7 +710,7 @@ static void SendNextAlbumBatch(network::CgConnection& connection)
     if (result != network::SendResult::Queued
         || sync.connectionId != connection.Id()
         || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
-        ResetAlbumSynchronization();
+        ResetAlbumSynchronization(connection.Owner());
     }
 }
 
@@ -711,10 +718,10 @@ static void SendNextAlbumBatch(network::CgConnection& connection)
 void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
     const std::int32_t version, const char* const payload)
 {
-    auto& sync = gAlbumSynchronization;
+    auto& sync = connection.Owner().WorldScene().album.data->synchronization;
     if (sync.connection != &connection || sync.connectionId != connection.Id()
         || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
-        ResetAlbumSynchronization();
+        ResetAlbumSynchronization(connection.Owner());
     }
     if (!sync.waiting.empty()) {
         sync.deferredMask = std::make_pair(version, std::string(payload));
@@ -739,11 +746,11 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
         std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
         std::uint32_t bit = 1;
         for (std::int32_t position = 0; position < 32 && index < limit; ++position) {
-            AlbumRecord* const record = AlbumRecordAt(index, selected);
+            AlbumRecord* const record = AlbumRecordAt(connection.Owner(), index, selected);
             if ((static_cast<std::uint32_t>(mask) & bit) != 0) {
                 bool request = record->used == 0;
                 if (!request) {
-                    const std::int32_t previousVersion = gAlbumStorage.versions[selected];
+                    const std::int32_t previousVersion = connection.Owner().WorldScene().album.data->storage.versions[selected];
                     request = previousVersion < version;
                 }
                 if (request) {
@@ -759,7 +766,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
         }
     }
     const auto networkSession = connection.CaptureSession();
-    ResetAlbumSynchronization();
+    ResetAlbumSynchronization(connection.Owner());
     sync.connection = &connection;
     sync.connectionId = connection.Id();
     sync.selected = connection.LoginRequests().selectedCharacterIndex;
@@ -773,7 +780,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
             return;
         }
         if (result != network::SendResult::Queued) {
-            ResetAlbumSynchronization();
+            ResetAlbumSynchronization(connection.Owner());
             return;
         }
     }
@@ -7760,21 +7767,21 @@ void PetRuntimeRecord::ClearRaw() noexcept
 
 namespace cg::world {
 
-const AlbumRecord* GetSelectedAlbumRecords()
+const AlbumRecord* GetSelectedAlbumRecords(session::ClientSession& session)
 {
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    return AlbumRecordAt(0, selected);
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    return AlbumRecordAt(session, 0, selected);
 }
 
-const std::wstring& ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
+const std::wstring& ClearAlbumNewFlagAndGetName(session::ClientSession& session, const std::int16_t selected, const std::int32_t index)
 {
-    AlbumRecord* const record = AlbumRecordAt(index, selected);
+    AlbumRecord* const record = AlbumRecordAt(session, index, selected);
     record->fresh = 0;
     return record->name;
 }
 
 // 原[5186A0,518774)：ANP01按完整快照及控制字节提供codec容量；短写不关闭文件。
-void SaveAlbumData_5186A0()
+void SaveAlbumData_5186A0(session::ClientSession& session)
 {
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
@@ -7786,7 +7793,7 @@ void SaveAlbumData_5186A0()
         return;
     }
     auto snapshot = std::make_unique<AlbumDiskStorage>();
-    EncodeAlbumStorage(*snapshot);
+    EncodeAlbumStorage(session, *snapshot);
     std::int32_t encodedBytes;
     login::detail::EncodeLegacyBytes_52D310(
         reinterpret_cast<std::uint8_t*>(snapshot.get()), 0x3C00C, 0, encoded, &encodedBytes,
@@ -7805,13 +7812,13 @@ void SaveAlbumData_5186A0()
 }
 
 // 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
-void ClearCurrentCharacterAlbum_518BE0()
+void ClearCurrentCharacterAlbum_518BE0(session::ClientSession& session)
 {
-    ResetAlbumSynchronization();
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    gAlbumStorage.versions[selected] = 0;
-    std::fill_n(AlbumRecordAt(0, selected), 960, AlbumRecord{});
-    SaveAlbumData_5186A0();
+    ResetAlbumSynchronization(session);
+    const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
+    session.WorldScene().album.data->storage.versions[selected] = 0;
+    std::fill_n(AlbumRecordAt(session, 0, selected), 960, AlbumRecord{});
+    SaveAlbumData_5186A0(session);
 }
 
 // 原[50E5B0,50E5C3)：ABS01将回调连接一并交给图鉴分批同步。
@@ -7829,16 +7836,16 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const s
     const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
     const std::int32_t value30, char* const text, const char* const name)
 {
-    const auto generation = gAlbumSynchronization.generation;
+    const auto generation = connection.Owner().WorldScene().album.data->synchronization.generation;
     detail::UpdateAlbumEntry_518870(connection, number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
-    auto& sync = gAlbumSynchronization;
+    auto& sync = connection.Owner().WorldScene().album.data->synchronization;
     if (sync.generation != generation || sync.connection == nullptr) {
         return;
     }
     if (sync.connection != &connection || sync.connectionId != connection.Id()
         || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
-        ResetAlbumSynchronization();
+        ResetAlbumSynchronization(connection.Owner());
         return;
     }
     const auto entry = std::find(sync.waiting.begin(), sync.waiting.end(), number);
@@ -7851,7 +7858,7 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const s
     }
     if (sync.deferredMask) {
         auto deferred = std::move(*sync.deferredMask);
-        ResetAlbumSynchronization();
+        ResetAlbumSynchronization(connection.Owner());
         detail::SynchronizeAlbumEntryMask_518A40(connection, deferred.first, deferred.second.c_str());
         return;
     }

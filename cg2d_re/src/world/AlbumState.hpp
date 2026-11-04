@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include <array>
 #include <cstddef>
@@ -28,13 +29,13 @@ struct AlbumRecord {
 };
 
 // 423800借用当前角色960条记录，入口固定一次角色S16。
-const AlbumRecord* GetSelectedAlbumRecords();
+const AlbumRecord* GetSelectedAlbumRecords(session::ClientSession& session);
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
-const std::wstring& ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t index);
+const std::wstring& ClearAlbumNewFlagAndGetName(session::ClientSession& session, std::int16_t selected, std::int32_t index);
 // 原函数：0x005186A0。
-void SaveAlbumData_5186A0(); // ANP01：完整相册编码保存，短写保留原文件句柄行为。
+void SaveAlbumData_5186A0(session::ClientSession& session); // ANP01：完整相册编码保存，短写保留原文件句柄行为。
 // 原函数：0x00518BE0。
-void ClearCurrentCharacterAlbum_518BE0(); // 原所选角色相册组清理及保存。
+void ClearCurrentCharacterAlbum_518BE0(session::ClientSession& session); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。
 void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection& networkConnection, std::int32_t version, const char* payload); // 图鉴掩码回复，绑定连接分批请求。
 // 原函数：0x0050E5D0。
@@ -47,7 +48,7 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& networkConnection, 
 
 namespace detail {
 // 原函数：0x00518780。
-void LoadAlbumData_518780(); // ANP01：读取完整编码相册，长度不符调用5186A0。
+void LoadAlbumData_518780(session::ClientSession& session); // ANP01：读取完整编码相册，长度不符调用5186A0。
 // 原函数：0x00518870。
 void UpdateAlbumEntry_518870(
     cg::network::CgConnection& networkConnection, std::int32_t number, std::int32_t imageNo,

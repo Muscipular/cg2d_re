@@ -55,7 +55,7 @@ std::int32_t InitializeRotationTable_46FB20(session::ClientSession& session);
 std::int32_t NextRotationValue_455C70(session::ClientSession& session);
 
 // 原 518C20：清唯一相册区后复制 CCA 含 NUL 四字节，返回 4；不执行文件读写。
-std::uint32_t InitializeAlbum_518C20();
+std::uint32_t InitializeAlbum_518C20(session::ClientSession& session);
 
 // 原 World::Update@0x51C430；场景状态消费与分发，实现在WorldUpdate.cpp，依赖按所属模块接入。
 void Update(session::ClientSession& session);

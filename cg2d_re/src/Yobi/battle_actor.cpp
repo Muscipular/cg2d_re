@@ -27,7 +27,7 @@ namespace detail {
 // 原[423800,4238EA)：固定角色记录，名称及四项属性均短路匹配。
 std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
 {
-    const world::AlbumRecord* record = world::GetSelectedAlbumRecords();
+    const world::AlbumRecord* record = world::GetSelectedAlbumRecords(*action->ownerSession);
     for (std::int32_t index = 0; index < 960; ++index, ++record) {
         if (record->used == 0) {
             continue;

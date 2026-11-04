@@ -29,7 +29,7 @@ namespace shutdown_detail {
 static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0(session::ClientSession& session)
 {
     static_cast<void>(ui::detail::WindowRuntime_SaveSettings(session));
-    world::SaveAlbumData_5186A0();
+    world::SaveAlbumData_5186A0(session);
     return ui::WindowRuntime_CloseAll(session);
 }
 } // namespace shutdown_detail

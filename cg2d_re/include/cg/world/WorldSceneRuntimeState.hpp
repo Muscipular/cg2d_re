@@ -499,8 +499,23 @@ static_assert(sizeof(WorldMapRuntimeState::windowStartY) == 4);
 static_assert(sizeof(WorldMapRuntimeState::windowEndX) == 4);
 static_assert(sizeof(WorldMapRuntimeState::windowStartX) == 4);
 
+namespace detail { struct AlbumRuntimeData; }
+
+// 图鉴实际记录与同步任务的稳定owner；完整类型在原图鉴实现处构造/析构。
+struct AlbumRuntimeState {
+    AlbumRuntimeState();
+    ~AlbumRuntimeState();
+    AlbumRuntimeState(const AlbumRuntimeState&) = delete;
+    AlbumRuntimeState& operator=(const AlbumRuntimeState&) = delete;
+    AlbumRuntimeState(AlbumRuntimeState&&) = delete;
+    AlbumRuntimeState& operator=(AlbumRuntimeState&&) = delete;
+
+    std::unique_ptr<detail::AlbumRuntimeData> data;
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    AlbumRuntimeState album {};
     GameTimeRuntimeState gameTime {};
     WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};

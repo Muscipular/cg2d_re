@@ -268,7 +268,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     static_cast<void>(audio::InitializeAudio_5241A0());
     static_cast<void>(cg::audio::InitializeMusic_454C30(gLegacyWindow));
     login::detail::AppendSystemLog_44B5C0(L"initAlbumStartUp Start");
-    static_cast<void>(world::InitializeAlbum_518C20());
+    static_cast<void>(world::InitializeAlbum_518C20(session));
 
     const double initialFrameTime = static_cast<double>(ReadTickCount64());
     session.WorldScene().pendingSceneType = -1;

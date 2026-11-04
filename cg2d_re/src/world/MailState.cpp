@@ -1342,8 +1342,11 @@ void HandlePlayerProfileReply_50F450(cg::network::CgConnection& connection, cons
 // 原函数：0x005348A0。
 std::int32_t SaveProfileCategoryFile_5348A0(session::ClientSession& session)
 {
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return 0;
     auto disk = EncodeCategories(session);
-    std::FILE* const stream = _wfopen(L"bin\\category.dat", L"wb+");
+    const auto path = std::format(L"{}\\category.dat", directory);
+    std::FILE* const stream = _wfopen(path.c_str(), L"wb+");
     if (stream == nullptr) {
         return 0;
     }
@@ -1355,8 +1358,11 @@ std::int32_t SaveProfileCategoryFile_5348A0(session::ClientSession& session)
 // 原函数：0x00534910。
 std::int32_t LoadProfileCategoryFile_534910(session::ClientSession& session)
 {
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return 0;
     auto disk = EncodeCategories(session);
-    std::FILE* const stream = _wfopen(L"bin\\category.dat", L"rb+");
+    const auto path = std::format(L"{}\\category.dat", directory);
+    std::FILE* const stream = _wfopen(path.c_str(), L"rb+");
     if (stream == nullptr) {
         return 0;
     }

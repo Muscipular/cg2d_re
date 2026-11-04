@@ -3,9 +3,14 @@
 #include "cg/text/Encoding.hpp"
 #include <system_error>
 #include "cg/input/Input.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
+#include "cg/core/m_log.hpp"
+#include "../scene/login/LoginSavedState.hpp"
 
 #include <bit>
+#include <cerrno>
 #include <cstring>
+#include <filesystem>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B226、0x0053B27D、0x0053B2F1、0x0053B356；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::world::blacklist {
@@ -13,13 +18,16 @@ namespace cg::world::blacklist {
 // 原函数：0x004011A0。
 static std::int8_t PersistBlacklistFile_4011A0(session::ClientSession& session, const std::int32_t fileId)
 {
-    const auto localPath = std::format(L"data\\blacklist_{}.txt", fileId);
-
-    if (session.WorldScene().blacklist.path != localPath) {
+    if (session.WorldScene().blacklist.currentFileId != fileId
+        || session.WorldScene().blacklist.path.empty()) {
         return 0;
     }
 
     std::FILE* const file = _wfopen(session.WorldScene().blacklist.path.c_str(), L"w");
+    if (file == nullptr) {
+        m_log_iw(L"无法保存账号黑名单，错误 %d。", errno);
+        return 0;
+    }
     for (const Record& record : session.WorldScene().blacklist.records) {
         if (record[0] == 0) {
             break;
@@ -38,9 +46,24 @@ std::int8_t LoadBlacklistFile(session::ClientSession& session, const std::int32_
 {
     session.WorldScene().blacklist.path.clear();
     session.WorldScene().blacklist.records.fill({});
-    session.WorldScene().blacklist.path = std::format(L"data\\blacklist_{}.txt", fileId);
+    const auto& account = session.Connection().LoginRequests().account;
+    const auto directory = login::detail::MakeSavedAccountDirectory(account);
+    if (!directory.empty()) {
+        session.WorldScene().blacklist.path = std::format(L"{}\\blacklist_{}.txt", directory, fileId);
+        if (login::detail::PrepareSavedAccountDirectory(account, directory)) {
+            std::error_code error;
+            static_cast<void>(std::filesystem::copy_file(
+                std::filesystem::path(std::format(L"data\\blacklist_{}.txt", fileId)),
+                std::filesystem::path(session.WorldScene().blacklist.path),
+                std::filesystem::copy_options::skip_existing, error));
+            if (error && error != std::errc::no_such_file_or_directory) {
+                m_log_iw(L"旧黑名单复制失败，错误 %d。", error.value());
+            }
+        }
+    }
 
-    std::FILE* const file = _wfopen(session.WorldScene().blacklist.path.c_str(), L"rb+");
+    std::FILE* const file = session.WorldScene().blacklist.path.empty() ? nullptr
+        : _wfopen(session.WorldScene().blacklist.path.c_str(), L"rb+");
     if (file != nullptr) {
         std::rewind(file);
         if (std::feof(file) == 0) {

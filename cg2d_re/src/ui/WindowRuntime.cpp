@@ -3447,6 +3447,7 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
     static_cast<void>(WindowScroll_ResetPosition(session));
     world::detail::ResetMiniMailSequenceAndSelection_4C9490(session);
     world::detail::ClearMiniMailAndProfiles_533910(session);
+    static_cast<void>(world::detail::LoadProfileCategoryFile_534910(session));
     if (world::detail::LoadPlayerProfilesFile_5347F0(session) == 0) {
         world::detail::InitializeDefaultProfiles_533950(session);
     }

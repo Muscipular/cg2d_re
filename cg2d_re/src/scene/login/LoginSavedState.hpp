@@ -78,8 +78,9 @@ const wchar_t* ReadSelectedSavedDirectory(session::ClientSession& session);
 // NSM01：只编码账号协议字节；不读取会话或凭据密码。
 std::wstring EncodeSavedAccountName(std::wstring_view account);
 std::wstring MakeSavedAccountDirectory(std::wstring_view account);
-// 场景5在世界/文件初始化前绑定实际账号，返回登录后保留此路径。
-void BindSessionSavedAccount(session::ClientSession& session);
+bool PrepareSavedAccountDirectory(std::wstring_view account, const std::wstring& directory);
+// 场景5绑定实际账号；只返回路径是否变化，不表示文件或登录成功。
+bool BindSessionSavedAccount(session::ClientSession& session);
 
 // 原函数：0x005336D0。
 std::int32_t LoadSelectedLoginRecord_5336D0(session::ClientSession& session);

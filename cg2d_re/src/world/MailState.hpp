@@ -187,7 +187,7 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
 // 原函数：0x0050F8E0。
 std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnection& networkConnection, const char* payload); // 第三组生产，返回计数。
 // 原函数：0x005348A0。
-std::int32_t SaveProfileCategoryFile_5348A0(session::ClientSession& session); // bin/category.dat原13ED4H整块保存。
+std::int32_t SaveProfileCategoryFile_5348A0(session::ClientSession& session); // 原13ED4H整块保存，路径归已绑定账号。
 // 原函数：0x00534910。
 std::int32_t LoadProfileCategoryFile_534910(session::ClientSession& session); // 同源整块读取，不按短读失败或清尾。
 

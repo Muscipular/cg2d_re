@@ -13,6 +13,7 @@
 
 #include "../input/InputKeyDispatchDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
+#include "../scene/login/LoginSavedState.hpp"
 
 #include <ctime>
 #include <array>
@@ -64,7 +65,9 @@ std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 {
     auto& history = session.WorldScene().chatInputHistory;
     history.cursor62683C = -1;
-    const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return 0;
+    const auto path = std::format(L"{}\\chathis.dat", directory);
 
     auto disk = EncodeChatHistory(history); // 先保存旧值，短读仍保留未覆盖的历史。
     std::FILE* const readStream = _wfopen(path.c_str(), L"rb");
@@ -184,7 +187,9 @@ namespace cg::world {
 // 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
 std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, const std::int32_t index)
 {
-    const auto path = std::format(L"{}\\chathis.dat", platform::gDataPath);
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return 0;
+    const auto path = std::format(L"{}\\chathis.dat", directory);
 
     std::FILE* const stream = _wfopen(path.c_str(), L"r+b");
     if (stream == nullptr) {

@@ -460,7 +460,7 @@ static std::int32_t FindSavedAccountHistory(const std::wstring_view account)
     return -1;
 }
 
-static bool PrepareSavedAccountDirectory(const std::wstring_view account, const std::wstring& directory)
+bool PrepareSavedAccountDirectory(const std::wstring_view account, const std::wstring& directory)
 {
     std::error_code error;
     const bool created = std::filesystem::create_directories(std::filesystem::path(directory), error);
@@ -1194,12 +1194,14 @@ const wchar_t* ReadSelectedSavedDirectory(session::ClientSession& session)
     return session.SavedLogin().data->boundAccountDirectory.c_str();
 }
 
-void BindSessionSavedAccount(session::ClientSession& session)
+bool BindSessionSavedAccount(session::ClientSession& session)
 {
     auto& saved = *session.SavedLogin().data;
     const auto& request = session.Connection().LoginRequests();
-    saved.boundAccountDirectory = MakeSavedAccountDirectory(request.account);
-    if (saved.boundAccountDirectory.empty()) return;
+    const auto directory = MakeSavedAccountDirectory(request.account);
+    const bool changed = directory != saved.boundAccountDirectory;
+    saved.boundAccountDirectory = directory;
+    if (saved.boundAccountDirectory.empty()) return changed;
     static_cast<void>(PrepareSavedAccountDirectory(request.account, saved.boundAccountDirectory));
     auto current = saved.current;
     const auto path = std::format(L"{}\\save.dat", saved.boundAccountDirectory);
@@ -1211,6 +1213,7 @@ void BindSessionSavedAccount(session::ClientSession& session)
     saved.current.inputs04[2] = request.account;
     static_cast<void>(StoreCurrentRecordToSelectedPhysical_533700(session));
     static_cast<void>(RestoreSessionSavedInputContexts(session));
+    return changed;
 }
 
 // 原函数：0x005336D0。

@@ -605,11 +605,13 @@ namespace detail {
 void LoadAlbumData_518780(session::ClientSession& session)
 {
     ResetAlbumSynchronization(session);
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return;
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
     auto* const decoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
-    const auto path = std::format(L"{}\\album.dat", platform::gDataPath);
+    const auto path = std::format(L"{}\\album.dat", directory);
     std::FILE* const stream =
         _wfopen(path.c_str(), L"rb");
     if (stream == nullptr) {
@@ -7864,9 +7866,11 @@ const std::wstring& ClearAlbumNewFlagAndGetName(session::ClientSession& session,
 // 原[5186A0,518774)：ANP01按完整快照及控制字节提供codec容量；短写不关闭文件。
 void SaveAlbumData_5186A0(session::ClientSession& session)
 {
+    const auto* const directory = login::detail::ReadSelectedSavedDirectory(session);
+    if (directory[0] == L'\0') return;
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
-    const auto path = std::format(L"{}\\album.dat", platform::gDataPath);
+    const auto path = std::format(L"{}\\album.dat", directory);
     std::FILE* const stream =
         _wfopen(path.c_str(), L"wb");
     if (stream == nullptr) {

@@ -172,7 +172,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
 
     if (selection != -1) {
         const std::int32_t result = AddW32(selection, 1);
-        PlaySe(79, 320, 240);
+        PlaySe(connection.Owner(), 79, 320, 240);
         cg::yobi::YobiAction* const action = modal.action;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);

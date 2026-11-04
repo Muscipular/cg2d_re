@@ -872,7 +872,7 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
             position = maximum;
             sound = 55;
         }
-        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, sound, 320));
     }
     WindowContacts_ClampScroll(&callbackWindow);
     login::detail::SaveCurrentLoginRecord_520200(*callbackWindow.ownerSession);
@@ -968,7 +968,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
             WindowContacts_ClampScroll(&callbackWindow);
         }
         login::detail::SaveCurrentLoginRecord_520200(*callbackWindow.ownerSession);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -1003,13 +1003,13 @@ static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindo
             WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             } else {
                 business.prefixD2F0B8.value10 = 1;
                 business.prefixD2F0B8.value00 = 0;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -1065,7 +1065,7 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, c
         if (auto* const buttonGuildDetailsElement = currentWindow->FindElementById(WindowContactsElementId::ButtonGuildDetails); buttonGuildDetailsElement) buttonGuildDetailsElement->visible = category == 1 ? 1 : 0;
         business.valuesD67B40[6] = category;
         WindowContacts_ClampScroll(&callbackWindow);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
         const std::int32_t currentCategory = business.valuesD67B40[6];
         const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
         WindowContacts_SetDisplayMode(&callbackWindow, mode, currentCategory);
@@ -1177,7 +1177,7 @@ static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWind
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
             graphic->imageNo = 0x3B557 + imageOffset;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             WindowContacts_OpenRankSelection(*callbackWindow.ownerSession, index);
             consumed = 1;
         }
@@ -1479,7 +1479,7 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
         case 1: static_cast<void>(WindowContacts_ConfirmDeleteGuildMember(*callbackWindow.ownerSession, recordIndex)); break;
         case 2: static_cast<void>(WindowContacts_ConfirmDeleteMiniMail(*callbackWindow.ownerSession, recordIndex)); break;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {

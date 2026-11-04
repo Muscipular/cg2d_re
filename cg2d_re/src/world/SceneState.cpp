@@ -3019,7 +3019,7 @@ void SynchronizeTimedMapNoticeWindow_455FC0(session::ClientSession& session)
         && session.WorldScene().mapNotice.opening == nullptr) {
         session.WorldScene().mapNotice.opening = ui::WindowRuntime_CreateAnimation(
             session, 39, 0, 0, &session.WorldScene().mapNotice.opening);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     }
 }
 
@@ -3050,7 +3050,7 @@ void OpenPendingBattleResultWindow_504A50(session::ClientSession& session)
     if (mode == 1) {
         static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_BattleResult, 1, 0, nullptr));
         if (ShouldPlayBattleResultSound_4ED670(session) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(64, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 64, 320));
         }
         session.WorldScene().battleResult.pendingMode = 0;
     } else if (mode == 2) {
@@ -3500,7 +3500,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ResumePlayerAfterObservation_51BEF0(session);
         platform::RequestRender_457010(session);
-        static_cast<void>(audio::PlaySe_52C450(201, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 201, 320));
         worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8(session);
         audio::ResetBgmPlayback_52B940(session);
         ++session.WorldScene().sceneState;
@@ -3794,7 +3794,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             ui::detail::WindowBattleCommand_SyncActorVitals(session);
             if (session.WorldScene().battle.currentPosition >= 20 && ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Spectator].window == nullptr) {
                 static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_Spectator, 1, 0, nullptr));
-                static_cast<void>(audio::PlaySe_52C450(56, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
             }
             session.WorldScene().sceneState = 3;
         }
@@ -4013,7 +4013,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             const bool exitClicked = (clicked & 1U) != 0;
             static_cast<void>(0);
             if (exitClicked) {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
                 static_cast<void>(session.Connection().SendBattlePacket(L"U" /* 原常量参考：0x00554190。 */));
                 session.WorldScene().sceneState = 7;
             }
@@ -8384,12 +8384,12 @@ std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection& connection,
         std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
         const char* const message = const_cast<char*>(std::strstr(command, "@MSG:"));
         std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
-        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+        static_cast<void>(audio::PlaySe_52C450(connection.Owner(), sound, 320));
     }
     AppendChatMessage_44B050(connection.Owner(), cg::text::FromGbkWide(source).c_str(), 4, 3);
     const std::int32_t soundEnabled = platform::gChatNotificationSoundEnabled_554644;
     if (soundEnabled != 0) {
-        return audio::PlaySe_52C450(74, 320);
+        return audio::PlaySe_52C450(connection.Owner(), 74, 320);
     }
     return soundEnabled;
 }
@@ -8446,7 +8446,7 @@ std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection& conn
     case 8: sound = 0x49; break;
     default: return value;
     }
-    return audio::PlaySe_52C450(sound, 320);
+    return audio::PlaySe_52C450(connection.Owner(), sound, 320);
 }
 
 // CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
@@ -8474,7 +8474,7 @@ std::int32_t SendPlayerChatInput_50C940(
             AppendChatMessage_44B050(session, L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
             const std::int32_t sound = platform::gChatNotificationSoundEnabled_554644;
             if (sound != 0) {
-                return audio::PlaySe_52C450(74, 320);
+                return audio::PlaySe_52C450(session, 74, 320);
             }
             return sound;
         }
@@ -8487,7 +8487,7 @@ std::int32_t SendPlayerChatInput_50C940(
             AppendChatMessage_44B050(session, L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gChatNotificationSoundEnabled_554644;
             if (result != 0) {
-                result = audio::PlaySe_52C450(74, 320);
+                result = audio::PlaySe_52C450(session, 74, 320);
             }
             chat.disabled = 1;
             return result;
@@ -8548,7 +8548,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
         }
     }
     if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-        static_cast<void>(audio::PlaySe_52C450(74, 320));
+        static_cast<void>(audio::PlaySe_52C450(networkConnection.Owner(), 74, 320));
     }
     if (objectIndex < 0) {
         return;
@@ -10357,7 +10357,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
     auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = session.WorldScene().player->direction;
     if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10371,7 +10371,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
         || target != 1 || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0
         || !(session.WorldScene().map.crypt->coordinateSyncPending == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
@@ -10381,7 +10381,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
         static_cast<void>(session.Connection().SendDuelRequest(x, y));
         interaction.actionTick = platform::ReadTickCount64();
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x00470150。
@@ -10390,7 +10390,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
     auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = session.WorldScene().player->direction;
     if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10407,7 +10407,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A(session) & 0x100u) == 0))
         || target != 1 || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0
         || !(session.WorldScene().map.crypt->coordinateSyncPending == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
@@ -10417,7 +10417,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
         static_cast<void>(session.Connection().SendSpectateRequest(x, y));
         interaction.actionTick = platform::ReadTickCount64();
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x00470270。
@@ -10428,7 +10428,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
     if (joinTeam) {
         const std::int32_t direction = session.WorldScene().player->direction;
         if (direction < 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
             return;
         }
         const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10438,13 +10438,13 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
         const std::int32_t targetX =
             (session.WorldScene().map.crypt->playerX + static_cast<std::int32_t>(deltaX));
         if (detail::HasWorldObjectAtWithoutFlags_4452A0(session, targetX, targetY, 0x28, 0x400, 0) != 1) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
             return;
         }
     }
     if (session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0
         || !(session.WorldScene().map.crypt->coordinateSyncPending == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
@@ -10458,7 +10458,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
         static_cast<void>(session.Connection().SendTeamJoinLeaveRequest(x, y, mode));
         interaction.actionTick = platform::ReadTickCount64();
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x004703C0。
@@ -10467,7 +10467,7 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
     auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = session.WorldScene().player->direction;
     if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10479,7 +10479,7 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
     if (detail::HasWorldObjectAt_4450D0(session, targetX, targetY, 8) != 1
         || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0
         || !(session.WorldScene().map.crypt->coordinateSyncPending == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
@@ -10489,7 +10489,7 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
         static_cast<void>(session.Connection().SendContactCardRequest(x, y));
         interaction.actionTick = platform::ReadTickCount64();
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x004704A0。
@@ -10498,7 +10498,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
     auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = session.WorldScene().player->direction;
     if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10515,7 +10515,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
     const std::int32_t second = detail::HasWorldObjectAt_4450D0(session, secondX, secondY, 8);
     if (session.WorldScene().partyActive != 1 && first != 1 && second != 1) {
         AppendChatMessage_44B050(session, L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     if (session.WorldScene().movement.transitionRequestPending == 0 && session.WorldScene().movement.directionalTransitionPending == 0
@@ -10526,7 +10526,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
             interaction.actionTick = platform::ReadTickCount64();
         }
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x00470670。
@@ -10535,7 +10535,7 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
     auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = session.WorldScene().player->direction;
     if (direction < 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
@@ -10547,13 +10547,13 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
     if (detail::HasWorldObjectAt_4450D0(session, targetX, targetY, 8) != 1
         || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0
         || !(session.WorldScene().map.crypt->coordinateSyncPending == 0)) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0(session);
     if ((cg::world::ReadGuildRankFlagsByte1051514(session, rank) & 1u) == 0) {
         AppendChatMessage_44B050(session, LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
@@ -10563,7 +10563,7 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
         static_cast<void>(session.Connection().SendGuildInvitation(x, y));
         interaction.actionTick = platform::ReadTickCount64();
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x004FA8E0。

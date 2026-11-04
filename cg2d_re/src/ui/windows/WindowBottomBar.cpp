@@ -136,7 +136,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                     WindowInstance* const current = WindowRuntime_States(session)[WindowId_PlayerProfile].window;
                     savedX = current->x;
                     savedY = current->y;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     second = WindowRuntime_States(session)[WindowId_PlayerAttributes].window;
                 }
                 if (second != nullptr) {
@@ -144,7 +144,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                     WindowInstance* const current = WindowRuntime_States(session)[WindowId_PlayerAttributes].window;
                     savedX = current->x;
                     savedY = current->y;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 }
                 third = WindowRuntime_States(session)[WindowId_PlayerTitles].window;
             } else if (WindowRuntime_States(session)[WindowId_OwnProfile].window != nullptr) {
@@ -160,7 +160,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const current = WindowRuntime_States(session)[WindowId_PlayerTitles].window;
                 savedX = current->x;
                 savedY = current->y;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             }
             WindowInstance* const last = WindowRuntime_States(session)[WindowId_OwnProfile].window;
             if (last != nullptr) {
@@ -168,7 +168,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const current = WindowRuntime_States(session)[WindowId_OwnProfile].window;
                 savedX = current->x;
                 savedY = current->y;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             }
             WindowRuntime_States(session)[WindowId_PlayerProfile].y = savedY;
             WindowRuntime_States(session)[WindowId_PlayerAttributes].y = savedY;
@@ -206,7 +206,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 } else {
                     static_cast<void>(WindowSkill_Open(session));
                 }
@@ -242,7 +242,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_Inventory].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 } else {
                     static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_Inventory, 1, 0, nullptr));
                 }
@@ -278,7 +278,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_PetList].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 } else {
                     static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_PetList, 1, 0, nullptr));
                 }
@@ -312,7 +312,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 } else {
                     window->state |= 0x8000u;
                     if (elementId != static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_8)) {
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                 }
                 return 1;

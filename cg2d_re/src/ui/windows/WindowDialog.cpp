@@ -392,7 +392,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
         window = currentWindow;
         if (close != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             window = currentWindow;
         }
     }
@@ -727,8 +727,8 @@ static std::int32_t WindowDialog_Reply(
         if (session.Connection().SendDialogResponse(x, y, request, target, button,
                 reply) != network::SendResult::Queued) { return 0; }
         npcDialog.type = -1;
-        static_cast<void>(audio::PlaySe_52C450(79, 320));
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     }
     if (row >= 0) {
         cg::core::NullSub_509080();
@@ -740,7 +740,7 @@ static std::int32_t WindowDialog_Reply(
         if (session.Connection().SendDialogResponse(x, y, request, target, 0,
                 reply) != network::SendResult::Queued) { return 0; }
         npcDialog.type = -1;
-        static_cast<void>(audio::PlaySe_52C450(79, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
     }
     return 1;
 }

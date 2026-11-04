@@ -119,7 +119,7 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(WindowInstance& callbackWin
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CollapsedShortcutBar));
     WindowRuntime_Settings(*callbackWindow.ownerSession).shortcutBarCollapsed = 1;
@@ -134,7 +134,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(WindowInstance& callbackWindo
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_ShortcutBar));
     WindowRuntime_Settings(*callbackWindow.ownerSession).shortcutBarCollapsed = 0;
@@ -174,15 +174,15 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                     WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnStall].window;
                     if (window == nullptr) {
                         static_cast<void>(WindowStallBrowse_RequestClose(*callbackWindow.ownerSession));
-                        static_cast<void>(audio::PlaySe_52C450(56, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
                         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnStall, 1, 0, nullptr));
                     } else {
                         window->state |= 0x8000u;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                     interaction.actionTick = platform::ReadTickCount64();
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 }
             }
             return 1;

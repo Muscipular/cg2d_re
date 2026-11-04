@@ -450,7 +450,7 @@ static std::int32_t WindowHotkeys_ButtonClose(WindowInstance& callbackWindow, co
     }
     currentWindow->state |= 0x8000u;
     static_cast<void>(login::detail::CapturePresetChatTexts_520640(*callbackWindow.ownerSession));
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     return 1;
 }
 
@@ -468,9 +468,9 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(WindowInstance& callbackWind
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
         if (position > 0) {
             windowState->value14 = static_cast<std::uint32_t>(position - 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
@@ -509,9 +509,9 @@ static std::int32_t WindowHotkeys_ButtonNextRow(WindowInstance& callbackWindow, 
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (position < maximum) {
             windowState->value14 = static_cast<std::uint32_t>(position + 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t currentCategory = std::bit_cast<std::int32_t>(windowState->value10);
@@ -545,9 +545,9 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(WindowInstance& callbackWin
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (std::bit_cast<std::int32_t>(windowState->value14) > 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) - 10;
         windowState->value14 = static_cast<std::uint32_t>(position);
@@ -589,9 +589,9 @@ static std::int32_t WindowHotkeys_ButtonNextPage(WindowInstance& callbackWindow,
         const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (maximum > 0 && std::bit_cast<std::int32_t>(windowState->value14) < maximum) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) + 10;
         windowState->value14 = static_cast<std::uint32_t>(position);
@@ -676,9 +676,9 @@ static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindo
                     indexedElement2->data.graphic->imageNo = 0x3B59C;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         consumed = 1;
     }
@@ -729,9 +729,9 @@ static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWind
                     indexedElement2->data.graphic->imageNo = 0x3B59C;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         consumed = 1;
     }
@@ -782,9 +782,9 @@ static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindo
                     indexedElement2->data.graphic->imageNo = 0x3B59C;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         consumed = 1;
     }
@@ -831,9 +831,9 @@ static std::int32_t WindowHotkeys_TabPresetText(WindowInstance& callbackWindow, 
                     indexedElement->mouseCallback = &WindowHotkeys_EditPresetText;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         consumed = 1;
     }
@@ -880,7 +880,7 @@ static std::int32_t WindowHotkeys_EditPresetText(WindowInstance& callbackWindow,
         if (element12) {
             element12->data.input->context = selectedContext;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B59C;

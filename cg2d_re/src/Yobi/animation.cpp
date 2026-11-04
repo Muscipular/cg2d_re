@@ -100,7 +100,7 @@ static bool ApplyYobiAnimeFrame(
         if (flag >= 10000) {
             action->frameEvent = flag;
         } else if (action->ownerSession->WorldScene().sceneType != 9 || (action->flags & YobiActionMask_PetOrRiderOrFollowPetOverlay) == 0) {
-            static_cast<void>(audio::PlaySe_52C450(flag, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, flag, action->x));
         }
     }
     const auto* const graphicFrame = &frames[action->frameIndex];

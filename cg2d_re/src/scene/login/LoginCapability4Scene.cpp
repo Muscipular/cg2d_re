@@ -155,11 +155,11 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
                 return DrawCapability4Base();
             }
             login::detail::SaveCredentialRecordsWithoutPasswords_533730(connection.Owner());
-            static_cast<void>(login::detail::PlaySe(53, 320, 240));
+            static_cast<void>(login::detail::PlaySe(connection.Owner(), 53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));
             connection.Owner().WorldScene().sceneState = 4;
         } else if (result == 2) {
-            static_cast<void>(login::detail::PlaySe(54, 320, 240));
+            static_cast<void>(login::detail::PlaySe(connection.Owner(), 54, 320, 240));
             static_cast<void>(::PostMessageW(
                 reinterpret_cast<HWND>(platform::gLegacyWindow),
                 0x10,
@@ -200,7 +200,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     case 5: {
         login::ResetLoginMessage(connection);
-        static_cast<void>(login::detail::PlaySe(56, 320, 240));
+        static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 6;
         return result;
@@ -215,7 +215,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     case 7: {
         login::detail::ResetCapability4Modal_464440(connection);
-        static_cast<void>(login::detail::PlaySe(56, 320, 240));
+        static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 8;
         return result;
@@ -240,7 +240,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             login::detail::ReadMappedSavedPhysicalSlot105C36C(connection.Owner(), selected);
         static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(connection.Owner(), physicalSlot));
         login::ResetLoginMessage(connection);
-        static_cast<void>(login::detail::PlaySe(56, 320, 240));
+        static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 10;
         return result;

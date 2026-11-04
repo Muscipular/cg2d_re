@@ -1205,7 +1205,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     const bool hovered = (events & MouseFlag_Hover) != 0;
     if (hovered && craft.selectedSlots[destination] >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, destination));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == destination) {
@@ -1745,21 +1745,21 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     if (craft.selectionMode == 0 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitCraft(*callbackWindow.ownerSession, currentWindow));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if (craft.selectionMode == 3
         && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(*callbackWindow.ownerSession, 13) != 0)) {
         if (!enabled) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(*callbackWindow.ownerSession, currentWindow));
             if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
                 static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
             std::wstring trimmed;
             std::wstring buffer;
@@ -1801,7 +1801,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.engraving) {
                     static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else if (send) {
                 if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[craft.skillIndex].skillId == 220) {
                     buffer = input::ContextText(inputs.engraving);
@@ -1826,7 +1826,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                     static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
                 inputs.engraving.clearText();
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
         }
         consumed = 1;
@@ -1835,25 +1835,25 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     if ((mode == 6 || mode == 15) && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             WindowCraft_WaitDecoration(*callbackWindow.ownerSession, currentWindow);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if (craft.selectionMode == 9 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitRefining(*callbackWindow.ownerSession, currentWindow));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if (craft.selectionMode == 12 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitPacking(*callbackWindow.ownerSession, currentWindow));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if (elementId == static_cast<ElementId>(WindowCraftElementId::ButtonExecute_26)) {
@@ -1930,7 +1930,7 @@ static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, c
         if (craft.selectionMode == 5) {
             static_cast<void>(WindowCraft_InitializeItemWork(*callbackWindow.ownerSession, window));
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     }
     if (graphic) graphic->imageNo = 0x3BA31;
     if (hovered) {
@@ -1957,7 +1957,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
         graphic->imageNo = 0x3B565;
         if (hovered) {
@@ -2061,7 +2061,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 const auto selectItem = [&] {
                     auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
                     const auto fail = [] {
-                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     };
                     const auto firstFreeSlot = [] {
                         std::int32_t slot = 0;
@@ -2275,7 +2275,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }
@@ -2422,7 +2422,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWin
         element83->data.input->context =
             &inputs.engraving;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     return 1;
 }
 
@@ -2442,7 +2442,7 @@ static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, 
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B538;
@@ -2472,7 +2472,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
         if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             imageNo = 0x3B569;
         }
     }
@@ -2615,7 +2615,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     const bool hovered = (events & MouseFlag_Hover) != 0;
     if (hovered && craft.selectedItem >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, 6));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == 6) {
@@ -2871,7 +2871,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                     const std::int32_t itemId = record->recipes8E8[index].itemId;
                     if (itemId < 0) {
                         currentWindow->state |= 0x8000u;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                         break;
                     }
                     if (itemId == expected) {
@@ -2884,7 +2884,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     bool matchingCrystal = false;
     bool petAvailable = false;
@@ -3369,10 +3369,10 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession&
         auto* const resultText = element11->data.text;
         if (result != 0) {
             resultText->text = L"　制造成功了。" /* 原常量参考：0x00586638。 */;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         } else {
             resultText->text = L"　制造失败了。" /* 原常量参考：0x00586628。 */;
-            static_cast<void>(audio::PlaySe_52C450(58, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 58, 320));
         }
     }
     if (craft.levelUp != 0) {
@@ -3500,7 +3500,7 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(session::ClientSession& ses
     if (craft.levelUp != 0 && lines < 8) {
         craft.resultDetails += kCraftLevelUp589814;
         ++lines;
-        static_cast<void>(audio::PlaySe_52C450(64, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 64, 320));
     }
     if (craft.endurance != 0 && lines < 8) {
         appendValue(kCraftEndurance589808, craft.endurance);
@@ -3623,7 +3623,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
     if (message != nullptr) {
         if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = message;
     }
-    static_cast<void>(audio::PlaySe_52C450(craft.itemWorkResult != 0 ? 57 : 58, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, craft.itemWorkResult != 0 ? 57 : 58, 320));
     if (craft.itemWorkLevelUp != 0) {
         if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = kCraftLevelUp58661C;
     } else {
@@ -3758,7 +3758,7 @@ WindowAnimationData* WindowCraft_ReceiveItemWorkResult(session::ClientSession& s
     if (craft.itemWorkLevelUp != 0 && lines < 8) {
         craft.itemWorkDetails += kCraftLevelUp589814;
         ++lines;
-        static_cast<void>(audio::PlaySe_52C450(64, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 64, 320));
     }
     if (craft.itemWorkEndurance != 0 && lines < 8) {
         appendValue(kCraftEndurance589808, craft.itemWorkEndurance);

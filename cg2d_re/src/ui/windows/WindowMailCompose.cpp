@@ -226,7 +226,7 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
                     callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement2->data.input;
                 }
                 if (auto* const handleInputElement3 = focused->FindElementById(WindowMailComposeElementId::HandleInput); handleInputElement3) handleInputElement3->data.input->context = &inputs.mail;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
         }
         consumed = 1;
@@ -266,7 +266,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 business.mailDraftCF4BC8.bytes14.size(), input::ContextText(inputs.mail));
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetMailCompose, 1, 0, nullptr));
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Inventory, 1, 0, nullptr));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -297,7 +297,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
             if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
                 if (inputs.mail.empty()
                     || business.mailGroupCC1A30.count <= 0) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     combined = input::ContextText(inputs.mail);
                     {
@@ -342,7 +342,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                     }
                     static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
                     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
-                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                     closeAfterSend = true;
                 }
             }
@@ -352,7 +352,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
         const std::int32_t category = business.prefixD2F0B8.value00;
         if ((category == 0 || category == 1 || category == 2) && (state & MouseFlag_LDownEvent) != 0) {
             if (inputs.mail.empty()) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else if (category == 2) {
                 const std::int32_t contact = business.prefixD2F0B8.value04;
                 const auto& record = world::detail::ReadMiniMailContact1075A90(*callbackWindow.ownerSession, contact);
@@ -370,7 +370,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 static_cast<void>(world::detail::FormatMailTimestamp_534520(*callbackWindow.ownerSession, timestamp));
                 const std::int32_t currentContact = business.prefixD2F0B8.value04;
                 world::detail::PrependMiniMailMessage_5343C0(*callbackWindow.ownerSession, currentContact, 1, timestamp, storedText);
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                 closeAfterSend = true;
             } else {
                 std::int32_t target;
@@ -408,7 +408,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 }
                 static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                 closeAfterSend = true;
             }
             consumed = 1;

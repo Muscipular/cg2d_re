@@ -74,7 +74,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
             return;
         }
         static_cast<void>(detail::SaveCurrentLoginRecord_520200(connection.Owner()));
-        static_cast<void>(detail::PlaySe(53, 320, 240));
+        static_cast<void>(detail::PlaySe(connection.Owner(), 53, 320, 240));
         if (render::gPaletteCapability >= 1) {
             static_cast<void>(render::SelectPalette(19, 30));
         }
@@ -83,7 +83,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
     }
 
     if (result == 2) {
-        static_cast<void>(detail::PlaySe(54, 320, 240));
+        static_cast<void>(detail::PlaySe(connection.Owner(), 54, 320, 240));
         static_cast<void>(::PostMessageW(
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
@@ -93,7 +93,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
 
     if (result < 0 || connection.Owner().WorldScene().sceneState == 100) {
         ResetLoginMessage(connection);
-        static_cast<void>(detail::PlaySe(56, 320, 240));
+        static_cast<void>(detail::PlaySe(connection.Owner(), 56, 320, 240));
         ++connection.Owner().WorldScene().sceneState;
     }
     if (connection.Owner().WorldScene().sceneState == 101

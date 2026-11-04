@@ -208,7 +208,7 @@ static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, cons
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         static_cast<void>(choice.dialog.callback(*callbackWindow.ownerSession, -1));
     }
     return 1;
@@ -249,7 +249,7 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     if (npcDialog.type != choice.dialog.type) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
@@ -300,7 +300,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             if (callback != nullptr) {
                 static_cast<void>(callback(*callbackWindow.ownerSession, index));
             }
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
             currentWindow->state |= 0x8000u;
             break;
         }

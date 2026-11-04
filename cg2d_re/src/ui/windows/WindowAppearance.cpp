@@ -217,7 +217,7 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const 
     static_cast<void>(unused);
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0 || npcDialog.type != appearance.dialogType) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     WindowRuntime_DrawCurrent(callbackWindow);
     WindowInstance* const window = currentWindow;
@@ -424,8 +424,8 @@ static std::int32_t WindowAppearance_SendDialogReply(
         static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(session.Connection().SendDialogResponse(x, y, request, target, button, escaped));
     npcDialog.type = -1;
-    static_cast<void>(audio::PlaySe_52C450(79, 320));
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     return 1;
 }
 

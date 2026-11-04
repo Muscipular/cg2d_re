@@ -196,11 +196,11 @@ static std::uint32_t ApplyRippleOffsetToSceneEffect_4496C0(YobiAction* const act
     return product < 0 ? 1u : 0u;
 }
 
-static void PlaySceneEffectSounds()
+static void PlaySceneEffectSounds(session::ClientSession& session)
 {
-    static_cast<void>(audio::PlaySe_52C450(0x1BC, 320));
-    static_cast<void>(audio::PlaySe_52C450(0x1BB, 320));
-    static_cast<void>(audio::PlaySe_52C450(0x194, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 0x1BC, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 0x1BB, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 0x194, 320));
 }
 
 // 三路生产的相同图形/新对象写序；调用方先发布各自callback。
@@ -237,7 +237,7 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
         if (action->origin_x_offset40 < 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
-                PlaySceneEffectSounds();
+                PlaySceneEffectSounds(*action->ownerSession);
             }
             const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
             action->motionMagnitude54 = static_cast<float>(speed);
@@ -290,7 +290,7 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
         if (action->origin_x_offset40 > 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
-                PlaySceneEffectSounds();
+                PlaySceneEffectSounds(*action->ownerSession);
             }
             const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
             action->motionMagnitude54 = static_cast<float>(speed);
@@ -380,7 +380,7 @@ static void ConfigureRightEntrySceneEffect_448810(
         action->motionMagnitude54 = 0.0F;
         break;
     case SceneEffectMode_MovingOut:
-        PlaySceneEffectSounds();
+        PlaySceneEffectSounds(session);
         action->origin_x_offset40 = 0.0F;
         action->origin_y_offset44 = 0.0F;
         action->motionMagnitude54 = 0.0F;
@@ -462,7 +462,7 @@ static void ConfigureLeftEntrySceneEffect_448D90(
         action->motionMagnitude54 = 0.0F;
         break;
     case SceneEffectMode_MovingOut:
-        PlaySceneEffectSounds();
+        PlaySceneEffectSounds(session);
         action->origin_x_offset40 = 0.0F;
         action->origin_y_offset44 = 0.0F;
         action->motionMagnitude54 = 0.0F;
@@ -589,7 +589,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else if (elapsed > 200 * (5 * duration - 75)) {
         if (elapsed < 200 * (5 * duration - 10) && elapsed % 40 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C6, 320));
         }
         if (associated != nullptr) {
             action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 =
@@ -602,7 +602,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else if (elapsed > 200 * (5 * duration - 85)) {
         if (elapsed % 40 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C6, 320));
         }
         const double amplitude = static_cast<double>(action->motionMagnitude54) - 0.025F;
         action->motionMagnitude54 = static_cast<float>(amplitude);
@@ -614,10 +614,10 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
             &action->ownerSession->WorldScene().mapEffects.scene.valueC8A758, &action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C);
     } else if (elapsed <= 14000) {
         if (elapsed >= 13000 && elapsed % 120 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C7, 320));
         }
         if (elapsed % 40 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C6, 320));
         }
         if (associated != nullptr) {
             action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 =
@@ -627,10 +627,10 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
     } else if (elapsed <= 15000) {
         if (elapsed % 120 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C7, 320));
         }
         if (elapsed % 40 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C6, 320));
         }
         if (associated != nullptr) {
             const double amplitude = static_cast<double>(associated->motionMagnitude54) - 0.025F;
@@ -645,17 +645,17 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
     } else if (elapsed <= 16000) {
         if (elapsed % 120 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C7, 320));
         }
         action->ownerSession->WorldScene().mapEffects.scene.valueC8A758 = 0;
         action->ownerSession->WorldScene().mapEffects.scene.valueC8A75C = 0;
     } else {
         if (elapsed <= 200 * (5 * duration - 150) && elapsed % 120 == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C7, 320));
             duration = action->ownerSession->Yobi().mapEffectDurationSeconds;
         }
         if (elapsed % 120 == 80) {
-            static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C6, 320));
             duration = action->ownerSession->Yobi().mapEffectDurationSeconds;
         }
         const bool increasing = elapsed <= 200 * (5 * duration - 125);

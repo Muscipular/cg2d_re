@@ -781,18 +781,18 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
     }
     if (crystal.slots <= 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t balance = callbackWindow.ownerSession->WorldScene().player->value15BCC;
         if (balance < crystal.total) {
             crystal.message = -2;
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             if (crystal.slots > freeSlots) {
                 crystal.message = -3;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
                 crystal.confirmCallback = &WindowCrystalShop_Submit;
                 std::int32_t count = 0;
@@ -835,7 +835,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
                 crystal.confirmCancel = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
                 if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowCrystalShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
                 currentWindow->state |= 2u;
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
             }
         }
         consumed = 1;
@@ -867,9 +867,9 @@ static std::int32_t WindowCrystalShop_ButtonPreviousRow(WindowInstance& callback
             const std::int32_t position = crystal.scroll;
             if (position > 0) {
                 crystal.scroll = position - 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             consumed = 1;
         }
@@ -901,9 +901,9 @@ static std::int32_t WindowCrystalShop_ButtonNextRow(WindowInstance& callbackWind
             const std::int32_t position = crystal.scroll;
             if (position < count - 5) {
                 crystal.scroll = position + 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             consumed = 1;
         }
@@ -930,7 +930,7 @@ static std::int32_t WindowCrystalShop_ButtonPreviousPage(WindowInstance& callbac
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(crystal.scroll > 0 ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, crystal.scroll > 0 ? 51 : 55, 320));
             const std::int32_t position = crystal.scroll - 5;
             crystal.scroll = position;
             if (position < 0) {
@@ -964,7 +964,7 @@ static std::int32_t WindowCrystalShop_ButtonNextPage(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = shop.itemCount - 5;
             const bool canAdvance = oldMaximum > 0 && crystal.scroll < oldMaximum;
-            static_cast<void>(audio::PlaySe_52C450(canAdvance ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, canAdvance ? 51 : 55, 320));
             std::int32_t position = crystal.scroll + 5;
             const std::int32_t maximum = shop.itemCount - 5;
             crystal.scroll = position;
@@ -1036,9 +1036,9 @@ static std::int32_t WindowCrystalShop_ButtonDecrease(WindowInstance& callbackWin
             if (count > 0) {
                 item->selectedCount = count - 1;
                 crystal.dirty = 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             crystal.message = -1;
             consumed = 1;
@@ -1089,9 +1089,9 @@ static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWin
                 if (count < limit) {
                     item->selectedCount = count + 1;
                     crystal.dirty = 1;
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 }
             }
             consumed = 1;
@@ -1206,7 +1206,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWi
     }
     const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
     if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession) & platform::LegacyMouseEdge_LDblClick) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (items[hovered + 8].used != 0) {
             std::int32_t page = crystal.tooltipPage;
@@ -1320,7 +1320,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
             }
             acceptImage = 245324;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     std::int32_t cancelImage = 245326;
@@ -1337,7 +1337,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
             }
             cancelImage = 245327;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));

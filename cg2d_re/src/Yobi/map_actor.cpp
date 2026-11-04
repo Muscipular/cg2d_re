@@ -199,14 +199,14 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10,
         ActorAttachmentReadOrder::BeforeYAndXAddition);
     if (payload->transitionProgress48 == 0) {
-        static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1D1, action->x));
     }
     const std::int32_t nextCounter = payload->transitionProgress48 + 1;
     payload->transitionProgress48 = nextCounter;
     if (nextCounter > 15 && payload->rideActor44->frameY <= vertical) {
         action->phase = MapActorPhase_Normal;
         RestoreMountedCharacterAction(action);
-        static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1CE, action->x));
         YobiAction* const effect = payload->transitionEffect08;
         if (effect != nullptr) {
             MarkDeath(effect);
@@ -276,7 +276,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11,
         ActorAttachmentReadOrder::BeforeYAddition);
     if (payload->transitionProgress48 == 0) {
-        static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1CF, action->x));
     }
     const std::int32_t nextCounter = payload->transitionProgress48 + 1;
     payload->transitionProgress48 = nextCounter;
@@ -286,7 +286,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
         MarkDeath(payload->rideActor44);
         payload->rideActor44 = nullptr;
         RestoreActorOriginalImage(action, payload);
-        static_cast<void>(audio::PlaySe_52C450(0x1C9, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C9, action->x));
         YobiAction* const effect = payload->transitionEffect08;
         if (effect != nullptr) {
             MarkDeath(effect);

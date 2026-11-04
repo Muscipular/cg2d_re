@@ -251,9 +251,9 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
         callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
         if (page < 0) {
             callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = 0;
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
@@ -296,10 +296,10 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 + 1;
             callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
             if (page <= count - 11) {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
                 callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = count > 10 ? count - 10 : 0;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
             const std::int32_t currentCount = mode == 2
@@ -333,7 +333,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, count - 10, page));
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -353,7 +353,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
                 if (page > count - 11) {
                     callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = count > 10 ? count - 10 : 0;
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
                 const std::int32_t currentCount = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)

@@ -290,7 +290,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
             if ((state & MouseFlag_LDownEvent) != 0) {
                 if (values[index - 29] < limit) {
                     static_cast<void>(callbackWindow.ownerSession->Connection().IncreasePlayerAttributeRequest(index - 29));
-                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                 }
                 return 1;
             }
@@ -352,7 +352,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
             WindowInstance* const ySource = currentWindow;
             WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
             yTarget->y = ySource->y;
-            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
             WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
             consumed = 1;
         }

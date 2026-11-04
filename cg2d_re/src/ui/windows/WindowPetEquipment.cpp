@@ -143,7 +143,7 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
     const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     if (pet.used == 0) {
         window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         return 1;
     }
     if (auto* const element = window->FindElementById(WindowPetEquipmentElementId::Name)) {
@@ -176,7 +176,7 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
         }
         business.selectedPetCC3E5C = position;
         static_cast<void>(WindowPetEquipment_Update(*window, -1));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         return 1;
     }
     return (state & MouseFlag_Hover) != 0 ? 1 : 0;
@@ -219,7 +219,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
                 const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
                 if (x >= left && x < left + 48 && y >= top && y < top + 48) {
                     static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(0, source, petIndex + 1, slot, -1));
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                     break;
                 }
             }
@@ -234,7 +234,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
         if ((world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(petIndex + 1, hovered, 0, -1, -1));
-            static_cast<void>(audio::PlaySe_52C450(77, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
         }
     } else if (item.used != 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (++state.value14 >= static_cast<std::uint32_t>(item.pages)) state.value14 = 0;

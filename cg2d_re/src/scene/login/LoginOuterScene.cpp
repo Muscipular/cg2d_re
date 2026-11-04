@@ -67,7 +67,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             break;
         case 8:
             ResetLoginMessage(connection);
-            static_cast<void>(detail::PlaySe(56, 320, 240));
+            static_cast<void>(detail::PlaySe(connection.Owner(), 56, 320, 240));
             connection.Owner().WorldScene().sceneState = 9;
             input::SetContext_44B330(connection.Owner(), nullptr);
             return;
@@ -118,13 +118,13 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             return;
         }
         static_cast<void>(detail::SaveCurrentLoginRecord_520200(connection.Owner()));
-        static_cast<void>(detail::PlaySe(53, 320, 240));
+        static_cast<void>(detail::PlaySe(connection.Owner(), 53, 320, 240));
         if (render::gPaletteCapability < 1) {
             static_cast<void>(render::SelectPalette(17, 30));
         }
         connection.Owner().WorldScene().sceneState = 10;
     } else if (result == 2) {
-        static_cast<void>(detail::PlaySe(54, 320, 240));
+        static_cast<void>(detail::PlaySe(connection.Owner(), 54, 320, 240));
         static_cast<void>(::PostMessageW(
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {

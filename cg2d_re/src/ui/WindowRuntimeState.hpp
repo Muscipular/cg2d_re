@@ -464,11 +464,11 @@ void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemS
 // 原函数：0x004C7380。
 bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow, WindowItemSelectorState* state, std::int32_t tab, std::int32_t events); // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
 // 原函数：0x004C78A0。
-bool WindowItemSelector_TogglePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
+bool WindowItemSelector_TogglePreview(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t events); // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
 // 原函数：0x004C7910。
 bool WindowItemSelector_CycleEquipment(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t events); // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
 // 原函数：0x004C7A10。
-bool WindowItemSelector_RotatePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
+bool WindowItemSelector_RotatePreview(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 // 原函数：0x004C7A90。
 void WindowItemSelector_Update(session::ClientSession& session, WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。

@@ -104,7 +104,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
                     0xDF, static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768), 0);
             }
             if ((state & MouseFlag_DragFinish) != 0) {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemToBagPage(WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession), page));
                 WindowDrag_Reset(*callbackWindow.ownerSession);
             }
@@ -112,7 +112,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
         if ((state & MouseFlag_LDownEvent) != 0 && page != currentPage) {
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBagPage, page);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             static_cast<void>(callbackWindow.ownerSession->Connection().SelectBagPage(page));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
@@ -139,7 +139,7 @@ static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindo
         if ((state & MouseFlag_LDownEvent) != 0) {
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBankPage, page);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             static_cast<void>(callbackWindow.ownerSession->Connection().SelectInventoryBankPage(page + 1));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
@@ -339,7 +339,7 @@ static void WindowItem_TransferQuantity(
 {
     auto& inventory = session.UiFrame().native.inventory;
     if (target == -1) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
     if (source < 0 || target < -1) {
         return;
@@ -480,7 +480,7 @@ std::int32_t WindowInventory_OpenSpecialSelection(session::ClientSession& sessio
 static std::int32_t WindowInventory_TogglePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    return WindowItemSelector_TogglePreview(&inventory.normalSelector, state) ? 1 : 0;
+    return WindowItemSelector_TogglePreview(*callbackWindow.ownerSession, &inventory.normalSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00488950。
@@ -494,7 +494,7 @@ static std::int32_t WindowInventory_CycleEquipment(WindowInstance& callbackWindo
 static std::int32_t WindowInventory_RotatePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    static_cast<void>(WindowItemSelector_RotatePreview(&inventory.normalSelector, state));
+    static_cast<void>(WindowItemSelector_RotatePreview(*callbackWindow.ownerSession, &inventory.normalSelector, state));
     return 0;
 }
 
@@ -540,7 +540,7 @@ static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, const
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         consumed = 1;
     }
     if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 244306;
@@ -715,7 +715,7 @@ static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, 
         graphic->imageNo = 243001;
     }
     currentWindow->state |= 0x8000u;
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     return 1;
 }
 
@@ -749,7 +749,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
                 && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
                 const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
                 static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
@@ -885,7 +885,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                     inventory.selectionMode = 1;
                     if (auto* const handleItemsElement = window->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItemSelection;
                     if (auto* const handleEquipmentElement = currentWindow->FindElementById(WindowInventoryElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_DrawBlockedEquipment;
-                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     inventory.currentItem = hovered + 8;
                     ++occupancy[inventory.currentItem];
                     static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
@@ -902,12 +902,12 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                         const std::int32_t x =
                             static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                         static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered + 8, group));
-                        static_cast<void>(audio::PlaySe_52C450(77, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     }
                     static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 }
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
         }
@@ -916,7 +916,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }
@@ -1111,7 +1111,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     if ((events & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x2000u;
         if (hovered == -1 && callbackWindow.ownerSession->WorldScene().replyRecordF7C950.used != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             WindowInstance* const window = currentWindow;
             inventory.normalSelector.value3FC = 1;
             if (auto* const handleEquipmentElement = window->FindElementById(WindowInventoryElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_TabPlayerAttributes;
@@ -1132,7 +1132,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
                     inventory.selectionMode = 1;
                     if (auto* const handleItemsElement = window->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItemSelection;
                     if (auto* const handleEquipmentElement = currentWindow->FindElementById(WindowInventoryElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_DrawBlockedEquipment;
-                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     const std::uint8_t previousOccupancy = occupancy[hovered];
                     inventory.currentItem = hovered;
                     occupancy[hovered] = static_cast<std::uint8_t>(previousOccupancy + 1u);
@@ -1153,12 +1153,12 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
                                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                             static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered, 0));
                         }
-                        static_cast<void>(audio::PlaySe_52C450(77, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     }
                     static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 }
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
         }
@@ -1167,7 +1167,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (item->used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }

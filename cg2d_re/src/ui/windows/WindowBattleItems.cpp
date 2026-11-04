@@ -130,7 +130,7 @@ WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x8001010
 static std::int32_t WindowBattleItems_TogglePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    return WindowItemSelector_TogglePreview(&inventory.battleSelector, state) ? 1 : 0;
+    return WindowItemSelector_TogglePreview(*callbackWindow.ownerSession, &inventory.battleSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00499950。
@@ -144,7 +144,7 @@ static std::int32_t WindowBattleItems_CycleEquipment(WindowInstance& callbackWin
 static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    static_cast<void>(WindowItemSelector_RotatePreview(&inventory.battleSelector, state));
+    static_cast<void>(WindowItemSelector_RotatePreview(*callbackWindow.ownerSession, &inventory.battleSelector, state));
     return 0;
 }
 
@@ -208,7 +208,7 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         consumed = 1;
     }
     if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 244306;
@@ -434,17 +434,17 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             }
             if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) < weapons) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else if (weapons == 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"没有装备武器！", 4, 3);
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
                 currentWindow->state |= 0x8000u;
                 callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             }
         }
         WindowDrag_Reset(*callbackWindow.ownerSession);
@@ -512,13 +512,13 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             const auto& item = items[hovered + 8];
             bool useItem = false;
             if (item.used != 1) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0 && item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
                     || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
                     || callbackWindow.ownerSession->WorldScene().battle.modeFlag == 1) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     useItem = true;
                 }
@@ -533,26 +533,26 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0
                         && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
                         world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
-                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     } else if (item.hasDescription == 0) {
                         world::AppendChatMessage_44B050(*callbackWindow.ownerSession, unidentified, 4, 3);
-                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     } else {
                         currentWindow->state |= 0x8000u;
                         callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                        static_cast<void>(audio::PlaySe_52C450(77, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     }
                 } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else if (item.hasDescription == 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, unidentified, 4, 3);
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else if (item.itemType == kMedicineType
                     && (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) != 0) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     useItem = true;
                 }
@@ -564,7 +564,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
                 if (cg::yobi::CheckBattleCommand_43C560(*callbackWindow.ownerSession, position, target) != 0) {
                     callbackWindow.ownerSession->WorldScene().battle.selectedItem = hovered + 8;
-                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                     callbackWindow.ownerSession->WorldScene().battle.itemTargetPending = 1;
                     inventory.battleItemTargetFlag = 1;
                 } else {
@@ -576,8 +576,8 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
                     callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
-                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                 }
             }
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
@@ -602,7 +602,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     && (item.itemType != kMedicineType
                         || (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) == 0)) {
                     static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 0));
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 }
             }
             consumed = 1;
@@ -834,17 +834,17 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     && (*reinterpret_cast<const unsigned char*>(
                         &callbackWindow.ownerSession->WorldScene().playerItems[source].battleUseFlag) & 8u) != 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else if (callbackWindow.ownerSession->WorldScene().playerItems[source].hasDescription == 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"无法装备未鉴定物品！", 4, 3);
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;
                     callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 77, 320));
                 }
             }
         }
@@ -871,7 +871,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     }
     if ((events & MouseFlag_LDownEvent) != 0 && hovered == -1) {
         if (callbackWindow.ownerSession->WorldScene().replyRecordF7C950.used != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             WindowInstance* const window = currentWindow;
             inventory.battleSelector.value3FC = 1;
             if (auto* const handleEquipmentElement = window->FindElementById(WindowBattleItemsElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowBattleItems_ShowExtraAttributes;
@@ -904,17 +904,17 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 }
                 if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) < weapons) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else if (weapons == 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"没有装备武器！", 4, 3);
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;
                     callbackWindow.ownerSession->WorldScene().battle.selectionModes[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 }
             }
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
@@ -924,7 +924,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         if ((events & MouseFlag_LDownEvent) != 0) {
             if ((hovered == 2 || hovered == 3) && item->used != 0 && item->itemType != 7) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered, 0));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }

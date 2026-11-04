@@ -64,7 +64,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
             static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
             result = 1;
-            login::detail::PlaySe(51, 320, 240);
+            login::detail::PlaySe(connection.Owner(), 51, 320, 240);
             cg::yobi::YobiAction* const action = failure.action;
             if (action != nullptr) {
                 cg::yobi::MarkDeath(action);

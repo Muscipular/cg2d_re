@@ -181,7 +181,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             static_cast<void>(PlayFrame_517DA0(payload->rider13C8, AnimationPlayback_Loop));
             static_cast<void>(MarkDeath(action->ownerSession->WorldScene().battle.allEntries[second]));
             action->ownerSession->WorldScene().battle.allEntries[second] = nullptr;
-            static_cast<void>(audio::PlaySe_52C450(465, payload->rider13C8->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 465, payload->rider13C8->x));
             return;
         }
         action->characterAction = CharacterAnimation_Run;
@@ -311,7 +311,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             static_cast<void>(MarkDeath(payload->effect1060));
             YobiAction* const soundRider = payload->rider13C8;
             payload->effect1060 = nullptr;
-            static_cast<void>(audio::PlaySe_52C450(462, soundRider->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 462, soundRider->x));
             static_cast<void>(AdvanceBattleEffect_439470(action));
             AdvanceBattleCastState_439340(action);
             static_cast<void>(PlayFrame_517DA0(payload->rider13C8, AnimationPlayback_Loop));
@@ -389,7 +389,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             rider = payload->rider13C8;
             warmTime = rider->field58;
         }
-        static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 463, payload->rider13C8->x));
     }
     YobiAction* const xRider = payload->rider13C8;
     xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
@@ -449,7 +449,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         payload->rider13C8 = nullptr;
         static_cast<void>(MarkDeath(oldEffect));
         payload->effect1060 = nullptr;
-        static_cast<void>(audio::PlaySe_52C450(457, (*firstSlot)->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 457, (*firstSlot)->x));
         static_cast<void>(AdvanceBattleEffect_439470(action));
         AdvanceBattleCastState_439340(action);
     }
@@ -486,7 +486,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         YobiAction* const directionSource = action->ownerSession->WorldScene().battle.allEntries[second];
         YobiAction* const directionRider = payload->rider13C8;
         directionRider->direction = directionSource->direction;
-        static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 463, payload->rider13C8->x));
     }
     action->characterAction = CharacterAnimation_Run;
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
@@ -541,7 +541,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         payload->effect1060 = nullptr;
         RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[first]);
         RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[second]);
-        static_cast<void>(audio::PlaySe_52C450(457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
         MoveBattleCastState_439380(action->ownerSession->WorldScene().battle.allEntries[second]);
         static_cast<void>(MarkDeath(action));
     }
@@ -628,7 +628,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         action->graphicIndex = -1;
         action->lastImageNo = 0;
         ClearBattleRideAttachments(payload);
-        static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 463, payload->rider13C8->x));
     }
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
@@ -687,7 +687,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         static_cast<void>(MarkDeath(oldEffect));
         payload->effect1060 = nullptr;
         RestoreBattleStateEffects_422370(action->ownerSession->WorldScene().battle.allEntries[first]);
-        static_cast<void>(audio::PlaySe_52C450(457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 457, action->ownerSession->WorldScene().battle.allEntries[first]->x));
         static_cast<void>(MarkDeath(action));
     }
     YobiAction* const rider = payload->rider13C8;
@@ -745,7 +745,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         payload->rider13C8->motionMagnitude54 = 8.0F;
         static_cast<void>(PlayFrame_517DA0(payload->rider13C8, AnimationPlayback_Loop));
         YobiAction* const soundRider = payload->rider13C8;
-        static_cast<void>(audio::PlaySe_52C450(465, soundRider->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 465, soundRider->x));
         return;
     }
     initialRider->characterAction = CharacterAnimation_Sit;
@@ -803,7 +803,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         action->imageNo = payload->baseImage13AC;
         static_cast<void>(MarkDeath(payload->effect1060));
         payload->effect1060 = nullptr;
-        static_cast<void>(audio::PlaySe_52C450(462, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 462, action->x));
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         static_cast<void>(AdvanceBattleEffect_439470(action));
         AdvanceBattleCastState_439340(action);

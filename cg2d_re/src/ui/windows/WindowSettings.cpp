@@ -436,7 +436,7 @@ static void WindowSettings_Release(WindowInstance& releasedWindow)
     static_cast<void>(login::detail::CapturePresetChatTexts_520640(*releasedWindow.ownerSession));
     static_cast<void>(login::detail::CaptureContactSortMode_5206F0(*releasedWindow.ownerSession));
     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200(*releasedWindow.ownerSession));
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*releasedWindow.ownerSession, 57, 320));
 }
 
 // 原函数：0x00493EE0。
@@ -470,7 +470,7 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWin
                 if (auto* const buttonServerSelectElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonServerSelect); buttonServerSelectElement) buttonServerSelectElement->visible = 1;
                 if (auto* const handleSideAreaElement2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea); handleSideAreaElement2) handleSideAreaElement2->visible = 1;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     }
@@ -530,7 +530,7 @@ static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWind
                     if (graphic) graphic->imageNo = 0x3B8E1;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     }
@@ -593,7 +593,7 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
                         ((37 - effectWidth) >> 1) + settingsPanel.offset + 69;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     }
@@ -643,7 +643,7 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWi
                     if (graphic) graphic->imageNo = 0x3B8FC;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     }
@@ -705,7 +705,7 @@ static std::int32_t WindowSettings_ButtonHotkeys(WindowInstance& callbackWindow,
             WindowInstance* const hotkeys = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Hotkeys].window;
             if (hotkeys != nullptr) {
                 hotkeys->state |= 0x8000u;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             } else {
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Hotkeys, 1, 0, nullptr));
             }
@@ -740,7 +740,7 @@ static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, 
             if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
                 callbackWindow.ownerSession->WorldScene().sceneState = 7;
             }
-            static_cast<void>(audio::PlaySe_52C450(60, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 60, 320));
             consumed = 1;
             callbackWindow.ownerSession->WorldScene().logoutToTownPending = 1;
         }
@@ -780,7 +780,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWi
                 callbackWindow.ownerSession->WorldScene().map.crypt->sceneTransitionValue = std::int32_t{0};
                 static_cast<void>(world::SetPendingSceneType(*callbackWindow.ownerSession, 7));
             }
-            static_cast<void>(audio::PlaySe_52C450(60, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 60, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B8D4;
@@ -812,7 +812,7 @@ static std::int32_t WindowSettings_ToggleItemStacking(WindowInstance& callbackWi
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gInvertItemSplitModifier_D67AE8 = (platform::gInvertItemSplitModifier_D67AE8 - 1u) & 1u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
@@ -848,7 +848,7 @@ static std::int32_t WindowSettings_ToggleCursor(WindowInstance& callbackWindow, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gNativeCursorEnabled_D67AE4 = platform::gNativeCursorEnabled_D67AE4 == 0 ? 1u : 0u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if (platform::gNativeCursorEnabled_D67AE4 != 0) {
@@ -891,7 +891,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(WindowInstance& callbackWindo
             if (mode == 2) {
                 WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = kSettingsKeyImages54F460[3 * WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode];
@@ -923,7 +923,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gMusicVolume;
         if (volume <= 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             platform::gMusicVolume = volume - 1;
             static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
@@ -931,7 +931,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -965,7 +965,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gMusicVolume;
         if (volume >= 15) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             platform::gMusicVolume = volume + 1;
             static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
@@ -973,7 +973,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -1007,7 +1007,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gEffectVolume;
         if (volume <= 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             platform::gEffectVolume = volume - 1;
             static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
@@ -1015,7 +1015,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -1049,7 +1049,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gEffectVolume;
         if (volume >= 15) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             platform::gEffectVolume = volume + 1;
             static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
@@ -1057,7 +1057,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -1089,7 +1089,7 @@ static std::int32_t WindowSettings_ToggleChannels(WindowInstance& callbackWindow
             window->state |= 0x2000u;
             platform::gUseStereo = static_cast<std::int32_t>(
                 (static_cast<std::uint32_t>(platform::gUseStereo) - 1u) & 1u);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if (platform::gUseStereo != 0) {
@@ -1126,7 +1126,7 @@ static std::int32_t WindowSettings_ToggleAudioFlag(WindowInstance& callbackWindo
             window->state |= 0x2000u;
             platform::gChatNotificationSoundEnabled_554644 = static_cast<std::int32_t>(
                 (static_cast<std::uint32_t>(platform::gChatNotificationSoundEnabled_554644) - 1u) & 1u);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if (platform::gChatNotificationSoundEnabled_554644 != 0) {
@@ -1163,7 +1163,7 @@ static std::int32_t WindowSettings_ToggleScanlines(WindowInstance& callbackWindo
             window->state |= 0x2000u;
             platform::gScanlineSyncMode = static_cast<std::uint16_t>(
                 (static_cast<std::uint8_t>(platform::gScanlineSyncMode) - 1) & 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if (platform::gScanlineSyncMode != 0) {

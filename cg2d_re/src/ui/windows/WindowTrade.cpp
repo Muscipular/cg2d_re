@@ -599,7 +599,7 @@ static void WindowTrade_Release(WindowInstance& releasedWindow)
     for (std::int32_t index = 0; index < 5; ++index) {
         static_cast<void>(WindowTrade_RemovePet(*releasedWindow.ownerSession, index));
     }
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*releasedWindow.ownerSession, 57, 320));
     trade.valueD67B80 = 0;
 }
 
@@ -686,11 +686,11 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     if (trade.valueD67B80 != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     switch (std::bit_cast<std::int8_t>(trade.phase)) {
     case 0:
@@ -972,7 +972,7 @@ static std::int32_t WindowTrade_HandlePanel(
     }
     const std::int32_t result = state & MouseFlag_LDownEvent;
     if (result != 0 && selected >= 0 && selected <= 2) {
-        static_cast<void>(audio::PlaySe_52C450(
+        static_cast<void>(audio::PlaySe_52C450(*window->ownerSession,
             std::bit_cast<std::int8_t>(*tab) == selected ? 55 : 51, 320));
         *tab = static_cast<std::uint8_t>(selected);
         static_cast<void>(WindowTrade_HandleAmountInput(*window, NativeElementKey(0), 2));
@@ -981,9 +981,9 @@ static std::int32_t WindowTrade_HandlePanel(
         if (selected == 3) {
             if (*scrollValue > 0) {
                 --*scrollValue;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
             auto* const scrollTargetElement = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr;
@@ -994,9 +994,9 @@ static std::int32_t WindowTrade_HandlePanel(
         } else if (selected == 4) {
             if (*scrollValue < 2) {
                 ++*scrollValue;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
             auto* const scrollTargetElement = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr;
@@ -1174,7 +1174,7 @@ static void WindowTrade_HandleOwnInventory(
                 trade.valueC8AF81 = 0;
             }
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -1182,7 +1182,7 @@ static void WindowTrade_HandleOwnInventory(
             && session.WorldScene().playerItems[hovered].used != 0
             && trade.itemMarks[hovered] == 0) {
             static_cast<void>(WindowItemDrag_Start(session, hovered, 1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((events & MouseFlag_RDownEvent) != 0 && session.WorldScene().playerItems[hovered].used != 0) {
             const std::int32_t pages = session.WorldScene().playerItems[hovered].pages;
@@ -1340,7 +1340,7 @@ static void WindowTrade_HandleOwnPets(
                         trade.valueC8AF81 = 1;
                     }
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
                 }
             }
         }
@@ -1349,7 +1349,7 @@ static void WindowTrade_HandleOwnPets(
         && (events & MouseFlag_LDownEvent) != 0 && (*session.WorldScene().petRecords)[petIndex].used != 0
         && trade.petMarks[petIndex] == 0) {
         static_cast<void>(WindowPetDrag_Start(session, petIndex, 1));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
     if (WindowDrag_ReadKind(session) == 3) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
@@ -1648,12 +1648,12 @@ static void WindowTrade_HandleSelectedItem(
     if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemoveItem(session, hovered) < 0))) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedItem(session, hovered) >= 0) {
         if (trade.phase == 0 && (events & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowTrade_StartOwnItemDrag(session, hovered));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((events & MouseFlag_RDownEvent) != 0) {
             trade.tooltipPage = static_cast<std::uint8_t>(trade.tooltipPage + 1);
@@ -1824,12 +1824,12 @@ static void WindowTrade_HandleSelectedPet(
     if (hovered >= 0 && (platform::ReadSessionMouseEdgeButtons(session) & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)
                            && WindowTrade_RemovePet(session, hovered) < 0))) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedPet(session, hovered) >= 0
         && trade.phase == 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowTrade_StartOwnPetDrag(session, hovered));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
     if (WindowDrag_ReadKind(session) == 7 && WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleSelectedPanel)) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
@@ -2661,7 +2661,7 @@ static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, co
         if (handleVerticalScroll_14Element) {
             static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_14Element, 2, 0));
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         result = 1;
     }
     if (graphic) graphic->imageNo = 0x3BA89;
@@ -2696,7 +2696,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, c
             if (previous == 2) {
                 trade.valueCC4224 = 1;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             trade.step = 23;
             result = 1;
         }
@@ -2747,10 +2747,10 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
                         }
                     }
                     interaction.actionTick = platform::ReadTickCount64();
-                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                 }
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             result = 1;
         }
@@ -3217,7 +3217,7 @@ void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const 
         trade.valueD67B80 = 1;
         if (window != nullptr) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(connection.Owner(), 57, 320));
         }
     }
 }

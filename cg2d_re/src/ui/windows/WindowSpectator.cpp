@@ -70,7 +70,7 @@ static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, co
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(L"U"));
     callbackWindow.ownerSession->WorldScene().sceneState = 7;
     return 1;

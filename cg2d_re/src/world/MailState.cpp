@@ -729,7 +729,7 @@ void HandleContactMailReply_50DC70(cg::network::CgConnection& connection, const 
             connection.Owner().WorldScene().mail.data->viewedMessageIndex = position + 1;
         }
     }
-    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    static_cast<void>(audio::PlaySe_52C450(connection.Owner(), 63, 320));
     AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
@@ -848,7 +848,7 @@ void HandleMiniMailReply_50F7F0(cg::network::CgConnection& connection, const std
             connection.Owner().WorldScene().mail.data->viewedMessageIndex = position + 1;
         }
     }
-    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    static_cast<void>(audio::PlaySe_52C450(connection.Owner(), 63, 320));
     AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
@@ -913,7 +913,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
         return;
     }
     PrependMiniMailMessage_5343C0(connection.Owner(), index, 0, formattedTimestamp, cg::text::FromGbkWide(text));
-    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    static_cast<void>(audio::PlaySe_52C450(connection.Owner(), 63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, record.name10);
     AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }

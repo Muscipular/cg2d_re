@@ -163,7 +163,7 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Damage;
     if (payload->actionFrameCountFCC == 0) {
-        static_cast<void>(audio::PlaySe_52C450(132, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 132, action->x));
     }
     action->framePlayingRate = 50;
     const std::int32_t count = payload->actionFrameCountFCC + 1;
@@ -439,7 +439,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             const bool side = direction < YobiDirection_DownLeft && static_cast<std::uint32_t>(direction) > static_cast<std::uint32_t>(YobiDirection_UpRight);
             const std::int32_t soundX = action->x;
             const std::int32_t sound = kRebirthEnterSounds[payload->effects1C[initialEffect].position];
-            static_cast<void>(audio::PlaySe_52C450(sound, soundX));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, soundX));
             SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
             SetYobiActionField30F(action, 255);
             if (render::HasLegacy3DDevice_44B610() == 0) {
@@ -595,7 +595,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
     } else if (payload->valueFD4 == BattleRebirthExitPhase_PrepareFadeIn) {
         const std::int8_t initialType = payload->rebirthEffectType1080;
         if (initialType > 0) {
-            static_cast<void>(audio::PlaySe_52C450(kRebirthExitSounds411901[initialType - 1], action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, kRebirthExitSounds411901[initialType - 1], action->x));
         }
         YobiAction* const previousEffect = payload->rebirthEffect106C;
         if (previousEffect != nullptr) {
@@ -668,7 +668,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     }
     const std::int8_t initialType = payload->rebirthEffectType1080;
     if (initialType > 0) {
-        static_cast<void>(audio::PlaySe_52C450(kRebirthExitSounds411901[initialType - 1], action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, kRebirthExitSounds411901[initialType - 1], action->x));
     }
     YobiAction* const previousEffect = payload->rebirthEffect106C;
     if (previousEffect != nullptr) {

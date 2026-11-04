@@ -1454,7 +1454,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
                     static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
                 currentWindow->state |= 0x8000u;
-                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
             }
             consumed = 1;
         }
@@ -1553,7 +1553,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
             break;
         }
         choice.lifecycle = 1;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         mode = std::bit_cast<std::int8_t>(choice.mode);
         consumed = 1;
     }
@@ -1603,9 +1603,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(WindowInstance& callb
         case 1: {
             if (choice.petScroll > 0) {
                 --choice.petScroll;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = choice.petScroll;
             WindowInstance* const window = currentWindow;
@@ -1633,9 +1633,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(WindowInstance& callb
             if (elementId <= static_cast<ElementId>(WindowPetSkillChoiceElementId::Element18)) {
                 if (choice.petScroll > 0) {
                     --choice.petScroll;
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 }
                 const std::int32_t position = choice.petScroll;
                 WindowInstance* const window = currentWindow;
@@ -1649,9 +1649,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(WindowInstance& callb
             } else {
                 if (choice.skillScroll > 0) {
                     --choice.skillScroll;
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 }
                 const std::int32_t position = choice.skillScroll;
                 WindowInstance* const window = currentWindow;
@@ -1696,9 +1696,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(WindowInstance& callbackW
             const std::int32_t limit = choice.firstCount - 10;
             if (choice.petScroll < limit) {
                 ++choice.petScroll;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = choice.petScroll;
             const std::int32_t maximum = choice.firstCount - 10;
@@ -1724,9 +1724,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(WindowInstance& callbackW
                 const std::int32_t limit = choice.secondCount - 5;
                 if (choice.skillScroll < limit) {
                     ++choice.skillScroll;
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 } else {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 }
                 const std::int32_t position = choice.skillScroll;
                 const std::int32_t maximum = choice.secondCount - 5;
@@ -1744,9 +1744,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(WindowInstance& callbackW
             const std::int32_t limit = choice.firstCount - 10;
             if (choice.petScroll < limit) {
                 ++choice.petScroll;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = choice.petScroll;
             WindowInstance* const window = currentWindow;
@@ -1789,7 +1789,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(WindowInstance& call
         switch (std::bit_cast<std::int8_t>(choice.mode)) {
         case 0:
         case 1: {
-            static_cast<void>(audio::PlaySe_52C450(choice.petScroll > 0 ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, choice.petScroll > 0 ? 51 : 55, 320));
             choice.petScroll -= 10;
             if (choice.petScroll < 0) {
                 choice.petScroll = 0;
@@ -1817,7 +1817,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(WindowInstance& call
         case 12:
         case 13:
             if (elementId <= static_cast<ElementId>(WindowPetSkillChoiceElementId::Element18)) {
-                static_cast<void>(audio::PlaySe_52C450(choice.petScroll > 0 ? 51 : 55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, choice.petScroll > 0 ? 51 : 55, 320));
                 choice.petScroll -= 10;
                 if (choice.petScroll < 0) {
                     choice.petScroll = 0;
@@ -1831,7 +1831,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(WindowInstance& call
                 const std::int32_t scroll = choice.petScroll;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(*callbackWindow.ownerSession, currentWindow, scroll);
             } else {
-                static_cast<void>(audio::PlaySe_52C450(choice.skillScroll > 0 ? 51 : 55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, choice.skillScroll > 0 ? 51 : 55, 320));
                 choice.skillScroll -= 5;
                 if (choice.skillScroll < 0) {
                     choice.skillScroll = 0;
@@ -1876,7 +1876,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(WindowInstance& callback
         case 0:
         case 1: {
             const std::int32_t limit = choice.firstCount - 10;
-            static_cast<void>(audio::PlaySe_52C450(
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession,
                 limit > 0 && choice.petScroll < limit ? 51 : 55, 320));
             std::int32_t position = choice.petScroll;
             const std::int32_t maximum = choice.firstCount - 10;
@@ -1912,7 +1912,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(WindowInstance& callback
         case 13:
             if (elementId <= static_cast<ElementId>(WindowPetSkillChoiceElementId::Element18)) {
                 const std::int32_t limit = choice.firstCount - 10;
-                static_cast<void>(audio::PlaySe_52C450(
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession,
                     limit > 0 && choice.petScroll < limit ? 51 : 55, 320));
                 std::int32_t position = choice.petScroll;
                 const std::int32_t maximum = choice.firstCount - 10;
@@ -1934,7 +1934,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(WindowInstance& callback
                 WindowPetSkillChoice_RefreshSelectedSkillRows(*callbackWindow.ownerSession, currentWindow, scroll);
             } else {
                 const std::int32_t limit = choice.secondCount - 5;
-                static_cast<void>(audio::PlaySe_52C450(
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession,
                     limit > 0 && choice.skillScroll < limit ? 51 : 55, 320));
                 std::int32_t position = choice.skillScroll;
                 const std::int32_t maximum = choice.secondCount - 5;
@@ -2063,7 +2063,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 243103;
@@ -2142,7 +2142,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             npcDialog.type = -2;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 243100;
@@ -2178,7 +2178,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbac
         choice.replacement = slot;
         if (auto* const handleConfirmationElement = window->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
         currentWindow->state |= 2u;
-        static_cast<void>(audio::PlaySe_52C450(78, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243127;
@@ -2230,7 +2230,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
     if (money < record.price) {
         choice.message = -2;
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         return 1;
     }
     std::int32_t petCount = 0;
@@ -2241,7 +2241,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     }
     if (petCount == 0) {
         choice.message = -3;
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         return 1;
     }
     choice.selected = selected;
@@ -2257,7 +2257,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
         static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
     npcDialog.type = -2;
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     return 1;
 }
 
@@ -2321,7 +2321,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
             currentWindow->state &= ~2u;
             acceptImage = 245324;
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     std::int32_t cancelImage = 245326;
@@ -2334,7 +2334,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
             cancelImage = 245327;
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));

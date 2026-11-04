@@ -345,19 +345,19 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
     if (session.WorldScene().sceneState == 1) {
         interactiveTail = 1;
         if ((cg::ui::QueryUiControlInputState_45F100(session, &gCloseUi) & 1) != 0) {
-            detail::PlaySe(54, 320, 240);
+            detail::PlaySe(session, 54, 320, 240);
             ::PostMessageW(
                 reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
         } else if ((cg::ui::QueryUiControlInputState_45F100(session, &gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(session, 1);
             static_cast<void>(render::SelectPalette(20, 1));
-            detail::PlaySe(54, 320, 240);
+            detail::PlaySe(session, 54, 320, 240);
             cg::audio::BeginBgmFadeOut_52B990(session);
         } else if (const auto selectedControl = SelectedCategoryControl();
             (cg::ui::QueryUiControlInputState_45F100(session, &selectedControl) & 1) != 0) {
             request.selectedLoginServerGroup = -1;
             request.serverPage = 0;
-            detail::PlaySe(54, 320, 240);
+            detail::PlaySe(session, 54, 320, 240);
         } else {
             std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
@@ -368,7 +368,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                     && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0
                     && category < 0) {
                     request.selectedLoginServerGroup = index;
-                    detail::PlaySe(51, 320, 240);
+                    detail::PlaySe(session, 51, 320, 240);
 
                     const std::int32_t sourceA = categoryControl.activeImageNo;
                     const std::int32_t sourceB = categoryControl.normalImageNo;
@@ -400,7 +400,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                             SetServerWindowTitle(title, serverIndex, page, slot);
                             request.selectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             request.serverHighlight = slot;
-                            detail::PlaySe(53, 320, 240);
+                            detail::PlaySe(session, 53, 320, 240);
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
                             ReadInputValueFF494F_5203E0(session, request.password);
                             ReadInputValueFF4982_520440(session, request.account);
@@ -608,13 +608,13 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                 if (request.serverPage < 1) {
                     ++request.serverPage;
                 }
-                detail::PlaySe(51, 320, 240);
+                detail::PlaySe(session, 51, 320, 240);
             }
             if ((cg::ui::QueryUiControlInputState_45F100(session, &gPreviousPageUi) & 1) != 0) {
                 if (request.serverPage > 0) {
                     --request.serverPage;
                 }
-                detail::PlaySe(51, 320, 240);
+                detail::PlaySe(session, 51, 320, 240);
             }
         }
 

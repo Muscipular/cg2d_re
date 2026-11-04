@@ -53,7 +53,7 @@ static std::int32_t WindowTimerNotice_Update(WindowInstance& callbackWindow, con
         if (notice.startTick + 2000u <= tick) {
             currentWindow->state |= 0x8000u;
             notice.startTick = 0;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
     }
     return 1;

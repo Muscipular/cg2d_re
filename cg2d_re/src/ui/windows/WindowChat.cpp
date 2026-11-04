@@ -498,12 +498,12 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             WindowChat_RequestHeightIncrease(*callbackWindow.ownerSession);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
             WindowChat_RequestHeightDecrease(*callbackWindow.ownerSession);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         break;
@@ -524,7 +524,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             if (range > 5) {
                 chatDisplay.range = 1;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             chatDisplay.rangeOverlayFrames = 180;
             consumed = 1;
         }
@@ -534,7 +534,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             if (range < 1) {
                 chatDisplay.range = 5;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             chatDisplay.rangeOverlayFrames = 180;
             consumed = 1;
         }
@@ -564,7 +564,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowRuntime_CycleNameMode());
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RDownEvent) != 0) {
@@ -573,7 +573,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             if (mode > 2) {
                 platform::gChatTextSizeMode_73ECBC = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         break;
@@ -591,12 +591,12 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             WindowChat_RequestWidthIncrease(*callbackWindow.ownerSession);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
             WindowChat_RequestWidthDecrease(*callbackWindow.ownerSession);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         break;
@@ -615,7 +615,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             } else if (next > 9) {
                 inputs.chat.color = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             color = inputs.chat.color;
             inputs.chatDefaults.color = color;
             consumed = 1;
@@ -630,7 +630,7 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             } else if (color < 0) {
                 inputs.chat.color = 9;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             inputs.chatDefaults.color = inputs.chat.color;
             consumed = 1;
         }
@@ -654,9 +654,9 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
                 WindowInstance* const window = currentWindow;
                 chatWindow.scrollOffset = count;
                 if (auto* const handleButtons_12Element2 = window->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element2) handleButtons_12Element2->data.graphic->imageNo = 0x3B593;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             WindowChat_SyncScrollThumb(*callbackWindow.ownerSession);
             consumed = 1;
@@ -677,9 +677,9 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
                 WindowInstance* const window = currentWindow;
                 chatWindow.scrollOffset = 0;
                 if (auto* const handleButtons_13Element2 = window->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element2) handleButtons_13Element2->data.graphic->imageNo = 0x3B596;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             WindowChat_SyncScrollThumb(*callbackWindow.ownerSession);
             consumed = 1;

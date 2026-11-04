@@ -336,7 +336,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target));
                 }
-                static_cast<void>(audio::PlaySe_52C450(132, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 132, action->x));
             }
         }
         const std::int32_t finishIndex = payload->effectRunningC9C;
@@ -431,7 +431,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         targetPayload->aliveFF8 = 1;
                     }
                     const std::int32_t sound = action->frameEvent - 10000;
-                    static_cast<void>(audio::PlaySe_52C450(sound, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, 320));
                 }
                 const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
                 if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
@@ -526,7 +526,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                 const std::int32_t event = action->frameEvent;
                 const std::int32_t x = action->x;
                 const std::int32_t sound = event >= 20000 ? event - 20000 : event - 10000;
-                static_cast<void>(audio::PlaySe_52C450(sound, x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, x));
                 payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC & BattleActorFlag_Dead) != 0) + 1u);
             }
         }
@@ -724,8 +724,8 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 }
                 const std::int32_t image = action->imageNo;
                 if (image >= 110032 && image <= 110034) {
-                    static_cast<void>(audio::PlaySe_52C450(263, action->x));
-                    static_cast<void>(audio::PlaySe_52C450(132, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 263, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 132, action->x));
                 } else {
                     std::int32_t sound;
                     if (image >= 110035 && image <= 110037) {
@@ -735,7 +735,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     } else {
                         sound = 131;
                     }
-                    static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, action->x));
                 }
             }
         }
@@ -749,7 +749,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     action->field58 = previousDelay - 1;
     if (previousDelay <= 0) {
         if (previousDelay == 0) {
-            static_cast<void>(audio::PlaySe_52C450(262, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 262, action->x));
             const std::int32_t frames = platform::RandomRange_46FAF0(0, 32);
             for (std::int32_t remaining = frames; remaining > 0; --remaining) {
                 static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
@@ -974,7 +974,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 const std::int32_t image = action->imageNo;
                 if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
                     const std::int32_t sound = image == 110046 || image == 110047 ? 268 : 269;
-                    static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, action->x));
                 }
             }
         }
@@ -991,7 +991,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             const std::int32_t image = action->imageNo;
             if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
                 const std::int32_t sound = image == 111011 || image == 110044 ? 269 : 268;
-                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, action->x));
             }
         }
         const std::int32_t remaining = payload->valueFD0;
@@ -1113,7 +1113,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             const std::int32_t image = action->imageNo;
             if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
                 const std::int32_t sound = image == 110046 || image == 110047 ? 268 : 269;
-                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, action->x));
             }
             if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_RebirthGuard) != 0) {
                 AdvanceBattleCastState_439340(target);
@@ -1128,7 +1128,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             const std::int32_t image = action->imageNo;
             if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
                 const std::int32_t sound = image == 111011 || image == 110044 ? 269 : 268;
-                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, sound, action->x));
             }
         }
         const std::int32_t remaining = payload->valueFD0;
@@ -1288,12 +1288,12 @@ void InitBattleTargetEffect_422E50(
     case 111186:
     case 111187:
     case 111188:
-        static_cast<void>(audio::PlaySe_52C450(263, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 263, action->x));
         break;
     case 111189:
     case 111190:
     case 111191:
-        static_cast<void>(audio::PlaySe_52C450(269, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 269, action->x));
         break;
     default:
         break;

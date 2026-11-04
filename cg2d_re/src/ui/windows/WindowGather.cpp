@@ -324,11 +324,11 @@ static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& sess
     if (gather.result != 0) {
         if (auto* const element52 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element52) element52->data.text->text = gather.name;
         if (auto* const element62 = window ? window->FindElementById(WindowGatherElementId::Element6) : nullptr; element62) element62->data.text->text = L"　发现了。" /* 原常量参考：0x005869D4。 */;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     } else {
         if (auto* const element52 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element52) element52->data.text->text = L"什么都没发现。" /* 原常量参考：0x005869C4。 */;
         if (auto* const element62 = window ? window->FindElementById(WindowGatherElementId::Element6) : nullptr; element62) element62->data.text->text = L"";
-        static_cast<void>(audio::PlaySe_52C450(58, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 58, 320));
         gather.resultImage = -1;
     }
     if (gather.levelUp != 0) {
@@ -447,7 +447,7 @@ WindowAnimationData* WindowGather_ReceiveResult(session::ClientSession& session,
     if (gather.levelUp != 0 && lines < 8) {
         gather.details += kCraftLevelUp589814;
         ++lines;
-        static_cast<void>(audio::PlaySe_52C450(64, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 64, 320));
     }
     if (gather.endurance != 0 && lines < 8) {
         appendValue(kCraftEndurance589808, gather.endurance);
@@ -635,13 +635,13 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 * callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].fpReduce / 100;
             if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
-                static_cast<void>(audio::PlaySe_52C450(58, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 58, 320));
                 static_cast<void>(WindowGather_Cancel(session, currentWindow));
             } else if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) <= 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
-                static_cast<void>(audio::PlaySe_52C450(58, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 58, 320));
                 static_cast<void>(WindowGather_Cancel(session, currentWindow));
             } else {
                 static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
@@ -795,7 +795,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
             const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(WindowProfile_SaveOrigin(*callbackWindow.ownerSession, x, y));
             static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B56B;
@@ -830,10 +830,10 @@ static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, con
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (gather.mode == 0) {
                 window->state |= 0x8000u;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             } else {
                 static_cast<void>(WindowGather_Cancel(session, window));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }

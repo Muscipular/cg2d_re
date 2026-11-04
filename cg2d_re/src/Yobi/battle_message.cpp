@@ -1265,7 +1265,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         payload->messageValueA4 = TakeBattleMInteger_438F70(scene);
         TakeBattleMString_438FE0(scene, initialMessage.data(), 256);
         if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-            static_cast<void>(audio::PlaySe_52C450(74, 320));
+            static_cast<void>(audio::PlaySe_52C450(*scene->ownerSession, 74, 320));
         }
         cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(initialMessage.data()), color, font);
     }
@@ -1296,7 +1296,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             payload->messageValueA4 = TakeBattleMInteger_438F70(scene);
             TakeBattleMString_438FE0(scene, queuedMessage.data(), 256);
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-                static_cast<void>(audio::PlaySe_52C450(74, 320));
+                static_cast<void>(audio::PlaySe_52C450(*scene->ownerSession, 74, 320));
             }
             cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(queuedMessage.data()), color, font);
         } else if (kind == BattleMHeader_BST) {
@@ -1531,7 +1531,7 @@ static void ProcessBattleMDataHeader(
             std::array<char, 256> message;
             TakeBattleMString_438FE0(scene, message.data(), 256);
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-                static_cast<void>(audio::PlaySe_52C450(74, 320));
+                static_cast<void>(audio::PlaySe_52C450(*scene->ownerSession, 74, 320));
             }
             cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(message.data()), color, font);
             const std::int32_t position = scene->ownerSession->WorldScene().battle.mCasterPosition;
@@ -3717,7 +3717,7 @@ std::int32_t ConsumeBattleExitMessages_43BAA0(session::ClientSession& session)
             payload->messageValueA4 = detail::TakeBattleMInteger_438F70(battle.sceneAction);
             detail::TakeBattleMString_438FE0(battle.sceneAction, message.data(), 256);
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-                static_cast<void>(audio::PlaySe_52C450(74, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 74, 320));
             }
             cg::world::AppendChatMessage_44B050(session, cg::text::FromGbkWide(message.data()), color, font);
         } else { // BST

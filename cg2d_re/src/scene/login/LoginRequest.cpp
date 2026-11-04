@@ -203,7 +203,7 @@ std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection& connection, con
     // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
     connection.Owner().WorldScene().map.crypt->sceneTransitionValue = std::int32_t{0};
     static_cast<void>(world::SetPendingSceneType(connection.Owner(), 7));
-    return audio::PlaySe_52C450(60, 320);
+    return audio::PlaySe_52C450(connection.Owner(), 60, 320);
 }
 
 } // namespace cg::login::detail

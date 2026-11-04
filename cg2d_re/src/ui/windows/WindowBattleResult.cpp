@@ -240,7 +240,7 @@ static std::int32_t WindowRuntime_ButtonCloseResult(WindowInstance& callbackWind
         const std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
         graphic->imageNo = 0x3B568;
         if ((state & MouseFlag_Hover) != 0) {
@@ -380,7 +380,7 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
     const std::uint64_t now = platform::ReadTickCount64();
     if (currentWindow->ownerSession->WorldScene().battleResult.closeTick < now) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     return 1;
 }
@@ -415,7 +415,7 @@ static std::int32_t WindowBattleResult_ButtonClose(WindowInstance& callbackWindo
     std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         consumed = 1;
     }
     return consumed;
@@ -445,7 +445,7 @@ static std::int32_t WindowDpResult_Update(WindowInstance& callbackWindow, const 
     const std::uint64_t now = platform::ReadTickCount64();
     if (currentWindow->ownerSession->WorldScene().battleResult.closeTick < now) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     return 1;
 }

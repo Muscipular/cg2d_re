@@ -346,7 +346,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
         }
         relativeY = (frame - 15) * (frame - 15) - 225;
         if (frame == 0) {
-            static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1D1, action->x));
         }
         const std::int32_t currentFrame = action->value1D4;
         const std::int32_t targetY = slotY + frameY;
@@ -359,7 +359,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
             action->phase = ObservationMemberPhase_Boarded;
             action->value1D4 = 0;
             SetObservationChildAction(action, imageNo);
-            static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1CE, action->x));
         }
     } else if (initialPhase == ObservationMemberPhase_Boarded) {
         relativeX = frameX + slotX;
@@ -455,7 +455,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
                     break;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1CF, action->x));
         }
         const std::int32_t frame = action->value1D4;
         relativeY = (frame - 15) * (frame - 15) - 225;
@@ -467,7 +467,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
             const std::int32_t soundX = action->x;
             action->phase = ObservationMemberPhase_RestoredToMap;
             action->characterAction = CharacterAnimation_Stand;
-            static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1C9, soundX));
             const std::uint32_t currentIndex = payload->objectIds00[action->field1D0];
             if (currentIndex == action->ownerSession->WorldScene().player->objectIndex) {
                 world::ResumePlayerAfterObservation_51BEF0(*action->ownerSession);

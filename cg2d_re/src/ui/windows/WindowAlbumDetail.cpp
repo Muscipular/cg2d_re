@@ -474,7 +474,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
             if (direction > 7) {
                 business.valueCF4A00 = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
             const std::int32_t direction = business.valueCF4A00 - 1;
@@ -482,7 +482,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
             if (direction < 0) {
                 business.valueCF4A00 = 7;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         return 0;
     default:
@@ -506,7 +506,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
         } else if (selected > 959) {
             business.valueCB2200 = 959;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {

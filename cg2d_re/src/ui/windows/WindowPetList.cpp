@@ -704,7 +704,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             const std::int16_t selected = petIndex(row);
             if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].used != 0) {
                 static_cast<void>(WindowPetDrag_Start(*callbackWindow.ownerSession, selected, 0));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
         }
         business.valuesD2EAA0[0] = 0;
@@ -738,7 +738,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         const std::int16_t selected = petIndex(row);
         if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].follow6D4 != 0) {
             static_cast<void>(WindowPetList_SendStates(*callbackWindow.ownerSession, states));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             return consumed;
         }
         std::int32_t followCount = 0;
@@ -752,13 +752,13 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].values70[10] < 60) {
             world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物忠诚度需达到60以上才可以带它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             return consumed;
         }
         states[selected] |= 0x10;
         static_cast<void>(WindowPetList_SendStates(*callbackWindow.ownerSession, states));
         states[petIndex(row)] &= ~0x10;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         return consumed;
     }
 
@@ -802,7 +802,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         states[target] = 1;
         static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         return consumed;
     }
 
@@ -832,7 +832,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         return consumed;
     }
 
@@ -858,7 +858,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             states[petIndex(row)] = 3;
             static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         return consumed;
     }
     return 0;

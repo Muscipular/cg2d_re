@@ -320,7 +320,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
     }
     if (close) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     if (callbackWindow.ownerSession->UiFrame().inputState.currentContext != &inputs.textListTitle) {
         if (auto* const editTitleElement = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement) editTitleElement->visible = 1;
@@ -407,7 +407,7 @@ static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWind
         if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(*callbackWindow.ownerSession)) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             imageNo = 243049;
         }
     }
@@ -433,9 +433,9 @@ static std::int32_t WindowTextList_ButtonPreviousRow(WindowInstance& callbackWin
     if ((state & MouseFlag_LRepeatDown) != 0) {
         if (textList.scroll > 0) {
             --textList.scroll;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = textList.scroll;
         WindowInstance* const window = currentWindow;
@@ -471,9 +471,9 @@ static std::int32_t WindowTextList_ButtonNextRow(WindowInstance& callbackWindow,
         const std::int32_t last = textList.lineCount - 9;
         if (textList.scroll < (last < 0 ? 0 : last)) {
             ++textList.scroll;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = textList.scroll;
         const std::int32_t maximum = textList.lineCount - 9;
@@ -505,7 +505,7 @@ static std::int32_t WindowTextList_ButtonPreviousPage(WindowInstance& callbackWi
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(textList.scroll > 0 ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, textList.scroll > 0 ? 51 : 55, 320));
         textList.scroll -= 9;
         if (textList.scroll < 0) {
             textList.scroll = 0;
@@ -541,7 +541,7 @@ static std::int32_t WindowTextList_ButtonNextPage(WindowInstance& callbackWindow
     std::int32_t result = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t last = textList.lineCount - 9;
-        static_cast<void>(audio::PlaySe_52C450(
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession,
             last > 0 && textList.scroll < last ? 51 : 55, 320));
         const std::int32_t maximum = textList.lineCount - 9;
         textList.scroll += 9;
@@ -626,11 +626,11 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
                 const std::int32_t x =
                     static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, packet));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 consumed = 1;
             }
         } else if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if (graphic) graphic->imageNo = 244215;
@@ -666,7 +666,7 @@ static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindo
             const std::int32_t x =
                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffer));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 244332;
@@ -720,7 +720,7 @@ static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, con
         callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element54->data.input;
     }
     if (auto* const element55 = focusedWindow->FindElementById(WindowTextListElementId::Element5); element55) element55->data.input->context = &inputs.textListTitle;
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     return 1;
 }
 
@@ -768,7 +768,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
                 textList.modalText = L"你没有喂食宠物的权限。";
                 if (auto* const drawConfirmationElement = modalWindow->FindElementById(WindowTextListElementId::DrawConfirmation); drawConfirmationElement) drawConfirmationElement->visible = 1;
                 currentWindow->state |= 2u;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             WindowDrag_Reset(*callbackWindow.ownerSession);
         }
@@ -783,7 +783,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
                 occupancy[textList.selectedItem] = static_cast<unsigned char>(previous - 1);
             }
             textList.selectedItem = -1;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             selected = textList.selectedItem;
         }
         consumed = 1;

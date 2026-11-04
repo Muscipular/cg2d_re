@@ -242,9 +242,9 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
             callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.name = profile.text08;
             callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.text104.clear();
             static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_MiniMail));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         return 1;
     }

@@ -115,6 +115,8 @@ std::int32_t ApplyBgmVolume_52C3D0(session::ClientSession& session); // 同步�
 
 // 宿主发布当前项后静音切出流，再恢复当前流；失败释放对应实际播放。
 void SelectBgmOutput() noexcept;
+// 切换时释放旧共享音效通道；清请求借用，不清样本、轮转或冷却。
+void SelectSoundEffectOutput() noexcept;
 
 // 原 [0x52CCE0,0x52CD25)：标志为 1 时返回 1，否则停止、关闭并只覆写返回低 AL。
 std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept;
@@ -128,7 +130,8 @@ std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(session::ClientSessi
 std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(
     session::ClientSession& session, std::int32_t id, std::int32_t x, std::int32_t y);
 // 原 World::PlaySe@52C450，第二参数是声像位置；额外压栈值未被本体读取。
-std::int32_t __cdecl PlaySe_52C450(std::int32_t seNo, std::int32_t screenX);
+std::int32_t __cdecl PlaySe_52C450(
+    session::ClientSession& session, std::int32_t seNo, std::int32_t screenX);
 // 原 52CB50 消费请求；52C680 更新同一通道并返回 0/-1。
 std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50(session::ClientSession& session);
 // 原函数：0x0052C680。

@@ -70,9 +70,9 @@ namespace cg::network {
 namespace detail {
 
 // 原50E680只取socket后的type/repeats；第三已解析字段不被原本体读取。
-void HandleServerSoundPlayback_50E680(cg::network::CgConnection&, std::int32_t type, std::int32_t repeats, std::int32_t)
+void HandleServerSoundPlayback_50E680(cg::network::CgConnection& connection, std::int32_t type, std::int32_t repeats, std::int32_t)
 {
-    if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(type, repeats)); }
+    if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(connection.Owner(), type, repeats)); }
     else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
 }
 
@@ -424,7 +424,7 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const st
         ? connection.Owner().WorldScene().guild.orderedRecords[index].name18.c_str() : L"";
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, recordName);
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(connection.Owner()));
-    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    static_cast<void>(audio::PlaySe_52C450(connection.Owner(), 63, 320));
     world::AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 

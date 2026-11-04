@@ -82,7 +82,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
             static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
             result = hover;
-            login::detail::PlaySe(79, 320, 240);
+            login::detail::PlaySe(connection.Owner(), 79, 320, 240);
             cg::yobi::YobiAction* const clickedAction = actionSlot;
             if (clickedAction != nullptr) {
                 cg::yobi::MarkDeath(clickedAction);
@@ -185,7 +185,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     }
 
     if (result != 0) {
-        login::detail::PlaySe(79, 320, 240);
+        login::detail::PlaySe(connection.Owner(), 79, 320, 240);
         cg::yobi::YobiAction* const clickedAction = actionSlot;
         if (clickedAction != nullptr) {
             cg::yobi::MarkDeath(clickedAction);

@@ -542,10 +542,10 @@ YobiAction* NewBattleEffect_41CD00(
                 return nullptr;
             }
             if (type == BattleEffectType_ReviveEmitter) {
-                static_cast<void>(audio::PlaySe_52C450(280, source->x));
+                static_cast<void>(audio::PlaySe_52C450(*source->ownerSession, 280, source->x));
                 action->callback = UpdateBattleReverseEmitter_41A590;
             } else {
-                static_cast<void>(audio::PlaySe_52C450(281, source->x));
+                static_cast<void>(audio::PlaySe_52C450(*source->ownerSession, 281, source->x));
                 action->callback = UpdateBattleIndexedEmitter_41A7D0;
             }
             const std::uint32_t initialFlags = action->flags;
@@ -597,7 +597,7 @@ YobiAction* NewBattleEffect_41CD00(
                     playSound = false;
                 }
                 if (playSound) {
-                    static_cast<void>(audio::PlaySe_52C450(sound, source->x));
+                    static_cast<void>(audio::PlaySe_52C450(*source->ownerSession, sound, source->x));
                 }
                 action->origin_x_offset40 = source->origin_x_offset40;
                 const std::int32_t currentImage = sourcePayload->image1028;

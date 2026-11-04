@@ -93,7 +93,7 @@ WindowInstance* WindowQuantity_Open(
 {
     if (WindowRuntime_States(session)[WindowId_Quantity].window != nullptr) {
         WindowRuntime_States(session)[WindowId_Quantity].window->state &= ~std::uint32_t{0x8000};
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     } else {
         WindowRuntime_States(session)[WindowId_Quantity].window = WindowRuntime_Open(session, WindowId_Quantity);
     }
@@ -197,7 +197,7 @@ static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, cons
             window = currentWindow;
         }
         window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         window = currentWindow;
         result = 1;
     }
@@ -228,9 +228,9 @@ static std::int32_t WindowQuantity_ButtonIncrease(WindowInstance& callbackWindow
             const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
             if (value < maximum) {
                 if (auto* const buttonOkElement2 = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement2) buttonOkElement2->state = static_cast<std::uint32_t>(value + 1);
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
         }
     }
@@ -263,9 +263,9 @@ static std::int32_t WindowQuantity_ButtonDecrease(WindowInstance& callbackWindow
             const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
             if (value > 0) {
                 if (auto* const buttonOkElement2 = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement2) buttonOkElement2->state = static_cast<std::uint32_t>(value - 1);
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
         }
     }

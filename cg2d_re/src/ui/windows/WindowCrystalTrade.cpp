@@ -33,7 +33,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, con
                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, L""));
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 245320;

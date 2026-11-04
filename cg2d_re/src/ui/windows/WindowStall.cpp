@@ -464,9 +464,9 @@ static std::int32_t WindowStall_ButtonPreviousListing(WindowInstance& callbackWi
         if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
             if (callbackWindow.ownerSession->UiFrame().native.stall.petPage > 0) {
                 --callbackWindow.ownerSession->UiFrame().native.stall.petPage;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
@@ -479,9 +479,9 @@ static std::int32_t WindowStall_ButtonPreviousListing(WindowInstance& callbackWi
         } else {
             if (callbackWindow.ownerSession->UiFrame().native.stall.itemPage > 0) {
                 --callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
@@ -518,9 +518,9 @@ static std::int32_t WindowStall_ButtonNextListing(WindowInstance& callbackWindow
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             if (page < maximum) {
                 callbackWindow.ownerSession->UiFrame().native.stall.petPage = page + 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
@@ -535,9 +535,9 @@ static std::int32_t WindowStall_ButtonNextListing(WindowInstance& callbackWindow
             const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             if (page < maximum) {
                 callbackWindow.ownerSession->UiFrame().native.stall.itemPage = page + 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
@@ -603,9 +603,9 @@ static std::int32_t WindowStall_ButtonPreviousPet(WindowInstance& callbackWindow
         if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
             if (callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage > 0) {
                 --callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             auto* elementsWindow = currentWindow;
@@ -639,9 +639,9 @@ static std::int32_t WindowStall_ButtonNextPet(WindowInstance& callbackWindow, co
         if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
             if (callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage < 1) {
                 ++callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             auto* elementsWindow = currentWindow;
@@ -953,7 +953,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
                 disabled = true;
             } else if ((state & MouseFlag_LDownEvent) != 0) {
                 window->state |= 0x8000u;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             }
             break;
         case WindowStallElementId::HandleButtons_35: {
@@ -1003,7 +1003,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
             disabled = true;
         } else if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
     }
     if (disabled) {
@@ -2746,7 +2746,7 @@ static void WindowStall_OpenBrowse(
         }
         world::BuildPetTechniqueDisplayEntries_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), world::kPetTechniqueSlotCount);
     }
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_StallBrowse, 1, 0, nullptr));
 }
 
@@ -2816,7 +2816,7 @@ static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, cons
         }
         if ((state & MouseFlag_LDownEvent) != 0 && callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0 && callbackWindow.ownerSession->UiFrame().native.stall.pending == 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 243000;
@@ -2837,7 +2837,7 @@ static void WindowStall_Release(WindowInstance& releasedWindow)
     if (releasedWindow.ownerSession->UiFrame().native.stall.own != 0 && releasedWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0) {
         static_cast<void>(releasedWindow.ownerSession->Connection().CloseStallRequest());
     }
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*releasedWindow.ownerSession, 57, 320));
 }
 
 // 原函数：0x004CE700。

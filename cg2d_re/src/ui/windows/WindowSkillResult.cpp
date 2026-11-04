@@ -224,7 +224,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(session::ClientSessi
         default:
             break;
     }
-    static_cast<void>(audio::PlaySe_52C450(resultState.result != 0 ? 57 : 58, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, resultState.result != 0 ? 57 : 58, 320));
     if (resultState.levelUp != 0) {
         if (auto* const element7 = window ? window->FindElementById(WindowSkillResultElementId::Element7) : nullptr; element7) element7->data.text->text = kCraftLevelUp58661C;
     } else {
@@ -343,7 +343,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
         if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
             graphic->imageNo = 0x3BA32;
             if ((state & MouseFlag_LDownEvent) != 0) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             return 0;
         }
@@ -354,7 +354,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t currentSkill = request.index;
             static_cast<void>(session.Connection().RequestSkillTargetAttributes(currentSkill));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3BA31;
@@ -385,7 +385,7 @@ static std::int32_t WindowSkillResult_ButtonClose(WindowInstance& callbackWindow
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B565;
@@ -471,7 +471,7 @@ cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(session::ClientSession& se
     if (resultState.levelUp != 0 && lines < 8) {
         resultState.details += kCraftLevelUp589814;
         ++lines;
-        static_cast<void>(audio::PlaySe_52C450(64, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 64, 320));
     }
     if (resultState.endurance != 0 && lines < 8) {
         appendValue(kCraftEndurance589808, resultState.endurance);

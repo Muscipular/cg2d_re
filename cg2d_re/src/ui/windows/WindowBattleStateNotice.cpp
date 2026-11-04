@@ -39,7 +39,7 @@ void WindowBattleStateNotice_Open(session::ClientSession& session)
     if ((session.WorldScene().battle.playerFlags & 3u) != 0
         && session.WorldScene().battle.entryNoticeAction == nullptr && WindowRuntime_States(session)[WindowId_BattleStateNotice].window == nullptr) {
         session.WorldScene().battle.entryNoticeAction = WindowRuntime_CreateAnimation(session, WindowId_BattleStateNotice, 1, 0, nullptr);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     }
 }
 

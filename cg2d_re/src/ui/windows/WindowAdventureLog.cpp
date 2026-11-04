@@ -268,7 +268,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
             if (canMove) {
                 logViewer.page = page + (elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? -1 : 1);
             }
-            static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, canMove ? 51 : 55, 320));
             const std::int32_t currentPage = logViewer.page;
             WindowInstance* const window = currentWindow;
             const std::int32_t maximum = logViewer.maximum;
@@ -358,7 +358,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
             if (handleVerticalScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, maximum, 0));
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = base + 1;

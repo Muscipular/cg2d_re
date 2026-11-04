@@ -116,7 +116,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     if ((flags & BattleResultFlag_Avoidance) != 0) {
                         target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & BattleResultFlag_FlashDodge) != 0) {
-                        static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                         targetPayload->flash1004 = 1;
                         target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & BattleResultMask_PhysicalAbsorbOrNullifyOrRebirthGuard) == 0
@@ -142,9 +142,9 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         target->phase = BattleAction_RecoilOnHit;
                         const std::int32_t currentEvent = action->frameEvent;
                         if (currentEvent >= 20000) {
-                            static_cast<void>(audio::PlaySe_52C450(currentEvent - 20000, action->x));
+                            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, currentEvent - 20000, action->x));
                         } else {
-                            static_cast<void>(audio::PlaySe_52C450(currentEvent - 10000, action->x));
+                            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, currentEvent - 10000, action->x));
                             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
                         }
                     }
@@ -169,7 +169,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 }
                 if ((flags & BattleResultFlag_FlashDodge) != 0) {
                     if (targetPayload->flash1004 == 0) {
-                        static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                         targetPayload->flash1004 = 1;
                         target->phase = BattleAction_DodgeAndWaitAttacker;
                     }
@@ -199,7 +199,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             payload->aliveFF8 = 1;
                         }
                         const std::int32_t currentEvent = action->frameEvent;
-                        static_cast<void>(audio::PlaySe_52C450(
+                        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession,
                             currentEvent >= 20000 ? currentEvent - 20000 : currentEvent - 10000, action->x));
                     } else {
                         if ((visualFlags & BattleResultFlag_WakeUp) != 0) {
@@ -225,7 +225,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         }
                         const std::int32_t soundEvent = action->frameEvent;
                         const std::int32_t soundX = action->x;
-                        static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+                        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
                     }
                 }
                 const std::int32_t hitIndex = payload->effectRunningC9C;
@@ -645,7 +645,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
             const std::int32_t soundX = action->x;
             action->battleCastEffect10 = created;
             const std::int32_t soundEvent = action->frameEvent;
-            static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
             action->frameEvent = 0;
         }
         return;
@@ -677,7 +677,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     }
     const std::int32_t soundEvent = action->frameEvent;
     const std::int32_t soundX = action->x;
-    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
     action->frameEvent = 0;
 }
 
@@ -711,7 +711,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
     static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22050));
     const std::int32_t soundEvent = action->frameEvent;
     const std::int32_t soundX = action->x;
-    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     const std::int32_t currentSkill = payload->castSkill103C;
     if ((currentSkill == BattleSkill_RandomShot || currentSkill == 3019)
@@ -751,7 +751,7 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
     static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22090));
     const std::int32_t soundEvent = action->frameEvent;
     const std::int32_t soundX = action->x;
-    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     if (payload->castSkill103C == BattleSkill_RandomShot && payload->effects1C[payload->effectRunningC9C].position != -1) {
         action->frameRemain = 0;
@@ -780,7 +780,7 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
             const std::int32_t image = payload->castSkillLevel1044 < 12 ? 110016 : 111055;
             static_cast<void>(NewBattleSpiracleShot_418B70(action, &payload->effects1C[payload->effectRunningC9C], image));
         } while (AdvanceBattleEffect_439470(action) != 1);
-        static_cast<void>(audio::PlaySe_52C450(254, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 254, action->x));
         action->frameEvent = 0;
     }
 }
@@ -818,7 +818,7 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
             }
         }
     } while (AdvanceBattleEffect_439470(action) != 1);
-    static_cast<void>(audio::PlaySe_52C450(268, action->x));
+    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 268, action->x));
     action->frameEvent = 0;
 }
 
@@ -1000,7 +1000,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     targetPayload->effectPlaybackState1024 = BattleEffectPlayback_Idle;
                 }
                 targetPayload->flash1004 = 1;
-                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             }
             goto finishProjectileHit;
@@ -1018,7 +1018,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 }
                 NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
                 const std::int32_t mode = payload->attackModeFF4;
-                static_cast<void>(audio::PlaySe_52C450(mode == BattleAttackMode_ThrowingKnife ? 141 : (mode == BattleAttackMode_Bow ? 142 : 255), action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, mode == BattleAttackMode_ThrowingKnife ? 141 : (mode == BattleAttackMode_Bow ? 142 : 255), action->x));
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = effect.position3;
                 (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
@@ -1282,7 +1282,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
         if ((flags & BattleResultFlag_Avoidance) != 0) {
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & BattleResultFlag_FlashDodge) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(210, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
             targetPayload->flash1004 = 1;
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
@@ -1485,7 +1485,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
             if ((flags & BattleResultFlag_Avoidance) != 0) {
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((flags & BattleResultFlag_FlashDodge) != 0) {
-                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                 targetPayload->flash1004 = 1;
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
@@ -1500,7 +1500,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, secondaryImage, 0));
                     }
                     NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
-                    static_cast<void>(audio::PlaySe_52C450(143, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 143, action->x));
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
                     (action->ownerSession->WorldScene().battle.allEntries[effect.position]->readiness -= static_cast<std::int32_t>(amount));
@@ -1693,7 +1693,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
                 }
             }
             static_cast<void>(MarkDeath(action));
-            static_cast<void>(audio::PlaySe_52C450(216, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 216, action->x));
         }
     }
     MoveBattleByAngle_405EA0(action);
@@ -1793,7 +1793,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
     } else {
         if (count == duration) {
-            static_cast<void>(audio::PlaySe_52C450(207, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 207, action->x));
             if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
                     action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
@@ -1828,25 +1828,25 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
                 const double delta = action->angle50 - 90.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
-                static_cast<void>(audio::PlaySe_52C450(208, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
                 payload->valueFD0 = 1;
             } else if (action->origin_x_offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
                 const double delta = action->angle50 - 270.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
-                static_cast<void>(audio::PlaySe_52C450(208, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
                 payload->valueFD0 = 2;
             } else if (static_cast<double>(-action->graphicOffsetY) > action->origin_y_offset44 && payload->valueFD0 != 3) {
                 const double delta = action->angle50 - 180.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
-                static_cast<void>(audio::PlaySe_52C450(208, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
                 payload->valueFD0 = 3;
             } else if (action->origin_y_offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
                 const double angle = action->angle50;
                 action->angle50 = static_cast<float>(angle - (angle + angle));
                 ++payload->valueFF0;
-                static_cast<void>(audio::PlaySe_52C450(208, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
                 payload->valueFD0 = 4;
             }
         }
@@ -1971,8 +1971,8 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
     if (action->nameX == 0) {
         const std::int32_t x = action->x;
         action->characterAction = CharacterAnimation_Damage;
-        static_cast<void>(audio::PlaySe_52C450(163, x));
-        static_cast<void>(audio::PlaySe_52C450(171, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 163, x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 171, action->x));
     }
     const std::int32_t previousCount = action->nameX;
     const std::int32_t interval = action->nameY;
@@ -1982,8 +1982,8 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
         if (action->characterAction == CharacterAnimation_Guard) {
             const std::int32_t x = action->x;
             action->characterAction = CharacterAnimation_Damage;
-            static_cast<void>(audio::PlaySe_52C450(163, x));
-            static_cast<void>(audio::PlaySe_52C450(171, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 163, x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 171, action->x));
             const std::int32_t firstDirection = action->direction + 1;
             action->direction = firstDirection;
             if (firstDirection >= 8) {
@@ -1997,8 +1997,8 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
         } else {
             const std::int32_t x = action->x;
             action->characterAction = CharacterAnimation_Guard;
-            static_cast<void>(audio::PlaySe_52C450(163, x));
-            static_cast<void>(audio::PlaySe_52C450(174, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 163, x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 174, action->x));
         }
         const std::int32_t cycle = action->nameY + 1;
         action->nameY = cycle;
@@ -2062,7 +2062,7 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
     payload->valueFF0 = 6;
     const std::int32_t soundEvent = action->frameEvent;
     const std::int32_t soundX = action->x;
-    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
+    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, soundEvent - 10000, soundX));
 }
 
 // 原函数：0x00417CC0。
@@ -2114,7 +2114,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & BattleResultFlag_FlashDodge) != 0) {
             if (targetPayload->flash1004 == 0) {
-                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                 targetPayload->flash1004 = 1;
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             }
@@ -2344,7 +2344,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
     const std::int32_t count = payload->actionFrameCountFCC + 1;
     payload->actionFrameCountFCC = count;
     if (count == 1) {
-        static_cast<void>(audio::PlaySe_52C450(207, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 207, action->x));
         const std::uint8_t initialFlags = *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
         if ((initialFlags & BattleActorFlag_Dead) != 0) {
             if (CountBattleActiveEntries_406360(*action->ownerSession) <= 1) {
@@ -2388,19 +2388,19 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
             const double delta = action->angle50 - 90.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
-            static_cast<void>(audio::PlaySe_52C450(208, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
             payload->valueFD0 = 1;
         } else if (action->origin_x_offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
             const double delta = action->angle50 - 270.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
-            static_cast<void>(audio::PlaySe_52C450(208, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
             payload->valueFD0 = 2;
         } else if (static_cast<double>(-action->graphicOffsetY) > action->origin_y_offset44 && payload->valueFD0 != 3) {
             const double delta = action->angle50 - 180.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
-            static_cast<void>(audio::PlaySe_52C450(208, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
             payload->valueFD0 = 3;
         } else if (action->origin_y_offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
             const double angle = action->angle50;
@@ -2408,7 +2408,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
             const double currentAngle = action->angle50;
             action->angle50 = static_cast<float>(currentAngle - doubledAngle);
             ++payload->valueFF0;
-            static_cast<void>(audio::PlaySe_52C450(208, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 208, action->x));
             payload->valueFD0 = 4;
         }
     }
@@ -2448,7 +2448,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & BattleResultFlag_FlashDodge) != 0) {
             if (targetPayload->flash1004 == 0) {
-                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                 targetPayload->flash1004 = 1;
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             }
@@ -2649,7 +2649,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((hitFlags & BattleResultFlag_FlashDodge) != 0) {
             targetPayload->flash1004 = 1;
-            static_cast<void>(audio::PlaySe_52C450(210, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((hitFlags & BattleResultMask_PhysicalReaction) == 0 && payload->effects1C[hitIndex].position3 != 0) {
@@ -2663,7 +2663,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, secondImageNo, 0));
                 }
                 NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
-                static_cast<void>(audio::PlaySe_52C450(255, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 255, action->x));
                 const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = damage.position3;
                 (action->ownerSession->WorldScene().battle.allEntries[damage.position]->readiness -= static_cast<std::int32_t>(amount));
@@ -2914,7 +2914,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((hitFlags & BattleResultFlag_FlashDodge) != 0) {
             targetPayload->flash1004 = 1;
-            static_cast<void>(audio::PlaySe_52C450(210, action->x));
+            static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((hitFlags & BattleResultMask_AnyReaction) == 0 && payload->effects1C[hitIndex].position3 != 0) {
@@ -2928,7 +2928,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, secondImageNo, 0));
                 }
                 NewBattleRebirthEffects_4208F0(action->ownerSession->WorldScene().battle.allEntries[payload->battlePosition18], target);
-                static_cast<void>(audio::PlaySe_52C450(255, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 255, action->x));
             }
             const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
             bool showAttributes = false;
@@ -3128,7 +3128,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((hitFlags & BattleResultFlag_FlashDodge) != 0) {
                 targetPayload->flash1004 = 1;
-                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 210, action->x));
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
                 if ((hitFlags & BattleResultMask_PhysicalReaction) == 0 && effect.position3 != 0) {
@@ -3139,7 +3139,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                     }
                     NewBattleRebirthEffects_4208F0(action, target);
-                    static_cast<void>(audio::PlaySe_52C450(134, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 134, action->x));
                     const std::int32_t damagePosition = effect.position;
                     const std::int32_t amount = effect.position3;
                     (action->ownerSession->WorldScene().battle.allEntries[damagePosition]->readiness -= static_cast<std::int32_t>(amount));
@@ -3229,7 +3229,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                 break;
             }
         }
-        static_cast<void>(audio::PlaySe_52C450(268, action->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 268, action->x));
         action->motionMagnitude54 = 8.0F;
         action->framePlayingRate = 100;
         payload->valueFF0 = 0;

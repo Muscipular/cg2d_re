@@ -449,14 +449,14 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
     if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationSelectButtons54DFE8[0].bounds) != 0) {
         confirmState = hover();
         if ((CreationMouseByte(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 1) != 0) {
-            audio::PlaySe_52C450(53, 320);
+            audio::PlaySe_52C450(connection.Owner(), 53, 320);
             result = 1;
         }
     }
     if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationSelectButtons54DFE8[1].bounds) != 0) {
         cancelState = hover();
         if ((CreationMouseByte(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 1) != 0) {
-            audio::PlaySe_52C450(54, 320);
+            audio::PlaySe_52C450(connection.Owner(), 54, 320);
             result = 2;
         }
     }
@@ -733,7 +733,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                             value = 0;
                         }
                     }
-                    audio::PlaySe_52C450(51, 320);
+                    audio::PlaySe_52C450(connection.Owner(), 51, 320);
                 }
             }
         }
@@ -748,7 +748,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                     if (static_cast<std::int8_t>(next) < (version != 0 ? 1 : 0)) {
                         draft.graphicGeneration9A4B88 = maxVersion;
                     }
-                    audio::PlaySe_52C450(51, 320);
+                    audio::PlaySe_52C450(connection.Owner(), 51, 320);
                 }
             }
             if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[5].bounds) != 0) {
@@ -761,7 +761,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                     if (static_cast<std::int8_t>(next) > maxVersion) {
                         draft.graphicGeneration9A4B88 = version != 0 ? 1 : 0;
                     }
-                    audio::PlaySe_52C450(51, 320);
+                    audio::PlaySe_52C450(connection.Owner(), 51, 320);
                 }
             }
         }
@@ -787,9 +787,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                         const std::uint8_t left = draft.remainingAttributePoints9A4D04;
                         *attributes[row] = static_cast<std::uint8_t>(value - 1);
                         draft.remainingAttributePoints9A4D04 = static_cast<std::uint8_t>(left + 1);
-                        audio::PlaySe_52C450(51, 320);
+                        audio::PlaySe_52C450(connection.Owner(), 51, 320);
                     } else {
-                        audio::PlaySe_52C450(55, 320);
+                        audio::PlaySe_52C450(connection.Owner(), 55, 320);
                     }
                 }
                 break;
@@ -808,7 +808,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                             changed = true;
                         }
                     }
-                    audio::PlaySe_52C450(changed ? 51 : 55, 320);
+                    audio::PlaySe_52C450(connection.Owner(), changed ? 51 : 55, 320);
                 }
                 break;
             }
@@ -834,9 +834,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                         const std::uint8_t left = draft.remainingElementPoints9A50C8;
                         elements[row] = static_cast<std::uint8_t>(value - 1);
                         draft.remainingElementPoints9A50C8 = static_cast<std::uint8_t>(left + 1);
-                        audio::PlaySe_52C450(51, 320);
+                        audio::PlaySe_52C450(connection.Owner(), 51, 320);
                     } else {
-                        audio::PlaySe_52C450(55, 320);
+                        audio::PlaySe_52C450(connection.Owner(), 55, 320);
                     }
                 }
                 break;
@@ -851,7 +851,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                             const std::uint8_t left = draft.remainingElementPoints9A50C8;
                             elements[row] = static_cast<std::uint8_t>(value + 1);
                             draft.remainingElementPoints9A50C8 = static_cast<std::uint8_t>(left - 1);
-                            audio::PlaySe_52C450(51, 320);
+                            audio::PlaySe_52C450(connection.Owner(), 51, 320);
                         } else {
                             std::size_t donor = 0;
                             while (donor < 4
@@ -861,9 +861,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                             if (donor < 4) {
                                 ++elements[row];
                                 --elements[donor];
-                                audio::PlaySe_52C450(51, 320);
+                                audio::PlaySe_52C450(connection.Owner(), 51, 320);
                             } else {
-                                audio::PlaySe_52C450(55, 320);
+                                audio::PlaySe_52C450(connection.Owner(), 55, 320);
                             }
                         }
                     }
@@ -904,7 +904,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                                 draft.attributePhase9A5AFC = 110;
                             } else {
                                 draft.attributePhase9A5AFC = 10;
-                                audio::PlaySe_52C450(53, 320);
+                                audio::PlaySe_52C450(connection.Owner(), 53, 320);
                             }
                         }
                     }
@@ -914,7 +914,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         if (HitTestCharacterCreationControl_464290(connection.Owner(), &kCreationUi54E0BC[11].bounds) != 0) {
             cancelState = hover();
             if ((CreationMouseByte(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 1) != 0) {
-                audio::PlaySe_52C450(54, 320);
+                audio::PlaySe_52C450(connection.Owner(), 54, 320);
                 result = 2;
             }
         }
@@ -989,7 +989,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             if (draft.attributePhase9A5AFC == phase) {
                 login::ResetLoginMessage(connection);
                 ++draft.attributePhase9A5AFC;
-                audio::PlaySe_52C450(55, 320);
+                audio::PlaySe_52C450(connection.Owner(), 55, 320);
             }
             if (draft.attributePhase9A5AFC == phase + 1
                 && login::UpdateLoginMessage(connection, kCreationErrors[index]) != 0) {
@@ -1233,7 +1233,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
         characters.data() + selected;
     connection.CharacterSelectUi().selectedGraphicNo = selectedRecord->graphicNo;
     world::SetCurrentSceneType(connection.Owner(), 5);
-    login::detail::PlaySe(59, 320, 240);
+    login::detail::PlaySe(connection.Owner(), 59, 320, 240);
     connection.CharacterSelectUi().characterEntryState = 0;
     cg::audio::BeginBgmFadeOut_52B990(connection.Owner());
     cg::yobi::YobiClearUp_404D30(connection.Owner());
@@ -1278,7 +1278,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
 
     for (std::size_t index = 0; index < buttons.size(); ++index) {
         if ((detail::ReadCharacterModalButtonMouseState_503990(connection.Owner(), &buttons[index]) & 1) != 0) {
-            login::detail::PlaySe(79, 320, 240);
+            login::detail::PlaySe(connection.Owner(), 79, 320, 240);
             cg::yobi::MarkDeath(action);
             action = nullptr;
             iRet = static_cast<std::int32_t>(index) + 1;
@@ -1498,7 +1498,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     if (result == 1) {
                         if ((platform::ReadSessionKeyState(connection.Owner(), 17) & 2u) != 0) {
                             connection.Owner().WorldScene().sceneState = 14;
-                            login::detail::PlaySe(284, 320, 240);
+                            login::detail::PlaySe(connection.Owner(), 284, 320, 240);
                             if (sceneUi.deleteConfirmationAction != nullptr) {
                                 cg::yobi::MarkDeath(sceneUi.deleteConfirmationAction);
                                 sceneUi.deleteConfirmationAction = nullptr;
@@ -1610,7 +1610,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 cg::world::detail::SaveContactMailFile_519300(connection.Owner());
                 cg::world::detail::SaveGuildMailFile_519550(connection.Owner());
                 world::SetCurrentSceneType(connection.Owner(), 4);
-                login::detail::PlaySe(53, 320, 240);
+                login::detail::PlaySe(connection.Owner(), 53, 320, 240);
                 cg::yobi::YobiClearUp_404D30(connection.Owner());
                 ClearPreviewActions(connection);
             } else if (actionIndex == 1u) {
@@ -1636,10 +1636,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 } else {
                     connection.Owner().WorldScene().sceneState = 21;
                 }
-                login::detail::PlaySe(55, 320, 240);
+                login::detail::PlaySe(connection.Owner(), 55, 320, 240);
             } else if (actionIndex == 3u || actionIndex == 4u) {
                 UpdateCharacterGraphic(connection, record, static_cast<std::int32_t>(actionIndex));
-                login::detail::PlaySe(51, 320, 240);
+                login::detail::PlaySe(connection.Owner(), 51, 320, 240);
             } else if (actionIndex == 5u || actionIndex == 6u) {
                 const std::int32_t value = record.previewState;
                 if (value == 0) {
@@ -1650,7 +1650,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 sceneUi.previewToggleState =
                     record.previewState;
                 ProcessCharacterPreview_460D00(connection, slot);
-                login::detail::PlaySe(51, 320, 240);
+                login::detail::PlaySe(connection.Owner(), 51, 320, 240);
             }
         }
 
@@ -1674,7 +1674,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             connection.Shutdown();
             connection.DisconnectState() = 0;
             world::SetCurrentSceneType(connection.Owner(), 2);
-            login::detail::PlaySe(54, 320, 240);
+            login::detail::PlaySe(connection.Owner(), 54, 320, 240);
         }
         cg::ui::DrawUiControl_45EFD0(connection.Owner(), &gReturnUi, 5, 0, 0, uiStyle);
         cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);

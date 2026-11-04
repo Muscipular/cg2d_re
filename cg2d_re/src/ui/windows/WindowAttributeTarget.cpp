@@ -258,7 +258,7 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackW
                 if (callback != nullptr) {
                     if (callback(session, -2, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                     choice.enabled = 0;
                 }
@@ -298,7 +298,7 @@ static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWin
                 if (callback != nullptr) {
                     if (callback(session, -3, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                     choice.enabled = 0;
                 }
@@ -345,7 +345,7 @@ static std::int32_t WindowAttributeTarget_SelectRow(WindowInstance& callbackWind
                     currentWindow->state |= 0x8000u;
                 }
                 choice.enabled = 0;
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
             }
         }
         return 1;

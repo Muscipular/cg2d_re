@@ -187,6 +187,7 @@ void UpdateFileBgm() noexcept
 
 void SelectFileBgmOutput() noexcept
 {
+    SelectSoundEffectOutput();
     MuteBackgroundFileBgms();
     SelectBgmOutput();
     auto* const current = cg::session::GetClientHost().CurrentSession();

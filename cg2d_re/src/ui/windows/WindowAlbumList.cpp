@@ -331,7 +331,7 @@ static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, 
                 return 1;
             }
             business.valueCB2200 = scroll + index - 58;
-            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
         }
         return 1;
     }
@@ -366,9 +366,9 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callback
             business.valueC8A95C = next;
             if (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? next < 0 : next > 949) {
                 business.valueC8A95C = elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0 : 950;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             WindowInstance* const window = currentWindow;
             const std::int32_t scroll = business.valueC8A95C;
@@ -409,7 +409,7 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callback
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, next));
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {

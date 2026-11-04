@@ -206,7 +206,7 @@ static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, 
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B562;
@@ -246,7 +246,7 @@ static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, con
             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMemberRankChange(key, rank + 1));
             WindowInstance* const window = currentWindow;
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
         return consumed;
     }
@@ -268,7 +268,7 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callback
     const std::int32_t idle = elementId == static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons) ? 0x3B592 : 0x3B595;
     if (graphic) graphic->imageNo = hover ? idle + 2 : idle;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         std::int32_t position;
         if (elementId == static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons)) {
             const std::int32_t previous = business.mailRankScrollCA0474;

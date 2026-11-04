@@ -199,7 +199,7 @@ static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, cons
         if ((state & MouseFlag_LDownEvent) != 0) {
             world::RequestPlayerEmote_4FA8E0(*callbackWindow.ownerSession, kEmoteButtonActions[index]);
             static_cast<void>(WindowEmote_Select(*callbackWindow.ownerSession, index));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         return consumed;

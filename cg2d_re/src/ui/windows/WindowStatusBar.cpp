@@ -305,7 +305,7 @@ std::int32_t WindowStatusBar_ButtonEmote(WindowInstance& callbackWindow, const E
         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Emote, 1, 0, nullptr));
     } else {
         window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     return 1;
 }
@@ -327,7 +327,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, const
         static_cast<void>(WindowMiniMap_Open(*callbackWindow.ownerSession, 0, 0, nullptr));
     } else {
         window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     return 1;
 }
@@ -449,7 +449,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(WindowInstance& callbackWindow
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
     WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 1;
@@ -464,7 +464,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(WindowInstance& callba
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CollapsedStatusBar));
     WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 2;
@@ -479,7 +479,7 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(WindowInstance& callba
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
     const std::int32_t scene = callbackWindow.ownerSession->WorldScene().sceneType;
     currentWindow->state |= 0x8000u;
     if (scene == 10) {
@@ -546,7 +546,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(toggleCallbacks[slot](*callbackWindow.ownerSession));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         return consumed;

@@ -2537,7 +2537,7 @@ LuaFunction(WinMgr_playSe) {
         return luaL_argerror(L, 1, "seNo must be in range 0..500");
     }
     int panX = static_cast<int>(luaL_optinteger(L, 2, 320));
-    int result = audio::PlaySe_52C450(seNo, panX);
+    int result = audio::PlaySe_52C450(GetLuaConnection(L).Owner(), seNo, panX);
     lua_pushinteger(L, result);
     return 1;
 }

@@ -685,7 +685,7 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
         const std::int32_t auxiliaryRecipient = (flags & BattleResultFlag_ReflectPhysical) != 0 ? sourcePosition : effectPosition;
         static_cast<void>(NewBattleFloatingIcon_41F4C0(
             action->ownerSession->WorldScene().battle.allEntries[auxiliaryRecipient], 22328, 0, 0));
-        static_cast<void>(audio::PlaySe_52C450(214, action->ownerSession->WorldScene().battle.allEntries[auxiliaryRecipient]->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 214, action->ownerSession->WorldScene().battle.allEntries[auxiliaryRecipient]->x));
         const std::int32_t riderSecondImage = ridingImageNo;
         const std::int32_t riderFirstImage = imageNo;
         YobiAction* const riderTarget = action->ownerSession->WorldScene().battle.allEntries[auxiliaryRecipient];
@@ -700,7 +700,7 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
     }
     if ((flags & BattleResultFlag_EquipmentBrokenIcon) != 0) {
         static_cast<void>(NewBattleFloatingIcon_41F4C0(action->ownerSession->WorldScene().battle.allEntries[recipient], 22328, 0, 0));
-        static_cast<void>(audio::PlaySe_52C450(214, action->ownerSession->WorldScene().battle.allEntries[recipient]->x));
+        static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 214, action->ownerSession->WorldScene().battle.allEntries[recipient]->x));
     }
 }
 

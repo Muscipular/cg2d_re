@@ -186,7 +186,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
             events &= ~MouseFlag_DragFinish;
             occupancy[source] = count;
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         WindowDrag_Reset(*callbackWindow.ownerSession);
     }
@@ -200,7 +200,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
             business.prefixD2F0B8.value0C = -1;
             --count;
             occupancy[current] = count;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -297,7 +297,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                     business.prefixD2F0B8.value08 = 0;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -372,12 +372,12 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 }
                 static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
                 WindowInstance* const window = currentWindow;
                 inputs.mail.clearText();
                 window->state |= 0x8000u;
             } else if (category == 0) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             consumed = 1;
         }

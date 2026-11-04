@@ -279,7 +279,7 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callback
             const std::int32_t position = business.mailGroupScrollD67B88;
             business.mailGroupScrollD67B88 = position + (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? -7 : 7);
             static_cast<void>(WindowGroupSelect_ClampScroll(&callbackWindow));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = idle + 1;
@@ -327,7 +327,7 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callba
                     sound = 55;
                 }
             }
-            static_cast<void>(audio::PlaySe_52C450(sound, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, sound, 320));
             static_cast<void>(WindowGroupSelect_ClampScroll(&callbackWindow));
             result = 1;
         }
@@ -466,7 +466,7 @@ static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow
             WindowGroupSelect_BuildRecipients(*callbackWindow.ownerSession, mode);
         }
         business.mailGroupScrollD67B88 = 0;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         result = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -524,7 +524,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
                 }
                 count = business.mailGroupCC1A30.count;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         auto* const currentElement = currentWindow->FindElementById(elementId);
         if (currentElement) {
@@ -563,10 +563,10 @@ static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, 
         const std::int32_t current = business.mailGroupCC1A30.selected[row];
         if (current != 0) {
             business.mailGroupCC1A30.selected[row] = 0;
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             business.mailGroupCC1A30.selected[row] = 1;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
     }
     return result;

@@ -559,7 +559,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
                 static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
             hoveredSlot = slotIndex;
             if ((click & 0x01U) != 0) {
-                detail::PlaySe(51, 320, 240);
+                detail::PlaySe(connection.Owner(), 51, 320, 240);
                 SaveAndSwitchCapability4InputSlot_465740(connection, slotIndex);
             }
         }

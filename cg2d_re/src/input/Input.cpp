@@ -788,7 +788,7 @@ std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session)
     }
     if (selected >= 0) {
         LoadInitialText_44A160(session, ContextText(inputs.hotkeys[selected]).c_str());
-        return audio::PlaySe_52C450(51, 320);
+        return audio::PlaySe_52C450(session, 51, 320);
     }
     return result;
 }

@@ -250,7 +250,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
                 } else {
                     static_cast<void>(callbackWindow.ownerSession->Connection().SelectPlayerTitleRequest(originalIndex));
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
         }
     }
@@ -296,7 +296,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             WindowInstance* const ySource = currentWindow;
             WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             yTarget->y = ySource->y;
-            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
             WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
             consumed = 1;
         }
@@ -313,7 +313,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
             static_cast<void>(callbackWindow.ownerSession->Connection().SetCustomPlayerTitleRequest(escapedText));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             consumed = 1;
         }
@@ -332,7 +332,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(callbackWindow.ownerSession->Connection().SelectPlayerTitleRequest(-1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B575);
@@ -354,7 +354,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             business.valuesCF4E50[0] = business.valuesCF4E50[0] != 1 ? 1 : 0;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         return consumed;
     }
@@ -375,7 +375,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
                 if (dragScrollElement) {
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page - 1));
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_5) && page < 58) {
                 WindowInstance* const window = currentWindow;
                 business.valuesCF4E50[1] = page + 1;
@@ -383,9 +383,9 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
                 if (dragScrollElement) {
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page + 1));
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             consumed = 1;
         }
@@ -413,7 +413,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page));
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B55A);
@@ -438,7 +438,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page));
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B557);

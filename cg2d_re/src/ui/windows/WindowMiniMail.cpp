@@ -170,7 +170,7 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
                     handleInputElement3->data.input->context =
                         &inputs.miniMail;
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
         }
         consumed = 1;
@@ -209,7 +209,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
             return consumed;
         }
         if (inputs.miniMail.empty()) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             return consumed;
         }
     }
@@ -246,7 +246,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     }
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 4));
-    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
     inputs.miniMail.clearText();
     callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection = -1;
     return 1;

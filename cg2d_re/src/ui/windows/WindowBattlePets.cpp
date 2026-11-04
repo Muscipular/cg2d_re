@@ -97,7 +97,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 currentWindow->state |= 0x8000u;
                 callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             }
             consumed = 1;
         }
@@ -244,14 +244,14 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                 }
                 if ((state & MouseFlag_LDownEvent) != 0) {
                     if (inventory.battlePetVitals[selected].hp <= 0 || flags == 2) {
-                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     } else {
                         std::array<char, 768> buffer;
                         std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         currentWindow->state |= 0x8000u;
                         callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                     consumed = 1;
                 }

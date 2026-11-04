@@ -79,7 +79,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             WindowInstance* const targetForY = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             const std::int32_t y = sourceForY->y;
             targetForY->y = y;
-            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
             WindowRuntime_QueuePagePresentation(*currentWindow, *targetForY);
             return 1;
         }
@@ -107,7 +107,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             }
             callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0 = category;
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnProfileCategory, 1, 0, nullptr));
-            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
             consumed = 1;
         }
         if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].window != nullptr && callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0 == category) {

@@ -167,7 +167,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow
             if (page < 0) {
                 callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = 9;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             cg::core::NullSub_509080();
             consumed = 1;
         }
@@ -201,7 +201,7 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, co
             if (page >= 10) {
                 callbackWindow.ownerSession->WorldScene().mail.data->viewedMessageIndex = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             cg::core::NullSub_509080();
             consumed = 1;
         }
@@ -247,7 +247,7 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
                 occupancy[oldSlot] = value;
             }
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {

@@ -234,9 +234,9 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(WindowInstance& callbackW
         if ((state & MouseFlag_LRepeatDown) != 0) {
             if (choice.offset > 0) {
                 --choice.offset;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t offset = choice.offset;
             WindowInstance* const window = currentWindow;
@@ -275,9 +275,9 @@ static std::int32_t WindowTextTarget_ButtonNextRow(WindowInstance& callbackWindo
         if ((state & MouseFlag_LRepeatDown) != 0) {
             if (choice.offset < choice.count - 5) {
                 ++choice.offset;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t offset = choice.offset;
             const std::int32_t maximum = choice.count - 5;
@@ -313,7 +313,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(WindowInstance& callback
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(choice.offset > 0 ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, choice.offset > 0 ? 51 : 55, 320));
             choice.offset -= 5;
             if (choice.offset < 0) {
                 choice.offset = 0;
@@ -353,7 +353,7 @@ static std::int32_t WindowTextTarget_ButtonNextPage(WindowInstance& callbackWind
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = choice.count - 5;
-            static_cast<void>(audio::PlaySe_52C450(
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession,
                 oldMaximum > 0 && choice.offset < oldMaximum ? 51 : 55, 320));
             std::int32_t offset = choice.offset + 5;
             const std::int32_t maximum = choice.count - 5;
@@ -427,7 +427,7 @@ static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow
                 if (callback != nullptr) {
                     if (callback(session, -2, nullptr) != 0) {
                         currentWindow->state |= 0x8000u;
-                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                     }
                     choice.enabled = 0;
                 }
@@ -473,7 +473,7 @@ static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, c
             if (callback != nullptr) {
                 if (callback(session, selected, choice.names[selected]) != 0) {
                     currentWindow->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
                 }
                 choice.enabled = 0;
             }

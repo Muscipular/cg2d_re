@@ -23,12 +23,13 @@ namespace cg::login {
 namespace detail {
 
 std::int32_t PlaySe(
+    session::ClientSession& session,
     const std::int32_t seNo,
     const std::int32_t screenX,
     const std::int32_t unused)
 {
     static_cast<void>(unused);
-    return audio::PlaySe_52C450(seNo, screenX);
+    return audio::PlaySe_52C450(session, seNo, screenX);
 }
 
 } // namespace detail
@@ -91,7 +92,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         }
 
         if (cg::render::FindClickedTextIndex_45D7A0(connection.Owner(), &message.result, 1) == 0) {
-            detail::PlaySe(79, 320, 240);
+            detail::PlaySe(connection.Owner(), 79, 320, 240);
             if (message.action != nullptr) {
                 cg::yobi::MarkDeath(message.action);
                 message.action = nullptr;
@@ -157,7 +158,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         }
 
         if (cg::render::FindClickedTextIndex_45D7A0(connection.Owner(), &message.result, 1) == 0) {
-            detail::PlaySe(79, 320, 240);
+            detail::PlaySe(connection.Owner(), 79, 320, 240);
             if (message.action != nullptr) {
                 cg::yobi::MarkDeath(message.action);
                 message.action = nullptr;
@@ -245,7 +246,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         const std::uint8_t mouseClickState =
             static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()));
         if ((mouseClickState & 1U) != 0) {
-            detail::PlaySe(79, 320, 240);
+            detail::PlaySe(connection.Owner(), 79, 320, 240);
             if (message.action != nullptr) {
                 cg::yobi::MarkDeath(message.action);
                 message.action = nullptr;

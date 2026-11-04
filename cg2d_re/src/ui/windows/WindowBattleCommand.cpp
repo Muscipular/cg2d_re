@@ -524,7 +524,7 @@ static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWin
                 callbackWindow.ownerSession->WorldScene().battle.currentPosition, 0x475u));
             cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
             callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             session.UiFrame().native.battleCommand.targetSelectionReady = 0;
             consumed = 1;
         }
@@ -570,7 +570,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWin
             cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
             callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
             callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B9D0;
@@ -620,7 +620,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
                 cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
                 callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
                 callbackWindow.ownerSession->WorldScene().battle.itemTargetPending = 0;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 session.UiFrame().native.battleCommand.targetSelectionReady = 0;
                 session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
                 consumed = 1;
@@ -680,7 +680,7 @@ static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow
                 cg::yobi::FlushBattleEntries_43C060(*callbackWindow.ownerSession);
                 cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
                 callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 session.UiFrame().native.battleCommand.petOpening = WindowRuntime_CreateAnimation(session, WindowId_BattlePets, 1, 0, nullptr);
                 consumed = 1;
             }
@@ -741,7 +741,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callback
             cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
             callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
             callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B9D6;
@@ -786,7 +786,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWin
             cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
             callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
             callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B9D9;
@@ -855,7 +855,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
             cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
             callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
             callbackWindow.ownerSession->WorldScene().battle.playerActionState = 1;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B9CD;
@@ -926,7 +926,7 @@ void WindowBattleCommand_OpenItems(session::ClientSession& session)
     cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
     session.WorldScene().battle.commandAction = nullptr;
     session.WorldScene().battle.itemTargetPending = 0;
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     session.UiFrame().native.battleCommand.targetSelectionReady = 0;
     session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
 }
@@ -969,7 +969,7 @@ void WindowBattleCommand_OpenPets(session::ClientSession& session)
     cg::yobi::FlushBattleEntries_43C060(session);
     cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
     session.WorldScene().battle.commandAction = nullptr;
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     session.UiFrame().native.battleCommand.petOpening = WindowRuntime_CreateAnimation(session, WindowId_BattlePets, 1, 0, nullptr);
 }
 
@@ -995,7 +995,7 @@ void WindowBattleCommand_OpenSkills(session::ClientSession& session)
     cg::yobi::MarkDeath(session.WorldScene().battle.commandAction);
     session.WorldScene().battle.commandAction = nullptr;
     session.WorldScene().battle.value5ABCC0 = 0;
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     session.UiFrame().native.battleCommand.targetSelectionReady = 0;
     session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill);
 }
@@ -1023,12 +1023,12 @@ static void WindowBattleCommand_SelectSkill(
         static_cast<std::uint32_t>(currentPosition));
     static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
     cg::yobi::FlushBattleEntries_43C060(session);
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     const std::int32_t count = session.WorldScene().battle.skillActionCount;
     session.WorldScene().battle.commandState = 2;
     session.WorldScene().battle.skillActionCount = count + 1;
     cg::yobi::FlushBattleEntries_43C060(session);
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     WindowBattleCommand_Close(session);
 }
 
@@ -1067,7 +1067,7 @@ static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWind
                 cg::yobi::MarkDeath(callbackWindow.ownerSession->WorldScene().battle.commandAction);
                 callbackWindow.ownerSession->WorldScene().battle.commandAction = nullptr;
                 callbackWindow.ownerSession->WorldScene().battle.value5ABCC0 = 0;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 session.UiFrame().native.battleCommand.targetSelectionReady = 0;
                 session.UiFrame().native.battleCommand.skillOpening = WindowSkill_OpenBattleSkills(session, &WindowBattleCommand_SelectSkill);
                 consumed = 1;
@@ -1108,12 +1108,12 @@ static void WindowBattleCommand_SelectPetSkill(session::ClientSession& session, 
 {
     if (technique < 0) {
         session.WorldScene().battle.petCommandPhase = 0;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         if (session.WorldScene().battle.currentPosition < 20) {
             static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
         }
         cg::yobi::FlushBattleEntries_43C060(session);
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         const std::int32_t count = session.WorldScene().battle.petActionCount;
         session.WorldScene().battle.commandState = 5;
         session.WorldScene().battle.petActionCount = count + 1;
@@ -1142,14 +1142,14 @@ static void WindowBattleCommand_SelectPetSkill(session::ClientSession& session, 
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
         static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
         cg::yobi::FlushBattleEntries_43C060(session);
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         const std::int32_t count = session.WorldScene().battle.petActionCount;
         session.WorldScene().battle.commandState = 5;
         session.WorldScene().battle.petActionCount = count + 1;
         session.WorldScene().battle.lastCommandPetIndex = world::FindBattlePetIndex_43C4B0(session);
         WindowBattleCommand_Close(session);
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     session.WorldScene().battle.petCommandPhase = 2;
 }
 
@@ -1159,12 +1159,12 @@ static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& sessio
     if (technique < 0) {
         session.WorldScene().battle.petCommandPhase = 0;
         session.WorldScene().battle.selectionMode = 0;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         if (session.WorldScene().battle.currentPosition < 20) {
             static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
         }
         cg::yobi::FlushBattleEntries_43C060(session);
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         const std::int32_t count = session.WorldScene().battle.petActionCount;
         const auto pet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
         session.WorldScene().battle.petActionCount = count + 1;
@@ -1188,7 +1188,7 @@ static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& sessio
             static_cast<std::uint32_t>(currentTechnique), pet);
         static_cast<void>(session.Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
         cg::yobi::FlushBattleEntries_43C060(session);
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         const std::int32_t count = session.WorldScene().battle.petActionCount;
         const auto currentPet = std::bit_cast<std::int32_t>(session.WorldScene().battle.ridePet);
         session.WorldScene().battle.petActionCount = count + 1;
@@ -1196,7 +1196,7 @@ static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& sessio
         session.WorldScene().battle.lastCommandPetIndex = currentPet;
         WindowBattleCommand_Close(session);
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     session.WorldScene().battle.petCommandPhase = 2;
 }
 
@@ -1364,7 +1364,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 }
                 session.WorldScene().battle.commandState = 4;
                 WindowBattleCommand_Open(session, 4, 341, 0);
-                static_cast<void>(audio::PlaySe_52C450(56, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
                 session.WorldScene().battle.playerActionState = 0;
                 break;
             }
@@ -1438,7 +1438,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             commandType = session.WorldScene().battle.skillActionCount != 0 ? 2 : 1;
         }
         WindowBattleCommand_Open(session, commandType, 341, 0);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
         session.WorldScene().battle.playerActionState = 0;
         break;
     }
@@ -1446,7 +1446,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         if (session.WorldScene().battle.selectionModes[0] == 1 && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session)) & platform::LegacyMouseEdge_RDown) != 0) {
             session.WorldScene().battle.selectionModes[0] = 0;
             cg::yobi::FlushBattleEntries_43C060(session);
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         }
         if (session.UiFrame().native.battleCommand.targetSelectionReady != 0) {
             const std::int32_t target = cg::yobi::GetSelectedBattleEntry_43C120(session);
@@ -1475,7 +1475,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     static_cast<void>(session.Connection().SendBattlePacket(buffer));
                     cg::yobi::FlushBattleEntries_43C060(session);
                     session.WorldScene().battle.playerActionState = 1;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
                 }
             }
         }
@@ -1572,7 +1572,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         session.WorldScene().battle.petSkillGraphicIndex = -2;
         session.WorldScene().battle.commandState = 4;
         WindowBattleCommand_Open(session, 3, 341, 0);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
         break;
     }
     case 4: {
@@ -1584,7 +1584,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 static_cast<void>(session.Connection().SendBattlePacket(buffer));
                 cg::yobi::FlushBattleEntries_43C060(session);
                 session.WorldScene().battle.playerActionState = 1;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
             }
         }
         std::int32_t phase = session.WorldScene().battle.petCommandPhase;
@@ -1632,7 +1632,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                         window->state |= 0x8000u;
                     }
                     session.WorldScene().battle.petCommandPhase = 0;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
                 }
             }
             imageNo = 0x589C;
@@ -1770,7 +1770,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
             }
         }
         if (finish) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
             cg::yobi::YobiAction* const action = session.WorldScene().battle.commandAction;
             session.WorldScene().sceneState = 5;
             cg::yobi::MarkDeath(action);
@@ -1782,7 +1782,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
         imageBase = 0x569A;
         const std::int32_t seconds = static_cast<std::int32_t>(remaining / 1000);
         if (seconds != session.WorldScene().battle.countdownSecond) {
-            static_cast<void>(audio::PlaySe_52C450(202, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 202, 320));
             session.WorldScene().battle.countdownSecond = seconds;
         }
     }

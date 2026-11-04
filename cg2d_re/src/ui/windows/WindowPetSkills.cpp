@@ -419,7 +419,7 @@ static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const
         gPetTechniqueScroll = 0;
         static_cast<void>(WindowPetDetail_SavePetSequences(*callbackWindow.ownerSession));
         WindowPetDetail_InitializeDraft(&callbackWindow);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
         return 1;
     }
     if (business.selectedPetCC3E5C != business.previousPetCC4888) {
@@ -442,7 +442,7 @@ static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const
         callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
     if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].used == 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     static_cast<void>(WindowPetSkills_Refresh(&callbackWindow));
     return 1;
@@ -499,7 +499,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
-            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
@@ -534,7 +534,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
                 const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
-                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
                 if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].flags6AA == 2) {
                     WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
@@ -591,7 +591,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
                 static_cast<void>(WindowPetSkills_Update(*currentWindow, -1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 consumed = 1;
             }
         }
@@ -611,7 +611,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
             const auto selected = petIndex(business.selectedPetCC3E5C);
             const std::int32_t slotCount = std::clamp((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].value6A4, 0, world::kPetTechniqueSlotCount);
             const std::int32_t position = std::clamp(gPetTechniqueScroll + (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? -1 : 1), 0, std::max(0, slotCount - 10));
-            static_cast<void>(audio::PlaySe_52C450(position != gPetTechniqueScroll ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, position != gPetTechniqueScroll ? 51 : 55, 320));
             gPetTechniqueScroll = position;
             setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? 0x3B593 : 0x3B596);
             return 1;
@@ -709,7 +709,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindo
     if (indexedElement) {
         if ((events & MouseFlag_RDownEvent) != 0 && hover && indexedElement->visible != 0) {
             static_cast<void>(WindowPetSkills_StartDrag(*callbackWindow.ownerSession, gPetTechniqueScroll + index - 37));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
     }
     return hover ? 1 : 0;

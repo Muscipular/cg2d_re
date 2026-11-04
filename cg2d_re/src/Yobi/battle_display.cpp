@@ -173,7 +173,7 @@ YobiAction* NewBattleText_4217F0(
         height += count * (render::GetFontMetrics(payload->fontType0C).sHeight + 1);
     }
     payload->panel00 = CreateModalAction_5044E0(*source->ownerSession, (640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(*source->ownerSession, 56, 320));
     return action;
 }
 
@@ -292,7 +292,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
                 action->motionMagnitude54 = 10.0F;
                 action->angle50 = 0.0F;
                 if ((action->mapX1E0 == 9)) {
-                    static_cast<void>(audio::PlaySe_52C450(64, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 64, 320));
                 }
             }
         } else if (action->counter1DC > 240) {

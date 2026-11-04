@@ -235,7 +235,7 @@ std::int32_t WindowMail_DeleteContact(WindowInstance& callbackWindow, const Elem
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Contacts, 1, 0, nullptr));
     }
-    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
     return 1;
 }
 
@@ -249,7 +249,7 @@ std::int32_t WindowMail_DeleteGuildMember(WindowInstance& callbackWindow, const 
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestGuildMemberDeletion(key));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300(*callbackWindow.ownerSession));
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550(*callbackWindow.ownerSession));
-    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
     return 1;
 }
 
@@ -265,7 +265,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(WindowInstance& callbackWindow, co
     static_cast<void>(callbackWindow.ownerSession->Connection().RequestMiniMailContactDeletion(key, escapedText));
     const std::int32_t currentIndex = business.mailDeleteIndexD2DA8C;
     world::detail::RemoveMiniMailContact_534480(*callbackWindow.ownerSession, currentIndex);
-    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
     return 1;
 }
 

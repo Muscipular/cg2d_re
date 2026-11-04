@@ -647,8 +647,12 @@ std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(
 
 // 原 [0x52C450,0x52C677)：直接播放，冷却非零不触碰通道。
 std::int32_t __cdecl PlaySe_52C450(
-    const std::int32_t seNo, const std::int32_t screenX)
+    session::ClientSession& session, const std::int32_t seNo, const std::int32_t screenX)
 {
+    // NSM01：后台消费但不输出，沿原冷却跳过值，不留待切回补播。
+    if (cg::session::GetClientHost().CurrentSession() != &session) {
+        return 0;
+    }
     gLastSeNo58D4FC = seNo;
     if (gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
         || seNo < 0 || seNo > 500 || !gSdlAudioBackend.IsOpen()) {
@@ -737,11 +741,29 @@ std::int32_t __cdecl PlaySe_52C450(
     return 0;
 }
 
+void SelectSoundEffectOutput() noexcept
+{
+    for (std::size_t index = 0; index < gSoundChannels104D0C8.size(); ++index) {
+        gSdlAudioBackend.ReleaseChannel(index);
+        auto& channel = gSoundChannels104D0C8[index];
+        channel.currentSeNo = -2;
+        channel.value30 = 0;
+        channel.value00 = 0;
+    }
+    for (auto& entry : cg::session::GetClientHost().Sessions()) {
+        for (auto& request : entry.session.Audio().soundRequests) {
+            request.channelIndex = -1;
+            request.requestCount = 0;
+        }
+    }
+}
+
 // 原 [0x52C680,0x52C90D)：请求已发布后更新通道及设备，只有复制失败被视为错误。
 std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
     session::ClientSession& session, const std::int32_t requestIndex, const std::int32_t isNew)
 {
-    if (gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
+    if (cg::session::GetClientHost().CurrentSession() != &session
+        || gAudioDisabled_10507D4 != 0 || platform::gEnableSound == 0
         || requestIndex < 0 || requestIndex >= 50) {
         return -1;
     }
@@ -863,6 +885,13 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
 // 原 [0x52CB50,0x52CC3D)：遍历唯一请求表；失败的播放请求仍清计数。
 std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50(session::ClientSession& session)
 {
+    if (cg::session::GetClientHost().CurrentSession() != &session) {
+        for (auto& request : session.Audio().soundRequests) {
+            request.channelIndex = -1;
+            request.requestCount = 0;
+        }
+        return -1;
+    }
     std::int32_t result = -1;
     for (std::size_t index = 0; index < session.Audio().soundRequests.size(); ++index) {
         SoundRequestRecord& request = session.Audio().soundRequests[index];
@@ -916,14 +945,19 @@ std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50(session::ClientSession& 
 // 原 [0x52CCA0,0x52CCD1) 与独占尾块 [0x52CC40,0x52CC96)。
 void UpdateAudioPlayback_52CCA0(session::ClientSession& session)
 {
-    UpdateFileBgm();
+    const bool output = cg::session::GetClientHost().CurrentSession() == &session;
+    if (output) {
+        UpdateFileBgm();
+    }
     if (gAudioDisabled_10507D4 != 0) {
         return;
     }
 
-    for (SoundEffectDefinition& effect : gSoundEffects103E7B0) {
-        if (effect.cooldown != 0) {
-            --effect.cooldown;
+    if (output) {
+        for (SoundEffectDefinition& effect : gSoundEffects103E7B0) {
+            if (effect.cooldown != 0) {
+                --effect.cooldown;
+            }
         }
     }
     static_cast<void>(ProcessSpatialSoundRequests_52CB50(session));

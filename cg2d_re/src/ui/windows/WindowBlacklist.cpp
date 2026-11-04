@@ -408,7 +408,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
             if (boundary) {
                 business.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? 0 : 90;
             }
-            static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, boundary ? 55 : 51, 320));
             WindowInstance* const window = currentWindow;
             const std::int32_t currentPage = business.valueD2E444;
             auto* const dragScrollElement = window->FindElementById(WindowBlacklistElementId::DragScroll);
@@ -437,7 +437,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
             if (boundary) {
                 business.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? 0 : 90;
             }
-            static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, boundary ? 55 : 51, 320));
             WindowInstance* const window = currentWindow;
             const std::int32_t currentPage = business.valueD2E444;
             auto* const dragScrollElement = window->FindElementById(WindowBlacklistElementId::DragScroll);
@@ -468,7 +468,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_LDownEvent) != 0) {
             business.blacklistDeleteModeD67BC4 =
                 business.blacklistDeleteModeD67BC4 != 1 ? 1 : 0;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         break;
     case WindowBlacklistElementId::HandleButtons_9: {
@@ -484,7 +484,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (auto* const indexedElement2 = currentWindow->FindElementById(elementId); indexedElement2) indexedElement2->data.graphic->imageNo = 0x8FCA;
             static_cast<void>(WindowBlacklist_ConfirmClear(*callbackWindow.ownerSession));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         break;
     }
@@ -542,7 +542,7 @@ static std::int32_t WindowBlacklist_Clear(WindowInstance& callbackWindow, const 
     const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470(*callbackWindow.ownerSession) != 0
         ? L"已删除所有的黑名单。" /* 原常量参考：0x00588754。 */ : L"黑名单并没有内容可删除。" /* 原常量参考：0x00588738。 */;
     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, message, 4, 3);
-    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
     return 1;
 }
 

@@ -727,7 +727,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 payload->statusIcon1AF4D_0C = CreateMapAttachmentAction_444000(action, 0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
                 if ((state & MapActorActionFlag_StatusImage1AF4DSound) != 0) {
                     clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? static_cast<std::int32_t>(MapActorActionFlag_FollowPetStatusImage1AF4DSound) : static_cast<std::int32_t>(MapActorActionFlag_StatusImage1AF4DSound));
-                    static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
+                    static_cast<void>(audio::PlaySe_52C450(*action->ownerSession, 0x1B5, action->x));
                 }
                 payload->statusIcon1AF4D_0C->counter1DC = 0;
                 payload->statusIcon1AF4D_0C->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;

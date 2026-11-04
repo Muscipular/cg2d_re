@@ -180,7 +180,7 @@ static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, con
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     return 1;
 }
@@ -234,9 +234,9 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callback
         if ((state & MouseFlag_LRepeatDown) != 0) {
             if (targets.offset > 0) {
                 --targets.offset;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = targets.offset;
             WindowInstance* const window = currentWindow;
@@ -274,9 +274,9 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWind
         if ((state & MouseFlag_LRepeatDown) != 0) {
             if (targets.offset < targets.count - 5) {
                 ++targets.offset;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             const std::int32_t position = targets.offset;
             const std::int32_t maximum = targets.count - 5;
@@ -311,7 +311,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbac
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(targets.offset > 0 ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, targets.offset > 0 ? 51 : 55, 320));
             targets.offset -= 5;
             if (targets.offset < 0) {
                 targets.offset = 0;
@@ -351,7 +351,7 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = targets.count - 5;
             const bool canMove = oldMaximum > 0 && targets.offset < oldMaximum;
-            static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, canMove ? 51 : 55, 320));
             std::int32_t position = targets.offset + 5;
             const std::int32_t maximum = targets.count - 5;
             targets.offset = position;
@@ -418,7 +418,7 @@ static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindo
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             result = 1;
         }
         graphic->imageNo = 0x3B562;
@@ -459,7 +459,7 @@ static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, 
         callback(*callbackWindow.ownerSession, selected, targets.names[selected].data());
     }
     currentWindow->state |= 0x8000u;
-    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     return 1;
 }
 

@@ -278,7 +278,7 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
     if (value == -1) {
         static_cast<void>(WindowPetDetail_SavePetSequences(*callbackWindow.ownerSession));
         WindowPetDetail_InitializeDraft(&callbackWindow);
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
         return 1;
     }
     if (business.selectedPetCC3E5C != business.previousPetCC4888) {
@@ -299,7 +299,7 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
         callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
     if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].used == 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     static_cast<void>(WindowPetAttributes_Refresh(&callbackWindow));
     return 1;
@@ -349,7 +349,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
-            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
@@ -384,7 +384,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
                 const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
-                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
                 if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].flags6AA == 2) {
                     WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
@@ -433,7 +433,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
             static_cast<void>(WindowPetAttributes_Update(*currentWindow, -1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -458,7 +458,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().IncreasePetAttributeRequest(pet, attribute));
-            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
             consumed = 1;
         }
         return consumed;

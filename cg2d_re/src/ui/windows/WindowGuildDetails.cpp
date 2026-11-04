@@ -576,7 +576,7 @@ static void WindowGuildDetails_ScrollRow(WindowInstance* callbackWindow)
         callbackWindow->ownerSession->UiFrame().native.business.guildPageD67B78 = 25;
         sound = 55;
     }
-    static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow->ownerSession, sound, 320));
     WindowInstance* const window = currentWindow;
     const std::int32_t position = callbackWindow->ownerSession->UiFrame().native.business.guildPageD67B78;
     auto* const handleScrollFocusElement = window->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
@@ -858,7 +858,7 @@ static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& sessio
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(session.UiFrame().native.business.guildDraftCF4018.name604, 256);
     static_cast<void>(session.Connection().SendGuildTextUpdate(2, escapedText));
-    static_cast<void>(audio::PlaySe_52C450(79, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
     return WindowChat_RestoreInput(session);
 }
 
@@ -879,7 +879,7 @@ static std::int32_t WindowGuildDetails_SubmitDescription(session::ClientSession&
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(session.UiFrame().native.business.guildDraftCF4018.secondText634, 256);
     static_cast<void>(session.Connection().SendGuildTextUpdate(3, escapedText));
-    static_cast<void>(audio::PlaySe_52C450(79, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
     return WindowChat_RestoreInput(session);
 }
 
@@ -907,7 +907,7 @@ static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& sessi
             const std::int32_t flags = session.UiFrame().native.business.guildDraftCF4018.ranks[index].flags;
             const auto networkSession = session.Connection().CaptureSession();
             static_cast<void>(session.Connection().SendGuildRankDefinition(index, flags, escapedText));
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 79, 320));
         }
     }
     return WindowChat_RestoreInput(session);
@@ -952,7 +952,7 @@ std::int32_t WindowGuildDetails_RequestClose(session::ClientSession& session)
         return 0;
     }
     window->state |= 0x8000u;
-    return audio::PlaySe_52C450(57, 320);
+    return audio::PlaySe_52C450(session, 57, 320);
 }
 
 } // namespace cg::ui

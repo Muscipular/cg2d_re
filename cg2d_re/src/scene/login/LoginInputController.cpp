@@ -152,7 +152,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
             && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()))
                     & 1U)
                 != 0) {
-            static_cast<void>(detail::PlaySe(51, 320, 240));
+            static_cast<void>(detail::PlaySe(connection.Owner(), 51, 320, 240));
             sceneUi.inputFocusIndex = 1;
         }
         if ((static_cast<std::int32_t>(sceneUi.context9A5960X) + offsetX
@@ -164,7 +164,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
             && (static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner()))
                     & 1U)
                 != 0) {
-            static_cast<void>(detail::PlaySe(51, 320, 240));
+            static_cast<void>(detail::PlaySe(connection.Owner(), 51, 320, 240));
             sceneUi.inputFocusIndex = 0;
         }
 

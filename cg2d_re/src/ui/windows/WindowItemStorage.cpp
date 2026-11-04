@@ -103,11 +103,11 @@ static std::int32_t WindowItemStorage_Update(WindowInstance& callbackWindow, con
     if (!currentWindow) return 0;
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     if (npcDialog.type != 34) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
     return 1;
@@ -214,7 +214,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }
@@ -397,7 +397,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 100, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }

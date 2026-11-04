@@ -402,13 +402,13 @@ static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWi
                 WindowInstance* const ySource = currentWindow;
                 WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
                 yTarget->y = ySource->y;
-                static_cast<void>(audio::PlaySe_52C450(56, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 56, 320));
                 WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
                 consumed = 1;
             }
         } else if (callbackWindow.ownerSession->WorldScene().player->value1A0 == (elementId == static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_24) ? 0 : 1)) {
             static_cast<void>(callbackWindow.ownerSession->Connection().ToggleBattleRowRequest());
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
     }
     return consumed;

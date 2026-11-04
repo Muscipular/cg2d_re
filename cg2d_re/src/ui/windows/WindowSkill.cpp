@@ -781,7 +781,7 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
         }
     } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0 && operations.skillCount == 0) {
         static_cast<void>(WindowSkill_StartDrag(*callbackWindow.ownerSession, pairIndex));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if ((events & MouseFlag_Hover) != 0) {
@@ -1139,14 +1139,14 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
         const std::uint32_t mask = 1u << (static_cast<std::uint32_t>(skillIndex) & 31u);
         if ((flags & mask) != 0) {
             WindowSkill_ShowBattleTechniques(session, currentWindow, pairIndex, 0);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         } else {
             if (callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillIndex].skillId == 72
                 && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     const std::uint32_t flags = callbackWindow.ownerSession->WorldScene().battle.skillFlags;
@@ -1219,10 +1219,10 @@ static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWi
                 callback(*currentWindow->ownerSession, skillState.index, technique);
             }
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_Hover) != 0) {
@@ -1423,11 +1423,11 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
                 skillState.petSelectionCallback(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
     }
     const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
     if ((visualFlags & MouseFlag_Hover) != 0) {
@@ -1492,11 +1492,11 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
                 callback(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
     } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
     }
     const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
     if ((visualFlags & MouseFlag_Hover) != 0) {
@@ -1697,7 +1697,7 @@ static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const
         default:
             break;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     graphic->imageNo = 0x3B571;
@@ -1768,7 +1768,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
         std::int32_t consumed = 0;
         if (operations.gatherCount != 0) {
             if ((state & MouseFlag_LDownEvent) != 0) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
         } else if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
@@ -1778,7 +1778,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
             const std::uint8_t previous = occupancy[7];
             skillOperation.rebirthEnabled = rebirth != 0 ? 0 : 1;
             occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B57A;
@@ -1853,7 +1853,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
             callback(*currentWindow->ownerSession, -1);
         }
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3BE7E;
@@ -2119,9 +2119,9 @@ static std::int32_t WindowSkill_ButtonPreviousRow(WindowInstance& callbackWindow
     if ((state & MouseFlag_LRepeatDown) != 0) {
         if (skillState.scroll > 0) {
             --skillState.scroll;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = skillState.scroll;
         WindowInstance* const window = currentWindow;
@@ -2157,9 +2157,9 @@ static std::int32_t WindowSkill_ButtonNextRow(WindowInstance& callbackWindow, co
         const std::int32_t maximum = skillState.maximum;
         if (position < maximum) {
             skillState.scroll = position + 1;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t current = skillState.scroll;
         WindowInstance* const window = currentWindow;
@@ -2191,7 +2191,7 @@ static std::int32_t WindowSkill_ButtonPreviousPage(WindowInstance& callbackWindo
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(skillState.scroll > 0 ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, skillState.scroll > 0 ? 51 : 55, 320));
         skillState.scroll -= 10;
         if (skillState.scroll < 0) {
             skillState.scroll = 0;
@@ -2228,7 +2228,7 @@ static std::int32_t WindowSkill_ButtonNextPage(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t initialMaximum = skillState.maximum;
         const bool canAdvance = initialMaximum > 0 && skillState.scroll < initialMaximum;
-        static_cast<void>(audio::PlaySe_52C450(canAdvance ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, canAdvance ? 51 : 55, 320));
         std::int32_t position = skillState.scroll;
         const std::int32_t maximum = skillState.maximum;
         position += 10;
@@ -2349,7 +2349,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
                 }
             }
         }
-        static_cast<void>(audio::PlaySe_52C450(allowed ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, allowed ? 51 : 55, 320));
     }
     if ((state & MouseFlag_Hover) != 0) {
         visualState = 2;
@@ -2410,7 +2410,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
     if ((state & MouseFlag_LDownEvent) != 0) {
         record = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];
         if (record->techniques3C[technique].value8C == 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         } else {
             // 可用技术所有分支最终还播放SE51，包括动作门禁与部分FP失败。
             const auto activate = [&] {
@@ -2425,7 +2425,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     return (callbackWindow.ownerSession->WorldScene().player->fp < cost);
                 };
                 const auto fail = [] {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 };
                 switch (record->canRebirth) {
                 case 4:
@@ -2533,7 +2533,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                 }
             };
             activate();
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
         visualState = 1;
@@ -2724,7 +2724,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
         static_cast<void>(WindowSkill_OpenTextTargets(session));
     } else if (request.targetKind == 0) {
         world::AppendChatMessage_44B050(session, L"没有可变装的角色！", 4, 3);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
 }
 

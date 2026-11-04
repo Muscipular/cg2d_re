@@ -1795,7 +1795,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
     const std::int32_t available = shop.quantity;
     if (available <= 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
         const auto mode = std::bit_cast<std::int8_t>(materialState.shopMode);
@@ -1808,13 +1808,13 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                 const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
                 if (money < shop.total) {
                     shop.message = -2;
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     break;
                 }
                 const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
                 if (shop.quantity > freeSlots) {
                     shop.message = -3;
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     break;
                 }
             }
@@ -1960,7 +1960,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
             if (money < shop.total) {
                 shop.message = -2;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 break;
             }
             shop.confirmationCallback = &WindowShop_Submit;
@@ -2032,7 +2032,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                 if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
             }
             currentWindow->state |= 2u;
-            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 78, 320));
         }
         consumed = 1;
     }
@@ -2077,7 +2077,7 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
                 static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, L""));
             currentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             consumed = 1;
         }
         graphic->imageNo = 245320;
@@ -2151,7 +2151,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
     if (!available) {
         if (graphic) graphic->imageNo = 243204;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             return 1;
         }
         return 0;
@@ -2178,7 +2178,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                             exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
-                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                             shop.message = -2;
                         } else {
                             shop.selectedSlots[slot] = static_cast<char>(item);
@@ -2206,7 +2206,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                 }
             }
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -2271,7 +2271,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
                             exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
-                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                             shop.message = -2;
                         } else {
                             shop.selectedSlots[slot] = static_cast<char>(item);
@@ -2331,9 +2331,9 @@ static std::int32_t WindowShop_ButtonPreviousRow(WindowInstance& callbackWindow,
     if ((state & MouseFlag_LRepeatDown) != 0) {
         if (shop.scroll > 0) {
             --shop.scroll;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = shop.scroll;
         WindowInstance* const window = currentWindow;
@@ -2387,9 +2387,9 @@ static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, con
         const std::int32_t oldMaximum = shop.itemCount - 5;
         if (shop.scroll < oldMaximum) {
             ++shop.scroll;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t position = shop.scroll;
         const std::int32_t maximum = shop.itemCount - 5;
@@ -2439,7 +2439,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(WindowInstance& callbackWindow
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(shop.scroll > 0 ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, shop.scroll > 0 ? 51 : 55, 320));
         shop.scroll -= 5;
         if (shop.scroll < 0) {
             shop.scroll = 0;
@@ -2494,7 +2494,7 @@ static std::int32_t WindowShop_ButtonNextPage(WindowInstance& callbackWindow, co
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t oldMaximum = shop.itemCount - 5;
         const bool canMove = oldMaximum > 0 && shop.scroll < oldMaximum;
-        static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, canMove ? 51 : 55, 320));
         std::int32_t position = shop.scroll + 5;
         const std::int32_t maximum = shop.itemCount - 5;
         shop.scroll = position;
@@ -2728,9 +2728,9 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected > 0) {
                 record->selected = CalculateRepeatedShopQuantity(*callbackWindow.ownerSession, selected - 1, state, false);
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             shop.message = -1;
             WindowShop_RefreshBuyQuantities(callbackWindow);
@@ -2747,9 +2747,9 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected > 1) {
                 record->selected = selected - 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             shop.message = -1;
             WindowShop_RefreshSellQuantities(callbackWindow);
@@ -2767,9 +2767,9 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
                 std::int32_t maximum;
                 std::memcpy(&maximum, &record->maximum, sizeof(maximum));
                 record->count = (selected + maximum - 1) / maximum;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             shop.message = -1;
             WindowShop_RefreshExchangeAmount(callbackWindow);
@@ -2782,9 +2782,9 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             if (selected > 0) {
                 shop.valueD672D4 = 0;
                 shop.detailSelected = selected - 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 std::int32_t capacity;
                 std::int32_t current;
                 std::memcpy(&capacity, &shop.detail.capacity, sizeof(capacity));
@@ -3029,9 +3029,9 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             std::memcpy(&selected, &record->selected, sizeof(selected));
             if (selected < kShopPurchaseQuantityLimit) {
                 record->selected = CalculateRepeatedShopQuantity(*callbackWindow.ownerSession, selected + 1, state, true);
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             WindowShop_RefreshBuyQuantities(callbackWindow);
             WindowShop_RefreshBuyAmount(callbackWindow);
@@ -3061,9 +3061,9 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             }
             if (canIncrease) {
                 record->selected = selected + 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             WindowShop_RefreshSellQuantities(callbackWindow);
             WindowShop_RefreshSellAmount(callbackWindow);
@@ -3072,7 +3072,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             const std::int32_t total = shop.total;
             const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
             if (total + money > limit) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 shop.message = -2;
             }
             break;
@@ -3091,9 +3091,9 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                 std::int32_t maximum;
                 std::memcpy(&maximum, &record->maximum, sizeof(maximum));
                 record->count = (selected + maximum - 1) / maximum;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             }
             WindowShop_RefreshExchangeRows(callbackWindow);
             WindowShop_RefreshExchangeQuantities(callbackWindow);
@@ -3153,9 +3153,9 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             if (canIncrease) {
                 shop.message = -1;
                 shop.detailSelected = detailSelected + 1;
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 shop.detailSelected = 0;
             }
             WindowShop_RefreshDetailName(callbackWindow);
@@ -3352,7 +3352,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     if (hover && std::bit_cast<std::int8_t>(shop.selectedSlots[row]) >= 0
         && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowShop_StartSaleDrag(*callbackWindow.ownerSession, row));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         consumed = 1;
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 9 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == row) {
@@ -3511,7 +3511,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 if (item < 0 || item >= 20
                     || (static_cast<std::uint32_t>(shop.selectionMask) & (1u << hovered)) != 0
                     || shop.items[item].allowed == 0) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     scanSlot = 0;
                     while (scanSlot < 20
@@ -3519,7 +3519,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                         ++scanSlot;
                     }
                     if (scanSlot >= 20) {
-                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     } else {
                         auto* const record = &shop.items[item];
                         bool exceedsLimit = false;
@@ -3531,7 +3531,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                             exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
-                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                             shop.message = -2;
                         } else {
                             std::int32_t maximumCount;
@@ -3560,7 +3560,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
             }
             consumed = 1;
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
     } else if (hover && hovered >= 0) {
         if ((mode == 1 || mode == 4 || mode == 5) && (events & MouseFlag_LDownEvent) != 0) {
@@ -3570,7 +3570,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t mappedItem = shop.inventoryMap[scanSlot];
                 if (shop.items[mappedItem].allowed != 0) {
                     static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 0));
-                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
                 }
             }
             consumed = 1;
@@ -3744,7 +3744,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             }
             acceptImage = 245324;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     std::int32_t cancelImage = 245326;
@@ -3761,7 +3761,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             }
             cancelImage = 245327;
             currentWindow->state &= ~2u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
     static_cast<void>(render::DrawGraphic3_520970(panelX + 100, offsetY + 381, 226, acceptImage, 0, 1, 0, &descriptor));
@@ -3831,7 +3831,7 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
         const std::int32_t total = money + shop.total;
         const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
         if (total > limit) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             mode = materialState.shopMode;
             shop.message = -2;
         }

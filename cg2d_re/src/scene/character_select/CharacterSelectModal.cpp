@@ -52,7 +52,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     if ((detail::ReadCharacterModalButtonMouseState_503990(connection.Owner(), &uiRecord) & 1) != 0) {
         result = 1;
-        login::detail::PlaySe(79, 320, 240);
+        login::detail::PlaySe(connection.Owner(), 79, 320, 240);
         cg::yobi::YobiAction* const actionToDestroy =
             actionSlot;
         if (actionToDestroy != nullptr) {

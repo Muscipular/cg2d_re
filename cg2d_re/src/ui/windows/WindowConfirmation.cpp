@@ -181,7 +181,7 @@ static std::int32_t WindowConfirmation_HandleButton(
     if (callback != nullptr) {
         static_cast<void>(callback(callbackWindow, elementId, state));
     }
-    static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, sound, 320));
     return 1;
 }
 

@@ -334,7 +334,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             inputs.messageBoardPrototype.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         return 1;
     }
@@ -445,7 +445,7 @@ static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow)
     WindowInstance* const window = currentWindow;
     npcDialog.type = -1;
     window->state |= 0x8000u;
-    return audio::PlaySe_52C450(57, 320);
+    return audio::PlaySe_52C450(*callbackWindow->ownerSession, 57, 320);
 }
 
 // 原函数：0x004B6970。

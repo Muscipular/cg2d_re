@@ -703,7 +703,7 @@ YobiAction* CreateWindowOpeningAnimation_475950(
     const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
     YobiAction** const completionSlot)
 {
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         if (completionSlot != nullptr) {
@@ -760,11 +760,11 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)
 {
     ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].window != nullptr) {
         ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Quantity].window->state |= detail::LinkedWindowStateFlag_CloseRequested;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     }
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowQuantity_Open(
@@ -825,7 +825,7 @@ YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::uint32_t flags, const std::uint32_t mode)
 {
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowBank_Open(session, kind, value14, userState));
@@ -883,7 +883,7 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
 {
-    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 56, 320));
     YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
         static_cast<void>(ui::detail::WindowItemStorage_Open(session, kind, value14, userState, phase));

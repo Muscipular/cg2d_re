@@ -837,7 +837,7 @@ void WindowItem_RequestTransfer(
         transfer.source = source;
         transfer.target = target;
         static_cast<void>(WindowItem_RequestTransferQuantity(session, -1));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     } else {
         transfer.target = target;
         transfer.source = source;
@@ -1239,7 +1239,7 @@ std::uint8_t WindowInput_HandleNumber(
                                 selected = 13;
                             }
                         } else if ((state & MouseFlag_LDownEvent) != 0) {
-                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 55, 320));
                         }
                     }
                 }
@@ -1286,7 +1286,7 @@ std::uint8_t WindowInput_HandleNumber(
                     const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
                     element->state = static_cast<std::uint32_t>(value / 10);
                 }
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 51, 320));
                 return 1;
             }
             if (selected >= 0 && selected <= 9) {
@@ -1328,14 +1328,14 @@ std::uint8_t WindowInput_HandleNumber(
                     indexedElement2->state = 0;
                 }
             } else if (selected == 13) {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 51, 320));
                 return 3;
             } else if (selected < 0) {
                 return 0;
             }
         }
     }
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(*window->ownerSession, 51, 320));
     return 1;
 }
 
@@ -1355,7 +1355,7 @@ std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, const Ele
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
             result = 1;
         }
         graphic->imageNo = 0x3B538;
@@ -2093,7 +2093,7 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
     }
     if ((events & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x2000u;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow->ownerSession, 51, 320));
         const std::int32_t page = state->value60;
         if (page == 0) {
             static_cast<void>(WindowItemSelector_SetMode(*callbackWindow->ownerSession, state, tab));
@@ -2139,11 +2139,11 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
 
 // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
 // 原函数：0x004C78A0。
-bool WindowItemSelector_TogglePreview(WindowItemSelectorState* const state, const std::int32_t events)
+bool WindowItemSelector_TogglePreview(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
     if ((events & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         state->value3EC = state->value3EC == 0;
         consumed = true;
     }
@@ -2157,7 +2157,7 @@ bool WindowItemSelector_CycleEquipment(session::ClientSession& session, WindowIt
 {
     bool consumed = false;
     if ((events & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         const std::uint8_t previous = state->value3ED;
         const std::uint8_t* const mode = state->mode68;
         const std::uint8_t enabled = previous == 0;
@@ -2192,17 +2192,17 @@ bool WindowItemSelector_CycleEquipment(session::ClientSession& session, WindowIt
 
 // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 // 原函数：0x004C7A10。
-bool WindowItemSelector_RotatePreview(WindowItemSelectorState* const state, const std::int32_t events)
+bool WindowItemSelector_RotatePreview(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
     if ((events & (MouseFlag_LDownEvent | MouseFlag_LRepeatDown)) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview);
         cg::yobi::SetYobiActionField2B8(state->preview, (direction + 1) % 8);
         consumed = true;
     }
     if ((events & (MouseFlag_RDownEvent | MouseFlag_RRepeatDown)) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview) - 1;
         cg::yobi::SetYobiActionField2B8(state->preview, direction);
         if (direction < 0) {
@@ -2301,7 +2301,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
     if (!panelElement) return false;
     if ((static_cast<std::uint8_t>(state) & MouseFlag_LDownEvent) != 0 || state == 0
         || selector->value3FC == 0 || callbackWindow->ownerSession->WorldScene().replyRecordF7C950.used == 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow->ownerSession, 51, 320));
         WindowElement* const element = panelElement;
         const WindowElementCallback callback = selector->callbacks50[2];
         selector->value3FC = 0;
@@ -2963,7 +2963,7 @@ static void WindowRuntime_ToggleShortcutWindow(session::ClientSession& session, 
         static_cast<void>(WindowRuntime_CreateAnimation(session, id, 1, 0, nullptr));
     } else {
         window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
     }
 }
 
@@ -2971,7 +2971,7 @@ static void WindowRuntime_PlayShortcutEmote(session::ClientSession& session, con
 {
     world::RequestPlayerEmote_4FA8E0(session, action);
     static_cast<void>(WindowEmote_Select(session, selected));
-    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
 }
 
 // 原函数：0x004C7AE0。
@@ -2982,7 +2982,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
     if ((platform::ReadSessionKeyState(session, 0x1B) & 4u) != 0) {
         session.UiFrame().keyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
         if (script::CloseTopmostNonDefaultWindow(session)) {
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         } else {
             WindowRuntime_ToggleShortcutWindow(session, WindowId_Settings);
         }
@@ -3008,7 +3008,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 if (window != nullptr) {
                     found = true;
                     window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
                 }
             }
             if (!found) {
@@ -3024,7 +3024,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                     static_cast<void>(WindowSkill_Open(session));
                 } else {
                     window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
                 }
             }
         }
@@ -3061,46 +3061,46 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x5A : 0x4F) & 4u) != 0) {
             static_cast<void>(WindowRuntime_CycleNameMode());
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x26) & 4u) != 0) {
             WindowChat_RequestHeightIncrease(session);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x28) & 4u) != 0) {
             WindowChat_RequestHeightDecrease(session);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x27) & 4u) != 0) {
             WindowChat_RequestWidthDecrease(session);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x25) & 4u) != 0) {
             WindowChat_RequestWidthIncrease(session);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x55 : 0x50) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::ToggleDuelPermission_472F40(session));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x49 : 0xBA) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::TogglePartyChat_472F70(session));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x4F : 0xBE) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::TogglePartyJoinPermission_472FA0(session));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x50 : 0x4C) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::ToggleContactCardExchangePermission_472FD0(session));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0x46 : 0xBC) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::ToggleTradePermission_473000(session));
         }
         if ((platform::ReadSessionKeyState(session, modeOne ? 0xDB : 0x4E) & 4u) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             static_cast<void>(world::ToggleGuildInvitePermission_473030(session));
         }
 
@@ -3146,12 +3146,12 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         if ((platform::ReadSessionKeyState(session, 0x7B) & 4u) != 0) {
             WindowRuntime_RestorePositions(session);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x7A) & 4u) != 0) {
             auto& enabled = WindowRuntime_Settings(session).actorBarsEnabled;
             enabled = enabled != 1 ? 1u : 0u;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x24) & 4u) != 0) {
             static_cast<void>(WindowChat_SwitchMode(session));
@@ -3161,7 +3161,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
     if ((platform::ReadSessionKeyState(session, 0x10) & 2u) != 0) {
         if ((platform::ReadSessionKeyState(session, 0x7B) & 4u) != 0) {
             WindowRuntime_CloseByCategory(session, 7);
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 57, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x24) & 4u) != 0) {
             if (session.UiFrame().inputState.chatPanelVisible == 1) {
@@ -3171,7 +3171,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 session.UiFrame().inputState.chatPanelVisible = 1;
                 session.UiFrame().inputState.chatLogSuppressed = 0;
             }
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x27) & 4u) != 0) {
             const std::int32_t range = chatDisplay.range + 1;
@@ -3181,7 +3181,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 chatDisplay.range = 1;
             }
             chatDisplay.rangeOverlayFrames = 180;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x25) & 4u) != 0) {
             const std::int32_t range = chatDisplay.range - 1;
@@ -3191,7 +3191,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 chatDisplay.range = 5;
             }
             chatDisplay.rangeOverlayFrames = 180;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         }
         if ((platform::ReadSessionKeyState(session, 0x26) & 0x10u) != 0) {
             const std::int32_t previous = chatWindow.scrollOffset;
@@ -3201,9 +3201,9 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             chatWindow.scrollOffset = scroll;
             if (pastChatCount) {
                 chatWindow.scrollOffset = count;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             }
         }
         if ((platform::ReadSessionKeyState(session, 0x28) & 0x10u) != 0) {
@@ -3212,23 +3212,23 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             chatWindow.scrollOffset = scroll;
             if (belowFirstChatLine) {
                 chatWindow.scrollOffset = 0;
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 55, 320));
             } else {
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
             }
         }
         return;
     }
     if ((platform::ReadSessionKeyState(session, 0x7A) & 4u) != 0) {
         static_cast<void>(WindowRuntime_IncrementNameMode(session));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
     if ((platform::ReadSessionKeyState(session, 0x7B) & 4u) != 0) {
         static_cast<void>(render::TakeScreenshotThrottled_503C80(session));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
     }
     if ((platform::ReadSessionKeyState(session, 0x24) & 4u) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(session, 51, 320));
         static_cast<void>(WindowChat_ClearHistory(session));
     }
 }

@@ -442,15 +442,15 @@ static std::int32_t WindowBank_Update(WindowInstance& callbackWindow, const std:
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 0 && npcDialog.type != 23) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && npcDialog.type != 33) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
     storage.value = 0;
     WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = 0xFFFFFFFFu;
@@ -570,7 +570,7 @@ static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, c
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         business.valueD67618 = 0;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(1));
     }
     if (graphic) graphic->imageNo = 243173;
@@ -599,7 +599,7 @@ static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, 
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         business.valueD67618 = 1;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(2));
     }
     if (graphic) graphic->imageNo = 243176;
@@ -643,7 +643,7 @@ static std::int32_t WindowBank_TabItems(WindowInstance& callbackWindow, const El
         auto* const handleOwnItemsElement = window->FindElementById(WindowBankElementId::HandleOwnItems);
         if (handleOwnItemsElement) {
             const auto* const panel = handleOwnItemsElement->data.graphic;
-            static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243143 ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, panel->imageNo == 243143 ? 55 : 51, 320));
         }
         if (auto* const handleOwnItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement2) handleOwnItemsElement2->data.graphic->imageNo = 243143;
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
@@ -686,7 +686,7 @@ static std::int32_t WindowBank_TabPets(WindowInstance& callbackWindow, const Ele
         auto* const handleOwnItemsElement = window->FindElementById(WindowBankElementId::HandleOwnItems);
         if (handleOwnItemsElement) {
             const auto* const panel = handleOwnItemsElement->data.graphic;
-            static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243145 ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, panel->imageNo == 243145 ? 55 : 51, 320));
         }
         if (auto* const handleOwnItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement2) handleOwnItemsElement2->data.graphic->imageNo = 243145;
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
@@ -731,7 +731,7 @@ static std::int32_t WindowBank_TabDeposit(WindowInstance& callbackWindow, const 
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleAmountElement = window->FindElementById(WindowBankElementId::HandleAmount);
         if (handleAmountElement) {
-            static_cast<void>(audio::PlaySe_52C450(handleAmountElement->visible != 0 ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, handleAmountElement->visible != 0 ? 55 : 51, 320));
         }
         if (auto* const handleOwnItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement) handleOwnItemsElement->data.graphic->imageNo = 243144;
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
@@ -778,7 +778,7 @@ static std::int32_t WindowBank_TabWithdraw(WindowInstance& callbackWindow, const
     if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleAmount_32Element = window->FindElementById(WindowBankElementId::HandleAmount_32);
         if (handleAmount_32Element) {
-            static_cast<void>(audio::PlaySe_52C450(handleAmount_32Element->visible != 0 ? 55 : 51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, handleAmount_32Element->visible != 0 ? 55 : 51, 320));
         }
         if (auto* const handleOwnItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement) handleOwnItemsElement->data.graphic->imageNo = 243144;
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
@@ -907,7 +907,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
                 }
             }
             if (target >= 20 || callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used == 0) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
                 WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, hovered + 8, target + 100);
             }
@@ -917,7 +917,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }
@@ -1102,12 +1102,12 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 ++target;
             }
             if (target >= 20) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
             } else {
                 std::uint16_t used;
                 std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
                 if (used == 0) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 } else {
                     WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, hovered + 100, target + 8);
                 }
@@ -1121,7 +1121,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 100, 0));
-                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
             }
             consumed = 1;
         }
@@ -1237,9 +1237,9 @@ static std::int32_t WindowBank_ButtonPreviousPet(WindowInstance& callbackWindow,
         const std::int32_t value = std::bit_cast<std::int32_t>(*scroll);
         if (value > 0) {
             *scroll = static_cast<std::uint32_t>(value - 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         WindowInstance* const window = currentWindow;
         const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
@@ -1274,9 +1274,9 @@ static std::int32_t WindowBank_ButtonNextPet(WindowInstance& callbackWindow, con
         const std::int32_t value = std::bit_cast<std::int32_t>(*scroll);
         if (value < 2) {
             *scroll = static_cast<std::uint32_t>(value + 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
         WindowInstance* const window = currentWindow;
@@ -1440,7 +1440,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     } else if (hover && (events & MouseFlag_LDownEvent) != 0) {
         if (used != 0) {
             static_cast<void>(WindowPetDrag_Start(*callbackWindow.ownerSession, petIndex, 1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -1563,7 +1563,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
     } else if (hover && (events & MouseFlag_LDownEvent) != 0) {
         if (used != 0) {
             static_cast<void>(WindowPetDrag_Start(*callbackWindow.ownerSession, petIndex + 100, 1));
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
         }
         consumed = 1;
     }
@@ -1834,7 +1834,7 @@ std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, const El
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
         graphic->imageNo = 243000;
         if ((state & MouseFlag_Hover) != 0) {
@@ -1862,7 +1862,7 @@ std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const Elemen
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
         }
         graphic->imageNo = 243048;
         if ((state & MouseFlag_Hover) != 0) {

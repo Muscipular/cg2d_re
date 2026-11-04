@@ -28,7 +28,7 @@ static void DrawBasicCaret(session::ClientSession& session)
         render::GetFontMetrics(fontType).sWidth
         / 2;
     const std::int32_t drawX = x - halfCaretWidth;
-    static_cast<void>(render::DrawText2_456670(session,
+    static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(drawX),
         static_cast<std::int16_t>(y),
         renderMode,
@@ -64,7 +64,7 @@ static void DrawImeCaret(session::ClientSession& session)
         render::GetFontMetrics(postMeasureFontType).sWidth
         / 2;
     const std::int32_t drawX = measuredWidth + (postMeasureX - halfCaretWidth);
-    static_cast<void>(render::DrawText2_456670(session,
+    static_cast<void>(render::DrawText2_456670(
         static_cast<std::int16_t>(drawX),
         static_cast<std::int16_t>(y),
         renderMode,

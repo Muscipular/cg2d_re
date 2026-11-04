@@ -200,7 +200,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
         const std::int32_t textX = AddW32(
             modal.x,
             textHorizontalOffset);
-        cg::render::DrawText_456780(connection.Owner(),
+        cg::render::DrawText_456780(
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,
@@ -223,7 +223,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t leftGraphicX = AddW32(
         modal.x,
         leftGraphicWidth / 3);
-    cg::render::DrawGraphic(connection.Owner(),
+    cg::render::DrawGraphic(
         leftGraphicX,
         leftGraphicY,
         223,
@@ -243,7 +243,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t rightGraphicX = AddW32(
         rightGraphicXBase,
         MultiplyW32(rightGraphicWidth, 2) / 3);
-    cg::render::DrawGraphic(connection.Owner(),
+    cg::render::DrawGraphic(
         rightGraphicX,
         rightGraphicY,
         223,

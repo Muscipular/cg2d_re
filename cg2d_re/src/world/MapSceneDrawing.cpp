@@ -48,7 +48,7 @@ static void DrawCutTile(session::ClientSession& session,
     descriptor.sourceHeight = height;
     const std::int32_t imageNo = cut.value00;
     const auto drawY = static_cast<std::int16_t>(screenY - cut.value10);
-    static_cast<void>(render::DrawGraphic3_520970(session,
+    static_cast<void>(render::DrawGraphic3_520970(
         drawX, drawY, 5, imageNo, 0, 1, 0, &descriptor));
 }
 
@@ -134,7 +134,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
         if (screenX >= -32 && screenX < platform::gWindowWidth + 32 && screenY >= -24 && screenY < platform::gWindowHeight + 24) {
             const std::uint8_t layer =
                 (tile >= 5000 && tile <= 5009) || (tile >= 7664 && tile <= 7679) ? 1 : 5;
-            static_cast<void>(cg::render::DrawGraphic(session, screenX, screenY, layer, tile, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(screenX, screenY, layer, tile, 0, nullptr));
         }
     } else if (markers != 0) {
         if (tile >= 250 && tile <= 299) {
@@ -204,22 +204,22 @@ void DrawMapSceneWithMarkers_469020(session::ClientSession& session)
 // 原函数：0x0043CB10。
 void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 {
-    session.GraphicQueue().count = 0;
-    session.TextQueue().count = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30(session));
+    cg::render::gGraphicQueue.count = 0;
+    cg::render::gTextQueue.count = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(ResetMapDrawCacheCounts_46BD40());
     DrawMapScene_46CF60(session, 0);
     const std::int32_t imageNo = session.WorldScene().battle.backgroundImage;
-    static_cast<void>(cg::render::DrawBattleBackgroundScaled(session, 200, imageNo));
-    render::SortTextures_520790(session);
+    static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
+    render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
-    session.GraphicQueue().count = 0;
-    session.TextQueue().count = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30(session));
+    cg::render::gGraphicQueue.count = 0;
+    cg::render::gTextQueue.count = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
     session.WorldScene().battle.backgroundSnapshot = session.WorldScene().battle.backgroundImage;
 }
 
@@ -318,7 +318,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     }
 
     detail::SortAndMergeMapDrawCache_46C2F0();
-    static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0(session));
+    static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0());
     const std::int32_t playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));

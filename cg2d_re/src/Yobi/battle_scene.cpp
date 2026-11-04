@@ -276,7 +276,7 @@ void DrawBattleEntryHover_43C0A0(session::ClientSession& session, const std::int
     const std::int32_t x = action->x;
     const std::int32_t height = render::ReadGraphicDxHeightFromEntries(entries, graphic);
     const std::int32_t width = render::ReadGraphicDxWidthFromEntries(entries, graphic);
-    cg::render::DrawGraphicHover(session,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(x + offsetX - 2),
         static_cast<std::uint16_t>(y + offsetY - 2),
         static_cast<std::uint16_t>(x + offsetX + width + 2),
@@ -495,7 +495,7 @@ void DrawBattleActorNames_43CA80(session::ClientSession& session)
         const std::int32_t y = action->y - 24;
         const std::int32_t width = cg::render::TextMeasure(name, 1);
         const std::int32_t x = session.WorldScene().battle.entries[index]->x - width / 2;
-        static_cast<void>(render::DrawText2_456670(session,
+        static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
             0, 1, color, name, 0));

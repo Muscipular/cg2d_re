@@ -7,7 +7,7 @@ void WindowElement_DrawPng(const WindowElement& element, int ox, int oy, const U
     else if (element.mouseState == WindowMouseState_Hover && !data.imageHover.path.empty()) state = &data.imageHover;
     if (!state->path.empty()) {
         auto rect = state->rect;
-        RendererDrawPngClipped(*element.owner->ownerSession, state->path.c_str(), state->hasRect ? &rect : nullptr,
+        RendererDrawPngClipped(state->path.c_str(), state->hasRect ? &rect : nullptr,
             ox + element.x, oy + element.y, element.width, element.height, data.color, component_detail::LAYER_UI, clip);
     }
 }

@@ -99,7 +99,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         drawX + compositionWidth;
     const std::int32_t compositionBottom = drawY
         + render::GetFontMetrics(drawFontType).doubleHeight;
-    cg::render::DrawGraphicHover(connection.Owner(),
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(drawX - 1),
         static_cast<std::uint16_t>(drawY - 1),
         static_cast<std::uint16_t>(compositionRight),
@@ -193,7 +193,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
 
     cg::ui::DrawUiControl_45EFD0(connection.Owner(), &loginButton, 207, 0, 0, 0);
     cg::ui::DrawUiControl_45EFD0(connection.Owner(), &exitButton, 207, 0, 0, 0);
-    static_cast<void>(DrawClientVersion(connection.Owner(), 460, 462, render::gPaletteCapability >= 1 ? 3 : 0));
+    static_cast<void>(DrawClientVersion(460, 462, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;
 }
 
@@ -362,14 +362,14 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
                 < static_cast<std::int32_t>(kBackgroundImages.size())
         ? static_cast<std::size_t>(rawBackgroundIndex)
         : std::size_t{0};
-    static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+    static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
         320,
         240,
         3,
         kBackgroundImages[backgroundIndex],
         0,
         nullptr)));
-    static_cast<void>(DrawClientVersion(connection.Owner(), 540, 424, 0));
+    static_cast<void>(DrawClientVersion(540, 424, 0));
     return result;
 }
 

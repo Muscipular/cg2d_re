@@ -37,7 +37,7 @@ std::int32_t HitTestMouseRect_5049A0(
     }
 
     if (layer >= 0) {
-        cg::render::DrawGraphicHover(session,
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left),
             static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(right),

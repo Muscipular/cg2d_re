@@ -136,7 +136,7 @@ render::GraphicDescriptor16 ToGraphicDescriptor(
     };
 }
 
-static void QueueNineGridPiece(session::ClientSession& session,
+static void QueueNineGridPiece(
     const std::int32_t baseImageNo,
     const std::int32_t imageOffset,
     const std::int32_t x,
@@ -145,7 +145,7 @@ static void QueueNineGridPiece(session::ClientSession& session,
     const NineGridDescriptorFields& fields)
 {
     const render::GraphicDescriptor16 descriptor = ToGraphicDescriptor(fields);
-    render::DrawGraphic3_520970(session,
+    render::DrawGraphic3_520970(
         x,
         y,
         layer,
@@ -176,7 +176,7 @@ static NineGridDescriptorFields MakeNineGridDescriptor(
 }
 
 // 原函数：0x0049BE00。
-static void DrawNineGridImpl_49BE00(session::ClientSession& session,
+static void DrawNineGridImpl_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x16,
     const std::int16_t y16,
@@ -220,7 +220,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
     const std::int32_t rightX = x + width - rightWidth;
     const std::int32_t bottomY = y + height - bottomHeight;
 
-    QueueNineGridPiece(session,
+    QueueNineGridPiece(
         baseImageNo,
         0,
         x,
@@ -232,7 +232,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
             leftWidth,
             topHeight,
             borderColor));
-    QueueNineGridPiece(session,
+    QueueNineGridPiece(
         baseImageNo,
         2,
         rightX,
@@ -244,7 +244,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
             rightWidth,
             topHeight,
             borderColor));
-    QueueNineGridPiece(session,
+    QueueNineGridPiece(
         baseImageNo,
         6,
         x,
@@ -256,7 +256,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
             leftWidth,
             bottomHeight,
             borderColor));
-    QueueNineGridPiece(session,
+    QueueNineGridPiece(
         baseImageNo,
         8,
         rightX,
@@ -273,7 +273,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
     const std::int32_t verticalFullEnd = verticalEnd - tileHeight;
     std::int32_t verticalOffset = topHeight;
     while (verticalOffset < verticalFullEnd) {
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             3,
             x,
@@ -285,7 +285,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
                 leftWidth,
                 tileHeight,
                 borderColor));
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             5,
             rightX,
@@ -301,7 +301,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
     }
     if (verticalOffset < verticalEnd) {
         const std::int32_t tailHeight = verticalEnd - verticalOffset;
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             3,
             x,
@@ -313,7 +313,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
                 leftWidth,
                 tailHeight,
                 borderColor));
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             5,
             rightX,
@@ -331,7 +331,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
     const std::int32_t horizontalFullEnd = horizontalEnd - tileWidth;
     std::int32_t horizontalOffset = leftWidth;
     while (horizontalOffset < horizontalFullEnd) {
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             1,
             x + horizontalOffset,
@@ -343,7 +343,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
                 tileWidth,
                 topHeight,
                 borderColor));
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             7,
             x + horizontalOffset,
@@ -359,7 +359,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
     }
     if (horizontalOffset < horizontalEnd) {
         const std::int32_t tailWidth = horizontalEnd - horizontalOffset;
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             1,
             x + horizontalOffset,
@@ -371,7 +371,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
                 tailWidth,
                 topHeight,
                 borderColor));
-        QueueNineGridPiece(session,
+        QueueNineGridPiece(
             baseImageNo,
             7,
             x + horizontalOffset,
@@ -391,7 +391,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
         const std::int32_t centerFullEnd = width - tileWidth;
         std::int32_t centerOffset = 0;
         while (centerOffset < centerFullEnd) {
-            QueueNineGridPiece(session,
+            QueueNineGridPiece(
                 baseImageNo,
                 4,
                 x + centerOffset,
@@ -406,7 +406,7 @@ static void DrawNineGridImpl_49BE00(session::ClientSession& session,
             centerOffset += tileWidth;
         }
         if (centerOffset < width) {
-            QueueNineGridPiece(session,
+            QueueNineGridPiece(
                 baseImageNo,
                 4,
                 x + centerOffset,
@@ -450,7 +450,7 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
     auto* const payload = action->payload.windowUi;
 
     if (action->phase == ModalActionPhase_Opening) {
-        cg::render::DrawGraphicHover(*action->ownerSession,
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(
                 payload->centerX - payload->currentHalfWidth),
             static_cast<std::uint16_t>(
@@ -514,7 +514,7 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
                     imageOffset = column == columnCount - 1 ? 5 : 4;
                 }
 
-                cg::render::DrawGraphic(*action->ownerSession,
+                cg::render::DrawGraphic(
                     drawX,
                     drawY,
                     kModalLayer,
@@ -527,7 +527,7 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
         }
     } else {
         const bool wideBorder = payload->winId >= 4;
-        DrawNineGridImpl_49BE00(*action->ownerSession,
+        DrawNineGridImpl_49BE00(
             payload->baseImageNo,
             static_cast<std::int16_t>(action->x),
             static_cast<std::int16_t>(action->y),
@@ -551,7 +551,7 @@ static void UpdateWindowOpeningAnimation_4758D0(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    cg::render::DrawGraphicHover(*action->ownerSession,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -582,7 +582,7 @@ static void UpdateQuantityWindowOpeningAnimation_48ABC0(YobiAction* const action
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    cg::render::DrawGraphicHover(*action->ownerSession,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -619,7 +619,7 @@ static void UpdateBankWindowOpeningAnimation_4ABE60(YobiAction* const action)
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    cg::render::DrawGraphicHover(*action->ownerSession,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -651,7 +651,7 @@ static void UpdateItemStorageWindowOpeningAnimation_4ACDF0(YobiAction* const act
     const std::int32_t centerY = payload->centerY;
     const std::int32_t halfWidth = payload->halfWidth;
     const std::int32_t centerX = payload->centerX;
-    cg::render::DrawGraphicHover(*action->ownerSession,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(centerX - halfWidth),
         static_cast<std::uint16_t>(centerY - halfHeight),
         static_cast<std::uint16_t>(centerX + halfWidth),
@@ -679,7 +679,7 @@ static void UpdateItemStorageWindowOpeningAnimation_4ACDF0(YobiAction* const act
 } // namespace detail
 
 // 原函数：0x0049BE00。
-void DrawNineGrid_49BE00(session::ClientSession& session,
+void DrawNineGrid_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x,
     const std::int16_t y,
@@ -691,7 +691,7 @@ void DrawNineGrid_49BE00(session::ClientSession& session,
     const std::int16_t tileWidth,
     const std::int16_t tileHeight)
 {
-    detail::DrawNineGridImpl_49BE00(session,
+    detail::DrawNineGridImpl_49BE00(
         baseImageNo, x, y, width, height, layer,
         borderColor, centerColor, tileWidth, tileHeight);
 }

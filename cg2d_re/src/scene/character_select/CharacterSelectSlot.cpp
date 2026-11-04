@@ -96,7 +96,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             color = 8;
         }
 
-        cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
+        cg::render::QueueOriginalPaletteGraphic_45F090(
             coordinates[4].x,
             coordinates[4].y,
             10,
@@ -105,7 +105,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             -1);
 
         const wchar_t* const name = record.name.data();
-        cg::render::DrawText_456780(connection.Owner(),
+        cg::render::DrawText_456780(
             static_cast<std::int16_t>(coordinates[0].x),
             static_cast<std::int16_t>(coordinates[0].y),
             0,
@@ -117,7 +117,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         std::wstring buffer;
         cg::text::FormatTo(buffer, L"{:4}", record.value12);
-        render::DrawText2_456670(connection.Owner(),
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
             0,
@@ -131,7 +131,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             value14 = 9999;
         }
         cg::text::FormatTo(buffer, L"{:4}", value14);
-        render::DrawText2_456670(connection.Owner(),
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[2].x),
             static_cast<std::int16_t>(coordinates[2].y),
             0,
@@ -142,7 +142,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         const wchar_t* const text54 = record.jobText.data();
         cg::text::FormatTo(buffer, L"{}", text54);
-        render::DrawText2_456670(connection.Owner(),
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),
             0,
@@ -167,7 +167,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         style = mode + 1;
     }
 
-    cg::render::DrawText3_456560(connection.Owner(), 30, 450, 0, 4,
+    cg::render::DrawText3_456560(30, 450, 0, 4,
         connection.CharacterSelectUi().loginNotice, 0);
 
     if (connection.PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(connection, slot) != 0) {
@@ -191,14 +191,14 @@ std::int32_t ProcessCharacterSlot_461B30(
         }
     }
 
-    cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
+    cg::render::QueueOriginalPaletteGraphic_45F090(
         coordinates[6].x,
         coordinates[6].y,
         4,
         245062,
         0,
         -1);
-    cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), baseX, 51, 4, 245061, 0, -1);
+    cg::render::QueueOriginalPaletteGraphic_45F090(baseX, 51, 4, 245061, 0, -1);
     // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
     if (connection.Owner().WorldScene().sceneState == 11 && record.name[0] != '\0'
         && platform::ConsumeAutoLoginCharacterSlot(slot)) {

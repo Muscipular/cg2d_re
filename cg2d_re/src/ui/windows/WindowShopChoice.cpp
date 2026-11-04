@@ -225,7 +225,7 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(choice.dialog.lineCount); ++row) {
         const std::wstring& text = choice.dialog.lines[row];
             WindowInstance* const window = currentWindow;
-            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+            static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 87),
                 static_cast<std::int16_t>(window->y + 40 + row * 13),
                 3, 12, 0, text, 0, 0));
@@ -236,14 +236,14 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
             auto* const selectRowElement = window->FindElementById(WindowShopChoiceElementId::SelectRow);
             if (selectRowElement) {
                 const auto& element = (*selectRowElement);
-                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+                static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(window->x + element.x),
                     static_cast<std::int16_t>(window->y + element.y + row * 14),
                     3, 12, 0, text, 0, 0));
             }
     }
     WindowInstance* const window = currentWindow;
-    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession, 245300, static_cast<std::int16_t>(window->x),
+    cg::yobi::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -251,7 +251,7 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 57, 320));
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
 }
 
@@ -288,7 +288,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             }
             auto* const selectRowElement2 = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);
             if (selectRowElement2) {
-                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
                     static_cast<std::uint16_t>(x + selectRowElement2->width + 2),
                     static_cast<std::uint16_t>(y + 14), 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);

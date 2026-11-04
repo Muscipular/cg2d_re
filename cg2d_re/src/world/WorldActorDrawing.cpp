@@ -487,13 +487,13 @@ void UpsertGroundGoldObject_445F40(
 void RenderChara_521F20(session::ClientSession& session)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     cg::yobi::YobiAction* const start = session.Yobi().start;
     render::GraphicCache3* order =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cg::yobi::YobiAction* action = start->next;
     render::GraphicCacheItem32* record =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     cg::yobi::YobiAction* end = session.Yobi().end;
     for (; action != end; action = action->next, end = session.Yobi().end) {
         const std::uint32_t flags = action->flags;
@@ -511,7 +511,7 @@ void RenderChara_521F20(session::ClientSession& session)
         const std::int8_t nameColor = action->nameColor;
         const std::int32_t nameY = action->nameY;
         const std::int32_t nameX = action->nameX;
-        static_cast<void>(render::DrawText2_456670(session,
+        static_cast<void>(render::DrawText2_456670(
             static_cast<std::int16_t>(nameX),
             static_cast<std::int16_t>(nameY),
             nameLayer,
@@ -522,11 +522,11 @@ void RenderChara_521F20(session::ClientSession& session)
 
         // 原名称调用后重定位实际槽，再独立重读容量判断用的S16计数。
         const std::int16_t relocatedCount =
-            std::bit_cast<std::int16_t>(session.GraphicQueue().count);
-        order = session.GraphicQueue().pending.cache3.data() + relocatedCount;
-        record = session.GraphicQueue().pending.records.data() + relocatedCount;
+            std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
+        order = cg::render::gGraphicQueue.pending.cache3.data() + relocatedCount;
+        record = cg::render::gGraphicQueue.pending.records.data() + relocatedCount;
         const std::int16_t capacityCount =
-            std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+            std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
         if (capacityCount >= MAX_QUEUE_SIZE) {
             return;
         }
@@ -541,7 +541,7 @@ void RenderChara_521F20(session::ClientSession& session)
 
         const std::uint8_t layer = action->displayPriority;
         order->layer = layer;
-        order->cacheIndex = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        order->cacheIndex = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
 
         // 原S32偏移/F32缩放、F64乘积、S64向零转换及低S32承接保持。
         const std::int32_t offsetX = action->graphicOffsetX;
@@ -625,7 +625,7 @@ void RenderChara_521F20(session::ClientSession& session)
             record->value4 = 0;
         }
         const std::int16_t actionCacheIndex =
-            std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+            std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
         action->cacheIndex = static_cast<std::int32_t>(actionCacheIndex);
         const std::uint8_t clipMode = descriptor.clipMode;
         record->batchType = 0;
@@ -640,7 +640,7 @@ void RenderChara_521F20(session::ClientSession& session)
         }
         const std::int32_t queuedImageNo = record->imageNo;
         if (queuedImageNo >= 3096 && queuedImageNo <= 3105) {
-            session.GraphicQueue().specialGraphicPending = 1;
+            cg::render::gGraphicQueue.specialGraphicPending = 1;
         }
         if (const auto* const anchor = cg::yobi::detail::GetBattleTitleAnchor(action)) {
             // 此时人物和骑乘均已更新；在最终队列坐标处对齐，避免叠加称号自身偏移。
@@ -649,7 +649,7 @@ void RenderChara_521F20(session::ClientSession& session)
                 continue;
             }
         }
-        ++session.GraphicQueue().count;
+        ++cg::render::gGraphicQueue.count;
         ++order;
         ++record;
     }

@@ -539,7 +539,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             const std::int32_t y = window->y + anchorY - 5;
             const std::int32_t windowX = window->x;
             const std::int32_t anchorX = kMailImageAnchors56F790[row][0];
-            static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
+            static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameDataElement = currentWindow->FindElementById(NativeElementKey(textIndex));
             if (nameDataElement) {
@@ -1330,7 +1330,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
                 const std::int32_t firstElementX = firstElementXElement->x;
                 const std::int32_t firstY = firstElementY + firstWindowY + 55;
                 const std::int32_t firstWindowX = firstWindow->x;
-                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
+                static_cast<void>(cg::render::DrawGraphic(
                     firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
             }
         }
@@ -1346,7 +1346,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
             const std::int32_t y = elementY + windowY + 55;
             const std::int32_t elementX = element->x;
             const std::int32_t windowX = currentWindow->x;
-            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
+            static_cast<void>(cg::render::DrawGraphic(
                 elementX + windowX + 182, y, 223, image, 0, &descriptor));
         }
         consumed = 1;

@@ -163,7 +163,7 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
         const std::int32_t drawY = offsetY + action->y;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
-        static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+        static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
     }
     payload->frame30 = render::gFrameParity628FC8;
@@ -216,7 +216,7 @@ static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const a
         const std::int32_t drawY = offsetY + action->y;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
-        static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+        static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
     }
     payload->frame30 = render::gFrameParity628FC8;
@@ -393,7 +393,7 @@ static void DrawMovingTransition(
         const std::int32_t drawY = offsetY + action->y;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
-        static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+        static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
     }
     payload->frame30 = render::gFrameParity628FC8;
@@ -445,7 +445,7 @@ static void DrawTransitionOrbit(
             const std::int32_t drawY = yOffset + action->y;
             const std::int32_t xOffset = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
             const std::int32_t drawX = xOffset + action->x;
-            static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+            static_cast<void>(render::DrawGraphic2_521DD0(
                 drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
         }
         angle = static_cast<float>(angle + 120.0);
@@ -505,7 +505,7 @@ static std::int32_t UpdateTransitionTrail(
         const std::int32_t drawY = offsetY + height + y;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
-        static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+        static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
     }
     if (render::gFrameParity628FC8 == 1) {
@@ -516,7 +516,7 @@ static std::int32_t UpdateTransitionTrail(
                 const std::int32_t drawY = offsetY + payload->trailY94[index];
                 const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
                 const std::int32_t drawX = offsetX + payload->trailX6C[index];
-                static_cast<void>(render::DrawGraphic2_521DD0(*action->ownerSession,
+                static_cast<void>(render::DrawGraphic2_521DD0(
                     drawX, drawY, 11, graphicIndex, 0, 0, nullptr));
             }
         }

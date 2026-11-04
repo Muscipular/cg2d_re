@@ -81,7 +81,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
                 1)) {
             const std::int32_t width =
                 cg::render::TextMeasure(kUpgradeProgressText, 0);
-            cg::render::DrawText_456780(connection.Owner(),
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,
@@ -134,7 +134,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
         break;
     }
 
-    return cg::render::DrawGraphic(connection.Owner(), 320, 240, 3, 22030, 0, nullptr);
+    return cg::render::DrawGraphic(320, 240, 3, 22030, 0, nullptr);
 }
 
 // 原函数：0x00462330。
@@ -200,7 +200,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
                 1)) {
             const std::int32_t width =
                 cg::render::TextMeasure(kUpgradeProgressText, 0);
-            cg::render::DrawText_456780(connection.Owner(),
+            cg::render::DrawText_456780(
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,
@@ -260,10 +260,10 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
         break;
     }
 
-    connection.Owner().TextQueue().tails[3] = 0;
+    cg::render::gTextQueue.tails[3] = 0;
     static_cast<void>(ProcessCharacterSlot_461B30(connection, 0, 1));
     static_cast<void>(ProcessCharacterSlot_461B30(connection, 1, 1));
-    return cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 245060, 0, -1);
+    return cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1);
 }
 
 } // namespace cg::character_select

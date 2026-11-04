@@ -196,7 +196,7 @@ int ParseCommandOptions(network::CgConnection& connection)
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
-    connection.Owner().GraphicQueue().pending.savedPath = L"data\\0\\save.dat";
+    cg::render::gGraphicQueue.pending.savedPath = L"data\\0\\save.dat";
 
     HDC deviceContext = GetDC(reinterpret_cast<HWND>(gLegacyWindow));
     gDeviceBitsPerPixel = GetDeviceCaps(deviceContext, BITSPIXEL);

@@ -56,7 +56,7 @@ static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, co
                     auto* const widthElement = elementsWindow->FindElementById(elementId);
                     if (widthElement) {
                         const std::int32_t width = widthElement->width;
-                        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(windowX + x - 2),
                             static_cast<std::uint16_t>(windowY + y - 2),
                             static_cast<std::uint16_t>(width + windowX + x + 2),

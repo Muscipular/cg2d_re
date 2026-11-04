@@ -65,7 +65,7 @@ static bool UIClipDestRect(int& x, int& y, int& w, int& h, const UIClipRect* cli
     return true;
 }
 
-int RendererDrawRectClipped(session::ClientSession& session, int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect) {
+int RendererDrawRectClipped(int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect) {
     int drawX = x;
     int drawY = y;
     int drawW = w;
@@ -73,27 +73,27 @@ int RendererDrawRectClipped(session::ClientSession& session, int x, int y, int w
     if (!UIClipDestRect(drawX, drawY, drawW, drawH, clipRect)) {
         return -1;
     }
-    return RendererDrawRect(session, static_cast<int16_t>(drawX), static_cast<int16_t>(drawY), static_cast<int16_t>(drawW), static_cast<int16_t>(drawH), layer, color);
+    return RendererDrawRect(static_cast<int16_t>(drawX), static_cast<int16_t>(drawY), static_cast<int16_t>(drawW), static_cast<int16_t>(drawH), layer, color);
 }
 
-int RendererDrawGraphicClipped(session::ClientSession& session, int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect) {
+int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect) {
     if (clipRect && (x < clipRect->left || y < clipRect->top || x + w > clipRect->right || y + h > clipRect->bottom)) {
         return -1;
     }
 
     KRECT krect{0, 0, 0, 0, color, 0, 4, 0};
-    return render::DrawGraphic3_520970(session, x, y, layer, imageNo, 0, 1, BATCH_SPRITE, &krect);
+    return render::DrawGraphic3_520970(x, y, layer, imageNo, 0, 1, BATCH_SPRITE, &krect);
 }
 
 
 
 // 与字体测宽共用UTF-16步进；裁剪仅保留完整字符，不拆开代理对。
-void RendererDrawTextClipped(session::ClientSession& session, int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
+void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
     if (msg.empty()) {
         return;
     }
     if (!clipRect) {
-        InfoRenderText(session, static_cast<int16_t>(x), static_cast<int16_t>(y), layer, fontType, colorType, msg, hoverMode, hoverFrame);
+        InfoRenderText(static_cast<int16_t>(x), static_cast<int16_t>(y), layer, fontType, colorType, msg, hoverMode, hoverFrame);
         return;
     }
 
@@ -127,37 +127,37 @@ void RendererDrawTextClipped(session::ClientSession& session, int x, int y, unsi
     }
 
     if (!clippedText.empty()) {
-        InfoRenderText(session, static_cast<int16_t>(drawX), static_cast<int16_t>(y), layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
+        InfoRenderText(static_cast<int16_t>(drawX), static_cast<int16_t>(y), layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
     }
 }
 
-int RendererDrawPngClipped(session::ClientSession& session, const wchar_t* path, RECT16* rect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
+int RendererDrawPngClipped(const wchar_t* path, RECT16* rect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
 {
     render::PngRectangle source{}, target{};
     if (rect) source = {rect->left, rect->top, rect->right, rect->bottom};
     if (clip) target = {clip->left, clip->top, clip->right, clip->bottom};
-    return render::DrawPngImage(session, path, rect ? &source : nullptr,
+    return render::DrawPngImage(path, rect ? &source : nullptr,
         x, y, w, h, color, static_cast<uint8_t>(layer), clip ? &target : nullptr);
 }
 PngTexture* RendererCreateSurfaceTexture(int w, int h) { return render::CreatePixelImage(w, h); }
 bool RendererUpdateSurfaceTexture(PngTexture* texture, const uint32_t* pixels, int w, int h) { return render::UpdatePixelImage(texture, pixels, w, h); }
 void RendererReleaseSurfaceTexture(PngTexture* texture) { render::ReleasePixelImage(texture); }
-int RendererDrawSurfaceTextureClipped(session::ClientSession& session, PngTexture* texture, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
+int RendererDrawSurfaceTextureClipped(PngTexture* texture, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clip)
 {
     render::PngRectangle target{};
     if (clip) target = {clip->left, clip->top, clip->right, clip->bottom};
-    return render::DrawPixelImage(session, texture, x, y, w, h, color, static_cast<uint8_t>(layer), clip ? &target : nullptr);
+    return render::DrawPixelImage(texture, x, y, w, h, color, static_cast<uint8_t>(layer), clip ? &target : nullptr);
 }
-int RendererDrawCanvasClipped(session::ClientSession& session, int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clip)
+int RendererDrawCanvasClipped(int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clip)
 {
     render::CanvasRectangle target{};
     if (clip) target = {clip->left, clip->top, clip->right, clip->bottom};
-    return render::DrawCanvasClipped(session, x, y, w, h, layer, shapes, clip ? &target : nullptr);
+    return render::DrawCanvasClipped(x, y, w, h, layer, shapes, clip ? &target : nullptr);
 }
 // 对原生入队结果裁剪，不改变图层、调色板、翻转及原生锚点。
-void WindowRuntime_ClipGraphics(session::ClientSession& session, std::uint16_t first, const UIClipRect& clip) {
-    for (std::uint16_t i = first; i < session.GraphicQueue().count; ++i) {
-        auto& item = session.GraphicQueue().pending.records[i];
+void WindowRuntime_ClipGraphics(std::uint16_t first, const UIClipRect& clip) {
+    for (std::uint16_t i = first; i < cg::render::gGraphicQueue.count; ++i) {
+        auto& item = cg::render::gGraphicQueue.pending.records[i];
         if ((item.batchType != 0 && item.batchType != 1) || item.imageNo < 0) continue;
         std::int16_t imageWidth = 0, imageHeight = 0;
         resource::GetGraphicWH(static_cast<std::uint32_t>(item.imageNo), &imageWidth, &imageHeight);

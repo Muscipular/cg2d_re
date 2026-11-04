@@ -178,7 +178,7 @@ void ClearRegisteredMapActions_46DD40(session::ClientSession& session);
 
 
 // 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
-void DrawNineGrid_49BE00(session::ClientSession& session,
+void DrawNineGrid_49BE00(
     std::int32_t baseImageNo,
     std::int16_t x,
     std::int16_t y,

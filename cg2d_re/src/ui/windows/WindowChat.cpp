@@ -974,7 +974,7 @@ void WindowChat_DrawHistory(session::ClientSession& session, const std::int32_t 
                 }
                 if (*row != L'\0') {
                     const std::int32_t color = record.color;
-                    static_cast<void>(render::DrawText2_456670(session,
+                    static_cast<void>(render::DrawText2_456670(
                         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
                         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
                         3,

@@ -18,6 +18,8 @@
 
 namespace cg::render {
 
+GraphicQueueRuntimeState gGraphicQueue{};
+
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void DrawPaletteRectPrimitive_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
 
@@ -77,27 +79,27 @@ static void CalculateRippleScreenDelta(session::ClientSession& session, float* c
 }
 
 // 原 SortTextures_520790 的单个保留槽；未列出的记录字段保持原值。
-static std::uint16_t AppendReservedGraphic(session::ClientSession& session,
+static std::uint16_t AppendReservedGraphic(
     const std::uint16_t indexBits,
     const std::uint8_t layer,
     const std::uint8_t batchType)
 {
     const auto index = static_cast<std::size_t>(
         std::bit_cast<std::int16_t>(indexBits));
-    GraphicCache3& cache3 = session.GraphicQueue().pending.cache3[index];
+    GraphicCache3& cache3 = cg::render::gGraphicQueue.pending.cache3[index];
     cache3.layer = layer;
     cache3.cacheIndex = std::bit_cast<std::int16_t>(
-        session.GraphicQueue().count);
+        cg::render::gGraphicQueue.count);
 
-    GraphicCacheItem32& record = session.GraphicQueue().pending.records[index];
+    GraphicCacheItem32& record = cg::render::gGraphicQueue.pending.records[index];
     record.imageNo = -1;
     record.value4 = 0;
     record.reference.action = nullptr;
     record.batchType = batchType;
 
-    const std::uint16_t countBits = session.GraphicQueue().count;
+    const std::uint16_t countBits = cg::render::gGraphicQueue.count;
     const auto nextCountBits = static_cast<std::uint16_t>(countBits + 1U);
-    session.GraphicQueue().count = nextCountBits;
+    cg::render::gGraphicQueue.count = nextCountBits;
     return nextCountBits;
 }
 
@@ -117,14 +119,14 @@ void DrawMatchingGraphicHover_507090(session::ClientSession& session, const std:
 {
     std::int32_t index = 0;
     std::int16_t count =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (count <= 0) {
         return;
     }
 
     // 原平行主记录/层槽遍历，不经排序槽cacheIndex回查主记录。
-    const GraphicCache3* layerRecord = session.GraphicQueue().pending.cache3.data();
-    const GraphicCacheItem32* record = session.GraphicQueue().pending.records.data();
+    const GraphicCache3* layerRecord = cg::render::gGraphicQueue.pending.cache3.data();
+    const GraphicCacheItem32* record = cg::render::gGraphicQueue.pending.records.data();
     do {
         const std::int32_t itemValue4 = record->value4;
         const std::int32_t requestedValue4 = value4;
@@ -148,7 +150,7 @@ void DrawMatchingGraphicHover_507090(session::ClientSession& session, const std:
             const std::int32_t top = y - 2;
             const std::int32_t right = width + x + 2;
             const std::int32_t left = x - 2;
-            cg::render::DrawGraphicHover(session,
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left),
                 static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(right),
@@ -159,7 +161,7 @@ void DrawMatchingGraphicHover_507090(session::ClientSession& session, const std:
         }
 
         // 绘框会追加同一队列；先重读计数，再按原序推进两条native游标。
-        count = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        count = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
         ++index;
         ++record;
         ++layerRecord;
@@ -210,21 +212,21 @@ void WrapRipplePhase_520930(float* value)
 }
 
 // 原函数：0x00521AA0。
-std::int32_t QueueMap_521AA0(session::ClientSession& session,
+std::int32_t QueueMap_521AA0(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
     GraphicCacheItem32* const record =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     GraphicCache3* const cache3 =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cache3->layer = layer;
-    cache3->cacheIndex = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+    cache3->cacheIndex = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     const std::int32_t itemX = x;
     const std::int32_t itemY = y;
     record->x = itemX;
@@ -233,9 +235,9 @@ std::int32_t QueueMap_521AA0(session::ClientSession& session,
     record->value4 = 0;
     record->reference.action = nullptr;
     record->batchType = 5;
-    const std::uint16_t resultBits = session.GraphicQueue().count;
+    const std::uint16_t resultBits = cg::render::gGraphicQueue.count;
     const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
-    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1u);
+    cg::render::gGraphicQueue.count = static_cast<std::uint16_t>(resultBits + 1u);
     return result;
 }
 
@@ -376,46 +378,46 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
 }
 
 // 原函数：0x00520790。
-void SortTextures_520790(session::ClientSession& session)
+void SortTextures_520790()
 {
-    const bool hasSpecialGraphic = session.GraphicQueue().specialGraphicPending != 0;
+    const bool hasSpecialGraphic = cg::render::gGraphicQueue.specialGraphicPending != 0;
     const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;
-    std::uint16_t countBits = session.GraphicQueue().count;
+    std::uint16_t countBits = cg::render::gGraphicQueue.count;
     const std::int16_t initialCount = std::bit_cast<std::int16_t>(countBits);
     if (static_cast<std::int32_t>(initialCount) + reserveCount
         >= MAX_QUEUE_SIZE) {
         countBits = static_cast<std::uint16_t>(MAX_QUEUE_SIZE - reserveCount);
-        session.GraphicQueue().count = countBits;
+        cg::render::gGraphicQueue.count = countBits;
     }
 
     if (hasSpecialGraphic) {
-        countBits = AppendReservedGraphic(session, countBits, 2, 8);
+        countBits = AppendReservedGraphic(countBits, 2, 8);
     }
-    countBits = AppendReservedGraphic(session, countBits, 5, 6);
-    countBits = AppendReservedGraphic(session, countBits, 6, 7);
-    countBits = AppendReservedGraphic(session, countBits, 20, 9);
+    countBits = AppendReservedGraphic(countBits, 5, 6);
+    countBits = AppendReservedGraphic(countBits, 6, 7);
+    countBits = AppendReservedGraphic(countBits, 20, 9);
 
     const std::int32_t sortCount = std::bit_cast<std::int16_t>(countBits);
     std::qsort(
-        session.GraphicQueue().pending.cache3.data(),
+        cg::render::gGraphicQueue.pending.cache3.data(),
         static_cast<std::uint32_t>(sortCount),
         sizeof(GraphicCache3),
         CompareGraphicCache3_5222A0);
 }
 
-void SetPendingGraphicBatchTypeAtLegacyIndex(session::ClientSession& session,
+void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::int32_t index,
     const std::uint8_t type)
 {
     if (index == -2) {
         // 原records[-2].batchType对应具名类型槽，不依赖路径的存储布局。
-        session.GraphicQueue().pending.precedingBatchType = type;
+        cg::render::gGraphicQueue.pending.precedingBatchType = type;
         return;
     }
 
-    if (index < 0 || static_cast<std::size_t>(index) >= session.GraphicQueue().pending.records.size()) { return; }
+    if (index < 0 || static_cast<std::size_t>(index) >= cg::render::gGraphicQueue.pending.records.size()) { return; }
     render::GraphicCacheItem32* const record =
-        session.GraphicQueue().pending.records.data() + index;
+        cg::render::gGraphicQueue.pending.records.data() + index;
     record->batchType = type;
 }
 

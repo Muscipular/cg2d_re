@@ -504,7 +504,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         const std::int32_t primaryIndex = parent->value1D4;
         const std::int32_t drawX = offsetX + shiftX + relativeX + parentX;
         const std::int32_t graphicIndex = action->graphicIndex;
-        world::DrawGearNormal_46C060(*action->ownerSession,
+        world::DrawGearNormal_46C060(
             primaryIndex, 1, graphicIndex,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
@@ -553,7 +553,7 @@ static void DrawObservationChildren(
             const std::int32_t childY = child->deltaY;
             const std::int32_t childX = child->deltaX;
             const std::int32_t primaryIndex = parent->value1D4;
-            world::DrawGearNormal_46C060(*parent->ownerSession,
+            world::DrawGearNormal_46C060(
                 primaryIndex, 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(childX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(childY)),
@@ -905,7 +905,7 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
         const std::int32_t childGraphicIndex = child->graphicIndex;
         const std::int32_t childY = drawY[index];
         const std::int32_t childX = drawX[index];
-        render::DrawGraphic2_521DD0(*action->ownerSession,
+        render::DrawGraphic2_521DD0(
             childX, childY, 10, childGraphicIndex, 0, 0, childMode);
     }
     const std::int32_t graphicIndex = action->graphicIndex;
@@ -914,7 +914,7 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
     const std::int32_t y = offsetY + action->y;
     const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = offsetX + action->x;
-    render::DrawGraphic2_521DD0(*action->ownerSession, x, y, 10, graphicIndex, 0, 0, mode);
+    render::DrawGraphic2_521DD0(x, y, 10, graphicIndex, 0, 0, mode);
     ++payload->frame;
 }
 

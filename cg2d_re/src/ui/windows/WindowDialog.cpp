@@ -418,7 +418,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     for (std::int32_t row = 0; row < dialog.message.lineCount; ++row) {
         const std::wstring& text = dialog.message.lines[row].text;
         if (!text.empty()) {
-            static_cast<void>(render::DrawColoredText(*callbackWindow.ownerSession,
+            static_cast<void>(render::DrawColoredText(
                 static_cast<std::int16_t>(window->x + 24),
                 static_cast<std::int16_t>(window->y + row * dialog.message.lineHeight + 20),
                 3, 0, 0, text, 0, static_cast<std::int8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
@@ -441,7 +441,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
             if (row == selected) {
                 render::DrawInputText_4568A0(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().inputState.currentContext);
             } else {
-                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+                static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(inputX),
                     static_cast<std::int16_t>(window->y + dialog.message.inputY[row]),
                     3, 0, 0, dialog.message.inputTexts[row], 0,
@@ -468,7 +468,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
                     do {
                         const std::int32_t y = window->y + dialog.message.inputY[input];
                         const std::int32_t x = window->x + left;
-                        static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession,
+                        static_cast<void>(render::DrawGraphic3_520970(
                             x, y, 223, 243225, 0, 1, 0, &descriptor));
                         inputCount = std::bit_cast<std::int8_t>(dialog.message.inputCount);
                         ++input;
@@ -485,12 +485,12 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     }
     WindowRuntime_DrawCurrent(callbackWindow);
     window = currentWindow;
-    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
+    cg::yobi::DrawNineGrid_49BE00(
         dialog.message.imageNo, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
 }
 
@@ -594,7 +594,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
     if (selected < std::bit_cast<std::int8_t>(dialog.message.inputCount)) {
         if (selected != dialog.message.selectedInput) {
             const std::int32_t top = dialog.message.inputY[selected] + window->y;
-            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(inputX), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(inputX + inputWidth), static_cast<std::uint16_t>(top + 16),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -658,7 +658,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
             } while (row < lineCount);
             if (found && row < dialog.message.lineCount
                 && !dialog.message.lines[row].text.empty() && row >= 0) {
-                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top + offset),
                     static_cast<std::uint16_t>(left + width), static_cast<std::uint16_t>(top + offset + 20),
                     223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -1141,20 +1141,20 @@ static std::int32_t WindowDialog_DrawHealing(
     for (std::int32_t index = 0; index < 7; ++index) {
         if (dialog.healing[index].level != 0) {
             cg::text::FormatTo(buffer, L"{:7} G", dialog.healing[index].cost);
-            static_cast<void>(render::DrawText_456780(session,
+            static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
                 3, 0, 0, buffer, 0, static_cast<std::int8_t>(session.UiFrame().hoverFramePaletteIndex)));
             if (index < 6) {
                 const std::int32_t imageIndex = WindowItem_HealthImageLevel(dialog.healing[index].health);
-                static_cast<void>(cg::render::DrawGraphic(session,
+                static_cast<void>(cg::render::DrawGraphic(
                     window->x + 68, window->y + index * 16 + 60,
                     223, gHealthImages57CBA4[imageIndex], 0, nullptr));
             }
         }
     }
     cg::text::FormatTo(buffer, L"               所持金 {:7} 金币", session.WorldScene().player->valueFC);
-    static_cast<void>(render::DrawText_456780(session,
+    static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),
         3, 0, 0, buffer, 0, static_cast<std::int8_t>(session.UiFrame().hoverFramePaletteIndex)));

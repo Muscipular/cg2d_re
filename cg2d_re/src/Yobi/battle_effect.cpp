@@ -98,10 +98,6 @@ static constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
     28915, 28915, 28915, 28915, 28916, 28916, 28916, 28916,
 };
 
-static std::int32_t gBattleTiledEffectPhase59F9EC = 0; // 原全局：0x0059F9EC。
-
-static std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9F0。
-
 // 原函数：0x0041EAB0。
 YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
 {
@@ -986,29 +982,29 @@ YobiAction* NewBattleEffect_41CD00(
     return action;
 }
 
-// BSTL01：共享相位先推进/15和0反向；X外Y内100格，每格fresh相位，返回末结果。
+// BSTL01：会话内共用相位先推进/15和0反向；X外Y内100格，每格fresh相位，返回末结果。
 // 原函数：0x0041E890。
 std::int32_t DrawBattleTiledEffect_41E890(session::ClientSession& session, const std::int32_t type)
 {
-    if (gBattleTiledEffectReverse59F9F0 == 0) {
-        const std::int32_t phase = gBattleTiledEffectPhase59F9EC + 1;
-        gBattleTiledEffectPhase59F9EC = phase;
+    if (session.Yobi().battleTiledEffectReverse == 0) {
+        const std::int32_t phase = session.Yobi().battleTiledEffectPhase + 1;
+        session.Yobi().battleTiledEffectPhase = phase;
         if (phase >= 15) {
-            gBattleTiledEffectReverse59F9F0 = 1;
+            session.Yobi().battleTiledEffectReverse = 1;
         }
     } else {
-        const std::int32_t phase = gBattleTiledEffectPhase59F9EC - 1;
-        gBattleTiledEffectPhase59F9EC = phase;
+        const std::int32_t phase = session.Yobi().battleTiledEffectPhase - 1;
+        session.Yobi().battleTiledEffectPhase = phase;
         if (phase <= 0) {
-            gBattleTiledEffectReverse59F9F0 = 0;
+            session.Yobi().battleTiledEffectReverse = 0;
         }
     }
     const std::int32_t row = type * 16;
     std::int32_t result;
     for (std::int32_t x = 0; x < platform::gWindowWidth; x += 64) {
         for (std::int32_t y = 0; y < platform::gWindowHeight; y += 48) {
-            const std::int32_t image = kBattleTiledEffectImages553A74[row + gBattleTiledEffectPhase59F9EC];
-            result = cg::render::DrawGraphic(session, x + 32, y + 24, 3, image, 0, nullptr);
+            const std::int32_t image = kBattleTiledEffectImages553A74[row + session.Yobi().battleTiledEffectPhase];
+            result = cg::render::DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr);
         }
     }
     return result;
@@ -1037,7 +1033,7 @@ void UpdateBattleTiledEffect_41E920(YobiAction* const action)
             const std::int32_t type = action->phase;
             const std::int32_t phase = action->field58;
             const std::int32_t image = kBattleTiledEffectImages553A74[type * 16 + phase];
-            static_cast<void>(cg::render::DrawGraphic(*action->ownerSession, x + 32, y + 24, 3, image, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr));
         }
     }
     auto* const count = &action->readiness;

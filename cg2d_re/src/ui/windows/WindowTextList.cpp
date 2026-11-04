@@ -411,12 +411,12 @@ static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWind
             imageNo = 243049;
         }
     }
-    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, 320, 227, 226, imageNo, 0, &descriptor));
-    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
-    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
+    static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
+    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
+    cg::yobi::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
 }
 
@@ -791,7 +791,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
         selected = textList.selectedItem;
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
             223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -800,7 +800,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
     if (selected >= 0) {
         const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[selected];
         if (item.used != 0) {
-            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
+            static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 223, item.imageNo, 0, &descriptor));
             return consumed;
         }

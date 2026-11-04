@@ -53,7 +53,7 @@ static std::int32_t gLoadingGraphicImageNo = 0;
 // 原 458489–458598 / 458695–4587A0 的相同公共段；不代替普通 MainLoop。
 static void AdvanceLoadingFadeFrame(session::ClientSession& session)
 {
-    render::SortTextures_520790(session);
+    render::SortTextures_520790();
     static_cast<void>(render::UpdatePalette_450BB0());
     ClearKeyFlags_459760(session);
     const double threshold = gFrameThreshold + gLastRenderDt;
@@ -119,11 +119,11 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
         if (firstFrame) {
             static_cast<void>(render::SelectPalette(palette, 30));
             // LUR01：loading整图随客户区缩放，保留原图号、层序和调色板淡变。
-            static_cast<void>(render::StretchGraphicToScreen(session, cg::render::DrawGraphic(session,
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             firstFrame = false;
         } else {
-            static_cast<void>(render::StretchGraphicToScreen(session, cg::render::DrawGraphic(session,
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
@@ -131,7 +131,7 @@ static std::int32_t FadeInLoading_458390(session::ClientSession& session)
         }
         AdvanceLoadingFadeFrame(session);
         if (!keepRunning) {
-            static_cast<void>(render::StretchGraphicToScreen(session, cg::render::DrawGraphic(session,
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             static_cast<void>(render::ClearSurface_4512C0());
             render::DrawAllQueued_520DD0(session);
@@ -153,12 +153,12 @@ static std::int32_t FadeOutLoading_4585F0(session::ClientSession& session)
             return 0;
         }
         if (firstFrame) {
-            static_cast<void>(render::StretchGraphicToScreen(session, cg::render::DrawGraphic(session,
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             static_cast<void>(render::SelectPalette(19, 30));
             firstFrame = false;
         } else {
-            static_cast<void>(render::StretchGraphicToScreen(session, cg::render::DrawGraphic(session,
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, gLoadingGraphicImageNo, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 keepRunning = false;
@@ -251,7 +251,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     if (drawCursor != 0) {
         const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);
         const std::int32_t x = (session.UiFrame().mouse.state->mouseX + 16);
-        static_cast<void>(cg::render::DrawGraphic(session, x, y, 231, 22000, 0, nullptr));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;
     if (initialization_detail::InitLoading_457B10(session.Connection()) == 0) {

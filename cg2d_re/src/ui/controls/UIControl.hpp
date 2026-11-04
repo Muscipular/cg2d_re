@@ -45,16 +45,16 @@ struct WindowPngImageData {
 };
 bool UIIntersectClipRect(UIClipRect& out, const UIClipRect* a, const UIClipRect& b);
 bool UIClipRectValid(const UIClipRect& rect);
-void WindowRuntime_ClipGraphics(session::ClientSession& session, std::uint16_t first, const UIClipRect& clip);
+void WindowRuntime_ClipGraphics(std::uint16_t first, const UIClipRect& clip);
 bool UIPointInClipRect(int x, int y, const UIClipRect* clipRect);
 bool UIRectIntersectsClipRect(int x, int y, int w, int h, const UIClipRect* clipRect);
-int RendererDrawRectClipped(session::ClientSession& session, int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect);
-int RendererDrawPngClipped(session::ClientSession& session, const wchar_t* path, RECT16* loadPngRect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
+int RendererDrawRectClipped(int x, int y, int w, int h, uint8_t layer, COLORREF color, const UIClipRect* clipRect);
+int RendererDrawPngClipped(const wchar_t* path, RECT16* loadPngRect, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
 PngTexture* RendererCreateSurfaceTexture(int width, int height);
 bool RendererUpdateSurfaceTexture(PngTexture* texture, const uint32_t* pixels, int width, int height);
 void RendererReleaseSurfaceTexture(PngTexture* texture);
-int RendererDrawSurfaceTextureClipped(session::ClientSession& session, PngTexture* texture, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
-int RendererDrawGraphicClipped(session::ClientSession& session, int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect);
-int RendererDrawCanvasClipped(session::ClientSession& session, int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clipRect);
-void RendererDrawTextClipped(session::ClientSession& session, int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
+int RendererDrawSurfaceTextureClipped(PngTexture* texture, int x, int y, int w, int h, COLORREF color, int layer, const UIClipRect* clipRect);
+int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect);
+int RendererDrawCanvasClipped(int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clipRect);
+void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
 } // namespace cg::ui

@@ -38,7 +38,7 @@ void CacheMapObjectGraphic_46DFF0(
 // AT01：before=2将称号插到前景链头，队列逆序绘制时位于该人物挂件最上方。
 inline constexpr std::int32_t kMapAttachmentFrontmost = 2;
 // 原 46C060：挂接主项的前绘/后绘链；batch 保留低 W8，不布尔化。
-void DrawGearNormal_46C060(session::ClientSession& session,
+void DrawGearNormal_46C060(
     std::int32_t primaryIndex, std::int32_t before, std::int32_t imageNo,
     std::int16_t x, std::int16_t y,
     const render::GraphicDescriptor16* descriptor, std::uint8_t batchType,
@@ -122,7 +122,7 @@ void CacheMapGraphicByResourceType_46BE50(
 // 原 46C2F0：排序→合并，caller 不消费混合 EAX；46C1C0 返回末次合并计数。
 void SortAndMergeMapDrawCache_46C2F0();
 // 原函数：0x0046C1C0。
-std::int32_t QueueMergedMapDrawCache_46C1C0(session::ClientSession& session);
+std::int32_t QueueMergedMapDrawCache_46C1C0();
 
 // 原函数：0x00468570。
 std::int32_t __cdecl EnsureMapCacheFile_468570(

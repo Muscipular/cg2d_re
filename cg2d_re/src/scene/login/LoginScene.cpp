@@ -44,12 +44,12 @@ namespace cg::login {
 static constexpr wchar_t kWindowName[] = L"魔力宝贝";
 static constexpr wchar_t kVersion[] = CG_CLIENT_VERSION_W;
 
-std::int32_t DrawClientVersion(session::ClientSession& session,
+std::int32_t DrawClientVersion(
     const std::int16_t preferredX, const std::int16_t y, const std::int8_t color)
 {
     const auto x = static_cast<std::int16_t>(std::clamp(
         620 - render::TextMeasure(kVersion, 0), 0, static_cast<int>(preferredX)));
-    return render::DrawText3_456560(session, x, y, 0, color, kVersion, 0);
+    return render::DrawText3_456560(x, y, 0, color, kVersion, 0);
 }
 // 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kCannotConnect[] =
@@ -649,9 +649,9 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
     }
 
     static_cast<void>(render::HasLegacy3DDevice_44B610());
-    cg::render::QueueOriginalPaletteGraphic_45F090(session, 49, 67, 3, 0x3BEA3, 0, -1);
-    cg::render::StretchGraphicToScreen(session, cg::render::QueueOriginalPaletteGraphic_45F090(session, 0, 0, 3, 0x3BEA2, 0, -1), true);
-    return DrawClientVersion(session, 540, 424, 0);
+    cg::render::QueueOriginalPaletteGraphic_45F090(49, 67, 3, 0x3BEA3, 0, -1);
+    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 0x3BEA2, 0, -1), true);
+    return DrawClientVersion(540, 424, 0);
 }
 
 } // namespace cg::login

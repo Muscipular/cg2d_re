@@ -95,7 +95,7 @@ std::int32_t DrawCharacterModalButton_503A20(
             const std::int32_t hoverWidth = uiRecord->width;
             const std::int32_t right = hoverLeft + hoverWidth + 2;
             const std::int32_t left = hoverLeft - 2;
-            cg::render::DrawGraphicHover(session,
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left),
                 static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(right),
@@ -109,7 +109,7 @@ std::int32_t DrawCharacterModalButton_503A20(
     const wchar_t* const text = uiRecord->text;
     const std::int16_t textY = static_cast<std::int16_t>(uiRecord->textY);
     const std::int16_t textX = static_cast<std::int16_t>(uiRecord->textX);
-    return cg::render::DrawText_456780(session,
+    return cg::render::DrawText_456780(
         textX,
         textY,
         renderMode,

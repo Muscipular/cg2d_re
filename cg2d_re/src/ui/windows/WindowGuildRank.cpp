@@ -157,9 +157,9 @@ static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const s
     const std::int16_t width = static_cast<std::int16_t>(window->width);
     const std::int16_t y = static_cast<std::int16_t>(window->y);
     const std::int16_t x = static_cast<std::int16_t>(window->x);
-    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession, 0x3BE3E, x, y, width, height, 223, -1,
+    cg::yobi::DrawNineGrid_49BE00(0x3BE3E, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
 }
 

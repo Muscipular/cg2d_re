@@ -123,7 +123,7 @@ static void DrawTableCursor(session::ClientSession& session)
     const std::uint32_t xState = session.UiFrame().mouse.requestedCursor;
     const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
-    cg::render::DrawGraphic(session,
+    cg::render::DrawGraphic(
         x, y, kCursorLayer, image, 0, &descriptor);
 }
 
@@ -153,7 +153,7 @@ static void UpdateNativeCursor(session::ClientSession& session)
     if (session.UiFrame().mouse.state->drawingSuppression == 0) {
         const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);
         const std::int32_t x = (session.UiFrame().mouse.state->mouseX + 16);
-        cg::render::DrawGraphic(session,
+        cg::render::DrawGraphic(
             x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);
     }
 }

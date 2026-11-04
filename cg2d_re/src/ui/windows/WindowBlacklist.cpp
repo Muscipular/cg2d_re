@@ -270,7 +270,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
                     const WindowElement& element = (*elementPtr);
                     const std::int32_t y = element.y + window->y + 4;
                     const std::int32_t x = element.x + window->x + 1;
-                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
+                    static_cast<void>(cg::render::DrawGraphic(
                         x, y, 223, digit + 0x3B6B4, 0, &descriptor));
                 }
             }

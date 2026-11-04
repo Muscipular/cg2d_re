@@ -125,11 +125,11 @@ static void WindowBattlePets_Refresh(
     std::int32_t readyImage = 0x3B58A;
     const auto& pet = (*session.WorldScene().petRecords)[petIndex];
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
-        static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
-        static_cast<void>(render::DrawText_456780(session,
+        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+        static_cast<void>(render::DrawText_456780(
             0, 0, textLayer, 8, 0, L"", 0, 0));
         const auto drawText = [&](const std::wstring_view text, const std::int32_t dx, const std::int32_t dy) {
-            static_cast<void>(render::DrawText_456780(session,
+            static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, 0, text, 0, 0));
@@ -155,18 +155,18 @@ static void WindowBattlePets_Refresh(
             const auto& images = gPetBarImages57E434[row];
             const std::int32_t barY = y + 6 + row * 10;
             if (segments > 1) {
-                static_cast<void>(render::DrawGraphic3_520970(session,
+                static_cast<void>(render::DrawGraphic3_520970(
                     x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[0], 0, 1, 0, descriptor));
                 std::int32_t barX = x + 181;
                 for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                    static_cast<void>(render::DrawGraphic3_520970(session,
+                    static_cast<void>(render::DrawGraphic3_520970(
                         barX, barY, static_cast<std::uint8_t>(graphicLayer), images[1], 0, 1, 0, descriptor));
                     barX += 6;
                 }
-                static_cast<void>(render::DrawGraphic3_520970(session,
+                static_cast<void>(render::DrawGraphic3_520970(
                     barX, barY, static_cast<std::uint8_t>(graphicLayer), images[2], 0, 1, 0, descriptor));
             } else if (segments == 1) {
-                static_cast<void>(render::DrawGraphic3_520970(session,
+                static_cast<void>(render::DrawGraphic3_520970(
                     x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[3], 0, 1, 0, descriptor));
             }
         }
@@ -178,11 +178,11 @@ static void WindowBattlePets_Refresh(
             readyImage = 0x3B589;
         }
     }
-    static_cast<void>(render::DrawGraphic3_520970(session,
+    static_cast<void>(render::DrawGraphic3_520970(
         x + 241, y + 6, static_cast<std::uint8_t>(graphicLayer), battleImage, 0, 1, 0, descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(session,
+    static_cast<void>(render::DrawGraphic3_520970(
         x + 267, y + 25, static_cast<std::uint8_t>(graphicLayer), readyImage, 0, 1, 0, descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(session,
+    static_cast<void>(render::DrawGraphic3_520970(
         x, y, static_cast<std::uint8_t>(graphicLayer), 0x3B5C4, 0, 1, 0, descriptor));
 }
 

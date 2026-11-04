@@ -3,8 +3,6 @@
 #include "cg/Yobi/YobiSessionState.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/network/CgConnection.hpp"
-#include "cg/render/GraphicPendingQueue.hpp"
-#include "cg/render/TextPendingQueue.hpp"
 #include "cg/scene/login/LoginState.hpp"
 #include "cg/script/LuaSessionState.hpp"
 #include "cg/ui/UiFrameRuntimeState.hpp"
@@ -33,8 +31,6 @@ public:
     [[nodiscard]] const ui::UiFrameRuntimeState& UiFrame() const noexcept { return uiFrame_; }
     [[nodiscard]] audio::AudioRuntimeState& Audio() noexcept { return audio_; }
     [[nodiscard]] login::SavedLoginRuntimeState& SavedLogin() noexcept { return savedLogin_; }
-    [[nodiscard]] render::TextQueueRuntimeState& TextQueue() noexcept { return textQueue_; }
-    [[nodiscard]] render::GraphicQueueRuntimeState& GraphicQueue() noexcept { return graphicQueue_; }
     // 原同线程CRT日历别名收敛为会话唯一对象；后续转换仍覆盖同会话的长期借用。
     [[nodiscard]] std::tm* LocalTime(const std::int64_t* timestamp) noexcept
     {
@@ -49,8 +45,6 @@ public:
 
 private:
     login::SavedLoginRuntimeState savedLogin_; // 晚于连接及UI析构，保证保存借用寿命。
-    render::TextQueueRuntimeState textQueue_; // 晚于连接及UI析构，保存所属令牌的实际正文。
-    render::GraphicQueueRuntimeState graphicQueue_; // 晚于连接及UI析构，保留动作及批次借用。
     network::CgConnection connection_;
     world::WorldSceneRuntimeState worldScene_;
     yobi::YobiSessionState yobi_;

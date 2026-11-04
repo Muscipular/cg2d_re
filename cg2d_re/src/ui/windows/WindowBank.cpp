@@ -275,12 +275,12 @@ void WindowBank_DrawOwnPetTooltip(
         return;
     }
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
-    static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
-    static_cast<void>(render::DrawText_456780(session,
+    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+    static_cast<void>(render::DrawText_456780(
         0, 0, textLayer, 13, 0, L"", 0, 0));
     const wchar_t* const name =
         !pet.name6BD.empty() ? pet.name6BD.data() : pet.name6AC.data();
-    static_cast<void>(render::DrawText_456780(session,
+    static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, name, 0, 0));
@@ -288,7 +288,7 @@ void WindowBank_DrawOwnPetTooltip(
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
         cg::text::FormatTo(buffer, format, value);
-        static_cast<void>(render::DrawText_456780(session,
+        static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
@@ -296,7 +296,7 @@ void WindowBank_DrawOwnPetTooltip(
     drawNumber(pet.value08, L"{:3}", 35, 22);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
     if (tribe >= 0 && tribe < 20) {
-        static_cast<void>(render::DrawText_456780(session,
+        static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
@@ -326,10 +326,10 @@ void WindowBank_DrawStoredPetTooltip(
         return;
     }
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
-    static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
-    static_cast<void>(render::DrawText_456780(session,
+    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+    static_cast<void>(render::DrawText_456780(
         0, 0, textLayer, 13, color, L"", 0, 0));
-    static_cast<void>(render::DrawText_456780(session,
+    static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, record->name, 0, 0));
@@ -337,7 +337,7 @@ void WindowBank_DrawStoredPetTooltip(
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
         cg::text::FormatTo(buffer, format, value);
-        static_cast<void>(render::DrawText_456780(session,
+        static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
@@ -346,7 +346,7 @@ void WindowBank_DrawStoredPetTooltip(
     std::int16_t tribe;
     std::memcpy(&tribe, &record->tribe, sizeof(tribe));
     if (tribe >= 0 && tribe < 20) {
-        static_cast<void>(render::DrawText_456780(session,
+        static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
@@ -943,7 +943,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 13;
                 const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 26;
-                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -957,7 +957,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 13;
             const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 26;
-            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -969,8 +969,8 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             }
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
-    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring buffer;
@@ -986,21 +986,21 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 37;
             const std::int32_t y = element.y + 52 * (position / 5) + window->y + 51;
             if ((item.flags & 0x60u) != 0) {
-                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, 23040, 0, nullptr));
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
             }
             if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             }
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+                static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -1154,7 +1154,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 const std::int32_t elementY = element.y;
                 const std::int32_t windowY = window->y;
                 const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 26;
-                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -1172,7 +1172,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 26;
-            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+            cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -1183,8 +1183,8 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
-    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring buffer;
@@ -1207,12 +1207,12 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             const std::int32_t y = elementY + 52 * (position / 5) + windowY + 51;
             std::int32_t imageNo;
             std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+                static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -1351,7 +1351,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
                         auto* const elementPtr = window->FindElementById(NativeElementKey(elementIndex));
                         if (elementPtr) {
                             const WindowElement& element = (*elementPtr);
-                            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                            cg::render::DrawGraphicHover(
                                 static_cast<std::uint16_t>(x + element.x + 2),
                                 static_cast<std::uint16_t>(y + element.y + 2),
                                 static_cast<std::uint16_t>(x + element.width + element.x - 2),
@@ -1590,7 +1590,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
                     auto* const elementPtr = window->FindElementById(NativeElementKey(row + 17));
                     if (elementPtr) {
                         const WindowElement& element = (*elementPtr);
-                        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
+                        cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(x + element.x + 2),
                             static_cast<std::uint16_t>(y + element.y + 2),
                             static_cast<std::uint16_t>(x + element.width + element.x - 2),
@@ -1764,7 +1764,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     WindowInstance* window = currentWindow;
     std::int32_t y = window->y + 285;
     std::int32_t x = window->x + 357;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         if ((*callbackWindow.ownerSession->WorldScene().petRecords)[index].used != 0) {
@@ -1775,12 +1775,12 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 442;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     cg::text::FormatTo(buffer, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 527;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         std::uint16_t used;
@@ -1793,7 +1793,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 85;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         std::uint16_t used;
@@ -1806,7 +1806,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 170;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
     std::int32_t amount;
     std::memcpy(&amount,
@@ -1815,7 +1815,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 255;
-    WindowNumber_Draw(*callbackWindow.ownerSession, x, y, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     return 0;
 }
 

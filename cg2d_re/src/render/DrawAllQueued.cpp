@@ -392,7 +392,7 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
 void DrawAllQueued_520DD0(session::ClientSession& session)
 {
     gGraphicPaletteUploadCount = 0;
-    GraphicCache3* order = session.GraphicQueue().pending.cache3.data();
+    GraphicCache3* order = cg::render::gGraphicQueue.pending.cache3.data();
     if (GetCpuBackSdlSurface() == nullptr) {
         return;
     }
@@ -400,10 +400,10 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
         static_cast<void>(BeginLegacyTextureScene(GetRendererTextureDevice()));
     }
     std::int32_t index = 0;
-    if (std::bit_cast<std::int16_t>(session.GraphicQueue().count) > 0) {
+    if (std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count) > 0) {
         for (;;) {
             GraphicCacheItem32* const graphic =
-                session.GraphicQueue().pending.records.data() + order->cacheIndex;
+                cg::render::gGraphicQueue.pending.records.data() + order->cacheIndex;
             const std::uint8_t batchType = graphic->batchType;
             switch (batchType) {
             case 0:
@@ -417,7 +417,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                 FillDirtyArea_520AD0(graphic);
                 break;
             case 4:
-                RenderTextToSurface_456D70(session, graphic->reference.textToken);
+                RenderTextToSurface_456D70(graphic->reference.textToken);
                 break;
             case 5: {
                 const std::int32_t y = graphic->y;
@@ -493,7 +493,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
             default:
                 break;
             }
-            const std::int16_t count = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+            const std::int16_t count = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
             ++index;
             ++order;
             if (index >= count) {
@@ -508,7 +508,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
         gLastUnrefreshedPaletteFrameVersion = gPaletteFrameVersion;
     }
     AgeGraphicPaletteCache_44E230();
-    session.GraphicQueue().specialGraphicPending = 0;
+    cg::render::gGraphicQueue.specialGraphicPending = 0;
 }
 
 } // namespace cg::render

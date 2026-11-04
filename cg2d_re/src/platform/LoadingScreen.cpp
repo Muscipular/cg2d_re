@@ -39,9 +39,9 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             static_cast<void>(ShutdownClient_457A40(connection.Owner()));
             return 0;
         }
-        connection.Owner().GraphicQueue().count = 0;
-        connection.Owner().TextQueue().count = 0;
-        static_cast<void>(render::ResetGraphicCache_456D30(connection.Owner()));
+        cg::render::gGraphicQueue.count = 0;
+        cg::render::gTextQueue.count = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
         if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 3u) != 0
             || (ReadSessionKeyState(connection.Owner(), 13) & 2u) != 0
             || (ReadSessionKeyState(connection.Owner(), 32) & 2u) != 0
@@ -320,12 +320,12 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
 
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(connection.Owner()));
         if (image != 0) {
-            static_cast<void>(render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+            static_cast<void>(render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 255, image, 0,
                 phase >= 26 && phase <= 29 ? &gLoadingDescriptor : nullptr)));
         }
         UpdateCursor_506E00(connection.Owner());
-        render::SortTextures_520790(connection.Owner());
+        render::SortTextures_520790();
         UpdateQueuedTextAndGraphicHover_507140(connection.Owner());
         static_cast<void>(render::UpdatePalette_450BB0());
         ClearKeyFlags_459760(connection.Owner());

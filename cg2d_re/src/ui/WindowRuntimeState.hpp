@@ -929,7 +929,7 @@ void WindowChat_RequestWidthIncrease(session::ClientSession& session); // 请求
 void WindowChat_RequestWidthDecrease(session::ClientSession& session); // 请求宽度-1。
 // WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x004771B0。
-void WindowNumber_Draw(session::ClientSession& session,
+void WindowNumber_Draw(
     std::int32_t x, std::int32_t y, std::wstring_view text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);
 // WND01：运行步进乘长度后取扣宽，见doc/cg2d_window_number_draw_spec.md。

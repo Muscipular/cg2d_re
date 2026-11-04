@@ -79,9 +79,9 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
     if (IsClientDiagnosticsEnabled()) {
         std::wstring message;
         text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);
-        static_cast<void>(render::DrawText2_456670(session, 200, 3, 3, 1, 5, message, 0));
+        static_cast<void>(render::DrawText2_456670(200, 3, 3, 1, 5, message, 0));
         text::FormatTo(message, L"M: {} S: {}", session.WorldScene().sceneType, session.WorldScene().sceneState);
-        static_cast<void>(render::DrawText2_456670(session, 200, 20, 3, 1, 5, message, 0));
+        static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
     }
 #endif
     VM_LIGHT_END
@@ -90,23 +90,23 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
 // 原函数：0x00458A40。
 void ShowModeChange_458A40(session::ClientSession& session)
 {
-    session.GraphicQueue().count = 0;
-    session.TextQueue().count = 0;
-    render::ResetGraphicCache_456D30(session);
-    static_cast<void>(render::DrawText2_456670(session,
+    cg::render::gGraphicQueue.count = 0;
+    cg::render::gTextQueue.count = 0;
+    render::ResetGraphicCache_456D30();
+    static_cast<void>(render::DrawText2_456670(
         250, 223, 3, 0, 0, L"正在改变描绘模式。", 0));
-    cg::yobi::DrawNineGrid_49BE00(session,
+    cg::yobi::DrawNineGrid_49BE00(
         245310, 196, 180, 256, 96, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),
         74, 54);
-    render::SortTextures_520790(session);
+    render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
     render::gRenderQueueMode103CF10 = 1;
-    session.GraphicQueue().count = 0;
-    session.TextQueue().count = 0;
-    render::ResetGraphicCache_456D30(session);
+    cg::render::gGraphicQueue.count = 0;
+    cg::render::gTextQueue.count = 0;
+    render::ResetGraphicCache_456D30();
     render::Flip_44C560();
 }
 
@@ -142,9 +142,9 @@ int MainLoop(session::ClientSession& session)
         auto& connection = session.Connection();
         KeepAlive_457AB0(connection);
         world::UpdateGameTime(session, &session.WorldScene().gameTime.value);
-        session.GraphicQueue().count = 0;
-        session.TextQueue().count = 0;
-        render::ResetGraphicCache_456D30(session);
+        cg::render::gGraphicQueue.count = 0;
+        cg::render::gTextQueue.count = 0;
+        render::ResetGraphicCache_456D30();
         if (connection.Active()) {
             const auto disconnect = connection.DisconnectState();
             if (disconnect == 1) {
@@ -166,7 +166,7 @@ int MainLoop(session::ClientSession& session)
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00(session);
-            render::SortTextures_520790(session);
+            render::SortTextures_520790();
             UpdateQueuedTextAndGraphicHover_507140(session);
         }
         render::UpdatePalette_450BB0();

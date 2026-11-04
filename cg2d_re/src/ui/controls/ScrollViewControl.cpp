@@ -38,8 +38,8 @@ void WindowElement_DrawScroll(WindowElement& element, int ox, int oy, const UICl
     const int bar = std::clamp(data.barWidth, 1, element.width);
     const int thumb = std::min(element.height, std::max(12, element.height * element.height / std::max(data.contentHeight, element.height)));
     const int range = std::max(1, element.height - thumb);
-    RendererDrawRectClipped(*element.owner->ownerSession, x + element.width - bar, y, bar, element.height, LAYER_UI, data.trackColor, &view);
-    RendererDrawRectClipped(*element.owner->ownerSession, x + element.width - bar, y + data.scrollY * range / maximum, bar, thumb, LAYER_UI, data.thumbColor, &view);
+    RendererDrawRectClipped(x + element.width - bar, y, bar, element.height, LAYER_UI, data.trackColor, &view);
+    RendererDrawRectClipped(x + element.width - bar, y + data.scrollY * range / maximum, bar, thumb, LAYER_UI, data.thumbColor, &view);
 }
 int WindowElement_ProcessScroll(WindowElement& element, int events, int ox, int oy, const UIClipRect* clip) {
     auto& window = *element.owner;

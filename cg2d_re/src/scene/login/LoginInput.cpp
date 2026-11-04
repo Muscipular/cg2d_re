@@ -56,7 +56,7 @@ static inline constexpr Capability4SavedSlotGeometry
         {476, 335, 44, 20},
     };
 
-static void DrawCapability4SavedSlotGraphic(session::ClientSession& session,
+static void DrawCapability4SavedSlotGraphic(
     const std::int32_t slotIndex,
     const std::int32_t offsetX,
     const std::int32_t offsetY,
@@ -65,7 +65,7 @@ static void DrawCapability4SavedSlotGraphic(session::ClientSession& session,
 {
     const std::int32_t drawX = kCapability4SavedSlotGeometry[slotIndex].x + offsetX;
     const std::int32_t drawY = kCapability4SavedSlotGeometry[slotIndex].y + offsetY;
-    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(session,
+    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
         drawX,
         drawY,
         layer,
@@ -252,7 +252,7 @@ void DrawLoginControl_503780(
 
     const std::int32_t drawY = control->drawY;
     const std::int32_t drawX = control->drawX;
-    cg::render::DrawGraphic(session, drawX, drawY, layer, imageNo, 1, &descriptor);
+    cg::render::DrawGraphic(drawX, drawY, layer, imageNo, 1, &descriptor);
 
     const std::int32_t sampledState = state;
     if (sampledState == 0) {
@@ -289,7 +289,7 @@ void DrawLoginControl_503780(
     const std::int32_t overlayWidth = control->width;
     const std::int32_t overlayRight = overlayWidth + overlayLeft + 2;
     const std::int32_t overlayDrawLeft = overlayLeft - 2;
-    cg::render::DrawGraphicHover(session,
+    cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(overlayDrawLeft),
         static_cast<std::uint16_t>(overlayDrawTop),
         static_cast<std::uint16_t>(overlayRight),
@@ -589,7 +589,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
 
         const std::int32_t oneBased = slotIndex + 1;
         if (oneBased < 10) {
-            DrawCapability4SavedSlotGraphic(connection.Owner(),
+            DrawCapability4SavedSlotGraphic(
                 slotIndex,
                 18,
                 3,
@@ -597,21 +597,21 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
                 digitBase + oneBased);
         } else {
             const std::int32_t tens = oneBased / 10;
-            DrawCapability4SavedSlotGraphic(connection.Owner(),
+            DrawCapability4SavedSlotGraphic(
                 slotIndex,
                 15,
                 3,
                 207,
                 digitBase + tens);
             const std::int32_t ones = oneBased % 10;
-            DrawCapability4SavedSlotGraphic(connection.Owner(),
+            DrawCapability4SavedSlotGraphic(
                 slotIndex,
                 21,
                 3,
                 207,
                 digitBase + ones);
         }
-        DrawCapability4SavedSlotGraphic(connection.Owner(),
+        DrawCapability4SavedSlotGraphic(
             slotIndex,
             0,
             0,

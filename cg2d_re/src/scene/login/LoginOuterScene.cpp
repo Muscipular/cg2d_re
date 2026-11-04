@@ -40,17 +40,17 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             cg::yobi::YobiClearUp_404D30(connection.Owner());
             connection.Owner().WorldScene().sceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
-            static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+            static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr)));
             static_cast<void>(cg::yobi::MarkDeath(nullptr));
             InitializeInputContexts_45C7C0(connection);
             connection.Owner().WorldScene().sceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
-            static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+            static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr)));
             break;
         case 6:
-            static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+            static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr)));
             break;
         case 7:
@@ -78,7 +78,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             }
             break;
         case 10:
-            static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
+            static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));

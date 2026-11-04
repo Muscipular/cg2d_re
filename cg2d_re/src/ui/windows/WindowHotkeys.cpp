@@ -379,7 +379,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
         WindowInstance* const window = currentWindow;
         const std::int16_t y = static_cast<std::int16_t>(window->y);
         const std::int16_t x = static_cast<std::int16_t>(window->x);
-        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+        static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 31),
             static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, text, 0, marker));
     }
@@ -403,7 +403,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
                 WindowInstance* const window = currentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);
                 const std::int16_t x = static_cast<std::int16_t>(window->x);
-                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
+                static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 96),
                     static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, text, 0, marker));
             }

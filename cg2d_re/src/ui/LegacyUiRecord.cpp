@@ -15,10 +15,9 @@
 
 namespace cg::ui {
 
-LegacyUiLayoutScope::LegacyUiLayoutScope(session::ClientSession& session)
-    : session_(session),
-      graphicStart_(session.GraphicQueue().count),
-      textStart_(session.TextQueue().count)
+LegacyUiLayoutScope::LegacyUiLayoutScope()
+    : graphicStart_(render::gGraphicQueue.count),
+      textStart_(render::gTextQueue.count)
 {
     offsetX_ = (platform::gWindowWidth - 640) / 2;
     offsetY_ = (platform::gWindowHeight - 480) / 2;
@@ -33,8 +32,8 @@ LegacyUiLayoutScope::~LegacyUiLayoutScope()
         const auto high = static_cast<std::uint16_t>((bits >> 16U) + static_cast<std::uint32_t>(offset));
         return std::bit_cast<std::int32_t>((static_cast<std::uint32_t>(high) << 16U) | low);
     };
-    for (std::uint16_t index = graphicStart_; index < session_.GraphicQueue().count; ++index) {
-        auto& record = session_.GraphicQueue().pending.records[index];
+    for (std::uint16_t index = graphicStart_; index < cg::render::gGraphicQueue.count; ++index) {
+        auto& record = cg::render::gGraphicQueue.pending.records[index];
         switch (record.batchType) {
         case 0:
         case 1:
@@ -54,8 +53,8 @@ LegacyUiLayoutScope::~LegacyUiLayoutScope()
             break;
         }
     }
-    for (std::uint32_t index = textStart_; index < session_.TextQueue().count; ++index) {
-        auto& record = session_.TextQueue().records[index];
+    for (std::uint32_t index = textStart_; index < cg::render::gTextQueue.count; ++index) {
+        auto& record = cg::render::gTextQueue.records[index];
         record.x = static_cast<std::int16_t>(record.x + offsetX_);
         record.y = static_cast<std::int16_t>(record.y + offsetY_);
     }
@@ -106,7 +105,7 @@ void DrawUiControl_45EFD0(
 
     const std::int32_t drawY = controlRecord->bounds.top;
     const std::int32_t drawX = controlRecord->bounds.left;
-    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(session,
+    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
         drawX,
         drawY,
         renderLayer,
@@ -147,7 +146,7 @@ void DrawUiControl_45EFD0(
     const std::int32_t controlWidth = controlRecord->bounds.width;
     const std::int32_t frameRight = (controlWidth + controlLeft) + 2;
     const std::int32_t frameLeft = controlLeft - 2;
-    cg::render::DrawGraphicHover(session,
+    cg::render::DrawGraphicHover(
         (frameLeft & 0xFFFF),
         (frameTop & 0xFFFF),
         (frameRight & 0xFFFF),

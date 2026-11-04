@@ -102,7 +102,7 @@ int WindowExtension::update(int, int hasFocused) {
 int WindowExtension::render(int) {
     if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) return 1;
     WindowRuntime_DrawCurrent(window);
-    RendererBreakWindowTextBatch(*window.ownerSession);
+    RendererBreakWindowTextBatch();
     return 1;
 }
 

@@ -77,7 +77,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
         const std::int32_t compositionRight = drawX + compositionWidth;
         const std::int32_t compositionBottom = drawY
             + render::GetFontMetrics(drawFontType).doubleHeight;
-        cg::render::DrawGraphicHover(connection.Owner(),
+        cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(drawX - 1),
             static_cast<std::uint16_t>(drawY - 1),
             static_cast<std::uint16_t>(compositionRight),
@@ -171,7 +171,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
         &primaryButton, 207, 0, 0, nonzeroMode);
     cg::ui::DrawUiControl_45EFD0(connection.Owner(),
         &secondaryButton, 207, 0, 0, nonzeroMode);
-    static_cast<void>(DrawClientVersion(connection.Owner(), 540, 424, render::gPaletteCapability >= 1 ? 3 : 0));
+    static_cast<void>(DrawClientVersion(540, 424, render::gPaletteCapability >= 1 ? 3 : 0));
     return result;
 }
 

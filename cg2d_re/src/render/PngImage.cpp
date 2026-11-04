@@ -1,5 +1,4 @@
 #include "cg/render/PngImage.hpp"
-#include "cg/session/ClientSession.hpp"
 
 #include "PngImageInternal.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -172,7 +171,7 @@ bool UpdatePixelImage(PixelImage* const image, const std::uint32_t* const pixels
 
 void ReleasePixelImage(PixelImage* const image) { delete image; }
 
-std::int32_t DrawGraphicImage(session::ClientSession& session, const std::int32_t imageNo,
+std::int32_t DrawGraphicImage(const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
     const std::uint8_t layer, const PngRectangle* const clipRectangle, const std::uint32_t color)
 {
@@ -184,7 +183,7 @@ std::int32_t DrawGraphicImage(session::ClientSession& session, const std::int32_
     image.width = static_cast<std::int16_t>(entry.width);
     image.height = static_cast<std::int16_t>(entry.height);
     image.surface.Bind(entry.head->surface);
-    const auto index = DrawPixelImage(session, &image, x, y, width, height, color, layer, clipRectangle);
+    const auto index = DrawPixelImage(&image, x, y, width, height, color, layer, clipRectangle);
     if (index >= 0) GetPngRuntime().batches[index].graphicIndex = imageNo;
     return index;
 }
@@ -254,7 +253,7 @@ bool CompositeGraphicPixels(const std::int32_t imageNo, const PngRectangle& sour
     return true;
 }
 
-std::int32_t DrawPixelImage(session::ClientSession& session, PixelImage* const image,
+std::int32_t DrawPixelImage(PixelImage* const image,
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
     const std::uint32_t color, const std::uint8_t layer, const PngRectangle* const clipRectangle)
 {
@@ -267,7 +266,7 @@ std::int32_t DrawPixelImage(session::ClientSession& session, PixelImage* const i
     TextureRectangle source {0, 0, image->width, image->height};
     TextureRectangle destination {x, y, x + width, y + height};
     if (!ClipPngDestination(destination, source, clipRectangle)) return -1;
-    const auto index = DrawGraphic(session, 0, 0, layer, -2, 0, nullptr);
+    const auto index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
     if (index < 0) return index;
     auto& batch = runtime.batches[index];
     batch.surface.Bind(image->surface.Get());
@@ -275,7 +274,7 @@ std::int32_t DrawPixelImage(session::ClientSession& session, PixelImage* const i
     batch.source = source;
     batch.destination = destination;
     batch.color = color;
-    auto& record = session.GraphicQueue().pending.records[index];
+    auto& record = cg::render::gGraphicQueue.pending.records[index];
     record.reference.pngImage = &batch;
     record.batchType = GraphicBatch_PngImage;
     return index;
@@ -339,7 +338,7 @@ std::size_t ReadPngRectangle(
     return SUCCEEDED(result) ? requiredSize : 0;
 }
 
-std::int32_t DrawPngImage(session::ClientSession& session,
+std::int32_t DrawPngImage(
     const wchar_t* const path, const PngRectangle* const sourceRectangle,
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::int32_t height,
     const std::uint32_t color, const std::uint8_t layer, const PngRectangle* const clipRectangle)
@@ -439,7 +438,7 @@ std::int32_t DrawPngImage(session::ClientSession& session,
     if (!ClipPngDestination(destination, source, clipRectangle)) {
         return -1;
     }
-    const std::int32_t index = DrawGraphic(session, 0, 0, layer, -2, 0, nullptr);
+    const std::int32_t index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
     if (index < 0) {
         return index;
     }
@@ -453,7 +452,7 @@ std::int32_t DrawPngImage(session::ClientSession& session,
     batch.destination = {drawX, drawY, drawX + drawWidth, drawY + drawHeight};
     batch.color = color;
     batch.graphicIndex = -1;
-    auto& record = session.GraphicQueue().pending.records[index];
+    auto& record = cg::render::gGraphicQueue.pending.records[index];
     record.reference.pngImage = &batch;
     record.batchType = GraphicBatch_PngImage;
     return index;

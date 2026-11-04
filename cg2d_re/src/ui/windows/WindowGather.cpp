@@ -682,7 +682,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                     auto* const element25 = elementsWindow->FindElementById(WindowGatherElementId::Element2);
                     if (element25) {
                         const std::int32_t x = element25->x + window->x;
-                        static_cast<void>(render::DrawGraphic2_521DD0(*callbackWindow.ownerSession, x, y, 0xDF, graphic, 0, 0, descriptor));
+                        static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
                     }
                 }
             }
@@ -729,7 +729,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 auto* const element36 = elementsWindow->FindElementById(WindowGatherElementId::Element3);
                 if (element36) {
                     const std::int32_t x = element36->x + window->x;
-                    static_cast<void>(render::DrawGraphic2_521DD0(*callbackWindow.ownerSession, x, y, 0xDF, graphic, 0, 0, descriptor));
+                    static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
                 }
             }
         }
@@ -751,7 +751,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                     auto* const element44 = elementsWindow->FindElementById(WindowGatherElementId::Element4);
                     if (element44) {
                         const std::int32_t x = element44->x + window->x;
-                        static_cast<void>(render::DrawGraphic2_521DD0(*callbackWindow.ownerSession, x, y, 0xDF, backGraphic, 0, 0, descriptor));
+                        static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, backGraphic, 0, 0, descriptor));
                     }
                 }
             }
@@ -868,7 +868,7 @@ static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow,
             const WindowElement* const element = elementPtr;
             const std::int32_t y = element->y + window->y + 24;
             const std::int32_t x = element->x + window->x + 24;
-            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 0xDF, resultImage, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, resultImage, 0, &descriptor));
         }
     }
     WindowInstance* const window = currentWindow;
@@ -877,7 +877,7 @@ static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow,
         const WindowElement* const element = elementPtr;
         const std::int32_t y = element->y + window->y + 24;
         const std::int32_t x = element->x + window->x + 24;
-        static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 0xDF, 0x3B5C3, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, 0x3B5C3, 0, &descriptor));
     }
     return 0;
 }

@@ -244,7 +244,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
                     auto* const elementXElement = elementsWindow->FindElementById(NativeElementKey(firstDigit + digit));
                     if (elementXElement) {
                         const std::int32_t elementX = elementXElement->x;
-                        static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
+                        static_cast<void>(cg::render::DrawGraphic(
                             elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
                     }
                 }
@@ -260,7 +260,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
                 if (elementXElement) {
                     const std::int32_t elementX = elementXElement->x;
                     const std::int32_t windowX = window->x;
-                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
+                    static_cast<void>(cg::render::DrawGraphic(
                         elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
                 }
             }

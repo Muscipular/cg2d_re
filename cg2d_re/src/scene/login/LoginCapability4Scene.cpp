@@ -27,16 +27,16 @@
 
 namespace cg::world {
 
-static std::int32_t DrawCapability4Base(session::ClientSession& session)
+static std::int32_t DrawCapability4Base()
 {
-    return cg::render::StretchGraphicToScreen(session, cg::render::QueueOriginalPaletteGraphic_45F090(session, 0, 0, 3, 99657, 0, -1));
+    return cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99657, 0, -1));
 }
 
 static std::int32_t ProcessCapability4CommonTail(network::CgConnection& connection)
 {
-    static_cast<void>(DrawCapability4Base(connection.Owner()));
+    static_cast<void>(DrawCapability4Base());
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 69, 350, 206, 246680, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(69, 350, 206, 246680, 0, -1));
     return cg::login::ProcessCapability4SavedSlotSelector_465430(connection);
 }
 
@@ -76,43 +76,43 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 99653, 0, fade)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99653, 0, fade)));
             } else if (phaseBits == 1U) {
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 99653, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99653, 0, -1)));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(sceneUi.capability4IntroAlpha) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 4, 99654, 0, fade)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 4, 99654, 0, fade)));
             } else if (phaseBits == 2U) {
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 99653, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99653, 0, -1)));
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 4, 99654, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 4, 99654, 0, -1)));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(sceneUi.capability4IntroAlpha) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 5, 99655, 0, fade)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 5, 99655, 0, fade)));
             } else {
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 99653, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 99653, 0, -1)));
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 4, 99654, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 4, 99654, 0, -1)));
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 5, 99655, 0, -1)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 5, 99655, 0, -1)));
                 const std::uint32_t fadeBits =
                     (std::bit_cast<std::uint32_t>(sceneUi.capability4IntroAlpha) << 24U)
                     + 0x00FFFFFFU;
                 const std::int32_t fade =
                     std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
-                    cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 6, 99656, 0, fade)));
+                    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 6, 99656, 0, fade)));
             }
 
             sceneUi.capability4IntroAlpha = sceneUi.capability4IntroAlpha + 6;
@@ -140,7 +140,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         static_cast<void>(cg::login::detail::InitializeSavedState_533300(connection.Owner()));
         login::InitializeCapability4Input_465320(connection);
         connection.Owner().WorldScene().sceneState = 3;
-        return DrawCapability4Base(connection.Owner());
+        return DrawCapability4Base();
 
     case 3: {
         sceneUi.capability4FrameCounter = sceneUi.capability4FrameCounter + 1;
@@ -152,7 +152,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             login::ProcessCapability4Input_464E30(connection);
         if (result == 1) {
             if (!login::SaveCapability4InputSlot(connection)) {
-                return DrawCapability4Base(connection.Owner());
+                return DrawCapability4Base();
             }
             login::detail::SaveCredentialRecordsWithoutPasswords_533730(connection.Owner());
             static_cast<void>(login::detail::PlaySe(connection.Owner(), 53, 320, 240));
@@ -201,7 +201,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
     case 5: {
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
-        const std::int32_t result = DrawCapability4Base(connection.Owner());
+        const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 6;
         return result;
     }
@@ -216,7 +216,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
     case 7: {
         login::detail::ResetCapability4Modal_464440(connection);
         static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
-        const std::int32_t result = DrawCapability4Base(connection.Owner());
+        const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 8;
         return result;
     }
@@ -241,7 +241,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(connection.Owner(), physicalSlot));
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(connection.Owner(), 56, 320, 240));
-        const std::int32_t result = DrawCapability4Base(connection.Owner());
+        const std::int32_t result = DrawCapability4Base();
         connection.Owner().WorldScene().sceneState = 10;
         return result;
     }

@@ -448,7 +448,7 @@ std::wstring BigMapSurface::Status() const {
     return status;
 }
 
-void BigMapSurface::Render(session::ClientSession& session, int originX, int originY, std::uint8_t layer, const render::PngRectangle& clip) {
+void BigMapSurface::Render(int originX, int originY, std::uint8_t layer, const render::PngRectangle& clip) {
     if (!state_->loaded) return;
     auto& state = *state_;
     const int offsetX = originX + x + static_cast<int>(std::round(w / 2.0 - (kMapOriginX + 32 * (mapX + mapY)) / state.divisor));
@@ -464,7 +464,7 @@ void BigMapSurface::Render(session::ClientSession& session, int originX, int ori
                 tile.image.reset(); tile.failed = true; tile.dirty = true; continue;
             }
         }
-        if (render::DrawPixelImage(session, tile.image.get(), dx, dy, state.tileWidth, state.tileHeight, 0xFFFFFFFFu, layer, &clip) < 0) {
+        if (render::DrawPixelImage(tile.image.get(), dx, dy, state.tileWidth, state.tileHeight, 0xFFFFFFFFu, layer, &clip) < 0) {
             tile.failed = true; tile.dirty = true;
         }
     }

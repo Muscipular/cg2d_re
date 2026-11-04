@@ -1,7 +1,6 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
-#include "cg/session/ClientSession.hpp"
 
 #include <bit>
 #include <cstdint>
@@ -30,7 +29,7 @@ static std::int16_t SubtractSigned16Wrapping(
 }
 
 // 原函数：0x00520970。
-std::int32_t DrawGraphic3_520970(session::ClientSession& session,
+std::int32_t DrawGraphic3_520970(
     const std::int32_t x,
     const std::int32_t y,
     const std::uint8_t layer,
@@ -41,13 +40,13 @@ std::int32_t DrawGraphic3_520970(session::ClientSession& session,
     const GraphicDescriptor16* const descriptor)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
     GraphicCacheItem32* const item =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     // 原复用 isGraphicNo 参数槽；底层未写出时保留入参位模式。
     std::int32_t graphicIndex = isGraphicNo;
     std::int16_t offsetX = 0;
@@ -68,10 +67,10 @@ std::int32_t DrawGraphic3_520970(session::ClientSession& session,
     }
 
     GraphicCache3* const cache3 =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cache3->layer = layer;
     const std::int16_t cacheIndex =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     const std::int32_t itemY = y;
     cache3->cacheIndex = cacheIndex;
     item->x = x;
@@ -98,18 +97,18 @@ std::int32_t DrawGraphic3_520970(session::ClientSession& session,
         item->batchType = 1;
     }
     if (graphicIndex >= 0xC18 && graphicIndex <= 0xC21) {
-        session.GraphicQueue().specialGraphicPending = 1;
+        cg::render::gGraphicQueue.specialGraphicPending = 1;
     }
 
-    const std::uint16_t resultBits = session.GraphicQueue().count;
+    const std::uint16_t resultBits = cg::render::gGraphicQueue.count;
     const std::int32_t result = static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(resultBits));
-    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1U);
+    cg::render::gGraphicQueue.count = static_cast<std::uint16_t>(resultBits + 1U);
     return result;
 }
 
 // 原函数：0x0045F090。
-std::int32_t QueueOriginalPaletteGraphic_45F090(session::ClientSession& session,
+std::int32_t QueueOriginalPaletteGraphic_45F090(
     const std::int32_t x,
     const std::int32_t y,
     const std::uint8_t layer,
@@ -128,24 +127,24 @@ std::int32_t QueueOriginalPaletteGraphic_45F090(session::ClientSession& session,
     const std::int32_t itemY = y;
     const std::int32_t itemX = x;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    return DrawGraphic3_520970(session,
+    return DrawGraphic3_520970(
         itemX, itemY, itemLayer, itemImageNo, itemValue4, 1, 0, descriptorAddress);
 }
 
 // 原函数：0x00521C80。
-std::int32_t QueueGraphicWithResourceOffset_521C80(session::ClientSession& session,
+std::int32_t QueueGraphicWithResourceOffset_521C80(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
     const std::int32_t imageNo, const std::int32_t value4,
     const GraphicDescriptor16* const descriptor)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
     GraphicCacheItem32* const item =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     std::int32_t graphicIndex = imageNo;
     std::int16_t offsetX = 0;
     std::int16_t offsetY = 0;
@@ -156,9 +155,9 @@ std::int32_t QueueGraphicWithResourceOffset_521C80(session::ClientSession& sessi
     }
 
     GraphicCache3* const cache3 =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cache3->layer = layer;
-    cache3->cacheIndex = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+    cache3->cacheIndex = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     item->x = x + offsetX;
     const std::int32_t adjustedY = y + offsetY;
     const std::int32_t itemValue4 = value4;
@@ -176,28 +175,28 @@ std::int32_t QueueGraphicWithResourceOffset_521C80(session::ClientSession& sessi
     }
     if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
         || (imageNo >= 0x1DF0 && imageNo <= 0x1DFF)) {
-        session.GraphicQueue().specialGraphicPending = 1;
+        cg::render::gGraphicQueue.specialGraphicPending = 1;
     }
-    const std::uint16_t resultBits = session.GraphicQueue().count;
+    const std::uint16_t resultBits = cg::render::gGraphicQueue.count;
     const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
-    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1u);
+    cg::render::gGraphicQueue.count = static_cast<std::uint16_t>(resultBits + 1u);
     return result;
 }
 
 // 原函数：0x00521DD0。
-std::int32_t DrawGraphic2_521DD0(session::ClientSession& session,
+std::int32_t DrawGraphic2_521DD0(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
     const std::int32_t graphicIndex, const std::int32_t value4,
     const std::uint8_t batchType, const GraphicDescriptor16* const descriptor)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
     GraphicCacheItem32* const item =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     if (graphicIndex >= -1 && graphicIndex <= 999) {
         return -2;
     }
@@ -209,9 +208,9 @@ std::int32_t DrawGraphic2_521DD0(session::ClientSession& session,
     }
 
     GraphicCache3* const cache3 =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cache3->layer = layer;
-    cache3->cacheIndex = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+    cache3->cacheIndex = std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     const std::int32_t itemY = y;
     item->x = x + offsetX;
     const GraphicDescriptor16* const descriptorAddress = descriptor;
@@ -230,16 +229,16 @@ std::int32_t DrawGraphic2_521DD0(session::ClientSession& session,
     }
     if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
         || (graphicIndex >= 0x1DF0 && graphicIndex <= 0x1DFF)) {
-        session.GraphicQueue().specialGraphicPending = 1;
+        cg::render::gGraphicQueue.specialGraphicPending = 1;
     }
-    const std::uint16_t resultBits = session.GraphicQueue().count;
+    const std::uint16_t resultBits = cg::render::gGraphicQueue.count;
     const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
-    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1u);
+    cg::render::gGraphicQueue.count = static_cast<std::uint16_t>(resultBits + 1u);
     return result;
 }
 
 // 原函数：0x00521B10。
-std::int32_t DrawGraphic(session::ClientSession& session,
+std::int32_t DrawGraphic(
     const std::int32_t x,
     const std::int32_t y,
     const std::uint8_t layer,
@@ -248,13 +247,13 @@ std::int32_t DrawGraphic(session::ClientSession& session,
     const GraphicDescriptor16* const descriptor)
 {
     const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
     GraphicCacheItem32* const item =
-        session.GraphicQueue().pending.records.data() + initialCount;
+        cg::render::gGraphicQueue.pending.records.data() + initialCount;
     std::int32_t finalImageNo = imageNo;
     std::int16_t offsetX = 0;
     std::int16_t offsetY = 0;
@@ -268,10 +267,10 @@ std::int32_t DrawGraphic(session::ClientSession& session,
     }
 
     GraphicCache3* const cache3 =
-        session.GraphicQueue().pending.cache3.data() + initialCount;
+        cg::render::gGraphicQueue.pending.cache3.data() + initialCount;
     cache3->layer = layer;
     cache3->cacheIndex =
-        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
+        std::bit_cast<std::int16_t>(cg::render::gGraphicQueue.count);
 
     item->x = x + offsetX;
     const std::int32_t adjustedY = y + offsetY;
@@ -290,48 +289,48 @@ std::int32_t DrawGraphic(session::ClientSession& session,
     }
     if ((finalImageNo >= 0xC18 && finalImageNo <= 0xC21)
         || (imageNo >= 0x1DF0 && imageNo <= 0x1DFF)) {
-        session.GraphicQueue().specialGraphicPending = 1;
+        cg::render::gGraphicQueue.specialGraphicPending = 1;
     }
 
-    const std::uint16_t resultBits = session.GraphicQueue().count;
+    const std::uint16_t resultBits = cg::render::gGraphicQueue.count;
     const std::int32_t result = static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(resultBits));
-    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1U);
+    cg::render::gGraphicQueue.count = static_cast<std::uint16_t>(resultBits + 1U);
     return result;
 }
 
-std::int32_t DrawBattleBackgroundScaled(session::ClientSession& session,
+std::int32_t DrawBattleBackgroundScaled(
     const std::uint8_t layer, const std::int32_t imageNo, const GraphicDescriptor16* const descriptor)
 {
-    const std::int32_t pendingIndex = DrawGraphic(session, 320, 240, layer, imageNo, 0, descriptor);
+    const std::int32_t pendingIndex = DrawGraphic(320, 240, layer, imageNo, 0, descriptor);
     if (pendingIndex >= 0) {
-        session.GraphicQueue().pending.records[pendingIndex].batchType = GraphicBatch_BattleBackground;
+        cg::render::gGraphicQueue.pending.records[pendingIndex].batchType = GraphicBatch_BattleBackground;
     }
     return pendingIndex;
 }
 
-std::int32_t StretchGraphicToScreen(session::ClientSession& session,
+std::int32_t StretchGraphicToScreen(
     const std::int32_t pendingIndex, const bool trimTransparentBorder)
 {
     if (pendingIndex < 0) {
         return pendingIndex;
     }
-    session.GraphicQueue().pending.records[pendingIndex].batchType = trimTransparentBorder
+    cg::render::gGraphicQueue.pending.records[pendingIndex].batchType = trimTransparentBorder
         ? GraphicBatch_FullscreenBackgroundTrimmed : GraphicBatch_FullscreenBackground;
     return pendingIndex;
 }
 
 // R08：参考 RendererDrawRect；颜色是0xAARRGGBB，四边仍按S16写入原矩形槽。
-std::int32_t DrawRectangle(session::ClientSession& session,
+std::int32_t DrawRectangle(
     const std::int16_t x, const std::int16_t y,
     const std::int16_t width, const std::int16_t height,
     const std::uint8_t layer, const std::uint32_t color)
 {
-    const std::int32_t index = DrawGraphic(session, 0, 0, layer, -2, 0, nullptr);
+    const std::int32_t index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
     if (index < 0) {
         return index;
     }
-    auto& record = session.GraphicQueue().pending.records[index];
+    auto& record = cg::render::gGraphicQueue.pending.records[index];
     const auto right = static_cast<std::uint16_t>(x + width);
     const auto bottom = static_cast<std::uint16_t>(y + height);
     record.x = std::bit_cast<std::int32_t>(

@@ -53,7 +53,7 @@ std::int32_t QueueText_521A30(
     const std::uint32_t headToken,
     const std::uint8_t layer)
 {
-    const std::uint16_t initialCountBits = platform::gPendingGraphicCount;
+    const std::uint16_t initialCountBits = session.GraphicQueue().count;
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(initialCountBits);
     if (initialCount >= MAX_QUEUE_SIZE) {
@@ -61,21 +61,21 @@ std::int32_t QueueText_521A30(
     }
 
     const std::size_t queueIndex = static_cast<std::size_t>(initialCount);
-    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
+    GraphicCache3& cache3 = session.GraphicQueue().pending.cache3[queueIndex];
     cache3.layer = layer;
     cache3.cacheIndex =
-        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        std::bit_cast<std::int16_t>(session.GraphicQueue().count);
 
-    GraphicCacheItem32& record = gLegacyPendingStorage.records[queueIndex];
+    GraphicCacheItem32& record = session.GraphicQueue().pending.records[queueIndex];
     record.imageNo = -1;
     record.value4 = 0;
     record.batchType = 4;
     record.reference.textToken = headToken;
 
-    const std::uint16_t resultBits = platform::gPendingGraphicCount;
+    const std::uint16_t resultBits = session.GraphicQueue().count;
     const std::int32_t result = static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(resultBits));
-    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1U);
+    session.GraphicQueue().count = static_cast<std::uint16_t>(resultBits + 1U);
     return result;
 }
 

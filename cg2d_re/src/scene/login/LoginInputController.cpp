@@ -99,7 +99,7 @@ std::int32_t ProcessCapability4Input_464E30(network::CgConnection& connection)
         drawX + compositionWidth;
     const std::int32_t compositionBottom = drawY
         + render::GetFontMetrics(drawFontType).doubleHeight;
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(connection.Owner(),
         static_cast<std::uint16_t>(drawX - 1),
         static_cast<std::uint16_t>(drawY - 1),
         static_cast<std::uint16_t>(compositionRight),
@@ -362,7 +362,7 @@ std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const s
                 < static_cast<std::int32_t>(kBackgroundImages.size())
         ? static_cast<std::size_t>(rawBackgroundIndex)
         : std::size_t{0};
-    static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::DrawGraphic(connection.Owner(),
         320,
         240,
         3,

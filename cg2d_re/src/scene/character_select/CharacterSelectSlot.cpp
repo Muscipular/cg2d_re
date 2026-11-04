@@ -96,7 +96,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             color = 8;
         }
 
-        cg::render::QueueOriginalPaletteGraphic_45F090(
+        cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
             coordinates[4].x,
             coordinates[4].y,
             10,
@@ -191,14 +191,14 @@ std::int32_t ProcessCharacterSlot_461B30(
         }
     }
 
-    cg::render::QueueOriginalPaletteGraphic_45F090(
+    cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
         coordinates[6].x,
         coordinates[6].y,
         4,
         245062,
         0,
         -1);
-    cg::render::QueueOriginalPaletteGraphic_45F090(baseX, 51, 4, 245061, 0, -1);
+    cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), baseX, 51, 4, 245061, 0, -1);
     // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
     if (connection.Owner().WorldScene().sceneState == 11 && record.name[0] != '\0'
         && platform::ConsumeAutoLoginCharacterSlot(slot)) {

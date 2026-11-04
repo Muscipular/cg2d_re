@@ -243,7 +243,7 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
             }
     }
     WindowInstance* const window = currentWindow;
-    cg::yobi::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession, 245300, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -288,7 +288,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
             }
             auto* const selectRowElement2 = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);
             if (selectRowElement2) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
                     static_cast<std::uint16_t>(x + selectRowElement2->width + 2),
                     static_cast<std::uint16_t>(y + 14), 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);

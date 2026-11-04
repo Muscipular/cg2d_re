@@ -313,7 +313,7 @@ static void MergeMapDrawCache_46C4D0()
 }
 
 // 原 46C1C0 的三处提交；分流始终读取主项 clip，挂件不能覆盖此选择。
-static void QueueMapDrawRecord(
+static void QueueMapDrawRecord(session::ClientSession& session,
     const MapDrawRecord* const record, const MapDrawRecord* const primary, const bool attachment)
 {
     const bool clipped = primary->descriptor.clipMode == 1;
@@ -322,10 +322,10 @@ static void QueueMapDrawRecord(
     const std::int32_t y = record->y;
     const std::int32_t x = record->x;
     if (clipped) {
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(session,
             x, y, 10, imageNo, 0, 0, batch, &record->descriptor));
     } else {
-        static_cast<void>(render::DrawGraphic2_521DD0(
+        static_cast<void>(render::DrawGraphic2_521DD0(session,
             x, y, 10, imageNo, 0, batch, &record->descriptor));
     }
 }
@@ -372,7 +372,7 @@ void SortAndMergeMapDrawCache_46C2F0()
 }
 
 // 原函数：0x0046C1C0。
-std::int32_t QueueMergedMapDrawCache_46C1C0()
+std::int32_t QueueMergedMapDrawCache_46C1C0(session::ClientSession& session)
 {
     std::int32_t count = gMapDrawMergedCount9EE914;
     std::int32_t index = 0;
@@ -380,11 +380,11 @@ std::int32_t QueueMergedMapDrawCache_46C1C0()
         MapDrawRecord* primary = gMapDrawMerged9A86E8.data();
         do {
             for (MapDrawRecord* record = primary->before; record != nullptr; record = record->before) {
-                QueueMapDrawRecord(record, primary, true);
+                QueueMapDrawRecord(session, record, primary, true);
             }
-            QueueMapDrawRecord(primary, primary, false);
+            QueueMapDrawRecord(session, primary, primary, false);
             for (MapDrawRecord* record = primary->after; record != nullptr; record = record->after) {
-                QueueMapDrawRecord(record, primary, true);
+                QueueMapDrawRecord(session, record, primary, true);
             }
             count = gMapDrawMergedCount9EE914;
             ++index;
@@ -460,7 +460,7 @@ void CacheMapObjectGraphic_46DFF0(
 }
 
 // 原函数：0x0046C060。
-void DrawGearNormal_46C060(
+void DrawGearNormal_46C060(session::ClientSession& session,
     const std::int32_t primaryIndex, const std::int32_t before,
     const std::int32_t imageNo, const std::int16_t x, const std::int16_t y,
     const render::GraphicDescriptor16* const descriptor, const std::uint8_t batchType,
@@ -473,9 +473,9 @@ void DrawGearNormal_46C060(
         // AF406：4.06的FIELD/倒地WING使用独立层，裁剪门禁仍跟随主对象。
         const auto& primary = detail::gMapDrawPrimary9EE918[primaryIndex];
         if (primary.descriptor.clipMode == 1) {
-            static_cast<void>(render::DrawGraphic3_520970(x, y, layer, imageNo, 0, 0, batchType, descriptor));
+            static_cast<void>(render::DrawGraphic3_520970(session, x, y, layer, imageNo, 0, 0, batchType, descriptor));
         } else {
-            static_cast<void>(render::DrawGraphic2_521DD0(x, y, layer, imageNo, 0, batchType, descriptor));
+            static_cast<void>(render::DrawGraphic2_521DD0(session, x, y, layer, imageNo, 0, batchType, descriptor));
         }
         return;
     }

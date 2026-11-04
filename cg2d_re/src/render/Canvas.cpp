@@ -1,4 +1,5 @@
 #include "cg/render/Canvas.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "CanvasInternal.hpp"
 #include "LegacyTextureDrawing.hpp"
@@ -627,7 +628,7 @@ static bool CountCanvasShapeLimits(const CanvasShape& shape, std::size_t& totalP
     return totalPoints <= CANVAS_MAX_POINTS && totalVertices <= CANVAS_MAX_BATCH_VERTICES;
 }
 
-std::int32_t DrawCanvasClipped(
+std::int32_t DrawCanvasClipped(session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::uint8_t layer, const std::span<const CanvasShape> shapes,
@@ -660,7 +661,7 @@ std::int32_t DrawCanvasClipped(
         ReleaseCanvasBatches();
         gCanvasBatchFrame = platform::gFrameCount;
     }
-    const std::int32_t index = DrawGraphic(0, 0, layer, -2, 0, nullptr);
+    const std::int32_t index = DrawGraphic(session, 0, 0, layer, -2, 0, nullptr);
     if (index < 0) {
         return index;
     }
@@ -673,7 +674,7 @@ std::int32_t DrawCanvasClipped(
     for (const auto& shape : shapes) {
         batch.shapes.push_back(static_cast<const CanvasPreparedShape&>(shape));
     }
-    auto& record = gLegacyPendingStorage.records[index];
+    auto& record = session.GraphicQueue().pending.records[index];
     record.reference.canvas = &batch;
     record.batchType = GraphicBatch_Canvas;
     return index;

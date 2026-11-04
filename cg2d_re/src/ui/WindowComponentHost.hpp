@@ -72,8 +72,8 @@ inline int FontMeasure(std::wstring_view value, int font) {
     return render::TextMeasure(value, font);
 }
 inline void RendererBreakWindowTextBatch(session::ClientSession& session) { session.TextQueue().tails[FONT_LAYER_WINDOW] = 0; }
-inline int RendererDrawRect(std::int16_t x, std::int16_t y, std::int16_t w, std::int16_t h, std::uint8_t layer, COLORREF color) {
-    return render::DrawRectangle(x, y, w, h, layer, color);
+inline int RendererDrawRect(session::ClientSession& session, std::int16_t x, std::int16_t y, std::int16_t w, std::int16_t h, std::uint8_t layer, COLORREF color) {
+    return render::DrawRectangle(session, x, y, w, h, layer, color);
 }
 inline void YobiMarkDeath(YobiAction* action) { if (action) action->deathFlag = 1; }
 inline void InfoRenderText(session::ClientSession& session, std::int16_t x, std::int16_t y, std::uint8_t layer, char font, std::uint8_t color, std::wstring_view value, char hover, char frame) {

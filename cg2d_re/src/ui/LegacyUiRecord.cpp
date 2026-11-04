@@ -17,7 +17,7 @@ namespace cg::ui {
 
 LegacyUiLayoutScope::LegacyUiLayoutScope(session::ClientSession& session)
     : session_(session),
-      graphicStart_(platform::gPendingGraphicCount),
+      graphicStart_(session.GraphicQueue().count),
       textStart_(session.TextQueue().count)
 {
     offsetX_ = (platform::gWindowWidth - 640) / 2;
@@ -33,8 +33,8 @@ LegacyUiLayoutScope::~LegacyUiLayoutScope()
         const auto high = static_cast<std::uint16_t>((bits >> 16U) + static_cast<std::uint32_t>(offset));
         return std::bit_cast<std::int32_t>((static_cast<std::uint32_t>(high) << 16U) | low);
     };
-    for (std::uint16_t index = graphicStart_; index < platform::gPendingGraphicCount; ++index) {
-        auto& record = render::gLegacyPendingStorage.records[index];
+    for (std::uint16_t index = graphicStart_; index < session_.GraphicQueue().count; ++index) {
+        auto& record = session_.GraphicQueue().pending.records[index];
         switch (record.batchType) {
         case 0:
         case 1:
@@ -106,7 +106,7 @@ void DrawUiControl_45EFD0(
 
     const std::int32_t drawY = controlRecord->bounds.top;
     const std::int32_t drawX = controlRecord->bounds.left;
-    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
+    static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(session,
         drawX,
         drawY,
         renderLayer,
@@ -147,7 +147,7 @@ void DrawUiControl_45EFD0(
     const std::int32_t controlWidth = controlRecord->bounds.width;
     const std::int32_t frameRight = (controlWidth + controlLeft) + 2;
     const std::int32_t frameLeft = controlLeft - 2;
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(session,
         (frameLeft & 0xFFFF),
         (frameTop & 0xFFFF),
         (frameRight & 0xFFFF),

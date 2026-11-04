@@ -1186,11 +1186,11 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
             break;
         }
         if (type >= 0) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(type));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, type));
         }
         const std::int32_t currentSkill = payload->castSkill103C;
         if (currentSkill == BattleSkill_Death || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, BattleTiledEffect_SharedRow5));
         }
     }
 }
@@ -2404,11 +2404,11 @@ void UpdateBattleAction139_410000(YobiAction* const action)
             break;
         }
         if (type >= 0) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(type));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, type));
         }
         const std::int32_t currentSkill = payload->castSkill103C;
         if (currentSkill == BattleSkill_Death || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, BattleTiledEffect_SharedRow5));
         }
     }
 }
@@ -3410,9 +3410,9 @@ void UpdateBattleAction216_413400(YobiAction* const action)
     if (action->battleCastEffect10 != nullptr) {
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_MonWind) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_Wind));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, BattleTiledEffect_Wind));
         } else if (skill == BattleSkill_Acid) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_Water));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, BattleTiledEffect_Water));
         }
     }
 }

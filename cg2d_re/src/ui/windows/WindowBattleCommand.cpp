@@ -393,7 +393,7 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
             const auto backgroundWindowX = static_cast<std::int16_t>(backgroundWindow->x);
             const auto backgroundY = static_cast<std::int16_t>(backgroundWindowY + 69);
             const auto backgroundX = static_cast<std::int16_t>(backgroundWindowX + 2);
-            cg::yobi::DrawNineGrid_49BE00(0x3BE84, backgroundX, backgroundY, 296, 61, 223,
+            cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession, 0x3BE84, backgroundX, backgroundY, 296, 61, 223,
                 -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
         }
     }
@@ -1274,7 +1274,7 @@ static void WindowBattleCommand_DrawTargetHint(session::ClientSession& session)
         return;
     }
     const std::int32_t y = session.WorldScene().battle.commandState == 4 ? 88 : 91;
-    static_cast<void>(cg::render::DrawGraphic(platform::gWindowWidth - 138, y + 20, 212, 0x58B1, 0, nullptr));
+    static_cast<void>(cg::render::DrawGraphic(session, platform::gWindowWidth - 138, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(session,
         static_cast<std::int16_t>(platform::gWindowWidth - 257), static_cast<std::int16_t>(y + 12), 2, 0, 0,
         L"请选择目标", 0));
@@ -1695,7 +1695,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         if (draw) {
             const std::int32_t y = session.WorldScene().battle.commandY;
             const std::int32_t x = session.WorldScene().battle.commandX;
-            session.WorldScene().battle.petSkillGraphicIndex = cg::render::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
+            session.WorldScene().battle.petSkillGraphicIndex = cg::render::DrawGraphic(session, x, y, 212, imageNo, 2, nullptr);
         }
         if (session.WorldScene().battle.playerActionState == 1) {
             const std::int32_t count = session.WorldScene().battle.petActionCount;
@@ -1794,7 +1794,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
     for (std::int32_t index = 0; index < digitCount; ++index) {
         const std::int32_t digit =
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(session,
             firstDigitX + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
     }
     if (session.WorldScene().battle.modeFlag == 1) {

@@ -2816,7 +2816,7 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
     if (action->battleCastEffect10 != nullptr) {
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_MagicMissile || skill == BattleSkill_ConfusionShockwave) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
+            static_cast<void>(DrawBattleTiledEffect_41E890(*action->ownerSession, BattleTiledEffect_SharedRow5));
         }
     }
 }

@@ -22,7 +22,7 @@ public:
     double mapX = 0, mapY = 0; // 视口中心保留亚格坐标，拖动不量化到整格。
 
     bool PrepareMap(session::ClientSession& session);
-    void Render(int originX, int originY, std::uint8_t layer, const render::PngRectangle& clip);
+    void Render(session::ClientSession& session, int originX, int originY, std::uint8_t layer, const render::PngRectangle& clip);
     std::pair<int, int> MapToScreen(int gridX, int gridY) const;
     std::pair<int, int> ScreenToMap(int screenX, int screenY) const;
     void PanFrom(double startX, double startY, int deltaX, int deltaY);

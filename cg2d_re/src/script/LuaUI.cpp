@@ -1499,7 +1499,7 @@ LuaFunctionEx(LuaWindowRef, DrawRect) {
         return 1;
     }
     // m_log_iw(L"draw rect: %d %d %d %d layer: %d color %x\n", window->window.x + x, window->window.y + y, w, h, window->window.layer, color);
-    int index = RendererDrawRect(static_cast<std::int16_t>(window->window.x + x),
+    int index = RendererDrawRect(*window->window.ownerSession, static_cast<std::int16_t>(window->window.x + x),
         static_cast<std::int16_t>(window->window.y + y),
         static_cast<std::int16_t>(w), static_cast<std::int16_t>(h), LAYER_UI, color);
     lua_pushboolean(L, true);

@@ -98,7 +98,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
     const std::int32_t graphicHalfWidth = graphicWidth >> 1;
     const std::int32_t graphicY = graphicYOrigin + 123;
     const std::int32_t graphicX = graphicHalfWidth + graphicXOrigin;
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         graphicX,
         graphicY,
         std::uint8_t{0xDF},

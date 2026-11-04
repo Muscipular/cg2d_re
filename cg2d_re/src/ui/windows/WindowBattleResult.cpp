@@ -400,7 +400,7 @@ static std::int32_t WindowBattleResult_Draw(WindowInstance& callbackWindow, cons
             WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            cg::render::DrawGraphic(x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
+            cg::render::DrawGraphic(*callbackWindow.ownerSession, x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);

@@ -91,14 +91,14 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         }
     }
 
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         x - 40,
         top + 67,
         std::uint8_t{223},
         hover == 1 ? 245325 : 245323,
         0,
         nullptr);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         x + 40,
         top + 67,
         std::uint8_t{223},

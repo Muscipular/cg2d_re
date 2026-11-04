@@ -517,7 +517,7 @@ static void WindowShop_HandleSaleDrag(
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
-    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(session, x, y, 230, imageNo, 0, &descriptor));
 }
 
 // 原函数：0x004B6DA0。
@@ -2308,7 +2308,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x + 3), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + element.width), static_cast<std::uint16_t>(y + element.height),
                 223, frame, 0);
@@ -3197,7 +3197,7 @@ static std::int32_t WindowShop_HandleItemIcon(WindowInstance& callbackWindow, co
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -3240,7 +3240,7 @@ static std::int32_t WindowShop_HandleItemIcon(WindowInstance& callbackWindow, co
         const WindowElement& element = (*elementPtr);
         std::int32_t imageNo;
         std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
             element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     }
     return consumed;
@@ -3272,7 +3272,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -3284,7 +3284,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
         const WindowElement& element = (*elementPtr);
         std::int32_t imageNo;
         std::memcpy(&imageNo, &shop.detail.imageNo, sizeof(imageNo));
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
             element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     }
     return consumed;
@@ -3362,7 +3362,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
                 223, 254, 0);
@@ -3375,7 +3375,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -3388,7 +3388,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -3435,7 +3435,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
         const std::int32_t drawItem = std::bit_cast<std::int8_t>(shop.selectedSlots[row]);
         std::int32_t imageNo;
         std::memcpy(&imageNo, &shop.items[drawItem].imageNo, sizeof(imageNo));
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
             element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     }
     return consumed;
@@ -3597,7 +3597,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 2;
                 const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 2;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -3612,7 +3612,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 2;
             const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 2;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -3649,12 +3649,12 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
                 const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
                 if (item.itemId == shop.currencyItemId) {
-                    cg::render::DrawGraphicHover(
+                    cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                         static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                         static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
                         223, 254, 0);
                 }
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
                 const std::int32_t count = item.count;
                 if (count > 0) {
                     cg::text::FormatTo(buffer, L"{:3}", count);
@@ -3681,7 +3681,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
                 const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
                 if ((static_cast<std::uint32_t>(shop.selectionMask) & (1u << position)) != 0) {
-                    cg::render::DrawGraphicHover(
+                    cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                         static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                         static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
                         223, 256, 0);
@@ -3692,9 +3692,9 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                     ? 0
                     : shop.items[mappedItem].allowed;
                 if (allowed == 0) {
-                    static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, 23040, 0, nullptr));
                 }
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
                 const std::int32_t count = item.count;
                 if (count > 0) {
                     cg::text::FormatTo(buffer, L"{:3}", count);
@@ -3764,8 +3764,8 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
-    static_cast<void>(render::DrawGraphic3_520970(panelX + 100, offsetY + 381, 226, acceptImage, 0, 1, 0, &descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(panelX + 510, offsetY + 381, 226, cancelImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession, panelX + 100, offsetY + 381, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession, panelX + 510, offsetY + 381, 226, cancelImage, 0, 1, 0, &descriptor));
     std::wstring buffer;
     for (std::int32_t column = 0; column < 4; ++column) {
         const std::int32_t x = panelX + 18 + column * 152;
@@ -3773,7 +3773,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             const std::int32_t y = offsetY + 47 + row * 65;
             const WindowConfirmationItem& item = shop.confirmationItems[column * 5 + row];
             if (item.visible != 0) {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
@@ -3791,7 +3791,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
                     4, 12, nameColor, item.name, 0, nameFrame));
             }
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
@@ -3802,10 +3802,10 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
             cg::text::FormatTo(buffer, L"{}", amount.value);
             const std::int32_t y = offsetY + amount.y;
             const std::int32_t x = panelX + amount.x;
-            WindowNumber_Draw(x, y + 35, buffer, 0, 4, 1, 226);
+            WindowNumber_Draw(*callbackWindow.ownerSession, x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
         245300, panelX, panelY, 640, 383, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));

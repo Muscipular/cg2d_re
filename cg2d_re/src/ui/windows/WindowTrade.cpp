@@ -908,7 +908,7 @@ static std::int32_t WindowTrade_DrawPetRow(
         drawNumber(record->combatStats[5], L"{:3}", 215, 55);
         drawNumber(record->value5C, L"{:2}", 45, 55);
     }
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         x, y, graphicLayer, 243141, 0, 1, 0, descriptor);
 }
 
@@ -1033,13 +1033,13 @@ static std::int32_t WindowTrade_HandlePanel(
         }
     }
     std::int32_t imageNo = *tab == 0 ? 243028 : (selected == 0 ? 243029 : 243027);
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
         x + 12, y + 240, 223, imageNo, 0, 1, 0, descriptor));
     imageNo = *tab == 1 ? 243022 : (selected == 1 ? 243023 : 243021);
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
         x + 97, y + 240, 223, imageNo, 0, 1, 0, descriptor));
     imageNo = *tab == 2 ? 243025 : (selected == 2 ? 243026 : 243024);
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
         x + 182, y + 240, 223, imageNo, 0, 1, 0, descriptor));
     if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr; indexedElement3) indexedElement3->visible = 0;
     if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(scrollElement - 1)) : nullptr; indexedElement4) indexedElement4->visible = 0;
@@ -1053,14 +1053,14 @@ static std::int32_t WindowTrade_HandlePanel(
             const std::int32_t previousX = previous->x;
             const std::int32_t currentWindowX = window->x;
             const std::int32_t drawX = currentWindowX + previousX;
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
                 drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
         }
         imageNo = selected == 3 ? ((state & MouseFlag_LHoldPhysical) != 0 ? 243091 : 243092) : 243090;
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
             x + 252, y + 28, 223, imageNo, 0, 1, 0, descriptor));
         imageNo = selected == 4 ? ((state & MouseFlag_LHoldPhysical) != 0 ? 243094 : 243095) : 243093;
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
             x + 252, y + 220, 223, imageNo, 0, 1, 0, descriptor));
         if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr; indexedElement5) indexedElement5->visible = 1;
         if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(scrollElement - 1)) : nullptr; indexedElement6) indexedElement6->visible = 1;
@@ -1068,16 +1068,16 @@ static std::int32_t WindowTrade_HandlePanel(
     std::wstring buffer;
     if (*tab == 2) {
         cg::text::FormatTo(buffer, L"{:9}", displayAmount);
-        WindowNumber_Draw(x + 179, y + 88, buffer, 3, 0, 1, 223);
+        WindowNumber_Draw(*window->ownerSession, x + 179, y + 88, buffer, 3, 0, 1, 223);
     }
     cg::text::FormatTo(buffer, L"{:3}", itemCount);
-    WindowNumber_Draw(x + 71, y + 258, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(*window->ownerSession, x + 71, y + 258, buffer, 3, 0, 1, 223);
     cg::text::FormatTo(buffer, L"{:3}", petCount);
-    WindowNumber_Draw(x + 156, y + 258, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(*window->ownerSession, x + 156, y + 258, buffer, 3, 0, 1, 223);
     cg::text::FormatTo(buffer, L"{:10}", amount);
-    WindowNumber_Draw(x + 241, y + 258, buffer, 3, 0, 1, 223);
+    WindowNumber_Draw(*window->ownerSession, x + 241, y + 258, buffer, 3, 0, 1, 223);
     imageNo = backgroundImages[std::bit_cast<std::int8_t>(*tab)];
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(*window->ownerSession,
         x, y, 223, imageNo, 0, 1, 0, descriptor));
     return result;
 }
@@ -1197,7 +1197,7 @@ static void WindowTrade_HandleOwnInventory(
         if (WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleOwnPanel)) {
             const std::int32_t left = x + 50 * ((source - 8) % 5) + 13;
             const std::int32_t top = y + 52 * ((source - 8) / 5) + 26;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, 254, 0);
@@ -1207,7 +1207,7 @@ static void WindowTrade_HandleOwnInventory(
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * ((hovered - 8) % 5) + 13;
         const std::int32_t top = y + 52 * ((hovered - 8) / 5) + 26;
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(session,
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1237,23 +1237,23 @@ static void WindowTrade_HandleOwnInventory(
         const std::int32_t centerX = x + 50 * (position % 5) + 37;
         const std::int32_t centerY = y + 52 * (position / 5) + 51;
         if (std::bit_cast<std::int8_t>(trade.itemMarks[slot]) > 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(centerX - 21), static_cast<std::uint16_t>(centerY - 21),
                 static_cast<std::uint16_t>(centerX + 21), static_cast<std::uint16_t>(centerY + 21),
                 223, 251, 0);
         } else if (occupancy[slot] != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(centerX - 24), static_cast<std::uint16_t>(centerY - 24),
                 static_cast<std::uint16_t>(centerX + 24), static_cast<std::uint16_t>(centerY + 24),
                 223, 249, 0);
         }
         if ((item.flags & 1u) == 0) {
-            static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, 23040, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(session, centerX, centerY, 223, 23040, 0, nullptr));
         }
         const render::GraphicDescriptor16* const mode =
             std::bit_cast<std::int8_t>(trade.itemMarks[slot]) > 0 || occupancy[slot] != 0
             ? &dimmed : descriptor;
-        static_cast<void>(cg::render::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
+        static_cast<void>(cg::render::DrawGraphic(session, centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
@@ -1357,7 +1357,7 @@ static void WindowTrade_HandleOwnPets(
             const std::int32_t row = WindowItem_FindSortedPetIndex(session, source) - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(session,
                     static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                     223, 254, 0);
@@ -1368,7 +1368,7 @@ static void WindowTrade_HandleOwnPets(
         const std::int32_t row = hovered - scroll;
         if (row >= 0 && row < 3) {
             const std::int32_t top = y + rowY[row];
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1383,7 +1383,7 @@ static void WindowTrade_HandleOwnPets(
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         if (std::bit_cast<std::int8_t>(trade.petMarks[slot]) > 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 238), static_cast<std::uint16_t>(top + 67),
                 223, 251, 0);
@@ -1393,7 +1393,7 @@ static void WindowTrade_HandleOwnPets(
         WindowBank_DrawOwnPetTooltip(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), current, 3);
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(session,
             left + 120, top + 35, 223, 243141, 0, descriptor));
     }
 }
@@ -1500,7 +1500,7 @@ static void WindowTrade_HandleOwnItemDrag(
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
-    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(session, x, y, 230, imageNo, 0, &descriptor));
 }
 
 // 原函数：0x004B2E00。
@@ -1544,7 +1544,7 @@ static void WindowTrade_HandleOwnPetDrag(
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
-    static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(session, x, y, 230, 243141, 0, &descriptor));
 }
 
 // 原函数：0x004B2710。
@@ -1592,7 +1592,7 @@ static void WindowTrade_HandleSelectedItem(
             WindowDrag_Reset(session);
         }
         if ((events & MouseFlag_Dragging) != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
                 223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1670,7 +1670,7 @@ static void WindowTrade_HandleSelectedItem(
             && session.WorldScene().playerItems[WindowTrade_ReadSelectedItem(session, source)].used != 0) {
             const std::int32_t left = x + 50 * (source % 5) + 13;
             const std::int32_t top = y + 52 * (source / 5) + 26;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -1680,7 +1680,7 @@ static void WindowTrade_HandleSelectedItem(
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * (hovered % 5) + 13;
         const std::int32_t top = y + 52 * (hovered / 5) + 26;
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(session,
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1720,10 +1720,10 @@ static void WindowTrade_HandleSelectedItem(
         const std::int32_t centerX = x + 50 * (position % 5) + 37;
         const std::int32_t centerY = y + 52 * (position / 5) + 51;
         if ((item.flags & 1u) == 0) {
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(session,
                 centerX, centerY, 223, 23040, 0, nullptr));
         }
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(session,
             centerX, centerY, 223, item.imageNo, 0, descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
@@ -1770,7 +1770,7 @@ static void WindowTrade_HandleSelectedPet(
             WindowDrag_Reset(session);
         }
         if ((events & MouseFlag_Dragging) != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
                 223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1838,7 +1838,7 @@ static void WindowTrade_HandleSelectedPet(
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(session,
                     static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                     223, 254, 0);
@@ -1849,7 +1849,7 @@ static void WindowTrade_HandleSelectedPet(
         const std::int32_t row = hovered - scroll;
         if (row >= 0 && row < 3) {
             const std::int32_t top = y + rowY[row];
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -1867,10 +1867,10 @@ static void WindowTrade_HandleSelectedPet(
             WindowBank_DrawOwnPetTooltip(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(session,
                 left + 120, top + 35, 223, 243141, 0, descriptor));
         } else {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 left, top, 223, 243141, 0, 1, 0, descriptor));
         }
     }
@@ -2014,7 +2014,7 @@ static void WindowTrade_HandleRemoteItem(
         if ((state & MouseFlag_Hover) != 0 && hovered >= 0) {
             const std::int32_t left = x + 50 * (hovered % 5) + 13;
             const std::int32_t top = y + 52 * (hovered / 5) + 25;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(session,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, session.UiFrame().hoverFramePaletteIndex, 0);
@@ -2060,12 +2060,12 @@ static void WindowTrade_HandleRemoteItem(
             std::int16_t value02;
             std::memcpy(&value02, &record->selection, sizeof(value02));
             if (value02 < 0) {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(session,
                     centerX, centerY, 223, 23040, 0, nullptr));
             }
             std::int32_t imageNo;
             std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(session,
                 centerX, centerY, 223, imageNo, 0, descriptor));
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
@@ -2192,7 +2192,7 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return cg::render::DrawGraphic(
+    return cg::render::DrawGraphic(session,
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
@@ -2211,7 +2211,7 @@ static void WindowTrade_DrawPetEquipmentRow(
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
             5, 12, 0, name, 0, 0));
     }
-    static_cast<void>(render::DrawGraphic(x + 105, y + 8, 0xE6, 0x3B59C, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic(session, x + 105, y + 8, 0xE6, 0x3B59C, 0, &descriptor));
 }
 
 // 银行／交易两页技能及一页装备的页脚，绘制在十行列表下方。
@@ -2293,7 +2293,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     const render::GraphicDescriptor16* const mode =
         cg::yobi::GetYobiActionDrawMode(action);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
-    static_cast<void>(render::DrawGraphic2_521DD0(
+    static_cast<void>(render::DrawGraphic2_521DD0(session,
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
         std::int32_t value;
@@ -2302,18 +2302,18 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         const auto& images = gPetBarImages57E434[row];
         const std::int32_t barY = shortY + 97 + row * 11;
         if (segments > 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));
             std::int32_t barX = shortX + 155;
             for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));
                 barX += 6;
             }
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));
         } else if (segments == 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
@@ -2330,7 +2330,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         }
     }
     WindowTrade_DrawPetPageHint(session, shortX, shortY, page);
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
@@ -2362,7 +2362,7 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return cg::render::DrawGraphic(
+    return cg::render::DrawGraphic(session,
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
@@ -2424,7 +2424,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     const render::GraphicDescriptor16* const mode =
         cg::yobi::GetYobiActionDrawMode(action);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
-    static_cast<void>(render::DrawGraphic2_521DD0(
+    static_cast<void>(render::DrawGraphic2_521DD0(session,
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
         std::int32_t value;
@@ -2433,18 +2433,18 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         const auto& images = gPetBarImages57E434[row];
         const std::int32_t barY = shortY + 97 + row * 11;
         if (segments > 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));
             std::int32_t barX = shortX + 155;
             for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));
                 barX += 6;
             }
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));
         } else if (segments == 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
@@ -2460,7 +2460,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         }
     }
     WindowTrade_DrawPetPageHint(session, shortX, shortY, page);
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
@@ -2491,7 +2491,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
-    return cg::render::DrawGraphic(
+    return cg::render::DrawGraphic(session,
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
@@ -2554,25 +2554,25 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     const render::GraphicDescriptor16* const mode =
         cg::yobi::GetYobiActionDrawMode(action);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
-    static_cast<void>(render::DrawGraphic2_521DD0(
+    static_cast<void>(render::DrawGraphic2_521DD0(session,
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
         const std::int32_t segments = pet.values70[21 + row] / 10;
         const auto& images = gPetBarImages57E434[row];
         const std::int32_t barY = shortY + 97 + row * 11;
         if (segments > 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));
             std::int32_t barX = shortX + 155;
             for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));
                 barX += 6;
             }
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));
         } else if (segments == 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
@@ -2593,7 +2593,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
         static_cast<void>(render::DrawText_456780(session, static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
             page == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
     }
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 

@@ -384,7 +384,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                         uiFrame.hoverText = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                                 ? cannotEquip : cannotUse;
                         if ((events & MouseFlag_Hover) != 0) {
-                            cg::render::DrawGraphicHover(
+                            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -395,16 +395,16 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 if (item.used == 0) {
                     continue;
                 }
-                static_cast<void>(cg::render::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, left + 129, top + 118, 223, 22738, 0, nullptr));
                 if (occupancy[position + 8] != 0) {
-                    cg::render::DrawGraphicHover(
+                    cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                         223, 249, 0);
-                    static_cast<void>(cg::render::DrawGraphic(
+                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                         left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
                 } else {
-                    static_cast<void>(cg::render::DrawGraphic(
+                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                         left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
                 }
                 if (item.count > 0) {
@@ -633,7 +633,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t elementY = element.y;
                 const std::int32_t windowY = window->y;
                 const std::int32_t top = elementY + 50 * ((source - 8) / 5) + windowY + 48;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -651,7 +651,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 50 * (hovered / 5) + windowY + 48;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -677,7 +677,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             const std::int32_t bottom = height + windowY + elementY;
             const std::int32_t top = windowY + elementY;
             const std::int32_t left = windowX + elementX;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
                 223, hoverColor, 0);
@@ -707,30 +707,30 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 if (usableLevel < level || items[2].used != 0 || items[3].used != 0
                     || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
                     || callbackWindow.ownerSession->WorldScene().battle.modeFlag == 1) {
-                    static_cast<void>(cg::render::DrawGraphic(
+                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                         x + 105, y + 93, 223, 22738, 0, nullptr));
                 }
             }
             if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
                 const std::int32_t type = item.itemType;
                 if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
-                    static_cast<void>(cg::render::DrawGraphic(
+                    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                         x + 105, y + 93, 223, 22738, 0, nullptr));
                 }
             }
             if (item.hasDescription == 0 || (item.itemType == kMedicineType
                     && (callbackWindow.ownerSession->WorldScene().battle.playerFlags & 0x40000u) != 0)) {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
             if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
             }
             if (item.count > 0) {
                 cg::text::FormatTo(countText, L"{:3}", item.count);
@@ -793,7 +793,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 if (cg::ui::HitTestMouseRect_5049A0(*callbackWindow.ownerSession, left, top, left + 48, top + 48, -1) != 0) {
                     uiFrame.hoverText = L"无法在战斗中更换装备。";
                     if ((events & MouseFlag_Hover) != 0) {
-                        cg::render::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                             223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -801,16 +801,16 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 }
                 consumed = 1;
             }
-            static_cast<void>(cg::render::DrawGraphic(left + 129, top + 117, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, left + 129, top + 117, 223, 22738, 0, nullptr));
             if (occupancy[position] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                     left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
         }
@@ -943,7 +943,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         if (source < count) {
             const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, source, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, source, -24);
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -952,7 +952,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, hovered, -24);
         const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, hovered, -24);
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -978,7 +978,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     const std::int32_t bottom = height + windowY + elementY;
                     const std::int32_t top = windowY + elementY;
                     const std::int32_t left = windowX + elementX;
-                    cg::render::DrawGraphicHover(
+                    cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                         static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
                         223, hoverColor, 0);
@@ -994,22 +994,22 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             continue;
         }
         if ((position != 2 && position != 3) || record.itemType == 7) {
-            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x + 105, y + 93, 223, 22738, 0, nullptr));
         }
         if (record.hasDescription == 0) {
-            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x + 105, y + 93, 223, 22738, 0, nullptr));
         }
         if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
-            static_cast<void>(cg::render::DrawGraphic(x + 105, y + 93, 223, 22739, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x + 105, y + 93, 223, 22739, 0, &descriptor));
         }
         if (occupancy[position] != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                 223, 249, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, record.imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, record.imageNo, 0, &descriptor));
         }
     }
     return consumed;

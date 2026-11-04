@@ -558,23 +558,23 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
     }
 
     const auto& selectedPosition = kCreationSelectDraw54DF00[static_cast<std::int8_t>(draft.characterIndex9A4CFC)];
-    cg::render::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
     if (render::HasLegacy3DDevice_44B610() != 0) {
         const auto& position = kCreationSelectDraw54DF00[static_cast<std::int8_t>(draft.characterIndex9A4CFC)];
-        cg::render::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
+        cg::render::DrawGraphic(connection.Owner(), position[0], position[1], 10, 245043, 0, &descriptor);
     }
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         138, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[1])[4 + cancelState], 0, nullptr);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         289, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[0])[4 + confirmState], 0, nullptr);
     if (connection.PukVersion() >= 5) {
-        cg::render::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
-        cg::render::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
+        cg::render::DrawGraphic(connection.Owner(), 230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
+        cg::render::DrawGraphic(connection.Owner(), 194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
     }
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(draft.characterFamily9A57E0)], 0, nullptr);
     const std::uint8_t labelPuk = connection.PukVersion();
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
 
     const std::uint8_t listPuk = connection.PukVersion();
@@ -583,13 +583,13 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
     for (std::int32_t index = 0; index < 14; ++index) {
         const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
         const auto& position = kCreationSelectDraw54DF00[index];
-        cg::render::DrawGraphic(
+        cg::render::DrawGraphic(connection.Owner(),
             position[0], position[1], 10, graphicTable[14 * version + index], 0, nullptr);
     }
-    cg::render::DrawGraphic(214, 254, 10, 245041, 0, nullptr);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(), 214, 254, 10, 245041, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(),
         467, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[0])[4 + variantMinus], 0, nullptr);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         568, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[1])[4 + variantPlus], 0, nullptr);
 
     cg::yobi::YobiAction* const second = draft.createActions[1];
@@ -603,7 +603,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
         cg::yobi::AdvanceYobiAnimationFrame_517880(draft.createActions[1], 100, 1, 0);
         if (connection.PukVersion() >= 5 && draft.characterFamily9A57E0 == 0) {
             const std::int32_t graphic = cg::yobi::GetYobiActionField20(draft.createActions[1]);
-            render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
+            render::DrawGraphic2_521DD0(connection.Owner(), 517, 396, 10, graphic, 0, 0, nullptr);
         }
     }
     cg::yobi::YobiAction* const first = draft.createActions[0];
@@ -635,8 +635,8 @@ std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& co
             }
         }
     }
-    cg::render::DrawGraphic(518, 275, 1, 245044, 0, nullptr);
-    cg::render::DrawGraphic(320, 240, 1, 245040, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), 518, 275, 1, 245044, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), 320, 240, 1, 245040, 0, nullptr);
     return result;
 }
 
@@ -999,9 +999,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         }
     }
 
-    const auto drawButton = [](const std::int32_t x, const std::int32_t y,
+    const auto drawButton = [&connection](const std::int32_t x, const std::int32_t y,
                                const std::size_t record, const std::int8_t buttonState) {
-        cg::render::DrawGraphic(
+        cg::render::DrawGraphic(connection.Owner(),
             x, y, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationUi54E0BC[record])[4 + buttonState], 0, nullptr);
     };
     drawButton(411, 137, 0, arrows[0]);
@@ -1033,7 +1033,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     std::int32_t count = 0;
     if (static_cast<std::int8_t>(elementSnapshot) > 0) {
         do {
-            cg::render::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
+            cg::render::DrawGraphic(connection.Owner(), 406 + 10 * count, 313, 10, 245052, 0, nullptr);
             elementSnapshot = draft.elementPointBytes9A50D0;
             ++count;
         } while (count < static_cast<std::int8_t>(elementSnapshot));
@@ -1041,7 +1041,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     count = 0;
     if (static_cast<std::int8_t>(elementSnapshot >> 8) > 0) {
         do {
-            cg::render::DrawGraphic(406 + 10 * count, 327, 10, 245053, 0, nullptr);
+            cg::render::DrawGraphic(connection.Owner(), 406 + 10 * count, 327, 10, 245053, 0, nullptr);
             const std::int32_t value = static_cast<std::int8_t>(elements[1]);
             ++count;
             if (count >= value) {
@@ -1054,7 +1054,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         count = 0;
         if (value > 0) {
             do {
-                cg::render::DrawGraphic(
+                cg::render::DrawGraphic(connection.Owner(),
                     406 + 10 * count, 313 + 14 * static_cast<std::int32_t>(row),
                     10, 245052 + static_cast<std::int32_t>(row), 0, nullptr);
                 const std::int32_t current = static_cast<std::int8_t>(elements[row]);
@@ -1084,7 +1084,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     if (static_cast<std::int8_t>(draft.graphicGeneration9A4B88) > maxVersion) {
         graphic = static_cast<std::int8_t>(draft.characterIndex9A4CFC) >= 14 ? 33101 : 33100;
     }
-    cg::render::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), 500, 126, 10, graphic, 0, nullptr);
     render::DrawInputText_4568A0(connection.Owner(), &draft.input9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04)));
@@ -1096,8 +1096,8 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     }
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingElementPoints9A50C8)));
     render::DrawText_456780(connection.Owner(), 518, 293, 0, 13, color, buffer, 0, 0);
-    cg::render::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
-    cg::render::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), 442, 241, 10, 245051, 0, nullptr);
+    cg::render::DrawGraphic(connection.Owner(), 320, 240, 3, 245050, 0, nullptr);
     return result;
 }
 
@@ -1583,7 +1583,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         const std::uint32_t secondaryState = static_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
         if (secondaryState <= 20u
             && (secondaryState <= 9u || secondaryState >= 19u)) {
-            sceneResult = cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
+            sceneResult = cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 245060, 0, -1), true);
             break;
         }
 
@@ -1663,7 +1663,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 uiStyle = 1;
             }
             cg::ui::DrawUiControl_45EFD0(connection.Owner(), &gUpdateUi, 5, 0, 0, uiStyle);
-            cg::render::QueueOriginalPaletteGraphic_45F090(252, 392, 4, 245078, 0, -1);
+            cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 252, 392, 4, 245078, 0, -1);
         }
 
         if (uiStyle == 0
@@ -1677,7 +1677,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             login::detail::PlaySe(connection.Owner(), 54, 320, 240);
         }
         cg::ui::DrawUiControl_45EFD0(connection.Owner(), &gReturnUi, 5, 0, 0, uiStyle);
-        cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
+        cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(), 0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG
         if (connection.Owner().WorldScene().sceneState == kUsageNoticeState) {

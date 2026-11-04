@@ -1650,11 +1650,11 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
                 const std::int32_t imageNo = cg::yobi::GetYobiActionField20(action);
                 const std::int32_t drawY = cg::yobi::GetYobiActionField34(action);
                 const std::int32_t drawX = cg::yobi::GetYobiActionField30(action);
-                cg::render::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
+                cg::render::DrawGraphic(session, drawX, drawY, 0, imageNo, 0, nullptr);
             }
             if (drawKind == 7) {
                 const auto index = record->graphicIndex;
-                render::DrawGraphic3_520970(
+                render::DrawGraphic3_520970(session,
                     x, y, 1, 14648, 0, 1, 0,
                     session.WorldScene().mapEffects.drawModes.data() + 3 + index);
             } else if (drawKind == 6 || drawKind == 8) {
@@ -1662,7 +1662,7 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
                 const auto speed = record->speed;
                 const auto drawX = record->x;
                 const auto drawY = record->y;
-                render::DrawGraphic3_520970(
+                render::DrawGraphic3_520970(session,
                     drawX, drawY, static_cast<std::uint8_t>(speed / 200 + 15),
                     14648, 0, 1, 0, session.WorldScene().mapEffects.drawModes.data() + index);
             }
@@ -1690,7 +1690,7 @@ std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& sess
     std::int32_t result = 0;
     for (std::int32_t y = 0; y < 480; y += 48) {
         for (std::int32_t x = 0; x < 640; x += 64) {
-            result = render::DrawGraphic3_520970(
+            result = render::DrawGraphic3_520970(session,
                 x, y, 0, 14648, 0, 1, 0, &descriptor);
         }
     }
@@ -3100,7 +3100,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
         }
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         session.TextQueue().count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30(session));
         skillOperation.rebirthEnabled = 0;
@@ -3113,12 +3113,12 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
         RenderInput_4590E0(session);
-        render::SortTextures_520790();
+        render::SortTextures_520790(session);
         static_cast<void>(render::ClearSurface_4512C0());
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0(session);
         static_cast<void>(render::CopyBackToTemp());
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         render::gRenderQueueMode103CF10 = 1;
         session.TextQueue().count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30(session));
@@ -3189,7 +3189,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::ClearSurfaceTransformCache_44D490(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(render::UpdatePalette_450BB0());
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         session.TextQueue().count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30(session));
         ResetMapDrawCacheCounts_46BD40();
@@ -3207,7 +3207,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().mapEffects.scene.valueC8A758 = 0;
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
-        render::SortTextures_520790();
+        render::SortTextures_520790(session);
         static_cast<void>(render::ClearSurface_4512C0());
         ClearDirectionalMapEffects_46F160(session);
         if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
@@ -3219,7 +3219,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::DrawAllQueued_520DD0(session);
         static_cast<void>(render::CopyBackToTemp());
         render::gRenderQueueMode103CF10 = 1;
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         session.TextQueue().count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30(session));
         const std::uint64_t tick = platform::ReadTickCount64();
@@ -3263,7 +3263,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0(session);
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         render::gRenderQueueMode103CF10 = 1;
         session.TextQueue().count = 0;
         static_cast<void>(render::ResetGraphicCache_456D30(session));
@@ -3317,7 +3317,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         render::DrawAllQueued_520DD0(session);
         render::gRenderQueueMode103CF10 = 1;
         const std::uint64_t tick = platform::ReadTickCount64();
-        platform::gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         session.TextQueue().count = 0;
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(render::ResetGraphicCache_456D30(session));
@@ -3360,7 +3360,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0(session));
         if (worldScene.normalSceneInitialized == 1) {
-            platform::gPendingGraphicCount = 0;
+            session.GraphicQueue().count = 0;
             session.TextQueue().count = 0;
             static_cast<void>(render::ResetGraphicCache_456D30(session));
             ResetMapDrawCacheCounts_46BD40();
@@ -3397,7 +3397,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0(session);
             RenderInput_4590E0(session);
-            render::SortTextures_520790();
+            render::SortTextures_520790(session);
             static_cast<void>(render::ClearSurface_4512C0());
             ClearDirectionalMapEffects_46F160(session);
             if ((session.WorldScene().mapEffects.scene.valueC8A73E != 0 && session.WorldScene().mapEffects.scene.valueC8A740 == 0)
@@ -3412,7 +3412,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             render::DrawAllQueued_520DD0(session);
             static_cast<void>(render::CopyBackToTemp());
             render::gRenderQueueMode103CF10 = 1;
-            platform::gPendingGraphicCount = 0;
+            session.GraphicQueue().count = 0;
             session.TextQueue().count = 0;
             static_cast<void>(render::ResetGraphicCache_456D30(session));
             const std::uint64_t tick = platform::ReadTickCount64();
@@ -4115,7 +4115,7 @@ std::int32_t __cdecl LoadAndDrawMapTiles_469030(session::ClientSession& session)
                 session.WorldScene().map.data.tiles[static_cast<std::size_t>(index)]);
             if (result > 999 && drawX >= -32 && drawX < platform::gWindowWidth + 32 &&
                 drawY >= -24 && drawY < platform::gWindowHeight + 24) {
-                result = cg::render::DrawGraphic(
+                result = cg::render::DrawGraphic(session,
                     drawX, drawY, 5, result, 0, nullptr);
             }
             --scanRow;
@@ -5157,7 +5157,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
         const std::int32_t drawX = static_cast<std::int32_t>(
             static_cast<std::int64_t>(projectedX + 0.5));
         static_cast<void>(
-            cg::render::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
+            cg::render::DrawGraphic(session, drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
     const bool mouseBelowLimit = (session.UiFrame().mouse.state->mouseY < platform::gWindowHeight - 24);
     if (!mouseBelowLimit
@@ -7901,7 +7901,7 @@ void DrawChatRangeOverlay_476680(session::ClientSession& session)
                 std::int32_t column = 0;
                 if (sideCount > 0) {
                     do {
-                        static_cast<void>(render::QueueGraphicWithResourceOffset_521C80(x, y, 100, 3, 0, nullptr));
+                        static_cast<void>(render::QueueGraphicWithResourceOffset_521C80(session, x, y, 100, 3, 0, nullptr));
                         radius = chatDisplay.range;
                         ++column;
                         x += 32;
@@ -10027,11 +10027,11 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connec
 std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& session)
 {
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
-    platform::gPendingGraphicCount = 0;
+    session.GraphicQueue().count = 0;
     session.TextQueue().count = 0;
     static_cast<void>(render::ResetGraphicCache_456D30(session));
     static_cast<void>(detail::LoadAndDrawMapTiles_469030(session));
-    render::SortTextures_520790();
+    render::SortTextures_520790(session);
     static_cast<void>(render::ClearSurface_4512C0());
     const std::uint8_t previousC82204 = session.WorldScene().map.surfaceCacheEnabled;
     session.WorldScene().map.surfaceCacheEnabled = 0;
@@ -10040,7 +10040,7 @@ std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& sessio
     session.WorldScene().map.surfaceCacheEnabled = previousC82204;
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
-    platform::gPendingGraphicCount = 0;
+    session.GraphicQueue().count = 0;
     session.TextQueue().count = 0;
     static_cast<void>(render::ResetGraphicCache_456D30(session));
     const std::uint64_t tick = platform::ReadTickCount64();

@@ -1171,7 +1171,7 @@ struct BigMapWindowState final {
         if (!UIRectIntersectsClipRect(x, y, width, height, &clip)) return;
         const auto* graphic = Graphic(mapNo);
         const render::PngRectangle imageClip{clip.left, clip.top, clip.right, clip.bottom};
-        if (!graphic || render::DrawGraphicImage(graphic->seqNo, x, y, width, height,
+        if (!graphic || render::DrawGraphicImage(*window.ownerSession, graphic->seqNo, x, y, width, height,
             LAYER_UI, &imageClip, color) < 0) ++failedUiImages;
     }
 
@@ -1201,7 +1201,7 @@ struct BigMapWindowState final {
                 else RendererDrawTextClipped(*window.ownerSession, window.x + element.x + 3, window.y + element.y + 2,
                     FONT_LAYER_WINDOW, kMapFont, 3, input::ContextText(*context), 0, 0, &inputClip);
                 RendererBreakWindowTextBatch(*window.ownerSession);
-                RendererDrawRectClipped(window.x + element.x, window.y + element.y, element.width, element.height,
+                RendererDrawRectClipped(*window.ownerSession, window.x + element.x, window.y + element.y, element.width, element.height,
                     LAYER_UI, 0xD0FFFFFFu, &clip);
             } else if (element.type == WindowElementType_Text) {
                 const auto& data = *element.data.text;
@@ -1249,7 +1249,7 @@ struct BigMapWindowState final {
                 if (!element.visible || position >= static_cast<int>(coordinateRows.size())) continue;
                 const auto& point = *coordinateRows[position];
                 if ((element.state & MouseFlag_Hover) || (targetX == point.x && targetY == point.y))
-                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                    RendererDrawRectClipped(*window.ownerSession, static_cast<short>(window.x + element.x),
                         static_cast<short>(window.y + element.y), static_cast<short>(element.width),
                         static_cast<short>(element.height), LAYER_UI, 0x803F6E83u, &clip);
             }
@@ -1258,13 +1258,13 @@ struct BigMapWindowState final {
         if (trackElement) {
             const auto& track = (*trackElement);
             if (track.visible)
-                RendererDrawRectClipped(static_cast<short>(window.x + track.x), static_cast<short>(window.y + track.y),
+                RendererDrawRectClipped(*window.ownerSession, static_cast<short>(window.x + track.x), static_cast<short>(window.y + track.y),
                     static_cast<short>(track.width), static_cast<short>(track.height), LAYER_UI, 0x80000000u, &clip);
         }
         auto* const panelElement = window.FindElementById(NativeElementKey(ListPanelArea));
         if (panelElement) {
             const auto& panel = (*panelElement);
-            yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel.x), static_cast<short>(window.y + panel.y),
+            yobi::DrawNineGrid_49BE00(*window.ownerSession, 245300, static_cast<short>(window.x + panel.x), static_cast<short>(window.y + panel.y),
                 static_cast<short>(panel.width), static_cast<short>(panel.height), LAYER_UI, -1,
                 std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
         }
@@ -1276,12 +1276,12 @@ struct BigMapWindowState final {
             const auto* element = window.FindElementById(NativeElementKey(index));
             if (!element || element->visible != 1) continue;
             const bool active = (element->state & MouseFlag_Hover) != 0;
-            RendererDrawRectClipped(window.x + element->x, window.y + element->y, element->width, element->height,
+            RendererDrawRectClipped(*window.ownerSession, window.x + element->x, window.y + element->y, element->width, element->height,
                 LAYER_UI, active ? 0xD0B8D0DCu : 0xB3FFFFFFu, &clip);
         }
         const auto* panel = window.FindElementById(NativeElementKey(CustomEditorPanel));
         if (panel && panel->visible == 1)
-            yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel->x), static_cast<short>(window.y + panel->y),
+            yobi::DrawNineGrid_49BE00(*window.ownerSession, 245300, static_cast<short>(window.x + panel->x), static_cast<short>(window.y + panel->y),
                 static_cast<short>(panel->width), static_cast<short>(panel->height), LAYER_UI, -1,
                 std::bit_cast<std::int32_t>(0xE6FFFFFFu), 74, 54);
     }
@@ -1316,7 +1316,7 @@ struct BigMapWindowState final {
                 if (point.imageNo >= 0) {
                     const int w = point.imageWidth, h = point.imageHeight;
                     if (UIRectIntersectsClipRect(cx - w / 2, cy - h / 2, w, h, &clip)
-                        && render::DrawGraphicImage(point.imageNo, cx - w / 2, cy - h / 2, w, h,
+                        && render::DrawGraphicImage(*window.ownerSession, point.imageNo, cx - w / 2, cy - h / 2, w, h,
                             LAYER_UI, &imageClip) < 0) ++failedIcons;
                 } else {
                     RendererDrawTextClipped(*window.ownerSession, static_cast<short>(cx - 3), static_cast<short>(cy - fontHeight / 2),
@@ -1337,7 +1337,7 @@ struct BigMapWindowState final {
                 const int textY = point.category == 0 && point.placement <= 0 ? y - 20 : y;
                 RendererDrawTextClipped(*window.ownerSession, static_cast<short>(x - textWidth / 2), static_cast<short>(textY),
                     FONT_LAYER_WINDOW, kMapFont, point.category == 4 ? 4 : 0, point.name, 0, 0, &clip);
-                RendererDrawRectClipped(static_cast<short>(x - textWidth / 2 - 2), static_cast<short>(textY),
+                RendererDrawRectClipped(*window.ownerSession, static_cast<short>(x - textWidth / 2 - 2), static_cast<short>(textY),
                     static_cast<short>(textWidth + 4), static_cast<short>(fontHeight + 2), LAYER_UI,
                     point.category == 4 ? 0x60000000u : 0x40000000u, &clip);
             }
@@ -1361,7 +1361,7 @@ struct BigMapWindowState final {
             if (elementPtr) {
                 const auto& element = (*elementPtr);
                 if (element.visible == 1)
-                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                    RendererDrawRectClipped(*window.ownerSession, static_cast<short>(window.x + element.x),
                         static_cast<short>(window.y + element.y), static_cast<short>(element.width),
                         static_cast<short>(element.height), LAYER_UI, 0xB3000000u, &clip);
             }
@@ -1372,7 +1372,7 @@ struct BigMapWindowState final {
                 if (elementPtr) {
                     const auto& element = (*elementPtr);
                     if (element.state & MouseFlag_Hover)
-                        RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                        RendererDrawRectClipped(*window.ownerSession, static_cast<short>(window.x + element.x),
                             static_cast<short>(window.y + element.y), static_cast<short>(element.width),
                             static_cast<short>(element.height), LAYER_UI, 0x503F6E83u, &clip);
                 }
@@ -1398,11 +1398,11 @@ struct BigMapWindowState final {
                 static_cast<short>(window.y + window.height / 2), FONT_LAYER_WINDOW, kMapFont, 4, L"当前地图数据未就绪", 0, 0, &clip);
         }
         RendererBreakWindowTextBatch(*window.ownerSession);
-        map.Render(window.x, window.y, LAYER_UI, {mapClip.left, mapClip.top, mapClip.right, mapClip.bottom});
-        RendererDrawRectClipped(mapClip.left, mapClip.top, static_cast<short>(map.w), static_cast<short>(map.h),
+        map.Render(*window.ownerSession, window.x, window.y, LAYER_UI, {mapClip.left, mapClip.top, mapClip.right, mapClip.bottom});
+        RendererDrawRectClipped(*window.ownerSession, mapClip.left, mapClip.top, static_cast<short>(map.w), static_cast<short>(map.h),
             LAYER_UI, 0xFF000000u, &mapClip);
         // 与WindowDialog一致的245300九宫格、中心透明度和拼块尺寸；同层逆序绘制，背景最后入队。
-        yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x), static_cast<short>(window.y),
+        yobi::DrawNineGrid_49BE00(*window.ownerSession, 245300, static_cast<short>(window.x), static_cast<short>(window.y),
             static_cast<short>(window.width), static_cast<short>(window.height), LAYER_UI, -1,
             std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
         return stage;

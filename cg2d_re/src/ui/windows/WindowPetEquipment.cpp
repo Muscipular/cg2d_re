@@ -273,16 +273,16 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
         const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
         const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
         if (slot >= pet.values6D8[0]) {
-            static_cast<void>(render::DrawGraphic3_520970(left, top, 223, 244297, 0, 1, 0, &descriptor));
+            static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession, left, top, 223, 244297, 0, 1, 0, &descriptor));
             continue;
         }
         if (slot == hovered) {
-            render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+            render::DrawGraphicHover(*callbackWindow.ownerSession, static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         if (pet.items6E4[slot].used != 0) {
-            static_cast<void>(render::DrawGraphic(left + 24, top + 24, 223, pet.items6E4[slot].imageNo, 0, &descriptor));
+            static_cast<void>(render::DrawGraphic(*callbackWindow.ownerSession, left + 24, top + 24, 223, pet.items6E4[slot].imageNo, 0, &descriptor));
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);

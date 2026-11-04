@@ -277,7 +277,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         const std::int32_t graphicY = message.y
             + (lineCount - 1) * (cg::render::GetFontMetrics(0).doubleHeight + 2)
             + 69;
-        cg::render::DrawGraphic(
+        cg::render::DrawGraphic(connection.Owner(),
             message.x + message.width / 2,
             graphicY,
             0xDF,

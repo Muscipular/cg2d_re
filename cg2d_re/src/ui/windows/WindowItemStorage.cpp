@@ -240,7 +240,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 12;
                 const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 39;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -254,7 +254,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
             const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 39;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -282,19 +282,19 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             const std::int32_t y = element.y + 52 * (position / 5) + window->y + 64;
             if ((item.flags & 0x60u) != 0
                 || item.itemType == 38 || item.itemType == 52 || item.itemType == 54) {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, 23040, 0, nullptr));
             }
             if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
             }
             // 原4AC80F在两分支后均再次绘制普通图，不合并这次入队。
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
@@ -430,7 +430,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
                 const std::int32_t elementY = element.y;
                 const std::int32_t windowY = window->y;
                 const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 39;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -448,7 +448,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             const std::int32_t elementY = element.y;
             const std::int32_t windowY = window->y;
             const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 39;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -483,7 +483,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             const std::int32_t y = elementY + 52 * (position / 5) + windowY + 64;
             std::int32_t imageNo;
             std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, imageNo, 0, &descriptor));
             std::int32_t count;
             std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {

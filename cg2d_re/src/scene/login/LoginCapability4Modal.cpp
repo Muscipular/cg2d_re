@@ -223,7 +223,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t leftGraphicX = AddW32(
         modal.x,
         leftGraphicWidth / 3);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         leftGraphicX,
         leftGraphicY,
         223,
@@ -243,7 +243,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
     const std::int32_t rightGraphicX = AddW32(
         rightGraphicXBase,
         MultiplyW32(rightGraphicWidth, 2) / 3);
-    cg::render::DrawGraphic(
+    cg::render::DrawGraphic(connection.Owner(),
         rightGraphicX,
         rightGraphicY,
         223,

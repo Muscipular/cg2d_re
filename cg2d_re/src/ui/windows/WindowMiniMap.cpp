@@ -132,7 +132,7 @@ static std::int32_t WindowMiniMap_DrawMap(WindowInstance& callbackWindow, const 
     const std::int32_t elementX = element->x;
     const std::int32_t y = elementY + windowY - 117;
     const std::int32_t x = elementX + window->x - 14;
-    static_cast<void>(render::QueueMap_521AA0(x, y, 0xDF));
+    static_cast<void>(render::QueueMap_521AA0(*callbackWindow.ownerSession, x, y, 0xDF));
     return 0;
 }
 

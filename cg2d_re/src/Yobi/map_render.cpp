@@ -319,7 +319,7 @@ void DrawGear_441570(
             const std::int32_t childX = GetScaledYobiGraphicOriginOffset_518300(child, YobiGraphicAxis_X, kind);
             const std::int32_t drawX = childX + action->x + offsetX;
             const std::int32_t graphicIndex = child->graphicIndex;
-            world::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(*action->ownerSession,
                 primaryIndex, before, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -331,7 +331,7 @@ void DrawGear_441570(
             const std::int32_t childX = GetYobiGraphicOriginOffset_5182B0(child, YobiGraphicAxis_X);
             const std::int32_t drawX = childX + action->x;
             const std::int32_t graphicIndex = child->graphicIndex;
-            world::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(*action->ownerSession,
                 primaryIndex, kind == MapGearKind_StandOrDown ? 0 : 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
@@ -410,7 +410,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
         }
         std::int16_t graphicX, graphicY;
         resource::GetGraphicXY(gear->graphicIndex, &graphicX, &graphicY);
-        world::DrawGearNormal_46C060(primaryIndex, world::kMapAttachmentFrontmost, gear->graphicIndex,
+        world::DrawGearNormal_46C060(*parent->ownerSession, primaryIndex, world::kMapAttachmentFrontmost, gear->graphicIndex,
             static_cast<std::int16_t>(titleX - graphicX), static_cast<std::int16_t>(titleY - graphicY), &gear->drawMode, 0);
         return;
     }
@@ -418,7 +418,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     YobiAction* const origin = (flags & AnimeActionFlag_Wing) != 0 ? (ride != nullptr ? ride : parent) : gear;
     const std::int32_t x = origin->x + static_cast<std::int16_t>(offsetX) + GetYobiGraphicOriginOffset_5182B0(origin, YobiGraphicAxis_X);
     const std::int32_t y = origin->y + static_cast<std::int16_t>(offsetY) + GetYobiGraphicOriginOffset_5182B0(origin, YobiGraphicAxis_Y);
-    world::DrawGearNormal_46C060(primaryIndex, before, gear->graphicIndex,
+    world::DrawGearNormal_46C060(*parent->ownerSession, primaryIndex, before, gear->graphicIndex,
         static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), &gear->drawMode, 0, layer);
 }
 
@@ -524,7 +524,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             YobiAction* const graphicChild = payload->overheadMarker04;
             const std::int32_t drawX = offsetX + currentX;
             const std::int32_t graphicIndex = graphicChild->graphicIndex;
-            world::DrawGearNormal_46C060(
+            world::DrawGearNormal_46C060(*action->ownerSession,
                 primaryIndex, 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), nullptr, 0);
@@ -586,7 +586,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     static_cast<std::int32_t>(actionX) - halfWidth);
                 cg::render::DrawText_456780(*action->ownerSession, x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                 const std::int32_t borderActionX = action->x;
-                DrawNineGrid_49BE00(
+                DrawNineGrid_49BE00(*action->ownerSession,
                     0x3BE84, static_cast<std::int16_t>(borderActionX - halfWidth - 5),
                     static_cast<std::int16_t>(y - 1), static_cast<std::int16_t>(width + 10),
                     static_cast<std::int16_t>(bottom - y + 2), 0xCE, -1,
@@ -595,7 +595,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         } else {
             const std::int32_t y = action->y - 84;
             const std::int32_t x = action->x - 20;
-            cg::render::DrawGraphic(x, y, 0xCE, 0x573F, 0, nullptr);
+            cg::render::DrawGraphic(*action->ownerSession, x, y, 0xCE, 0x573F, 0, nullptr);
         }
     }
 
@@ -663,7 +663,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         const render::GraphicDescriptor16* const descriptor = &child->drawMode;
         const std::int32_t x = child->x;
         const std::int32_t graphicIndex = child->graphicIndex;
-        world::DrawGearNormal_46C060(
+        world::DrawGearNormal_46C060(*action->ownerSession,
             primaryIndex, 1, graphicIndex,
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), descriptor, 0);
     };
@@ -832,7 +832,7 @@ std::int32_t ShowHpBar_43DB60(
         const std::int32_t y = action->y + offsetY - 2;
         const std::int32_t x = action->x + offsetX - 12;
         descriptor = ToGraphicDescriptor(fields);
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(*action->ownerSession,
             x, y, 0xCF, 0x3BDF0, 0, 1, 0, &descriptor));
     }
     if (static_cast<std::int32_t>(action->barMaximum1C0) != 0) {
@@ -844,14 +844,14 @@ std::int32_t ShowHpBar_43DB60(
         const std::int32_t y = action->y + offsetY + 1;
         const std::int32_t x = action->x + offsetX - 12;
         descriptor = ToGraphicDescriptor(fields);
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(*action->ownerSession,
             x, y, 0xCF, 0x3BDEF, 0, 1, 0, &descriptor));
     }
     const std::int32_t y = action->y + offsetY;
     const std::int32_t x = action->x + offsetX;
     fields.clip = 0;
     descriptor = ToGraphicDescriptor(fields);
-    return cg::render::DrawGraphic(x, y, 0xCF, 0x3BDEE, 0, &descriptor);
+    return cg::render::DrawGraphic(*action->ownerSession, x, y, 0xCF, 0x3BDEE, 0, &descriptor);
 }
 
 } // namespace detail

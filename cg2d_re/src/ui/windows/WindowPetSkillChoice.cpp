@@ -2213,7 +2213,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + element.width),
                 static_cast<std::uint16_t>(y + element.height), 223, hoverImage, 0);
@@ -2277,7 +2277,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& 
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x;
             const std::int32_t y = window->y + element.y;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                 static_cast<std::uint16_t>(x + element.width - 2),
                 static_cast<std::uint16_t>(y + element.height - 2), 223, 254, 0);
@@ -2337,8 +2337,8 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
             static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 79, 320));
         }
     }
-    static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession, 240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(*callbackWindow.ownerSession, 334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
     constexpr wchar_t learnSuffix5882E8[] = L"来学习。";
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"学习『{}』" /* 原常量参考：0x00588344。 */, choice.skills[choice.selected].name.c_str());
@@ -2367,7 +2367,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     cg::text::FormatTo(buffer, L"购入金额 {:7}金币" /* 原常量参考：0x005882C0。 */, choice.skills[choice.selected].price);
     static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 245, 250, 4, 0, 0, buffer, 0, 0));
     static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 252, 282, 4, 0, 0, L"这样可以吗？" /* 原常量参考：0x005882B0。 */, 0, 0));
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
         245300, 160, 110, 320, 240, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));

@@ -172,7 +172,7 @@ static void DrawQueuedGraphicHover(session::ClientSession& session,
             * cg::yobi::GetYobiActionScaleX(graphic.reference.action);
         const std::int32_t right =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledWidth)) + x + 2;
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(session,
             static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
             static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
             0xCE, hover, 0);
@@ -188,7 +188,7 @@ static void DrawQueuedGraphicHover(session::ClientSession& session,
     }
     const std::int32_t height = std::bit_cast<std::int16_t>(entry->height);
     const std::int32_t width = std::bit_cast<std::int16_t>(entry->width);
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(session,
         static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
         static_cast<std::uint16_t>(x + width + 2), static_cast<std::uint16_t>(y + height + 2),
         frameLayer, hover, 0);
@@ -199,7 +199,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
 {
     auto& interaction = session.UiFrame().native.interaction;
     auto& uiFrame = session.UiFrame();
-    const std::int16_t initialCount = std::bit_cast<std::int16_t>(gPendingGraphicCount);
+    const std::int16_t initialCount = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
     std::int32_t orderIndex = static_cast<std::int32_t>(initialCount) - 1;
     const std::uint32_t oldColorIndex = uiFrame.hoverColorIndex;
     const std::uint32_t colorIndex = oldColorIndex < 59 ? oldColorIndex + 1 : 0;
@@ -238,11 +238,11 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                     marker = selected.marker;
                 }
                 const std::int32_t height = render::GetFontMetrics(selected.fontType).doubleHeight;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(session,
                     static_cast<std::uint16_t>(x - 3), static_cast<std::uint16_t>(y - 4),
                     static_cast<std::uint16_t>(x + width + 2), static_cast<std::uint16_t>(y + height + 4),
                     type == 2 ? 218 : 214, marker, type == 2 ? 0 : 1);
-                render::SortTextures_520790();
+                render::SortTextures_520790(session);
             }
             const std::int32_t inputGate = uiFrame.inputAndHoverSuppressed;
             session.UiFrame().hoveredGraphicPendingIndex = -1;
@@ -258,27 +258,27 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     }
 
     // 这里只重取遍历次数，排序槽位置继续用入口确定的orderIndex。
-    std::int32_t remaining = std::bit_cast<std::int16_t>(gPendingGraphicCount) - 1;
+    std::int32_t remaining = std::bit_cast<std::int16_t>(session.GraphicQueue().count) - 1;
     session.UiFrame().hoveredTextPendingIndex = -1;
     while (remaining >= 0) {
         const std::int16_t graphicIndex =
-            render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
+            session.GraphicQueue().pending.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
         const render::GraphicCacheItem32& graphic =
-            render::gLegacyPendingStorage.records[static_cast<std::size_t>(graphicIndex)];
+            session.GraphicQueue().pending.records[static_cast<std::size_t>(graphicIndex)];
         if (graphic.value4 != 0 && render::LoadGraphic_522570(graphic.imageNo) != 0
             && HitQueuedGraphic(session, graphic)) {
             session.UiFrame().hoveredGraphicPendingIndex =
-                render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
+                session.GraphicQueue().pending.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
             if (graphic.value4 == 2) {
                 const std::uint8_t layer =
-                    render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].layer;
+                    session.GraphicQueue().pending.cache3[static_cast<std::size_t>(orderIndex)].layer;
                 DrawQueuedGraphicHover(session, graphic, layer);
             }
             const std::int32_t value4 = graphic.value4;
             if (value4 >= 3) {
                 render::DrawMatchingGraphicHover_507090(session, value4);
             }
-            render::SortTextures_520790();
+            render::SortTextures_520790(session);
             if (uiFrame.inputAndHoverSuppressed == 0 && interaction.hoverDescriptionEnabled != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(session, &graphic);
                 if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
@@ -288,7 +288,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                 }
             }
             const std::uint8_t finalLayer =
-                render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].layer;
+                session.GraphicQueue().pending.cache3[static_cast<std::size_t>(orderIndex)].layer;
             *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = finalLayer;
             return;
         }

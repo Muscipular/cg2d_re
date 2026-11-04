@@ -221,7 +221,7 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const 
     }
     WindowRuntime_DrawCurrent(callbackWindow);
     WindowInstance* const window = currentWindow;
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
         245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),
         static_cast<std::int16_t>(window->width), static_cast<std::int16_t>(window->height),
         223, -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);

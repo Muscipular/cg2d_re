@@ -6,7 +6,7 @@
 namespace cg::render {
 
 // 原函数：0x00522180。
-void DrawGraphicHover(
+void DrawGraphicHover(session::ClientSession& session,
     const std::uint16_t left,
     const std::uint16_t top,
     const std::uint16_t right,
@@ -37,14 +37,14 @@ void DrawGraphicHover(
         break;
     }
 
-    const std::int32_t index = DrawGraphic(
+    const std::int32_t index = DrawGraphic(session,
         std::bit_cast<std::int32_t>(packedX),
         std::bit_cast<std::int32_t>(packedY),
         layer,
         std::bit_cast<std::int32_t>(encodedImageNo),
         0,
         nullptr);
-    SetPendingGraphicBatchTypeAtLegacyIndex(index, std::uint8_t{2});
+    SetPendingGraphicBatchTypeAtLegacyIndex(session, index, std::uint8_t{2});
 }
 
 } // namespace cg::render

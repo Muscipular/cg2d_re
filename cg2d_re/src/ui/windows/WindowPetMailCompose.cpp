@@ -225,7 +225,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
                     auto* const widthElement = elementsWindow->FindElementById(elementId);
                     if (widthElement) {
                         const std::int32_t width = widthElement->width;
-                        cg::render::DrawGraphicHover(
+                        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                             static_cast<std::uint16_t>(windowX + elementX),
                             static_cast<std::uint16_t>(windowY + elementY),
                             static_cast<std::uint16_t>(width + windowX + elementX),
@@ -435,7 +435,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
         const WindowInstance* const graphicWindow = currentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
-        static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = business.prefixD2F0B8.value0C;
         const std::int32_t count = callbackWindow.ownerSession->WorldScene().playerItems[countSlot].count;
         if (count > 0) {

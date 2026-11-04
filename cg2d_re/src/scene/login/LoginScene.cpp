@@ -649,8 +649,8 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
     }
 
     static_cast<void>(render::HasLegacy3DDevice_44B610());
-    cg::render::QueueOriginalPaletteGraphic_45F090(49, 67, 3, 0x3BEA3, 0, -1);
-    cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 0x3BEA2, 0, -1), true);
+    cg::render::QueueOriginalPaletteGraphic_45F090(session, 49, 67, 3, 0x3BEA3, 0, -1);
+    cg::render::StretchGraphicToScreen(session, cg::render::QueueOriginalPaletteGraphic_45F090(session, 0, 0, 3, 0x3BEA2, 0, -1), true);
     return DrawClientVersion(session, 540, 424, 0);
 }
 

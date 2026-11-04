@@ -392,7 +392,7 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
 void DrawAllQueued_520DD0(session::ClientSession& session)
 {
     gGraphicPaletteUploadCount = 0;
-    GraphicCache3* order = gLegacyPendingStorage.cache3.data();
+    GraphicCache3* order = session.GraphicQueue().pending.cache3.data();
     if (GetCpuBackSdlSurface() == nullptr) {
         return;
     }
@@ -400,10 +400,10 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
         static_cast<void>(BeginLegacyTextureScene(GetRendererTextureDevice()));
     }
     std::int32_t index = 0;
-    if (std::bit_cast<std::int16_t>(platform::gPendingGraphicCount) > 0) {
+    if (std::bit_cast<std::int16_t>(session.GraphicQueue().count) > 0) {
         for (;;) {
             GraphicCacheItem32* const graphic =
-                gLegacyPendingStorage.records.data() + order->cacheIndex;
+                session.GraphicQueue().pending.records.data() + order->cacheIndex;
             const std::uint8_t batchType = graphic->batchType;
             switch (batchType) {
             case 0:
@@ -493,7 +493,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
             default:
                 break;
             }
-            const std::int16_t count = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+            const std::int16_t count = std::bit_cast<std::int16_t>(session.GraphicQueue().count);
             ++index;
             ++order;
             if (index >= count) {
@@ -508,7 +508,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
         gLastUnrefreshedPaletteFrameVersion = gPaletteFrameVersion;
     }
     AgeGraphicPaletteCache_44E230();
-    gSpecialGraphicPending = 0;
+    session.GraphicQueue().specialGraphicPending = 0;
 }
 
 } // namespace cg::render

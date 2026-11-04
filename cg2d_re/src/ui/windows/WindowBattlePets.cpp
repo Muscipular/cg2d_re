@@ -155,18 +155,18 @@ static void WindowBattlePets_Refresh(
             const auto& images = gPetBarImages57E434[row];
             const std::int32_t barY = y + 6 + row * 10;
             if (segments > 1) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[0], 0, 1, 0, descriptor));
                 std::int32_t barX = x + 181;
                 for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                    static_cast<void>(render::DrawGraphic3_520970(
+                    static_cast<void>(render::DrawGraphic3_520970(session,
                         barX, barY, static_cast<std::uint8_t>(graphicLayer), images[1], 0, 1, 0, descriptor));
                     barX += 6;
                 }
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     barX, barY, static_cast<std::uint8_t>(graphicLayer), images[2], 0, 1, 0, descriptor));
             } else if (segments == 1) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[3], 0, 1, 0, descriptor));
             }
         }
@@ -178,11 +178,11 @@ static void WindowBattlePets_Refresh(
             readyImage = 0x3B589;
         }
     }
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(session,
         x + 241, y + 6, static_cast<std::uint8_t>(graphicLayer), battleImage, 0, 1, 0, descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(session,
         x + 267, y + 25, static_cast<std::uint8_t>(graphicLayer), readyImage, 0, 1, 0, descriptor));
-    static_cast<void>(render::DrawGraphic3_520970(
+    static_cast<void>(render::DrawGraphic3_520970(session,
         x, y, static_cast<std::uint8_t>(graphicLayer), 0x3B5C4, 0, 1, 0, descriptor));
 }
 

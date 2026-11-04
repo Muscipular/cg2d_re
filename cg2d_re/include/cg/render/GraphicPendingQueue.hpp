@@ -116,8 +116,7 @@ static_assert(offsetof(GraphicCache3, cacheIndex) == 0x00);
 static_assert(offsetof(GraphicCache3, layer) == 0x02);
 static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 
-// 原 [0xFF4E30,0x1020EB8) 的唯一 x64 承载，不是原内存镜像；前缀别名位置不变。
-// 原 0x1020EB8 的 W16 计数复用 platform 既有存储。
+// 原 [0xFF4E30,0x1020EB8) 的 x64 承载，不是原内存镜像；前缀别名位置不变。
 struct LegacyPendingStorage {
     std::wstring savedPath; // 原FF4E30：启动时写入的保存路径。
     std::uint8_t precedingBatchType = 0; // 原prefix+5C：旧索引-2的类型槽。
@@ -126,11 +125,12 @@ struct LegacyPendingStorage {
 };
 
 
-// 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
-extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。
-
-// 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
-extern std::uint8_t gSpecialGraphicPending;
+// NSM01：所属会话实际生产/消费同一队列；动作及扩展批次保持非拥有借用。
+struct GraphicQueueRuntimeState final {
+    LegacyPendingStorage pending{}; // 原0xFF4E30，完整主记录及并行层槽。
+    std::uint16_t count = 0; // 原0x1020EB8，仅清零16位。
+    std::uint8_t specialGraphicPending = 0; // 原0x1020EDC，特殊图形待提交标志。
+};
 
 // 原 gGraphicDirty@0x1020EE8；窗口消息仅在值严格等于 1 时消费并重建渲染器。
 extern std::int32_t gGraphicDirty;
@@ -164,7 +164,7 @@ void WrapRipplePhase_520930(float* value);
 std::int32_t ApplyScreenRipple_521870(session::ClientSession& session);
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
-void SortTextures_520790();
+void SortTextures_520790(session::ClientSession& session);
 
 // 原 520DD0：原 0..12 及已迁入扩展批次消费，不清队列计数；末尾老化调色板并清特殊标志。
 void DrawAllQueued_520DD0(session::ClientSession& session);
@@ -181,20 +181,20 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
 
 // R08：纯ARGB矩形进入同一层序队列；成功返回索引，失败透传原队列返回。
-std::int32_t DrawRectangle(
+std::int32_t DrawRectangle(session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int16_t width, std::int16_t height,
     std::uint8_t layer, std::uint32_t color);
 
 // R03：借原 DrawGraphic 生产战斗背景记录，并标为独立缩放批次。
-std::int32_t DrawBattleBackgroundScaled(
+std::int32_t DrawBattleBackgroundScaled(session::ClientSession& session,
     std::uint8_t layer, std::int32_t imageNo, const GraphicDescriptor16* descriptor = nullptr);
 
 // 将成功入队的背景改为全屏批次；保留原索引／失败值、层序与描述符。
 // trimTransparentBorder 仅在需要排除源图外围透明行列时启用，默认完整源图。
-std::int32_t StretchGraphicToScreen(std::int32_t pendingIndex, bool trimTransparentBorder = false);
+std::int32_t StretchGraphicToScreen(session::ClientSession& session, std::int32_t pendingIndex, bool trimTransparentBorder = false);
 
 // 原函数：0x00521B10。
-std::int32_t DrawGraphic(
+std::int32_t DrawGraphic(session::ClientSession& session,
     std::int32_t x,
     std::int32_t y,
     std::uint8_t layer,
@@ -203,7 +203,7 @@ std::int32_t DrawGraphic(
     const GraphicDescriptor16* descriptor);
 
 // Renderer::DrawGraphic_Hover@0x522180 的还原入口。
-void DrawGraphicHover(
+void DrawGraphicHover(session::ClientSession& session,
     std::uint16_t left,
     std::uint16_t top,
     std::uint16_t right,
@@ -214,12 +214,12 @@ void DrawGraphicHover(
 
 // x64 队列适配：以原 DrawGraphic 返回的 legacy 索引写待提交记录的 batchType。
 // index 包括原失败值 -2；调用层不得将其改成数组下标或提前过滤。
-void SetPendingGraphicBatchTypeAtLegacyIndex(
+void SetPendingGraphicBatchTypeAtLegacyIndex(session::ClientSession& session,
     std::int32_t index,
     std::uint8_t type);
 
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
-std::int32_t DrawGraphic3_520970(
+std::int32_t DrawGraphic3_520970(session::ClientSession& session,
     std::int32_t x,
     std::int32_t y,
     std::uint8_t layer,
@@ -230,22 +230,22 @@ std::int32_t DrawGraphic3_520970(
     const GraphicDescriptor16* descriptor);
 
 // 原 521AA0：只发布地图绘制项；不触碰描述符与特殊图形标志。
-std::int32_t QueueMap_521AA0(std::int32_t x, std::int32_t y, std::uint8_t layer);
+std::int32_t QueueMap_521AA0(session::ClientSession& session, std::int32_t x, std::int32_t y, std::uint8_t layer);
 
 // 原 521C80：图号 <=999 也入队；较大图号先 mapNo 查询，再叠加图形偏移。
-std::int32_t QueueGraphicWithResourceOffset_521C80(
+std::int32_t QueueGraphicWithResourceOffset_521C80(session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint8_t layer,
     std::int32_t imageNo, std::int32_t value4,
     const GraphicDescriptor16* descriptor);
 
 // 原 521DD0：直接使用 graphic index，只查询偏移，不做 mapNo 映射。
-std::int32_t DrawGraphic2_521DD0(
+std::int32_t DrawGraphic2_521DD0(session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint8_t layer,
     std::int32_t graphicIndex, std::int32_t value4,
     std::uint8_t batchType, const GraphicDescriptor16* descriptor);
 
 // 原 sub_45F090@[0x45F090,0x45F0FA)：固定混合模式的 legacy 图形提交包装。
-std::int32_t QueueOriginalPaletteGraphic_45F090(
+std::int32_t QueueOriginalPaletteGraphic_45F090(session::ClientSession& session,
     std::int32_t x,
     std::int32_t y,
     std::uint8_t layer,

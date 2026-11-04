@@ -922,14 +922,14 @@ static std::int32_t WindowPet_DrawTooltip(
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         drawText(buffer, 37, 32);
         if (WindowPet_HasSkill25600(session, index) == 1) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(session,
                 originX + 244, originY + 26, graphicLayer,
                 pet.follow6D4 != 0 ? 243078 : 243079, 0, 1, 0, &descriptor));
         }
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(session,
             originX + 270, originY + 26, graphicLayer,
             pet.flags6AA == 1 ? 243081 : 243082, 0, 1, 0, &descriptor));
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(session,
             originX + 244, originY + 6, graphicLayer,
             pet.flags6AA == 2 ? 243084 : 243085, 0, 1, 0, &descriptor));
         for (std::int32_t row = 0; row < 4; ++row) {
@@ -939,23 +939,23 @@ static std::int32_t WindowPet_DrawTooltip(
             // 原57DCB4与57E434完整同值，仅复用图号，不合并原地址身份。
             const auto& images = gPetBarImages57E434[row];
             if (segments > 1) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     drawX, drawY, graphicLayer, images[0], 0, 1, 0, &descriptor));
                 drawX += 6;
                 for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
-                    static_cast<void>(render::DrawGraphic3_520970(
+                    static_cast<void>(render::DrawGraphic3_520970(session,
                         drawX, drawY, graphicLayer, images[1], 0, 1, 0, &descriptor));
                     drawX += 6;
                 }
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     drawX, drawY, graphicLayer, images[2], 0, 1, 0, &descriptor));
             } else if (segments == 1) {
-                static_cast<void>(render::DrawGraphic3_520970(
+                static_cast<void>(render::DrawGraphic3_520970(session,
                     drawX, drawY, graphicLayer, images[3], 0, 1, 0, &descriptor));
             }
         }
     }
-    return cg::render::DrawGraphic(
+    return cg::render::DrawGraphic(session,
         originX + 150, originY + 24, graphicLayer, 243140, 0, &descriptor);
 }
 
@@ -1033,7 +1033,7 @@ static void WindowPetDrag_Handle(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
         const std::int32_t x =
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
-        static_cast<void>(cg::render::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+        static_cast<void>(cg::render::DrawGraphic(session, x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && WindowItem_ClassifyPetSlot(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX)));
@@ -1141,7 +1141,7 @@ static void WindowItemDrag_Handle(
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseY);
     const std::int32_t x =
         static_cast<std::int32_t>(session.UiFrame().mouse.state->mouseX);
-    static_cast<void>(cg::render::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
+    static_cast<void>(cg::render::DrawGraphic(session, x, y, 230, imageNo, 0, drawDescriptor));
 }
 
 // IDE01：原九条；mode S32先写再真实kind2调用/结果透传，正确正文保，十三父/owner/运行待。
@@ -1200,7 +1200,7 @@ std::uint8_t WindowInput_HandleNumber(
                     }
                     const auto* const digitDescriptor = &descriptor;
                     const std::int32_t digitImage = gNumericKeyImages54F030[digit][imageState];
-                    static_cast<void>(cg::render::DrawGraphic(
+                    static_cast<void>(cg::render::DrawGraphic(*window->ownerSession,
                         left + 10, bottom - 9, layer, digitImage, 0, digitDescriptor));
                 }
             }
@@ -1214,7 +1214,7 @@ std::uint8_t WindowInput_HandleNumber(
             }
             const std::int32_t zeroImage = gNumericKeyImages54F030[0][imageState];
             const auto* const zeroDescriptor = &descriptor;
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*window->ownerSession,
                 x + 10, y + 68, layer, zeroImage, 0, zeroDescriptor));
             imageState = 0;
             if (hit(x + 48, y + 58, x + 69, y + 77)) {
@@ -1253,7 +1253,7 @@ std::uint8_t WindowInput_HandleNumber(
             }
             const std::int32_t confirmImage = gNumericKeyImages54F030[13][imageState];
             const auto* const confirmDescriptor = &descriptor;
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*window->ownerSession,
                 x + 58, y + 68, layer, confirmImage, 0, confirmDescriptor));
             for (std::int32_t row = 0; row < 3; ++row) {
                 const std::int32_t centerY = y + 28 + row * 20;
@@ -1267,7 +1267,7 @@ std::uint8_t WindowInput_HandleNumber(
                 }
                 const auto* const operationDescriptor = &descriptor;
                 const std::int32_t operationImage = gNumericKeyImages54F030[row + 10][imageState];
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*window->ownerSession,
                     x + 87, centerY, layer, operationImage, 0, operationDescriptor));
             }
             if ((flags & 2u) != 0) {
@@ -1448,7 +1448,7 @@ static std::int32_t WindowItem_DrawTooltipLines(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
             5, 12, footerColor, footer, 0, 0));
     }
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
         0xE6, 0x3BA5D, 0, 1, 0, &descriptor);
@@ -1814,7 +1814,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
         const std::int32_t firstElementX = firstElement->x;
         const std::int32_t firstY = firstElementY + firstWindowY + 180;
         const std::int32_t firstX = firstElementX + firstWindowX + 85;
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
             firstX, firstY, 223, firstImage, 0, descriptor));
         const std::int32_t secondIndex = state->imageIndex3F4;
         const WindowElement* const secondElement = state->elements00[1];
@@ -1826,7 +1826,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
         const std::int32_t secondWindowX = secondWindow->x;
         const std::int32_t secondY = secondElementY + secondWindowY + 180;
         const std::int32_t secondX = secondElementX + secondWindowX + 118;
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
             secondX, secondY, 223, secondImage, 0, descriptor));
         static_cast<void>(WindowItemSelector_DrawPreview(callbackWindow, state));
         break;
@@ -1921,7 +1921,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
     const std::int32_t windowY = verticalWindow->y;
     const std::int32_t elementY = verticalElement->y;
     const std::int32_t top = localY + (windowY + elementY) - 24;
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(*callbackWindow->ownerSession,
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
         223, callbackWindow->ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -1943,29 +1943,29 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
         const auto* const occupancy =
             reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
         if (occupancy[slot] != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow->ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, 249, 0);
             if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
                 left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[1]));
         } else {
             reinterpret_cast<unsigned char*>(&state->descriptors3B8[2].color)[3] = 5 * state->hoverCount3A8 >= 256
                 ? 0xFF : static_cast<std::uint8_t>(
                     5 * (*reinterpret_cast<const unsigned char*>(&state->hoverCount3A8)));
             if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
-                static_cast<void>(cg::render::DrawGraphic(
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
                 left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[2]));
         }
     }
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
         left + 24, top + 24, 223, 243139, 0, &state->descriptors3B8[0]));
     const std::int32_t hovered = state->hoverIndex3F8;
     if (state->hoverIndex3B0 == hovered) {
@@ -2007,7 +2007,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindo
     const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, cg::yobi::YobiGraphicAxis_X);
     const std::int32_t elementX = panelElement->x;
     const std::int32_t x = elementX + offsetX + currentWindow->x + 101;
-    return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
+    return render::DrawGraphic2_521DD0(*callbackWindow->ownerSession, x, y, layer, graphicIndex, 0, 0, descriptor);
 }
 
 // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
@@ -2121,7 +2121,7 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
     if ((page == 2 || page == 3) && std::bit_cast<std::int8_t>(*state->mode68) == tab) {
         const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
         const std::int32_t image = kEquipmentTabImages[tab * 4 + (hovered ? 3 : 1)];
-        static_cast<void>(cg::render::DrawGraphic(x, y, 223, image, 0, descriptor));
+        static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession, x, y, 223, image, 0, descriptor));
     }
     std::int32_t imageIndex;
     if ((events & MouseFlag_LHoldPhysical) != 0) {
@@ -2351,7 +2351,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
     const WindowInstance* const window = currentWindow;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(*callbackWindow->ownerSession,
         elementX + windowX + 121, elementY + windowY + 118,
         223, 98244, 0, descriptor));
     // 4C7643/4C7696/4C7777三种坐标取样序，仅用于本属性页绘制。
@@ -3445,7 +3445,7 @@ WindowInstance* WindowRuntime_FindById(session::ClientSession& session, const st
 
 // WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x004771B0。
-void WindowNumber_Draw(
+void WindowNumber_Draw(session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::wstring_view text,
     const std::int8_t style, const std::int8_t color,
     const std::uint8_t flags, const std::uint8_t layer)
@@ -3484,7 +3484,7 @@ void WindowNumber_Draw(
             }
             imageNo = kNumberSymbolImages54F1A8[style * 13 + color] + symbol;
         }
-        static_cast<void>(cg::render::DrawGraphic(
+        static_cast<void>(cg::render::DrawGraphic(session,
             drawX, drawY, layer, imageNo, 0, &descriptor));
     };
 
@@ -3531,7 +3531,7 @@ std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, cons
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
     const auto x = static_cast<std::int16_t>(window->x);
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
         0x3BE3E, x, y, width, height, 0xDF, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3);
@@ -3590,7 +3590,7 @@ std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, const 
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
     const auto x = static_cast<std::int16_t>(window->x);
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(*callbackWindow.ownerSession,
         245300, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
@@ -3716,7 +3716,7 @@ void WindowElement_DrawHoverFrame(
     const std::int32_t top = window->y + element->y - 1;
     const std::int32_t bottom = element->height + top + 2;
     const std::int32_t right = element->width + left + 2;
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(*element->owner->ownerSession,
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
         0xDF, imageNo, 0);
@@ -5046,7 +5046,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
     if (element->visible != 1) { WindowRuntime_BlurElement(*element); return; }
     render::GraphicDescriptor16 descriptor{};
     const int x = ox + element->x, y = oy + element->y;
-    const auto firstGraphic = platform::gPendingGraphicCount;
+    const auto firstGraphic = window.ownerSession->GraphicQueue().count;
     switch (element->type) {
     case WindowElementType_Graphic: {
         WindowElement_UpdateImageState(*element);
@@ -5108,7 +5108,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
             const std::int32_t drawWindowX = ox;
             drawX = drawWindowX + drawElementX;
         }
-        static_cast<void>(render::DrawGraphic3_520970(
+        static_cast<void>(render::DrawGraphic3_520970(*window.ownerSession,
             drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
         break;
     }
@@ -5131,7 +5131,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
         const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, cg::yobi::YobiGraphicAxis_X);
         const std::int32_t animationElementX = element->x;
         const std::int32_t drawX = offsetX + ox + animationElementX;
-        static_cast<void>(render::DrawGraphic2_521DD0(
+        static_cast<void>(render::DrawGraphic2_521DD0(*window.ownerSession,
             drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
         break;
     }
@@ -5167,7 +5167,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
             const std::int8_t color = std::bit_cast<std::int8_t>(data->color);
             const std::int8_t style = data->style;
             const std::wstring& text = *data->text;
-            WindowNumber_Draw(x, y, text, style, color, flags, 0xDF);
+            WindowNumber_Draw(*window.ownerSession, x, y, text, style, color, flags, 0xDF);
         }
         break;
     }
@@ -5178,7 +5178,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
     default:
         break;
     }
-    if (clip) WindowRuntime_ClipGraphics(firstGraphic, *clip);
+    if (clip) WindowRuntime_ClipGraphics(*window.ownerSession, firstGraphic, *clip);
 }
 
 void WindowRuntime_DrawCurrent(WindowInstance& target)

@@ -89,7 +89,7 @@ static void DrawCandidateEntry(
     units = oldUnits + numberWidth + bodyWidth + 15;
     const CANDIDATELIST* const selectionList = CurrentCandidateList(session);
     const bool selected = selectionList->dwSelection == selectionList->dwPageStart + pageIndex;
-    cg::render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
+    cg::render::DrawGraphicHover(session, static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top), static_cast<std::uint16_t>(bodyX + bodyWidth), static_cast<std::uint16_t>(top + height),
         selected ? std::uint8_t{0xD9} : std::uint8_t{0xD8}, selected ? 0U : 252U, 1);
 }
 
@@ -197,7 +197,7 @@ void RenderInput_4590E0(session::ClientSession& session)
     const std::int32_t boxX = boxContext->x;
     const std::int32_t boxFontType = boxContext->fontType;
     const std::int32_t boxHeight = render::GetFontMetrics(boxFontType).doubleHeight;
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(session,
         static_cast<std::uint16_t>(boxX - 1), static_cast<std::uint16_t>(boxY - 1),
         static_cast<std::uint16_t>(boxX + compositionWidth), static_cast<std::uint16_t>(boxY + boxHeight),
         baseLayer, 1, 1);
@@ -227,7 +227,7 @@ void RenderInput_4590E0(session::ClientSession& session)
         const std::int32_t highlightX = highlightContext->x;
         const std::int32_t highlightFontType = highlightContext->fontType;
         const std::int32_t highlightHeight = render::GetFontMetrics(highlightFontType).doubleHeight;
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(session,
             static_cast<std::uint16_t>((highlightX + targetStart) - 1),
             static_cast<std::uint16_t>(highlightY - 1),
             static_cast<std::uint16_t>(highlightX + scannedWidth),

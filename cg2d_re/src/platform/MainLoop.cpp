@@ -32,7 +32,6 @@ namespace cg::platform {
 
 std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
 std::int32_t gRendererLost = 0; // 原全局：0x0062B064。
-std::uint16_t gPendingGraphicCount = 0; // 原全局：0x01020EB8。
 
 double gLastRenderDt = 0; // 原全局：0x0073ECC8。
 double gFrameThreshold = 1000.0 / 60.0; // 原全局：0x005590E8。
@@ -91,21 +90,21 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
 // 原函数：0x00458A40。
 void ShowModeChange_458A40(session::ClientSession& session)
 {
-    gPendingGraphicCount = 0;
+    session.GraphicQueue().count = 0;
     session.TextQueue().count = 0;
     render::ResetGraphicCache_456D30(session);
     static_cast<void>(render::DrawText2_456670(session,
         250, 223, 3, 0, 0, L"正在改变描绘模式。", 0));
-    cg::yobi::DrawNineGrid_49BE00(
+    cg::yobi::DrawNineGrid_49BE00(session,
         245310, 196, 180, 256, 96, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),
         74, 54);
-    render::SortTextures_520790();
+    render::SortTextures_520790(session);
     static_cast<void>(render::ClearSurface_4512C0());
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
     render::gRenderQueueMode103CF10 = 1;
-    gPendingGraphicCount = 0;
+    session.GraphicQueue().count = 0;
     session.TextQueue().count = 0;
     render::ResetGraphicCache_456D30(session);
     render::Flip_44C560();
@@ -143,7 +142,7 @@ int MainLoop(session::ClientSession& session)
         auto& connection = session.Connection();
         KeepAlive_457AB0(connection);
         world::UpdateGameTime(session, &session.WorldScene().gameTime.value);
-        gPendingGraphicCount = 0;
+        session.GraphicQueue().count = 0;
         session.TextQueue().count = 0;
         render::ResetGraphicCache_456D30(session);
         if (connection.Active()) {
@@ -167,7 +166,7 @@ int MainLoop(session::ClientSession& session)
         script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00(session);
-            render::SortTextures_520790();
+            render::SortTextures_520790(session);
             UpdateQueuedTextAndGraphicHover_507140(session);
         }
         render::UpdatePalette_450BB0();

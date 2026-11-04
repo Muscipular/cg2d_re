@@ -276,7 +276,7 @@ void DrawBattleEntryHover_43C0A0(session::ClientSession& session, const std::int
     const std::int32_t x = action->x;
     const std::int32_t height = render::ReadGraphicDxHeightFromEntries(entries, graphic);
     const std::int32_t width = render::ReadGraphicDxWidthFromEntries(entries, graphic);
-    cg::render::DrawGraphicHover(
+    cg::render::DrawGraphicHover(session,
         static_cast<std::uint16_t>(x + offsetX - 2),
         static_cast<std::uint16_t>(y + offsetY - 2),
         static_cast<std::uint16_t>(x + offsetX + width + 2),

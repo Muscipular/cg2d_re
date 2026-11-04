@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
 // R08：参考Canvas图元类型；位置相对于DrawCanvasClipped传入的画布原点。
@@ -56,7 +58,7 @@ void PrepareCanvasShape(CanvasShape& shape);
 using CanvasRectangle = std::array<std::int16_t, 4>;
 
 // 窗口坐标入队；与画布边界求交，空交集或原容量限制失败返回-1，队列失败透传。
-std::int32_t DrawCanvasClipped(
+std::int32_t DrawCanvasClipped(session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::uint8_t layer, std::span<const CanvasShape> shapes,
     const CanvasRectangle* clipRectangle = nullptr);

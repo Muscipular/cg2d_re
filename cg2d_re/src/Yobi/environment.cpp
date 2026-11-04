@@ -678,7 +678,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
     }
     for (std::int32_t y = 0; y < 480; y += 48) {
         for (std::int32_t x = 0; x < 640; x += 64) {
-            static_cast<void>(render::DrawGraphic3_520970(
+            static_cast<void>(render::DrawGraphic3_520970(*action->ownerSession,
                 x, y, 0, 14648, 0, 1, 0, &action->drawMode));
         }
     }

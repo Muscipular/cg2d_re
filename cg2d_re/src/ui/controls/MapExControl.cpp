@@ -749,7 +749,7 @@ void WindowMapExData::DrawPoints(const WindowElement& element, int absX, int abs
     }
 
     if (!shapes.empty()) {
-        RendererDrawCanvasClipped(absX, absY, element.width, element.height, LAYER_UI, shapes, &controlClip);
+        RendererDrawCanvasClipped(*element.owner->ownerSession, absX, absY, element.width, element.height, LAYER_UI, shapes, &controlClip);
     }
 }
 
@@ -793,7 +793,7 @@ bool WindowMapExData::Render(const WindowElement& element, int ox, int oy, const
     }
 
     if (!PrepareMap(element)) {
-        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
+        RendererDrawRectClipped(*element.owner->ownerSession, static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
         return true;
     }
 
@@ -807,7 +807,7 @@ bool WindowMapExData::Render(const WindowElement& element, int ox, int oy, const
     int srcRight = std::min(mapBufferW, static_cast<int>(controlClip.right) - drawX);
     int srcBottom = std::min(mapBufferH, static_cast<int>(controlClip.bottom) - drawY);
     if (srcRight <= srcLeft || srcBottom <= srcTop) {
-        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
+        RendererDrawRectClipped(*element.owner->ownerSession, static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
         return true;
     }
 
@@ -827,11 +827,11 @@ bool WindowMapExData::Render(const WindowElement& element, int ox, int oy, const
             if (!tile || !tile->texture || tile->w <= 0 || tile->h <= 0) {
                 continue;
             }
-            RendererDrawSurfaceTextureClipped(tile->texture, drawX + tile->x, drawY + tile->y, tile->w, tile->h, 0xffffffff, LAYER_UI, &controlClip);
+            RendererDrawSurfaceTextureClipped(*element.owner->ownerSession, tile->texture, drawX + tile->x, drawY + tile->y, tile->w, tile->h, 0xffffffff, LAYER_UI, &controlClip);
         }
     }
     TrimMapTileCache(startTileX, endTileX, startTileY, endTileY);
-    RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
+    RendererDrawRectClipped(*element.owner->ownerSession, static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
     return true;
 }
 

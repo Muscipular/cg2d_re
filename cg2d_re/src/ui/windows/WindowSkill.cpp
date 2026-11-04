@@ -694,13 +694,13 @@ static void WindowSkill_DrawSkillRow(
         static_cast<std::uint8_t>(textLayer), 12, nameColor, skill->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:2}", skill->level);
-    WindowNumber_Draw(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    WindowNumber_Draw(session, x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
     cg::text::FormatTo(buffer, L"{:2}", requiredSlots);
-    WindowNumber_Draw(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    WindowNumber_Draw(session, x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(session,
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -898,13 +898,13 @@ static void WindowSkill_HandleTechniqueRow(
     const std::int32_t level =
         session.WorldScene().playerSkills.skills[skillState.index].techniques3C[technique].value90;
     cg::text::FormatTo(buffer, L"{:2}", level);
-    WindowNumber_Draw(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    WindowNumber_Draw(session, x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     record = &session.WorldScene().playerSkills.skills[skillState.index];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
         cg::text::FormatTo(buffer, L"{:3}", cost);
-        WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+        WindowNumber_Draw(session, x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     } else {
         static_cast<void>(render::DrawText_456780(session,
             static_cast<std::int16_t>(x + 189), static_cast<std::int16_t>(y + 3),
@@ -912,7 +912,7 @@ static void WindowSkill_HandleTechniqueRow(
     }
     const std::int32_t currentKind = session.WorldScene().playerSkills.skills[skillState.index].canRebirth;
     const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(session,
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -941,10 +941,10 @@ static void WindowSkill_HandleRecipeRow(
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", cost);
-    WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    WindowNumber_Draw(session, x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = session.WorldScene().playerSkills.skills[skillState.index].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(session,
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
@@ -1343,8 +1343,8 @@ static void WindowSkill_DrawPetSkillRow(
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
-    WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    static_cast<void>(cg::render::DrawGraphic(
+    WindowNumber_Draw(session, x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    static_cast<void>(cg::render::DrawGraphic(session,
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
@@ -1381,8 +1381,8 @@ static void WindowSkill_DrawRidingSkillRow(
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name, 0, 0));
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", record->fp);
-    WindowNumber_Draw(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
-    static_cast<void>(cg::render::DrawGraphic(
+    WindowNumber_Draw(session, x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    static_cast<void>(cg::render::DrawGraphic(session,
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 

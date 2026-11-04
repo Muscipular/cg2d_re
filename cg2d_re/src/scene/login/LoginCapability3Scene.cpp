@@ -46,18 +46,18 @@ static bool HasLoginIntroFrameDeadlineElapsed_45EF80()
     return tick > deadline;
 }
 
-static void DrawFiveCapability3Images()
+static void DrawFiveCapability3Images(session::ClientSession& session)
 {
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245152, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(session, 638, 478, 3, 245152, 0, -1));
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245150, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(session, 638, 478, 3, 245150, 0, -1));
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245156, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(session, 638, 478, 3, 245156, 0, -1));
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245157, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(session, 638, 478, 3, 245157, 0, -1));
     static_cast<void>(
-        cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245151, 0, -1));
+        cg::render::QueueOriginalPaletteGraphic_45F090(session, 638, 478, 3, 245151, 0, -1));
 }
 
 static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
@@ -66,7 +66,7 @@ static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
     auto& intro = sceneUi.capability3Intro;
     const std::uint32_t firstAlpha = sceneUi.capability3OverlayAlpha;
     if (firstAlpha != 0U) {
-        static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
+        static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
             139,
             350,
             206,
@@ -77,7 +77,7 @@ static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
 
     const std::int32_t secondAlpha = intro.alpha9A5E70;
     if (secondAlpha != 0) {
-        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
             0,
             0,
             206,
@@ -88,7 +88,7 @@ static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
 
     const std::int32_t thirdAlpha = intro.alpha9A4CA0;
     if (thirdAlpha != 0) {
-        static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
+        static_cast<void>(cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
             0,
             0,
             206,
@@ -99,7 +99,7 @@ static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
 
     const std::int32_t fourthAlpha = intro.alpha9A4D08;
     if (fourthAlpha != 0) {
-        return cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(
+        return cg::render::StretchGraphicToScreen(connection.Owner(), cg::render::QueueOriginalPaletteGraphic_45F090(connection.Owner(),
             0,
             0,
             3,
@@ -188,12 +188,12 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A4CA0 = 0;
         intro.alpha9A5E70 = 0;
         sceneUi.capability3OverlayAlpha = 0;
-        DrawFiveCapability3Images();
+        DrawFiveCapability3Images(connection.Owner());
         connection.Owner().WorldScene().sceneState = 1;
         return ProcessCapability3CommonDispatch(connection, 1);
 
     case 1: {
-        DrawFiveCapability3Images();
+        DrawFiveCapability3Images(connection.Owner());
         if (HasLoginIntroFrameDeadlineElapsed_45EF80()) {
             return DispatchCapability3FromCurrentState(connection);
         }

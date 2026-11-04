@@ -347,7 +347,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     const std::int32_t imageY = imageWindowY + 4 * row + 9;
     const std::int32_t imageWindowX = dialog.x;
     const std::int32_t imageX = (imageWindowWidth >> 1) + imageWindowX;
-    static_cast<void>(cg::render::DrawGraphic(
+    static_cast<void>(cg::render::DrawGraphic(session,
         imageX, imageY, 0xDF, imageNo, 0, &descriptor));
     return clicked;
 }

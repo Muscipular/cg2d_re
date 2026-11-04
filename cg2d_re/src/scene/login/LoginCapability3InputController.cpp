@@ -77,7 +77,7 @@ std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, c
         const std::int32_t compositionRight = drawX + compositionWidth;
         const std::int32_t compositionBottom = drawY
             + render::GetFontMetrics(drawFontType).doubleHeight;
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(connection.Owner(),
             static_cast<std::uint16_t>(drawX - 1),
             static_cast<std::uint16_t>(drawY - 1),
             static_cast<std::uint16_t>(compositionRight),

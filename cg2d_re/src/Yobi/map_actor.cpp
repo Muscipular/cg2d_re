@@ -127,7 +127,7 @@ static void DrawActorPhaseAttachment(
         graphicChild = *slot;
     }
     const std::int32_t graphicIndex = graphicChild->graphicIndex;
-    world::DrawGearNormal_46C060(
+    world::DrawGearNormal_46C060(*action->ownerSession,
         primaryIndex, before, graphicIndex,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);

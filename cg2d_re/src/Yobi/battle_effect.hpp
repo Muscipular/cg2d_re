@@ -205,7 +205,7 @@ YobiAction* NewBattleEffect_41CD00(
     YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
     std::uint32_t type, std::int32_t blend, std::int32_t link); // type见BattleEffectType；完整48类及已有对象公共尾。
 // 原函数：0x0041E890。
-std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // BSTL01：共享相位先推进，X外Y内100格/每格fresh相位/末次返回。
+std::int32_t DrawBattleTiledEffect_41E890(session::ClientSession& session, std::int32_t type); // BSTL01：共享相位先推进，X外Y内100格/每格fresh相位/末次返回。
 // 原函数：0x0041E920。
 void UpdateBattleTiledEffect_41E920(YobiAction* action); // 独立58相位/1D4反向，绘制后判寿命且仍自增。
 // 原函数：0x0041E9D0。

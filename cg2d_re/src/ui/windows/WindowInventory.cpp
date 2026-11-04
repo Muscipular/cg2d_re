@@ -98,7 +98,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
                 cg::text::FormatTo(uiFrame.hoverText, L"移动到背包{}", page + 1);
                 const std::int32_t left = window->x + element.x;
                 const std::int32_t top = window->y + element.y;
-                render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                render::DrawGraphicHover(*callbackWindow.ownerSession, static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(left + element.width),
                     static_cast<std::uint16_t>(top + element.height),
                     0xDF, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex), 0);
@@ -404,7 +404,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
             5, 12, footerColor, footer, 0, 0));
     }
-    return render::DrawGraphic3_520970(
+    return render::DrawGraphic3_520970(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
         230, 244317, 0, 1, 0, &descriptor);
@@ -442,15 +442,15 @@ std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow
         if (item->used != 0) {
             const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.normalSelector, index, slot, 0);
             const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.normalSelector, index, slot, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, 23040, 0, nullptr));
             if (occupancy[slot] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item->imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item->imageNo, 0, &descriptor));
             }
         }
         currentCount = count;
@@ -942,7 +942,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 15;
                 const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 48;
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                     static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                     223, 254, 0);
@@ -957,7 +957,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 15;
             const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 48;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -986,13 +986,13 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
             if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
             }
             const std::int32_t count = item.count;
             if (count > 0) {
@@ -1188,7 +1188,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         if (source < count) {
             const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.normalSelector, index, source, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.normalSelector, index, source, -24);
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
                 223, 254, 0);
@@ -1197,7 +1197,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     if (hovered >= 0) {
         const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.normalSelector, index, hitIndex, -24);
         const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.normalSelector, index, hitIndex, -24);
-        cg::render::DrawGraphicHover(
+        cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -1218,17 +1218,17 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.normalSelector, index, position, 0);
         const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.normalSelector, index, position, 0);
         if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
-            static_cast<void>(cg::render::DrawGraphic(
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession,
                 x + 105, y + 93, 223, 22739, 0, &descriptor));
         }
         if (occupancy[position] != 0) {
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                 static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                 223, 249, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &dimmed));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, record.imageNo, 0, &dimmed));
         } else {
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, record.imageNo, 0, &descriptor));
+            static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, record.imageNo, 0, &descriptor));
         }
     }
     return consumed;
@@ -1350,7 +1350,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
         static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseY);
     const std::int32_t mouseX =
         static_cast<std::int32_t>(callbackWindow.ownerSession->UiFrame().mouse.state->mouseX);
-    static_cast<void>(cg::render::DrawGraphic(mouseX, mouseY, 230, imageNo, 0, &descriptor));
+    static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, mouseX, mouseY, 230, imageNo, 0, &descriptor));
     if (hovered >= 0) {
         const WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
@@ -1358,7 +1358,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 15;
             const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 48;
-            cg::render::DrawGraphicHover(
+            cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
@@ -1382,16 +1382,16 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
             if (mode == 1 ? isMode1Blocked(item) : (*reinterpret_cast<const unsigned char*>(&item.flags) & 0x60u) != 0) {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, 23040, 0, nullptr));
             }
             if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(
+                cg::render::DrawGraphicHover(*callbackWindow.ownerSession,
                     static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
                     static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
                     223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &dimmed));
             } else {
-                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+                static_cast<void>(cg::render::DrawGraphic(*callbackWindow.ownerSession, x, y, 223, item.imageNo, 0, &descriptor));
             }
             const std::int32_t count = item.count;
             if (count > 0) {

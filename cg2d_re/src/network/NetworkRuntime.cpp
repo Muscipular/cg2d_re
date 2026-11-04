@@ -440,9 +440,9 @@ void HandleInventorySlotSwapReply_510460(cg::network::CgConnection& connection, 
 
 // IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。
 // 原函数：0x00510490。
-void HandleItemDetailReply_510490(cg::network::CgConnection&, const char* const text)
+void HandleItemDetailReply_510490(cg::network::CgConnection& connection, const char* const text)
 {
-    auto& record = world::gReplyRecordF7C950;
+    auto& record = connection.Owner().WorldScene().replyRecordF7C950;
     char title[32]{};
     const auto titleResult = ExtractDelimitedField_52CED0(text, ',', 1, 31, title);
     record.text04 = cg::text::FromGbkWide(title);

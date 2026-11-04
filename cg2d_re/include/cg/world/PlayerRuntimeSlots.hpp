@@ -12,6 +12,17 @@ namespace cg::session { class ClientSession; }
 namespace cg::yobi { struct YobiAction; }
 namespace cg::world {
 
+// 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
+struct ReplyRecordF7C950 {
+    std::int32_t used; // 原成员偏移：+0x00。
+    std::wstring text04; // 原成员偏移：+0x04。
+    std::uint8_t hasText24; // 原成员偏移：+0x24。 第2文本不等于单空格；空串同样为1。
+    std::wstring text25; // 原成员偏移：+0x25。
+    std::array<std::byte, 3> bytes45; // 原成员偏移：+0x45。
+    std::int32_t value48; // 原成员偏移：+0x48。
+    std::array<std::int32_t, 24> values4C; // 原成员偏移：+0x4C。
+};
+
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
     // 原0x005184A0：成员正序构造及失败前缀清理由C++承接。

@@ -2307,7 +2307,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
     auto* const panelElement = selector->elements00[1].get();
     if (!panelElement) return false;
     if ((static_cast<std::uint8_t>(state) & MouseFlag_LDownEvent) != 0 || state == 0
-        || selector->value3FC == 0 || world::gReplyRecordF7C950.used == 0) {
+        || selector->value3FC == 0 || callbackWindow->ownerSession->WorldScene().replyRecordF7C950.used == 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         WindowElement* const element = panelElement;
         const WindowElementCallback callback = selector->callbacks50[2];
@@ -2405,12 +2405,12 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(textColor)), text, 0, 0));
     };
     const std::int32_t length =
-        static_cast<std::int32_t>(cg::text::ToGbk(world::gReplyRecordF7C950.text04).size());
+        static_cast<std::int32_t>(cg::text::ToGbk(callbackWindow->ownerSession->WorldScene().replyRecordF7C950.text04).size());
     if (length > 0) {
         drawText(100 - (12 * length) / 2 / 2, 9, 0,
-            world::gReplyRecordF7C950.text04, TextCoordinateOrder::Title);
+            callbackWindow->ownerSession->WorldScene().replyRecordF7C950.text04, TextCoordinateOrder::Title);
     }
-    if (world::gReplyRecordF7C950.value48 == 1) {
+    if (callbackWindow->ownerSession->WorldScene().replyRecordF7C950.value48 == 1) {
         drawText(64, 28, 0, L"(有特殊称号)",
             TextCoordinateOrder::WindowBeforeElements);
     }
@@ -2422,7 +2422,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
         if (lines >= 14) {
             break;
         }
-        const std::int32_t value = world::gReplyRecordF7C950.values4C[attribute.index];
+        const std::int32_t value = callbackWindow->ownerSession->WorldScene().replyRecordF7C950.values4C[attribute.index];
         if (value == 0) {
             continue;
         }
@@ -2438,8 +2438,8 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
         y += 16;
         ++lines;
     }
-    if (world::gReplyRecordF7C950.hasText24 != 0) {
-        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", world::gReplyRecordF7C950.text25);
+    if (callbackWindow->ownerSession->WorldScene().replyRecordF7C950.hasText24 != 0) {
+        cg::text::FormatTo(buffer, LR"(能减少使用"{}"的魔)", callbackWindow->ownerSession->WorldScene().replyRecordF7C950.text25);
         drawText(28, 188, 0, buffer, TextCoordinateOrder::WindowBeforeElements);
         drawText(28, 204, 0, L"力消耗",
             TextCoordinateOrder::WindowBeforeElements);

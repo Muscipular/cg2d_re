@@ -1882,9 +1882,6 @@ void SwapPlayerInventorySlots_51B530(session::ClientSession& session, const std:
 
 } // namespace detail
 
-// 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
-ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
-
 namespace detail {
 
 // 原函数：0x00519770。

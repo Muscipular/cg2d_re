@@ -870,7 +870,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         currentWindow->state |= 0x2000u;
     }
     if ((events & MouseFlag_LDownEvent) != 0 && hovered == -1) {
-        if (world::gReplyRecordF7C950.used != 0) {
+        if (callbackWindow.ownerSession->WorldScene().replyRecordF7C950.used != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowInstance* const window = currentWindow;
             inventory.battleSelector.value3FC = 1;

@@ -537,6 +537,7 @@ struct WorldSceneRuntimeState {
     MapNoticeState mapNotice {};
     NpcDialogRuntimeState npcDialog {};
     std::array<PlayerItemRecord, 28> playerItems {}; // 原FDA8A4..FF02B4，实际玩家物品唯一owner。
+    ReplyRecordF7C950 replyRecordF7C950 {}; // 原F7C950，网络与普通/战斗背包共用。
     RotationState rotation {};
     ChatSendState chat {};
     ChatDisplayState chatDisplay {};

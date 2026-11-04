@@ -62,19 +62,6 @@ void SwapPlayerOrPetItemSlots_51B630(
     std::int32_t firstGroup, std::int32_t firstIndex,
     std::int32_t secondGroup, std::int32_t secondIndex);
 
-// 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
-struct ReplyRecordF7C950 {
-    std::int32_t used; // 原成员偏移：+0x00。
-    std::wstring text04; // 原成员偏移：+0x04。
-    std::uint8_t hasText24; // 原成员偏移：+0x24。 第2文本不等于单空格；空串同样为1。
-    std::wstring text25; // 原成员偏移：+0x25。
-    std::array<std::byte, 3> bytes45; // 原成员偏移：+0x45。
-    std::int32_t value48; // 原成员偏移：+0x48。
-    std::array<std::int32_t, 24> values4C; // 原成员偏移：+0x4C。
-};
-
-extern ReplyRecordF7C950 gReplyRecordF7C950; // 原全局：0x00F7C950。
-
 // 原函数：0x0052E1D0。
 std::int32_t HasPetMailTechnique_52E1D0(session::ClientSession& session, std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
 // 原函数：0x0052E180。

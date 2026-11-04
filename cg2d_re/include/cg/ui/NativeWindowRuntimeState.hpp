@@ -1432,6 +1432,7 @@ struct NativeWindowRuntimeState {
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。
+    std::wstring savedSettingsPath; // NSM01：场景5绑定的角色/尺寸布局路径，返回登录后不改投新账号。
 };
 static_assert(sizeof(NativeWindowRuntimeState::emoteSelection) == 18);
 

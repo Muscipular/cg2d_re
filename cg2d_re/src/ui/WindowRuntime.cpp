@@ -1,6 +1,7 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -18,6 +19,8 @@
 
 #include <cstdio>
 #include <algorithm>
+#include <cerrno>
+#include <filesystem>
 
 namespace cg::ui {
 
@@ -146,7 +149,7 @@ static std::int32_t WindowRuntime_HasChangedDefaultPositions(session::ClientSess
 static std::int32_t WindowRuntime_RepairSettingsTail(session::ClientSession& session); // 原文件长度尾部修复，不增加索引保护。
 
 // 原函数：0x004C9170。
-static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session); // 文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。
+static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session, bool restoreCoordinates); // 角色/尺寸文件恢复坐标，旧全局文件仍按原默认布局适配。
 
 // 原函数：0x004C9060。
 static std::int32_t WindowRuntime_LoadSettings(session::ClientSession& session); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
@@ -2635,16 +2638,17 @@ static std::int32_t WindowRuntime_RepairSettingsTail(session::ClientSession& ses
 
 // CWP01：原两设置BYTE现场读取，完整S32字段/交错发布与返回保持。
 // 原函数：0x004C9170。
-static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session)
+static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session, const bool restoreCoordinates)
 {
     auto& savedData = session.UiFrame().native.savedData;
     auto& states = WindowRuntime_States(session);
     auto& settings = WindowRuntime_Settings(session);
     for (std::size_t index = 0; index < kWindowCount; ++index) {
-        // R02：旧分辨率的保存坐标不覆盖当前布局；下方非坐标设置仍按原流程恢复。
         const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, index);
-        states[index].x = prototype->defaultX;
-        states[index].y = prototype->defaultY;
+        states[index].x = restoreCoordinates && index < kSavedWindowCount
+            ? savedData.records[index].x : prototype->defaultX;
+        states[index].y = restoreCoordinates && index < kSavedWindowCount
+            ? savedData.records[index].y : prototype->defaultY;
     }
     static_cast<void>(WindowRuntime_RepairSettingsTail(session));
     const auto firstByte = *reinterpret_cast<const unsigned char*>(&savedData.records[14].value08);
@@ -2679,15 +2683,22 @@ static std::int32_t WindowRuntime_LoadSettings(session::ClientSession& session)
 {
     auto& savedData = session.UiFrame().native.savedData;
     static_cast<void>(WindowRuntime_ResetSettings(session));
-    std::FILE* const stream =
-        _wfopen(L"data\\WinSaveDate", L"rb+");
+    const auto& rolePath = session.UiFrame().native.savedSettingsPath;
+    const wchar_t* path = rolePath.empty() ? L"data\\WinSaveDate" : rolePath.c_str();
+    bool restoreCoordinates = !rolePath.empty();
+    std::FILE* stream = _wfopen(path, L"rb+");
+    if (stream == nullptr && restoreCoordinates && errno == ENOENT) {
+        path = L"data\\WinSaveDate";
+        restoreCoordinates = false;
+        stream = _wfopen(path, L"rb+");
+    }
     if (stream == nullptr) {
         static_cast<void>(WindowRuntime_ResetSettings(session));
         return 0;
     }
     // 原0x0053D435：同一MSVC描述符的创建／读写及权限。
-    const std::int32_t descriptor = ::_open(
-        "data\\WinSaveDate", _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
+    const std::int32_t descriptor = ::_wopen(
+        path, _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
     if (descriptor != -1) {
         // 原0x0053D3BD：保留S32文件长度。
         session.UiFrame().native.savedLength = static_cast<std::int32_t>(::_filelength(descriptor));
@@ -2699,7 +2710,8 @@ static std::int32_t WindowRuntime_LoadSettings(session::ClientSession& session)
                 &savedData, 1, 0x521C, stream)));
             if (std::ferror(stream) == 0) {
                 if (savedData.version != 0x13
-                    || WindowRuntime_HasChangedDefaultPositions(session) == 1 || WindowRuntime_ApplySettings(session) == 0) {
+                    || (!restoreCoordinates && WindowRuntime_HasChangedDefaultPositions(session) == 1)
+                    || WindowRuntime_ApplySettings(session, restoreCoordinates) == 0) {
                     static_cast<void>(WindowRuntime_ResetSettings(session));
                 }
                 static_cast<void>(std::fclose(stream));
@@ -2729,8 +2741,9 @@ static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& sessi
     static_cast<void>(WindowRuntime_ClearSavedSettings(session));
     savedData.version = 0x13;
     for (std::size_t index = 0; index < kSavedWindowCount; ++index) {
-        savedData.records[index].x = states[index].x;
-        savedData.records[index].y = states[index].y;
+        const auto* const window = states[index].window;
+        savedData.records[index].x = window != nullptr ? window->x : states[index].x;
+        savedData.records[index].y = window != nullptr ? window->y : states[index].y;
     }
     const std::int32_t firstByte = std::bit_cast<std::int8_t>(settings.inventoryActorSelection);
     const std::int32_t secondByte = std::bit_cast<std::int8_t>(settings.battleItemActorSelection);
@@ -2763,13 +2776,23 @@ static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& sessi
 std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session)
 {
     auto& savedData = session.UiFrame().native.savedData;
+    const auto& path = session.UiFrame().native.savedSettingsPath;
+    if (path.empty()) return 1;
+    std::error_code error;
+    static_cast<void>(std::filesystem::create_directories(std::filesystem::path(path).parent_path(), error));
+    if (error) {
+        m_log_iw(L"无法创建角色布局目录，错误 %d。", error.value());
+        return 1;
+    }
     std::FILE* const stream =
-        _wfopen(L"data\\WinSaveDate", L"wb+");
+        _wfopen(path.c_str(), L"wb+");
     if (stream != nullptr) {
         static_cast<void>(WindowRuntime_CaptureSettings(session));
         static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
             &savedData, 1, 0x521C, stream)));
         static_cast<void>(std::fclose(stream));
+    } else {
+        m_log_iw(L"无法打开角色布局保存文件，错误 %d。", errno);
     }
     return 1;
 }
@@ -3408,6 +3431,18 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
 {
     auto& business = session.UiFrame().native.business;
     auto& states = WindowRuntime_States(session);
+    const auto& request = session.Connection().LoginRequests();
+    const auto& character = request.characters[static_cast<std::size_t>(request.selectedCharacterIndex)];
+    std::wstring accountKey;
+    constexpr wchar_t hex[] = L"0123456789ABCDEF";
+    for (const unsigned char byte : text::ToGbk(request.account)) {
+        accountKey += hex[byte >> 4];
+        accountKey += hex[byte & 15];
+    }
+    session.UiFrame().native.savedSettingsPath = accountKey.empty() ? std::wstring {}
+        : std::format(L"{}\\layout\\{}\\g{}_s{}_r{}\\{}x{}\\WinSaveDate", platform::gDataPath,
+            accountKey, request.selectedLoginServerGroup, request.selectedServerIndex,
+            character.registNumber, platform::gWindowWidth, platform::gWindowHeight);
     static_cast<void>(WindowRuntime_LoadSettings(session));
     static_cast<void>(WindowRuntime_ResetAlbumState(session));
     WindowMessageBoard_ResetRecords(session);

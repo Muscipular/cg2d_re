@@ -818,6 +818,22 @@ static void WindowDialog_Route(
 {
     auto& npcDialog = session.WorldScene().npcDialog;
     std::int32_t currentType = npcDialog.type;
+    if (currentType >= 0 && type != currentType) {
+        m_logw(L"[BZ][route.replace] owner=%p requested=%d current=%d request=%d target=%d\n",
+            static_cast<void*>(&session), type, currentType, request, target);
+        // 先解除旧对话状态并完成关闭，旧窗release不能消费随后发布的新数据。
+        npcDialog.type = -1;
+        if (currentType == 32) {
+            for (WindowInstance*& window : WindowRuntime_Windows(session)) {
+                if (window != nullptr && window->id == WindowId_TextList) {
+                    WindowRuntime_Close(window);
+                    window = nullptr;
+                }
+            }
+        }
+        WindowRuntime_CloseByCategory(session, 3);
+        currentType = -1;
+    }
     cg::yobi::YobiAction* created = nullptr;
     if (currentType >= 0) {
         switch (request) {

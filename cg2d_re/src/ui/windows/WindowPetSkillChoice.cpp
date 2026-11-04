@@ -2207,7 +2207,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     }
     if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
-        const std::int32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::int32_t hoverImage = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);

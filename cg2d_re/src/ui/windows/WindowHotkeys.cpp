@@ -371,7 +371,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
 
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int8_t marker = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768));
+            static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex));
         const std::uint32_t currentCategory = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Hotkeys].value14);
@@ -398,7 +398,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
                     &inputs.hotkeyPrototype, x + 96, y + row * 16 + 58, 2));
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
-                    static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768));
+                    static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex));
                 const std::wstring text = input::ContextText(inputs.hotkeys[recordIndex]);
                 WindowInstance* const window = currentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);

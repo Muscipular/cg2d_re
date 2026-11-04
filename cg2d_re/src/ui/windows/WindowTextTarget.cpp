@@ -463,7 +463,7 @@ static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_Hover) != 0) {
         auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
-            WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
+            WindowElement_DrawHoverFrame(indexedElement, state, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
         }
         uiFrame.hoverText = L"选择此人物。";
     }

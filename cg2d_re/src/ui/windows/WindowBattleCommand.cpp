@@ -363,7 +363,7 @@ static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, con
             }
         }
         if (first < 20) {
-            const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+            const std::int32_t hitIndex = callbackWindow.ownerSession->UiFrame().hoveredGraphicPendingIndex;
             std::int8_t selected = -1;
             for (std::int32_t index = 0; index < 20; ++index) {
                 const cg::yobi::YobiAction* const action = callbackWindow.ownerSession->WorldScene().battle.entries[index];
@@ -1294,7 +1294,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
 {
     auto& uiFrame = session.UiFrame();
     std::wstring buffer;
-    const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+    const std::int32_t hitIndex = session.UiFrame().hoveredGraphicPendingIndex;
     for (const cg::yobi::YobiAction* const action : session.WorldScene().battle.entries) {
         if (action != nullptr && cg::yobi::GetYobiActionCacheIndex(action) == hitIndex
             && (cg::yobi::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
@@ -1606,7 +1606,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 }
             }
             const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
-            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            const std::int32_t hover = session.UiFrame().hoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 const auto clicks = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));
                 uiFrame.hoverText = L"打开技能视窗。";
@@ -1620,7 +1620,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         }
         case 1: {
             const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
-            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            const std::int32_t hover = session.UiFrame().hoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
                 uiFrame.hoverText = L"关闭技能视窗。";
@@ -1653,7 +1653,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 }
             }
             const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
-            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            const std::int32_t hover = session.UiFrame().hoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
                 const auto clicks = static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(session));

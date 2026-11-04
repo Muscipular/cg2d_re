@@ -960,7 +960,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
@@ -1175,7 +1175,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         std::uint16_t used;
         std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));
@@ -1446,7 +1446,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     }
     drawDragSource();
     if (hover) {
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
@@ -1456,7 +1456,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         }
     }
     if ((events & MouseFlag_Dragging) != 0) {
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
@@ -1604,7 +1604,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
     if (hover) {
         std::memcpy(&used, record, sizeof(used));
         if (used != 0) {
-            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
             auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
@@ -1613,7 +1613,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
         }
     }
     if ((events & MouseFlag_Dragging) != 0) {
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);

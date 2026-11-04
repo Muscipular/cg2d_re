@@ -232,7 +232,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
                 if ((state & MouseFlag_Hover) != 0) {
                     auto* const indexedElement = window->FindElementById(elementId);
                     if (indexedElement) {
-                        WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
+                        WindowElement_DrawHoverFrame(indexedElement, state, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
                     }
                     flags = pet.flags6AA;
                     if (flags != 2) {

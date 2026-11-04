@@ -63,6 +63,9 @@ struct UiFrameRuntimeState {
     std::wstring hoverText; // 原0xD68AE8，同会话各提示来源共用的正文。
     std::int32_t inputAndHoverSuppressed = 0; // 原D460C8，输入说明与悬停共用门禁。
     std::uint32_t hoverColorIndex = 0; // 原D6978C，同会话悬停配色的逐帧相位。
+    std::int32_t hoveredGraphicPendingIndex = 0; // 原D6976C，原队列图形命中索引，跨帧消费。
+    std::int32_t hoveredTextPendingIndex = 0; // 原D68BEC，原队列文字命中索引。
+    std::uint32_t hoverFramePaletteIndex = 0; // 原D69768，悬停框颜色，完整W32/低W8共用。
     ExtensionWindowState extension {};
     ElementPointerDragState pointerDrag {};
     bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。

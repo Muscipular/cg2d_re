@@ -2302,7 +2302,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
         const WindowInstance* const window = currentWindow;
-        const std::int32_t frame = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::int32_t frame = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
@@ -3200,7 +3200,7 @@ static std::int32_t WindowShop_HandleItemIcon(WindowInstance& callbackWindow, co
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
     const auto* const record = &shop.items[item];
@@ -3275,7 +3275,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
     const WindowInstance* const window = currentWindow;
@@ -3378,7 +3378,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
     if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 9) {
@@ -3391,7 +3391,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
     const std::int32_t item = std::bit_cast<std::int8_t>(shop.selectedSlots[row]);
@@ -3615,7 +3615,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
@@ -3781,11 +3781,11 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
+                const auto countFrame = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
+                const auto nameFrame = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
@@ -3795,8 +3795,8 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 377), 4, 12, 0, shop.confirmationHeading, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 393), 4, 12, 0, shop.confirmationQuestion, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 377), 4, 12, 0, shop.confirmationHeading, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
+    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(panelX + 190), static_cast<std::int16_t>(offsetY + 393), 4, 12, 0, shop.confirmationQuestion, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
     for (const WindowConfirmationAmount& amount : shop.confirmationAmounts) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

@@ -129,12 +129,6 @@ struct LegacyPendingStorage {
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
 extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。
 
-// 原D6976C：S32图形命中索引，初值0；507140生产，战斗/UI消费，不是对象地址。
-extern std::int32_t gHoveredGraphicPendingIndex;
-
-// 原0xD69768：命中处理发布的悬停颜色；角色modal读完整W32，登录消息读低W8。
-extern std::uint32_t gHoverFramePaletteIndex_D69768;
-
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;
 
@@ -154,7 +148,7 @@ extern std::int32_t gLastUnrefreshedPaletteFrameVersion;
 extern const std::array<std::int32_t, 64> gRippleSineTable;
 
 // 原507090：按value4匹配主记录，以平行层槽绘框；每轮重读绘框追加后的计数。
-void DrawMatchingGraphicHover_507090(std::int32_t value4);
+void DrawMatchingGraphicHover_507090(session::ClientSession& session, std::int32_t value4);
 
 // 原 sub_5208F0@[0x5208F0,0x520907)：原始 F32 位模式严格按
 // R current X -> R current Y -> W previous X -> W previous Y 执行。

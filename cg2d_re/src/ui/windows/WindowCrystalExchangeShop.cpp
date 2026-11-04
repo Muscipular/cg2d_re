@@ -1239,7 +1239,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
@@ -1350,11 +1350,11 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
                 } else {
                     cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
-                const auto countFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
+                const auto countFrame = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
                     4, 12, 0, buffer, 0, countFrame));
-                const auto nameFrame = static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768);
+                const auto nameFrame = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
@@ -1364,8 +1364,8 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, crystal.confirmHeading, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, crystal.confirmQuestion, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, crystal.confirmHeading, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
+    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, crystal.confirmQuestion, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
     for (const WindowConfirmationAmount& amount : crystal.confirmAmounts) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);

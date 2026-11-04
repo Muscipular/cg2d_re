@@ -1353,7 +1353,7 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                     static_cast<std::uint16_t>(x + 240), static_cast<std::uint16_t>(y + 90),
-                    223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                    223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
             }
             consumed = 1;
         }
@@ -1530,7 +1530,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
                     cg::render::DrawGraphicHover(
                         static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                         static_cast<std::uint16_t>(x + 231), static_cast<std::uint16_t>(y + 48),
-                        223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                        223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
                 }
                 consumed = 1;
             }
@@ -1670,7 +1670,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                     static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                    223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                    223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
             }
             consumed = 1;
         }
@@ -1805,7 +1805,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
                             cg::render::DrawGraphicHover(
                                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-                                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
                         }
                         if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
                             if ((state & MouseFlag_LDownEvent) != 0) {

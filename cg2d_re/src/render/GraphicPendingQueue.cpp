@@ -18,9 +18,6 @@
 
 namespace cg::render {
 
-// 原D69768零填充W32槽；唯一生产在下方完整507140，既有消费者仍共用此符号。
-std::uint32_t gHoverFramePaletteIndex_D69768 = 0;
-
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void DrawPaletteRectPrimitive_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
 
@@ -105,7 +102,6 @@ static std::uint16_t AppendReservedGraphic(
 }
 
 LegacyPendingStorage gLegacyPendingStorage {}; // 原全局：0x00FF4E30。
-std::int32_t gHoveredGraphicPendingIndex = 0; // 原全局：0x00D6976C。
 std::uint8_t gSpecialGraphicPending = 0; // 原全局：0x01020EDC。
 std::int32_t gGraphicDirty = 0; // 原全局：0x01020EE8。
 std::uint32_t gRenderQueueMode103CF10 = 0; // 原全局：0x0103CF10。
@@ -119,7 +115,7 @@ const std::array<std::int32_t, 64> gRippleSineTable { // 原全局：0x0058B6E0�
 };
 
 // 原函数：0x00507090。
-void DrawMatchingGraphicHover_507090(const std::int32_t value4)
+void DrawMatchingGraphicHover_507090(session::ClientSession& session, const std::int32_t value4)
 {
     std::int32_t index = 0;
     std::int16_t count =
@@ -140,7 +136,7 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
             const std::uint8_t hoverLayer =
                 layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA};
             const GraphicDxCache* const dxBase = gGraphicDxCache103CFA4;
-            const std::uint32_t hover = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::uint32_t hover = session.UiFrame().hoverFramePaletteIndex;
             const DxGraphicEntry* const entry = &dxBase->Read(imageNo);
             const std::int32_t y = record->y;
             const std::int32_t x = record->x;

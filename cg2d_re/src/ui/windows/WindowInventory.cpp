@@ -101,7 +101,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
                 render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                     static_cast<std::uint16_t>(left + element.width),
                     static_cast<std::uint16_t>(top + element.height),
-                    0xDF, static_cast<std::uint8_t>(render::gHoverFramePaletteIndex_D69768), 0);
+                    0xDF, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex), 0);
             }
             if ((state & MouseFlag_DragFinish) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 51, 320));
@@ -960,7 +960,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
         if (item.used != 0) {
@@ -1200,7 +1200,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+            223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         if (item->used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
@@ -1361,7 +1361,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

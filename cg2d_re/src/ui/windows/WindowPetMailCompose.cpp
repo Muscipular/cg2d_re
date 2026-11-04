@@ -209,7 +209,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const WindowInstance* const window = currentWindow;
-        const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t image = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         const std::int32_t windowY = window->y;
         auto* elementsWindow = window;
         const std::int32_t windowX = window->x;

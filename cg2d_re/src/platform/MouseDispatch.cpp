@@ -131,7 +131,8 @@ static bool HitQueuedGraphic(session::ClientSession& session, const render::Grap
 }
 
 // 原5075A3..5076B4；只由value4==2路径进入，不在这里重取排序层。
-static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, const std::uint8_t layer)
+static void DrawQueuedGraphicHover(session::ClientSession& session,
+    const render::GraphicCacheItem32& graphic, const std::uint8_t layer)
 {
     std::int32_t x;
     std::int32_t y;
@@ -141,7 +142,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     if (layer >= 0xE2) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gHoverFramePaletteIndex_D69768;
+        hover = session.UiFrame().hoverFramePaletteIndex;
         x = graphic.x;
         entry = &base->Read(imageNo);
         y = graphic.y;
@@ -149,7 +150,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else if (layer >= 0xD4) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gHoverFramePaletteIndex_D69768;
+        hover = session.UiFrame().hoverFramePaletteIndex;
         entry = &base->Read(imageNo);
         y = graphic.y;
         x = graphic.x;
@@ -157,7 +158,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else if (graphic.reference.action != nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gHoverFramePaletteIndex_D69768;
+        hover = session.UiFrame().hoverFramePaletteIndex;
         y = graphic.y;
         entry = &base->Read(imageNo);
         x = graphic.x;
@@ -179,7 +180,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     } else {
         const std::int32_t imageNo = graphic.imageNo;
         const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
-        hover = cg::render::gHoverFramePaletteIndex_D69768;
+        hover = session.UiFrame().hoverFramePaletteIndex;
         y = graphic.y;
         entry = &base->Read(imageNo);
         x = graphic.x;
@@ -206,8 +207,8 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     const std::uint32_t color = kHoverColors58ACC8[colorIndex];
     const std::uint32_t focus = uiFrame.windowHasFocus;
     const bool hasFocus = focus != 0;
-    cg::render::gHoverFramePaletteIndex_D69768 = color;
-    render::gHoveredGraphicPendingIndex = -1;
+    session.UiFrame().hoverFramePaletteIndex = color;
+    session.UiFrame().hoveredGraphicPendingIndex = -1;
     if (hasFocus) {
         uiFrame.windowHasFocus = 0;
         return;
@@ -219,7 +220,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
         const render::TextPendingRecord& text = render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
         std::int32_t width;
         if (text.value7 != 0 && HitQueuedText(session, text, width)) {
-            render::gHoveredTextPendingIndex = textIndex;
+            session.UiFrame().hoveredTextPendingIndex = textIndex;
             const render::TextPendingRecord& selected =
                 render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
             const std::uint8_t type = selected.value7;
@@ -228,7 +229,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                 std::int32_t y;
                 std::int32_t x;
                 if (type == 2) {
-                    marker = cg::render::gHoverFramePaletteIndex_D69768;
+                    marker = session.UiFrame().hoverFramePaletteIndex;
                     y = selected.y;
                     x = selected.x;
                 } else {
@@ -244,7 +245,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                 render::SortTextures_520790();
             }
             const std::int32_t inputGate = uiFrame.inputAndHoverSuppressed;
-            render::gHoveredGraphicPendingIndex = -1;
+            session.UiFrame().hoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = 0xD4;
             if (inputGateIsZero && interaction.hoverDescriptionEnabled != 0) {
@@ -258,7 +259,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
 
     // 这里只重取遍历次数，排序槽位置继续用入口确定的orderIndex。
     std::int32_t remaining = std::bit_cast<std::int16_t>(gPendingGraphicCount) - 1;
-    render::gHoveredTextPendingIndex = -1;
+    session.UiFrame().hoveredTextPendingIndex = -1;
     while (remaining >= 0) {
         const std::int16_t graphicIndex =
             render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
@@ -266,16 +267,16 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             render::gLegacyPendingStorage.records[static_cast<std::size_t>(graphicIndex)];
         if (graphic.value4 != 0 && render::LoadGraphic_522570(graphic.imageNo) != 0
             && HitQueuedGraphic(session, graphic)) {
-            render::gHoveredGraphicPendingIndex =
+            session.UiFrame().hoveredGraphicPendingIndex =
                 render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
             if (graphic.value4 == 2) {
                 const std::uint8_t layer =
                     render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].layer;
-                DrawQueuedGraphicHover(graphic, layer);
+                DrawQueuedGraphicHover(session, graphic, layer);
             }
             const std::int32_t value4 = graphic.value4;
             if (value4 >= 3) {
-                render::DrawMatchingGraphicHover_507090(value4);
+                render::DrawMatchingGraphicHover_507090(session, value4);
             }
             render::SortTextures_520790();
             if (uiFrame.inputAndHoverSuppressed == 0 && interaction.hoverDescriptionEnabled != 0) {
@@ -295,7 +296,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
         --orderIndex;
     }
     *reinterpret_cast<std::uint8_t*>(&session.UiFrame().mouse.state->valueD68DB4) = 5;
-    render::gHoveredGraphicPendingIndex = -1;
+    session.UiFrame().hoveredGraphicPendingIndex = -1;
     interaction.hoverObjectValue = 0;
 }
 

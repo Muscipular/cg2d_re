@@ -1293,7 +1293,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
             2, 0, 0, lines[index], 0, 0);
     }
     for (const auto& button : buttons) {
-        detail::DrawCharacterModalButton_503A20(connection.Owner(), &button, 2, 4, 1, cg::render::gHoverFramePaletteIndex_D69768, 214);
+        detail::DrawCharacterModalButton_503A20(connection.Owner(), &button, 2, 4, 1, connection.Owner().UiFrame().hoverFramePaletteIndex, 214);
     }
 RET:
     VM_DOLPHIN_WHITE_END

@@ -23,7 +23,6 @@ std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{ // 原全局：0x005
     {0xE2, {}},
     {0xE6, {}},
 }};
-std::int32_t gHoveredTextPendingIndex = 0; // 原全局：0x00D68BEC。
 
 // 原函数：0x0045D7A0。
 std::int32_t FindClickedTextIndex_45D7A0(
@@ -40,7 +39,7 @@ std::int32_t FindClickedTextIndex_45D7A0(
         return -1;
     }
 
-    const std::int32_t hoveredTextIndex = gHoveredTextPendingIndex;
+    const std::int32_t hoveredTextIndex = session.UiFrame().hoveredTextPendingIndex;
     for (std::int32_t index = 0; index < count; ++index) {
         if (values[index] == hoveredTextIndex) {
             return index;

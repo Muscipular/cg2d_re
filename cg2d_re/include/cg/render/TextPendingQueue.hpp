@@ -46,9 +46,6 @@ static_assert(offsetof(TextFontLayerRecord, layer) == 0x00);
 extern std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords; // 原全局：0x0062ECB8。
 extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords; // 原全局：0x00558F50。
 
-// 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。
-extern std::int32_t gHoveredTextPendingIndex;
-
 // 原 456D70：R06按文本链顺序绘制缓存字形及阴影，headToken为一基令牌。
 // 使用Font的同一字体度量与唯一CPU Back，不改变队列令牌和文本所有权。
 void RenderTextToSurface_456D70(std::uint32_t headToken);

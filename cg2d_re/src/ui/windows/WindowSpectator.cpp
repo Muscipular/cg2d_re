@@ -40,7 +40,7 @@ static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, co
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
-        const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t image = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;

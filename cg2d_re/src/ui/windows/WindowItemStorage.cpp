@@ -257,7 +257,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
@@ -451,7 +451,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         std::uint16_t used;
         std::memcpy(&used, &storage.groups[0].items[hovered], sizeof(used));

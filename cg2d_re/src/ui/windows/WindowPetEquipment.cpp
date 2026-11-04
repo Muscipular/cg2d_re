@@ -279,7 +279,7 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
         if (slot == hovered) {
             render::DrawGraphicHover(static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         if (pet.items6E4[slot].used != 0) {
             static_cast<void>(render::DrawGraphic(left + 24, top + 24, 223, pet.items6E4[slot].imageNo, 0, &descriptor));

@@ -387,7 +387,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                             cg::render::DrawGraphicHover(
                                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
                         }
                     }
                     consumed = 1;
@@ -654,7 +654,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
         if (items[hovered + 8].used != 0) {
             inventory.battleHover = hovered + 8;
@@ -662,7 +662,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) < 8) {
         const WindowInstance* const window = currentWindow;
-        const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t hoverColor = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
@@ -796,7 +796,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                         cg::render::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                            223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
                     }
                 }
                 consumed = 1;
@@ -955,7 +955,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+            223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
@@ -963,7 +963,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
                 const WindowInstance* const window = currentWindow;
-                const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
+                const std::uint32_t hoverColor = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
                 auto* elementsWindow = window;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;

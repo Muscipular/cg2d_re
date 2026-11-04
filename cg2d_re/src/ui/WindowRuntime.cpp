@@ -1924,7 +1924,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
     cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-        223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        223, callbackWindow->ownerSession->UiFrame().hoverFramePaletteIndex, 0);
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     std::int32_t slot;
     world::PlayerItemRecord* item;

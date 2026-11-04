@@ -126,7 +126,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         const std::int32_t confirmX = message.x
             + (message.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768));
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().hoverFramePaletteIndex));
         message.result = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(message.y + 156),
@@ -206,7 +206,7 @@ std::int32_t UpdateLoginMessage(network::CgConnection& connection, const std::ws
         const std::int32_t confirmX = message.x
             + (message.width - confirmWidth) / 2;
         const std::int8_t hoverImageSequence = static_cast<std::int8_t>(
-            static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768));
+            static_cast<std::uint8_t>(connection.Owner().UiFrame().hoverFramePaletteIndex));
         message.result = cg::render::DrawText_456780(
             static_cast<std::int16_t>(confirmX),
             static_cast<std::int16_t>(message.y + 296),

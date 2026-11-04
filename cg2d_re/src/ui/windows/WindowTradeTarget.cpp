@@ -444,7 +444,7 @@ static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, 
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+        const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
         auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, imageNo);

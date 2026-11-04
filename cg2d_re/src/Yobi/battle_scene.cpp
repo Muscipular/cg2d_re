@@ -269,7 +269,7 @@ void DrawBattleEntryHover_43C0A0(session::ClientSession& session, const std::int
     }
     const std::int32_t graphic = action->graphicIndex;
     const render::GraphicDxCache* const entries = render::gGraphicDxCache103CFA4;
-    const std::uint32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
+    const std::uint32_t hoverImage = session.UiFrame().hoverFramePaletteIndex;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
     const std::int32_t offsetY = action->graphicOffsetY;
@@ -351,7 +351,7 @@ void DisableBattleActorIdleAnimation_43C040(session::ClientSession& session)
 std::int32_t GetSelectedBattleEntry_43C120(session::ClientSession& session)
 {
     const std::uint32_t target = session.WorldScene().battle.targetFlags;
-    const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+    const std::int32_t hitIndex = session.UiFrame().hoveredGraphicPendingIndex;
     static constexpr std::int32_t rows[4][5] {
         {14, 12, 10, 11, 13},
         {19, 17, 15, 16, 18},

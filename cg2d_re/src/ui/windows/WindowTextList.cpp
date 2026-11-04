@@ -412,7 +412,7 @@ static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWind
         }
     }
     static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
-    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
     cg::yobi::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -691,7 +691,7 @@ static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, con
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+    const std::uint32_t imageNo = callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex;
     auto* const indexedElement = currentWindow->FindElementById(elementId);
     if (indexedElement) {
         WindowElement_DrawHoverFrame(indexedElement, state, imageNo);
@@ -794,7 +794,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+            223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         selected = textList.selectedItem;
     }
     if (selected >= 0) {

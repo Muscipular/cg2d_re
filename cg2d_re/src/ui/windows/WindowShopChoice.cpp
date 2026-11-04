@@ -291,7 +291,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
                     static_cast<std::uint16_t>(x + selectRowElement2->width + 2),
-                    static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                    static_cast<std::uint16_t>(y + 14), 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
             }
         }
         uiFrame.hoverText = choice.dialog.hints[index];

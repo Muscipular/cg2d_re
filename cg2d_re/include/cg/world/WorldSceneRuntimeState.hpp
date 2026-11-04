@@ -353,8 +353,38 @@ struct NpcDialogRuntimeState {
     std::int32_t originY = 0; // 原0xCC4D3C。
 };
 
+inline constexpr std::size_t kMovePathCapacity = 100;
+
+// 原移动路径、两项方向队列及转场事件门禁，普通移动和Copilot共用。
+struct WorldMovementRuntimeState {
+    std::array<std::uint16_t, kMovePathCapacity> pathDirections {}; // 原AF0FF8。
+    std::array<std::uint16_t, kMovePathCapacity> pathX {}; // 原C75014。
+    std::array<std::uint16_t, kMovePathCapacity> pathY {}; // 原C750DC。
+    std::array<std::uint16_t, 2> pendingDirections {}; // 原9A86D4。
+    std::uint16_t pathCount = 0; // 原C82200。
+    std::uint16_t pendingDirectionCount = 0; // 原C82202。
+    std::uint32_t pathRebuildPending = 0; // 原C821FC。
+    std::uint16_t transitionRequestPending = 0; // 原9A86D8。
+    std::uint16_t directionalTransitionPending = 0; // 原9FB92E。
+    std::uint16_t inputBlocked = 0; // 原C82220。
+    std::uint16_t reachedTarget = 0; // 原C8222E。
+    std::uint32_t pendingEventActive = 0; // 原C82230。
+    std::int16_t pendingEventSteps = 0; // 原C82234。
+    std::int16_t pendingEventType = 0; // 原C82236。
+    std::uint32_t transitionHeading = 0; // 原9ED440。
+    std::uint16_t continuousMovementActive = 0; // 原C8A79C。
+    std::uint16_t lastDetectedCode = 0; // 原9DAD4A。
+    std::uint16_t finalFacingDirection = 0xFFFFu; // 原55D9FC。
+    std::uint16_t mapWindowReloadPending = 0; // 原9EE910。
+};
+static_assert(sizeof(WorldMovementRuntimeState::pathDirections) == 0xC8);
+static_assert(sizeof(WorldMovementRuntimeState::pathX) == 0xC8);
+static_assert(sizeof(WorldMovementRuntimeState::pathY) == 0xC8);
+static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    WorldMovementRuntimeState movement {};
     std::int32_t sceneType = 0; // 原FF0D40，平台与世界共用的唯一当前类型。
     std::int32_t pendingSceneState = 0; // 原FF0D60。
     std::int32_t sceneState = 0; // 原FF0D64。

@@ -52,12 +52,6 @@ constexpr int kReplanMoveDistance = 5;
 
 static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
 static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
-static auto& gMoveRequest = world::gPlayerPathRebuildPending_C821FC;
-static auto& gPathCount = world::gMovePathCount_C82200;
-static auto& gMoveQueueCount = world::gPendingDirectionCount_C82202;
-static auto& gMoveLock = world::gMapMovementInputBlocked_C82220;
-static auto& gTileEventLock = world::gMapTransitionRequestPending_9A86D8;
-static auto& gTargetEventLock = world::gDirectionalMapTransitionPending_9FB92E;
 static auto& gMapWidth = world::gMapSpanX;
 static auto& gMapHeight = world::gMapSpanY;
 static auto& gMoveBlockMap = world::gMapWalkabilityArray;
@@ -273,9 +267,9 @@ static std::vector<unsigned char> synthesizeDiskCells(
     return cells;
 }
 
-static bool isBusy()
+static bool isBusy(session::ClientSession& session)
 {
-    return gPathCount > 0 || gMoveQueueCount > 0 || gMoveLock != 0 || gTileEventLock != 0 || gTargetEventLock != 0;
+    return session.WorldScene().movement.pathCount > 0 || session.WorldScene().movement.pendingDirectionCount > 0 || session.WorldScene().movement.inputBlocked != 0 || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0;
 }
 
 static bool isValidMap()
@@ -1397,7 +1391,7 @@ static bool buildNearRetargetPath(Point start, Point target, std::vector<Point>&
     return !path.empty();
 }
 
-static void requestMove(Point target)
+static void requestMove(session::ClientSession& session, Point target)
 {
     Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
     gAutoTargetX = target.x;
@@ -1412,7 +1406,7 @@ static void requestMove(Point target)
     gLastRequestDistance = pointDistance(player, target);
     gHasPendingMoveCheck = true;
     gMoveCheckSawBusy = false;
-    gMoveRequest = 1;
+    session.WorldScene().movement.pathRebuildPending = 1;
 }
 
 static void cacheWaypoint(Point player, Point target, Point waypoint)
@@ -1426,7 +1420,7 @@ static void cacheWaypoint(Point player, Point target, Point waypoint)
     gHasCachedWaypoint = true;
 }
 
-static bool tryUseCachedWaypoint(Point player, Point target)
+static bool tryUseCachedWaypoint(session::ClientSession& session, Point player, Point target)
 {
     if (!gHasCachedWaypoint || !samePoint(target, gCachedTarget) || static_cast<std::uint32_t>(gCachedMapId) != gMapId || gCachedMapFloor != gMapFloor
         || gCachedMapGroup != gMapGroup) {
@@ -1445,7 +1439,7 @@ static bool tryUseCachedWaypoint(Point player, Point target)
 
     // m_log_iw(L"[copilot] reuse waypoint=%d,%d player=%d,%d moved=%d\n", gCachedWaypoint.x, gCachedWaypoint.y, player.x, player.y,
     //     pointDistance(player, gLastPlanPlayer));
-    requestMove(gCachedWaypoint);
+    requestMove(session, gCachedWaypoint);
     return true;
 }
 
@@ -1547,15 +1541,15 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
         copilot_detail::clearCopilotRoute();
         return;
     }
-    if (!routeOnly && copilot_detail::isBusy()) {
-        // m_log_iw(L"[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", gPathCount, gMoveQueueCount, gMoveLock, gTileEventLock, gTargetEventLock);
+    if (!routeOnly && copilot_detail::isBusy(session)) {
+        // m_log_iw(L"[copilot] skip busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", session.WorldScene().movement.pathCount, session.WorldScene().movement.pendingDirectionCount, session.WorldScene().movement.inputBlocked, session.WorldScene().movement.transitionRequestPending, session.WorldScene().movement.directionalTransitionPending);
         return;
     }
     if (copilot_detail::loadDiskMap() && (!copilot_detail::inDiskBounds(player) || !copilot_detail::inDiskBounds(target))) {
         copilot_detail::clearCopilotRoute();
         return;
     }
-    if (!routeOnly && copilot_detail::tryUseCachedWaypoint(player, target)) {
+    if (!routeOnly && copilot_detail::tryUseCachedWaypoint(session, player, target)) {
         return;
     }
 
@@ -1569,7 +1563,7 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
-        copilot_detail::requestMove(waypoint);
+        copilot_detail::requestMove(session, waypoint);
         return;
     }
 
@@ -1580,7 +1574,7 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
-        copilot_detail::requestMove(waypoint);
+        copilot_detail::requestMove(session, waypoint);
         return;
     }
 
@@ -1591,7 +1585,7 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
-        copilot_detail::requestMove(waypoint);
+        copilot_detail::requestMove(session, waypoint);
         return;
     }
 
@@ -1602,7 +1596,7 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
         copilot_detail::cacheCopilotRoute(path);
         if (routeOnly) return;
         copilot_detail::cacheWaypoint(player, target, waypoint);
-        copilot_detail::requestMove(waypoint);
+        copilot_detail::requestMove(session, waypoint);
         return;
     }
 
@@ -1703,13 +1697,13 @@ void CopilotProc(session::ClientSession& session)
         }
     }
     uint64_t now = copilot_detail::nowMs();
-    if (copilot_detail::isBusy()) {
+    if (copilot_detail::isBusy(session)) {
         if (copilot_detail::gHasPendingMoveCheck) {
             copilot_detail::gMoveCheckSawBusy = true;
         }
         if (copilot_detail::gLastBusyLogMs == 0 || now - copilot_detail::gLastBusyLogMs >= 1000) {
             copilot_detail::gLastBusyLogMs = now;
-            m_log_iw(L"[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", copilot_detail::gPathCount, copilot_detail::gMoveQueueCount, copilot_detail::gMoveLock, copilot_detail::gTileEventLock, copilot_detail::gTargetEventLock);
+            m_log_iw(L"[copilot] wait busy path=%d queue=%d moveLock=%d tileEvent=%d targetEvent=%d\n", session.WorldScene().movement.pathCount, session.WorldScene().movement.pendingDirectionCount, session.WorldScene().movement.inputBlocked, session.WorldScene().movement.transitionRequestPending, session.WorldScene().movement.directionalTransitionPending);
         }
         return;
     }

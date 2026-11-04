@@ -1251,7 +1251,7 @@ void ResetMapFollowerFromPath(
     }
     if (isPlayer) {
         world::SynchronizePlayerMapActionPosition_519EE0(session);
-        static_cast<void>(world::RestorePlayerMovementSnapshot_4681B0());
+        static_cast<void>(world::RestorePlayerMovementSnapshot_4681B0(session));
     }
 }
 

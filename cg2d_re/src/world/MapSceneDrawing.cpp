@@ -240,7 +240,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     detail::gFramesSinceMapWindowReload_55DA8C = previousCount + 1u;
     if ((gPlayerX != gLastMapDrawPlayerX_9EE8D0)
         || (gPlayerY != gLastMapDrawPlayerY_9EE8E0)
-        || detail::gMapWindowReloadPending_9EE910 != 0) {
+        || session.WorldScene().movement.mapWindowReloadPending != 0) {
         const std::int32_t loadYEnd = detail::gMapYEnd;
         const std::int32_t loadXEnd = detail::gMapXEnd;
         const std::int32_t loadYStart = gMapYStart;
@@ -277,7 +277,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
             detail::gAutoMapWindowDirty_55DA88 = 1;
         }
         detail::gFramesSinceMapWindowReload_55DA8C = 0;
-        detail::gMapWindowReloadPending_9EE910 = 0;
+        session.WorldScene().movement.mapWindowReloadPending = 0;
     }
 
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());

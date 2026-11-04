@@ -71,12 +71,6 @@ extern std::uint32_t gPartyCatchUpRateBits_9DAD78; // 原全局：0x009DAD78。 
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
 std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
-extern std::uint16_t gMovePathCount_C82200; // 原全局：0x00C82200。
-extern std::uint16_t gPendingDirectionCount_C82202; // 原全局：0x00C82202。
-extern std::uint32_t gPlayerPathRebuildPending_C821FC; // 原全局：0x00C821FC。
-extern std::uint16_t gMapTransitionRequestPending_9A86D8; // 原全局：0x009A86D8。
-extern std::uint16_t gDirectionalMapTransitionPending_9FB92E; // 原全局：0x009FB92E。
-extern std::uint16_t gMapMovementInputBlocked_C82220; // 原全局：0x00C82220。
 extern std::uint32_t gMapTargetInputOverride_C8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
 extern std::uint32_t gMapTargetDrawOverride_C8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gCurrentDayPeriod_73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
@@ -110,7 +104,7 @@ static_assert(sizeof(AutRecordAF10D8) == 3);
 
 extern AutRecordAF10D8 gAutDataAF10D8[159201]; // 原全局：0x00AF10D8。
 // 原函数：0x004681B0。
-std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0();         // 原 [0x4681B0,0x4681F6)，快照恢复后清六槽。
+std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0(session::ClientSession& session);         // 原 [0x4681B0,0x4681F6)，快照恢复后清六槽。
 // 原函数：0x00469810。
 std::int32_t __cdecl IsMapCellBlocked_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
 // 原函数：0x0050CF90。
@@ -229,15 +223,6 @@ void SortAndMergeMapDrawCache_46C2F0();
 // 原函数：0x0046C1C0。
 std::int32_t QueueMergedMapDrawCache_46C1C0();
 
-// 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
-extern std::uint16_t gPlayerReachedMovementTarget_C8222E;
-
-// 原 0xC82230/0xC82234/0xC82236；46A9E0 清零，后续 46AA00/46AB60 共用。
-extern std::uint32_t gPendingPathEventActive_C82230; // 原全局：0x00C82230。
-extern std::int16_t gPendingPathEventSteps_C82234; // 原全局：0x00C82234。
-extern std::int16_t gPendingPathEventType_C82236; // 原全局：0x00C82236。
-extern std::uint32_t gDirectionalMapTransitionHeading_9ED440; // 原全局：0x009ED440。 原 46AA00 写、46AEA0 读取的独立 W32。
-
 // 原0x9FB930/0xC821D4；4682E0发布的地图宽高。
 extern std::uint32_t gMapWidth_9FB930; // 原全局：0x009FB930。
 extern std::uint32_t gMapHeight_C821D4; // 原全局：0x00C821D4。
@@ -247,16 +232,8 @@ extern std::uint32_t gPlayerMapCoordinateSum_AF10C0; // 原全局：0x00AF10C0�
 extern std::uint32_t gPlayerMovementStepXBits_9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
 extern std::uint32_t gPlayerMovementStepYBits_9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
 
-// 原 9A86D4 起始的方向 W16；已证调用链最多访问前两项。
-extern std::array<std::uint16_t, 2> gPendingDirections9A86D4;
-// 原 AF0FF8/C75014/C750DC；三组 100 项 W16 路径队列共用 C82200 数量。
-inline constexpr std::size_t kMovePathCapacity = 100;
-extern std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections;
-extern std::array<std::uint16_t, kMovePathCapacity> gMovePathX;
-extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
 extern std::uint32_t gWaitingForMapRectangleData_9EE8B8; // 原全局：0x009EE8B8。
 extern std::uint16_t gRequestedMapRectangleDirection_9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
-extern std::uint16_t gContinuousMapMovementActive_C8A79C; // 原全局：0x00C8A79C。
 extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
 extern std::uint64_t gMapLeftHoldDurationMs_C8A778; // 原全局：0x00C8A778。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
@@ -270,10 +247,7 @@ extern std::uint32_t gMapTargetInteractionClick_C8A7A8; // 原全局：0x00C8A7A
 extern std::uint32_t gMapTargetRightHeld_C8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
 extern std::uint64_t gLastMapMoveTargetTick_55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
 extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
-extern std::uint16_t gPlayerPathFinalFacingDirection_55D9FC; // 原全局：0x0055D9FC。
-extern std::uint16_t gMapWindowReloadPending_9EE910; // 原全局：0x009EE910。
 
-extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 // 原函数：0x00468570。
 std::int32_t __cdecl EnsureMapCacheFile_468570(
     std::int32_t a1, std::int32_t a2, std::int32_t a3,
@@ -378,19 +352,19 @@ void __cdecl ResetCutMapData_46DC60(); // 原 [0x46DC60,0x46DC85)，先整块清
 // 原函数：0x0046DC90。
 std::int32_t __cdecl LoadAutoMapColorData_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD35)，.aut 加载器。
 // 原函数：0x0046A9E0。
-std::int32_t __cdecl ResetPendingPathEvent_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
+std::int32_t __cdecl ResetPendingPathEvent_46A9E0(session::ClientSession& session);         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 // 原函数：0x0046AA00。
-std::int32_t __cdecl DetectPendingPathEvents_46AA00();         // PDH01：路径方向/两整数差与 F32 桥，保 S32 早退 Y 和 pending 发布。
+std::int32_t __cdecl DetectPendingPathEvents_46AA00(session::ClientSession& session);         // PDH01：路径方向/两整数差与 F32 桥，保 S32 早退 Y 和 pending 发布。
 // 原函数：0x0046BC90。
-void __cdecl PopPlayerMovementPath_46BC90();                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
+void __cdecl PopPlayerMovementPath_46BC90(session::ClientSession& session);                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
 // 原函数：0x0046ABD0。
-void __cdecl QueueNextMovementDirections_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
+void __cdecl QueueNextMovementDirections_46ABD0(session::ClientSession& session);                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
 // 原函数：0x0046AC10。
 std::uint16_t SendPendingMovementDirections_46AC10(session::ClientSession& session); // 方向文本生成/发送，仅承接原AX返回位型。
 // 原函数：0x0046B370。
 void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session); // 目标格转向，保留重复CryptInt读取与独立500ms节流。
 // 原函数：0x0046BCF0。
-void __cdecl PopPendingMovementDirection_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
+void __cdecl PopPendingMovementDirection_46BCF0(session::ClientSession& session);                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
 // 原函数：0x00467F30。
 std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session); // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 // 原函数：0x00468200。
@@ -443,7 +417,7 @@ std::int32_t __cdecl BuildMapWalkability_46D9C0(
     const std::uint16_t* tile, const std::uint16_t* obj,
     const std::uint16_t* hit, std::uint16_t* walk);
 // 原函数：0x0046AD00。
-std::int32_t __cdecl IsMapTransitionCellActive_46AD00(std::int32_t x, std::int32_t y); // MHT01：time 后跨度/低 BYTE，保 W16 分类发布和原短路序。
+std::int32_t __cdecl IsMapTransitionCellActive_46AD00(session::ClientSession& session, std::int32_t x, std::int32_t y); // MHT01：time 后跨度/低 BYTE，保 W16 分类发布和原短路序。
 // 原函数：0x00468F30。
 std::int32_t __cdecl ResetMapProjectionState_468F30();         // 原 [0x468F30,0x468F6F)，按序清十二槽、返回 0。
 // 原函数：0x00468F70。
@@ -456,11 +430,12 @@ std::int64_t __cdecl GetMapDirectionBetweenPoints_46B580(
     std::int32_t third, std::int32_t fourth); // PDH01：两整数差先取齐，Y/X 各落 F32，原方向 S64 透传。
 // 原函数：0x0046B5C0。
 std::int32_t __cdecl MergePathTailIntoDiagonalStep_46B5C0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y,
     std::int32_t firstX, std::int32_t firstY,
     std::int32_t secondX, std::int32_t secondY); // 原 [0x46B5C0,0x46B6F0)，探测两邻格并覆写路径末项。
 // 原函数：0x0046B6F0。
-std::int32_t BuildPlayerMovementPath_46B6F0(); // 完整候选/绕行/轴补走路径生成，复用三组W16路径。
+std::int32_t BuildPlayerMovementPath_46B6F0(session::ClientSession& session); // 完整候选/绕行/轴补走路径生成，复用三组W16路径。
 // 原函数：0x0046BD20。
 std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。

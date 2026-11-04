@@ -113,7 +113,7 @@ void Update(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(platform::ResetImeOpenStatus_4590A0());
         detail::InitializeChatInputAndLog_449DA0(session);
-        detail::ResetPendingPathEvent_46A9E0();
+        detail::ResetPendingPathEvent_46A9E0(session);
         detail::InitializeWorldMapState_467F30(session);
         detail::InitializePlayerRuntimeState_5199A0(session.Connection());
         detail::ResetWorldObjectTable_446470(session);

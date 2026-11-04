@@ -43,7 +43,7 @@ struct SdlAudioBackend::Impl {
         std::uint32_t remainingRepeats = 0; // 固定WAV的有限重复次数；普通音效/BGM仍由loop控制。
         bool playing = false;
         bool feedFailed = false;
-        LegacyWavesReverb* reverb = nullptr; // 仅固定WAV借同一Impl效果owner，普通BGM/音效为空。
+        LegacyWavesReverb* reverb = nullptr; // 仅固定WAV借所属播放对象的效果owner，普通BGM/音效为空。
         std::uint64_t outputFrames = 0; // 固定效果连续时点，样本游标回环时不重置。
         bool reverbHasTail = false; // 当前效果返回S_FALSE，尚有尾音。
         bool drainingReverb = false; // 最后一遍已结束，后续只给效果零输入。
@@ -59,9 +59,6 @@ struct SdlAudioBackend::Impl {
     std::uint64_t sampleUseSequence = 0;
     std::array<Channel, kChannelCount> channels {};
     Sample fixedMusicSample;
-    Channel fixedMusic;
-    bool fixedMusicPrepared = false;
-    LegacyWavesReverb fixedMusicReverb; // 唯一固定效果线程owner，流退出回调后Close。
 
     static void FreeSample(Sample& sample)
     {
@@ -291,8 +288,6 @@ struct SdlAudioBackend::Impl {
 
     ~Impl()
     {
-        if (fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(fixedMusic.stream, nullptr)); }
-        fixedMusicReverb.Close();
         FreeSample(fixedMusicSample);
         for (Channel& channel : channels) {
             if (channel.stream != nullptr) {
@@ -312,6 +307,26 @@ struct SdlAudioBackend::Impl {
             SDL_QuitSubSystem(SDL_INIT_AUDIO);
         }
     }
+};
+
+struct SdlAudioBackend::FixedMusicPlayback::Impl {
+    SdlAudioBackend::Impl::Channel fixedMusic {};
+    bool fixedMusicPrepared = false;
+    LegacyWavesReverb fixedMusicReverb; // 流退出回调后Close，仅本播放对象借用。
+    float fixedMusicGain {1.0f};
+    bool fixedMusicOutputEnabled = false;
+
+    void Release() noexcept
+    {
+        if (fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(fixedMusic.stream, nullptr)); }
+        fixedMusicReverb.Close();
+        fixedMusic = {};
+        fixedMusicPrepared = false;
+        fixedMusicGain = 1.0f;
+        fixedMusicOutputEnabled = false;
+    }
+
+    ~Impl() { Release(); }
 };
 
 struct SdlAudioBackend::BgmPlayback::Impl {
@@ -396,6 +411,11 @@ SdlAudioBackend::BgmPlayback::BgmPlayback()
     : impl_(std::make_unique<Impl>()) {}
 
 SdlAudioBackend::BgmPlayback::~BgmPlayback() = default;
+
+SdlAudioBackend::FixedMusicPlayback::FixedMusicPlayback()
+    : impl_(std::make_unique<Impl>()) {}
+
+SdlAudioBackend::FixedMusicPlayback::~FixedMusicPlayback() = default;
 
 SdlAudioBackend::SdlAudioBackend() noexcept = default;
 
@@ -788,25 +808,32 @@ bool SdlAudioBackend::InitializeFixedMusic(std::span<const std::uint8_t> wav) no
 {
     if (impl_ == nullptr) { return false; }
     ShutdownFixedMusic();
-    if (!Impl::LoadSample(impl_->fixedMusicSample, SDL_IOFromConstMem(wav.data(), wav.size()))
-        || !Impl::PrepareChannel(impl_->fixedMusic, impl_->fixedMusicSample, impl_->device)) {
-        ShutdownFixedMusic();
+    return Impl::LoadSample(impl_->fixedMusicSample, SDL_IOFromConstMem(wav.data(), wav.size()));
+}
+
+bool SdlAudioBackend::InitializeFixedMusicPlayback(FixedMusicPlayback& playback) noexcept
+{
+    auto& state = *playback.impl_;
+    state.Release();
+    if (impl_ == nullptr || !Impl::PrepareChannel(state.fixedMusic, impl_->fixedMusicSample, impl_->device)
+        || !SDL_SetAudioStreamGain(state.fixedMusic.stream, 0.0f)) {
+        state.Release();
         return false;
     }
     // 原455030属性失败不使音乐初始化失败；真实配置成功后才接入PCM效果。
-    static_cast<void>(impl_->fixedMusicReverb.Open(impl_->fixedMusicSample.mixSpec.freq));
+    static_cast<void>(state.fixedMusicReverb.Open(impl_->fixedMusicSample.mixSpec.freq));
     return true;
 }
 
-bool SdlAudioBackend::HasFixedMusic() const noexcept
+bool SdlAudioBackend::HasFixedMusic(const FixedMusicPlayback& playback) const noexcept
 {
-    return impl_ != nullptr && impl_->fixedMusic.stream != nullptr;
+    return impl_ != nullptr && playback.impl_->fixedMusic.stream != nullptr;
 }
 
-bool SdlAudioBackend::PrepareFixedMusic() noexcept
+bool SdlAudioBackend::PrepareFixedMusic(FixedMusicPlayback& playback) noexcept
 {
-    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
-    auto& channel = impl_->fixedMusic;
+    if (!HasFixedMusic(playback) || !SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) { return false; }
+    auto& channel = playback.impl_->fixedMusic;
     channel.playing = false;
     const bool cleared = SDL_ClearAudioStream(channel.stream);
     channel.cursor = 0;
@@ -817,21 +844,21 @@ bool SdlAudioBackend::PrepareFixedMusic() noexcept
     channel.reverbHasTail = false;
     channel.drainingReverb = false;
     if (channel.reverb != nullptr) { static_cast<void>(channel.reverb->Reset()); }
-    impl_->fixedMusicPrepared = cleared;
+    playback.impl_->fixedMusicPrepared = cleared;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return cleared;
 }
 
-bool SdlAudioBackend::HasFixedMusicPlayback() const noexcept
+bool SdlAudioBackend::HasFixedMusicPlayback(const FixedMusicPlayback& playback) const noexcept
 {
-    return HasFixedMusic() && impl_->fixedMusicPrepared;
+    return HasFixedMusic(playback) && playback.impl_->fixedMusicPrepared;
 }
 
-bool SdlAudioBackend::SetFixedMusicRepeats(const std::uint32_t repeats) noexcept
+bool SdlAudioBackend::SetFixedMusicRepeats(FixedMusicPlayback& playback, const std::uint32_t repeats) noexcept
 {
-    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
-    auto& channel = impl_->fixedMusic;
-    const bool prepared = impl_->fixedMusicPrepared;
+    if (!HasFixedMusic(playback) || !SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) { return false; }
+    auto& channel = playback.impl_->fixedMusic;
+    const bool prepared = playback.impl_->fixedMusicPrepared;
     if (prepared) {
         channel.loop = repeats == 0xFFFFFFFFu;
         channel.remainingRepeats = repeats;
@@ -840,11 +867,11 @@ bool SdlAudioBackend::SetFixedMusicRepeats(const std::uint32_t repeats) noexcept
     return prepared;
 }
 
-bool SdlAudioBackend::PlayFixedMusic() noexcept
+bool SdlAudioBackend::PlayFixedMusic(FixedMusicPlayback& playback) noexcept
 {
-    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
-    auto& channel = impl_->fixedMusic;
-    const bool prepared = impl_->fixedMusicPrepared;
+    if (!HasFixedMusic(playback) || !SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) { return false; }
+    auto& channel = playback.impl_->fixedMusic;
+    const bool prepared = playback.impl_->fixedMusicPrepared;
     if (prepared) {
         channel.playing = true;
     }
@@ -852,53 +879,68 @@ bool SdlAudioBackend::PlayFixedMusic() noexcept
     return prepared && SDL_ResumeAudioDevice(impl_->device);
 }
 
-bool SdlAudioBackend::SetFixedMusicVolume(std::int32_t hundredthDb) noexcept
+bool SdlAudioBackend::SetFixedMusicVolume(FixedMusicPlayback& playback, std::int32_t hundredthDb) noexcept
 {
-    if (!HasFixedMusic() || hundredthDb < -10000 || hundredthDb > 0) { return false; }
-    return SDL_SetAudioStreamGain(impl_->fixedMusic.stream, static_cast<float>(std::pow(10.0, hundredthDb / 2000.0)));
+    if (!HasFixedMusic(playback) || hundredthDb < -10000 || hundredthDb > 0) { return false; }
+    auto& state = *playback.impl_;
+    const float gain = static_cast<float>(std::pow(10.0, hundredthDb / 2000.0));
+    if (!SDL_SetAudioStreamGain(state.fixedMusic.stream, state.fixedMusicOutputEnabled ? gain : 0.0f)) { return false; }
+    state.fixedMusicGain = gain;
+    return true;
 }
 
-bool SdlAudioBackend::SetFixedMusicReverb(const std::int32_t decay, const std::int32_t mix) noexcept
+bool SdlAudioBackend::SetFixedMusicOutputEnabled(FixedMusicPlayback& playback, const bool enabled) noexcept
 {
-    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
-    const bool configured = impl_->fixedMusicReverb.Configure(decay, mix);
-    if (configured) { impl_->fixedMusic.reverb = &impl_->fixedMusicReverb; }
-    static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
+    auto& state = *playback.impl_;
+    if (HasFixedMusic(playback) && !SDL_SetAudioStreamGain(
+            state.fixedMusic.stream, enabled ? state.fixedMusicGain : 0.0f)) { return false; }
+    state.fixedMusicOutputEnabled = enabled;
+    return true;
+}
+
+bool SdlAudioBackend::SetFixedMusicReverb(
+    FixedMusicPlayback& playback, const std::int32_t decay, const std::int32_t mix) noexcept
+{
+    if (!HasFixedMusic(playback) || !SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) { return false; }
+    const bool configured = playback.impl_->fixedMusicReverb.Configure(decay, mix);
+    if (configured) { playback.impl_->fixedMusic.reverb = &playback.impl_->fixedMusicReverb; }
+    static_cast<void>(SDL_UnlockAudioStream(playback.impl_->fixedMusic.stream));
     return configured;
 }
 
-void SdlAudioBackend::StopFixedMusic() noexcept
+void SdlAudioBackend::StopFixedMusic(FixedMusicPlayback& playback) noexcept
 {
-    if (HasFixedMusic() && SDL_LockAudioStream(impl_->fixedMusic.stream)) {
-        impl_->fixedMusic.playing = false;
-        static_cast<void>(SDL_ClearAudioStream(impl_->fixedMusic.stream));
-        impl_->fixedMusic.outputFrames = 0;
-        impl_->fixedMusic.reverbHasTail = false;
-        impl_->fixedMusic.drainingReverb = false;
-        if (impl_->fixedMusic.reverb != nullptr) { static_cast<void>(impl_->fixedMusic.reverb->Reset()); }
-        static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
+    if (HasFixedMusic(playback) && SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) {
+        playback.impl_->fixedMusic.playing = false;
+        static_cast<void>(SDL_ClearAudioStream(playback.impl_->fixedMusic.stream));
+        playback.impl_->fixedMusic.outputFrames = 0;
+        playback.impl_->fixedMusic.reverbHasTail = false;
+        playback.impl_->fixedMusic.drainingReverb = false;
+        if (playback.impl_->fixedMusic.reverb != nullptr) { static_cast<void>(playback.impl_->fixedMusic.reverb->Reset()); }
+        static_cast<void>(SDL_UnlockAudioStream(playback.impl_->fixedMusic.stream));
     }
 }
 
-void SdlAudioBackend::ReleaseFixedMusicPlayback() noexcept
+void SdlAudioBackend::ReleaseFixedMusicPlayback(FixedMusicPlayback& playback) noexcept
 {
-    if (HasFixedMusic() && SDL_LockAudioStream(impl_->fixedMusic.stream)) {
-        impl_->fixedMusic.playing = false;
-        impl_->fixedMusic.cursor = 0;
-        impl_->fixedMusicPrepared = false;
-        static_cast<void>(SDL_ClearAudioStream(impl_->fixedMusic.stream));
-        static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
+    if (HasFixedMusic(playback) && SDL_LockAudioStream(playback.impl_->fixedMusic.stream)) {
+        playback.impl_->fixedMusic.playing = false;
+        playback.impl_->fixedMusic.cursor = 0;
+        playback.impl_->fixedMusicPrepared = false;
+        static_cast<void>(SDL_ClearAudioStream(playback.impl_->fixedMusic.stream));
+        static_cast<void>(SDL_UnlockAudioStream(playback.impl_->fixedMusic.stream));
     }
+}
+
+void SdlAudioBackend::ShutdownFixedMusicPlayback(FixedMusicPlayback& playback) noexcept
+{
+    playback.impl_->Release();
 }
 
 // 关联原入口：0x00455260，旧装载器释放职责归并到固定WAV清理。
 void SdlAudioBackend::ShutdownFixedMusic() noexcept
 {
     if (impl_ == nullptr) { return; }
-    if (impl_->fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(impl_->fixedMusic.stream, nullptr)); }
-    impl_->fixedMusicReverb.Close();
-    impl_->fixedMusic = {};
-    impl_->fixedMusicPrepared = false;
     Impl::FreeSample(impl_->fixedMusicSample);
 }
 

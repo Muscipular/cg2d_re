@@ -32,6 +32,22 @@ public:
         std::unique_ptr<Impl> impl_;
     };
 
+    // 只拥有固定音乐的实际流与混响；借用后端唯一只读PCM。
+    class FixedMusicPlayback final {
+    public:
+        FixedMusicPlayback();
+        ~FixedMusicPlayback();
+        FixedMusicPlayback(const FixedMusicPlayback&) = delete;
+        FixedMusicPlayback& operator=(const FixedMusicPlayback&) = delete;
+        FixedMusicPlayback(FixedMusicPlayback&&) = delete;
+        FixedMusicPlayback& operator=(FixedMusicPlayback&&) = delete;
+
+    private:
+        friend class SdlAudioBackend;
+        struct Impl;
+        std::unique_ptr<Impl> impl_;
+    };
+
     SdlAudioBackend() noexcept;
     ~SdlAudioBackend();
 
@@ -44,19 +60,22 @@ public:
     [[nodiscard]] bool Open() noexcept;
     [[nodiscard]] bool IsOpen() const noexcept;
 
-    // 原固定音乐预转换的内置WAV，独立于普通BGM与64音效通道；初始化复制并独占PCM。
+    // 原固定音乐预转换的内置WAV；只解码一次，实际流只读借用同一PCM。
     // 关联原入口：0x00454FE0／0x00455100，固定WAV预载承接旧音色库装载／下载职责。
     [[nodiscard]] bool InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept;
-    [[nodiscard]] bool HasFixedMusic() const noexcept;
-    [[nodiscard]] bool PrepareFixedMusic() noexcept;
-    [[nodiscard]] bool HasFixedMusicPlayback() const noexcept; // 对应原已加载片段，区别于初始化的固定流。
-    [[nodiscard]] bool SetFixedMusicRepeats(std::uint32_t repeats) noexcept; // 原W32额外重复次数；全1为无限。
-    [[nodiscard]] bool PlayFixedMusic() noexcept; // 重复由上一阶段设置，本阶段只启动实际播放。
-    [[nodiscard]] bool SetFixedMusicVolume(std::int32_t hundredthDb) noexcept;
-    [[nodiscard]] bool SetFixedMusicReverb(std::int32_t decay, std::int32_t mix) noexcept; // 原455030两个S32。
-    void StopFixedMusic() noexcept;
-    void ReleaseFixedMusicPlayback() noexcept;
-    // 关联原入口：0x00455260，旧装载器释放职责归并到固定WAV清理。
+    [[nodiscard]] bool InitializeFixedMusicPlayback(FixedMusicPlayback& playback) noexcept;
+    [[nodiscard]] bool HasFixedMusic(const FixedMusicPlayback& playback) const noexcept;
+    [[nodiscard]] bool PrepareFixedMusic(FixedMusicPlayback& playback) noexcept;
+    [[nodiscard]] bool HasFixedMusicPlayback(const FixedMusicPlayback& playback) const noexcept; // 对应原已加载片段，区别于初始化的固定流。
+    [[nodiscard]] bool SetFixedMusicRepeats(FixedMusicPlayback& playback, std::uint32_t repeats) noexcept; // 原W32额外重复次数；全1为无限。
+    [[nodiscard]] bool PlayFixedMusic(FixedMusicPlayback& playback) noexcept; // 重复由上一阶段设置，本阶段只启动实际播放。
+    [[nodiscard]] bool SetFixedMusicVolume(FixedMusicPlayback& playback, std::int32_t hundredthDb) noexcept;
+    [[nodiscard]] bool SetFixedMusicOutputEnabled(FixedMusicPlayback& playback, bool enabled) noexcept;
+    [[nodiscard]] bool SetFixedMusicReverb(FixedMusicPlayback& playback, std::int32_t decay, std::int32_t mix) noexcept; // 原455030两个S32。
+    void StopFixedMusic(FixedMusicPlayback& playback) noexcept;
+    void ReleaseFixedMusicPlayback(FixedMusicPlayback& playback) noexcept;
+    void ShutdownFixedMusicPlayback(FixedMusicPlayback& playback) noexcept;
+    // 关联原入口：0x00455260；调用方须先销毁所有固定音乐流，再释放唯一PCM。
     void ShutdownFixedMusic() noexcept;
 
     // path 为UTF-16路径；SDL要求的编码转换仅在实现中的文件打开边界完成。
@@ -102,7 +121,7 @@ public:
     [[nodiscard]] bool RequestBgmStop(BgmPlayback& playback) noexcept;
     void ReleaseBgm(BgmPlayback& playback) noexcept;
 
-    // 调用方先释放各BGM；这里释放音效流、样本、设备及本对象持有的AUDIO引用。
+    // 调用方先释放各BGM/固定流；这里释放音效流、样本、设备及本对象持有的AUDIO引用。
     // 不得从本对象的 SDL 音频回调中关闭或销毁。
     void Close() noexcept;
 

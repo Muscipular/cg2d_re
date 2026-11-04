@@ -2558,7 +2558,7 @@ LuaFunction(WinMgr_playFixedBGM) {
         return luaL_argerror(L, 1, "type must be in range 0..1");
     }
     DWORD repeats = static_cast<DWORD>(luaL_checkinteger(L, 2));
-    int result = audio::PlayFixedMusic_455280(type, repeats);
+    int result = audio::PlayFixedMusic_455280(GetLuaConnection(L).Owner(), type, repeats);
     lua_pushinteger(L, result);
     return 1;
 }

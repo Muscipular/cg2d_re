@@ -75,6 +75,7 @@ struct AudioRuntimeState final {
     std::uint64_t foregroundFileBgm = 0; // 所属会话的replace/takeover实际播放编号；0为无。
     bool sceneBgmRestorePending = false; // 文件音乐释放抑制失败时重试。
     platform::SdlAudioBackend::BgmPlayback bgmPlayback; // 先析构停止线程，再释放上方两原子量。
+    platform::SdlAudioBackend::FixedMusicPlayback fixedMusicPlayback; // 借进程只读PCM，实际流及混响独占。
 
     static_assert(sizeof(spatialSources) == 0x3E8);
     static_assert(sizeof(soundRequests) == 0x708);
@@ -85,7 +86,7 @@ std::int32_t LoadAndPlayBGM(session::ClientSession& session, std::uint32_t bgmId
 // L04：按现有512项BGM映射播放，不修改场景的切曲请求状态。
 std::int32_t LoadMappedBgm(session::ClientSession& session, std::int32_t index);
 // 原454C30、454EE0：固定音乐初始化与关闭，由平台生命周期调用。
-std::int32_t InitializeMusic_454C30(std::uintptr_t window);
+std::int32_t InitializeMusic_454C30(session::ClientSession& session, std::uintptr_t window);
 std::int32_t ShutdownFixedMusic_454EE0();
 // 原52CCA0：更新音频播放状态。
 void UpdateAudioPlayback_52CCA0(session::ClientSession& session);
@@ -98,7 +99,7 @@ extern volatile std::uint32_t gMciDeviceId; // 原 0x10507EC；两次 MCI 调用
 extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返回的完整 W32。
 
 // 原455280：加载并播放内置固定音乐。
-std::int32_t PlayFixedMusic_455280(std::int32_t type, std::uint32_t repeats);
+std::int32_t PlayFixedMusic_455280(session::ClientSession& session, std::int32_t type, std::uint32_t repeats);
 
 // 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
 std::int32_t LoadBgmConfig_524060();
@@ -113,7 +114,7 @@ std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session); // 原四
 // 原函数：0x0052C3D0。
 std::int32_t ApplyBgmVolume_52C3D0(session::ClientSession& session); // 同步共享音量到各BGM，返回发起会话原结果。
 
-// 宿主发布当前项后静音切出流，再恢复当前流；失败释放对应实际播放。
+// 宿主发布当前项后静音切出普通/固定流，再恢复当前流；失败释放对应实际播放。
 void SelectBgmOutput() noexcept;
 // 切换时释放旧共享音效通道；清请求借用，不清样本、轮转或冷却。
 void SelectSoundEffectOutput() noexcept;

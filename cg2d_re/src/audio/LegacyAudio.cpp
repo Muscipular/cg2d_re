@@ -226,6 +226,15 @@ static bool SetSessionBgmOutput(session::ClientSession& session, const bool enab
     return false;
 }
 
+static bool SetSessionFixedMusicOutput(session::ClientSession& session, const bool enabled) noexcept
+{
+    auto& playback = session.Audio().fixedMusicPlayback;
+    if (gSdlAudioBackend.SetFixedMusicOutputEnabled(playback, enabled)) return true;
+    m_log_iw(L"[固定音乐] 输出切换失败，停止对应播放\n");
+    gSdlAudioBackend.ShutdownFixedMusicPlayback(playback);
+    return false;
+}
+
 // 原52C160的SDL创建适配：首段按完整PCM预填；smpl终点由52BE60在ready后发布。
 static std::int32_t LoadStreamingBgm_52C160(
     session::ClientSession& session, const wchar_t* const path, const std::uint32_t startFrame)
@@ -255,6 +264,8 @@ std::uint32_t gMciCloseResult = 0; // 原全局：0x010507FC。
 
 // 原函数：0x0052B9E0。
 SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSession& session); // 进程启动时初始化通道、首会话请求与运行表。
+// 原455400：共享音乐音量同时应用到各固定音乐流。
+void ApplyFixedMusicVolume_455400(session::ClientSession& session, std::int32_t scale);
 // 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
 void StopAndReleaseStreamingBgm_52B8E0(session::ClientSession& session)
 {
@@ -1143,71 +1154,85 @@ std::int32_t ApplyBgmVolume_52C3D0(session::ClientSession& session)
         if (&entry.session != &session) {
             static_cast<void>(ApplySessionBgmVolume(entry.session));
         }
+        ApplyFixedMusicVolume_455400(entry.session, 127);
     }
     return result;
 }
 
 // 原455030：两个S32生成Waves四F32参数，效果失败不改变父的加载/播放返回。
-void SetFixedMusicReverb_455030(const std::int32_t decay, const std::int32_t mix)
+void SetFixedMusicReverb_455030(session::ClientSession& session, const std::int32_t decay, const std::int32_t mix)
 {
-    static_cast<void>(gSdlAudioBackend.SetFixedMusicReverb(decay, mix));
+    static_cast<void>(gSdlAudioBackend.SetFixedMusicReverb(session.Audio().fixedMusicPlayback, decay, mix));
 }
 
 // 原455400：按同源音乐音量缩放，只在原0..127域应用独立固定音乐表。
-void ApplyFixedMusicVolume_455400(const std::int32_t scale)
+void ApplyFixedMusicVolume_455400(session::ClientSession& session, const std::int32_t scale)
 {
     const std::int32_t index = scale * platform::gMusicVolume / 15;
     if (static_cast<std::uint32_t>(index) < 128u) {
         static_cast<void>(gSdlAudioBackend.SetFixedMusicVolume(
-            gFixedMusicVolume62B0C8[static_cast<std::size_t>(index)]));
+            session.Audio().fixedMusicPlayback, gFixedMusicVolume62B0C8[static_cast<std::size_t>(index)]));
     }
 }
 
 // 原455450：不存在返回0；实际停止后不消费后端失败，返回1。
-std::int32_t StopFixedMusic_455450()
+std::int32_t StopFixedMusic_455450(session::ClientSession& session)
 {
-    if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
-    gSdlAudioBackend.StopFixedMusic();
+    if (!gSdlAudioBackend.HasFixedMusic(session.Audio().fixedMusicPlayback)) { return 0; }
+    gSdlAudioBackend.StopFixedMusic(session.Audio().fixedMusicPlayback);
     return 1;
 }
 
 // 原455470：仅当前已准备片段接重复值，原本体不消费设置HRESULT。
-std::int32_t SetFixedMusicRepeats_455470(const std::uint32_t repeats)
+std::int32_t SetFixedMusicRepeats_455470(session::ClientSession& session, const std::uint32_t repeats)
 {
-    if (!gSdlAudioBackend.HasFixedMusicPlayback()) { return 0; }
-    static_cast<void>(gSdlAudioBackend.SetFixedMusicRepeats(repeats));
+    if (!gSdlAudioBackend.HasFixedMusicPlayback(session.Audio().fixedMusicPlayback)) { return 0; }
+    static_cast<void>(gSdlAudioBackend.SetFixedMusicRepeats(session.Audio().fixedMusicPlayback, repeats));
     return 1;
 }
 
 // 原4553B0：两存在门槛→清原W8→音量→实际播放结果；父455280不消费该返回。
-std::int32_t PlayFixedMusicSegment_4553B0()
+std::int32_t PlayFixedMusicSegment_4553B0(session::ClientSession& session)
 {
-    if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
-    if (!gSdlAudioBackend.HasFixedMusicPlayback()) { return 0; }
-    ApplyFixedMusicVolume_455400(127);
-    return gSdlAudioBackend.PlayFixedMusic() ? 1 : 0;
+    if (!gSdlAudioBackend.HasFixedMusic(session.Audio().fixedMusicPlayback)) { return 0; }
+    if (!gSdlAudioBackend.HasFixedMusicPlayback(session.Audio().fixedMusicPlayback)) { return 0; }
+    ApplyFixedMusicVolume_455400(session, 127);
+    return gSdlAudioBackend.PlayFixedMusic(session.Audio().fixedMusicPlayback) ? 1 : 0;
+}
+
+// 后建会话按需创建实际流，不重载共享PCM；尚未播放，先确定输出门禁。
+static bool InitializeSessionFixedMusic(session::ClientSession& session) noexcept
+{
+    return gSdlAudioBackend.InitializeFixedMusicPlayback(session.Audio().fixedMusicPlayback)
+        && SetSessionFixedMusicOutput(session, cg::session::GetClientHost().CurrentSession() == &session);
 }
 
 // 原455280：加载失败0；加载成功后设置重复、调用播放入口，原父不消费两返回。
-std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t repeats)
+std::int32_t PlayFixedMusic_455280(session::ClientSession& session, const std::int32_t type, const std::uint32_t repeats)
 {
-    if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
-    static_cast<void>(StopFixedMusic_455450());
-    gSdlAudioBackend.ReleaseFixedMusicPlayback();
+    if (!gSdlAudioBackend.HasFixedMusic(session.Audio().fixedMusicPlayback)) {
+        if (!InitializeSessionFixedMusic(session)) { return 0; }
+        SetFixedMusicReverb_455030(session, 25, 6);
+    }
+    static_cast<void>(StopFixedMusic_455450(session));
+    gSdlAudioBackend.ReleaseFixedMusicPlayback(session.Audio().fixedMusicPlayback);
     // 用户将原16B片段指定为空音频：停止旧播放后立即成功，不产生零时长循环。
     if (type == 1) { return 1; }
     if (type != 0) { return 0; }
-    if (!gSdlAudioBackend.PrepareFixedMusic()) { return 0; }
-    SetFixedMusicReverb_455030(30, 7);
-    static_cast<void>(SetFixedMusicRepeats_455470(repeats));
-    static_cast<void>(PlayFixedMusicSegment_4553B0());
+    if (!gSdlAudioBackend.PrepareFixedMusic(session.Audio().fixedMusicPlayback)) { return 0; }
+    SetFixedMusicReverb_455030(session, 30, 7);
+    static_cast<void>(SetFixedMusicRepeats_455470(session, repeats));
+    static_cast<void>(PlayFixedMusicSegment_4553B0(session));
     return 1;
 }
 
 // 原函数：0x00454EE0。
 std::int32_t ShutdownFixedMusic_454EE0()
 {
-    audio::gSdlAudioBackend.StopFixedMusic();
+    for (auto& entry : cg::session::GetClientHost().Sessions()) {
+        audio::gSdlAudioBackend.StopFixedMusic(entry.session.Audio().fixedMusicPlayback);
+        audio::gSdlAudioBackend.ShutdownFixedMusicPlayback(entry.session.Audio().fixedMusicPlayback);
+    }
     audio::gSdlAudioBackend.ShutdownFixedMusic();
     // WAV初始化失败时，SDL设备只由音乐持有；正常WAV owner仍由52B630释放。
     if (audio::gAudioDisabled_10507D4 != 0) { audio::gSdlAudioBackend.Close(); }
@@ -1215,7 +1240,7 @@ std::int32_t ShutdownFixedMusic_454EE0()
 }
 
 // 原函数：0x00454C30。
-std::int32_t InitializeMusic_454C30(std::uintptr_t)
+std::int32_t InitializeMusic_454C30(session::ClientSession& session, std::uintptr_t)
 {
     if (platform::CheckLegacyDxCapability_458DC0() != 0) { return 1; }
     static_cast<void>(ShutdownFixedMusic_454EE0());
@@ -1227,9 +1252,13 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
     const void* wav = loaded != nullptr ? ::LockResource(loaded) : nullptr;
     const DWORD size = resource != nullptr ? ::SizeofResource(module, resource) : 0;
     if (wav == nullptr || size == 0 || !audio::gSdlAudioBackend.InitializeFixedMusic(
-            {static_cast<const std::uint8_t*>(wav), static_cast<std::size_t>(size)})) { return 2; }
+            {static_cast<const std::uint8_t*>(wav), static_cast<std::size_t>(size)})
+        || !InitializeSessionFixedMusic(session)) {
+        audio::gSdlAudioBackend.ShutdownFixedMusic();
+        return 2;
+    }
     platform::Cg2dInitializeFixedMusicVolumeX87(gFixedMusicVolume62B0C8.data());
-    audio::SetFixedMusicReverb_455030(25, 6);
+    audio::SetFixedMusicReverb_455030(session, 25, 6);
     return 0;
 }
 
@@ -1266,9 +1295,15 @@ void SelectBgmOutput() noexcept
     auto& host = cg::session::GetClientHost();
     auto* const current = host.CurrentSession();
     for (auto& entry : host.Sessions()) {
-        if (&entry.session != current) static_cast<void>(SetSessionBgmOutput(entry.session, false));
+        if (&entry.session != current) {
+            static_cast<void>(SetSessionBgmOutput(entry.session, false));
+            static_cast<void>(SetSessionFixedMusicOutput(entry.session, false));
+        }
     }
-    if (current != nullptr) static_cast<void>(SetSessionBgmOutput(*current, true));
+    if (current != nullptr) {
+        static_cast<void>(SetSessionBgmOutput(*current, true));
+        static_cast<void>(SetSessionFixedMusicOutput(*current, true));
+    }
 }
 
 bool SetSceneBgmSuppressed(session::ClientSession& session, const bool suppressed) noexcept

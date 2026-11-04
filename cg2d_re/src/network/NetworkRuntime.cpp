@@ -73,7 +73,7 @@ namespace detail {
 void HandleServerSoundPlayback_50E680(cg::network::CgConnection& connection, std::int32_t type, std::int32_t repeats, std::int32_t)
 {
     if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(connection.Owner(), type, repeats)); }
-    else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
+    else { static_cast<void>(audio::PlayFixedMusic_455280(connection.Owner(), type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
 }
 
 } // namespace detail

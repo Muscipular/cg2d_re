@@ -14,6 +14,7 @@
 
 #include <Windows.h>
 #include <dwmapi.h>
+#include <imm.h>
 
 #include <algorithm>
 #include <array>
@@ -713,7 +714,11 @@ void AdjustSessionWindowRect(RECT& rectangle, const UINT dpi) noexcept
 
 bool CanTranslateSessionWindowKey(const UINT key) noexcept
 {
-    return IsSessionWindowInputAvailable() && !session_window_detail::gMenuKeys[key];
+    if (!IsSessionWindowInputAvailable()) return false;
+    // 必须在TranslateMessage前取原键码，才能匹配菜单消费后仍按住的真实按键。
+    const UINT physicalKey = key == VK_PROCESSKEY
+        ? ImmGetVirtualKey(reinterpret_cast<HWND>(gLegacyWindow)) : key;
+    return !session_window_detail::gMenuKeys[physicalKey];
 }
 
 bool IsSessionWindowInputAvailable() noexcept
@@ -950,17 +955,21 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
     case WM_SYSKEYDOWN:
         if (wParam != VK_F10) return false;
         [[fallthrough]];
-    case WM_KEYDOWN:
-        if (gMenuKeys[wParam]) {
-            if (gPopup != nullptr) MenuKey(static_cast<UINT>(wParam));
+    case WM_KEYDOWN: {
+        const UINT key = wParam == VK_PROCESSKEY ? ImmGetVirtualKey(window) : static_cast<UINT>(wParam);
+        // VK_PROCESSKEY不是实际按键，不能留下等待真实KEYUP清除的永久门禁。
+        if (key == 0 || key == VK_PROCESSKEY) return !IsSessionWindowInputAvailable();
+        if (gMenuKeys[key]) {
+            if (gPopup != nullptr) MenuKey(key);
             return true;
         }
         if (!IsSessionWindowInputAvailable()) {
-            gMenuKeys[wParam] = true;
-            if (gPopup != nullptr) MenuKey(static_cast<UINT>(wParam));
+            gMenuKeys[key] = true;
+            if (gPopup != nullptr) MenuKey(key);
             return true;
         }
         return false;
+    }
     case WM_SYSKEYUP:
         if (wParam != VK_F10) return false;
         [[fallthrough]];

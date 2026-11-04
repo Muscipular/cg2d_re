@@ -456,11 +456,6 @@ static_assert(sizeof(gAngleTable55DF10) == 2880);
 static_assert(sizeof(gAngleTable55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
-std::int32_t& gCurrentSceneType = platform::gCurrentSceneTypeStorage_FF0D40; // 原全局：0x00FF0D40。
-std::int32_t gPendingSceneState = 0; // 原全局：0x00FF0D60。
-std::int32_t gCurrentSceneState = 0; // 原全局：0x00FF0D64。
-std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
-
 std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 
 const std::wstring& GetMapName_9DAD30() noexcept
@@ -558,26 +553,26 @@ float* ProjectScreenToWorld_46CE80(
 }
 
 // 原函数：0x0051C770。
-std::int32_t SetCurrentSceneType(std::int32_t sceneType)
+std::int32_t SetCurrentSceneType(session::ClientSession& session, std::int32_t sceneType)
 {
-    gCurrentSceneState = 0;
-    gCurrentSceneType = sceneType;
+    session.WorldScene().sceneState = 0;
+    session.WorldScene().sceneType = sceneType;
     return sceneType;
 }
 
 // 原函数：0x0051C790。
-std::int32_t SetCurrentSceneTypeAndState(std::int32_t sceneType, std::int32_t sceneState)
+std::int32_t SetCurrentSceneTypeAndState(session::ClientSession& session, std::int32_t sceneType, std::int32_t sceneState)
 {
-    gCurrentSceneType = sceneType;
-    gCurrentSceneState = sceneState;
+    session.WorldScene().sceneType = sceneType;
+    session.WorldScene().sceneState = sceneState;
     return sceneType;
 }
 
 // 原函数：0x0051C7B0。
-std::int32_t SetPendingSceneType(std::int32_t sceneType)
+std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t sceneType)
 {
-    gPendingSceneState = 0;
-    gPendingSceneType = sceneType;
+    session.WorldScene().pendingSceneState = 0;
+    session.WorldScene().pendingSceneType = sceneType;
     return sceneType;
 }
 
@@ -1128,7 +1123,7 @@ void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
         gMapEffectTickC8A734 = platform::ReadTickCount64();
     }
 
-    const std::uint32_t selected = gCurrentSceneType == 10
+    const std::uint32_t selected = session.WorldScene().sceneType == 10
         ? gMapCharaSceneSlots.valueC8A768
         : gMapCharaSceneSlots.valueC8A73E;
     const std::int16_t selectedLow =
@@ -1189,7 +1184,7 @@ void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
     }
 
     const std::uint16_t selected = static_cast<std::uint16_t>(
-        gCurrentSceneType == 10
+        session.WorldScene().sceneType == 10
             ? gMapCharaSceneSlots.valueC8A768 >> 16
             : gMapCharaSceneSlots.valueC8A744);
     const std::int16_t selectedLow = std::bit_cast<std::int16_t>(selected);
@@ -1242,7 +1237,7 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
     session::ClientSession& session, std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
-        gCurrentSceneType == 10
+        session.WorldScene().sceneType == 10
             ? gMapCharaSceneSlots.valueC8A768 >> 16
             : gMapCharaSceneSlots.valueC8A744);
     if (cycles <= 0) {
@@ -1306,7 +1301,7 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
     session::ClientSession& session, std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
-        gCurrentSceneType == 10
+        session.WorldScene().sceneType == 10
             ? gMapCharaSceneSlots.valueC8A768
             : gMapCharaSceneSlots.valueC8A73E);
     if (cycles <= 0) {
@@ -1378,7 +1373,7 @@ void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
         gMapEffectTickC8A730 = platform::ReadTickCount64();
     }
 
-    const std::uint32_t selected = gCurrentSceneType == 10
+    const std::uint32_t selected = session.WorldScene().sceneType == 10
         ? gMapCharaSceneSlots.valueC8A76C
         : gMapCharaSceneSlots.valueC8A74E;
     const std::int16_t selectedLow =
@@ -1592,7 +1587,7 @@ std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* cons
 // 原函数：0x0046F1D0。
 void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
 {
-    if (gCurrentSceneType == 10) {
+    if (session.WorldScene().sceneType == 10) {
         return;
     }
 
@@ -3387,9 +3382,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     auto& inputs = session.UiFrame().native.inputs;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& worldScene = session.WorldScene();
-    switch (gCurrentSceneState) {
+    switch (session.WorldScene().sceneState) {
     case 0:
-        gCurrentSceneState = 100;
+        session.WorldScene().sceneState = 100;
         worldScene.normalSceneInitialized = 0;
         worldScene.battle.entryPending = 0;
         [[fallthrough]];
@@ -3402,7 +3397,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         input::SetContext_44B330(session, &inputs.chat);
-        gCurrentSceneState = 101;
+        session.WorldScene().sceneState = 101;
         [[fallthrough]];
     case 101:
         if (session.WorldScene().worldEntryRepliesPendingMask != 0) {
@@ -3412,7 +3407,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 102:
         worldScene.normalSceneWaitFrames = 0;
-        gCurrentSceneState = 104;
+        session.WorldScene().sceneState = 104;
         return;
     case 104: {
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3458,7 +3453,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gLastRenderDt = static_cast<double>(tick);
         session.WorldScene().transitionResetPending = 1;
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u));
-        gCurrentSceneState = 103;
+        session.WorldScene().sceneState = 103;
         ApplyPendingMapPaletteReply_51D6F0(session);
         return;
     }
@@ -3467,7 +3462,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if (ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u) == 1) {
             worldScene.normalSceneInitialized = 1;
             session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
-            gCurrentSceneState = 20;
+            session.WorldScene().sceneState = 20;
         }
         return;
     case 200:
@@ -3475,7 +3470,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
         ui::WindowRuntime_ProcessScene(session);
-        gCurrentSceneState = 201;
+        session.WorldScene().sceneState = 201;
         [[fallthrough]];
     case 201: {
         const std::uint32_t gate = session.WorldScene().logoutToTownPending;
@@ -3483,7 +3478,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::int32_t selector = gate == 1 ? 14 : 16;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, steps, 0x40000000u) == 1) {
-            gCurrentSceneState = 202;
+            session.WorldScene().sceneState = 202;
         }
         goto inputTail;
     }
@@ -3498,7 +3493,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 203:
         worldScene.normalSceneWaitFrames = 0;
-        gCurrentSceneState = 205;
+        session.WorldScene().sceneState = 205;
         return;
     case 205: {
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3506,7 +3501,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
         }
-        render::ClearSurfaceTransformCache_44D490();
+        render::ClearSurfaceTransformCache_44D490(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(render::UpdatePalette_450BB0());
         platform::gPendingGraphicCount = 0;
@@ -3544,7 +3539,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().transitionResetPending = 1;
-        gCurrentSceneState = 204;
+        session.WorldScene().sceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
         [[fallthrough]];
@@ -3558,7 +3553,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             ui::WindowRuntime_ProcessScene(session);
             session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
             const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
-            gCurrentSceneState = 20;
+            session.WorldScene().sceneState = 20;
             session.WorldScene().logoutToTownPending = 0;
             if (changeBgm != 0) {
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(worldScene.pendingMapBgmIndex)));
@@ -3589,14 +3584,14 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().transitionResetPending = 1;
-        gCurrentSceneState = 204;
+        session.WorldScene().sceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
         const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0(session);
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
         worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
-        gCurrentSceneState = 251;
+        session.WorldScene().sceneState = 251;
         [[fallthrough]];
     }
     case 251:
@@ -3658,12 +3653,12 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             worldScene.mapBgmChangePending = 0;
             audio::gBgmRequest1050810 = 1;
         }
-        gCurrentSceneState = 20;
+        session.WorldScene().sceneState = 20;
         return;
     }
     case 1:
         worldScene.normalSceneWaitFrames = 0;
-        gCurrentSceneState = 11;
+        session.WorldScene().sceneState = 11;
         return;
     case 11: {
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3671,7 +3666,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if (worldScene.normalSceneWaitFrames < 30) {
             goto waitFrame;
         }
-        gCurrentSceneState = 1;
+        session.WorldScene().sceneState = 1;
         CreatePlayerMapPresence_519A80(session);
         ResetTimedMapNotice_455C60(session);
         RecreateMissingWorldObjectActions_446640(session);
@@ -3742,22 +3737,22 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             session.WorldScene().frameBackgroundMode = 2;
             static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000u));
         } else {
-            const std::int32_t state = gCurrentSceneState;
+            const std::int32_t state = session.WorldScene().sceneState;
             worldScene.normalSceneInitialized = 1;
-            gCurrentSceneState = state + 1;
+            session.WorldScene().sceneState = state + 1;
         }
         input::ProcessKeyInput_4596D0(session);
         render::DrawInputText_4568A0(session, &inputs.chat);
         RenderInput_4590E0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
         return;
     }
     case 2: {
         const std::int32_t selector = session.WorldScene().logoutToTownPending == 1 ? 15 : 13;
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, 8, 0x40000000u) == 1) {
-            gCurrentSceneState = 20;
+            session.WorldScene().sceneState = 20;
             session.WorldScene().mapTransitionReplyPending = 0;
             session.WorldScene().logoutToTownPending = 0;
         }
@@ -3771,7 +3766,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 20:
         session.WorldScene().frameBackgroundMode = 0;
         static_cast<void>(CaptureMapTilesForTransition_51D640());
-        gCurrentSceneState = 3;
+        session.WorldScene().sceneState = 3;
         [[fallthrough]];
     case 3: {
         session.WorldScene().frameBackgroundMode = 0;
@@ -3823,7 +3818,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(audio::PlaySe_52C450(201, 320));
         worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8();
         audio::ResetBgmPlayback_52B940();
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
         return;
     }
     case 4:
@@ -3831,11 +3826,11 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 2;
         ui::WindowRuntime_ProcessScene(session);
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
         goto inputTail;
     case 5:
         if (ProcessSceneTransitionEffect_51FDE0(session, 12, 8, 0x40000000u) == 1) {
-            static_cast<void>(SetCurrentSceneType(10));
+            static_cast<void>(SetCurrentSceneType(session, 10));
         }
         goto inputTail;
     default:
@@ -3887,7 +3882,7 @@ void __cdecl ApplyPendingMapPaletteReply_51D6F0(session::ClientSession& session)
 // GTP01：原 [0x458F40,0x458FC2)；旧 tick/remaining 先齐取，持有 ADD 结果判断，保原归零/tick 发布。
 void __cdecl UpdatePlayerCountdown_458F40(session::ClientSession& session)
 {
-    const std::int32_t scene = gCurrentSceneType;
+    const std::int32_t scene = session.WorldScene().sceneType;
     if (scene == 9) {
         if (session.WorldScene().player->action == nullptr) {
             return;
@@ -3938,12 +3933,12 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     auto& uiFrame = session.UiFrame();
     auto& inputs = session.UiFrame().native.inputs;
     auto& battleScene = session.WorldScene().battle;
-    std::int32_t state = gCurrentSceneState;
+    std::int32_t state = session.WorldScene().sceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U
         && battleScene.backgroundImage != battleScene.backgroundSnapshot) {
         CaptureBattleBackgroundSnapshot_43CB10(session);
-        state = gCurrentSceneState;
+        state = session.WorldScene().sceneState;
     }
     // 原退出门禁逐项读W16，保持短路，不读取整个W32后截断。
     const auto readBattleEffectWord = [](const std::uint32_t& effect, const std::size_t offset) {
@@ -4036,7 +4031,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0(session);
         cg::core::NullSub_509080();
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
         break;
     }
     case 1:
@@ -4053,7 +4048,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             cg::input::DrawAndAdvanceInputCaret_44A410(session);
             cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene(session);
-            ++gCurrentSceneState;
+            ++session.WorldScene().sceneState;
         } else {
             static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0(session);
@@ -4092,7 +4087,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             }
             cg::yobi::ParseBattleC_438550(session);
             if ((*reinterpret_cast<const unsigned char*>(&battleScene.fieldFlags) & 0x20U) != 0) {
-                gCurrentSceneState = 7;
+                session.WorldScene().sceneState = 7;
                 break;
             }
             cg::yobi::OrientEnteringBattleSides_43C9A0();
@@ -4116,7 +4111,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
             }
-            gCurrentSceneState = 3;
+            session.WorldScene().sceneState = 3;
         }
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             uiFrame.hoverText = L"等待回合结束。" /* 原常量参考：0x005541BC。 */;
@@ -4143,7 +4138,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 gBattlePlayerFlags5ABCAC = flags;
             }
             BeginBattleCommandSelection_43C4E0(session);
-            gCurrentSceneState = 4;
+            session.WorldScene().sceneState = 4;
         }
         break;
     case 4:
@@ -4186,7 +4181,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 battleScene.mReadIndex = 0;
             }
             battleScene.mScanOffset = 2;
-            gCurrentSceneState = 6;
+            session.WorldScene().sceneState = 6;
         } else if (cg::yobi::Sub_43CA50() >= 2) {
             uiFrame.hoverText = L"等待其他玩家的输入指令。" /* 原常量参考：0x005541A0。 */;
         }
@@ -4224,11 +4219,11 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             clearBattleEffects();
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
-        const std::int32_t currentState = gCurrentSceneState;
+        const std::int32_t currentState = session.WorldScene().sceneState;
         const std::int32_t nextState = currentState + 1;
         clearBattleEffects();
         session.WorldScene().transitionResetPending = 1;
-        gCurrentSceneState = nextState;
+        session.WorldScene().sceneState = nextState;
         [[fallthrough]];
     }
     case 8: {
@@ -4241,8 +4236,8 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             break;
         }
         ui::WindowRuntime_ProcessScene(session);
-        render::ClearSurfaceTransformCache_44D490();
-        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
+        render::ClearSurfaceTransformCache_44D490(session);
+        static_cast<void>(SetCurrentSceneTypeAndState(session, 9, 1));
         cg::yobi::YobiClearUp_404D30(session);
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
@@ -4273,7 +4268,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
-        static_cast<void>(SetPendingSceneType(7));
+        static_cast<void>(SetPendingSceneType(session, 7));
         return;
     }
     default:
@@ -4319,7 +4314,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     UpdateMapEffects_46E4A0(session);
     if (battleScene.exitNotificationPending == 1) {
-        gCurrentSceneState = 7;
+        session.WorldScene().sceneState = 7;
         battleScene.exitNotificationPending = 0;
     }
     cg::yobi::YobiAction* const exitAction = battleScene.exitAction;
@@ -4336,7 +4331,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             if (exitClicked) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 static_cast<void>(session.Connection().SendBattlePacket(L"U" /* 原常量参考：0x00554190。 */));
-                gCurrentSceneState = 7;
+                session.WorldScene().sceneState = 7;
             }
         }
         cg::yobi::YobiAction* const drawAction = battleScene.exitAction;
@@ -4369,12 +4364,12 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession
             ResumePlayerAfterObservation_51BEF0(session);
         }
     } else if (session.WorldScene().observationTravelTransitionCount == 0) {
-        gCurrentSceneState = 250;
+        session.WorldScene().sceneState = 250;
         static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50(session));
         ++session.WorldScene().observationTravelTransitionCount;
     } else {
         const std::uint32_t count = session.WorldScene().observationTravelTransitionCount;
-        gCurrentSceneState = 252;
+        session.WorldScene().sceneState = 252;
         session.WorldScene().observationTravelTransitionCount = count + 1u;
     }
     return cg::yobi::ClearObservationGroups_43F230(session);
@@ -4837,7 +4832,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& sessio
         -1));
 
     const std::uint32_t nextSequence = session.WorldScene().mapTransitionRequestSequence + 1U;
-    gCurrentSceneState = 200;
+    session.WorldScene().sceneState = 200;
     session.WorldScene().mapTransitionRequestSequence = nextSequence;
     void* const result = PrepareMapTransitionObservationState_51D5B0(session);
     session.WorldScene().mapTransitionObservationPrepared = 1;
@@ -5525,7 +5520,7 @@ std::int32_t IsMapBattleSpectatingAllowed_455A90()
 std::uintptr_t RequestEmoteWithResult_4FA8E0(session::ClientSession& session, const std::int32_t index)
 {
     cg::yobi::YobiAction* const initialAction = session.WorldScene().player->action;
-    if (initialAction == nullptr || gCurrentSceneType == 10
+    if (initialAction == nullptr || session.WorldScene().sceneType == 10
         || gMapTransitionRequestPending_9A86D8 != 0 || gDirectionalMapTransitionPending_9FB92E != 0) {
         return reinterpret_cast<std::uintptr_t>(initialAction);
     }
@@ -7838,7 +7833,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
 {
     auto& connection = session.Connection();
     auto& logout = session.WorldScene().logout;
-    std::int32_t sceneState = gCurrentSceneState;
+    std::int32_t sceneState = session.WorldScene().sceneState;
     if (sceneState == 0) {
         session.WorldScene().gameplayRepliesSuppressed = 1;
         const std::int32_t transition = ProcessLogoutTransition_45EEE0(session);
@@ -7850,25 +7845,25 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         DestroyPlayerMapPresence_519D50(session);
         ResetWorldObjectTable_446470();
         cg::yobi::YobiClearUp_404D30(session);
-        sceneState = gCurrentSceneState;
+        sceneState = session.WorldScene().sceneState;
         ++sceneState;
-        gCurrentSceneState = sceneState;
+        session.WorldScene().sceneState = sceneState;
     }
 
     bool resetFailure = false;
     bool resetMaintenance = false;
     if (sceneState == 1) {
         ResetLogoutScene_45ED80(session);
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
     } else if (sceneState == 2) {
         const std::int32_t result = UpdateLogoutScene_45ED90(session);
         if (result == 1) {
             connection.Shutdown();
             connection.DisconnectState() = 0;
             cg::yobi::YobiClearUp_404D30(session);
-            SetCurrentSceneType(2);
+            SetCurrentSceneType(session, 2);
         } else if (result == 2) {
-            gCurrentSceneState = 200;
+            session.WorldScene().sceneState = 200;
             connection.LoginRequests().logoutReplyCode = 0;
             logout.text = LR"(相当抱歉，为了维持良好的游戏环境
 目前伺服器暂时进行停机维护。
@@ -7877,13 +7872,13 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         } else if (result == -1) {
             connection.Shutdown();
             connection.DisconnectState() = 0;
-            gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             logout.text = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
             resetFailure = true;
         } else if (result == -2) {
             connection.Shutdown();
             connection.DisconnectState() = 0;
-            gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             logout.text = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
             resetFailure = true;
         }
@@ -7891,20 +7886,20 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
 
     // 原维护结果直接跳200重置，超时/失败直接跳100重置，均不重复入口分派。
     if (!resetMaintenance) {
-        if (resetFailure || gCurrentSceneState == 100) {
+        if (resetFailure || session.WorldScene().sceneState == 100) {
             login::ResetLoginMessage(connection);
-            ++gCurrentSceneState;
+            ++session.WorldScene().sceneState;
         }
-        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(connection, logout.text) != 0) {
-            SetCurrentSceneType(2);
+        if (session.WorldScene().sceneState == 101 && login::UpdateLoginMessage(connection, logout.text) != 0) {
+            SetCurrentSceneType(session, 2);
         }
-        resetMaintenance = gCurrentSceneState == 200;
+        resetMaintenance = session.WorldScene().sceneState == 200;
     }
     if (resetMaintenance) {
         login::ResetLoginMessage(connection);
-        ++gCurrentSceneState;
+        ++session.WorldScene().sceneState;
     }
-    const std::int32_t finalState = gCurrentSceneState;
+    const std::int32_t finalState = session.WorldScene().sceneState;
     if (finalState == 201) {
         const std::int32_t result = login::UpdateLoginMessage(connection, logout.text);
         if (result == 0) {
@@ -7913,7 +7908,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         connection.Shutdown();
         connection.DisconnectState() = 0;
         cg::yobi::YobiClearUp_404D30(session);
-        return SetCurrentSceneType(2);
+        return SetCurrentSceneType(session, 2);
     }
     return finalState;
 }
@@ -9956,7 +9951,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         cg::world::gRippleGate = std::int32_t{1};
 
         gDirectionalMapTransitionPending_9FB92E = 0;
-        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
+        static_cast<void>(SetCurrentSceneTypeAndState(networkConnection.Owner(), 9, 1));
         cg::yobi::YobiClearUp_404D30(networkConnection.Owner());
         detail::DetachWorldObjectActions_446610();
 
@@ -10269,9 +10264,9 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
 {
     const std::uint8_t priorFlag = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
     connection.Owner().WorldScene().mapRectangleRequestPending = 1;
-    if (priorFlag == 0 && gCurrentSceneType == 9) {
+    if (priorFlag == 0 && connection.Owner().WorldScene().sceneType == 9) {
         if (connection.Owner().WorldScene().mapTransitionObservationPrepared == 0) {
-            gCurrentSceneState = 200;
+            connection.Owner().WorldScene().sceneState = 200;
             static_cast<void>(detail::PrepareMapTransitionObservationState_51D5B0(connection.Owner()));
         }
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50(connection.Owner()));
@@ -10494,9 +10489,9 @@ std::int64_t __cdecl GetEightWayMapDirection_46CDF0(const float first, const flo
 }
 
 // 原[440B50,440B6C)：只采一次场景值，以U32比较250..252。
-std::int32_t IsObservationSceneTransitionActive_440B50()
+std::int32_t IsObservationSceneTransitionActive_440B50(session::ClientSession& session)
 {
-    const auto scene = static_cast<std::uint32_t>(gCurrentSceneState);
+    const auto scene = static_cast<std::uint32_t>(session.WorldScene().sceneState);
     return scene >= 250u && scene <= 252u ? 1 : 0;
 }
 

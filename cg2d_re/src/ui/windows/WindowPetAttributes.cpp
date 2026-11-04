@@ -378,7 +378,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
-                && world::IsObservationSceneTransitionActive_440B50() == 0) {
+                && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
                 const std::int16_t pet = petIndex(business.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);

@@ -277,6 +277,10 @@ struct NpcDialogRuntimeState {
 
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    std::int32_t sceneType = 0; // 原FF0D40，平台与世界共用的唯一当前类型。
+    std::int32_t pendingSceneState = 0; // 原FF0D60。
+    std::int32_t sceneState = 0; // 原FF0D64。
+    std::int32_t pendingSceneType = 0; // 原FF0D6C，宿主原初始化位置置-1。
     std::unique_ptr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
     std::unique_ptr<std::array<PetRuntimeRecord, 5>> petRecords; // 原F633F8，原中央位置构造五宠物。
     std::array<PetPairRecord, 5> petPairs {}; // 原DE0B08，同会话宠物显示排序对。

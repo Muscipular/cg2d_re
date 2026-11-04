@@ -204,7 +204,7 @@ WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x800000
 static void WindowStatusBar_FormatVitals(session::ClientSession& session, std::wstring& buffer)
 {
     cg::yobi::YobiAction* battlePlayer = nullptr;
-    if (world::gCurrentSceneType == 10) {
+    if (session.WorldScene().sceneType == 10) {
         const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         if (position < 20) {
             battlePlayer = world::gBattleEntries59E980[position];
@@ -338,7 +338,7 @@ static std::int32_t WindowStatusBar_Update(WindowInstance& callbackWindow, const
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (world::gCurrentSceneType == 10) {
+    if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
     }
@@ -480,7 +480,7 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(WindowInstance& callba
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    const std::int32_t scene = world::gCurrentSceneType;
+    const std::int32_t scene = callbackWindow.ownerSession->WorldScene().sceneType;
     currentWindow->state |= 0x8000u;
     if (scene == 10) {
         static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));

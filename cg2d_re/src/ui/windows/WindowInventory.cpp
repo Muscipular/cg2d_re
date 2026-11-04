@@ -724,7 +724,7 @@ static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, 
 static void WindowInventory_DropMoney(session::ClientSession& session, const std::int32_t amount)
 {
     if ((world::ReadPlayerActionFlagsByte(session) & 0x80u) == 0
-        && world::IsObservationSceneTransitionActive_440B50() == 0) {
+        && world::IsObservationSceneTransitionActive_440B50(session) == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().DropGoldRequest(x, y, amount));
@@ -892,7 +892,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                     static_cast<void>(WindowDrag_Start(*callbackWindow.ownerSession, 1, 0, nullptr));
                 } else {
                     if ((world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
-                        && world::IsObservationSceneTransitionActive_440B50() == 0) {
+                        && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         inventory.currentItem = hovered + 8;
                         const std::int32_t group = mode > 0
@@ -1140,7 +1140,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
                     static_cast<void>(WindowDrag_Start(*callbackWindow.ownerSession, 1, 0, nullptr));
                 } else {
                     if ((world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession) & 0x80u) == 0
-                        && world::IsObservationSceneTransitionActive_440B50() == 0) {
+                        && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         inventory.currentItem = hovered;
                         if (mode > 0) {

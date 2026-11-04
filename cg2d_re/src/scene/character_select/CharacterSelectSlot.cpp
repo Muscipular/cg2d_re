@@ -199,7 +199,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         -1);
     cg::render::QueueOriginalPaletteGraphic_45F090(baseX, 51, 4, 245061, 0, -1);
     // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
-    if (world::gCurrentSceneState == 11 && record.name[0] != '\0'
+    if (connection.Owner().WorldScene().sceneState == 11 && record.name[0] != '\0'
         && platform::ConsumeAutoLoginCharacterSlot(slot)) {
         connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
         result = 1;

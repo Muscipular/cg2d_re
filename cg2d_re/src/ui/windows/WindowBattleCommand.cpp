@@ -483,7 +483,7 @@ void WindowBattleCommand_FinishAutoAction(session::ClientSession& session)
     cg::world::gBattleCountdownActive5ABCB8 = 0;
     cg::yobi::FlushBattleEntries_43C060();
     WindowBattleCommand_Close(session);
-    world::gCurrentSceneState = 5;
+    session.WorldScene().sceneState = 5;
     if (cg::world::gBattleCommandAction5ABC00) cg::yobi::MarkDeath(cg::world::gBattleCommandAction5ABC00);
     cg::world::gBattleCommandAction5ABC00 = nullptr;
     cg::world::gBattlePetActionCount5ABBBC = 2;
@@ -1321,7 +1321,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     if (skipPlayer) {
                         static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                         const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
-                        world::gCurrentSceneState = 5;
+                        session.WorldScene().sceneState = 5;
                         cg::world::gBattleSkillActionCount5ABBF4 = count + 1;
                     } else {
                         cg::world::gBattlePlayerFlags5ABCAC &= ~8u;
@@ -1388,7 +1388,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     static_cast<void>(session.Connection().SendBattlePacket(L"N"));
                 }
                 const std::int32_t nextCount = cg::world::gBattleSkillActionCount5ABBF4;
-                world::gCurrentSceneState = 5;
+                session.WorldScene().sceneState = 5;
                 cg::world::gBattleSkillActionCount5ABBF4 = nextCount + 1;
             } else {
                 cg::world::gBattlePlayerFlags5ABCAC = flags & ~4u;
@@ -1530,14 +1530,14 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 if (mode == 6) {
                     cg::world::gBattleSecondActionSelectionMode_5ABB6C = 0;
                 }
-                world::gCurrentSceneState = 5;
+                session.WorldScene().sceneState = 5;
             }
         }
         break;
     case 3: {
         const auto flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
         if ((flags & 0x20u) == 0) {
-            world::gCurrentSceneState = 5;
+            session.WorldScene().sceneState = 5;
             break;
         }
         if ((flags & 8u) != 0) {
@@ -1545,7 +1545,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 static_cast<void>(session.Connection().SendBattlePacket(L"W|FF"));
             }
             ++cg::world::gBattlePetActionCount5ABBBC;
-            world::gCurrentSceneState = 5;
+            session.WorldScene().sceneState = 5;
             break;
         }
         const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
@@ -1716,7 +1716,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                 cg::world::gBattlePlayerActionState5ABC74 = 0;
                 cg::world::gBattleCommandState5ABC3C = 0;
             } else {
-                world::gCurrentSceneState = 5;
+                session.WorldScene().sceneState = 5;
             }
         }
         break;
@@ -1775,7 +1775,7 @@ static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
         if (finish) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             cg::yobi::YobiAction* const action = cg::world::gBattleCommandAction5ABC00;
-            world::gCurrentSceneState = 5;
+            session.WorldScene().sceneState = 5;
             cg::yobi::MarkDeath(action);
             cg::world::gBattleCommandAction5ABC00 = nullptr;
         }

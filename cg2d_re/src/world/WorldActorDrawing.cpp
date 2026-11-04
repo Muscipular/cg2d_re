@@ -344,7 +344,7 @@ std::uint16_t* MarkWorldActorAsPartyMember_442C40(cg::yobi::YobiAction* const ac
 // 原函数：0x00442C70。
 void ClearWorldActorPartyMembership_442C70(cg::yobi::YobiAction* const action)
 {
-    if (IsObservationSceneTransitionActive_440B50() != 0) {
+    if (IsObservationSceneTransitionActive_440B50(*action->ownerSession) != 0) {
         return;
     }
     if (action == nullptr) {

@@ -36,7 +36,7 @@ void RebuildRenderer_466B80(session::ClientSession& session)
     if (InitPalette32() == 0) {
         ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), WM_CLOSE, 0, 0);
     }
-    const std::int32_t sceneType = world::gCurrentSceneType;
+    const std::int32_t sceneType = session.WorldScene().sceneType;
     if (sceneType == 10) {
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;

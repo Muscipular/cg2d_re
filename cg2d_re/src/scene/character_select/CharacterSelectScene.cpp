@@ -245,23 +245,23 @@ std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connec
 void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::int32_t entryGate)
 {
     auto& sceneUi = connection.CharacterSelectUi();
-    std::int32_t sceneState = world::gCurrentSceneState;
+    std::int32_t sceneState = connection.Owner().WorldScene().sceneState;
     if (sceneState == 0) {
         AdvanceCharacterCreationScene_462870(connection);
-        sceneState = world::gCurrentSceneState;
+        sceneState = connection.Owner().WorldScene().sceneState;
     }
     std::int32_t gate = entryGate;
     bool selectCharacter = false;
     if (sceneState == 1) {
         InitializeCharacterAppearanceSelection_462880(connection, 1);
-        world::gCurrentSceneState = 3;
+        connection.Owner().WorldScene().sceneState = 3;
         selectCharacter = true;
     } else {
         if (sceneState == 2) {
             InitializeCharacterAppearanceSelection_462880(connection, 0);
-            sceneState = world::gCurrentSceneState;
+            sceneState = connection.Owner().WorldScene().sceneState;
             ++sceneState;
-            world::gCurrentSceneState = sceneState;
+            connection.Owner().WorldScene().sceneState = sceneState;
         }
         selectCharacter = sceneState == 3;
     }
@@ -269,12 +269,12 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
         gate = UpdateCharacterAppearanceSelection_462930(connection);
         if (gate == 1) {
             sceneState = 10;
-            world::gCurrentSceneState = sceneState;
+            connection.Owner().WorldScene().sceneState = sceneState;
         } else {
             if (gate == 2) {
-                world::SetCurrentSceneTypeAndState(3, 10);
+                world::SetCurrentSceneTypeAndState(connection.Owner(), 3, 10);
             }
-            sceneState = world::gCurrentSceneState;
+            sceneState = connection.Owner().WorldScene().sceneState;
         }
     }
 
@@ -286,7 +286,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
             skipRemainingStages = true;
         } else if (sceneState == 10 || sceneState == 11) {
             InitializeCharacterCreationAttributes_463100(connection);
-            world::gCurrentSceneState = 12;
+            connection.Owner().WorldScene().sceneState = 12;
             editCharacter = true;
         } else if (sceneState == 12) {
             editCharacter = true;
@@ -299,27 +299,27 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
             gate = UpdateCharacterCreationAttributes_4631D0(connection);
             if (gate == 1) {
                 const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
-                world::gCurrentSceneState = 30;
+                connection.Owner().WorldScene().sceneState = 30;
                 cg::login::ClearCharacterSlot_51B3B0(connection, static_cast<std::uint32_t>(selected));
                 const std::int32_t unusedSelected = connection.LoginRequests().selectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
                 cg::login::detail::SaveCurrentLoginRecord_520200();
                 input::SetContext_44B330(connection.Owner(), nullptr);
-                sceneState = world::gCurrentSceneState;
+                sceneState = connection.Owner().WorldScene().sceneState;
             } else if (gate == 2) {
                 sceneState = gate;
-                world::gCurrentSceneState = sceneState;
+                connection.Owner().WorldScene().sceneState = sceneState;
                 skipRemainingStages = true;
             } else {
-                sceneState = world::gCurrentSceneState;
+                sceneState = connection.Owner().WorldScene().sceneState;
             }
         }
         if (!skipRemainingStages) {
             bool processRequest = false;
             if (sceneState == 30) {
                 ResetCharacterCreationRequest_45E7B0(connection);
-                world::gCurrentSceneState = 31;
+                connection.Owner().WorldScene().sceneState = 31;
                 processRequest = true;
             } else if (sceneState == 31) {
                 processRequest = true;
@@ -329,31 +329,31 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
                 if (gate == 1) {
                     sceneUi.pendingCharacterCount =
                         static_cast<std::int16_t>(sceneUi.pendingCharacterCount + 1);
-                    world::SetCurrentSceneType(3);
+                    world::SetCurrentSceneType(connection.Owner(), 3);
                     sceneUi.characterEntryState = 1;
-                    sceneState = world::gCurrentSceneState;
+                    sceneState = connection.Owner().WorldScene().sceneState;
                 } else if (gate == 2) {
-                    world::gCurrentSceneState = 100;
+                    connection.Owner().WorldScene().sceneState = 100;
                     sceneState = 100;
                 } else {
-                    sceneState = world::gCurrentSceneState;
+                    sceneState = connection.Owner().WorldScene().sceneState;
                 }
             }
             if (sceneState == 100) {
                 login::ResetLoginMessage(connection);
-                sceneState = world::gCurrentSceneState;
+                sceneState = connection.Owner().WorldScene().sceneState;
                 ++sceneState;
-                world::gCurrentSceneState = sceneState;
+                connection.Owner().WorldScene().sceneState = sceneState;
             }
             if (sceneState == 101) {
                 if (login::UpdateLoginMessage(connection, L"已经有相同名字的角色存在了！" /* 原常量参考：0x0055C980。 */) != 0) {
                     sceneState = 10;
                     sceneUi.creationRestore = 1;
-                    world::gCurrentSceneState = sceneState;
+                    connection.Owner().WorldScene().sceneState = sceneState;
                     gate = 1;
                     continue;
                 }
-                sceneState = world::gCurrentSceneState;
+                sceneState = connection.Owner().WorldScene().sceneState;
             }
         }
         if (sceneUi.creationRestore != 1) {
@@ -366,7 +366,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
 void AdvanceCharacterCreationScene_462870(network::CgConnection& connection)
 {
     cg::yobi::YobiClearUp_404D30(connection.Owner());
-    ++world::gCurrentSceneState;
+    ++connection.Owner().WorldScene().sceneState;
 }
 
 // 原函数：0x00462880。
@@ -1237,7 +1237,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     const login::CharacterRecord* const selectedRecord =
         characters.data() + selected;
     connection.CharacterSelectUi().selectedGraphicNo = selectedRecord->graphicNo;
-    world::SetCurrentSceneType(5);
+    world::SetCurrentSceneType(connection.Owner(), 5);
     login::detail::PlaySe(59, 320, 240);
     connection.CharacterSelectUi().characterEntryState = 0;
     cg::audio::BeginBgmFadeOut_52B990();
@@ -1397,10 +1397,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
     do {
         std::int32_t interactive = 1;
 
-        const std::uint32_t mainState = static_cast<std::uint32_t>(world::gCurrentSceneState);
+        const std::uint32_t mainState = static_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
         if (mainState <= 22u) {
             if (mainState == 0u) {
-                world::gCurrentSceneState = 1;
+                connection.Owner().WorldScene().sceneState = 1;
                 connection.PukVersion() = 0;
                 ResetCharacterListProgress_45DD50(connection);
                 sceneUi.updateAvailable = 0;
@@ -1408,54 +1408,54 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             } else if (mainState == 1u) {
                 const std::int32_t result = UpdateCharacterListProgress_45DD60(connection);
                 if (result == 1) {
-                    world::gCurrentSceneState = 9;
+                    connection.Owner().WorldScene().sceneState = 9;
                 } else if (result == -3) {
-                    world::gCurrentSceneState = 2;
+                    connection.Owner().WorldScene().sceneState = 2;
                     connection.Shutdown();
                     connection.DisconnectState() = 0;
                 } else if (result == -4) {
-                    world::gCurrentSceneState = 7;
+                    connection.Owner().WorldScene().sceneState = 7;
                     connection.Shutdown();
                     connection.DisconnectState() = 0;
                 } else if (result < 0) {
-                    world::gCurrentSceneState = 4;
+                    connection.Owner().WorldScene().sceneState = 4;
                     connection.Shutdown();
                     connection.DisconnectState() = 0;
                 }
             } else if (mainState == 2u) {
                 login::ResetLoginMessage(connection);
-                world::gCurrentSceneState = 6;
+                connection.Owner().WorldScene().sceneState = 6;
             } else if (mainState == 3u) {
                 // 原状态3不执行操作。
             } else if (mainState == 4u) {
                 login::ResetLoginMessage(connection);
-                world::gCurrentSceneState = 5;
+                connection.Owner().WorldScene().sceneState = 5;
             } else if (mainState == 5u) {
                 if (login::UpdateLoginMessage(connection, L"角色资料读取失败。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
-                    world::SetCurrentSceneType(2);
+                    world::SetCurrentSceneType(connection.Owner(), 2);
                 }
             } else if (mainState == 6u) {
                 if (login::UpdateLoginMessage(connection, L"目前伺服器正在停机维护中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
-                    world::SetCurrentSceneType(2);
+                    world::SetCurrentSceneType(connection.Owner(), 2);
                 }
             } else if (mainState == 7u) {
                 ResetAuthenticationFailure_45D7D0(connection);
-                world::gCurrentSceneState = 8;
+                connection.Owner().WorldScene().sceneState = 8;
             } else if (mainState == 8u) {
                 if (UpdateAuthenticationFailure_45D7E0(connection) != 0) {
-                    world::SetCurrentSceneType(2);
+                    world::SetCurrentSceneType(connection.Owner(), 2);
                 }
             } else if (mainState == 9u) {
                 const std::int32_t capability = resource::ProbePaletteCapability_45C970();
                 const std::uint8_t pukVersion = connection.PukVersion();
                 render::gPaletteCapability = capability;
                 if (pukVersion == 1u) {
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 } else if ((capability < 2 && pukVersion >= 5u)
                     || (capability < 1 && pukVersion >= 3u)
                     || (capability < 3 && pukVersion >= 7u)
                     || (capability < 4 && pukVersion >= 8u)) {
-                    world::gCurrentSceneState = 19;
+                    connection.Owner().WorldScene().sceneState = 19;
                 } else {
                     if (capability == 1) {
                         if (pukVersion == 0u || pukVersion == 2u) {
@@ -1471,10 +1471,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     } else if (capability == 4 && pukVersion == 7u) {
                         sceneUi.updateAvailable = 1;
                     }
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 }
             } else if (mainState == 10u) {
-                world::gCurrentSceneState = 11;
+                connection.Owner().WorldScene().sceneState = 11;
                 ProcessCharacterPreview_460D00(connection, 0);
                 ProcessCharacterPreview_460D00(connection, 1);
             } else if (mainState == 11u) {
@@ -1483,11 +1483,11 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 const std::int32_t result =
                     ProcessCharacterDeletionWarning_45E0C0(connection, 320, 240);
                 if (result == 1) {
-                    world::gCurrentSceneState = 13;
+                    connection.Owner().WorldScene().sceneState = 13;
                     sceneUi.deleteConfirmationAction =
                         cg::yobi::CreateModalAction_5044E0(connection.Owner(), 130, 300, 340, 52, 4, 1);
                 } else if (result == 2) {
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 }
             } else if (mainState == 13u) {
                 const std::int32_t result =
@@ -1502,17 +1502,17 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                     if (result == 1) {
                         if ((platform::gKeyStates[17] & 2u) != 0) {
-                            world::gCurrentSceneState = 14;
+                            connection.Owner().WorldScene().sceneState = 14;
                             login::detail::PlaySe(284, 320, 240);
                             if (sceneUi.deleteConfirmationAction != nullptr) {
                                 cg::yobi::MarkDeath(sceneUi.deleteConfirmationAction);
                                 sceneUi.deleteConfirmationAction = nullptr;
                             }
                             ResetCharacterDeletionProgress_45DBF0(connection);
-                            world::gCurrentSceneState = 14;
+                            connection.Owner().WorldScene().sceneState = 14;
                         }
                     } else if (result == 2) {
-                        world::gCurrentSceneState = 10;
+                        connection.Owner().WorldScene().sceneState = 10;
                         if (sceneUi.deleteConfirmationAction != nullptr) {
                             cg::yobi::MarkDeath(sceneUi.deleteConfirmationAction);
                             sceneUi.deleteConfirmationAction = nullptr;
@@ -1531,20 +1531,20 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     if (sceneUi.pendingCharacterCount > 0) {
                         --sceneUi.pendingCharacterCount;
                     }
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 } else if (result == -2) {
-                    world::gCurrentSceneState = 15;
+                    connection.Owner().WorldScene().sceneState = 15;
                 }
             } else if (mainState == 15u) {
                 login::ResetLoginMessage(connection);
-                world::gCurrentSceneState = 16;
+                connection.Owner().WorldScene().sceneState = 16;
             } else if (mainState == 16u) {
                 if (login::UpdateLoginMessage(connection, L"无法删除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
-                    world::gCurrentSceneState = 0;
+                    connection.Owner().WorldScene().sceneState = 0;
                 }
             } else if (mainState == 17u) {
                 login::ResetLoginMessage(connection);
-                world::gCurrentSceneState = 18;
+                connection.Owner().WorldScene().sceneState = 18;
             } else if (mainState == 18u) {
                 const std::int32_t result =
                     ProcessConfirmationDialog_45DEE0(
@@ -1556,20 +1556,20 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                         384,
                         96);
                 if (result == 1) {
-                    world::SetCurrentSceneType(13);
+                    world::SetCurrentSceneType(connection.Owner(), 13);
                 } else if (result == 2) {
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 }
             } else if (mainState == 19u) {
                 login::ResetLoginMessage(connection);
-                world::gCurrentSceneState = 20;
+                connection.Owner().WorldScene().sceneState = 20;
             } else if (mainState == 20u) {
                 if (login::UpdateLoginMessage(connection, L"这个帐号仅适用于资料片版本，请将用户端的版本更新至资料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
-                    world::SetCurrentSceneType(2);
+                    world::SetCurrentSceneType(connection.Owner(), 2);
                 }
             } else if (mainState == 21u) {
                 if (ProcessCharacterModal_462090(connection, 320, 240) == 1) {
-                    world::gCurrentSceneState = 10;
+                    connection.Owner().WorldScene().sceneState = 10;
                 }
             }
 #ifndef _DEBUG
@@ -1585,7 +1585,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
 #endif
         }
 
-        const std::uint32_t secondaryState = static_cast<std::uint32_t>(world::gCurrentSceneState);
+        const std::uint32_t secondaryState = static_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
         if (secondaryState <= 20u
             && (secondaryState <= 9u || secondaryState >= 19u)) {
             sceneResult = cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
@@ -1598,7 +1598,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             const std::int32_t action =
                 ProcessCharacterSlot_461B30(connection, slot, interactive);
 #ifndef _DEBUG
-            if (world::gCurrentSceneState == kUsageNoticeState) {
+            if (connection.Owner().WorldScene().sceneState == kUsageNoticeState) {
                 continue; // 原空槽按钮仍可能返回创建动作；模态等待时只绘制、不派发。
             }
 #endif
@@ -1614,7 +1614,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
                 cg::world::detail::SaveContactMailFile_519300();
                 cg::world::detail::SaveGuildMailFile_519550();
-                world::SetCurrentSceneType(4);
+                world::SetCurrentSceneType(connection.Owner(), 4);
                 login::detail::PlaySe(53, 320, 240);
                 cg::yobi::YobiClearUp_404D30(connection.Owner());
                 ClearPreviewActions(connection);
@@ -1628,7 +1628,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 if (std::wstring_view(serverAddress) == L"taomoli") {
                     EnterSelectedCharacter(connection);
                 } else {
-                    world::gCurrentSceneState = kUsageNoticeState;
+                    connection.Owner().WorldScene().sceneState = kUsageNoticeState;
                     interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
                 }
             } else if (actionIndex == 2u) {
@@ -1636,10 +1636,10 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 if (record.deleteFlag != 0) {
                     const std::wstring name = record.name;
                     cg::core::NullSub_509080();
-                    world::gCurrentSceneState = 12;
+                    connection.Owner().WorldScene().sceneState = 12;
                     connection.CharacterSelectUi().deleteCharacterName = name;
                 } else {
-                    world::gCurrentSceneState = 21;
+                    connection.Owner().WorldScene().sceneState = 21;
                 }
                 login::detail::PlaySe(55, 320, 240);
             } else if (actionIndex == 3u || actionIndex == 4u) {
@@ -1662,9 +1662,9 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         std::int32_t uiStyle = interactive;
         if (sceneUi.updateAvailable != 0) {
             if (uiStyle == 0
-                && world::gCurrentSceneState == 11
+                && connection.Owner().WorldScene().sceneState == 11
                 && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
-                world::SetCurrentSceneType(13);
+                world::SetCurrentSceneType(connection.Owner(), 13);
                 uiStyle = 1;
             }
             cg::ui::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
@@ -1672,20 +1672,20 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         }
 
         if (uiStyle == 0
-            && world::gCurrentSceneState == 11
+            && connection.Owner().WorldScene().sceneState == 11
             && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
             cg::yobi::YobiClearUp_404D30(connection.Owner());
             ClearPreviewActions(connection);
             connection.Shutdown();
             connection.DisconnectState() = 0;
-            world::SetCurrentSceneType(2);
+            world::SetCurrentSceneType(connection.Owner(), 2);
             login::detail::PlaySe(54, 320, 240);
         }
         cg::ui::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
         cg::render::StretchGraphicToScreen(cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1), true);
 
 #ifndef _DEBUG
-        if (world::gCurrentSceneState == kUsageNoticeState) {
+        if (connection.Owner().WorldScene().sceneState == kUsageNoticeState) {
             sceneResult = 0;
             break; // 等待时不执行页尾升级发送／状态复位，但仍经过VM_HARD_END。
         }
@@ -1702,7 +1702,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             } else if (pukVersion == 7u) {
                 sceneResult = static_cast<std::int32_t>(connection.SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10));
             }
-            world::gCurrentSceneState = 0;
+            connection.Owner().WorldScene().sceneState = 0;
         }
     } while (false);
     VM_DOLPHIN_WHITE_END

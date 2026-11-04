@@ -35,7 +35,7 @@ std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection& netw
 void HandleMapSceneEffectReply_50E650(cg::network::CgConnection& networkConnection, std::int32_t mode, std::int32_t duration,
     std::int32_t floor, std::int32_t mapX, std::int32_t mapY); // PVfz原序转449700，socket未用。
 // 原函数：0x00440B50。
-std::int32_t IsObservationSceneTransitionActive_440B50(); // 原当前场景U32闭区间250..252门禁。
+std::int32_t IsObservationSceneTransitionActive_440B50(session::ClientSession& session); // 原当前场景U32闭区间250..252门禁。
 // 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
 // 原函数：0x00470050。
 void RequestDuelWithFacingPlayer_470050(session::ClientSession& session); // 对战请求。

@@ -99,7 +99,7 @@ static bool ApplyYobiAnimeFrame(
     if (flag != 0) {
         if (flag >= 10000) {
             action->frameEvent = flag;
-        } else if (world::gCurrentSceneType != 9 || (action->flags & YobiActionMask_PetOrRiderOrFollowPetOverlay) == 0) {
+        } else if (action->ownerSession->WorldScene().sceneType != 9 || (action->flags & YobiActionMask_PetOrRiderOrFollowPetOverlay) == 0) {
             static_cast<void>(audio::PlaySe_52C450(flag, action->x));
         }
     }

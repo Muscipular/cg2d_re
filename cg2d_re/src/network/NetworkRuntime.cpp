@@ -246,11 +246,11 @@ std::int32_t HandleMapBgmChangeReply_50E310(cg::network::CgConnection& connectio
 }
 
 // 原 [0x50E630,0x50E64C)：唯一 caller 不消费未定义的早退 EAX。
-void HandlePaletteTransitionReply_50E630(cg::network::CgConnection&,
+void HandlePaletteTransitionReply_50E630(cg::network::CgConnection& connection,
     const std::int32_t index,
     const std::int32_t steps)
 {
-    if (world::gCurrentSceneType == 10) {
+    if (connection.Owner().WorldScene().sceneType == 10) {
         return;
     }
     static_cast<void>(render::SelectPalette(index, steps));

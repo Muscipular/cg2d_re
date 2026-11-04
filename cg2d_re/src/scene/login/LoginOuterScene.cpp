@@ -31,19 +31,19 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
     auto& sceneUi = connection.LoginSceneUi();
     bool processLoginInput = false;
     const std::uint32_t initialState =
-        std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
+        std::bit_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
 
     if (initialState <= 10u) {
         switch (initialState) {
         case 0:
             cg::yobi::YobiClearUp_404D30(connection.Owner());
-            world::gCurrentSceneState = 1;
+            connection.Owner().WorldScene().sceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr)));
             static_cast<void>(cg::yobi::MarkDeath(nullptr));
             InitializeInputContexts_45C7C0(connection);
-            world::gCurrentSceneState = 6;
+            connection.Owner().WorldScene().sceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr)));
@@ -59,7 +59,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
                 } else {
                     static_cast<void>(render::SelectPalette(19, 60));
                 }
-                world::gCurrentSceneState = 10;
+                connection.Owner().WorldScene().sceneState = 10;
                 input::SetContext_44B330(connection.Owner(), nullptr);
                 return;
             }
@@ -67,12 +67,12 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
         case 8:
             ResetLoginMessage(connection);
             static_cast<void>(detail::PlaySe(56, 320, 240));
-            world::gCurrentSceneState = 9;
+            connection.Owner().WorldScene().sceneState = 9;
             input::SetContext_44B330(connection.Owner(), nullptr);
             return;
         case 9:
             if (UpdateLoginMessage(connection, sceneUi.outerLoginErrorMessage) != 0) {
-                world::gCurrentSceneState = 6;
+                connection.Owner().WorldScene().sceneState = 6;
                 processLoginInput = true;
             }
             break;
@@ -80,7 +80,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22311, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
-                static_cast<void>(world::SetCurrentSceneType(2));
+                static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));
                 cg::yobi::YobiClearUp_404D30(connection.Owner());
                 return;
             }
@@ -92,12 +92,12 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
 
     if (!processLoginInput) {
         const std::uint32_t sampledState =
-            std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
+            std::bit_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
         if (sampledState < 6u) {
             const std::uint8_t mouseClickState =
                 static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
             if ((mouseClickState & 1u) != 0) {
-                world::gCurrentSceneState = 6;
+                connection.Owner().WorldScene().sceneState = 6;
                 processLoginInput = true;
             }
         } else if (sampledState == 6u) {
@@ -121,13 +121,13 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
         if (render::gPaletteCapability < 1) {
             static_cast<void>(render::SelectPalette(17, 30));
         }
-        world::gCurrentSceneState = 10;
+        connection.Owner().WorldScene().sceneState = 10;
     } else if (result == 2) {
         static_cast<void>(detail::PlaySe(54, 320, 240));
         static_cast<void>(::PostMessageW(
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
-        world::gCurrentSceneState = 8;
+        connection.Owner().WorldScene().sceneState = 8;
         sceneUi.outerLoginErrorMessage = L"不正确的帐号和密码。" /* 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。 */;
     }
 }

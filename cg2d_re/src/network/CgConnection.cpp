@@ -927,16 +927,16 @@ void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(cg::network::CgCo
     previous = address;
 }
 
-std::int32_t CgConnection::Impl::HandleVersionUpgradeReply_50E780(cg::network::CgConnection&, const std::int32_t value)
+std::int32_t CgConnection::Impl::HandleVersionUpgradeReply_50E780(cg::network::CgConnection& connection, const std::int32_t value)
 {
-    const std::int32_t sceneType = world::gCurrentSceneType;
+    const std::int32_t sceneType = connection.Owner().WorldScene().sceneType;
     const auto lowByte = static_cast<std::uint8_t>(value);
     this->value58ADA4 = lowByte;
     if (sceneType != 13) {
         return value;
     }
     const std::int32_t state = lowByte != 0 ? 200 : 100;
-    world::gCurrentSceneState = state;
+    connection.Owner().WorldScene().sceneState = state;
     return state;
 }
 

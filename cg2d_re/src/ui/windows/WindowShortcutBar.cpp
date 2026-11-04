@@ -105,7 +105,7 @@ static std::int32_t WindowShortcutBar_Update(WindowInstance& callbackWindow, con
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (world::gCurrentSceneType == 10) {
+    if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
         currentWindow->state |= 0x8000u;
     }
     return 1;
@@ -168,7 +168,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
             if ((state & MouseFlag_LDownEvent) == 0) {
                 return consumed;
             }
-            if (world::gCurrentSceneType != 10) {
+            if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
                 const std::uint64_t now = platform::ReadTickCount64();
                 if (interaction.actionTick + 500u < now) {
                     WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnStall].window;

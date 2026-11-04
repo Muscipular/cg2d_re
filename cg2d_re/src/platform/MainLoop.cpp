@@ -82,7 +82,7 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
         std::wstring message;
         text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);
         static_cast<void>(render::DrawText2_456670(200, 3, 3, 1, 5, message, 0));
-        text::FormatTo(message, L"M: {} S: {}", world::gCurrentSceneType, world::gCurrentSceneState);
+        text::FormatTo(message, L"M: {} S: {}", session.WorldScene().sceneType, session.WorldScene().sceneState);
         static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
     }
 #endif
@@ -150,7 +150,7 @@ int MainLoop(session::ClientSession& session)
         if (connection.Active()) {
             const auto disconnect = connection.DisconnectState();
             if (disconnect == 1) {
-                world::SetCurrentSceneType(11);
+                world::SetCurrentSceneType(session, 11);
                 connection.DisconnectState() = 2;
             } else if (disconnect == 0) {
                 const auto result = connection.Pump();

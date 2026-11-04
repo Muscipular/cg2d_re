@@ -8,13 +8,6 @@ namespace cg::session { class ClientSession; }
 
 namespace cg::world {
 
-// 原 0xFF0D40；引用 platform::gCurrentSceneTypeStorage_FF0D40，不建立第二份当前场景类型存储。
-extern std::int32_t& gCurrentSceneType;
-
-extern std::int32_t gPendingSceneState; // 原 0xFF0D60。
-extern std::int32_t gCurrentSceneState; // 原 0xFF0D64。
-extern std::int32_t gPendingSceneType;  // 原 0xFF0D6C。
-
 // World::Update@0x51C430 直接访问的剩余原全局；地址以外的业务含义仍未确认。
 extern std::uint8_t gMapSurfaceCacheEnabled_C82204;              // 原 0xC82204，W8。
 const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
@@ -63,13 +56,13 @@ float* ProjectScreenToWorld_46CE80(
     float screenX, float screenY, float* outX, float* outY) noexcept;
 
 // 原 sub_51C770@0x51C770；先清当前场景状态，再写当前场景类型，返回 sceneType。
-std::int32_t SetCurrentSceneType(std::int32_t sceneType);
+std::int32_t SetCurrentSceneType(session::ClientSession& session, std::int32_t sceneType);
 
 // 原 sub_51C790@0x51C790；依次写当前场景类型、状态，返回 sceneType。
-std::int32_t SetCurrentSceneTypeAndState(std::int32_t sceneType, std::int32_t sceneState);
+std::int32_t SetCurrentSceneTypeAndState(session::ClientSession& session, std::int32_t sceneType, std::int32_t sceneState);
 
 // 原 sub_51C7B0@0x51C7B0；先清待切换场景状态，再写待切换场景类型，返回 sceneType。
-std::int32_t SetPendingSceneType(std::int32_t sceneType);
+std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t sceneType);
 
 // 原 sub_468FF0@0x468FF0；按原指令顺序把世界投影当前值复制到帧末快照，返回 D。
 std::uint32_t CopyWorldProjectionState_468FF0();

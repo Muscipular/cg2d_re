@@ -1,4 +1,5 @@
 #include "GraphicDxCacheState.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/text/Encoding.hpp"
 #include "LegacyTextureDrawing.hpp"
@@ -928,6 +929,7 @@ void ReleaseTextureNodeSurfaces_44C408() noexcept
 
 // 原函数：0x0044CD80。
 TextureSurface* TransformTextureSurface_44CD80(
+    session::ClientSession& session,
     TextureSurface* const source, const std::int32_t imageNo, const std::int16_t paletteIndex,
     const std::uint8_t flipX, const std::uint8_t flipY,
     const std::int32_t* const sourceRectangle, const std::int32_t* const keyRectangle)
@@ -939,7 +941,7 @@ TextureSurface* TransformTextureSurface_44CD80(
         source, imageNo, paletteIndex,
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
-    auto& cache = world::gCurrentSceneType == 10
+    auto& cache = session.WorldScene().sceneType == 10
         ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     const auto found = cache.find(key);
     if (found != cache.end()) {
@@ -981,16 +983,16 @@ TextureSurface* TransformTextureSurface_44CD80(
         source, imageNo, paletteIndex,
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
-    auto& publishedCache = world::gCurrentSceneType == 10
+    auto& publishedCache = session.WorldScene().sceneType == 10
         ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     publishedCache[publishedKey] = transformed;
     return publishedCache[publishedKey];
 }
 
 // 原函数：0x0044D490。
-void ClearSurfaceTransformCache_44D490()
+void ClearSurfaceTransformCache_44D490(session::ClientSession& session)
 {
-    auto& cache = world::gCurrentSceneType == 10
+    auto& cache = session.WorldScene().sceneType == 10
         ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     auto current = cache.begin();
     while (current != cache.end()) {

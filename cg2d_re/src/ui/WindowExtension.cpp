@@ -204,7 +204,7 @@ void NativeWindowClosed(WindowInstance& window)
 void WindowRuntime_UpdateScene(session::ClientSession& session)
 {
     auto& frame = session.UiFrame();
-    const int scene = world::gCurrentSceneType, state = world::gCurrentSceneState;
+    const int scene = session.WorldScene().sceneType, state = session.WorldScene().sceneState;
     if (scene != frame.lastScene || state != frame.lastSceneState) {
         frame.lastScene = scene;
         frame.lastSceneState = state;
@@ -287,7 +287,7 @@ void FinishWindowFrame(session::ClientSession& session)
     WindowRuntime_EndPointerDragFrame(session);
     WindowConsumeMouseWheelDelta();
     script::AutoBattleProc(session);
-    script::CopilotProc();
+    script::CopilotProc(session);
 }
 
 void ShutdownExtensionWindows(session::ClientSession& session)

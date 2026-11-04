@@ -28,9 +28,9 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
 {
     auto& sceneUi = connection.LoginSceneUi();
     std::int32_t inputMode = 2;
-    const std::int32_t initialState = world::gCurrentSceneState;
+    const std::int32_t initialState = connection.Owner().WorldScene().sceneState;
     if (initialState == 0) {
-        world::gCurrentSceneState = 1;
+        connection.Owner().WorldScene().sceneState = 1;
         render::gPaletteCapability =
             resource::ProbePaletteCapability_45C970();
         InitializeInputContexts_45C7C0(connection);
@@ -45,7 +45,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
         }
     } else if (initialState == 1) {
         if (render::gPaletteChanging == 0) {
-            world::gCurrentSceneState = 2;
+            connection.Owner().WorldScene().sceneState = 2;
         }
     } else if (initialState == 2) {
         inputMode = 0;
@@ -56,15 +56,15 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
             } else {
                 static_cast<void>(render::SelectPalette(19, 60));
             }
-            ++world::gCurrentSceneState;
+            ++connection.Owner().WorldScene().sceneState;
         }
     } else if (initialState == 4) {
         if (render::gPaletteChanging == 0) {
             static_cast<void>(render::SelectPalette(19, 30));
-            ++world::gCurrentSceneState;
+            ++connection.Owner().WorldScene().sceneState;
         }
     } else if (initialState == 5 && render::gPaletteChanging == 0) {
-        static_cast<void>(world::SetCurrentSceneType(2));
+        static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));
     }
 
     const std::int32_t result = ProcessLoginInput_45CA20(connection, inputMode);
@@ -78,7 +78,7 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
         if (render::gPaletteCapability >= 1) {
             static_cast<void>(render::SelectPalette(19, 30));
         }
-        world::gCurrentSceneState = 3;
+        connection.Owner().WorldScene().sceneState = 3;
         return;
     }
 
@@ -87,18 +87,18 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
         static_cast<void>(::PostMessageW(
             reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0));
     } else if (result < 0) {
-        world::gCurrentSceneState = 100;
+        connection.Owner().WorldScene().sceneState = 100;
         sceneUi.loginModeMessage = L"请输入ＩＤ和ＰＡＳＳＷＯＲＤ" /* 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。 */;
     }
 
-    if (result < 0 || world::gCurrentSceneState == 100) {
+    if (result < 0 || connection.Owner().WorldScene().sceneState == 100) {
         ResetLoginMessage(connection);
         static_cast<void>(detail::PlaySe(56, 320, 240));
-        ++world::gCurrentSceneState;
+        ++connection.Owner().WorldScene().sceneState;
     }
-    if (world::gCurrentSceneState == 101
+    if (connection.Owner().WorldScene().sceneState == 101
         && UpdateLoginMessage(connection, sceneUi.loginModeMessage) != 0) {
-        world::gCurrentSceneState = 1;
+        connection.Owner().WorldScene().sceneState = 1;
     }
 }
 

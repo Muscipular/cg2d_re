@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/core/m_log.hpp"
@@ -56,7 +57,6 @@ std::int8_t ReadBgmFrequencySelectionByte(const std::uint8_t id) noexcept
     return std::bit_cast<std::int8_t>(bytes[id]);
 }
 
-std::int32_t gCurrentSceneTypeStorage_FF0D40 = 0; // 原全局：0x00FF0D40。
 std::int32_t gRendererModeStorage = 0; // 原全局：0x0062A640。
 std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0]; // 原全局：0x0062A640。
 
@@ -143,8 +143,8 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
         && text::ToGbk(account).size() < login::LoginInputValueCapacity
         && text::ToGbk(password).size() < login::LoginInputValueCapacity) {
         login::detail::CacheAutoLoginInputValues(account, password);
-        world::gCurrentSceneState = 2;
-        world::gCurrentSceneType = 2;
+        connection.Owner().WorldScene().sceneState = 2;
+        connection.Owner().WorldScene().sceneType = 2;
         auto& request = connection.LoginRequests();
         request.password = password;
         request.account = account;
@@ -232,7 +232,7 @@ int ParseCommandOptions(network::CgConnection& connection)
     if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"onlyactive"))) {
         gRendererFlags |= 0x10;
     }
-    gCurrentSceneTypeStorage_FF0D40 = 1;
+    connection.Owner().WorldScene().sceneType = 1;
     const int result = ParseIpOptions_507C80(gCommandLine.c_str());
     ApplyAutoLoginCommandLine(connection, ::GetCommandLineW());
     VM_LIGHT_END

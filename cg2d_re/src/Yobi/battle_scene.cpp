@@ -35,10 +35,10 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     auto& battle = scene->ownerSession->WorldScene().battle;
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
-    const std::int32_t sceneType = world::gCurrentSceneType;
+    const std::int32_t sceneType = scene->ownerSession->WorldScene().sceneType;
     const std::uint32_t exitRequested = battle.exitRequested;
     if (!(sceneType == 10
-            && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
+            && static_cast<std::uint32_t>(scene->ownerSession->WorldScene().sceneState) > 5U)
         && exitRequested != 1) {
         return;
     }
@@ -51,7 +51,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     const bool exiting = exitRequested == 1;
     battle.eventDispatchBusy = 1;
     if (exiting) {
-        world::gCurrentSceneState = 7;
+        scene->ownerSession->WorldScene().sceneState = 7;
         return;
     }
     if (battle.turnMessagesExhausted == 1) {
@@ -61,7 +61,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             battle.eventDispatchBusy = 0;
             battle.pendingGroupCount = 0;
             battle.turnSnapshot = turn + 1U;
-            world::gCurrentSceneState = 2;
+            scene->ownerSession->WorldScene().sceneState = 2;
         }
         return;
     }
@@ -323,7 +323,7 @@ void DrawBattleActorHpBar_4990A0(const std::int32_t index)
 void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& session)
 {
     const auto& battle = session.WorldScene().battle;
-    if (world::gCurrentSceneType != 10
+    if (session.WorldScene().sceneType != 10
         || battle.turnSnapshot != battle.turn) {
         return;
     }

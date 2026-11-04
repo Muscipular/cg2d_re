@@ -343,7 +343,7 @@ static void ConfigureRightEntrySceneEffect_448810(
         session.Yobi().mapEffectStartTick = tick - static_cast<std::uint64_t>(static_cast<std::int64_t>(floor) * 1000);
         return;
     }
-    if (world::gCurrentSceneType != 9) {
+    if (session.WorldScene().sceneType != 9) {
         return;
     }
     if (mode == SceneEffectMode_RemoveIfPresent) {
@@ -401,7 +401,7 @@ static void ConfigureLeftEntrySceneEffect_448D90(
 {
     const std::int32_t type = value / -100;
     const std::int32_t mode = -value % 100;
-    if (mode == 0 || world::gCurrentSceneType != 9) {
+    if (mode == 0 || session.WorldScene().sceneType != 9) {
         return;
     }
     if (mode == SceneEffectMode_RemoveIfPresent) {
@@ -564,7 +564,7 @@ static YobiAction* EnsureSceneEffectOverlay_449BC0(session::ClientSession& sessi
 // 原[4483A0,448810)：计时偏移与100块背景入队，关联对象缺失不补零。
 static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
 {
-    if (world::gCurrentSceneType != 9) {
+    if (action->ownerSession->WorldScene().sceneType != 9) {
         MarkDeath(action);
         return;
     }
@@ -687,7 +687,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
 static void EnsureTimedMapBackgroundEffect_448290(session::ClientSession& session)
 {
-    if (world::gCurrentSceneType != 9 || session.WorldScene().player->action == nullptr) {
+    if (session.WorldScene().sceneType != 9 || session.WorldScene().player->action == nullptr) {
         return;
     }
     const std::int32_t floor = world::gMapFloor;

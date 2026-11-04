@@ -448,7 +448,7 @@ static bool EmitAutoBattle(session::ClientSession& session) {
 }
 
 static void DoAutoBattle(session::ClientSession& session) {
-    if (world::gCurrentSceneType == SCENE_BATTLE && world::gCurrentSceneState == 4) {
+    if (session.WorldScene().sceneType == SCENE_BATTLE && session.WorldScene().sceneState == 4) {
         if (session.Lua().autoBattleActionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction(session);
         else session.Lua().autoBattlePanel.enabled = false;
     }
@@ -597,7 +597,7 @@ static void MakeAutoBattle(session::ClientSession& session) {
         if (mouse & 1) window.ownerSession->UiFrame().hoverText = enabled ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
             const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
-            if ((world::gCurrentSceneState == 4 && count == 0) || enabled || world::gCurrentSceneState != 4)
+            if ((window.ownerSession->WorldScene().sceneState == 4 && count == 0) || enabled || window.ownerSession->WorldScene().sceneState != 4)
                 enabled = !enabled;
         }
         if (auto* graphic = CurrentGraphic(window, elementId)) graphic->imageNo = enabled ? 640188 : ((mouse & 1) ? 640187 : 640186);
@@ -707,8 +707,8 @@ void AutoBattleProc(session::ClientSession& session) {
     auto winAutoBattle = GetExtWindowById(session, WIN_AUTOBATTLE);
     auto winAutoBattleSimple = GetExtWindowById(session, WIN_AUTOBATTLE_SIMPLE);
     bool isOpen = winAutoBattle || winAutoBattleSimple;
-    if (world::gCurrentSceneType == SCENE_BATTLE) {
-        if (world::gCurrentSceneState == 1) {
+    if (session.WorldScene().sceneType == SCENE_BATTLE) {
+        if (session.WorldScene().sceneState == 1) {
             runtime.autoBattlePanel.simpleMode = autobattle_detail::SIMPLE_MODE_FULL;
         }
         if (runtime.autoBattleRequireAction) {
@@ -717,13 +717,13 @@ void AutoBattleProc(session::ClientSession& session) {
             runtime.autoBattleActionSetup = true;
             runtime.autoBattleRequireAction = false;
         }
-        if (!isOpen && world::gCurrentSceneState >= 3 && world::gCurrentSceneState < 7) {
+        if (!isOpen && session.WorldScene().sceneState >= 3 && session.WorldScene().sceneState < 7) {
             if (runtime.autoBattlePanel.simpleMode) {
                 autobattle_detail::MakeAutoBattleSimple(session);
             } else {
                 autobattle_detail::MakeAutoBattle(session);
             }
-        } else if (world::gCurrentSceneState >= 7) {
+        } else if (session.WorldScene().sceneState >= 7) {
             CgWindowClose(session, WIN_AUTOBATTLE);
             CgWindowClose(session, WIN_AUTOBATTLE_SIMPLE);
         }
@@ -731,7 +731,7 @@ void AutoBattleProc(session::ClientSession& session) {
             autobattle_detail::DoAutoBattle(session);
         }
     }
-    if ((world::gPendingSceneType >= 0 && world::gPendingSceneType != SCENE_BATTLE) || world::gCurrentSceneType != SCENE_BATTLE) {
+    if ((session.WorldScene().pendingSceneType >= 0 && session.WorldScene().pendingSceneType != SCENE_BATTLE) || session.WorldScene().sceneType != SCENE_BATTLE) {
         if (winAutoBattle != nullptr) {
             CgWindowClose(session, WIN_AUTOBATTLE);
         }

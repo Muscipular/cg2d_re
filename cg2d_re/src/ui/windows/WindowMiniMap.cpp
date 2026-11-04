@@ -99,7 +99,7 @@ static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, const s
         data->text.clear();
         return 1;
     }
-    if (world::IsObservationSceneTransitionActive_440B50() == 0) {
+    if (world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
         auto* const element = currentWindow->FindElementById(WindowMiniMapElementId::Element4);
         if (!element) return 0;
         auto* const data = element->data.text;
@@ -121,7 +121,7 @@ static std::int32_t WindowMiniMap_DrawMap(WindowInstance& callbackWindow, const 
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (world::IsObservationSceneTransitionActive_440B50() != 0) {
+    if (world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) != 0) {
         return 0;
     }
     WindowInstance* const window = currentWindow;
@@ -144,7 +144,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(WindowInstance& callbackWindow,
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;
     auto* const data = element->data.text;
-    if (world::IsObservationSceneTransitionActive_440B50() != 0) {
+    if (world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) != 0) {
         data->text.clear();
         return 0;
     }
@@ -162,7 +162,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(WindowInstance& callbackWindow,
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;
     auto* const data = element->data.text;
-    if (world::IsObservationSceneTransitionActive_440B50() != 0) {
+    if (world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) != 0) {
         data->text.clear();
         return 0;
     }

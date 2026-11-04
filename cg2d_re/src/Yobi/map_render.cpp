@@ -921,7 +921,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         return;
     }
     auto& interaction = action->ownerSession->UiFrame().native.interaction;
-    const std::int32_t scene = world::gCurrentSceneType;
+    const std::int32_t scene = action->ownerSession->WorldScene().sceneType;
     std::int32_t companion = action->hoverTextColor1D8;
     interaction.hoverObjectValue = companion;
     if (scene == 9) {

@@ -45,15 +45,15 @@ namespace cg::world {
 void Update(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
-    const std::int32_t pendingSceneType = gPendingSceneType;
+    const std::int32_t pendingSceneType = session.WorldScene().pendingSceneType;
     if (pendingSceneType >= 0) {
-        gCurrentSceneType = pendingSceneType;
-        const std::int32_t pendingSceneState = gPendingSceneState;
-        gPendingSceneType = -1;
-        gCurrentSceneState = pendingSceneState;
+        session.WorldScene().sceneType = pendingSceneType;
+        const std::int32_t pendingSceneState = session.WorldScene().pendingSceneState;
+        session.WorldScene().pendingSceneType = -1;
+        session.WorldScene().sceneState = pendingSceneState;
     }
 
-    const std::int32_t sceneType = gCurrentSceneType;
+    const std::int32_t sceneType = session.WorldScene().sceneType;
     gMapSurfaceCacheEnabled_C82204 = 0;
     switch (sceneType) {
     case 1: {
@@ -137,7 +137,7 @@ void Update(session::ClientSession& session)
         cg::yobi::ResetObservationGroupList_43F220(session);
         session.WorldScene().observationTravelTransitionCount = 0;
         ClearMapName_9DAD30();
-        SetCurrentSceneType(6);
+        SetCurrentSceneType(session, 6);
         cg::audio::BeginBgmFadeOut_52B990();
         inventory.slotUseCounts.fill(0);
         return;
@@ -158,7 +158,7 @@ void Update(session::ClientSession& session)
         detail::DrawBattleScene_43CBB0(session);
         return;
     case 11: {
-        const std::int32_t sceneState = gCurrentSceneState;
+        const std::int32_t sceneState = session.WorldScene().sceneState;
         if (sceneState == 0) {
             detail::DestroyPlayerMapPresence_519D50(session);
             detail::ResetWorldObjectTable_446470();
@@ -171,11 +171,11 @@ void Update(session::ClientSession& session)
             cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
-            ++gCurrentSceneState;
+            ++session.WorldScene().sceneState;
         } else if (sceneState == 1
             && detail::ProcessSceneTransitionEffect_51FDE0(session, 2, 0, 0x3F19999Au) == 1) {
             session.WorldScene().frameBackgroundMode = 0;
-            ++gCurrentSceneState;
+            ++session.WorldScene().sceneState;
         }
 
         if (detail::UpdateDisconnectDialog_455C90(session) == 0) {
@@ -190,7 +190,7 @@ void Update(session::ClientSession& session)
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
-        SetCurrentSceneType(2);
+        SetCurrentSceneType(session, 2);
         cg::yobi::YobiClearUp_404D30(session);
         session.Connection().DisconnectState() = 0;
         return;

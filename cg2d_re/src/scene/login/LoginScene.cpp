@@ -213,9 +213,9 @@ static void CopyText(std::wstring& destination, std::wstring_view source)
     destination = source;
 }
 
-static void IncrementSceneState()
+static void IncrementSceneState(session::ClientSession& session)
 {
-    ++cg::world::gCurrentSceneState;
+    ++session.WorldScene().sceneState;
 }
 
 static void SetBaseWindowTitle(std::wstring& buffer)
@@ -331,8 +331,8 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
     std::int32_t interactiveTail = 0;
     std::wstring title;
 
-    if (world::gCurrentSceneState == 0) {
-        world::gCurrentSceneState = 1;
+    if (session.WorldScene().sceneState == 0) {
+        session.WorldScene().sceneState = 1;
         connection.CharacterSelectUi().selectedCharacterName.clear();
         SetBaseWindowTitle(title);
         connection.DisconnectState() = 0;
@@ -342,14 +342,14 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         cg::audio::LoadAndPlayBGM(17);
     }
 
-    if (world::gCurrentSceneState == 1) {
+    if (session.WorldScene().sceneState == 1) {
         interactiveTail = 1;
         if ((cg::ui::QueryUiControlInputState_45F100(&gCloseUi) & 1) != 0) {
             detail::PlaySe(54, 320, 240);
             ::PostMessageW(
                 reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
         } else if ((cg::ui::QueryUiControlInputState_45F100(&gSwitchSceneUi) & 1) != 0) {
-            world::SetPendingSceneType(1);
+            world::SetPendingSceneType(session, 1);
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
             cg::audio::BeginBgmFadeOut_52B990();
@@ -404,7 +404,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
                             ReadInputValueFF494F_5203E0(request.password);
                             ReadInputValueFF4982_520440(request.account);
-                            IncrementSceneState();
+                            IncrementSceneState(session);
                             break;
                         }
                     }
@@ -413,26 +413,26 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         }
     }
 
-    if (world::gCurrentSceneState == 2) {
+    if (session.WorldScene().sceneState == 2) {
         ResetValues_45D980(connection);
-        IncrementSceneState();
+        IncrementSceneState(session);
     }
 
-    if (world::gCurrentSceneState == 3) {
+    if (session.WorldScene().sceneState == 3) {
         const std::int32_t result = UpdateServerConnection(connection);
         switch (result) {
         case 1:
             session.MarkConnected();
-            world::SetCurrentSceneType(3);
+            world::SetCurrentSceneType(session, 3);
             break;
         case -1:
-            world::gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             CopyText(request.sceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
             connection.Shutdown();
             connection.DisconnectState() = 0;
             break;
         case -2: {
-            world::gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             const std::int16_t error = request.loginErrorCode;
             if (error > 1234) {
                 CopyText(request.sceneMessage, kCannotConnect);
@@ -552,13 +552,13 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             break;
         }
         case -3:
-            world::gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             CopyText(request.sceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
             connection.Shutdown();
             connection.DisconnectState() = 0;
             break;
         case -4:
-            world::gCurrentSceneState = 100;
+            session.WorldScene().sceneState = 100;
             CopyText(request.sceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
             connection.Shutdown();
             connection.DisconnectState() = 0;
@@ -568,12 +568,12 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         }
     }
 
-    if (world::gCurrentSceneState == 100) {
+    if (session.WorldScene().sceneState == 100) {
         ResetLoginMessage(connection);
-        IncrementSceneState();
+        IncrementSceneState(session);
     }
 
-    if (world::gCurrentSceneState == 101 && UpdateLoginMessage(connection, request.sceneMessage) != 0) {
+    if (session.WorldScene().sceneState == 101 && UpdateLoginMessage(connection, request.sceneMessage) != 0) {
         if (request.openUrlAfterMessage != 0) {
             // ::ShellExecuteA(
             //     reinterpret_cast<HWND>(platform::gLegacyWindow),
@@ -583,15 +583,15 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             //     nullptr,
             //     1);
             request.openUrlAfterMessage = 0;
-            world::SetPendingSceneType(1);
+            world::SetPendingSceneType(session, 1);
         }
-        world::gCurrentSceneState = 1;
+        session.WorldScene().sceneState = 1;
         SetBaseWindowTitle(title);
     }
 
-    if (world::gCurrentSceneState == 102) {
+    if (session.WorldScene().sceneState == 102) {
         if (UpdateLoginMessage(connection, request.sceneMessage) != 0) {
-            world::gCurrentSceneState = 1;
+            session.WorldScene().sceneState = 1;
         }
         SetBaseWindowTitle(title);
     }

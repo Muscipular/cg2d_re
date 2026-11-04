@@ -189,7 +189,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
-        if (world::gCurrentSceneType != 10) {
+        if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
             if (WindowRuntime_States(session)[WindowId_Skill].window != nullptr) {
                 graphic->imageNo = 0x3B961;
             }
@@ -202,7 +202,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::gCurrentSceneType != 10) {
+            if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
@@ -225,7 +225,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
-        if (world::gCurrentSceneType != 10) {
+        if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
             if (WindowRuntime_States(session)[WindowId_Inventory].window != nullptr) {
                 graphic->imageNo = 0x3B964;
             }
@@ -238,7 +238,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::gCurrentSceneType != 10) {
+            if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_Inventory].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
@@ -261,7 +261,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
-        if (world::gCurrentSceneType != 10) {
+        if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
             if (WindowRuntime_States(session)[WindowId_PetList].window != nullptr) {
                 graphic->imageNo = 0x3B967;
             }
@@ -274,7 +274,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::gCurrentSceneType != 10) {
+            if (callbackWindow.ownerSession->WorldScene().sceneType != 10) {
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_PetList].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;

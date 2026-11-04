@@ -1,4 +1,5 @@
 #include "LuaUI.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "../world/WorldMapState.hpp"
 #include <algorithm>
@@ -128,21 +129,21 @@ static void resetPlanCache();
 static void resetMoveProgress();
 static void clearCopilotRoute();
 
-static bool isCopilotSceneReady()
+static bool isCopilotSceneReady(session::ClientSession& session)
 {
-    return world::gCurrentSceneType == SCENE_NORMAL && world::gCurrentSceneState == 3;
+    return session.WorldScene().sceneType == SCENE_NORMAL && session.WorldScene().sceneState == 3;
 }
 
-static bool skipSceneNotReady([[maybe_unused]] const char* where)
+static bool skipSceneNotReady(session::ClientSession& session, [[maybe_unused]] const char* where)
 {
-    if (isCopilotSceneReady()) {
+    if (isCopilotSceneReady(session)) {
         return false;
     }
 
     uint64_t now = nowMs();
     if (gLastSceneSkipLogMs == 0 || now - gLastSceneSkipLogMs >= kSceneSkipLogMs) {
         gLastSceneSkipLogMs = now;
-        // m_log_iw(L"[copilot] skip scene where=%hs scene=%d state=%d needScene=%d needState=3\n", where, world::gCurrentSceneType, world::gCurrentSceneState, SCENE_NORMAL);
+        // m_log_iw(L"[copilot] skip scene where=%hs scene=%d state=%d needScene=%d needState=3\n", where, session.WorldScene().sceneType, session.WorldScene().sceneState, SCENE_NORMAL);
     }
     gHasLastObservedPlayer = false;
     clearRecentPlayers();
@@ -1521,16 +1522,16 @@ static bool pickVisibleWaypoint(const std::vector<Point>& path, Point player, Po
 
 
 // 目标改变时可只刷新显示路径；已有移动段仍沿原忙碌门禁完成，不提前发出下一段。
-static void PlanCopilot(int x, int y, bool routeOnly)
+static void PlanCopilot(session::ClientSession& session, int x, int y, bool routeOnly)
 {
-    if (copilot_detail::skipSceneNotReady("autoCopilot")) {
+    if (copilot_detail::skipSceneNotReady(session, "autoCopilot")) {
         return;
     }
     copilot_detail::syncVisibleCache();
 
     copilot_detail::Point target{x, y};
     copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
-    // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, world::gCurrentSceneType, world::gCurrentSceneState);
+    // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, session.WorldScene().sceneType, session.WorldScene().sceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_iw(L"[copilot] already arrived target=%d,%d\n", target.x, target.y);
         copilot_detail::clearCopilotRoute();
@@ -1610,12 +1611,12 @@ static void PlanCopilot(int x, int y, bool routeOnly)
     copilot_detail::clearCopilotRoute();
 }
 
-void autoCopilot(int x, int y)
+void autoCopilot(session::ClientSession& session, int x, int y)
 {
-    PlanCopilot(x, y, false);
+    PlanCopilot(session, x, y, false);
 }
 
-void startCopilot(int x, int y)
+void startCopilot(session::ClientSession& session, int x, int y)
 {
     copilot_detail::gCopilotTarget = {x, y};
     copilot_detail::gCopilotMapId = copilot_detail::gMapId;
@@ -1634,8 +1635,8 @@ void startCopilot(int x, int y)
     copilot_detail::gLastCellLogMs = 0;
     copilot_detail::gHasLastRequestedWaypoint = false;
     copilot_detail::clearCopilotRoute();
-    m_log_iw(L"[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), world::gCurrentSceneType, world::gCurrentSceneState);
-    PlanCopilot(x, y, true);
+    m_log_iw(L"[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), session.WorldScene().sceneType, session.WorldScene().sceneState);
+    PlanCopilot(session, x, y, true);
 }
 
 void stopCopilot()
@@ -1654,10 +1655,10 @@ int getAutoCopliotState()
     return copilot_detail::gCopilotEnabled ? 1 : 0;
 }
 
-std::vector<std::pair<int, int> > getAutoCopliotRoute()
+std::vector<std::pair<int, int> > getAutoCopliotRoute(session::ClientSession& session)
 {
     std::vector<std::pair<int, int> > route;
-    if (!copilot_detail::gCopilotEnabled || !copilot_detail::isCopilotSceneReady() || copilot_detail::gMapId != static_cast<std::uint32_t>(copilot_detail::gCopilotMapId) || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
+    if (!copilot_detail::gCopilotEnabled || !copilot_detail::isCopilotSceneReady(session) || copilot_detail::gMapId != static_cast<std::uint32_t>(copilot_detail::gCopilotMapId) || copilot_detail::gMapFloor != copilot_detail::gCopilotMapFloor) {
         return route;
     }
 
@@ -1668,7 +1669,7 @@ std::vector<std::pair<int, int> > getAutoCopliotRoute()
     return route;
 }
 
-void CopilotProc()
+void CopilotProc(session::ClientSession& session)
 {
     if (!copilot_detail::gCopilotEnabled) {
         return;
@@ -1679,7 +1680,7 @@ void CopilotProc()
         stopCopilot();
         return;
     }
-    if (copilot_detail::skipSceneNotReady("proc")) {
+    if (copilot_detail::skipSceneNotReady(session, "proc")) {
         return;
     }
 
@@ -1748,8 +1749,8 @@ void CopilotProc()
 
     copilot_detail::gLastCopilotTickMs = now;
     // m_log_iw(L"[copilot] proc player=%d,%d target=%d,%d reqDist=%d reqProgress=%d scene=%d state=%d\n", player.x, player.y,
-    //     gCopilotTarget.x, gCopilotTarget.y, requestDist, requestProgress, world::gCurrentSceneType, world::gCurrentSceneState);
-    autoCopilot(copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
+    //     gCopilotTarget.x, gCopilotTarget.y, requestDist, requestProgress, session.WorldScene().sceneType, session.WorldScene().sceneState);
+    autoCopilot(session, copilot_detail::gCopilotTarget.x, copilot_detail::gCopilotTarget.y);
 }
 
 } // namespace cg::script

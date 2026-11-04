@@ -90,7 +90,7 @@ YobiAction* NewBattleActor_438290(YobiAction* const source, const std::int32_t p
 // 原函数：0x00404DB0。
 void UpdateBattleActor_404DB0(YobiAction* const action)
 {
-    const std::int32_t scene = world::gCurrentSceneState;
+    const std::int32_t scene = action->ownerSession->WorldScene().sceneState;
     const bool isSceneSeven = scene == 7;
     auto* const payload = action->payload.battleActor;
     if (isSceneSeven) {

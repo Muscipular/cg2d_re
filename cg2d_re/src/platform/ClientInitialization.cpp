@@ -271,7 +271,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     static_cast<void>(world::InitializeAlbum_518C20());
 
     const double initialFrameTime = static_cast<double>(ReadTickCount64());
-    world::gPendingSceneType = -1;
+    session.WorldScene().pendingSceneType = -1;
     gLastRenderDt = initialFrameTime;
     login::detail::AppendSystemLog_44B5C0(L"fadeOutNowLoading Start");
     if (initialization_detail::FadeOutLoading_4585F0(session) == 0) {

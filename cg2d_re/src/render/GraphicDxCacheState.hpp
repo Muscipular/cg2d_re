@@ -10,6 +10,7 @@ struct SDL_Surface;
 struct SDL_Texture;
 struct SDL_Renderer;
 
+namespace cg::session { class ClientSession; }
 namespace cg::render {
 
 struct TextureSurface;
@@ -178,6 +179,7 @@ void ReleaseTextureNodeSurfaces_44C408() noexcept;
 // 原 44CD80：按完整 surface 地址、图号、S16 调色板和键矩形复用/生成变换面。
 // 两种矩形均为四项 S32；原函数直接把 sourceRectangle 的 right/bottom 当循环宽高。
 TextureSurface* TransformTextureSurface_44CD80(
+    session::ClientSession& session,
     TextureSurface* source, std::int32_t imageNo, std::int16_t paletteIndex,
     std::uint8_t flipX, std::uint8_t flipY,
     const std::int32_t* sourceRectangle, const std::int32_t* keyRectangle);

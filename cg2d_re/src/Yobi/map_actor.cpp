@@ -569,7 +569,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     std::int32_t index = payload->index;
     std::int32_t primaryIndex = -1;
     bool useSharedRate = true;
-    if (world::IsObservationSceneTransitionActive_440B50() != 0) {
+    if (world::IsObservationSceneTransitionActive_440B50(*action->ownerSession) != 0) {
         return;
     }
     YobiAction* player = action->ownerSession->WorldScene().player->action;

@@ -51,7 +51,7 @@ static bool HitQueuedText(const render::TextPendingRecord& text, std::int32_t& w
 }
 
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
-static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
+static bool HitQueuedGraphic(session::ClientSession& session, const render::GraphicCacheItem32& graphic)
 {
     if (graphic.reference.action == nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
@@ -74,7 +74,7 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
         return (static_cast<std::int32_t>(graphic.y) <= gLegacyMouseState.mouseY);
     }
 
-    const std::int32_t scene = world::gCurrentSceneType;
+    const std::int32_t scene = session.WorldScene().sceneType;
     if (scene != 10 && scene != 3) {
         const cg::yobi::YobiAction* const xAction = graphic.reference.action;
         const std::int32_t x = graphic.x;
@@ -264,7 +264,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
         const render::GraphicCacheItem32& graphic =
             render::gLegacyPendingStorage.records[static_cast<std::size_t>(graphicIndex)];
         if (graphic.value4 != 0 && render::LoadGraphic_522570(graphic.imageNo) != 0
-            && HitQueuedGraphic(graphic)) {
+            && HitQueuedGraphic(session, graphic)) {
             render::gHoveredGraphicPendingIndex =
                 render::gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].cacheIndex;
             if (graphic.value4 == 2) {

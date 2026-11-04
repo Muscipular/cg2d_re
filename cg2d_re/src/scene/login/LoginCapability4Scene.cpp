@@ -44,7 +44,7 @@ static std::int32_t ProcessCapability4CommonTail(network::CgConnection& connecti
 std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connection)
 {
     auto& sceneUi = connection.LoginSceneUi();
-    const std::int32_t sampledState = world::gCurrentSceneState;
+    const std::int32_t sampledState = connection.Owner().WorldScene().sceneState;
     const std::uint32_t state =
         std::bit_cast<std::uint32_t>(sampledState);
     if (state > 10U) {
@@ -57,7 +57,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         sceneUi.capability4FrameCounter = 0;
         sceneUi.capability4IntroAlpha = 0;
         sceneUi.capability4IntroPhase = 0;
-        world::gCurrentSceneState = 1;
+        connection.Owner().WorldScene().sceneState = 1;
         return cg::audio::LoadAndPlayBGM(42);
 
     case 1: {
@@ -122,7 +122,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
                     sceneUi.capability4IntroPhase = phase + 1;
                     sceneUi.capability4IntroAlpha = 0;
                 } else {
-                    world::gCurrentSceneState = 2;
+                    connection.Owner().WorldScene().sceneState = 2;
                 }
             }
         }
@@ -130,7 +130,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         const std::uint8_t edgeButtons =
             static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((edgeButtons & 1U) != 0U) {
-            world::gCurrentSceneState = 2;
+            connection.Owner().WorldScene().sceneState = 2;
         }
         return result;
     }
@@ -139,7 +139,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         sceneUi.capability4FrameCounter = 0;
         static_cast<void>(cg::login::detail::InitializeSavedState_533300());
         login::InitializeCapability4Input_465320(connection);
-        world::gCurrentSceneState = 3;
+        connection.Owner().WorldScene().sceneState = 3;
         return DrawCapability4Base();
 
     case 3: {
@@ -157,7 +157,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             login::detail::SaveCredentialRecordsWithoutPasswords_533730();
             static_cast<void>(login::detail::PlaySe(53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));
-            world::gCurrentSceneState = 4;
+            connection.Owner().WorldScene().sceneState = 4;
         } else if (result == 2) {
             static_cast<void>(login::detail::PlaySe(54, 320, 240));
             static_cast<void>(::PostMessageW(
@@ -166,19 +166,19 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
                 0,
                 0));
         } else if (result == -1) {
-            world::gCurrentSceneState = 5;
+            connection.Owner().WorldScene().sceneState = 5;
         } else if (result == -2) {
             const std::int32_t selected =
                 login::detail::gSelectedSavedSlot105C394;
             if (selected == 0) {
-                world::gCurrentSceneState = 5;
+                connection.Owner().WorldScene().sceneState = 5;
             } else {
                 const std::int32_t newPhysical =
                     login::detail::ReadNewSavedPhysicalSlot105C368();
                 const std::int32_t mappedPhysical =
                     login::detail::ReadMappedSavedPhysicalSlot105C36C(
                         selected);
-                world::gCurrentSceneState =
+                connection.Owner().WorldScene().sceneState =
                     newPhysical == mappedPhysical ? 5 : 7;
             }
         }
@@ -194,21 +194,21 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             static_cast<void>(::ShowCursor(
                 std::bit_cast<std::int32_t>(currentShow)));
         }
-        return world::SetCurrentSceneType(2);
+        return world::SetCurrentSceneType(connection.Owner(), 2);
     }
 
     case 5: {
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
-        world::gCurrentSceneState = 6;
+        connection.Owner().WorldScene().sceneState = 6;
         return result;
     }
 
     case 6:
         sceneUi.capability4Message = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         if (login::UpdateLoginMessage(connection, sceneUi.capability4Message) != 0) {
-            world::gCurrentSceneState = 2;
+            connection.Owner().WorldScene().sceneState = 2;
         }
         return ProcessCapability4CommonTail(connection);
 
@@ -216,7 +216,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         login::detail::ResetCapability4Modal_464440(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
-        world::gCurrentSceneState = 8;
+        connection.Owner().WorldScene().sceneState = 8;
         return result;
     }
 
@@ -225,9 +225,9 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         const std::int32_t result =
             login::detail::UpdateCapability4Modal_464450(connection, sceneUi.capability4Message);
         if (result == 1) {
-            world::gCurrentSceneState = 9;
+            connection.Owner().WorldScene().sceneState = 9;
         } else if (result == 2) {
-            world::gCurrentSceneState = 2;
+            connection.Owner().WorldScene().sceneState = 2;
         }
         return ProcessCapability4CommonTail(connection);
     }
@@ -241,14 +241,14 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();
-        world::gCurrentSceneState = 10;
+        connection.Owner().WorldScene().sceneState = 10;
         return result;
     }
 
     case 10:
         sceneUi.capability4Message = L"帐号记录已成功删除。" /* 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。 */ /* 原常量参考：0x00CEEDED。 */;
         if (login::UpdateLoginMessage(connection, sceneUi.capability4Message) != 0) {
-            world::gCurrentSceneState = 2;
+            connection.Owner().WorldScene().sceneState = 2;
         }
         return ProcessCapability4CommonTail(connection);
     }

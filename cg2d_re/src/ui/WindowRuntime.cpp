@@ -1075,7 +1075,7 @@ static void WindowItemDrag_Handle(
     if (message != 0) {
         if (message == 2 && interaction.itemDragMode != 0
             && (world::ReadPlayerActionFlagsByte(session) & 0x80u) == 0
-            && world::IsObservationSceneTransitionActive_440B50() == 0) {
+            && world::IsObservationSceneTransitionActive_440B50(session) == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&inventory.normalSelector) + 1 : 0;
@@ -3023,7 +3023,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
-            if (world::gCurrentSceneType == 10) {
+            if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenSkills(session);
             } else {
                 WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
@@ -3036,14 +3036,14 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x45 : 0x52] & 4u) != 0) {
-            if (world::gCurrentSceneType == 10) {
+            if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenItems(session);
             } else {
                 WindowRuntime_ToggleShortcutWindow(session, 14);
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x52 : 0x41] & 4u) != 0) {
-            if (world::gCurrentSceneType == 10) {
+            if (session.WorldScene().sceneType == 10) {
                 WindowBattleCommand_OpenPets(session);
             } else {
                 WindowRuntime_ToggleShortcutWindow(session, 15);
@@ -3056,11 +3056,11 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             WindowRuntime_ToggleShortcutWindow(session, 19);
         }
         if ((platform::gKeyStates[modeOne ? 0x41 : 0x46] & 4u) != 0
-            && world::gCurrentSceneType != 10) {
+            && session.WorldScene().sceneType != 10) {
             WindowRuntime_ToggleShortcutWindow(session, 34);
         }
         if ((platform::gKeyStates[modeOne ? 0x53 : 0x51] & 4u) != 0
-            && world::gCurrentSceneType != 10) {
+            && session.WorldScene().sceneType != 10) {
             WindowRuntime_ToggleShortcutWindow(session, 33);
         }
         if ((platform::gKeyStates[modeOne ? 0x44 : 0x59] & 4u) != 0) {
@@ -3112,7 +3112,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
 
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
-        if (world::gCurrentSceneType != 10) {
+        if (session.WorldScene().sceneType != 10) {
             if ((platform::gKeyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
                 world::RequestDuelWithFacingPlayer_470050(session);
             }
@@ -4948,7 +4948,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
 {
     auto& inventory = session.UiFrame().native.inventory;
     using namespace detail;
-    switch (world::gCurrentSceneType) {
+    switch (session.WorldScene().sceneType) {
     case 5:
         WindowRuntime_ResetShortcutFlag(session);
         WindowRuntime_InitializeLogin(session);
@@ -4966,7 +4966,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
         static_cast<void>(world::detail::SaveProfileCategoryFile_5348A0());
         return;
     case 9:
-        switch (world::gCurrentSceneState) {
+        switch (session.WorldScene().sceneState) {
         case 1:
             WindowRuntime_MarkSceneWindows(session);
             static_cast<void>(WindowRuntime_CloseAll(session));
@@ -4985,7 +4985,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
             WindowRuntime_MarkExistingWindows(session);
             static_cast<void>(WindowRuntime_CloseAll(session));
             WindowRuntime_OpenNormalScene(session);
-            if (world::gCurrentSceneState == 250) {
+            if (session.WorldScene().sceneState == 250) {
                 auto* const bytes = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
                 for (std::size_t index = 0; index < 8; ++index) {
                     bytes[index] = static_cast<unsigned char>(bytes[index] + 1);
@@ -4996,7 +4996,7 @@ void WindowRuntime_ProcessScene(session::ClientSession& session)
             return;
         }
     case 10:
-        switch (world::gCurrentSceneState) {
+        switch (session.WorldScene().sceneState) {
         case 1:
             WindowRuntime_OpenBattleScene(session);
             return;

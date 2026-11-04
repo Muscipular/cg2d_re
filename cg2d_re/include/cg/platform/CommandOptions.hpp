@@ -30,9 +30,6 @@ extern std::int32_t gMusicVolume;       // 原 0x58D3CC，W32，静态初值 15�
 extern std::uint8_t (&gBgmFrequencySelectionPrefix)[16];
 // 52BE60 的 W8 读取跨前缀、8 字节间隔及 1050858 的 W32 运行表。
 std::int8_t ReadBgmFrequencySelectionByte(std::uint8_t id) noexcept;
-// 原 0xFF0D40，本函数写入 1；world::gCurrentSceneType 引用同一份存储，枚举语义未决。
-extern std::int32_t gCurrentSceneTypeStorage_FF0D40;
-
 // 原 [0x62A640,0x62A644)：首字节为模式，后三字节为 IDA 对齐区。
 // 3Ddevice: 的 %d 写满四字节，默认值及 Setup.ini 覆盖只改首字节。
 // 该整型仅承载这四字节，不表示原模式变量是 int；小端 x64 上保留原别名。

@@ -886,7 +886,7 @@ struct BigMapWindowState final {
     }
 
     int Update(int stage) {
-        if (world::gCurrentSceneType != SCENE_NORMAL) {
+        if (window.ownerSession->WorldScene().sceneType != SCENE_NORMAL) {
             CloseCustomEditor();
             window.state |= WIN_STATE_CLOSE;
             dragging = movingWindow = mapClickPending = acceptsMouse = false;
@@ -1079,7 +1079,7 @@ struct BigMapWindowState final {
                         map.PanFrom(point.x, point.y, visibleCenterX - (map.x + map.w / 2), 0);
                     }
                     dragging = movingWindow = false;
-                    if (doubleClick || retarget) startCopilot(targetX, targetY);
+                    if (doubleClick || retarget) startCopilot(*window.ownerSession, targetX, targetY);
                     lastListClickX = point.x; lastListClickY = point.y;
                     SyncControls();
                     RefreshText();
@@ -1109,7 +1109,7 @@ struct BigMapWindowState final {
                     case BigMapButton::CoordinateList: ToggleCoordinateList(); break;
                     case BigMapButton::Center: followPlayer = true; break;
                     case BigMapButton::Walk:
-                        startCopilot(targetX, targetY);
+                        startCopilot(*window.ownerSession, targetX, targetY);
                         break;
                     }
                 } else if (index >= CategoryFirst && index < CategoryEnd) {
@@ -1138,7 +1138,7 @@ struct BigMapWindowState final {
             dragging = false;
             if (valid) {
                 targetX = point.first; targetY = point.second;
-                startCopilot(targetX, targetY);
+                startCopilot(*window.ownerSession, targetX, targetY);
             }
         } else if (events & MouseFlag_LDownEvent) {
             mapClickPending = true;
@@ -1152,7 +1152,7 @@ struct BigMapWindowState final {
             const bool retarget = getAutoCopliotState() && (targetX != point.first || targetY != point.second);
             targetX = point.first; targetY = point.second;
             if (retarget) {
-                startCopilot(targetX, targetY);
+                startCopilot(*window.ownerSession, targetX, targetY);
             }
         }
         SyncControls();
@@ -1384,7 +1384,7 @@ struct BigMapWindowState final {
             }
             Marker(px, py, PlayerMarker, 14, mapClip);
             if (targetX >= 0) Marker(targetX, targetY, TargetMarker, 14, mapClip);
-            const auto route = getAutoCopliotRoute();
+            const auto route = getAutoCopliotRoute(*window.ownerSession);
             for (std::size_t i = 1; i < route.size(); i += 2)
                 Marker(route[i].first, route[i].second, RouteDot, 4, mapClip);
             failedUiImages += DrawAnnotations(mapClip);
@@ -1425,7 +1425,7 @@ BigMapWindowRuntimeState::BigMapWindowRuntimeState() noexcept = default;
 BigMapWindowRuntimeState::~BigMapWindowRuntimeState() = default;
 
 void WindowBigMap_Open(session::ClientSession& session) {
-    if (world::gCurrentSceneType != 9) return;
+    if (session.WorldScene().sceneType != 9) return;
     if (auto* existing = detail::WindowRuntime_States(session)[WindowId_BigMap].window) {
         existing->state &= ~std::uint32_t{0x8000};
         existing->state |= 0x2000u;

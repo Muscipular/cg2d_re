@@ -1653,7 +1653,7 @@ static void ProcessBattleMDataHeader(
     case BattleMDataHeader::End:
         if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FinishBattleEvent_43B6C0(scene);
-            world::gCurrentSceneState = 7;
+            scene->ownerSession->WorldScene().sceneState = 7;
         }
         return;
     }

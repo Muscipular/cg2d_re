@@ -2,6 +2,7 @@
 
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
 namespace cg::render {
 
 // 原 553018/55301C：固定缓存构造后立即登记退出，返回实际宿主 atexit 的 S32。
@@ -40,6 +41,6 @@ std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept;
 
 // 原 44D490：仅清当前场景对应的变换树，按完整地址键次序释放面、清槽并摘项。
 // 原两个 caller 均不消费残留 EAX，不向上层暴露树哨兵地址。
-void ClearSurfaceTransformCache_44D490();
+void ClearSurfaceTransformCache_44D490(session::ClientSession& session);
 
 } // namespace cg::render

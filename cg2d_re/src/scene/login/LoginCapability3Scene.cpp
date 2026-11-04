@@ -123,7 +123,7 @@ static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connec
         static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200());
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
         static_cast<void>(cg::render::SelectPalette(30, 30));
-        cg::world::gCurrentSceneState = 10;
+        connection.Owner().WorldScene().sceneState = 10;
     } else if (result == 2) {
         static_cast<void>(cg::login::detail::PlaySe(54, 320, 240));
         static_cast<void>(::PostMessageW(
@@ -132,7 +132,7 @@ static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connec
             0,
             0));
     } else if (result < 0) {
-        cg::world::gCurrentSceneState = 8;
+        connection.Owner().WorldScene().sceneState = 8;
         sceneUi.capability3Intro.message9A50E8 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         sceneUi.context9A5960.clearText();
         static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(sceneUi.context9A5960).c_str()));
@@ -147,7 +147,7 @@ static std::int32_t ProcessCapability3CommonDispatch(
         const std::uint8_t clickState =
             static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((clickState & 1U) != 0U) {
-            cg::world::gCurrentSceneState = 5;
+            connection.Owner().WorldScene().sceneState = 5;
             cg::input::SetContext_44B330(connection.Owner(), nullptr);
             return DrawCapability3CommonTail(connection);
         }
@@ -163,7 +163,7 @@ static std::int32_t ProcessCapability3CommonDispatch(
 
 static std::int32_t DispatchCapability3FromCurrentState(network::CgConnection& connection)
 {
-    const std::int32_t sampledState = cg::world::gCurrentSceneState;
+    const std::int32_t sampledState = connection.Owner().WorldScene().sceneState;
     return ProcessCapability3CommonDispatch(connection, sampledState);
 }
 
@@ -173,7 +173,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
     auto& sceneUi = connection.LoginSceneUi();
     auto& intro = sceneUi.capability3Intro;
     const std::uint32_t state =
-        std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
+        std::bit_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState);
     if (state > 10U) {
         return DispatchCapability3FromCurrentState(connection);
     }
@@ -187,7 +187,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A5E70 = 0;
         sceneUi.capability3OverlayAlpha = 0;
         DrawFiveCapability3Images();
-        world::gCurrentSceneState = 1;
+        connection.Owner().WorldScene().sceneState = 1;
         return ProcessCapability3CommonDispatch(connection, 1);
 
     case 1: {
@@ -207,7 +207,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
 
         intro.phase9A5550 = 0;
         render::gBackgroundColor = 0x00FFFFFFU;
-        world::gCurrentSceneState = 2;
+        connection.Owner().WorldScene().sceneState = 2;
         return ProcessCapability3CommonDispatch(connection, 2);
     }
 
@@ -247,7 +247,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
 
         intro.rightAction9A50C4 = cg::yobi::NewYobiAction_404AE0(connection.Owner(), 2, 0);
         if (intro.rightAction9A50C4 == nullptr) {
-            world::gCurrentSceneState = 6;
+            connection.Owner().WorldScene().sceneState = 6;
             return ProcessCapability3InputAndDraw(connection);
         }
 
@@ -268,7 +268,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
             100,
             0,
             0));
-        world::gCurrentSceneState = 3;
+        connection.Owner().WorldScene().sceneState = 3;
         return ProcessCapability3CommonDispatch(connection, 3);
     }
 
@@ -323,7 +323,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A4D08 = 0;
         intro.alpha9A4CA0 = 0;
         intro.alpha9A5E70 = 0;
-        world::gCurrentSceneState = 4;
+        connection.Owner().WorldScene().sceneState = 4;
         intro.phase9A5550 = 16;
         static_cast<void>(cg::audio::LoadAndPlayBGM(33));
         return DispatchCapability3FromCurrentState(connection);
@@ -363,7 +363,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.alpha9A4CA0 = 0;
         intro.alpha9A5E70 = 255;
         login::InitializeCapabilityInput_45F970(connection);
-        world::gCurrentSceneState = 6;
+        connection.Owner().WorldScene().sceneState = 6;
         return ProcessCapability3InputAndDraw(connection);
 
     case 5: {
@@ -378,7 +378,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.rightAction9A50C4 = nullptr;
         intro.leftAction9A50C0 = nullptr;
         login::InitializeCapabilityInput_45F970(connection);
-        world::gCurrentSceneState = 6;
+        connection.Owner().WorldScene().sceneState = 6;
         static_cast<void>(cg::audio::LoadAndPlayBGM(33));
         return DispatchCapability3FromCurrentState(connection);
     }
@@ -391,27 +391,27 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
             return DispatchCapability3FromCurrentState(connection);
         }
         static_cast<void>(render::SelectPalette(19, 60));
-        world::gCurrentSceneState = 10;
+        connection.Owner().WorldScene().sceneState = 10;
         input::SetContext_44B330(connection.Owner(), nullptr);
         return DrawCapability3CommonTail(connection);
 
     case 8:
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
-        world::gCurrentSceneState = 9;
+        connection.Owner().WorldScene().sceneState = 9;
         input::SetContext_44B330(connection.Owner(), nullptr);
         return DrawCapability3CommonTail(connection);
 
     case 9:
         if (login::UpdateLoginMessage(connection, intro.message9A50E8) != 0) {
-            world::gCurrentSceneState = 5;
+            connection.Owner().WorldScene().sceneState = 5;
             input::SetContext_44B330(connection.Owner(), nullptr);
             return DrawCapability3CommonTail(connection);
         }
         return DispatchCapability3FromCurrentState(connection);
 
     case 10:
-        static_cast<void>(world::SetCurrentSceneType(2));
+        static_cast<void>(world::SetCurrentSceneType(connection.Owner(), 2));
         cg::yobi::YobiClearUp_404D30(connection.Owner());
         render::gBackgroundColor = 0;
         return DispatchCapability3FromCurrentState(connection);

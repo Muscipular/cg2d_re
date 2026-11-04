@@ -1752,7 +1752,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((actionFlags & 0x80u) != 0
-            || world::IsObservationSceneTransitionActive_440B50() != 0
+            || world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) != 0
             || callbackWindow.ownerSession->WorldScene().player->value08 == 0
             || callbackWindow.ownerSession->WorldScene().player->timerRemaining0C <= 0
             || callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index].canRebirth == 0) {
@@ -2331,7 +2331,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         bool allowed = (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
-            && world::IsObservationSceneTransitionActive_440B50() == 0;
+            && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0;
         if (allowed) {
             const std::int32_t skill = skillState.index;
             allowed = callbackWindow.ownerSession->WorldScene().playerSkills.skills[skill].recipes8E8[recipe].value0C != 0;
@@ -2416,7 +2416,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
             const auto activate = [&] {
                 const auto actionBlocked = [&callbackWindow] {
                     return (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) != 0
-                        || world::IsObservationSceneTransitionActive_440B50() != 0;
+                        || world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) != 0;
                 };
                 const auto insufficientFp = [&] {
                     const auto* const current = &callbackWindow.ownerSession->WorldScene().playerSkills.skills[skillState.index];

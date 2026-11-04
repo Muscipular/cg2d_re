@@ -737,8 +737,8 @@ static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             static_cast<void>(callbackWindow.ownerSession->Connection().RequestLogoutToTown());
-            if (world::gCurrentSceneType == 10) {
-                world::gCurrentSceneState = 7;
+            if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
+                callbackWindow.ownerSession->WorldScene().sceneState = 7;
             }
             static_cast<void>(audio::PlaySe_52C450(60, 320));
             consumed = 1;
@@ -774,11 +774,11 @@ static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWi
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
-            if (world::gCurrentSceneType == 10) {
-                world::gCurrentSceneState = 9;
+            if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
+                callbackWindow.ownerSession->WorldScene().sceneState = 9;
             } else {
                 world::gSceneTransitionValue = std::int32_t{0};
-                static_cast<void>(world::SetPendingSceneType(7));
+                static_cast<void>(world::SetPendingSceneType(*callbackWindow.ownerSession, 7));
             }
             static_cast<void>(audio::PlaySe_52C450(60, 320));
             consumed = 1;

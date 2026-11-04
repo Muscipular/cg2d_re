@@ -36,12 +36,12 @@ static constexpr wchar_t kCannotUpgradeText[] =
 std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
 {
     auto& scene = connection.CharacterSelectUi();
-    switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
+    switch (static_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState)) {
     case 0:
         scene.legacyVersionUpgradeAction = nullptr;
         [[fallthrough]];
     case 1:
-        world::gCurrentSceneState = 2;
+        connection.Owner().WorldScene().sceneState = 2;
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
@@ -49,9 +49,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
             if (pukVersion == 0 || pukVersion == 2) {
                 static_cast<void>(connection.SendVersionUpgradeRequest(2,
                     L"abcdefg" /* 原 0x55C910。 */));
-                world::gCurrentSceneState = 3;
+                connection.Owner().WorldScene().sceneState = 3;
             } else {
-                world::gCurrentSceneState = 202;
+                connection.Owner().WorldScene().sceneState = 202;
             }
         }
         break;
@@ -69,7 +69,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
             96,
             1,
             1);
-        world::gCurrentSceneState = 4;
+        connection.Owner().WorldScene().sceneState = 4;
         break;
     }
     case 4: {
@@ -97,13 +97,13 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
-        world::gCurrentSceneState = 101;
+        connection.Owner().WorldScene().sceneState = 101;
         login::ResetLoginMessage(connection);
         break;
     }
     case 101:
         if (login::UpdateLoginMessage(connection, kUpgradeSucceededText) != 0) {
-            world::SetCurrentSceneType(3);
+            world::SetCurrentSceneType(connection.Owner(), 3);
         }
         break;
     case 200: {
@@ -112,21 +112,21 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
             cg::yobi::MarkDeath(action);
         }
         login::ResetLoginMessage(connection);
-        world::gCurrentSceneState = 201;
+        connection.Owner().WorldScene().sceneState = 201;
         break;
     }
     case 201:
         if (login::UpdateLoginMessage(connection, kUpgradeFailedText) != 0) {
-            world::gCurrentSceneState = 1;
+            connection.Owner().WorldScene().sceneState = 1;
         }
         break;
     case 202:
-        world::gCurrentSceneState = 203;
+        connection.Owner().WorldScene().sceneState = 203;
         login::ResetLoginMessage(connection);
         break;
     case 203:
         if (login::UpdateLoginMessage(connection, kCannotUpgradeText) != 0) {
-            world::gCurrentSceneState = 1;
+            connection.Owner().WorldScene().sceneState = 1;
         }
         break;
     default:
@@ -140,12 +140,12 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
 std::int32_t ProcessScene_462330(network::CgConnection& connection)
 {
     auto& scene = connection.CharacterSelectUi();
-    switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
+    switch (static_cast<std::uint32_t>(connection.Owner().WorldScene().sceneState)) {
     case 0:
         scene.versionUpgradeAction = nullptr;
         [[fallthrough]];
     case 1:
-        world::gCurrentSceneState = 2;
+        connection.Owner().WorldScene().sceneState = 2;
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
@@ -154,22 +154,22 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
             case 7:
                 connection.SendVersionUpgradeRequest(5,
                     detail::gVersionPayload9A5C10);
-                world::gCurrentSceneState = 3;
+                connection.Owner().WorldScene().sceneState = 3;
                 break;
             case 5:
             case 6:
                 connection.SendVersionUpgradeRequest(4,
                     state::kVersion30);
-                world::gCurrentSceneState = 3;
+                connection.Owner().WorldScene().sceneState = 3;
                 break;
             case 0:
             case 2:
                 connection.SendVersionUpgradeRequest(2,
                     state::kVersion20);
-                world::gCurrentSceneState = 3;
+                connection.Owner().WorldScene().sceneState = 3;
                 break;
             default:
-                world::gCurrentSceneState = 202;
+                connection.Owner().WorldScene().sceneState = 202;
                 break;
             }
         }
@@ -188,7 +188,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
             96,
             4,
             1);
-        world::gCurrentSceneState = 4;
+        connection.Owner().WorldScene().sceneState = 4;
         break;
     }
     case 4: {
@@ -216,7 +216,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
-        world::gCurrentSceneState = 101;
+        connection.Owner().WorldScene().sceneState = 101;
         login::ResetLoginMessage(connection);
         break;
     }
@@ -229,7 +229,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
             if (scene.previewActions[1] != nullptr) {
                 scene.previewActions[1] = nullptr;
             }
-            world::SetCurrentSceneType(3);
+            world::SetCurrentSceneType(connection.Owner(), 3);
         }
         break;
     case 200: {
@@ -238,21 +238,21 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
             cg::yobi::MarkDeath(action);
         }
         login::ResetLoginMessage(connection);
-        world::gCurrentSceneState = 201;
+        connection.Owner().WorldScene().sceneState = 201;
         break;
     }
     case 201:
         if (login::UpdateLoginMessage(connection, kUpgradeFailedText) != 0) {
-            world::gCurrentSceneState = 1;
+            connection.Owner().WorldScene().sceneState = 1;
         }
         break;
     case 202:
-        world::gCurrentSceneState = 203;
+        connection.Owner().WorldScene().sceneState = 203;
         login::ResetLoginMessage(connection);
         break;
     case 203:
         if (login::UpdateLoginMessage(connection, kCannotUpgradeText) != 0) {
-            world::gCurrentSceneState = 1;
+            connection.Owner().WorldScene().sceneState = 1;
         }
         break;
     default:

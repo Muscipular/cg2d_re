@@ -296,32 +296,32 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
 std::int32_t ProcessState_45E960(network::CgConnection& connection)
 {
     auto& request = connection.LoginRequests();
-    if (world::gCurrentSceneState == 0) {
+    if (connection.Owner().WorldScene().sceneState == 0) {
         ResetLoginProgress(connection);
         cg::world::ResetGuildStateAndCloseDetails_532D80(connection.Owner());
-        ++world::gCurrentSceneState;
+        ++connection.Owner().WorldScene().sceneState;
     }
 
-    if (world::gCurrentSceneState == 1) {
+    if (connection.Owner().WorldScene().sceneState == 1) {
         const std::int32_t result = UpdateLoginProgress(connection);
         if (result == 1) {
             world::detail::ResendSavedPlayerProfile_534290();
-            world::SetCurrentSceneType(9);
+            world::SetCurrentSceneType(connection.Owner(), 9);
         } else if (result == -1) {
-            world::gCurrentSceneState = 100;
+            connection.Owner().WorldScene().sceneState = 100;
             request.processingErrorMessage = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
         } else if (result == -2) {
-            world::gCurrentSceneState = 100;
+            connection.Owner().WorldScene().sceneState = 100;
             request.processingErrorMessage = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
         }
     }
 
-    if (world::gCurrentSceneState == 100) {
+    if (connection.Owner().WorldScene().sceneState == 100) {
         ResetLoginMessage(connection);
-        ++world::gCurrentSceneState;
+        ++connection.Owner().WorldScene().sceneState;
     }
 
-    const std::int32_t sceneState = world::gCurrentSceneState;
+    const std::int32_t sceneState = connection.Owner().WorldScene().sceneState;
     if (sceneState != 101) {
         return sceneState;
     }
@@ -330,7 +330,7 @@ std::int32_t ProcessState_45E960(network::CgConnection& connection)
     if (result == 0) {
         return 0;
     }
-    return world::SetCurrentSceneType(2);
+    return world::SetCurrentSceneType(connection.Owner(), 2);
 }
 
 // 原函数：0x0045EA50。

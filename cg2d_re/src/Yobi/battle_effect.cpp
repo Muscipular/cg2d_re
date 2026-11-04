@@ -2331,7 +2331,7 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
             action->deltaX = count + 1;
         }
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
-        if (world::gCurrentSceneType == 10 && world::gCurrentSceneState == 6) {
+        if (action->ownerSession->WorldScene().sceneType == 10 && action->ownerSession->WorldScene().sceneState == 6) {
             action->flags &= ~YobiActionFlag_Hidden;
         } else {
             action->flags |= YobiActionFlag_Hidden;

@@ -52,7 +52,7 @@ static std::int32_t WindowBattleStateNotice_Update(WindowInstance& callbackWindo
     callbackWindow.ownerSession->WorldScene().battle.entryNoticeAction = nullptr;
     if (auto* const element1 = initialWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element1) element1->visible = 0;
     if (auto* const element2 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element2); element2) element2->visible = 0;
-    if (world::gCurrentSceneState != 3) {
+    if (callbackWindow.ownerSession->WorldScene().sceneState != 3) {
         currentWindow->state |= 0x8000u;
     }
     const auto flags = static_cast<std::uint8_t>(world::gBattlePlayerFlags5ABCAC);

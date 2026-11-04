@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
@@ -307,7 +308,7 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 }
 
 // 原函数：0x00521870。
-std::int32_t ApplyScreenRipple_521870()
+std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
 {
     // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。
     std::array<std::int32_t, 4> sourceRectangle;
@@ -322,12 +323,12 @@ std::int32_t ApplyScreenRipple_521870()
         return gate;
     }
 
-    if (world::IsMapFloorAllowed_448240() == 0) {
+    if (world::IsMapFloorAllowed_448240(session) == 0) {
         gRippleStrengthBits = 0;
         return 0;
     }
 
-    const std::int32_t mapFloor = world::gMapFloor;
+    const std::int32_t mapFloor = session.WorldScene().map.floor;
     const std::int32_t cachedMapFloor = gRippleMapFloorCache;
     if (mapFloor != cachedMapFloor) {
         gRippleMapFloorCache = mapFloor;

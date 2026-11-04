@@ -136,7 +136,7 @@ void Update(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         session.WorldScene().observationTravelTransitionCount = 0;
-        ClearMapName_9DAD30();
+        ClearMapName_9DAD30(session);
         SetCurrentSceneType(session, 6);
         cg::audio::BeginBgmFadeOut_52B990();
         inventory.slotUseCounts.fill(0);

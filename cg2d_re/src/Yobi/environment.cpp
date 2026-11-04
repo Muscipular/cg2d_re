@@ -228,7 +228,7 @@ static void InitializeSceneEffectGraphic(
 // 原[448A50,448BEF)：正类型对象回调，保持FST后仍使用寄存器值的边界。
 static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
 {
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = action->ownerSession->WorldScene().map.floor;
     if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
@@ -281,7 +281,7 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
 // 原[448BF0,448D8F)：负类型对象回调，偏移推进方向与448A50相反。
 static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
 {
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = action->ownerSession->WorldScene().map.floor;
     if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
@@ -478,11 +478,11 @@ static void ConfigureLeftEntrySceneEffect_448D90(
 // 原[449A00,449BBD)：普通路移动/投影，首帧只置CryptInt标记。
 static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
 {
-    if (world::IsMapFloorAllowed_448240() == 0) {
+    if (world::IsMapFloorAllowed_448240(*action->ownerSession) == 0) {
         MarkDeath(action);
         return;
     }
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = action->ownerSession->WorldScene().map.floor;
     if (static_cast<std::int32_t>(action->mapY1F0) != floor
         || action->ownerSession->WorldScene().player->action == nullptr) {
         MarkDeath(action);
@@ -532,7 +532,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
 static void UpdateSceneEffectOverlay_449C10(YobiAction* const action)
 {
     YobiAction* const parent = FindLiveActionByCallback(*action->ownerSession, UpdateMovingSceneEffect_449A00);
-    if (parent == nullptr || world::IsMapFloorAllowed_448240() == 0) {
+    if (parent == nullptr || world::IsMapFloorAllowed_448240(*action->ownerSession) == 0) {
         MarkDeath(action);
         return;
     }
@@ -568,10 +568,10 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = action->ownerSession->WorldScene().map.floor;
     if (floor != 59529
         && static_cast<std::int32_t>(action->mapY1F0) != floor
-        && world::gMapFloor != 38251) {
+        && action->ownerSession->WorldScene().map.floor != 38251) {
         MarkDeath(action);
         return;
     }
@@ -690,7 +690,7 @@ static void EnsureTimedMapBackgroundEffect_448290(session::ClientSession& sessio
     if (session.WorldScene().sceneType != 9 || session.WorldScene().player->action == nullptr) {
         return;
     }
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = session.WorldScene().map.floor;
     if (floor != 59529 && floor != 38251) {
         return;
     }
@@ -703,7 +703,7 @@ static void EnsureTimedMapBackgroundEffect_448290(session::ClientSession& sessio
     }
     action->callback = UpdateTimedMapBackgroundEffect_4483A0;
     action->displayPriority = 1;
-    action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
+    action->mapY1F0 = static_cast<std::int32_t>(session.WorldScene().map.floor);
     action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
     action->motionMagnitude54 = 0.0F;
     action->drawMode.clipMode = 1;
@@ -733,11 +733,11 @@ static void MoveSceneEffectAlongAngle_449670(YobiAction* const action)
 // 原[449400,449552)：漂移对象的移动、帧表、投影及四方向退出。
 static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
 {
-    if (world::IsMapFloorAllowed_448240() == 0) {
+    if (world::IsMapFloorAllowed_448240(*action->ownerSession) == 0) {
         MarkDeath(action);
         return;
     }
-    const std::int32_t floor = world::gMapFloor;
+    const std::int32_t floor = action->ownerSession->WorldScene().map.floor;
     if (static_cast<std::int32_t>(action->mapY1F0) != floor) {
         MarkDeath(action);
         return;
@@ -862,7 +862,7 @@ void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
     }
     detail::EnsureTimedMapBackgroundEffect_448290(session);
     render::AdvanceRipplePhase_520910();
-    if (world::IsMapDriftEffectAllowed_4493C0() == 0) {
+    if (world::IsMapDriftEffectAllowed_4493C0(session) == 0) {
         return;
     }
     const auto counter = static_cast<std::uint8_t>(session.Yobi().mapEffectSpawnCounter + 1);
@@ -876,8 +876,8 @@ void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
     }
     action->callback = detail::UpdateDriftingSceneEffect_449400;
     action->displayPriority = 30;
-    action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
-    const auto timeCategory = static_cast<std::uint8_t>(world::gCurrentDayPeriod_73ED48);
+    action->mapY1F0 = static_cast<std::int32_t>(session.WorldScene().map.floor);
+    const auto timeCategory = static_cast<std::uint8_t>(session.WorldScene().map.currentDayPeriod);
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(session.Connection(), detail::SceneDriftVariant_FromPositiveWorldX, detail::SceneDriftVariant_FromNegativeWorldX) : platform::RandomRange_46FAF0(session.Connection(), detail::SceneDriftVariant_FromNegativeWorldY, detail::SceneDriftVariant_FromPositiveWorldY);
     const std::int32_t speed = platform::RandomRange_46FAF0(session.Connection(), 0, 200);

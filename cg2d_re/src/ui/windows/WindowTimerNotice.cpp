@@ -41,7 +41,7 @@ static std::int32_t WindowTimerNotice_Update(WindowInstance& callbackWindow, con
         auto* const element1 = currentWindow->FindElementById(WindowTimerNoticeElementId::Element1);
         if (element1) {
             auto* const data = element1->data.text;
-            const std::wstring& text = world::GetMapName_9DAD30();
+            const std::wstring& text = world::GetMapName_9DAD30(*callbackWindow.ownerSession);
             data->text = text;
             const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
             WindowInstance* const window = currentWindow;

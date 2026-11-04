@@ -178,7 +178,7 @@ void AdvanceRipplePhase_520910();
 void WrapRipplePhase_520930(float* value);
 
 // 原 sub_521870@[0x521870,0x5219B5)：共享 CPU Back/Temp 的波纹条带回拷。
-std::int32_t ApplyScreenRipple_521870();
+std::int32_t ApplyScreenRipple_521870(session::ClientSession& session);
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
 void SortTextures_520790();

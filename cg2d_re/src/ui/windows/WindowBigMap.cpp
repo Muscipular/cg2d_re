@@ -799,7 +799,7 @@ struct BigMapWindowState final {
     }
 
     void RefreshText() {
-        if (auto* const indexedElement = window.FindElementById(NativeElementKey(TextMapName)); indexedElement) indexedElement->data.text->text = world::GetMapName_9DAD30();
+        if (auto* const indexedElement = window.FindElementById(NativeElementKey(TextMapName)); indexedElement) indexedElement->data.text->text = world::GetMapName_9DAD30(*window.ownerSession);
         auto* const indexedElement2 = window.FindElementById(NativeElementKey(TextCurrentCoordinate));
         if (indexedElement2) {
             indexedElement2->data.text->text =
@@ -893,11 +893,11 @@ struct BigMapWindowState final {
             return stage;
         }
         Layout();
-        if (currentMap != static_cast<int>(world::gCurrentMapId_9A86DC)
-            || currentFloor != world::gMapFloor || currentGroup != world::gMapCachePathKey_9E0434) {
-            currentMap = static_cast<int>(world::gCurrentMapId_9A86DC);
-            currentFloor = world::gMapFloor;
-            currentGroup = world::gMapCachePathKey_9E0434;
+        if (currentMap != static_cast<int>(window.ownerSession->WorldScene().map.mapId)
+            || currentFloor != window.ownerSession->WorldScene().map.floor || currentGroup != window.ownerSession->WorldScene().map.cachePathKey) {
+            currentMap = static_cast<int>(window.ownerSession->WorldScene().map.mapId);
+            currentFloor = window.ownerSession->WorldScene().map.floor;
+            currentGroup = window.ownerSession->WorldScene().map.cachePathKey;
             targetX = targetY = -1;
             dragging = movingWindow = mapClickPending = false;
             followPlayer = true;
@@ -909,7 +909,7 @@ struct BigMapWindowState final {
             map.mapX = static_cast<int>(world::gPlayerX);
             map.mapY = static_cast<int>(world::gPlayerY);
         }
-        mapReady = map.PrepareMap();
+        mapReady = map.PrepareMap(*window.ownerSession);
         if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
         SyncControls();
         const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);

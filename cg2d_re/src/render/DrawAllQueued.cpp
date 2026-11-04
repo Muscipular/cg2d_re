@@ -453,7 +453,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                 }
                 break;
             case 8:
-                static_cast<void>(ApplyScreenRipple_521870());
+                static_cast<void>(ApplyScreenRipple_521870(session));
                 break;
             case 9:
                 world::DrawPendingMapEffects_46E480(session);

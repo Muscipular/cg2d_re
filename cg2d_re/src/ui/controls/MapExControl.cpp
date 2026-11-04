@@ -1,4 +1,5 @@
 #include "../WindowComponents.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/render/Palette.hpp"
@@ -253,9 +254,9 @@ bool WindowMapExData::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup
     return true;
 }
 
-void WindowMapExData::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
-    short visibleW = world::gMapSpanX;
-    short visibleH = world::gMapSpanY;
+void WindowMapExData::SyncVisibleMapIfNeeded(session::ClientSession& session, int effectiveMapId, int effectiveGroup, int effectiveFloor) {
+    short visibleW = session.WorldScene().map.spanX;
+    short visibleH = session.WorldScene().map.spanY;
     if (visibleW <= 0 || visibleH <= 0) {
         visibleMap = VisibleMapCache{};
         return;
@@ -269,8 +270,8 @@ void WindowMapExData::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGr
 
     int playerX = static_cast<std::int32_t>(world::gPlayerX);
     int playerY = static_cast<std::int32_t>(world::gPlayerY);
-    int startX = world::gMapXStart;
-    int startY = world::gMapYStart;
+    int startX = session.WorldScene().map.xStart;
+    int startY = session.WorldScene().map.yStart;
     bool same = visibleMap.loaded
         && visibleMap.mapId == effectiveMapId
         && visibleMap.group == effectiveGroup
@@ -316,9 +317,9 @@ void WindowMapExData::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGr
 }
 
 bool WindowMapExData::PrepareMap(const WindowElement& element) {
-    int effectiveMapId = EffectiveMapExValue(mapId, world::gCurrentMapId_9A86DC);
-    int effectiveGroup = world::gMapCachePathKey_9E0434;
-    int effectiveFloor = EffectiveMapExValue(floor, world::gMapFloor);
+    int effectiveMapId = EffectiveMapExValue(mapId, element.owner->ownerSession->WorldScene().map.mapId);
+    int effectiveGroup = element.owner->ownerSession->WorldScene().map.cachePathKey;
+    int effectiveFloor = EffectiveMapExValue(floor, element.owner->ownerSession->WorldScene().map.floor);
     if (effectiveMapId != loadedMapId || effectiveGroup != loadedMapGroup || effectiveFloor != loadedFloor) {
         ResetMapCache(effectiveMapId, effectiveGroup, effectiveFloor);
     }
@@ -330,7 +331,7 @@ bool WindowMapExData::PrepareMap(const WindowElement& element) {
         return false;
     }
 
-    int mode = world::gMapResourceMode_9DAD68 == 1 ? 1 : 0;
+    int mode = element.owner->ownerSession->WorldScene().map.resourceMode == 1 ? 1 : 0;
     int nextBufferW = 2 * (mapWidth + mapHeight) + 2;
     int nextBufferH = mapWidth + mapHeight + 2;
     if (mapBufferW != nextBufferW || mapBufferH != nextBufferH || mapBufferMode != mode) {
@@ -340,8 +341,8 @@ bool WindowMapExData::PrepareMap(const WindowElement& element) {
         mapBufferMode = mode;
     }
 
-    if (static_cast<std::uint32_t>(effectiveMapId) == world::gCurrentMapId_9A86DC && effectiveGroup == world::gMapCachePathKey_9E0434 && effectiveFloor == world::gMapFloor) {
-        SyncVisibleMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor);
+    if (static_cast<std::uint32_t>(effectiveMapId) == element.owner->ownerSession->WorldScene().map.mapId && effectiveGroup == element.owner->ownerSession->WorldScene().map.cachePathKey && effectiveFloor == element.owner->ownerSession->WorldScene().map.floor) {
+        SyncVisibleMapIfNeeded(*element.owner->ownerSession, effectiveMapId, effectiveGroup, effectiveFloor);
     } else {
         visibleMap = VisibleMapCache{};
     }

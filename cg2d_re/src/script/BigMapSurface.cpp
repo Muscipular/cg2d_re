@@ -1,4 +1,5 @@
 #include "BigMapSurface.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/WorldMapState.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/render/Palette.hpp"
@@ -185,15 +186,15 @@ struct BigMapSurface::State {
         return true;
     }
 
-    void SyncVisible() {
-        const int spanX = world::gMapSpanX, spanY = world::gMapSpanY;
+    void SyncVisible(session::ClientSession& session) {
+        const int spanX = session.WorldScene().map.spanX, spanY = session.WorldScene().map.spanY;
         if (spanX <= 0 || spanY <= 0 || static_cast<std::size_t>(spanX) * spanY > world::gMapTileArray.size()) return;
         const int playerX = static_cast<int>(world::gPlayerX), playerY = static_cast<int>(world::gPlayerY);
         for (int sy = 0; sy < spanY; ++sy) {
-            const int gy = world::gMapYStart + sy;
+            const int gy = session.WorldScene().map.yStart + sy;
             if (gy < 0 || gy >= height || std::abs(gy - playerY) > 25) continue;
             for (int sx = 0; sx < spanX; ++sx) {
-                const int gx = world::gMapXStart + sx;
+                const int gx = session.WorldScene().map.xStart + sx;
                 if (gx < 0 || gx >= width || std::abs(gx - playerX) > 25) continue;
                 const auto source = static_cast<std::size_t>(sy) * spanX + sx;
                 const auto cell = static_cast<std::size_t>(gy) * width + gx;
@@ -270,7 +271,7 @@ struct BigMapSurface::State {
         if (!cacheError) changed = false;
     }
 
-    bool Initialize() {
+    bool Initialize(session::ClientSession& session) {
         mapPath = world::FormatMapDataPath_468520(group, pathGroup, floor);
         if (!ReadMap(true)) return false;
         // 4.06@412B49，维度判断严格按顺序。
@@ -287,7 +288,7 @@ struct BigMapSurface::State {
         paletteVersion = render::gPaletteFrameVersion; paletteChoice = render::gActivePalette;
         cachePath = std::filesystem::path(L"data/cache/bigmap") / std::format(L"{}_{}_{}_{}.bmc", group, pathGroup, floor, mode);
         loaded = true;
-        SyncVisible();
+        SyncVisible(session);
         LoadCache();
         return true;
     }
@@ -344,17 +345,17 @@ struct BigMapSurface::State {
 BigMapSurface::BigMapSurface() : state_(std::make_unique<State>()) {}
 BigMapSurface::~BigMapSurface() { state_->SaveCache(); }
 
-bool BigMapSurface::PrepareMap() {
-    const int group = static_cast<int>(world::gCurrentMapId_9A86DC), pathGroup = world::gMapCachePathKey_9E0434;
-    const int floor = world::gMapFloor, mode = world::gMapResourceMode_9DAD68 == 1 ? 1 : 0;
-    const bool resized = state_->loaded && world::detail::gMapWidth_9FB930 > 0 && world::detail::gMapHeight_C821D4 > 0
-        && (state_->width != static_cast<int>(world::detail::gMapWidth_9FB930) || state_->height != static_cast<int>(world::detail::gMapHeight_C821D4));
+bool BigMapSurface::PrepareMap(session::ClientSession& session) {
+    const int group = static_cast<int>(session.WorldScene().map.mapId), pathGroup = session.WorldScene().map.cachePathKey;
+    const int floor = session.WorldScene().map.floor, mode = session.WorldScene().map.resourceMode == 1 ? 1 : 0;
+    const bool resized = state_->loaded && session.WorldScene().map.width > 0 && session.WorldScene().map.height > 0
+        && (state_->width != static_cast<int>(session.WorldScene().map.width) || state_->height != static_cast<int>(session.WorldScene().map.height));
     if (state_->group != group || state_->pathGroup != pathGroup || state_->floor != floor || state_->mode != mode || resized) {
         state_->SaveCache(); state_ = std::make_unique<State>();
         state_->group = group; state_->pathGroup = pathGroup; state_->floor = floor; state_->mode = mode;
     }
     auto& state = *state_;
-    if (!state.loaded && !state.Initialize()) { mapWidth = mapHeight = 0; return false; }
+    if (!state.loaded && !state.Initialize(session)) { mapWidth = mapHeight = 0; return false; }
     mapWidth = state.width; mapHeight = state.height;
     const auto now = platform::ReadTickCount64();
     if (now >= state.nextDiskCheck) {
@@ -371,7 +372,7 @@ bool BigMapSurface::PrepareMap() {
             }
         }
     }
-    state.SyncVisible();
+    state.SyncVisible(session);
     if (state.paletteVersion != render::gPaletteFrameVersion || state.paletteChoice != render::gActivePalette) {
         state.paletteVersion = render::gPaletteFrameVersion; state.paletteChoice = render::gActivePalette;
         state.paletteStamp = State::PaletteStamp(); state.changed = true;

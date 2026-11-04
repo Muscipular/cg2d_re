@@ -374,7 +374,7 @@ void UpsertWorldActor_445350(
         if (index < 0) {
             return;
         }
-        if (type > 3 && gMapResourceMode_9DAD68 == 0 && IsAnimationImageNumber_5183B0(imageNo) == 0) {
+        if (type > 3 && session.WorldScene().map.resourceMode == 0 && IsAnimationImageNumber_5183B0(imageNo) == 0) {
             selectedDirection = 0;
         }
         cg::yobi::YobiAction* const action =
@@ -767,7 +767,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
             cg::yobi::StepPartyMemberMovement_4428F0(ReadPetMapAction(session, index));
         }
     }
-    static_cast<void>(UpdatePlayerMapWindow_468200());
+    static_cast<void>(UpdatePlayerMapWindow_468200(session));
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     gWorldProjectionReferenceXBits = worldXBits;
@@ -986,7 +986,7 @@ void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    const std::int32_t blocked = IsMapCellBlocked_469810(x, y);
+    const std::int32_t blocked = IsMapCellBlocked_469810(session, x, y);
     cg::yobi::YobiAction* action = session.WorldScene().player->action;
     if (blocked != 0) {
         gPlayerX = action->mapX1E0;

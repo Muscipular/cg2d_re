@@ -105,7 +105,7 @@ static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, const s
         auto* const data = element->data.text;
         std::wstring& destination = data->text;
         if (destination.empty()) {
-            const std::wstring& name = world::GetMapName_9DAD30();
+            const std::wstring& name = world::GetMapName_9DAD30(*callbackWindow.ownerSession);
             destination = name;
             const std::int32_t measured = cg::render::TextMeasure(name, 12);
             WindowInstance* const window = currentWindow;

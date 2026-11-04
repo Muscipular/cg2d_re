@@ -52,12 +52,7 @@ constexpr int kReplanMoveDistance = 5;
 
 static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
 static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
-static auto& gMapWidth = world::gMapSpanX;
-static auto& gMapHeight = world::gMapSpanY;
 static auto& gMoveBlockMap = world::gMapWalkabilityArray;
-static auto& gMapId = world::gCurrentMapId_9A86DC;
-static auto& gMapGroup = world::gMapCachePathKey_9E0434;
-static auto& gMapFloor = world::gMapFloor;
 
 
 struct DiskMapCache {
@@ -276,9 +271,9 @@ static bool isBusy(session::ClientSession& session)
     return session.WorldScene().movement.pathCount > 0 || session.WorldScene().movement.pendingDirectionCount > 0 || session.WorldScene().movement.inputBlocked != 0 || session.WorldScene().movement.transitionRequestPending != 0 || session.WorldScene().movement.directionalTransitionPending != 0;
 }
 
-static bool isValidMap()
+static bool isValidMap(session::ClientSession& session)
 {
-    return gMapWidth > 0 && gMapHeight > 0 && gMapWidth * gMapHeight <= kMapBufferLimit;
+    return session.WorldScene().map.spanX > 0 && session.WorldScene().map.spanY > 0 && session.WorldScene().map.spanX * session.WorldScene().map.spanY <= kMapBufferLimit;
 }
 
 static bool isSaneTarget(Point start, Point target)
@@ -395,41 +390,41 @@ static void markDynamicBlocked(session::ClientSession& session, Point p, [[maybe
 
 static void syncVisibleCache(session::ClientSession& session)
 {
-    if (!isValidMap()) {
+    if (!isValidMap(session)) {
         return;
     }
-    if (static_cast<std::uint32_t>(session.Lua().copilot.data->lastMapId) != gMapId || session.Lua().copilot.data->lastMapFloor != gMapFloor || session.Lua().copilot.data->lastMapGroup != gMapGroup) {
-        // m_log_iw(L"[copilot] map changed map=%d group=%d floor=%d visible=%dx%d start=%d,%d\n", gMapId, gMapGroup, gMapFloor, gMapWidth, gMapHeight, gMapXStart, gMapYStart);
+    if (static_cast<std::uint32_t>(session.Lua().copilot.data->lastMapId) != session.WorldScene().map.mapId || session.Lua().copilot.data->lastMapFloor != session.WorldScene().map.floor || session.Lua().copilot.data->lastMapGroup != session.WorldScene().map.cachePathKey) {
+        // m_log_iw(L"[copilot] map changed map=%d group=%d floor=%d visible=%dx%d start=%d,%d\n", session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, session.WorldScene().map.floor, session.WorldScene().map.spanX, session.WorldScene().map.spanY, session.WorldScene().map.xStart, session.WorldScene().map.yStart);
         session.Lua().copilot.data->knownMap.clear();
         session.Lua().copilot.data->diskMap = DiskMapCache{};
         session.Lua().copilot.data->dynamicBlocked.clear();
         session.Lua().copilot.data->hasLastRequestedWaypoint = false;
         resetPlanCache(session);
         resetMoveProgress(session);
-        session.Lua().copilot.data->lastMapId = gMapId;
-        session.Lua().copilot.data->lastMapFloor = gMapFloor;
-        session.Lua().copilot.data->lastMapGroup = gMapGroup;
+        session.Lua().copilot.data->lastMapId = session.WorldScene().map.mapId;
+        session.Lua().copilot.data->lastMapFloor = session.WorldScene().map.floor;
+        session.Lua().copilot.data->lastMapGroup = session.WorldScene().map.cachePathKey;
     }
 
-    for (int y = 0; y < gMapHeight; ++y) {
-        for (int x = 0; x < gMapWidth; ++x) {
-            int globalX = cg::world::gMapXStart + x;
-            int globalY = cg::world::gMapYStart + y;
-            session.Lua().copilot.data->knownMap[makeKey(globalX, globalY)] = gMoveBlockMap[x + y * gMapWidth] == 1 ? kKnownBlocked : kKnownWalkable;
+    for (int y = 0; y < session.WorldScene().map.spanY; ++y) {
+        for (int x = 0; x < session.WorldScene().map.spanX; ++x) {
+            int globalX = session.WorldScene().map.xStart + x;
+            int globalY = session.WorldScene().map.yStart + y;
+            session.Lua().copilot.data->knownMap[makeKey(globalX, globalY)] = gMoveBlockMap[x + y * session.WorldScene().map.spanX] == 1 ? kKnownBlocked : kKnownWalkable;
         }
     }
 }
 
-static std::wstring makeMapFileName()
+static std::wstring makeMapFileName(session::ClientSession& session)
 {
-    return gMapId ? std::format(L"map\\{}\\{}\\{}.dat", gMapId, gMapGroup, static_cast<std::int32_t>(gMapFloor))
-        : std::format(L"map\\0\\{}.dat", static_cast<std::int32_t>(gMapFloor));
+    return session.WorldScene().map.mapId ? std::format(L"map\\{}\\{}\\{}.dat", session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, static_cast<std::int32_t>(session.WorldScene().map.floor))
+        : std::format(L"map\\0\\{}.dat", static_cast<std::int32_t>(session.WorldScene().map.floor));
 }
 
 static bool loadDiskMap(session::ClientSession& session)
 {
     uint64_t now = nowMs();
-    bool sameMap = static_cast<std::uint32_t>(session.Lua().copilot.data->diskMap.mapId) == gMapId && session.Lua().copilot.data->diskMap.floor == gMapFloor && session.Lua().copilot.data->diskMap.group == gMapGroup;
+    bool sameMap = static_cast<std::uint32_t>(session.Lua().copilot.data->diskMap.mapId) == session.WorldScene().map.mapId && session.Lua().copilot.data->diskMap.floor == session.WorldScene().map.floor && session.Lua().copilot.data->diskMap.group == session.WorldScene().map.cachePathKey;
     if (sameMap && session.Lua().copilot.data->diskMap.loaded) {
         if (now - session.Lua().copilot.data->diskMap.lastLoadedMs < kDiskMapRefreshMs || now - session.Lua().copilot.data->diskMap.lastAttemptMs < kDiskMapRetryMs) {
             return true;
@@ -440,13 +435,13 @@ static bool loadDiskMap(session::ClientSession& session)
     }
 
     DiskMapCache next;
-    next.mapId = gMapId;
-    next.floor = gMapFloor;
-    next.group = gMapGroup;
+    next.mapId = session.WorldScene().map.mapId;
+    next.floor = session.WorldScene().map.floor;
+    next.group = session.WorldScene().map.cachePathKey;
     next.lastAttemptMs = now;
 
     auto fail = [&]([[maybe_unused]] const char* reason) {
-        // m_log_iw(L"[copilot] loadDiskMap failed reason=%hs map=%d group=%d floor=%d keepOld=%d\n", reason, gMapId, gMapGroup, gMapFloor, sameMap && session.Lua().copilot.data->diskMap.loaded ? 1 : 0);
+        // m_log_iw(L"[copilot] loadDiskMap failed reason=%hs map=%d group=%d floor=%d keepOld=%d\n", reason, session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, session.WorldScene().map.floor, sameMap && session.Lua().copilot.data->diskMap.loaded ? 1 : 0);
         if (sameMap && session.Lua().copilot.data->diskMap.loaded) {
             session.Lua().copilot.data->diskMap.lastAttemptMs = now;
             return true;
@@ -455,7 +450,7 @@ static bool loadDiskMap(session::ClientSession& session)
         return false;
     };
 
-    FILE* file = _wfopen(makeMapFileName().c_str(), L"rb");
+    FILE* file = _wfopen(makeMapFileName(session).c_str(), L"rb");
     if (!file) {
         return fail("open");
     }
@@ -499,7 +494,7 @@ static bool loadDiskMap(session::ClientSession& session)
     next.loaded = true;
     next.lastLoadedMs = now;
     [[maybe_unused]] size_t blockedCount = std::count(next.cells.begin(), next.cells.end(), static_cast<unsigned char>(kKnownBlocked));
-    // m_log_iw(L"[copilot] loadDiskMap ok map=%d group=%d floor=%d size=%dx%d blocked=%u\n", gMapId, gMapGroup, gMapFloor, next.width, next.height, static_cast<unsigned int>(blockedCount));
+    // m_log_iw(L"[copilot] loadDiskMap ok map=%d group=%d floor=%d size=%dx%d blocked=%u\n", session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, session.WorldScene().map.floor, next.width, next.height, static_cast<unsigned int>(blockedCount));
     session.Lua().copilot.data->diskMap = next;
     return true;
 }
@@ -757,9 +752,9 @@ static void markDynamicBlockedByMapSource(session::ClientSession& session, Point
     // unsigned short hitRaw = session.Lua().copilot.data->diskMap.hitData[index];
     // CellGraphicInfo tileInfo = readCellGraphicInfo(tileRaw);
     // CellGraphicInfo objInfo = readCellGraphicInfo(objRaw);
-    // int lx = p.x - gMapXStart;
-    // int ly = p.y - gMapYStart;
-    // int visible = isValidMap() && lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight ? gMoveBlockMap[lx + ly * gMapWidth] : -1;
+    // int lx = p.x - session.WorldScene().map.xStart;
+    // int ly = p.y - session.WorldScene().map.yStart;
+    // int visible = isValidMap(session) && lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY ? gMoveBlockMap[lx + ly * session.WorldScene().map.spanX] : -1;
     // unsigned char disk = session.Lua().copilot.data->diskMap.cells[index];
     // unsigned char known = cachedKnownOrDiskCell(session, p);
     // m_log_i(
@@ -769,32 +764,32 @@ static void markDynamicBlockedByMapSource(session::ClientSession& session, Point
     // logFootprintSources(session, p, label);
 }
 
-static bool toLocal(Point p, int& lx, int& ly)
+static bool toLocal(session::ClientSession& session, Point p, int& lx, int& ly)
 {
-    lx = p.x - cg::world::gMapXStart;
-    ly = p.y - cg::world::gMapYStart;
-    return lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight;
+    lx = p.x - session.WorldScene().map.xStart;
+    ly = p.y - session.WorldScene().map.yStart;
+    return lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY;
 }
 
-static bool canWalkLocal(int lx, int ly)
+static bool canWalkLocal(session::ClientSession& session, int lx, int ly)
 {
-    return isValidMap() && lx >= 0 && ly >= 0 && lx < gMapWidth && ly < gMapHeight
-        && gMoveBlockMap[lx + ly * gMapWidth] != 1;
+    return isValidMap(session) && lx >= 0 && ly >= 0 && lx < session.WorldScene().map.spanX && ly < session.WorldScene().map.spanY
+        && gMoveBlockMap[lx + ly * session.WorldScene().map.spanX] != 1;
 }
 
 static bool canWalkLocalPoint(session::ClientSession& session, int lx, int ly)
 {
-    return canWalkLocal(lx, ly) && !isDynamicBlocked(session, {cg::world::gMapXStart + lx, cg::world::gMapYStart + ly});
+    return canWalkLocal(session, lx, ly) && !isDynamicBlocked(session, {session.WorldScene().map.xStart + lx, session.WorldScene().map.yStart + ly});
 }
 
 static bool canWalkGlobal(session::ClientSession& session, Point p)
 {
-    if (!isValidMap()) {
+    if (!isValidMap(session)) {
         return false;
     }
     int lx = 0;
     int ly = 0;
-    return !isDynamicBlocked(session, p) && toLocal(p, lx, ly) && canWalkLocal(lx, ly);
+    return !isDynamicBlocked(session, p) && toLocal(session, p, lx, ly) && canWalkLocal(session, lx, ly);
 }
 
 static bool canReachLocal(session::ClientSession& session, Point start, Point target)
@@ -807,16 +802,16 @@ static bool canReachLocal(session::ClientSession& session, Point start, Point ta
     int startY = 0;
     int targetX = 0;
     int targetY = 0;
-    if (!toLocal(start, startX, startY) || !toLocal(target, targetX, targetY) || !canWalkGlobal(session, target)) {
+    if (!toLocal(session, start, startX, startY) || !toLocal(session, target, targetX, targetY) || !canWalkGlobal(session, target)) {
         return false;
     }
 
     std::array<unsigned char, kMapBufferLimit> visited{};
     std::vector<int> queue;
-    queue.reserve(gMapWidth * gMapHeight);
+    queue.reserve(session.WorldScene().map.spanX * session.WorldScene().map.spanY);
 
-    int startIndex = startX + startY * gMapWidth;
-    int targetIndex = targetX + targetY * gMapWidth;
+    int startIndex = startX + startY * session.WorldScene().map.spanX;
+    int targetIndex = targetX + targetY * session.WorldScene().map.spanX;
     visited[startIndex] = 1;
     queue.push_back(startIndex);
 
@@ -826,8 +821,8 @@ static bool canReachLocal(session::ClientSession& session, Point start, Point ta
         if (index == targetIndex) {
             return true;
         }
-        int cx = index % gMapWidth;
-        int cy = index / gMapWidth;
+        int cx = index % session.WorldScene().map.spanX;
+        int cy = index / session.WorldScene().map.spanX;
         for (int i = 0; i < 8; ++i) {
             int nx = cx + kNeighborOffsetsX[i];
             int ny = cy + kNeighborOffsetsY[i];
@@ -838,7 +833,7 @@ static bool canReachLocal(session::ClientSession& session, Point start, Point ta
                 continue;
             }
 
-            int nextIndex = nx + ny * gMapWidth;
+            int nextIndex = nx + ny * session.WorldScene().map.spanX;
             if (visited[nextIndex]) {
                 continue;
             }
@@ -884,12 +879,12 @@ static bool isBidirectionalWaypoint(session::ClientSession& session, Point playe
     session.Lua().copilot.data->lastNoPathDetailLogMs = now;
     loadDiskMap(session);
 
-    int px = player.x - cg::world::gMapXStart;
-    int py = player.y - cg::world::gMapYStart;
-    int tx = target.x - cg::world::gMapXStart;
-    int ty = target.y - cg::world::gMapYStart;
-    int playerVisible = isValidMap() && px >= 0 && py >= 0 && px < gMapWidth && py < gMapHeight ? gMoveBlockMap[px + py * gMapWidth] : -1;
-    int targetVisible = isValidMap() && tx >= 0 && ty >= 0 && tx < gMapWidth && ty < gMapHeight ? gMoveBlockMap[tx + ty * gMapWidth] : -1;
+    int px = player.x - session.WorldScene().map.xStart;
+    int py = player.y - session.WorldScene().map.yStart;
+    int tx = target.x - session.WorldScene().map.xStart;
+    int ty = target.y - session.WorldScene().map.yStart;
+    int playerVisible = isValidMap(session) && px >= 0 && py >= 0 && px < session.WorldScene().map.spanX && py < session.WorldScene().map.spanY ? gMoveBlockMap[px + py * session.WorldScene().map.spanX] : -1;
+    int targetVisible = isValidMap(session) && tx >= 0 && ty >= 0 && tx < session.WorldScene().map.spanX && ty < session.WorldScene().map.spanY ? gMoveBlockMap[tx + ty * session.WorldScene().map.spanX] : -1;
     unsigned char playerKnown = cachedKnownOrDiskCell(session, player);
     unsigned char targetKnown = cachedKnownOrDiskCell(session, target);
     m_log_iw(L"[copilot] no path detail playerWalkable=%d playerKnown=%u playerVisible=%d playerDyn=%d targetKnown=%u targetVisible=%d targetDyn=%d diskLoaded=%d diskSize=%dx%d dyn=%u known=%u\n",
@@ -922,23 +917,23 @@ static int optimisticMoveCost(session::ClientSession& session, Point p, bool dia
     return knownCell(session, p) == kKnownWalkable ? cost : cost + 30;
 }
 
-static long long distanceScore(int lx, int ly, Point target)
+static long long distanceScore(session::ClientSession& session, int lx, int ly, Point target)
 {
-    long long x = static_cast<long long>(cg::world::gMapXStart) + lx;
-    long long y = static_cast<long long>(cg::world::gMapYStart) + ly;
+    long long x = static_cast<long long>(session.WorldScene().map.xStart) + lx;
+    long long y = static_cast<long long>(session.WorldScene().map.yStart) + ly;
     long long dx = x - target.x;
     long long dy = y - target.y;
     return dx * dx + dy * dy;
 }
 
-static bool isBetterFallback(int index, int bestIndex, int step, int bestStep, Point target)
+static bool isBetterFallback(session::ClientSession& session, int index, int bestIndex, int step, int bestStep, Point target)
 {
-    int x = index % gMapWidth;
-    int y = index / gMapWidth;
-    int bestX = bestIndex % gMapWidth;
-    int bestY = bestIndex / gMapWidth;
-    long long score = distanceScore(x, y, target);
-    long long bestScore = distanceScore(bestX, bestY, target);
+    int x = index % session.WorldScene().map.spanX;
+    int y = index / session.WorldScene().map.spanX;
+    int bestX = bestIndex % session.WorldScene().map.spanX;
+    int bestY = bestIndex / session.WorldScene().map.spanX;
+    long long score = distanceScore(session, x, y, target);
+    long long bestScore = distanceScore(session, bestX, bestY, target);
     return score < bestScore || (score == bestScore && step < bestStep);
 }
 
@@ -1202,27 +1197,27 @@ static bool buildOptimisticPath(session::ClientSession& session, Point start, Po
 static bool buildPath(session::ClientSession& session, Point start, Point target, std::vector<Point>& path)
 {
     path.clear();
-    if (!isValidMap()) {
+    if (!isValidMap(session)) {
         return false;
     }
 
     int startX = 0;
     int startY = 0;
-    if (!toLocal(start, startX, startY)) {
+    if (!toLocal(session, start, startX, startY)) {
         return false;
     }
 
     int targetX = 0;
     int targetY = 0;
-    bool exactTarget = canWalkGlobal(session, target) && toLocal(target, targetX, targetY);
-    int targetIndex = exactTarget ? targetX + targetY * gMapWidth : -1;
-    int startIndex = startX + startY * gMapWidth;
+    bool exactTarget = canWalkGlobal(session, target) && toLocal(session, target, targetX, targetY);
+    int targetIndex = exactTarget ? targetX + targetY * session.WorldScene().map.spanX : -1;
+    int startIndex = startX + startY * session.WorldScene().map.spanX;
 
     std::array<int, kMapBufferLimit> parent{};
     std::array<int, kMapBufferLimit> steps{};
     std::array<unsigned char, kMapBufferLimit> visited{};
     std::vector<int> queue;
-    queue.reserve(gMapWidth * gMapHeight);
+    queue.reserve(session.WorldScene().map.spanX * session.WorldScene().map.spanY);
 
     parent[startIndex] = -1;
     visited[startIndex] = 1;
@@ -1239,8 +1234,8 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
 
     while (head < queue.size()) {
         int index = queue[head++];
-        int cx = index % gMapWidth;
-        int cy = index / gMapWidth;
+        int cx = index % session.WorldScene().map.spanX;
+        int cy = index / session.WorldScene().map.spanX;
 
         if (index == targetIndex) {
             bestIndex = index;
@@ -1248,8 +1243,8 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
         }
 
         if (index != startIndex) {
-            long long fallbackCandidateScore = distanceScore(cx, cy, target);
-            bool currentIsRecent = isRecentPlayer(session, {cg::world::gMapXStart + cx, cg::world::gMapYStart + cy});
+            long long fallbackCandidateScore = distanceScore(session, cx, cy, target);
+            bool currentIsRecent = isRecentPlayer(session, {session.WorldScene().map.xStart + cx, session.WorldScene().map.yStart + cy});
             if (fallbackIndex == -1 || (fallbackIsRecent && !currentIsRecent)
                 || (fallbackIsRecent == currentIsRecent
                     && (fallbackCandidateScore < fallbackScore || (fallbackCandidateScore == fallbackScore && steps[index] < fallbackStep)))) {
@@ -1260,7 +1255,7 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
             }
         }
 
-        if (isBetterFallback(index, bestIndex, steps[index], bestStep, target)) {
+        if (isBetterFallback(session, index, bestIndex, steps[index], bestStep, target)) {
             bestIndex = index;
             bestStep = steps[index];
         }
@@ -1275,7 +1270,7 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
                 continue;
             }
 
-            int nextIndex = nx + ny * gMapWidth;
+            int nextIndex = nx + ny * session.WorldScene().map.spanX;
             if (visited[nextIndex]) {
                 continue;
             }
@@ -1286,7 +1281,7 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
         }
     }
 
-    Point bestPoint{cg::world::gMapXStart + bestIndex % gMapWidth, cg::world::gMapYStart + bestIndex / gMapWidth};
+    Point bestPoint{session.WorldScene().map.xStart + bestIndex % session.WorldScene().map.spanX, session.WorldScene().map.yStart + bestIndex / session.WorldScene().map.spanX};
     if (isRecentPlayer(session, bestPoint) && !samePoint(bestPoint, target) && fallbackIndex != -1 && !fallbackIsRecent) {
         bestIndex = fallbackIndex;
     }
@@ -1300,7 +1295,7 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
 
     std::vector<Point> reversePath;
     for (int index = bestIndex; index != -1; index = parent[index]) {
-        reversePath.push_back({cg::world::gMapXStart + index % gMapWidth, cg::world::gMapYStart + index / gMapWidth});
+        reversePath.push_back({session.WorldScene().map.xStart + index % session.WorldScene().map.spanX, session.WorldScene().map.yStart + index / session.WorldScene().map.spanX});
     }
 
     path.reserve(reversePath.size() - 1);
@@ -1313,22 +1308,22 @@ static bool buildPath(session::ClientSession& session, Point start, Point target
 static bool buildNearRetargetPath(session::ClientSession& session, Point start, Point target, std::vector<Point>& path)
 {
     path.clear();
-    if (!isValidMap()) {
+    if (!isValidMap(session)) {
         return false;
     }
 
     int startX = 0;
     int startY = 0;
-    if (!toLocal(start, startX, startY)) {
+    if (!toLocal(session, start, startX, startY)) {
         return false;
     }
 
-    int startIndex = startX + startY * gMapWidth;
+    int startIndex = startX + startY * session.WorldScene().map.spanX;
     std::array<int, kMapBufferLimit> parent{};
     std::array<int, kMapBufferLimit> steps{};
     std::array<unsigned char, kMapBufferLimit> visited{};
     std::vector<int> queue;
-    queue.reserve(gMapWidth * gMapHeight);
+    queue.reserve(session.WorldScene().map.spanX * session.WorldScene().map.spanY);
 
     parent[startIndex] = -1;
     visited[startIndex] = 1;
@@ -1342,12 +1337,12 @@ static bool buildNearRetargetPath(session::ClientSession& session, Point start, 
 
     while (head < queue.size()) {
         int index = queue[head++];
-        int cx = index % gMapWidth;
-        int cy = index / gMapWidth;
-        Point current{cg::world::gMapXStart + cx, cg::world::gMapYStart + cy};
+        int cx = index % session.WorldScene().map.spanX;
+        int cy = index / session.WorldScene().map.spanX;
+        Point current{session.WorldScene().map.xStart + cx, session.WorldScene().map.yStart + cy};
 
         if (index != startIndex && (!isRecentPlayer(session, current) || samePoint(current, target))) {
-            long long score = distanceScore(cx, cy, target);
+            long long score = distanceScore(session, cx, cy, target);
             if (bestIndex == -1 || score < bestScore || (score == bestScore && steps[index] < bestStep)) {
                 bestIndex = index;
                 bestScore = score;
@@ -1368,7 +1363,7 @@ static bool buildNearRetargetPath(session::ClientSession& session, Point start, 
                 continue;
             }
 
-            int nextIndex = nx + ny * gMapWidth;
+            int nextIndex = nx + ny * session.WorldScene().map.spanX;
             if (visited[nextIndex]) {
                 continue;
             }
@@ -1385,7 +1380,7 @@ static bool buildNearRetargetPath(session::ClientSession& session, Point start, 
 
     std::vector<Point> reversePath;
     for (int index = bestIndex; index != -1; index = parent[index]) {
-        reversePath.push_back({cg::world::gMapXStart + index % gMapWidth, cg::world::gMapYStart + index / gMapWidth});
+        reversePath.push_back({session.WorldScene().map.xStart + index % session.WorldScene().map.spanX, session.WorldScene().map.yStart + index / session.WorldScene().map.spanX});
     }
 
     path.reserve(reversePath.size() - 1);
@@ -1418,16 +1413,16 @@ static void cacheWaypoint(session::ClientSession& session, Point player, Point t
     session.Lua().copilot.data->lastPlanPlayer = player;
     session.Lua().copilot.data->cachedTarget = target;
     session.Lua().copilot.data->cachedWaypoint = waypoint;
-    session.Lua().copilot.data->cachedMapId = gMapId;
-    session.Lua().copilot.data->cachedMapFloor = gMapFloor;
-    session.Lua().copilot.data->cachedMapGroup = gMapGroup;
+    session.Lua().copilot.data->cachedMapId = session.WorldScene().map.mapId;
+    session.Lua().copilot.data->cachedMapFloor = session.WorldScene().map.floor;
+    session.Lua().copilot.data->cachedMapGroup = session.WorldScene().map.cachePathKey;
     session.Lua().copilot.data->hasCachedWaypoint = true;
 }
 
 static bool tryUseCachedWaypoint(session::ClientSession& session, Point player, Point target)
 {
-    if (!session.Lua().copilot.data->hasCachedWaypoint || !samePoint(target, session.Lua().copilot.data->cachedTarget) || static_cast<std::uint32_t>(session.Lua().copilot.data->cachedMapId) != gMapId || session.Lua().copilot.data->cachedMapFloor != gMapFloor
-        || session.Lua().copilot.data->cachedMapGroup != gMapGroup) {
+    if (!session.Lua().copilot.data->hasCachedWaypoint || !samePoint(target, session.Lua().copilot.data->cachedTarget) || static_cast<std::uint32_t>(session.Lua().copilot.data->cachedMapId) != session.WorldScene().map.mapId || session.Lua().copilot.data->cachedMapFloor != session.WorldScene().map.floor
+        || session.Lua().copilot.data->cachedMapGroup != session.WorldScene().map.cachePathKey) {
         return false;
     }
     if (samePoint(player, session.Lua().copilot.data->cachedWaypoint) || pointDistance(player, session.Lua().copilot.data->cachedWaypoint) > kMoveSegmentSteps
@@ -1536,14 +1531,14 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
 
     copilot_detail::Point target{x, y};
     copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
-    // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, gMapId, gMapGroup, gMapFloor, session.WorldScene().sceneType, session.WorldScene().sceneState);
+    // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, session.WorldScene().map.floor, session.WorldScene().sceneType, session.WorldScene().sceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_iw(L"[copilot] already arrived target=%d,%d\n", target.x, target.y);
         copilot_detail::clearCopilotRoute(session);
         return;
     }
-    if (!copilot_detail::isValidMap()) {
-        // m_log_iw(L"[copilot] skip invalid visible map width=%d height=%d cells=%d limit=%d\n", gMapWidth, gMapHeight, gMapWidth * gMapHeight, kMapBufferLimit);
+    if (!copilot_detail::isValidMap(session)) {
+        // m_log_iw(L"[copilot] skip invalid visible map width=%d height=%d cells=%d limit=%d\n", session.WorldScene().map.spanX, session.WorldScene().map.spanY, session.WorldScene().map.spanX * session.WorldScene().map.spanY, kMapBufferLimit);
         copilot_detail::clearCopilotRoute(session);
         return;
     }
@@ -1624,8 +1619,8 @@ void autoCopilot(session::ClientSession& session, int x, int y)
 void startCopilot(session::ClientSession& session, int x, int y)
 {
     session.Lua().copilot.data->copilotTarget = {x, y};
-    session.Lua().copilot.data->copilotMapId = copilot_detail::gMapId;
-    session.Lua().copilot.data->copilotMapFloor = copilot_detail::gMapFloor;
+    session.Lua().copilot.data->copilotMapId = session.WorldScene().map.mapId;
+    session.Lua().copilot.data->copilotMapFloor = session.WorldScene().map.floor;
     session.Lua().copilot.data->copilotEnabled = true;
     session.Lua().copilot.data->lastCopilotTickMs = 0;
     session.Lua().copilot.data->lastBusyLogMs = 0;
@@ -1663,7 +1658,7 @@ int getAutoCopliotState(session::ClientSession& session)
 std::vector<std::pair<int, int> > getAutoCopliotRoute(session::ClientSession& session)
 {
     std::vector<std::pair<int, int> > route;
-    if (!session.Lua().copilot.data->copilotEnabled || !copilot_detail::isCopilotSceneReady(session) || copilot_detail::gMapId != static_cast<std::uint32_t>(session.Lua().copilot.data->copilotMapId) || copilot_detail::gMapFloor != session.Lua().copilot.data->copilotMapFloor) {
+    if (!session.Lua().copilot.data->copilotEnabled || !copilot_detail::isCopilotSceneReady(session) || session.WorldScene().map.mapId != static_cast<std::uint32_t>(session.Lua().copilot.data->copilotMapId) || session.WorldScene().map.floor != session.Lua().copilot.data->copilotMapFloor) {
         return route;
     }
 
@@ -1679,9 +1674,9 @@ void CopilotProc(session::ClientSession& session)
     if (!session.Lua().copilot.data->copilotEnabled) {
         return;
     }
-    if (copilot_detail::gMapId != static_cast<std::uint32_t>(session.Lua().copilot.data->copilotMapId) || copilot_detail::gMapFloor != session.Lua().copilot.data->copilotMapFloor) {
+    if (session.WorldScene().map.mapId != static_cast<std::uint32_t>(session.Lua().copilot.data->copilotMapId) || session.WorldScene().map.floor != session.Lua().copilot.data->copilotMapFloor) {
         m_log_iw(L"[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", session.Lua().copilot.data->copilotMapId,
-            session.Lua().copilot.data->copilotMapFloor, copilot_detail::gMapId, copilot_detail::gMapFloor, session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
+            session.Lua().copilot.data->copilotMapFloor, session.WorldScene().map.mapId, session.WorldScene().map.floor, session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
         stopCopilot(session);
         return;
     }

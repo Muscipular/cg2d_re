@@ -43,14 +43,6 @@ void DrawGearNormal_46C060(
     const render::GraphicDescriptor16* descriptor, std::uint8_t batchType,
     std::uint8_t layer = 10); // AF406：FIELD/倒地WING单独层，普通挂件仍走人物前后链。
 
-// 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 按序清零的独立 W32 槽。
-extern std::uint32_t gCurrentMapId_9A86DC; // 原全局：0x009A86DC。
-
-// 原 9DEF64/9DEF60/9DEF62/9DEF5E 与 9A86E0/9ED43C；地图窗口的六个 S16 槽。
-extern std::int16_t gMapXStart; // 原全局：0x009DEF64。
-extern std::int16_t gMapYStart; // 原全局：0x009DEF60。
-extern std::int16_t gMapSpanX; // 原全局：0x009A86E0。
-extern std::int16_t gMapSpanY; // 原全局：0x009ED43C。
 extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
 extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
 extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取，中央启动位置直接构造。
@@ -72,18 +64,15 @@ std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
 extern std::uint32_t gMapTargetInputOverride_C8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
 extern std::uint32_t gMapTargetDrawOverride_C8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
-extern std::int32_t gCurrentDayPeriod_73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
 extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
-extern std::int32_t gMapCachePathKey_9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
 // 原468520；调用方传入9E0434当前值，内部路径改为宽字符串。
 std::wstring FormatMapDataPath_468520( std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
-extern std::uint32_t gMapResourceMode_9DAD68; // 原全局：0x009DAD68。
 
 // 原 [0xAF10D8,0xB65A7B)；.aut 每项三个原始字节，供地图颜色消费者共享。
 struct AutRecordAF10D8 {
@@ -101,7 +90,7 @@ extern AutRecordAF10D8 gAutDataAF10D8[159201]; // 原全局：0x00AF10D8。
 // 原函数：0x004681B0。
 std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0(session::ClientSession& session);         // 原 [0x4681B0,0x4681F6)，快照恢复后清六槽。
 // 原函数：0x00469810。
-std::int32_t __cdecl IsMapCellBlocked_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
+std::int32_t __cdecl IsMapCellBlocked_469810(session::ClientSession& session, std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
 // 原函数：0x0050CF90。
 void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection& networkConnection, std::int32_t sequence,
     std::int32_t status); // 原 [0x50CF90,0x50CFF7)，地图回复序号与状态清理。
@@ -172,12 +161,6 @@ void SortAndMergeMapDrawCache_46C2F0();
 // 原函数：0x0046C1C0。
 std::int32_t QueueMergedMapDrawCache_46C1C0();
 
-// 原0x9FB930/0xC821D4；4682E0发布的地图宽高。
-extern std::uint32_t gMapWidth_9FB930; // 原全局：0x009FB930。
-extern std::uint32_t gMapHeight_C821D4; // 原全局：0x00C821D4。
-extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
-extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
-
 extern std::uint32_t gMapLeftButtonSuppressed_C8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
 extern std::uint64_t gMapLeftHoldDurationMs_C8A778; // 原全局：0x00C8A778。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
@@ -190,7 +173,6 @@ extern std::uint32_t gMapTargetLeftHeld_C8A7A4; // 原全局：0x00C8A7A4。 原
 extern std::uint32_t gMapTargetInteractionClick_C8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
 extern std::uint32_t gMapTargetRightHeld_C8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
 extern std::uint64_t gLastMapMoveTargetTick_55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
-extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
 
 // 原函数：0x00468570。
 std::int32_t __cdecl EnsureMapCacheFile_468570(
@@ -202,7 +184,7 @@ std::int32_t __cdecl CreateEmptyMapCacheFile_4687B0(
     const wchar_t* path, std::int32_t first, std::int32_t second,
     std::int32_t height, std::int32_t width); // 原 [0x4687B0,0x4688A0)，三平面零值文件创建叶。
 // 原函数：0x004688A0。
-std::int32_t __cdecl WriteMapCacheRectangle_4688A0(
+std::int32_t __cdecl WriteMapCacheRectangle_4688A0(session::ClientSession& session,
     std::int32_t mapId, std::int32_t floor,
     std::int32_t xStart, std::int32_t yStart,
     std::int32_t xEnd, std::int32_t yEnd,
@@ -213,18 +195,12 @@ std::int32_t FindMissingMapRectanglesAhead_469870(session::ClientSession& sessio
 // 原函数：0x0046AF30。
 std::uint32_t RequestMissingMapRectanglesAhead_46AF30(session::ClientSession& session); // 原 [0x46AF30,0x46AFDE)，探测后发送 UUN 和发布状态。
 // 原函数：0x00468C40。
-std::int32_t __cdecl ReadMapCacheRectangle_468C40(
+std::int32_t __cdecl ReadMapCacheRectangle_468C40(session::ClientSession& session,
     std::int32_t mapId, std::int32_t floor,
     std::int32_t xStart, std::int32_t yStart,
     std::int32_t xEnd, std::int32_t yEnd,
     std::uint16_t* tile, std::uint16_t* obj,
     std::uint16_t* hit); // 原 [0x468C40,0x468F25)，真实三平面文件装载依赖。
-
-// 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
-extern std::uint32_t gMapSceneResourceMapId_9DAD5C; // 原全局：0x009DAD5C。
-extern std::int32_t gMapSceneResourceFloor_9DAD58; // 原全局：0x009DAD58。
-extern std::int32_t gMapSceneSelectedResourceSnapshot_9DAD60; // 原全局：0x009DAD60。
-extern std::int32_t gMapSceneSelectedResourceMirror_9DAD64; // 原全局：0x009DAD64。
 
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
@@ -312,7 +288,7 @@ void __cdecl PopPendingMovementDirection_46BCF0(session::ClientSession& session)
 // 原函数：0x00467F30。
 std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session); // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 // 原函数：0x00468200。
-std::uint16_t __cdecl UpdatePlayerMapWindow_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
+std::uint16_t __cdecl UpdatePlayerMapWindow_468200(session::ClientSession& session);        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 // 原函数：0x0046CEC0。
 std::int32_t __cdecl GetPlayerMapCoordinateSum_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
 // 原函数：0x0046CEE0。
@@ -322,14 +298,14 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(
     session::ClientSession& session,
     std::int32_t x, std::int32_t y);        // 原 [0x468330,0x468511)，返回 Y 浮点位型。
 // 原函数：0x00468290。
-std::int16_t* __cdecl ClipMapRectangleToBounds_468290(
+std::int16_t* __cdecl ClipMapRectangleToBounds_468290(session::ClientSession& session,
     std::int16_t* xStart, std::int16_t* yStart,
     std::int16_t* xEnd, std::int16_t* yEnd); // 原 [0x468290,0x4682D7)，原地裁剪并返回末指针。
 // 原函数：0x00468C00。
-std::int32_t __cdecl SetMapCellHitValue_468C00(
+std::int32_t __cdecl SetMapCellHitValue_468C00(session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 // 原函数：0x0046AE60。
-std::int32_t __cdecl IsDirectionalMapTransitionCell_46AE60(std::int32_t x, std::int32_t y); // MHT01：原边界/索引序与命中低 BYTE，返 S32 0/1。
+std::int32_t __cdecl IsDirectionalMapTransitionCell_46AE60(session::ClientSession& session, std::int32_t x, std::int32_t y); // MHT01：原边界/索引序与命中低 BYTE，返 S32 0/1。
 // 原函数：0x00469240。
 std::int32_t __cdecl CalculateMapDataCrc_469240(
     const std::uint8_t* bytes, std::int32_t length); // 原 [0x469240,0x469284)，三平面校验的 W16 查表叶。
@@ -345,9 +321,9 @@ std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
 // 原函数：0x0051D6F0。
 void __cdecl ApplyPendingMapPaletteReply_51D6F0(session::ClientSession& session); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
 // 原函数：0x00469030。
-std::int32_t __cdecl LoadAndDrawMapTiles_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
+std::int32_t __cdecl LoadAndDrawMapTiles_469030(session::ClientSession& session); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
-std::int32_t LoadAutoMapWindow_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
+std::int32_t LoadAutoMapWindow_46C840(session::ClientSession& session, std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。
 void DrawMapSceneWithMarkers_469020(session::ClientSession& session);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
@@ -356,7 +332,7 @@ std::int32_t __cdecl BuildGraphicMapWalkability_4693F0(
     const std::uint16_t* tile, const std::uint16_t* obj,
     const std::uint16_t* hit, std::uint16_t* walk);
 // 原 [0x46D9C0,0x46DA72)：模式 1 读取 hit 高字节 bit0，其他模式转 4693F0。
-std::int32_t __cdecl BuildMapWalkability_46D9C0(
+std::int32_t __cdecl BuildMapWalkability_46D9C0(session::ClientSession& session,
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
     const std::uint16_t* tile, const std::uint16_t* obj,
     const std::uint16_t* hit, std::uint16_t* walk);

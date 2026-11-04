@@ -627,7 +627,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             || characterAction == CharacterAnimation_Cast ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     }
     std::uint32_t flipStatic = 0;
-    if (world::gMapResourceMode_9DAD68 == 1) {
+    if (action->ownerSession->WorldScene().map.resourceMode == 1) {
         payload = action->payload.mapActor;
         index = payload->index;
         if (player != action) {

@@ -5,6 +5,8 @@
 #include <vector>
 #include "UIControl.hpp"
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::ui {
 struct WindowMapExData {
     struct MapExPoint {
@@ -111,7 +113,7 @@ private:
     int tileBuildFrameCounter = 0;
 
     bool LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor);
-    void SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor);
+    void SyncVisibleMapIfNeeded(session::ClientSession& session, int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void ResetMapCache(int effectiveMapId, int effectiveGroup, int effectiveFloor);
     void MarkTilesDirtyForMapRect(int left, int top, int right, int bottom);
     void BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY);

@@ -65,8 +65,8 @@ static void DrawCutObject(
     const CutRecord9FB954& cut = gCutData9FB948.records[object - 1000];
     const std::int16_t animationFlag = cut.value04;
     if (animationFlag == 1) {
-        const std::int32_t startX = gMapXStart;
-        const std::int32_t startY = gMapYStart;
+        const std::int32_t startX = session.WorldScene().map.xStart;
+        const std::int32_t startY = session.WorldScene().map.yStart;
         const std::int32_t mapX = startX + column;
         const std::int32_t index = 399 * mapX + startY + row;
         if (cg::yobi::MapYobiRegistryFlagAt(session, index) != 0) {
@@ -78,14 +78,14 @@ static void DrawCutObject(
         cg::yobi::MapYobiRegistryFlagAt(session, index) = 1;
         const std::int32_t imageNo = cut.value00;
         cg::yobi::YobiAction* const action = cg::yobi::CreateRegisteredMapGraphicAction_46DE50(session, imageNo, mapX, mapY);
-        const std::int32_t publishX = gMapXStart + column;
-        const std::int32_t publishY = gMapYStart;
+        const std::int32_t publishX = session.WorldScene().map.xStart + column;
+        const std::int32_t publishY = session.WorldScene().map.yStart;
         const std::int32_t offsetX = cut.value0E;
         cg::yobi::MapYobiRegistryActionAt(session, 399 * publishX + row + publishY) = action;
         cg::yobi::SetYobiMapOffsetX(action, offsetX);
-        const std::int32_t offsetIndexX = gMapXStart + column;
+        const std::int32_t offsetIndexX = session.WorldScene().map.xStart + column;
         const std::int32_t offsetY = cut.value10;
-        const std::int32_t offsetIndexY = gMapYStart;
+        const std::int32_t offsetIndexY = session.WorldScene().map.yStart;
         cg::yobi::YobiAction* const offsetAction =
             cg::yobi::MapYobiRegistryActionAt(session, 399 * offsetIndexX + row + offsetIndexY);
         cg::yobi::SetYobiMapOffsetY(offsetAction, offsetY);
@@ -108,11 +108,11 @@ static void DrawCutObject(
     descriptor.sourceHeight = height;
     descriptor.sourceY = clipY;
     const auto drawX = static_cast<std::int16_t>(screenX - cut.value0E);
-    const std::int32_t mapY = gMapYStart + row;
+    const std::int32_t mapY = session.WorldScene().map.yStart + row;
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     const double scaledY = mapY * 64.0;
-    const std::int32_t mapX = gMapXStart + column;
+    const std::int32_t mapX = session.WorldScene().map.xStart + column;
     descriptor.clipMode = 1;
     descriptor.mixFlags = cg::render::GraphicMixFlag_None;
     const auto worldY = static_cast<float>(scaledY);
@@ -125,7 +125,7 @@ static void DrawCutObject(
 }
 
 // 原普通模式逐格先 tile 后 obj；音效标记是否消费由原参数决定。
-static void DrawNormalMapCell(
+static void DrawNormalMapCell(session::ClientSession& session,
     const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
 {
@@ -162,9 +162,9 @@ static void DrawNormalMapCell(
         const auto clipY = static_cast<std::int16_t>(screenY + offsetY);
         if (clipX < platform::gWindowWidth && width + clipX - 1 >= 0
             && clipY < platform::gWindowHeight && height + clipY - 1 >= 0) {
-            const std::int32_t mapY = gMapYStart + row;
+            const std::int32_t mapY = session.WorldScene().map.yStart + row;
             const double scaledY = mapY * 64.0;
-            const std::int32_t mapX = gMapXStart + diagonal + row;
+            const std::int32_t mapX = session.WorldScene().map.xStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
             const auto worldX = static_cast<float>(mapX * 64.0);
             CacheMapGraphicByResourceType_46BE50(
@@ -175,16 +175,16 @@ static void DrawNormalMapCell(
         std::int32_t imageNo;
         static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
         if (object == 1) {
-            const std::int32_t mapY = gMapYStart + row;
+            const std::int32_t mapY = session.WorldScene().map.yStart + row;
             const double scaledY = mapY * 64.0;
-            const std::int32_t mapX = gMapXStart + diagonal + row;
+            const std::int32_t mapX = session.WorldScene().map.xStart + diagonal + row;
             const auto worldY = static_cast<float>(scaledY);
             const auto worldX = static_cast<float>(mapX * 64.0);
             static_cast<void>(CachePrimaryMapGraphic_46BD60(
                 imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
                 static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), 0, nullptr));
         } else if (object >= 250 && object <= 299) {
-            const std::int32_t span = gMapSpanX;
+            const std::int32_t span = session.WorldScene().map.spanX;
             const std::int32_t rawObject = gMapObjArray[span * row + diagonal + row];
             static_cast<void>(audio::AccumulateSpatialSoundRequest_52C9E0(rawObject, screenX, screenY));
         } else if (object >= 200 && object <= 249) {
@@ -231,7 +231,7 @@ namespace cg::world {
 void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
-    const std::uint32_t mode = gMapResourceMode_9DAD68;
+    const std::uint32_t mode = session.WorldScene().map.resourceMode;
     const std::uint32_t previousCount = session.WorldScene().map.framesSinceWindowReload;
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
@@ -239,23 +239,23 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     if ((gPlayerX != gLastMapDrawPlayerX_9EE8D0)
         || (gPlayerY != gLastMapDrawPlayerY_9EE8E0)
         || session.WorldScene().movement.mapWindowReloadPending != 0) {
-        const std::int32_t loadYEnd = detail::gMapYEnd;
-        const std::int32_t loadXEnd = detail::gMapXEnd;
-        const std::int32_t loadYStart = gMapYStart;
-        const std::int32_t loadXStart = gMapXStart;
-        const std::int32_t floor = gMapFloor;
-        const auto mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
-        if (detail::ReadMapCacheRectangle_468C40(
+        const std::int32_t loadYEnd = session.WorldScene().map.yEnd;
+        const std::int32_t loadXEnd = session.WorldScene().map.xEnd;
+        const std::int32_t loadYStart = session.WorldScene().map.yStart;
+        const std::int32_t loadXStart = session.WorldScene().map.xStart;
+        const std::int32_t floor = session.WorldScene().map.floor;
+        const auto mapId = std::bit_cast<std::int32_t>(session.WorldScene().map.mapId);
+        if (detail::ReadMapCacheRectangle_468C40(session,
                 mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
             return;
         }
-        const std::int32_t walkYEnd = detail::gMapYEnd;
-        const std::int32_t walkXEnd = detail::gMapXEnd;
-        const std::int32_t walkYStart = gMapYStart;
-        const std::int32_t walkXStart = gMapXStart;
+        const std::int32_t walkYEnd = session.WorldScene().map.yEnd;
+        const std::int32_t walkXEnd = session.WorldScene().map.xEnd;
+        const std::int32_t walkYStart = session.WorldScene().map.yStart;
+        const std::int32_t walkXStart = session.WorldScene().map.xStart;
         if (cutMode) {
-            static_cast<void>(detail::BuildMapWalkability_46D9C0(
+            static_cast<void>(detail::BuildMapWalkability_46D9C0(session,
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
@@ -279,14 +279,14 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     }
 
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
-    const std::int32_t xStart = gMapXStart;
-    const std::int32_t yEnd = detail::gMapYEnd;
+    const std::int32_t xStart = session.WorldScene().map.xStart;
+    const std::int32_t yEnd = session.WorldScene().map.yEnd;
     const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
     std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
     const std::int32_t rawY = 48 * (yEnd - xStart - 1);
     const auto projectionY = std::bit_cast<std::int32_t>(gWorldProjectionSourceD);
     std::int32_t drawY = rawY / 2 + projectionY;
-    std::int32_t firstRow = gMapSpanY - 1;
+    std::int32_t firstRow = session.WorldScene().map.spanY - 1;
     std::int32_t firstColumn = 0;
     while (firstRow >= 0) {
         std::int32_t drawX = baseX;
@@ -297,17 +297,17 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
             if (column < 0) {
                 break;
             }
-            const std::int32_t index = gMapSpanX * row + column;
+            const std::int32_t index = session.WorldScene().map.spanX * row + column;
             if (cutMode) {
                 detail::DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
                 detail::DrawCutObject(session, gMapObjArray[index], column, row, drawX, drawY, descriptor);
             } else {
-                detail::DrawNormalMapCell(index, diagonal, row, drawX, drawY, markers);
+                detail::DrawNormalMapCell(session, index, diagonal, row, drawX, drawY, markers);
             }
             --row;
             drawX -= 64;
         }
-        if (firstColumn < gMapSpanX - 1) {
+        if (firstColumn < session.WorldScene().map.spanX - 1) {
             ++firstColumn;
             baseX += 32;
         } else {

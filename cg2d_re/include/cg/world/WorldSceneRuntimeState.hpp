@@ -385,6 +385,25 @@ static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
 // 地图投影/移动分量、矩形请求窗口及自动地图重载门禁，由世界会话持有。
 struct WorldMapRuntimeState {
+    std::uint32_t mapId = 0; // 原9A86DC。
+    volatile std::int32_t floor = 0; // 原9EE8F0，保留逐次volatile读取。
+    std::int16_t xStart = 0; // 原9DEF64。
+    std::int16_t yStart = 0; // 原9DEF60。
+    std::int16_t xEnd = 0; // 原9DEF62。
+    std::int16_t yEnd = 0; // 原9DEF5E。
+    std::int16_t spanX = 0; // 原9A86E0。
+    std::int16_t spanY = 0; // 原9ED43C。
+    std::uint32_t width = 0; // 原9FB930。
+    std::uint32_t height = 0; // 原C821D4。
+    std::int32_t cachePathKey = 0; // 原9E0434。
+    std::uint32_t resourceMode = 0; // 原9DAD68。
+    std::uint32_t resourceMapId = 0; // 原9DAD5C。
+    std::int32_t resourceFloor = 0; // 原9DAD58。
+    std::int32_t selectedResourceSnapshot = 0; // 原9DAD60。
+    std::int32_t selectedResourceMirror = 0; // 原9DAD64。
+    std::int32_t dayPeriodPaletteEnabled = 0; // 原73ED44。
+    std::int32_t currentDayPeriod = 0; // 原73ED48。
+    std::wstring name; // 原[9DAD30,9DAD4A)，宽字符串，协议仍保留24字节名称判断。
     std::uint32_t projectionOffsetX = 0; // 原C3500C，投影差分W32位型。
     std::uint32_t projectionOffsetY = 0; // 原C75010。
     std::uint32_t playerCoordinateSum = 0; // 原AF10C0。

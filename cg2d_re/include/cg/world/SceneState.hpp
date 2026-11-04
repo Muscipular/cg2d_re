@@ -9,8 +9,8 @@ namespace cg::session { class ClientSession; }
 namespace cg::world {
 
 // World::Update@0x51C430 直接访问的剩余原全局；地址以外的业务含义仍未确认。
-const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
-void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
+const std::wstring& GetMapName_9DAD30(session::ClientSession& session) noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
+void ClearMapName_9DAD30(session::ClientSession& session) noexcept; // 世界重置时清空同一地图名称。
 
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
 void ResumePlayerAfterObservation_51BEF0(session::ClientSession& session) noexcept;
@@ -26,7 +26,6 @@ extern std::uint32_t gWorldProjectionSnapshotC; // 原 0xAF10D0，W32。
 extern std::uint32_t gWorldProjectionSnapshotD; // 原 0xAF10D4，W32。
 
 // 原波纹路径的世界状态；浮点坐标以 F32 位模式保存，映像初值均为 0。
-extern volatile std::int32_t gMapFloor;                    // 原 0x9EE8F0，S32。
 extern volatile std::uint32_t gWorldCurrentXBits;          // 原 0x9DAD4C，F32。
 extern volatile std::uint32_t gWorldCurrentYBits;          // 原 0x9DAD50，F32。
 extern volatile std::uint32_t gWorldProjectionReferenceXBits; // 原 0xC751A8，F32。
@@ -38,11 +37,11 @@ std::int32_t ReadRippleGateOnce();
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(std::int32_t index) noexcept;
 
-// 原 sub_448240@0x448240；只采样一次 gMapFloor。
-std::int32_t IsMapFloorAllowed_448240() noexcept;
+// 原 sub_448240@0x448240；只采样一次所属会话楼层。
+std::int32_t IsMapFloorAllowed_448240(session::ClientSession& session) noexcept;
 
-// 原 sub_4493C0@0x4493C0；只采样一次 gMapFloor，判定闭区间及四项表，返回 0/1。
-std::int32_t IsMapDriftEffectAllowed_4493C0() noexcept;
+// 原 sub_4493C0@0x4493C0；只采样一次所属会话楼层，判定闭区间及四项表，返回 0/1。
+std::int32_t IsMapDriftEffectAllowed_4493C0(session::ClientSession& session) noexcept;
 
 // 原 sub_46CE30@0x46CE30；X/Y 各写四字节，返回借用的 outX，不检查输出指针。
 float* ProjectWorldToScreen_46CE30(

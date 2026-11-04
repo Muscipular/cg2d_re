@@ -51,12 +51,12 @@ static int ResolveLuaMapY(int mapY) {
     return mapY >= 0 ? mapY : static_cast<std::int32_t>(world::gPlayerY);
 }
 
-static int ResolveLuaMapId(int mapId) {
-    return mapId >= 0 ? mapId : world::gCurrentMapId_9A86DC;
+static int ResolveLuaMapId(session::ClientSession& session, int mapId) {
+    return mapId >= 0 ? mapId : session.WorldScene().map.mapId;
 }
 
-static int ResolveLuaFloor(int floor) {
-    return floor >= 0 ? floor : world::gMapFloor;
+static int ResolveLuaFloor(session::ClientSession& session, int floor) {
+    return floor >= 0 ? floor : session.WorldScene().map.floor;
 }
 
 struct MsgOption {
@@ -796,7 +796,7 @@ ui::WindowElement* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int
     PendingLuaElement pending{ui::WindowElementType_MapEx, {}, callbacks};
     pending.data.mapEx = new ui::WindowMapExData;
     pending.data.mapEx->mapX = ResolveLuaMapX(mapX); pending.data.mapEx->mapY = ResolveLuaMapY(mapY);
-    pending.data.mapEx->mapId = ResolveLuaMapId(mapId); pending.data.mapEx->floor = ResolveLuaFloor(floor);
+    pending.data.mapEx->mapId = ResolveLuaMapId(*window.ownerSession, mapId); pending.data.mapEx->floor = ResolveLuaFloor(*window.ownerSession, floor);
     return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
@@ -1018,10 +1018,10 @@ static void LuaApplyMapControlFields(lua_State* L, T* map) {
         map->mapY = ResolveLuaMapY(LuaGetIntField(L, 2, "mapY", -1));
     }
     if (LuaHasField(L, 2, "mapId")) {
-        map->mapId = ResolveLuaMapId(LuaGetIntField(L, 2, "mapId", -1));
+        map->mapId = ResolveLuaMapId(GetLuaConnection(L).Owner(), LuaGetIntField(L, 2, "mapId", -1));
     }
     if (LuaHasField(L, 2, "floor")) {
-        map->floor = ResolveLuaFloor(LuaGetIntField(L, 2, "floor", -1));
+        map->floor = ResolveLuaFloor(GetLuaConnection(L).Owner(), LuaGetIntField(L, 2, "floor", -1));
     }
 }
 

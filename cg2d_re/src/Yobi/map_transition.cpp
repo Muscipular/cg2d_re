@@ -244,7 +244,7 @@ static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
         candidateX = (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
         candidateY = (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
         if ((candidateX != payload->mapX08 || candidateY != payload->mapY0C)
-            && world::IsMapCellBlocked_469810(candidateX, candidateY) == 0) {
+            && world::IsMapCellBlocked_469810(*action->ownerSession, candidateX, candidateY) == 0) {
             break;
         }
         direction = static_cast<std::int16_t>(direction + attempt * 2 + 2);

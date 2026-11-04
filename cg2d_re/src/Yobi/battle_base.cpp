@@ -736,7 +736,7 @@ void MoveBattleCastState_439380(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    BindBattleSkillMeta(action); // E01：原生特效元数据绑定后再发布当前动作。
+    BindBattleSkillMeta(*action->ownerSession, action); // E01：原生特效元数据绑定后再发布当前动作。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     action->phase = payload->castListCA4[payload->castPlayIndexFC4];
 }

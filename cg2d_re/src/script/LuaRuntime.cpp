@@ -54,7 +54,7 @@ bool InitializeLua(session::ClientSession& session)
     runtime.uiState = CreateState(session);
     runtime.battleState = CreateState(session);
     if (!runtime.uiState || !runtime.battleState) { ShutdownLua(session); return false; }
-    yobi::InitializeBattleEffects();
+    yobi::InitializeBattleEffects(session);
     RegisterLuaUI(runtime.uiState);
     RegisterLuaUI(runtime.battleState);
     InitializeAutoBattle(session);
@@ -67,7 +67,7 @@ void ShutdownLua(session::ClientSession& session)
     auto& runtime = session.Lua();
     runtime.shuttingDown = true;
     audio::ShutdownFileBgm();
-    yobi::ShutdownBattleEffects();
+    yobi::ShutdownBattleEffects(session);
     stopCopilot();
     ShutdownAutoBattle(session);
     ShutdownLuaUI(session);

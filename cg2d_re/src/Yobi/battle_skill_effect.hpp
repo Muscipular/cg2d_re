@@ -12,8 +12,8 @@ enum class SkillEffectKind {
 
 // E01：仅 BattleActor 载荷拥有元数据，控制器／场景不可按旧偏移访问。
 BattleSkillMeta* GetBattleSkillMeta(YobiAction* action);
-void CaptureBattleSkillMeta(std::int32_t techId, std::int32_t skillId);
-void BindBattleSkillMeta(YobiAction* action);
+void CaptureBattleSkillMeta(session::ClientSession& session, std::int32_t techId, std::int32_t skillId);
+void BindBattleSkillMeta(session::ClientSession& session, YobiAction* action);
 std::int32_t ResolveSkillEffectImage(
     YobiAction* source, SkillEffectKind kind, std::int32_t originalImage);
 std::int32_t ResolveSkillCastingImage(YobiAction* source, std::int32_t originalImage);

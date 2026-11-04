@@ -12,10 +12,6 @@
 
 namespace cg::yobi::detail {
 
-// E01：只在解析新的 SKL 时替换，主角色进入动作队列时绑定。
-static BattleSkillMeta skillContext{};
-static bool skillContextActive = false;
-
 struct SkillEffectImage {
     std::int32_t skillId; // 原配置保留字段；原生特效实际按 techId 首匹配。
     std::int32_t techId;
@@ -23,7 +19,11 @@ struct SkillEffectImage {
     std::optional<std::int32_t> castingAnime;
 };
 
-static std::array<std::vector<SkillEffectImage>, static_cast<std::size_t>(SkillEffectKind::Count)> effectImages;
+struct BattleSkillEffectsData {
+    BattleSkillMeta context {}; // E01：新的SKL替换，主角色进入动作队列时绑定。
+    bool contextActive = false;
+    std::array<std::vector<SkillEffectImage>, static_cast<std::size_t>(SkillEffectKind::Count)> images;
+};
 
 BattleSkillMeta* GetBattleSkillMeta(YobiAction* const action)
 {
@@ -31,21 +31,24 @@ BattleSkillMeta* GetBattleSkillMeta(YobiAction* const action)
         && action->payload.battleActor ? &action->payload.battleActor->skillMeta : nullptr;
 }
 
-void CaptureBattleSkillMeta(const std::int32_t techId, const std::int32_t skillId)
+void CaptureBattleSkillMeta(
+    session::ClientSession& session, const std::int32_t techId, const std::int32_t skillId)
 {
-    skillContext = {techId, skillId};
-    skillContextActive = true;
+    auto& effects = *session.Yobi().battleEffects.data;
+    effects.context = {techId, skillId};
+    effects.contextActive = true;
 }
 
-void BindBattleSkillMeta(YobiAction* const action)
+void BindBattleSkillMeta(session::ClientSession& session, YobiAction* const action)
 {
-    if (!skillContextActive) return;
+    auto& effects = *session.Yobi().battleEffects.data;
+    if (!effects.contextActive) return;
     auto* const meta = GetBattleSkillMeta(action);
     if (!meta) return;
     for (std::size_t slot = 0; slot < 20; ++slot) {
         if (action->ownerSession->WorldScene().battle.allEntries[slot] != action) continue;
         if (action->payload.battleActor->castSkill103C == action->ownerSession->WorldScene().battle.mSkill) {
-            *meta = skillContext;
+            *meta = effects.context;
         }
         return;
     }
@@ -55,11 +58,19 @@ void BindBattleSkillMeta(YobiAction* const action)
 
 namespace cg::yobi {
 
-void InitializeBattleEffects()
+BattleEffectsRuntimeState::BattleEffectsRuntimeState()
+    : data(std::make_unique<detail::BattleSkillEffectsData>())
 {
-    detail::skillContext = {};
-    detail::skillContextActive = false;
-    for (auto& entries : detail::effectImages) entries.clear();
+}
+
+BattleEffectsRuntimeState::~BattleEffectsRuntimeState() = default;
+
+void InitializeBattleEffects(session::ClientSession& session)
+{
+    auto& effects = *session.Yobi().battleEffects.data;
+    effects.context = {};
+    effects.contextActive = false;
+    for (auto& entries : effects.images) entries.clear();
     try {
         const YAML::Node root = YAML::LoadFile("effectHook.yml");
         constexpr std::array<const char*, 10> names{
@@ -82,7 +93,7 @@ void InitializeBattleEffects()
                 if (index >= 3 && index <= 6 && effect["castingAnime"]) {
                     casting = effect["castingAnime"].as<std::int32_t>();
                 }
-                detail::effectImages[index].push_back({skillId, techId, imageNo, casting});
+                effects.images[index].push_back({skillId, techId, imageNo, casting});
             }
         }
     } catch (const YAML::Exception& error) {
@@ -91,11 +102,12 @@ void InitializeBattleEffects()
     }
 }
 
-void ShutdownBattleEffects()
+void ShutdownBattleEffects(session::ClientSession& session)
 {
-    detail::skillContext = {};
-    detail::skillContextActive = false;
-    for (auto& entries : detail::effectImages) entries.clear();
+    auto& effects = *session.Yobi().battleEffects.data;
+    effects.context = {};
+    effects.contextActive = false;
+    for (auto& entries : effects.images) entries.clear();
 }
 
 } // namespace cg::yobi
@@ -118,7 +130,7 @@ std::int32_t ResolveSkillEffectImage(
     }
     m_log_iw(L"[SkillEffect] kind=%d image=%d skillId=%d techId=%d\n",
         static_cast<int>(kind), originalImage, meta->skillId, tech);
-    for (const auto& effect : effectImages[static_cast<std::size_t>(kind)]) {
+    for (const auto& effect : source->ownerSession->Yobi().battleEffects.data->images[static_cast<std::size_t>(kind)]) {
         if (effect.techId == tech) return effect.imageNo;
     }
     return originalImage;
@@ -133,7 +145,7 @@ std::int32_t ResolveSkillCastingImage(YobiAction* const source, const std::int32
         : meta->techId <= 6799 ? SkillEffectKind::StatusRecover : SkillEffectKind::Revive;
     m_log_iw(L"[SkillEffect] casting image=%d skillId=%d techId=%d\n",
         originalImage, meta->skillId, meta->techId);
-    for (const auto& effect : effectImages[static_cast<std::size_t>(kind)]) {
+    for (const auto& effect : source->ownerSession->Yobi().battleEffects.data->images[static_cast<std::size_t>(kind)]) {
         if (effect.techId == meta->techId) return effect.castingAnime.value_or(originalImage);
     }
     return originalImage;

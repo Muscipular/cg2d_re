@@ -308,7 +308,7 @@ static std::int32_t ReadBattleMSkillHeader(
     fpUsed = TakeBattleMInteger_438F70(scene);
     scene->ownerSession->WorldScene().battle.mSkill = TakeBattleMInteger_438F70(scene);
     // E01／42AD06、42AD1A：在原技能／等级归一化前保留报文双 ID。
-    CaptureBattleSkillMeta(initialTechnique, scene->ownerSession->WorldScene().battle.mSkill);
+    CaptureBattleSkillMeta(*scene->ownerSession, initialTechnique, scene->ownerSession->WorldScene().battle.mSkill);
     scene->ownerSession->WorldScene().battle.mSkillLevel = TakeBattleMInteger_438F70(scene);
     std::int32_t requestedLevel = TakeBattleMInteger_438F70(scene);
     if (scene->ownerSession->WorldScene().battle.mTechnique >= 205000) {

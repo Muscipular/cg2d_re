@@ -9,6 +9,7 @@ namespace cg::yobi {
 
 struct YobiAction;
 namespace detail { struct BattleAppendEffectNode; }
+namespace detail { struct BattleSkillEffectsData; }
 
 inline constexpr std::size_t kMapRegistryRows = 399;
 inline constexpr std::size_t kMapRegistryColumns = 399;
@@ -25,9 +26,21 @@ struct WindowSelectorPreviewRuntimeState {
     std::array<std::unique_ptr<YobiAction>, 2> actions {};
 };
 
+// 原生技能特效的元数据及配置容器由会话独占，完整类型留在实现边界。
+struct BattleEffectsRuntimeState {
+    BattleEffectsRuntimeState();
+    ~BattleEffectsRuntimeState();
+    BattleEffectsRuntimeState(const BattleEffectsRuntimeState&) = delete;
+    BattleEffectsRuntimeState& operator=(const BattleEffectsRuntimeState&) = delete;
+    BattleEffectsRuntimeState(BattleEffectsRuntimeState&&) = delete;
+    BattleEffectsRuntimeState& operator=(BattleEffectsRuntimeState&&) = delete;
+    std::unique_ptr<detail::BattleSkillEffectsData> data; // 完整配置/元数据由battle_skill_effect.cpp持有。
+};
+
 // 每个会话持有其动作链；节点及载荷由 Yobi 生命周期函数分配和释放。
 struct YobiSessionState {
     WindowSelectorPreviewRuntimeState selectorPreviews {};
+    BattleEffectsRuntimeState battleEffects {};
     YobiAction* start = nullptr;
     YobiAction* end = nullptr;
     std::int32_t gateMode = 0; // 原 0x59E570，初值为 FullRate。

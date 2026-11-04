@@ -1405,6 +1405,20 @@ bool ClientHost::SelectSession(const std::uint64_t id) noexcept
     return false;
 }
 
+static std::wstring SessionLabel(ClientHost::SessionEntry& entry)
+{
+    auto& connection = entry.session.Connection();
+    const auto& characterName = connection.CharacterSelectUi().selectedCharacterName;
+    const auto& account = connection.LoginRequests().account;
+    return !characterName.empty() ? characterName
+        : !account.empty() ? account : std::format(L"登录中 {}", entry.id);
+}
+
+std::wstring ClientHost::CurrentLabel()
+{
+    return current_ == sessions_.end() ? std::wstring{} : SessionLabel(*current_);
+}
+
 std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
 {
     std::vector<MenuEntry> entries;
@@ -1412,10 +1426,25 @@ std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
     for (auto& entry : sessions_) {
         auto& connection = entry.session.Connection();
         const auto& characterName = connection.CharacterSelectUi().selectedCharacterName;
-        const auto& account = connection.LoginRequests().account;
-        const std::wstring label = !characterName.empty() ? characterName
-            : !account.empty() ? account : std::format(L"登录中 {}", entry.id);
-        entries.push_back({entry.id, label, entry.id == CurrentId(), entry.session.Disconnected()});
+        auto& world = entry.session.WorldScene();
+        std::wstring details;
+        if (!characterName.empty() && world.player != nullptr && !world.player->name.empty()) {
+            const auto& player = *world.player;
+            std::int32_t hp = player.hp.Peek();
+            std::int32_t maxHp = player.maxHp.Peek();
+            std::int32_t fp = player.fp.Peek();
+            std::int32_t maxFp = player.maxFp.Peek();
+            const auto position = world.battle.currentPosition;
+            if (world.sceneType == 10 && position >= 0 && position < 20
+                && world.battle.entries[position] != nullptr) {
+                yobi::PeekYobiActionVitals(world.battle.entries[position], hp, maxHp, fp, maxFp);
+            }
+            const auto hpPercent = maxHp > 0 ? static_cast<std::int64_t>(hp) * 100 / maxHp : 0;
+            const auto fpPercent = maxFp > 0 ? static_cast<std::int64_t>(fp) * 100 / maxFp : 0;
+            details = std::format(L" Lv.{} HP:{}% FP:{}%", player.level, hpPercent, fpPercent);
+        }
+        entries.push_back({entry.id, SessionLabel(entry), entry.id == CurrentId(),
+            entry.session.Disconnected(), std::move(details)});
     }
     return entries;
 }

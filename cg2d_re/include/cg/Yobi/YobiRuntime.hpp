@@ -458,6 +458,9 @@ std::int32_t ReadYobiActionFpOnce(YobiAction* action); // 原+1B0，47A7A0每次
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* action); // 原+1C0，先于当前FP读取。
 std::int32_t ReadYobiActionHpOnce(YobiAction* action); // 原+170，4965D0单次读取后发布宠物快照。
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* action); // 原+180，与HP读取分开。
+// 宿主菜单的只读HP/FP快照，不改变原读计数或RNG，也不暴露action布局。
+void PeekYobiActionVitals(const YobiAction* action, std::int32_t& hp, std::int32_t& maxHp,
+    std::int32_t& fp, std::int32_t& maxFp) noexcept;
 
 // 原 +5C/+60：队列绘制按轴读取 F32，不向 render 暴露 action 布局。
 float GetYobiActionScaleX(const YobiAction* action) noexcept;

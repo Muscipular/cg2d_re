@@ -19,6 +19,7 @@ public:
         std::wstring label;
         bool selected;
         bool disconnected;
+        std::wstring details; // 菜单打开时的等级和HP/FP百分比快照，不用于窗口标题。
     };
 
     struct SessionEntry {
@@ -51,6 +52,7 @@ public:
     [[nodiscard]] std::size_t SessionCount() const noexcept { return sessions_.size(); }
     [[nodiscard]] std::list<SessionEntry>& Sessions() noexcept { return sessions_; }
     [[nodiscard]] const std::list<SessionEntry>& Sessions() const noexcept { return sessions_; }
+    [[nodiscard]] std::wstring CurrentLabel();
     [[nodiscard]] std::vector<MenuEntry> MenuEntries();
     [[nodiscard]] ClientSession* FindSession(const std::uint64_t id) noexcept
     {

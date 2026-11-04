@@ -42,6 +42,8 @@ public:
     // 原标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
     operator std::int32_t();
     explicit operator std::uint32_t();
+    // 宿主菜单只读观察，不推进读计数或消耗RNG；原游戏读取仍使用转换。
+    [[nodiscard]] std::int32_t Peek() const noexcept;
     // 本端补充一元算术：单次读取，返回有符号明文，不写回。
     std::int32_t operator+();
     std::int32_t operator-();
@@ -112,7 +114,7 @@ public:
 
 private:
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
-    // 供转换与运算符内部单次解码；外部读取经operator std::int32_t()。
+    // 供转换与运算符内部单次解码；原业务读取经operator std::int32_t()。
     std::int32_t value();
 
     // 明文转原W32位模式，供encoded异或与mask位模式转换使用。

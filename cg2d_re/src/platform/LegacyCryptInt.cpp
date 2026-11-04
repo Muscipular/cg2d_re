@@ -89,6 +89,11 @@ std::int32_t LegacyCryptInt::value()
     return FromBits(this->encoded ^ this->mask);
 }
 
+std::int32_t LegacyCryptInt::Peek() const noexcept
+{
+    return FromBits(this->encoded ^ this->mask);
+}
+
 LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
     : LegacyCryptInt(std::bit_cast<std::int32_t>(value))
 {

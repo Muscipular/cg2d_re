@@ -495,6 +495,18 @@ static void PaintMenu(HWND popup)
             label.right = state.left - Scale(6, dpi);
         }
         SetTextColor(dc, RGB(28, 36, 42));
+        if (!entry.details.empty()) {
+            SIZE nameSize {};
+            SIZE detailsSize {};
+            if (GetTextExtentPoint32W(dc, entry.label.c_str(), static_cast<int>(entry.label.size()), &nameSize)
+                && GetTextExtentPoint32W(dc, entry.details.c_str(), static_cast<int>(entry.details.size()), &detailsSize)) {
+                RECT details = label;
+                details.left = std::max(label.left, std::min(label.left + nameSize.cx, label.right - detailsSize.cx));
+                label.right = details.left;
+                DrawTextW(dc, entry.details.c_str(), static_cast<int>(entry.details.size()), &details,
+                    DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
+            }
+        }
         DrawTextW(dc, entry.label.c_str(), static_cast<int>(entry.label.size()), &label,
             DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
     }
@@ -646,6 +658,7 @@ static void OpenMenu(HWND window)
         return;
     }
     if (!gReady) return;
+    gEntries = session::GetClientHost().MenuEntries();
     WNDCLASSW type {};
     type.lpfnWndProc = MenuProcedure;
     type.hInstance = reinterpret_cast<HINSTANCE>(gInstance);
@@ -660,7 +673,7 @@ static void OpenMenu(HWND window)
     MONITORINFO monitor {};
     monitor.cbSize = sizeof(monitor);
     if (!GetMonitorInfoW(MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST), &monitor)) return;
-    const LONG width = std::min<LONG>(Scale(224, layout.dpi), monitor.rcWork.right - monitor.rcWork.left);
+    const LONG width = std::min<LONG>(Scale(320, layout.dpi), monitor.rcWork.right - monitor.rcWork.left);
     const int maximumHeight = monitor.rcWork.bottom - monitor.rcWork.top - Scale(8, layout.dpi);
     gVisibleRows = std::min(gEntries.size(),
         static_cast<std::size_t>(std::max(1, (maximumHeight - AddHeight() - 3) / RowHeight())));
@@ -1008,30 +1021,18 @@ void RefreshSessionWindow()
 {
     using namespace session_window_detail;
     gReady = true;
-    auto entries = session::GetClientHost().MenuEntries();
-    const bool changed = entries.size() != gEntries.size()
-        || !std::equal(entries.begin(), entries.end(), gEntries.begin(), [](const auto& a, const auto& b) {
-            return a.id == b.id && a.label == b.label && a.selected == b.selected && a.disconnected == b.disconnected;
-        });
+    auto& host = session::GetClientHost();
     std::wstring title = L"CG2D RE";
-    for (const auto& entry : entries) {
-        if (entry.selected) {
-            title += L" - ";
-            title += entry.label;
-            if (entry.disconnected) title += L" [断线]";
-            title += L" // 开启者，你今天爆揍一顿小吸兽了吗？";
-            break;
-        }
+    if (const auto* current = host.CurrentSession()) {
+        title += L" - ";
+        title += host.CurrentLabel();
+        if (current->Disconnected()) title += L" [断线]";
+        title += L" // 开启者，你今天爆揍一顿小吸兽了吗？";
     }
     const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
     if (title != gTitle) {
         gTitle = std::move(title);
         SetWindowTextW(window, gTitle.c_str());
-    }
-    if (changed) {
-        gEntries = std::move(entries);
-        PaintFrame(window);
-        if (gPopup != nullptr) UpdateScroll(gPopup);
     }
     UpdateSystemCursorLocation(IsPointerInGameClient());
 }

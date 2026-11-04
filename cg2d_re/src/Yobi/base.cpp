@@ -426,6 +426,15 @@ std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
     return static_cast<std::int32_t>(action->maxHp);
 }
 
+void PeekYobiActionVitals(const YobiAction* const action, std::int32_t& hp, std::int32_t& maxHp,
+    std::int32_t& fp, std::int32_t& maxFp) noexcept
+{
+    hp = action->readiness.Peek();
+    maxHp = action->maxHp.Peek();
+    fp = action->barValue1B0.Peek();
+    maxFp = action->barMaximum1C0.Peek();
+}
+
 float GetYobiActionScaleX(const YobiAction* const action) noexcept
 {
     return action->scaleX;

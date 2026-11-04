@@ -1,5 +1,6 @@
 #include "../WindowComponents.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/platform/KeyState.hpp"
 
 namespace cg::ui {
 using namespace component_detail;
@@ -132,7 +133,7 @@ void WindowElement_SyncInputText(WindowElement& element) {
     auto& owner = InputOwnerFor(element);
     bool enter = RemoveInputContextLineBreaks(data->context);
     ClampInputContextText(data->context, data->maxLength);
-    if (data->focused && owner.UiFrame().inputState.currentContext == &data->context && (element.owner->ownerSession->UiFrame().keyStates[0x0D] & KSF_TRIGGER)) enter = true;
+    if (data->focused && owner.UiFrame().inputState.currentContext == &data->context && (platform::ReadSessionKeyState(*element.owner->ownerSession, 0x0D) & KSF_TRIGGER)) enter = true;
     const std::wstring value = data->context.text;
     const auto ref = WindowRuntime_ElementRef(element);
     if (value != data->lastText) {

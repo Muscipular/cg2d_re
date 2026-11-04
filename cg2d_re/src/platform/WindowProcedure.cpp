@@ -48,16 +48,22 @@ int ResetKeyState_459780(session::ClientSession& session) noexcept
     return static_cast<int>(LegacyKeyStateCount);
 }
 
+std::uint8_t ReadSessionKeyState(session::ClientSession& session, const std::int32_t key) noexcept
+{
+    if (session::GetClientHost().CurrentSession() != &session) return 0;
+    return session.UiFrame().keyStates[key];
+}
+
 // 原函数：0x004597B0。
 int ReadKeyPressFlag_4597B0(session::ClientSession& session, const std::int32_t key) noexcept
 {
-    return static_cast<int>(session.UiFrame().keyStates[key] & 0x10u);
+    return static_cast<int>(ReadSessionKeyState(session, key) & 0x10u);
 }
 
 // 原函数：0x004597A0。
 int ReadKeyFlag4_4597A0(session::ClientSession& session, const std::int32_t key) noexcept
 {
-    return static_cast<int>(session.UiFrame().keyStates[key] & 4u);
+    return static_cast<int>(ReadSessionKeyState(session, key) & 4u);
 }
 
 // CTM01/A07：复制后释放剪贴板，再交给既有输入上下文按完整Unicode字符插入。

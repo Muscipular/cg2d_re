@@ -14,32 +14,32 @@ namespace cg::input {
 void ProcessKeyInput_4596D0(session::ClientSession& session)
 {
     try {
-        if ((session.UiFrame().keyStates[17] & 0x02u) == 0
-            && (session.UiFrame().keyStates[16] & 0x02u) == 0) {
-            if ((session.UiFrame().keyStates[38] & 0x10u) != 0) {
+        if ((platform::ReadSessionKeyState(session, 17) & 0x02u) == 0
+            && (platform::ReadSessionKeyState(session, 16) & 0x02u) == 0) {
+            if ((platform::ReadSessionKeyState(session, 38) & 0x10u) != 0) {
                 detail::MoveInputCaretUp_44A5D0(session);
             }
-            if ((session.UiFrame().keyStates[40] & 0x10u) != 0) {
+            if ((platform::ReadSessionKeyState(session, 40) & 0x10u) != 0) {
                 detail::MoveInputCaretDown_44A7D0(session);
             }
-            if ((session.UiFrame().keyStates[37] & 0x10u) != 0) {
+            if ((platform::ReadSessionKeyState(session, 37) & 0x10u) != 0) {
                 detail::MoveInputCaretLeft_44A540(session);
             }
-            if ((session.UiFrame().keyStates[39] & 0x10u) != 0) {
+            if ((platform::ReadSessionKeyState(session, 39) & 0x10u) != 0) {
                 detail::MoveInputCaretRight_44A580(session);
             }
         }
 
-        if ((session.UiFrame().keyStates[8] & 0x10u) != 0) {
+        if ((platform::ReadSessionKeyState(session, 8) & 0x10u) != 0) {
             detail::DeleteCharacterBeforeInputCaret_44A990(session);
         }
-        if ((session.UiFrame().keyStates[46] & 0x10u) != 0) {
+        if ((platform::ReadSessionKeyState(session, 46) & 0x10u) != 0) {
             detail::DeleteCharacterAtInputCaret_44AA90(session);
         }
-        if ((session.UiFrame().keyStates[9] & 0x10u) != 0) {
+        if ((platform::ReadSessionKeyState(session, 9) & 0x10u) != 0) {
             cg::core::NullSub_509080();
         }
-        if ((session.UiFrame().keyStates[13] & 0x10u) != 0) {
+        if ((platform::ReadSessionKeyState(session, 13) & 0x10u) != 0) {
             detail::HandleInputEnterKey_44AB60(session);
         }
 

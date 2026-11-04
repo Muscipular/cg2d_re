@@ -9,6 +9,9 @@ namespace cg::platform {
 
 inline constexpr std::size_t LegacyKeyStateCount = 256;
 
+// NSM01：仅当前输入目标返回原U8键态；后台返回零，不清原数组或模拟释放。
+std::uint8_t ReadSessionKeyState(session::ClientSession& session, std::int32_t key) noexcept;
+
 // 原 sub_459760；逐项保留 0xEA 位，返回处理项数 256。
 int ClearKeyFlags_459760(session::ClientSession& session) noexcept;
 

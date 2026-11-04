@@ -1,4 +1,5 @@
 #include "cg/session/ClientSession.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -206,10 +207,10 @@ std::int32_t WindowPetSkills_GetPreviewPage(session::ClientSession& session, con
         interaction.previewPageCount = pageCount;
         interaction.previewPage = 0;
     }
-    if ((session.UiFrame().keyStates[0x21] & 4u) != 0 && interaction.previewPage > 0) { // PageUp。
+    if ((platform::ReadSessionKeyState(session, 0x21) & 4u) != 0 && interaction.previewPage > 0) { // PageUp。
         --interaction.previewPage;
     }
-    if ((session.UiFrame().keyStates[0x22] & 4u) != 0 && interaction.previewPage + 1 < pageCount) { // PageDown。
+    if ((platform::ReadSessionKeyState(session, 0x22) & 4u) != 0 && interaction.previewPage + 1 < pageCount) { // PageDown。
         ++interaction.previewPage;
     }
     return interaction.previewPage;

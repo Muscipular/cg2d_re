@@ -1,5 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/platform/KeyState.hpp"
 
 namespace cg::ui {
 
@@ -172,7 +173,7 @@ static std::int32_t WindowConfirmation_HandleButton(
             graphic->imageNo = idleImage + 2;
         }
     }
-    if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (callbackWindow.ownerSession->UiFrame().keyStates[17] & 2) == 0)) {
+    if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (platform::ReadSessionKeyState(*callbackWindow.ownerSession, 17) & 2) == 0)) {
         return 0;
     }
     static_cast<void>(WindowConfirmation_RequestClose(callbackWindow));

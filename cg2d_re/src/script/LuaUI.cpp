@@ -1,5 +1,6 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -2434,12 +2435,12 @@ static void LuaReadVkList(lua_State* L, int index, std::vector<int>& vkList) {
 }
 
 static bool WinMgrKeyPressed(session::ClientSession& session, const WinMgrKeyPressOption& option) {
-    int state = static_cast<int>(session.UiFrame().keyStates[option.vkMain]);
+    int state = static_cast<int>(platform::ReadSessionKeyState(session, option.vkMain));
     if ((state & option.stateMask) == 0) {
         return false;
     }
     for (int vk: option.vkList) {
-        if ((static_cast<int>(session.UiFrame().keyStates[vk]) & KEY_DOWN) == 0) {
+        if ((static_cast<int>(platform::ReadSessionKeyState(session, vk)) & KEY_DOWN) == 0) {
             return false;
         }
     }

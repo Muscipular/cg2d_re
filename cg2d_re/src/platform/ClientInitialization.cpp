@@ -20,6 +20,7 @@
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -28,6 +29,7 @@
 #include "cg/render/GraphicPaletteCache.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "../world/BattleState.hpp"
 
 #include <bit>
 #include <format>
@@ -251,7 +253,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     }
 
     const std::uint32_t drawCursor = gNativeCursorEnabled_D67AE4;
-    ::ShowCursor(0);
+    SetSystemCursorVisible(false);
     if (drawCursor != 0) {
         const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);
         const std::int32_t x = (session.UiFrame().mouse.state->mouseX + 16);
@@ -293,6 +295,8 @@ static bool InitializeAdditionalClientSession(session::ClientSession& session)
     if (login::detail::InitializeSavedState_533300(session) == 0) {
         return false;
     }
+    ui::InitializeSessionWindowLayout(session);
+    world::CenterBattleLayoutToWindow(session);
     static_cast<void>(world::InitializeRotationTable_46FB20(session));
     static_cast<void>(ResetLegacyMouseState_506870(session));
     static_cast<void>(cg::yobi::InitializeYobiActionList_404A40(session));

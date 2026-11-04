@@ -15,6 +15,8 @@
 #include "LoginSceneState.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/LegacyCursor.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
@@ -191,9 +193,9 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
         static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0(connection.Owner()));
         login::detail::RestoreCapability4CurrentSavedRecord(connection.Owner());
         const std::uint32_t currentShow = platform::gNativeCursorEnabled_D67AE4;
-        if (currentShow != previousShow) {
-            static_cast<void>(::ShowCursor(
-                std::bit_cast<std::int32_t>(currentShow)));
+        if (currentShow != previousShow
+            && session::GetClientHost().CurrentSession() == &connection.Owner()) {
+            platform::SetSystemCursorVisible(!platform::IsPointerInGameClient() || currentShow != 0);
         }
         return world::SetCurrentSceneType(connection.Owner(), 2);
     }

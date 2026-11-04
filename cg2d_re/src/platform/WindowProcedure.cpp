@@ -8,11 +8,13 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/session/ClientHost.hpp"
 #include "WindowProcedureState.hpp"
+#include "SessionWindow.hpp"
 
 #include "cg/input/Input.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -75,7 +77,7 @@ int ResetKeyState_459780(session::ClientSession& session) noexcept
 
 bool IsSessionInputTarget(const session::ClientSession& session) noexcept
 {
-    return session::GetClientHost().CurrentSession() == &session;
+    return session::GetClientHost().CurrentSession() == &session && IsSessionWindowInputAvailable();
 }
 
 std::uint8_t ReadSessionKeyState(session::ClientSession& session, const std::int32_t key) noexcept
@@ -169,6 +171,13 @@ static void UpdateKeyUpState(session::ClientSession& session, const std::uint32_
         (session.UiFrame().keyStates[key] & 0xF5u) | 1u);
 }
 
+void RouteSessionKeyRelease(const std::uint32_t key, const bool useCurrentWhenUnbound) noexcept
+{
+    if (auto* const target = ConsumePhysicalPressOwner(gKeyPressOwners[key], useCurrentWhenUnbound)) {
+        UpdateKeyUpState(*target, key);
+    }
+}
+
 static MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
 {
     const std::int32_t x = static_cast<std::uint16_t>(packedCoordinates);
@@ -197,6 +206,19 @@ static MouseCoordinates MapNonClientMouseCoordinates(HWND window, const std::uin
         | (static_cast<std::uint32_t>(static_cast<std::uint16_t>(point.y)) << 16));
 }
 
+void RouteSessionMouseRelease(const bool leftButton, const LPARAM screenCoordinates)
+{
+    auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[leftButton ? 0 : 1], false);
+    if (target == nullptr) return;
+    const MouseCoordinates coordinates = MapNonClientMouseCoordinates(
+        reinterpret_cast<HWND>(gLegacyWindow), static_cast<std::uint32_t>(screenCoordinates));
+    if (leftButton) {
+        static_cast<void>(UpdateLegacyMouseLeftUp_5069E0(*target, coordinates.x, coordinates.y));
+    } else {
+        static_cast<void>(UpdateLegacyMouseRightUp_506C40(*target, coordinates.x, coordinates.y));
+    }
+}
+
 // 原 WIN_PROC@[0x466DC0,0x467904)。消息载荷先截取原 x86 低 32 位，
 // 默认分支仍把本机原生参数原样交还 DefWindowProcW。
 LRESULT CALLBACK WindowProcedure(
@@ -205,6 +227,10 @@ LRESULT CALLBACK WindowProcedure(
     const WPARAM wParam,
     const LPARAM lParam)
 {
+    LRESULT frameResult = 0;
+    if (HandleSessionWindowMessage(window, message, wParam, lParam, frameResult)) {
+        return frameResult;
+    }
     const std::uint32_t wParam32 = static_cast<std::uint32_t>(wParam);
     const std::uint32_t lParam32 = static_cast<std::uint32_t>(lParam);
     auto* const inputSession = session::GetClientHost().CurrentSession();
@@ -246,6 +272,9 @@ LRESULT CALLBACK WindowProcedure(
 
         gCurrentClientWidth = static_cast<std::uint16_t>(lParam32);
         gCurrentClientHeight = static_cast<std::uint16_t>(lParam32 >> 16);
+        if (wParam32 == SIZE_MINIMIZED) {
+            return 0;
+        }
         if (gCurrentClientWidth == static_cast<std::uint32_t>(gWindowWidth)
             && gCurrentClientHeight == static_cast<std::uint32_t>(gWindowHeight)) {
             gWindowResizePhase = 0;
@@ -277,10 +306,9 @@ LRESULT CALLBACK WindowProcedure(
         }
 
         gWindowResizePhase = 2;
-        const LONG style = GetWindowLongW(window, GWL_STYLE);
         RECT rect {};
         SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-        AdjustWindowRectEx(&rect, static_cast<DWORD>(style), FALSE, 0);
+        AdjustSessionWindowRect(rect, GetDpiForWindow(window));
         SetWindowPos(
             window,
             HWND_NOTOPMOST,
@@ -309,11 +337,8 @@ LRESULT CALLBACK WindowProcedure(
 
     case WM_NCMOUSEMOVE: {
         if (inputSession == nullptr) return 0;
-        const std::uint32_t oldSuppression = inputSession->UiFrame().mouse.state->drawingSuppression;
-        if (oldSuppression == 0u) {
-            ShowCursor(TRUE);
-            inputSession->UiFrame().mouse.state->drawingSuppression = 1;
-        }
+        UpdateSystemCursorLocation(false);
+        inputSession->UiFrame().mouse.state->drawingSuppression = 1;
         return 0;
     }
 
@@ -416,7 +441,7 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_SYSCOMMAND:
-        if (wParam32 == SC_CLOSE
+        if ((wParam32 & 0xFFF0u) == SC_CLOSE
             && MessageBoxW(
                 window,
                 L"可以结束魔力宝贝吗？",
@@ -432,10 +457,8 @@ LRESULT CALLBACK WindowProcedure(
         if (inputSession == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         ResetLegacyMousePosition_506890(*inputSession, coordinates.x, coordinates.y);
-        if (inputSession->UiFrame().mouse.state->drawingSuppression == 1u) {
-            ShowCursor(FALSE);
-            inputSession->UiFrame().mouse.state->drawingSuppression = 0;
-        }
+        UpdateSystemCursorLocation(true);
+        inputSession->UiFrame().mouse.state->drawingSuppression = 0;
         RebuildRendererIfGraphicDirty();
         return 0;
     }
@@ -505,17 +528,11 @@ LRESULT CALLBACK WindowProcedure(
     }
 
     case WM_NCLBUTTONUP:
-        if (auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[0], false)) {
-            const MouseCoordinates coordinates = MapNonClientMouseCoordinates(window, lParam32);
-            static_cast<void>(UpdateLegacyMouseLeftUp_5069E0(*target, coordinates.x, coordinates.y));
-        }
+        RouteSessionMouseRelease(true, lParam);
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_NCRBUTTONUP:
-        if (auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[1], false)) {
-            const MouseCoordinates coordinates = MapNonClientMouseCoordinates(window, lParam32);
-            static_cast<void>(UpdateLegacyMouseRightUp_506C40(*target, coordinates.x, coordinates.y));
-        }
+        RouteSessionMouseRelease(false, lParam);
         return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_MBUTTONDOWN:

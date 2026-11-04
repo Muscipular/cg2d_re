@@ -30,6 +30,42 @@ static_assert(sizeof(CursorState0Record) == 8);
 // 原 [0x55CE80,0x55CE88)：状态 0 的唯一可写记录。
 static CursorState0Record gCursorState0 {0x0003BE98u, 0};
 
+static bool gSystemCursorStateKnown = false;
+static bool gSystemCursorVisible = true;
+static bool gSystemCursorLocationKnown = false;
+static bool gSystemCursorOverGame = false;
+
+void SetSystemCursorVisible(const bool visible) noexcept
+{
+    if (gSystemCursorStateKnown && gSystemCursorVisible == visible) return;
+    int count = ::ShowCursor(visible ? TRUE : FALSE);
+    while (visible ? count < 0 : count >= 0) {
+        count = ::ShowCursor(visible ? TRUE : FALSE);
+    }
+    gSystemCursorVisible = visible;
+    gSystemCursorStateKnown = true;
+}
+
+void UpdateSystemCursorLocation(const bool overGameClient) noexcept
+{
+    if (gSystemCursorLocationKnown && gSystemCursorOverGame == overGameClient) return;
+    gSystemCursorOverGame = overGameClient;
+    gSystemCursorLocationKnown = true;
+    SetSystemCursorVisible(!overGameClient);
+}
+
+bool IsPointerInGameClient() noexcept
+{
+    const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
+    POINT point {};
+    RECT rectangle {};
+    if (window == nullptr || !GetCursorPos(&point) || WindowFromPoint(point) != window
+        || !ScreenToClient(window, &point) || !GetClientRect(window, &rectangle)) {
+        return false;
+    }
+    return PtInRect(&rectangle, point) != FALSE;
+}
+
 
 static std::int32_t ReadCursorImage(const std::uint32_t state)
 {
@@ -132,7 +168,7 @@ static void UpdateNativeCursor(session::ClientSession& session)
     // 原全局：0x00D68BE8；本函数保存上一次光标状态。
     static std::uint32_t previousCursorState = 0;
     const std::uint32_t currentState = session.UiFrame().mouse.requestedCursor;
-    const bool acceptsInput = IsSessionInputTarget(session);
+    const bool acceptsInput = IsSessionInputTarget(session) && IsPointerInGameClient();
     if (acceptsInput && currentState != previousCursorState) {
         // 原端未检查 API 结果且会继续读取未初始化局部；新端只将局部清零以避免 UB。
         POINT point {};
@@ -150,7 +186,7 @@ static void UpdateNativeCursor(session::ClientSession& session)
 
     if (acceptsInput) previousCursorState = session.UiFrame().mouse.requestedCursor;
 
-    if (session.UiFrame().mouse.state->drawingSuppression == 0) {
+    if (acceptsInput && session.UiFrame().mouse.state->drawingSuppression == 0) {
         const std::int32_t y = (session.UiFrame().mouse.state->mouseY + 16);
         const std::int32_t x = (session.UiFrame().mouse.state->mouseX + 16);
         cg::render::DrawGraphic(
@@ -214,7 +250,8 @@ void UpdateCursor_506E00(session::ClientSession& session)
     UpdatePulse(session, rightElapsed, LegacyMouseButton_Right, session.UiFrame().mouse.rightRepeatAnchorMs);
 
     if (gNativeCursorEnabled_D67AE4 == 0) {
-        if (session.UiFrame().mouse.state->drawingSuppression == 0) {
+        if (IsSessionInputTarget(session) && IsPointerInGameClient()
+            && session.UiFrame().mouse.state->drawingSuppression == 0) {
             DrawTableCursor(session);
         }
     } else {

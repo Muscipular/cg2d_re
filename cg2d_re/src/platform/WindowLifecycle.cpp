@@ -4,6 +4,7 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "WindowProcedureState.hpp"
+#include "SessionWindow.hpp"
 #include "../world/BattleState.hpp"
 
 #include <Windows.h>
@@ -51,7 +52,8 @@ int InitializeWindow(session::ClientSession& session)
     RECT rect;
     SetWindowedDesktopColor();
     SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-    AdjustWindowRectEx(&rect, style, FALSE, 0);
+    AdjustSessionWindowRect(rect, gLegacyWindow != 0
+        ? GetDpiForWindow(reinterpret_cast<HWND>(gLegacyWindow)) : GetDpiForSystem());
 
     if (gLegacyWindow) {
         // GWL_STYLE 的值仍是 32 位 LONG，不是需要 Ptr 宽化的窗口指针字段。
@@ -84,8 +86,9 @@ int PumpWindowMessages()
         }
         if (message.message != WM_KEYDOWN
             || message.hwnd != reinterpret_cast<HWND>(gLegacyWindow)
-            || RouteSessionKeyDown(static_cast<std::uint32_t>(message.wParam),
-                static_cast<std::uint32_t>(message.lParam))) {
+            || (CanTranslateSessionWindowKey(static_cast<UINT>(message.wParam))
+                && RouteSessionKeyDown(static_cast<std::uint32_t>(message.wParam),
+                    static_cast<std::uint32_t>(message.lParam)))) {
             TranslateMessage(&message);
         }
         DispatchMessageW(&message);
@@ -94,3 +97,5 @@ int PumpWindowMessages()
 }
 
 } // namespace cg::platform
+
+#include "SessionWindow.inl"

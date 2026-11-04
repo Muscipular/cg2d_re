@@ -114,6 +114,16 @@ void InitializeWindowLayout(session::ClientSession& session)
     }
 }
 
+void InitializeSessionWindowLayout(session::ClientSession& session)
+{
+    auto& states = detail::WindowRuntime_States(session);
+    for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
+        const auto& prototype = *detail::gWindowPrototypes57C130[index];
+        states[index].x = prototype.defaultX;
+        states[index].y = prototype.defaultY;
+    }
+}
+
 namespace detail {
 
 WindowPrototype& WindowRuntime_DialogPrototype(session::ClientSession& session)

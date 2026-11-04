@@ -40,8 +40,6 @@
 
 namespace cg::login {
 
-// 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
-static constexpr wchar_t kWindowName[] = L"魔力宝贝";
 static constexpr wchar_t kVersion[] = CG_CLIENT_VERSION_W;
 
 std::int32_t DrawClientVersion(
@@ -67,48 +65,6 @@ static constexpr wchar_t kAccountHelp4[] =
 // 原 0x55C700「--->註冊新帳號並移轉舊帳號」正文 26 字节；字符串字面量隐式追加 NUL。
 static constexpr wchar_t kAccountHelp5[] =
     L"";
-
-// 原559958起25个64B槽的正文；当前静态中文采用UTF-16，索引仍由CategoryTitle承接。
-static constexpr std::array<const wchar_t*, 25> kCategoryTitles {
-    L"卡莲", // 0x559958 卡蓮
-    L"金牛座", // 0x559998 金牛座
-    L"双子座", // 0x5599D8 雙子座
-    L"香港", // 0x559A18 香港
-    L"狮子座", // 0x559A58 獅子座
-    L"处女座", // 0x559A98 處女座
-    L"天秤座", // 0x559AD8 天秤座
-    L"歌姬", // 0x559B18 歌姬
-    L"樱之舞", // 0x559B58 櫻之舞
-    L"摩羯座", // 0x559B98 摩羯座
-    L"水瓶座", // 0x559BD8 水瓶座
-    L"双鱼座", // 0x559C18 雙魚座
-    L"香港", // 0x559C58 香港
-    L"测试", // 0x559C98 測試
-    L"九龙", // 0x559CD8 九龍
-    L"卡莲", // 0x559D18 卡蓮
-    L"金牛座", // 0x559D58 金牛座
-    L"露比", // 0x559D98 露比
-    L"香港", // 0x559DD8 香港
-    L"狮子座", // 0x559E18 獅子座
-    L"处女座", // 0x559E58 處女座
-    L"露比", // 0x559E98 露比
-    L"心美", // 0x559ED8 心美
-    L"露比", // 0x559F18 露比
-    L"心美", // 0x559F58 心美
-};
-
-// 原 25 项标题表之后，group 25..39 会按 64 字节步长继续读取相邻映像。
-// 这些是各实际地址首个 NUL 前的精确 ASCII 字节，不是正式标题表成员。
-static constexpr std::array<const wchar_t*, 15> kAdjacentCategoryTitlePrefixes {
-    L"I", L"", L"Z", L"\x07V",
-    L"d", L"d", L"d", L"d", L"d",
-    L"x", L"x", L"x", L"x", L"x", L"x",
-};
-
-static constexpr std::array<const wchar_t*, 20> kServerLabels {
-    L"I", L"II", L"III", L"IV", L"V", L"VI", L"VII", L"VIII", L"IX", L"X",
-    L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20",
-};
 
 // 与角色选择及登录输入按钮共用同一七W32布局。
 using LoginUiRecord = cg::ui::UiControlRecord;
@@ -219,40 +175,6 @@ static void IncrementSceneState(session::ClientSession& session)
     ++session.WorldScene().sceneState;
 }
 
-static void SetBaseWindowTitle(std::wstring& buffer)
-{
-    buffer = std::format(L"{} {}", kWindowName, kVersion);
-    ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
-}
-
-static const wchar_t* CategoryTitle(std::int32_t categoryIndex)
-{
-    if (categoryIndex < static_cast<std::int32_t>(kCategoryTitles.size())) {
-        return kCategoryTitles[static_cast<std::size_t>(categoryIndex)];
-    }
-    return kAdjacentCategoryTitlePrefixes[
-        static_cast<std::size_t>(categoryIndex)
-        - kCategoryTitles.size()];
-}
-
-static void SetServerWindowTitle(
-    std::wstring& buffer,
-    std::int32_t serverIndex,
-    std::int32_t page,
-    std::int32_t slot)
-{
-    const wchar_t* const category = CategoryTitle(serverIndex / 20);
-    const wchar_t* const server =
-        kServerLabels[static_cast<std::size_t>(page * 10 + slot)];
-    buffer = std::format(
-        L"{} {} [{} {}]",
-        kWindowName,
-        kVersion,
-        category,
-        server);
-    ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
-}
-
 static void CopyAccountHelpLines(network::CgConnection& connection)
 {
     auto& messageLines = connection.LoginMessages().lines;
@@ -330,12 +252,10 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
     auto& serverUi = connection.LoginSceneUi().serverUi;
     auto& messageLines = connection.LoginMessages().lines;
     std::int32_t interactiveTail = 0;
-    std::wstring title;
 
     if (session.WorldScene().sceneState == 0) {
         session.WorldScene().sceneState = 1;
         connection.CharacterSelectUi().selectedCharacterName.clear();
-        SetBaseWindowTitle(title);
         connection.DisconnectState() = 0;
         world::BeginSceneTransition(session);
         request.serverHighlight = 0;
@@ -398,7 +318,6 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                         const std::int32_t serverIndex =
                             category * 20 + page * 10 + slot;
                         if (gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)].available != 0) {
-                            SetServerWindowTitle(title, serverIndex, page, slot);
                             request.selectedServerIndex = static_cast<std::int16_t>(serverIndex);
                             request.serverHighlight = slot;
                             detail::PlaySe(session, 53, 320, 240);
@@ -587,14 +506,12 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             world::SetPendingSceneType(session, 1);
         }
         session.WorldScene().sceneState = 1;
-        SetBaseWindowTitle(title);
     }
 
     if (session.WorldScene().sceneState == 102) {
         if (UpdateLoginMessage(connection, request.sceneMessage) != 0) {
             session.WorldScene().sceneState = 1;
         }
-        SetBaseWindowTitle(title);
     }
 
     cg::ui::DrawUiControl_45EFD0(session, &gCloseUi, 10, 0, 0, 0);

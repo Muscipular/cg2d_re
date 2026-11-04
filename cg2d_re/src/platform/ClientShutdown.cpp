@@ -2,6 +2,7 @@
 #include "cg/session/ClientSession.hpp"
 #include "cg/session/ClientHost.hpp"
 #include "ClientShutdown.hpp"
+#include "SessionWindow.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
 #include "../ui/WindowRuntimeState.hpp"
@@ -60,6 +61,7 @@ void ShutdownSessionRuntime(session::ClientSession& session, const bool save)
 // 原函数：0x00457A40；NSM01先完整释放各会话，再销毁唯一共享设备和资源。
 int ShutdownClient_457A40()
 {
+    ShutdownSessionWindow();
     auto& host = session::GetClientHost();
     while (!host.Sessions().empty()) {
         auto& entry = host.Sessions().front();

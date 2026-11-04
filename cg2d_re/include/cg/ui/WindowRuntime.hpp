@@ -143,6 +143,8 @@ bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t
     std::int32_t& x, std::int32_t& y);
 // 首次窗口初始化按已发布客户区尺寸调整原型和当前坐标，支持只指定一个轴。
 void InitializeWindowLayout(session::ClientSession& session);
+// 后建会话仅取已适配的共享原型坐标，不重写其他会话或再次调整原型。
+void InitializeSessionWindowLayout(session::ClientSession& session);
 
 // G07：INVCF发布背包／银行页数及0基背包页；新增按钮在下次开窗时创建。
 void WindowRuntime_SetInventoryPages(session::ClientSession& session,

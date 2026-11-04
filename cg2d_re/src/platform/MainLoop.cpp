@@ -7,6 +7,7 @@
 #include "cg/script/LuaRuntime.hpp"
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
+#include "SessionWindow.hpp"
 
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -21,7 +22,6 @@
 #include "cg/text/Encoding.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
-#include "../world/PlayerState.hpp"
 #include "../world/WorldMapState.hpp"
 
 #include <array>
@@ -43,22 +43,13 @@ std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。
 
 __declspec(noinline)
-static void UpdateWndTitle(session::ClientSession& session, float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
+static void UpdateFpsBuckets(float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
 {
     VM_LIGHT_START
     fps = static_cast<float>(frameCounts[0] + frameCounts[1] + frameCounts[2])
         / static_cast<float>(frameCounts.size());
     frameIndex = (frameIndex + 1) % frameCounts.size();
     frameCounts[frameIndex] = 0;
-    std::wstring title(L"CG2D RE");
-    const wchar_t* const playerName = world::GetPlayerDisplayText(session, 1);
-    if (playerName[0] != '\0') {
-        title += L" - [";
-        title += playerName;
-        title += L"]";
-    }
-    title += L" 开启者,今天你揍了小吸兽了吗？";
-    static_cast<void>(::SetWindowTextW(reinterpret_cast<HWND>(gLegacyWindow), title.c_str()));
     VM_LIGHT_END
 }
 
@@ -74,7 +65,7 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
     const std::uint64_t interval = now - previousTick;
     ++frameCounts[frameIndex];
     if (previousTick / 1000u != now / 1000u) {
-        UpdateWndTitle(session, fps, frameIndex, frameCounts);
+        UpdateFpsBuckets(fps, frameIndex, frameCounts);
     }
     previousTick = now;
 #ifdef MY_DEBUG
@@ -252,6 +243,7 @@ int MainLoop(session::ClientSession& initialSession)
         return 0;
     }
     host.Sessions().front().initialized = true;
+    RefreshSessionWindow();
 
     for (;;) {
         auto* current = host.CurrentSession();
@@ -279,6 +271,12 @@ int MainLoop(session::ClientSession& initialSession)
             ShutdownClient_457A40();
             return 0;
         }
+        if (!ProcessSessionWindowCommands()) {
+            ShutdownClient_457A40();
+            DestroyWindow(reinterpret_cast<HWND>(gLegacyWindow));
+            return 0;
+        }
+        RefreshSessionWindow();
         current = host.CurrentSession();
         if (current == nullptr) {
             static_cast<void>(ShutdownClient_457A40());

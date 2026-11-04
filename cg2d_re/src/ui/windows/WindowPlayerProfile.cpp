@@ -479,7 +479,7 @@ static void WindowPlayerProfile_Refresh(WindowInstance* callbackWindow)
     auto* const element7 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element7);
     if (element7) {
         auto* const titleData = element7->data.text;
-        const wchar_t* const title = world::GetTitleText(titleIndex);
+        const wchar_t* const title = world::GetTitleText(*callbackWindow->ownerSession, titleIndex);
         titleData->text = title;
     }
 

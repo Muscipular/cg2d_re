@@ -3077,7 +3077,7 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(session::ClientSession& s
 // 原函数：0x0050E3C0。
 void WindowTrade_ReceiveTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -3089,10 +3089,10 @@ void WindowTrade_ReceiveTargetReply(cg::network::CgConnection& connection, const
 // 原函数：0x0050E3F0。
 void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection, char* const text, const std::int32_t)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (networkConnection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
-    if (world::gLogoutToTownPending_D67E78 != 0) {
+    if (networkConnection.Owner().WorldScene().logoutToTownPending != 0) {
         static_cast<void>(networkConnection.SendTradeDecision(0));
         return;
     }
@@ -3107,7 +3107,7 @@ void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection,
 std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection& connection)
 {
     auto& trade = connection.Owner().UiFrame().native.trade;
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3123,7 +3123,7 @@ std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection& connectio
 std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection& connection, const std::int32_t value)
 {
     auto& trade = connection.Owner().UiFrame().native.trade;
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3138,7 +3138,7 @@ std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection& connection
 // 原函数：0x0050E4A0。
 std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection& connection, const char* const text)
 {
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3152,7 +3152,7 @@ std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection& connection,
 // 原函数：0x0050E4D0。
 std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection& connection, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3166,7 +3166,7 @@ std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection& connection, 
 // 原函数：0x0050E500。
 std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection& connection, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3181,7 +3181,7 @@ std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection& connect
 std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& connection)
 {
     auto& trade = connection.Owner().UiFrame().native.trade;
-    const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::int32_t scene = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (scene != 0) {
         return scene;
     }
@@ -3202,7 +3202,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& conn
 void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const std::int32_t value)
 {
     auto& trade = connection.Owner().UiFrame().native.trade;
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

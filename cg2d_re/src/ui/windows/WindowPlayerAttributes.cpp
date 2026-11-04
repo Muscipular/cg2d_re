@@ -267,7 +267,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
     values[2] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(2)];
     values[3] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(3)];
     values[4] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(4)];
-    values[5] = world::gPlayerUnspentAttributePoints_D2F788;
+    values[5] = callbackWindow.ownerSession->WorldScene().unspentAttributePoints;
     values[0] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(0)];
     std::int32_t total = 0;
     for (const std::int32_t value : values) {
@@ -386,7 +386,7 @@ static void WindowPlayerAttributes_Refresh(WindowInstance* callbackWindow)
         return;
     };
     writeNumber(1, callbackWindow->ownerSession->WorldScene().player->level, L"{:3}");
-    writeNumber(2, world::gPlayerUnspentAttributePoints_D2F788, L"{:5}");
+    writeNumber(2, callbackWindow->ownerSession->WorldScene().unspentAttributePoints, L"{:5}");
     for (std::int32_t index = 0; index < 5; ++index) {
         writeNumber(index + 3, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
@@ -408,7 +408,7 @@ static void WindowPlayerAttributes_Refresh(WindowInstance* callbackWindow)
         writeNumber(index + 21, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:4}");
     }
 
-    const std::int32_t remainingPoints = world::gPlayerUnspentAttributePoints_D2F788;
+    const std::int32_t remainingPoints = callbackWindow->ownerSession->WorldScene().unspentAttributePoints;
     if (remainingPoints > 0) {
         const std::int32_t quick = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(3)];
         std::int32_t total = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(4)];

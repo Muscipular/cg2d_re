@@ -201,10 +201,10 @@ std::int32_t __cdecl HandleSpatialSoundSourceReply_50E6C0(cg::network::CgConnect
 }
 
 // 原 [0x50CF60,0x50CF6A)：直接发布完整第二参数。
-std::int32_t HandleRemainingAttributePointsReply_50CF60(cg::network::CgConnection&,
+std::int32_t HandleRemainingAttributePointsReply_50CF60(cg::network::CgConnection& connection,
     const std::int32_t value)
 {
-    world::gPlayerUnspentAttributePoints_D2F788 = value;
+    connection.Owner().WorldScene().unspentAttributePoints = value;
     return value;
 }
 
@@ -234,7 +234,7 @@ std::uint16_t Sub_50D3B0(cg::network::CgConnection&,
 std::int32_t HandleMapBgmChangeReply_50E310(cg::network::CgConnection& connection,
     const std::int32_t value)
 {
-    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t gate = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (gate != 0U) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -260,7 +260,7 @@ void HandlePaletteTransitionReply_50E630(cg::network::CgConnection&,
 std::int32_t HandleDuelPointResultReply_50D700(cg::network::CgConnection& connection,
     const char* const payload)
 {
-    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t gate = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (gate != 0U) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -282,7 +282,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
     const std::int32_t withRecord, const std::int32_t mode,
     const char* const payload)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -373,9 +373,9 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
 }
 
 // 原函数：0x0050E830。
-std::int32_t HandleGuildMailResetReply_50E830(cg::network::CgConnection&)
+std::int32_t HandleGuildMailResetReply_50E830(cg::network::CgConnection& connection)
 {
-    const std::uint32_t state = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t state = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (state != 0) {
         return std::bit_cast<std::int32_t>(state);
     }
@@ -385,9 +385,9 @@ std::int32_t HandleGuildMailResetReply_50E830(cg::network::CgConnection&)
 
 // GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
 // 原函数：0x0050F130。
-std::int32_t HandleGuildMemberRemovalReply_50F130(cg::network::CgConnection&, const std::int32_t key)
+std::int32_t HandleGuildMemberRemovalReply_50F130(cg::network::CgConnection& connection, const std::int32_t key)
 {
-    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t gate = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (gate != 0) {
         return std::bit_cast<std::int32_t>(gate);
     }
@@ -432,7 +432,7 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const st
 void HandleInventorySlotSwapReply_510460(cg::network::CgConnection& connection, const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     world::SwapPlayerOrPetItemSlots_51B630(connection.Owner(), firstGroup, firstIndex, secondGroup, secondIndex);

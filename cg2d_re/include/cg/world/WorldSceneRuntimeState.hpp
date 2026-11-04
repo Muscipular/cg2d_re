@@ -284,6 +284,12 @@ struct WorldSceneRuntimeState {
     std::uint32_t petDetailDraftChanged = 0; // 原D67B28，详情与属性/技能窗口共用。
     SkillRuntimeSlots playerSkills {}; // 原F1BAE0，职业名/技能/索引对的实际唯一owner。
     std::uint16_t skillReorderPending = 0; // 原DA3B20，独立于技能聚合清理的拖放门禁。
+    std::array<TitleRecord, 64> playerTitles {}; // 原FF0508，原始称号表。
+    std::array<TitleRecord, 64> sortedPlayerTitles {}; // 原DE03F8，独立排序副本。
+    std::int32_t initialDuelPoints = 0; // 原FDA6F8，不在原玩家六块清理范围。
+    std::int32_t unspentAttributePoints = 0; // 原D2F788。
+    std::uint32_t gameplayRepliesSuppressed = 0; // 原9A6E0C，完整W32门禁。
+    std::uint32_t logoutToTownPending = 0; // 原D67E78。
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};

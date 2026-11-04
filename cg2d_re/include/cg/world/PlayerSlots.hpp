@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 namespace cg::world {
 
@@ -21,5 +22,12 @@ static_assert(offsetof(SkillPairRecord, used) == 0);
 static_assert(offsetof(SkillPairRecord, index) == 2);
 static_assert(offsetof(SkillPairRecord, sequence) == 4);
 static_assert(sizeof(SkillPairRecord) == 8);
+
+// 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
+struct TitleRecord {
+    std::int32_t id; // 原 +0；负值表示无称号。
+    std::int32_t value; // 原 +4；50A300第三字段。
+    std::wstring text; // 原 +8；内部称号文本，协议入口保留原限制。
+};
 
 } // namespace cg::world

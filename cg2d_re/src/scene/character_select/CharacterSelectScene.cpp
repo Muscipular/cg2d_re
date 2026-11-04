@@ -974,7 +974,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             submission.element1FF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
             submission.element2F633F4 = element2;
             submission.element3DE0B04 = element3;
-            world::gInitialPlayerDuelPoints_FDA6F8 = 0;
+            connection.Owner().WorldScene().initialDuelPoints = 0;
             cg::audio::BeginBgmFadeOut_52B990();
             SaveCharacterCreationDraftSnapshot_4642C0(connection);
         } else if (answer == 2) {

@@ -19,7 +19,6 @@ class InputContext;
 namespace cg::world {
 
 // 原0xD2F788：504A30重置的独立S32槽。
-extern std::int32_t gPlayerUnspentAttributePoints_D2F788; // 原全局：0x00D2F788。
 
 // 原函数：0x0044B050。
 void AppendChatMessage_44B050(

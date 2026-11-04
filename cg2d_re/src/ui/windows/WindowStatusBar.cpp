@@ -603,7 +603,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                     const std::int32_t points = pet.lvFlag6C;
                     cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, name, points);
                 } else {
-                    const std::int32_t points = world::gPlayerUnspentAttributePoints_D2F788;
+                    const std::int32_t points = callbackWindow.ownerSession->WorldScene().unspentAttributePoints;
                     cg::text::FormatTo(buffer, L"现在有增加点数{}点。" /* 原常量参考：0x00556D50。 */, points);
                 }
             } else {

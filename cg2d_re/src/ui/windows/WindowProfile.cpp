@@ -237,10 +237,10 @@ static void WindowProfile_RouteReply(
 void WindowProfile_ReceiveReply(cg::network::CgConnection& connection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
-    if (world::gLogoutToTownPending_D67E78 != 0) {
+    if (connection.Owner().WorldScene().logoutToTownPending != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

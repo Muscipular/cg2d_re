@@ -240,10 +240,10 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
     }
     const std::int32_t mode = business.valuesCF4E50[0];
     if (mode == 0 || mode == 1) {
-        const std::int32_t id = world::gSortedTitlesDE03F8[business.valuesCF4E50[1] + index - 26].id;
+        const std::int32_t id = callbackWindow.ownerSession->WorldScene().sortedPlayerTitles[business.valuesCF4E50[1] + index - 26].id;
         // 删除模式直接查原表，只有普通选择先拒绝负id。
         if (mode == 1 || id >= 0) {
-            const std::int32_t originalIndex = world::FindTitleIndexById(id);
+            const std::int32_t originalIndex = world::FindTitleIndexById(*callbackWindow.ownerSession, id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
                     static_cast<void>(callbackWindow.ownerSession->Connection().DeletePlayerTitleRequest(originalIndex));
@@ -518,7 +518,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
     auto* const element10 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element10);
     if (element10) {
         auto* const titleData = element10->data.text;
-        const wchar_t* const title = world::GetTitleText(titleIndex);
+        const wchar_t* const title = world::GetTitleText(*callbackWindow->ownerSession, titleIndex);
         titleData->text = title;
     }
 
@@ -548,7 +548,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
     if (auto* const handleButtons_22Element = currentWindow->FindElementById(WindowPlayerTitlesElementId::HandleButtons_22); handleButtons_22Element) handleButtons_22Element->visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
-        world::gSortedTitlesDE03F8.data() + business.valuesCF4E50[1];
+        callbackWindow->ownerSession->WorldScene().sortedPlayerTitles.data() + business.valuesCF4E50[1];
     for (std::int32_t index = 10; index < 16; ++index) {
         WindowInstance* const window = currentWindow;
         const wchar_t* const text = record->text.data();

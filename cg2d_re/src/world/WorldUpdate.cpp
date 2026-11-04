@@ -122,7 +122,7 @@ void Update(session::ClientSession& session)
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();
         session.WorldScene().battle.entryPending = 0;
-        gGameplayRepliesSuppressed_9A6E0C = 0;
+        session.WorldScene().gameplayRepliesSuppressed = 0;
         detail::InitializeGameplayNotifications_504A30(session);
         detail::ResetBattleCommandSelection_43C8F0();
         detail::ResetSceneUiState_504100(session);
@@ -130,7 +130,7 @@ void Update(session::ClientSession& session)
         detail::LoadContactAndGuildMailFiles_518CB0();
         session.WorldScene().pendingMapBgmIndex = 0xFFFFFFFFu;
         session.WorldScene().mapBgmChangePending = 0;
-        gLogoutToTownPending_D67E78 = 0;
+        session.WorldScene().logoutToTownPending = 0;
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene(session);

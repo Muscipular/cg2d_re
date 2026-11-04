@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/world/GuildState.hpp"
 
 #include "cg/input/Input.hpp"
@@ -124,9 +125,9 @@ const wchar_t* GetGuildRankText(const std::int32_t index) noexcept
 }
 
 // 原函数：0x0050E850。
-void HandleGuildInfoReply_50E850(cg::network::CgConnection&, const char* const text)
+void HandleGuildInfoReply_50E850(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     const auto mask = static_cast<std::uint32_t>(
@@ -194,9 +195,9 @@ void HandleGuildInfoReply_50E850(cg::network::CgConnection&, const char* const t
 }
 
 // 原函数：0x0050EB40。
-void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection&, const char* const text)
+void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
     std::int32_t remaining = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -326,9 +327,9 @@ static std::int32_t ParseOrderedRecord_50EF70(
 }
 
 // 原函数：0x0050EEB0。
-std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection&, std::uint32_t, const char* const text)
+std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection& connection, std::uint32_t, const char* const text)
 {
-    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t gate = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (gate != 0) {
         return gate;
     }
@@ -358,7 +359,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection&, std::uint
 // 原函数：0x0050EC50。
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connection, const char* const text)
 {
-    const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
+    const std::uint32_t gate = connection.Owner().WorldScene().gameplayRepliesSuppressed;
     if (gate != 0) {
         return gate;
     }

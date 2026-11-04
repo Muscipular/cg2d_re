@@ -742,7 +742,7 @@ static std::int32_t WindowSettings_ButtonLogout(WindowInstance& callbackWindow, 
             }
             static_cast<void>(audio::PlaySe_52C450(60, 320));
             consumed = 1;
-            world::gLogoutToTownPending_D67E78 = 1;
+            callbackWindow.ownerSession->WorldScene().logoutToTownPending = 1;
         }
         graphic->imageNo = 0x3B8D1;
         if ((state & MouseFlag_Hover) != 0) {

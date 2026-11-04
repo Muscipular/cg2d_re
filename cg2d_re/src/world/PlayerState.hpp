@@ -100,20 +100,10 @@ std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection& net
 // 原函数：0x0043C4B0。
 std::int32_t FindBattlePetIndex_43C4B0(session::ClientSession& session); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
 
-// 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
-struct TitleRecord {
-    std::int32_t id; // 原 +0；负值表示无称号。
-    std::int32_t value; // 原 +4；50A300第三字段。
-    std::wstring text; // 原 +8；内部称号文本，协议入口保留原限制。
-};
-
-extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F8。
-
 // 原函数：0x0050A300。
 void HandlePlayerTitlesReply_50A300(cg::network::CgConnection& networkConnection, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
-std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
-extern std::int32_t gInitialPlayerDuelPoints_FDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
+std::int32_t FindTitleIndexById(session::ClientSession& session, std::int32_t id); // 原表首匹配索引，未找到返回-1。
 // 原函数：0x0050BFA0。
 std::uint32_t HandlePlayerOptionsReply_50BFA0(cg::network::CgConnection& networkConnection, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 // 原函数：0x0050BFC0。
@@ -141,7 +131,7 @@ void CopyPlayerBarValues(
     session::ClientSession& session,
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
-const wchar_t* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
+const wchar_t* GetTitleText(session::ClientSession& session, std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
 const wchar_t* GetPlayerDisplayText(session::ClientSession& session, std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
 // 原函数：0x00504B10。
 std::int32_t FindAttributeAllocationHintTarget_504B10(session::ClientSession& session); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
@@ -185,7 +175,6 @@ void BuildPetDisplayEntries_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
 // 原函数：0x00492250。
 void MarkPetDetailDraftChanged_492250(session::ClientSession& session); // 原[492250,49225B)，置刷新标志。
-extern std::array<TitleRecord, 64> gTitlesFF0508; // 原全局：0x00FF0508。
 // 原函数：0x005198D0。
 void SortTitleRecords_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。
 

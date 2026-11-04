@@ -9,7 +9,7 @@ namespace cg::ui {
 void WindowWorkResult_ReceiveReply(cg::network::CgConnection& connection, const std::int32_t result,
     const std::int32_t kind, const char* const text)
 {
-    if (world::gGameplayRepliesSuppressed_9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {
+    if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0 || world::ReadRippleGateOnce() != 0) {
         return;
     }
     switch (kind) {

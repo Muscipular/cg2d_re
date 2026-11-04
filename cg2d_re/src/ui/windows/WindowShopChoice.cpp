@@ -141,9 +141,9 @@ static network::SendResult WindowShopChoice_SendReply(session::ClientSession& se
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     return session.Connection().SendDialogResponse(x, y, request, target, 0, escapedReply);
 }
 
@@ -322,9 +322,9 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(session::ClientSession& s
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     return static_cast<std::int32_t>(session.Connection().SendDialogResponse(
         x, y, request, target, 0, escapedReply));
 }

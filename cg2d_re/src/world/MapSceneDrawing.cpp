@@ -236,8 +236,8 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
     session.WorldScene().map.framesSinceWindowReload = previousCount + 1u;
-    if ((gPlayerX != gLastMapDrawPlayerX_9EE8D0)
-        || (gPlayerY != gLastMapDrawPlayerY_9EE8E0)
+    if ((session.WorldScene().map.crypt->playerX != session.WorldScene().map.crypt->lastDrawPlayerX)
+        || (session.WorldScene().map.crypt->playerY != session.WorldScene().map.crypt->lastDrawPlayerY)
         || session.WorldScene().movement.mapWindowReloadPending != 0) {
         const std::int32_t loadYEnd = session.WorldScene().map.yEnd;
         const std::int32_t loadXEnd = session.WorldScene().map.xEnd;
@@ -319,41 +319,41 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
 
     detail::SortAndMergeMapDrawCache_46C2F0();
     static_cast<void>(detail::QueueMergedMapDrawCache_46C1C0());
-    const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
+    const std::int32_t playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        gLastMapDrawPlayerX_9EE8D0.readCount = readCount;
-        gLastMapDrawPlayerX_9EE8D0.encoded = encoded;
-        gLastMapDrawPlayerX_9EE8D0.mask = mask;
+        session.WorldScene().map.crypt->lastDrawPlayerX.readCount = readCount;
+        session.WorldScene().map.crypt->lastDrawPlayerX.encoded = encoded;
+        session.WorldScene().map.crypt->lastDrawPlayerX.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        gLastMapDrawPlayerX_9EE8D0.mask = mask;
-        gLastMapDrawPlayerX_9EE8D0.encoded = encoded;
-        gLastMapDrawPlayerX_9EE8D0.readCount = readCount;
+        session.WorldScene().map.crypt->lastDrawPlayerX.mask = mask;
+        session.WorldScene().map.crypt->lastDrawPlayerX.encoded = encoded;
+        session.WorldScene().map.crypt->lastDrawPlayerX.readCount = readCount;
     }
     temporary.reset();
-    const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
+    const std::int32_t playerY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     temporary.emplace(static_cast<std::int32_t>(playerY));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint32_t mask = temporary->mask;
-        gLastMapDrawPlayerY_9EE8E0.readCount = readCount;
-        gLastMapDrawPlayerY_9EE8E0.encoded = encoded;
-        gLastMapDrawPlayerY_9EE8E0.mask = mask;
+        session.WorldScene().map.crypt->lastDrawPlayerY.readCount = readCount;
+        session.WorldScene().map.crypt->lastDrawPlayerY.encoded = encoded;
+        session.WorldScene().map.crypt->lastDrawPlayerY.mask = mask;
     } else {
         const std::uint32_t mask = temporary->mask;
         const std::uint32_t encoded = temporary->encoded;
         const std::uint8_t readCount = temporary->readCount;
-        gLastMapDrawPlayerY_9EE8E0.mask = mask;
-        gLastMapDrawPlayerY_9EE8E0.encoded = encoded;
-        gLastMapDrawPlayerY_9EE8E0.readCount = readCount;
+        session.WorldScene().map.crypt->lastDrawPlayerY.mask = mask;
+        session.WorldScene().map.crypt->lastDrawPlayerY.encoded = encoded;
+        session.WorldScene().map.crypt->lastDrawPlayerY.readCount = readCount;
     }
     temporary.reset();
     audio::SubmitSpatialSoundSources_52CD60();

@@ -755,8 +755,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     craft.recipeIndex = recipe;
     craft.selectionMode = 0;
     craft.recipeId = session.WorldScene().playerSkills.skills[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
@@ -778,8 +778,8 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
     craft.requestValue = request;
     craft.skillIndex = skill;
     craft.selectionMode = 3;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
@@ -804,8 +804,8 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     if (kind == 1) {
         craft.selectionMode = 15;
     }
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
@@ -826,8 +826,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, 
     craft.requestValue = request;
     craft.skillIndex = skill;
     craft.selectionMode = 9;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
@@ -849,8 +849,8 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session,
     craft.requestValue = request;
     craft.skillIndex = skill;
     craft.selectionMode = 12;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);

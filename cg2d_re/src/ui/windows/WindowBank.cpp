@@ -390,9 +390,9 @@ static void WindowBank_Release(WindowInstance& releasedWindow)
     const std::int32_t userState = std::bit_cast<std::int32_t>(WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].value14);
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(releasedWindow.ownerSession->WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(releasedWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(releasedWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
@@ -1553,9 +1553,9 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
                     std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value14);
                 const std::int32_t y =
-                    static_cast<std::int32_t>(world::gPlayerY);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                 const std::int32_t x =
-                    static_cast<std::int32_t>(world::gPlayerX);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             }
         }
@@ -1713,9 +1713,9 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
                 std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value14);
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             window = currentWindow;
             auto* const confirmedElement = window->FindElementById(elementId);

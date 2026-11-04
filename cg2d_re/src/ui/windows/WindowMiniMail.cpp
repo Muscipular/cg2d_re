@@ -226,8 +226,8 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {

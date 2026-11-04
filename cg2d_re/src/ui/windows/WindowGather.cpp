@@ -140,8 +140,8 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
         default:
             break;
     }
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     skillOperation.extraDelay = 2000;
     WindowRuntime_IncrementOperationCount(session);
@@ -791,8 +791,8 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-            const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+            const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
+            const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(WindowProfile_SaveOrigin(*callbackWindow.ownerSession, x, y));
             static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));

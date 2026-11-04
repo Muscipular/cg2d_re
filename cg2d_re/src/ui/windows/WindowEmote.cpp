@@ -158,9 +158,9 @@ std::int32_t WindowEmote_Select(session::ClientSession& session, const std::int3
     WindowEmote_ClearSelection(session);
     session.UiFrame().native.emoteSelection[index] = 1;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     return WindowProfile_SaveOrigin(session, x, y);
 }
 

@@ -141,9 +141,9 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
     }
     targets.callback = callback;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     return WindowRuntime_CreateAnimation(session, WindowId_TradeTarget, 1, 0, nullptr);
 }

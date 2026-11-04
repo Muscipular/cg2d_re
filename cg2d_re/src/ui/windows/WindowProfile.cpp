@@ -152,12 +152,12 @@ std::int32_t WindowProfile_SaveOrigin(session::ClientSession& session, const std
 std::int32_t WindowProfile_CheckDistance(session::ClientSession& session, const std::int32_t rangeX, const std::int32_t rangeY)
 {
     auto& npcDialog = session.WorldScene().npcDialog;
-    const double playerX = static_cast<std::int32_t>(world::gPlayerX) * 64.0;
+    const double playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX) * 64.0;
     if (playerX != std::bit_cast<float>(
             static_cast<std::uint32_t>(session.WorldScene().map.worldXBits))) {
         return 0;
     }
-    const double playerY = static_cast<std::int32_t>(world::gPlayerY) * 64.0;
+    const double playerY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY) * 64.0;
     if (playerY != std::bit_cast<float>(
             static_cast<std::uint32_t>(session.WorldScene().map.worldYBits))) {
         return 0;
@@ -208,8 +208,8 @@ static void WindowProfile_RouteReply(
     npcDialog.value = value;
     npcDialog.request = request;
     npcDialog.target = target;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     switch (type) {
     case 38:
@@ -243,7 +243,7 @@ void WindowProfile_ReceiveReply(cg::network::CgConnection& connection, const std
     if (connection.Owner().WorldScene().logoutToTownPending != 0) {
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     detail::WindowProfile_RouteReply(connection.Owner(), type, value, request, target, text);

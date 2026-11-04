@@ -777,7 +777,7 @@ static std::int32_t WindowSettings_ButtonServerSelect(WindowInstance& callbackWi
             if (callbackWindow.ownerSession->WorldScene().sceneType == 10) {
                 callbackWindow.ownerSession->WorldScene().sceneState = 9;
             } else {
-                world::gSceneTransitionValue = std::int32_t{0};
+                callbackWindow.ownerSession->WorldScene().map.crypt->sceneTransitionValue = std::int32_t{0};
                 static_cast<void>(world::SetPendingSceneType(*callbackWindow.ownerSession, 7));
             }
             static_cast<void>(audio::PlaySe_52C450(60, 320));

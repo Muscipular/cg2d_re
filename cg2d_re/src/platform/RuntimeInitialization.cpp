@@ -177,53 +177,15 @@ static const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStat
 
 namespace cg::world {
 
-// 原0x00456FD0／0x00456FE0／0x00457000：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
-
-} // namespace cg::world
-
-namespace cg::world {
-
-// 原0x00467B90／0x00467BA0／0x00467BD0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gPlayerX{}; // 原全局：0x009EE8A8。
-platform::LegacyCryptInt gPlayerY{}; // 原全局：0x009EE8C0。
-
-// 原0x00467BF0／0x00467C00／0x00467C20：中央原位置直接构造，MSVC承接退出析构。
-platform::LegacyCryptInt gPlayerSnapshotX{}; // 原全局：0x00C751C0。
-// 原0x00467C30／0x00467C40／0x00467C60：紧接X构造，退出先Y后X；各构造一次RNG。
-platform::LegacyCryptInt gPlayerSnapshotY{}; // 原全局：0x00C751B0。
-
-// 原0x00467C70／0x00467C80／0x00467CA0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gLastMapDrawPlayerX_9EE8D0{}; // 原全局：0x009EE8D0。
-
-// 原0x00467CB0／0x00467CC0／0x00467CE0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gLastMapDrawPlayerY_9EE8E0{}; // 原全局：0x009EE8E0。
-
-// 原0x00467CF0／0x00467D00／0x00467D30：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValueC27FF8{}; // 原全局：0x00C27FF8。
-platform::LegacyCryptInt gValueC27FE8{}; // 原全局：0x00C27FE8。
-
-// 原0x00467D50／0x00467D60／0x00467D90：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gMoveTargetX9A7F88{}; // 原全局：0x009A7F88。
-platform::LegacyCryptInt gMoveTargetY9A7F98{}; // 原全局：0x009A7F98。
-
-// 原0x00467DB0／0x00467DC0／0x00467DE0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValueC821E8{}; // 原全局：0x00C821E8。
-
-// 原0x00467DF0／0x00467E00／0x00467E20：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValue9E03C0{}; // 原全局：0x009E03C0。
-
-// 原0x00467E30／0x00467E40／0x00467E60：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValue9FB918{}; // 原全局：0x009FB918。
-
-// 原0x00467E70／0x00467E80／0x00467EA0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gValueAF0FE8{}; // 原全局：0x00AF0FE8。
-
-// 原0x00467EB0／0x00467EC0／0x00467EE0：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gPlayerCoordinateSyncPending_C821D8{}; // 原全局：0x00C821D8。
-
-// 原0x00467EF0／0x00467F00／0x00467F20：原中央位置直接构造，MSVC承接逆序析构。
-platform::LegacyCryptInt gRippleGate{}; // 原全局：0x009A7FA8。
+// 原456FD0至467EF0：原位置按声明顺序构造十七CryptInt，实际寿命归会话。
+struct WorldMapCryptRuntimeStartup final {
+    WorldMapCryptRuntimeStartup()
+    {
+        InitializeWorldMapCryptStorage(cg::session::GetClientHost().FirstSession());
+    }
+};
+static_assert(std::is_trivially_destructible_v<WorldMapCryptRuntimeStartup>);
+static const WorldMapCryptRuntimeStartup gWorldMapCryptRuntimeStartup;
 
 } // namespace cg::world
 

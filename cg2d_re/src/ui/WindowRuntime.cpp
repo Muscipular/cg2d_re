@@ -805,8 +805,8 @@ static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& s
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     return static_cast<std::int32_t>(session.Connection().SendDialogResponse(
         x, y, value14, userState, 0, escapedReply));
 }
@@ -877,8 +877,8 @@ void WindowItem_RequestPetTransfer(
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(WindowRuntime_States(session)[WindowId_Bank].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(session)[WindowId_Bank].value14);
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(session.Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
 }
 
@@ -1080,9 +1080,9 @@ static void WindowItemDrag_Handle(
                 std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&inventory.normalSelector) + 1 : 0;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
             static_cast<void>(session.Connection().DropItemRequest(x, y, group, sourceIndex));
         }
         return;
@@ -3577,8 +3577,8 @@ void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
     if (remainingCount != 0 || skillOperation.rebirthEnabled == 0) {
         return;
     }
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
     const std::uint8_t previous = occupancy[7];
@@ -4518,8 +4518,8 @@ std::int32_t WindowRuntime_Render(session::ClientSession& session)
     auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
     if (skillOperation.rebirthEnabled != 0 && session.WorldScene().player->timerRemaining0C <= 0) {
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
         static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
@@ -4934,9 +4934,9 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
         return 0;
     }
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     const auto networkSession = session.Connection().CaptureSession();
     const auto result = session.Connection().SendWorldActionRequest(x, y, 62);
     skillOperation.rebirthEnabled = 0;

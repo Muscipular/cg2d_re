@@ -44,22 +44,6 @@ void DrawGearNormal_46C060(
     const render::GraphicDescriptor16* descriptor, std::uint8_t batchType,
     std::uint8_t layer = 10); // AF406：FIELD/倒地WING单独层，普通挂件仍走人物前后链。
 
-extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
-extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
-extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取，中央启动位置直接构造。
-extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取，中央启动位置直接构造。
-extern platform::LegacyCryptInt gLastMapDrawPlayerX_9EE8D0; // 原全局：0x009EE8D0。
-extern platform::LegacyCryptInt gLastMapDrawPlayerY_9EE8E0; // 原全局：0x009EE8E0。
-extern platform::LegacyCryptInt gValueC27FF8; // 原全局：0x00C27FF8。
-extern platform::LegacyCryptInt gValueC27FE8; // 原全局：0x00C27FE8。
-extern platform::LegacyCryptInt gMoveTargetX9A7F88; // 原全局：0x009A7F88。 原玩家移动目标 X。
-extern platform::LegacyCryptInt gMoveTargetY9A7F98; // 原全局：0x009A7F98。 原玩家移动目标 Y。
-extern platform::LegacyCryptInt gValueC821E8; // 原全局：0x00C821E8。
-extern platform::LegacyCryptInt gValue9E03C0; // 原全局：0x009E03C0。
-extern platform::LegacyCryptInt gValue9FB918; // 原全局：0x009FB918。
-extern platform::LegacyCryptInt gValueAF0FE8; // 原全局：0x00AF0FE8。
-extern platform::LegacyCryptInt gPlayerCoordinateSyncPending_C821D8; // 原全局：0x00C821D8。
-
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
 std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
@@ -225,7 +209,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session); /
 // 原函数：0x00468200。
 std::uint16_t __cdecl UpdatePlayerMapWindow_468200(session::ClientSession& session);        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 // 原函数：0x0046CEC0。
-std::int32_t __cdecl GetPlayerMapCoordinateSum_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
+std::int32_t __cdecl GetPlayerMapCoordinateSum_46CEC0(session::ClientSession& session);         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
 // 原函数：0x0046CEE0。
 std::int32_t __cdecl StorePlayerMapCoordinateSum_46CEE0(session::ClientSession& session);         // 原 [0x46CEE0,0x46CEFB)，并写 AF10C0。
 // 原函数：0x00468330。
@@ -245,7 +229,7 @@ std::int32_t __cdecl IsDirectionalMapTransitionCell_46AE60(session::ClientSessio
 std::int32_t __cdecl CalculateMapDataCrc_469240(
     const std::uint8_t* bytes, std::int32_t length); // 原 [0x469240,0x469284)，三平面校验的 W16 查表叶。
 // 原函数：0x004691D0。
-void __cdecl InvalidateMapDrawPosition_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
+void __cdecl InvalidateMapDrawPosition_4691D0(session::ClientSession& session); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
 // 原函数：0x00469290。
 std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
     network::CgConnection& connection, std::int32_t first, std::int32_t floor,

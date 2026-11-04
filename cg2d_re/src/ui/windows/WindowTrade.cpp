@@ -678,9 +678,9 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
             ownName->text = std::format(L"{:<16}", playerName);
         }
         const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
+            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
         const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
         static_cast<void>(WindowProfile_SaveOrigin(*callbackWindow.ownerSession, x, y));
     }
     if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
@@ -3080,7 +3080,7 @@ void WindowTrade_ReceiveTargetReply(cg::network::CgConnection& connection, const
     if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     static_cast<void>(detail::WindowTrade_OpenTargetList(connection.Owner(), text));
@@ -3096,7 +3096,7 @@ void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection,
         static_cast<void>(networkConnection.SendTradeDecision(0));
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(networkConnection.Owner()) != 0) {
         return;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
@@ -3111,7 +3111,7 @@ std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection& connectio
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3127,7 +3127,7 @@ std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection& connection
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3142,7 +3142,7 @@ std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection& connection,
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3156,7 +3156,7 @@ std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection& connection, 
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3170,7 +3170,7 @@ std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection& connect
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3185,7 +3185,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& conn
     if (scene != 0) {
         return scene;
     }
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(connection.Owner());
     if (gate != 0) {
         return gate;
     }
@@ -3205,7 +3205,7 @@ void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const 
     if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     if (value == 1) {

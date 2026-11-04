@@ -751,9 +751,9 @@ static void WindowCrystalExchangeShop_Submit(WindowInstance& callbackWindow, con
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escaped));
     currentWindow->state |= 0x8000u;
 }

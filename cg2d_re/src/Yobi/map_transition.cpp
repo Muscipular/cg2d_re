@@ -229,8 +229,8 @@ static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
-        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
+    if ((action->ownerSession->WorldScene().map.crypt->playerX != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerX)
+        || (action->ownerSession->WorldScene().map.crypt->playerY != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerY)) {
         return;
     }
     auto* const payload = action->payload.mapTransition;
@@ -283,8 +283,8 @@ static void AppendStraightTransitionStep_446B50(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
-        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
+    if ((action->ownerSession->WorldScene().map.crypt->playerX != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerX)
+        || (action->ownerSession->WorldScene().map.crypt->playerY != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerY)) {
         return;
     }
     const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->searchDirection02);
@@ -318,22 +318,22 @@ static void AppendTransitionStepTowardPlayer_446C10(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) > 0) {
         return;
     }
-    if ((world::gPlayerX != world::gLastMapDrawPlayerX_9EE8D0)
-        || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
+    if ((action->ownerSession->WorldScene().map.crypt->playerX != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerX)
+        || (action->ownerSession->WorldScene().map.crypt->playerY != action->ownerSession->WorldScene().map.crypt->lastDrawPlayerY)) {
         return;
     }
-    if (TransitionDistance(&world::gPlayerX, &action->mapX1E0) <= 1
-        && TransitionDistance(&world::gPlayerY, &action->mapY1F0) <= 1) {
+    if (TransitionDistance(&action->ownerSession->WorldScene().map.crypt->playerX, &action->mapX1E0) <= 1
+        && TransitionDistance(&action->ownerSession->WorldScene().map.crypt->playerY, &action->mapY1F0) <= 1) {
         return;
     }
-    if ((world::gPlayerX - action->mapX1E0) > 0) {
+    if ((action->ownerSession->WorldScene().map.crypt->playerX - action->mapX1E0) > 0) {
         stepX = 1;
-    } else if ((world::gPlayerX - action->mapX1E0) < 0) {
+    } else if ((action->ownerSession->WorldScene().map.crypt->playerX - action->mapX1E0) < 0) {
         stepX = -1;
     }
-    if ((world::gPlayerY - action->mapY1F0) > 0) {
+    if ((action->ownerSession->WorldScene().map.crypt->playerY - action->mapY1F0) > 0) {
         stepY = 1;
-    } else if ((world::gPlayerY - action->mapY1F0) < 0) {
+    } else if ((action->ownerSession->WorldScene().map.crypt->playerY - action->mapY1F0) < 0) {
         stepY = -1;
     }
     const std::int32_t x =
@@ -546,8 +546,8 @@ static std::int32_t UpdateTransitionTrail(
 static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
-        || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
+    if (TransitionDistance(&action->mapX1E0, &action->ownerSession->WorldScene().map.crypt->playerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &action->ownerSession->WorldScene().map.crypt->playerY) >= 13) {
         world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
@@ -703,8 +703,8 @@ static std::int32_t UpdateStraightBlinkTransition_447610(YobiAction* const actio
         payload->countdown38 = 10;
         payload->frame30 = frame ^ 1u;
     }
-    if (TransitionDistance(&action->mapX1E0, &world::gPlayerX) >= 13
-        || TransitionDistance(&action->mapY1F0, &world::gPlayerY) >= 13) {
+    if (TransitionDistance(&action->mapX1E0, &action->ownerSession->WorldScene().map.crypt->playerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &action->ownerSession->WorldScene().map.crypt->playerY) >= 13) {
         world::RecreateWorldObjectAction_4467D0(*action->ownerSession, action, payload->objectIndex28);
         MarkDeath(action);
         return 0;
@@ -742,8 +742,8 @@ static std::int32_t UpdateApproachingBlinkTransition_447820(YobiAction* const ac
         return 0;
     }
     if (TransitionMovementIdle(action)
-        && (TransitionDistance(&action->mapX1E0, &world::gPlayerX) > 1
-            || TransitionDistance(&action->mapY1F0, &world::gPlayerY) > 1)) {
+        && (TransitionDistance(&action->mapX1E0, &action->ownerSession->WorldScene().map.crypt->playerX) > 1
+            || TransitionDistance(&action->mapY1F0, &action->ownerSession->WorldScene().map.crypt->playerY) > 1)) {
         AppendTransitionStepTowardPlayer_446C10(action);
     }
     UpdateMapActorPathMovement_4424B0(action);

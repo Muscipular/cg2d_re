@@ -380,8 +380,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
                 && (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50(*callbackWindow.ownerSession) == 0) {
                 const std::int16_t pet = petIndex(business.selectedPetCC3E5C);
-                const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-                const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+                const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
+                const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));

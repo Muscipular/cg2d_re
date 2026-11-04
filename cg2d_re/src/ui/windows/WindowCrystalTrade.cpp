@@ -28,9 +28,9 @@ std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, con
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, L""));
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));

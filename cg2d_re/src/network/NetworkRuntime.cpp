@@ -285,7 +285,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection,
     if (connection.Owner().WorldScene().gameplayRepliesSuppressed != 0) {
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     const std::int32_t convertedImageNo =

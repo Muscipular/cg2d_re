@@ -149,7 +149,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(WindowInstance& callbackWindow,
         return 0;
     }
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     cg::text::FormatTo(data->text, L"{:3}", x);
     return 0;
 }
@@ -167,7 +167,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(WindowInstance& callbackWindow,
         return 0;
     }
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
     cg::text::FormatTo(data->text, L"{:3}", y);
     return 0;
 }

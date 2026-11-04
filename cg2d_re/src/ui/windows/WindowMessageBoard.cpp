@@ -299,9 +299,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
         const std::int32_t target = npcDialog.target;
         const std::int32_t request = npcDialog.request;
         const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
+            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
         const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
         static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
         return 1;
@@ -327,9 +327,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escapedText));
             inputs.messageBoardPrototype.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
@@ -359,9 +359,9 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 const std::int32_t request = npcDialog.request;
                 escaped.clear();
                 const std::int32_t y =
-                    static_cast<std::int32_t>(world::gPlayerY);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                 const std::int32_t x =
-                    static_cast<std::int32_t>(world::gPlayerX);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33) ? 32 : 16, escaped));
                 static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
                 consumed = 1;

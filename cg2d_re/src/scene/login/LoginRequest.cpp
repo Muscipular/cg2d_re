@@ -201,7 +201,7 @@ std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection& connection, con
     request.logoutReplyCode = 2;
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
     // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
-    world::gSceneTransitionValue = std::int32_t{0};
+    connection.Owner().WorldScene().map.crypt->sceneTransitionValue = std::int32_t{0};
     static_cast<void>(world::SetPendingSceneType(connection.Owner(), 7));
     return audio::PlaySe_52C450(60, 320);
 }

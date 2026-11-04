@@ -96,8 +96,8 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSessio
 static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
     auto& targets = session.UiFrame().native.itemTargets;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     targets.records.fill({});
     const wchar_t* const ownName = world::GetPlayerDisplayText(session, 1);
@@ -154,8 +154,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& 
     if (index >= 0) {
         const std::int32_t item = inventory.currentItem;
         const std::int32_t target = targets.attributes[index].target;
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
         static_cast<void>(session.Connection().SendItemUseRequest(x, y, item, target));
     }
     if (index == -1) {
@@ -216,8 +216,8 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
 {
     auto& business = session.UiFrame().native.business;
     auto& targets = session.UiFrame().native.itemTargets;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t selected = targets.selected;
     targets.attributeCount = 0;
@@ -310,7 +310,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
 // 原函数：0x0050E380。
 void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     static_cast<void>(detail::WindowItemUse_ReceiveTextTargets(connection.Owner(), text));
@@ -319,7 +319,7 @@ void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection& connection,
 // 原函数：0x0050E3A0。
 void WindowItemUse_ReceiveAttributeTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     static_cast<void>(detail::WindowItemUse_ReceiveAttributeTargets(connection.Owner(), text));

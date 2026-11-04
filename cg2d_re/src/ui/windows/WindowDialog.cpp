@@ -722,8 +722,8 @@ static std::int32_t WindowDialog_Reply(
         }
         const std::int32_t target = dialog.reply.target;
         const std::int32_t request = dialog.reply.request;
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
         if (session.Connection().SendDialogResponse(x, y, request, target, button,
                 reply) != network::SendResult::Queued) { return 0; }
         npcDialog.type = -1;
@@ -735,8 +735,8 @@ static std::int32_t WindowDialog_Reply(
         reply = input::EscapeText(std::to_wstring(row + 1));
         const std::int32_t target = dialog.reply.target;
         const std::int32_t request = dialog.reply.request;
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
         if (session.Connection().SendDialogResponse(x, y, request, target, 0,
                 reply) != network::SendResult::Queued) { return 0; }
         npcDialog.type = -1;
@@ -845,9 +845,9 @@ static void WindowDialog_Route(
             npcDialog.request = request;
             npcDialog.target = target;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
             static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
             static_cast<void>(WindowMessageBoard_ReceiveRecords(session, value, text));
             static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_MessageBoard, 1, 0, nullptr));
@@ -901,9 +901,9 @@ static void WindowDialog_Route(
     npcDialog.request = request;
     npcDialog.target = target;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     switch (type) {
     case 0:
@@ -1262,7 +1262,7 @@ void WindowDialog_ReceiveReply(cg::network::CgConnection& networkConnection, con
     if (networkConnection.Owner().WorldScene().logoutToTownPending != 0) {
         return;
     }
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(networkConnection.Owner()) != 0) {
         return;
     }
     detail::WindowDialog_RouteReply(networkConnection, type, value, request, target, text);

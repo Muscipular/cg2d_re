@@ -1449,9 +1449,9 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
                 const std::int32_t target = npcDialog.target;
                 const std::int32_t request = npcDialog.request;
                 const std::int32_t y =
-                    static_cast<std::int32_t>(world::gPlayerY);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                 const std::int32_t x =
-                    static_cast<std::int32_t>(world::gPlayerX);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -1509,9 +1509,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
@@ -1524,9 +1524,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
@@ -1542,9 +1542,9 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
             const std::int32_t request = npcDialog.request;
             const std::wstring text = L"";
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, text));
             npcDialog.type = -2;
             break;
@@ -2058,9 +2058,9 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2137,9 +2137,9 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             npcDialog.type = -2;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2252,9 +2252,9 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
     npcDialog.type = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -2314,9 +2314,9 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, requestText));
             currentWindow->state &= ~2u;
             acceptImage = 245324;

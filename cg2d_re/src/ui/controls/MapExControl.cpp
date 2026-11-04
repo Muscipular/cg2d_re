@@ -268,8 +268,8 @@ void WindowMapExData::SyncVisibleMapIfNeeded(session::ClientSession& session, in
         return;
     }
 
-    int playerX = static_cast<std::int32_t>(world::gPlayerX);
-    int playerY = static_cast<std::int32_t>(world::gPlayerY);
+    int playerX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
+    int playerY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     int startX = session.WorldScene().map.xStart;
     int startY = session.WorldScene().map.yStart;
     bool same = visibleMap.loaded

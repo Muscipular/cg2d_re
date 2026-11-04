@@ -15,7 +15,7 @@ void ClearMapName_9DAD30(session::ClientSession& session) noexcept; // 世界重
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
 void ResumePlayerAfterObservation_51BEF0(session::ClientSession& session) noexcept;
 
-std::int32_t ReadRippleGateOnce();
+std::int32_t ReadRippleGateOnce(session::ClientSession& session);
 
 // 原51C410：仅校验五槽索引，不检查宠物used。
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。

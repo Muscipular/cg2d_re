@@ -263,9 +263,9 @@ static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, co
             const std::int32_t target = npcDialog.target;
             const std::int32_t request = npcDialog.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, buffer));
             currentWindow->state |= 0x8000u;
             consumed = 1;
@@ -419,9 +419,9 @@ static std::int32_t WindowAppearance_SendDialogReply(
     const std::int32_t target = imageDialog.target;
     const std::int32_t request = imageDialog.request;
     const std::int32_t y =
-        static_cast<std::int32_t>(world::gPlayerY);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
     const std::int32_t x =
-        static_cast<std::int32_t>(world::gPlayerX);
+        static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(session.Connection().SendDialogResponse(x, y, request, target, button, escaped));
     npcDialog.type = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));

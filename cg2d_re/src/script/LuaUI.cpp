@@ -43,12 +43,12 @@ static ui::ElementId LuaElementIdField(lua_State* L, int table) {
 }
 
 static constexpr int LUA_REF_NONE = -1;
-static int ResolveLuaMapX(int mapX) {
-    return mapX >= 0 ? mapX : static_cast<std::int32_t>(world::gPlayerX);
+static int ResolveLuaMapX(session::ClientSession& session, int mapX) {
+    return mapX >= 0 ? mapX : static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
 }
 
-static int ResolveLuaMapY(int mapY) {
-    return mapY >= 0 ? mapY : static_cast<std::int32_t>(world::gPlayerY);
+static int ResolveLuaMapY(session::ClientSession& session, int mapY) {
+    return mapY >= 0 ? mapY : static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
 }
 
 static int ResolveLuaMapId(session::ClientSession& session, int mapId) {
@@ -795,7 +795,7 @@ ui::WindowElement* LuaWindow::AddScrollView(std::wstring_view name, int x, int y
 ui::WindowElement* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
     PendingLuaElement pending{ui::WindowElementType_MapEx, {}, callbacks};
     pending.data.mapEx = new ui::WindowMapExData;
-    pending.data.mapEx->mapX = ResolveLuaMapX(mapX); pending.data.mapEx->mapY = ResolveLuaMapY(mapY);
+    pending.data.mapEx->mapX = ResolveLuaMapX(*window.ownerSession, mapX); pending.data.mapEx->mapY = ResolveLuaMapY(*window.ownerSession, mapY);
     pending.data.mapEx->mapId = ResolveLuaMapId(*window.ownerSession, mapId); pending.data.mapEx->floor = ResolveLuaFloor(*window.ownerSession, floor);
     return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
@@ -1012,10 +1012,10 @@ static bool LuaPushMapControlField(lua_State* L, ui::WindowElement* control, con
 template<typename T>
 static void LuaApplyMapControlFields(lua_State* L, T* map) {
     if (LuaHasField(L, 2, "mapX")) {
-        map->mapX = ResolveLuaMapX(LuaGetIntField(L, 2, "mapX", -1));
+        map->mapX = ResolveLuaMapX(GetLuaConnection(L).Owner(), LuaGetIntField(L, 2, "mapX", -1));
     }
     if (LuaHasField(L, 2, "mapY")) {
-        map->mapY = ResolveLuaMapY(LuaGetIntField(L, 2, "mapY", -1));
+        map->mapY = ResolveLuaMapY(GetLuaConnection(L).Owner(), LuaGetIntField(L, 2, "mapY", -1));
     }
     if (LuaHasField(L, 2, "mapId")) {
         map->mapId = ResolveLuaMapId(GetLuaConnection(L).Owner(), LuaGetIntField(L, 2, "mapId", -1));

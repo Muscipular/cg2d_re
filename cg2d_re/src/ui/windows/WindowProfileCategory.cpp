@@ -473,8 +473,8 @@ static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbac
         buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);
         const std::int32_t target = npcDialog.target;
         const std::int32_t request = npcDialog.request;
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
         static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();
     }

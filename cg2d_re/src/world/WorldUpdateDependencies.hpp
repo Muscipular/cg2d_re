@@ -11,10 +11,6 @@ namespace cg::session { class ClientSession; }
 
 namespace cg::world {
 
-// 原73ECD0，508CF0与多个场景/UI共享；显式CRT生命周期，禁止创建登录副本。
-extern platform::LegacyCryptInt gRippleGate; // 原全局：0x009A7FA8，波纹门禁。
-extern platform::LegacyCryptInt gSceneTransitionValue; // 原全局：0x0073ECD0。
-
 // World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 // 原函数：0x0045F190。
 std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connection); // 原 0x45F190。

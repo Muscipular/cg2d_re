@@ -686,21 +686,21 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     } else if ((action->flags & YobiActionFlag_GroundItem) != 0) {
         if (action->ownerSession->WorldScene().player->action != action) {
             const std::int32_t lowerX =
-                (world::gPlayerX - 16);
+                (action->ownerSession->WorldScene().map.crypt->playerX - 16);
             bool outside = (action->mapX1E0 < static_cast<std::int32_t>(lowerX));
             if (!outside) {
                 const std::int32_t upperX =
-                    (world::gPlayerX + 16);
+                    (action->ownerSession->WorldScene().map.crypt->playerX + 16);
                 outside = (upperX < action->mapX1E0);
             }
             if (!outside) {
                 const std::int32_t lowerY =
-                    (world::gPlayerY - 16);
+                    (action->ownerSession->WorldScene().map.crypt->playerY - 16);
                 outside = (action->mapY1F0 < static_cast<std::int32_t>(lowerY));
             }
             if (!outside) {
                 const std::int32_t upperY =
-                    (world::gPlayerY + 16);
+                    (action->ownerSession->WorldScene().map.crypt->playerY + 16);
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {

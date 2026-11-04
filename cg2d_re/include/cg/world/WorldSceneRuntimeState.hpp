@@ -9,6 +9,7 @@
 #include "cg/world/MapEffectRuntimeState.hpp"
 #include "cg/world/MapDataRuntimeState.hpp"
 #include "cg/world/GameTime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>
 #include <cstddef>
@@ -20,6 +21,7 @@
 #include <vector>
 
 namespace cg::yobi { struct YobiAction; }
+namespace cg::session { class ClientSession; }
 namespace cg::world {
 
 // 战斗具名效果记录，空名称表示未使用槽。
@@ -385,8 +387,39 @@ static_assert(sizeof(WorldMovementRuntimeState::pathX) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pathY) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
+// 中央转场值至波纹门禁的十七个原对象，声明顺序即原构造/RNG消费顺序。
+struct WorldMapCryptRuntimeState {
+    WorldMapCryptRuntimeState() = default;
+    WorldMapCryptRuntimeState(const WorldMapCryptRuntimeState&) = delete;
+    WorldMapCryptRuntimeState& operator=(const WorldMapCryptRuntimeState&) = delete;
+    WorldMapCryptRuntimeState(WorldMapCryptRuntimeState&&) = delete;
+    WorldMapCryptRuntimeState& operator=(WorldMapCryptRuntimeState&&) = delete;
+
+    platform::LegacyCryptInt sceneTransitionValue {}; // 原73ECD0。
+    platform::LegacyCryptInt playerX {}; // 原9EE8A8。
+    platform::LegacyCryptInt playerY {}; // 原9EE8C0。
+    platform::LegacyCryptInt playerSnapshotX {}; // 原C751C0。
+    platform::LegacyCryptInt playerSnapshotY {}; // 原C751B0。
+    platform::LegacyCryptInt lastDrawPlayerX {}; // 原9EE8D0。
+    platform::LegacyCryptInt lastDrawPlayerY {}; // 原9EE8E0。
+    platform::LegacyCryptInt valueC27FF8 {}; // 原C27FF8。
+    platform::LegacyCryptInt valueC27FE8 {}; // 原C27FE8。
+    platform::LegacyCryptInt moveTargetX {}; // 原9A7F88。
+    platform::LegacyCryptInt moveTargetY {}; // 原9A7F98。
+    platform::LegacyCryptInt valueC821E8 {}; // 原C821E8。
+    platform::LegacyCryptInt value9E03C0 {}; // 原9E03C0。
+    platform::LegacyCryptInt value9FB918 {}; // 原9FB918。
+    platform::LegacyCryptInt valueAF0FE8 {}; // 原AF0FE8。
+    platform::LegacyCryptInt coordinateSyncPending {}; // 原C821D8。
+    platform::LegacyCryptInt rippleGate {}; // 原9A7FA8。
+};
+
+// 中央原位置初始化一次；新增会话须在运行前显式初始化，不借隐藏活动owner。
+void InitializeWorldMapCryptStorage(session::ClientSession& session);
+
 // 地图实际数据、投影/波纹、移动分量与矩形请求窗口，由世界会话持有。
 struct WorldMapRuntimeState {
+    std::unique_ptr<WorldMapCryptRuntimeState> crypt;
     MapDataRuntimeState data {};
     std::uint32_t mapId = 0; // 原9A86DC。
     volatile std::int32_t floor = 0; // 原9EE8F0，保留逐次volatile读取。

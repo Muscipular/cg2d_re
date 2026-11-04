@@ -281,9 +281,9 @@ static void WindowTextList_Release(WindowInstance& releasedWindow)
         const std::int32_t target = textList.target;
         const std::int32_t request = textList.request;
         const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
+            static_cast<std::int32_t>(releasedWindow.ownerSession->WorldScene().map.crypt->playerY);
         const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<std::int32_t>(releasedWindow.ownerSession->WorldScene().map.crypt->playerX);
         static_cast<void>(releasedWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, L"C"));
     }
     npcDialog.type = -1;
@@ -622,9 +622,9 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
                 const std::int32_t target = textList.target;
                 const std::int32_t request = textList.request;
                 const std::int32_t y =
-                    static_cast<std::int32_t>(world::gPlayerY);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                 const std::int32_t x =
-                    static_cast<std::int32_t>(world::gPlayerX);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, packet));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
@@ -662,9 +662,9 @@ static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindo
             const std::int32_t target = textList.target;
             const std::int32_t request = textList.request;
             const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
             const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffer));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;

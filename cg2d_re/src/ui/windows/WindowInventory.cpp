@@ -725,8 +725,8 @@ static void WindowInventory_DropMoney(session::ClientSession& session, const std
 {
     if ((world::ReadPlayerActionFlagsByte(session) & 0x80u) == 0
         && world::IsObservationSceneTransitionActive_440B50(session) == 0) {
-        const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+        const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+        const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
         static_cast<void>(session.Connection().DropGoldRequest(x, y, amount));
     }
 }
@@ -898,9 +898,9 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                         const std::int32_t group = mode > 0
                             ? WindowItemSelector_ReadSelectedPet(&inventory.normalSelector) + 1 : 0;
                         const std::int32_t y =
-                            static_cast<std::int32_t>(world::gPlayerY);
+                            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                         const std::int32_t x =
-                            static_cast<std::int32_t>(world::gPlayerX);
+                            static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                         static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -1148,9 +1148,9 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
                             static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
-                                static_cast<std::int32_t>(world::gPlayerY);
+                                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                             const std::int32_t x =
-                                static_cast<std::int32_t>(world::gPlayerX);
+                                static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                             static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered, 0));
                         }
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -1333,9 +1333,9 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
                 const std::int32_t target = npcDialog.target;
                 const std::int32_t request = npcDialog.request;
                 const std::int32_t y =
-                    static_cast<std::int32_t>(world::gPlayerY);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
                 const std::int32_t x =
-                    static_cast<std::int32_t>(world::gPlayerX);
+                    static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
                 leaveSelection();
             }

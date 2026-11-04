@@ -565,8 +565,8 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
     auto& business = session.UiFrame().native.business;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t selected = targets.selected;
     const std::int32_t kind = targets.kinds[selected];
@@ -1771,8 +1771,8 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
         } else if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-            const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+            const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
+            const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
             static_cast<void>(session.Connection().SendWorldActionRequest(x, y, rebirth != 0 ? 62 : 61));
             auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const std::uint8_t previous = occupancy[7];
@@ -2662,8 +2662,8 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
 {
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
-    const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(session.WorldScene().playerSkills.skills[request.index].skillId);
     request.targetKind = kind;
@@ -2735,7 +2735,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
 // 原函数：0x0050E340。
 void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     detail::WindowSkill_ReceiveTextTargets(connection.Owner(), text);
@@ -2744,7 +2744,7 @@ void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection& connection, c
 // 原函数：0x0050E360。
 void WindowSkill_ReceiveAttributeTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
-    if (world::ReadRippleGateOnce() != 0) {
+    if (world::ReadRippleGateOnce(connection.Owner()) != 0) {
         return;
     }
     static_cast<void>(detail::WindowSkill_ReceiveAttributeTargets(connection.Owner(), text));

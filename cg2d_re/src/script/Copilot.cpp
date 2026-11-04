@@ -50,8 +50,6 @@ constexpr int kNearRetargetMaxSteps = 12;
 constexpr int kMoveSegmentSteps = 2;
 constexpr int kReplanMoveDistance = 5;
 
-static auto& gAutoTargetX = world::gMoveTargetX9A7F88;
-static auto& gAutoTargetY = world::gMoveTargetY9A7F98;
 
 
 struct DiskMapCache {
@@ -1391,9 +1389,9 @@ static bool buildNearRetargetPath(session::ClientSession& session, Point start, 
 
 static void requestMove(session::ClientSession& session, Point target)
 {
-    Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
-    gAutoTargetX = target.x;
-    gAutoTargetY = target.y;
+    Point player{static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY)};
+    session.WorldScene().map.crypt->moveTargetX = target.x;
+    session.WorldScene().map.crypt->moveTargetY = target.y;
     session.Lua().copilot.data->expectedAutoTarget = target;
     session.Lua().copilot.data->hasExpectedAutoTarget = true;
     // m_log_iw(L"[copilot] requestMove waypoint=%d,%d player=%d,%d\n", target.x, target.y, player.x, player.y);
@@ -1529,7 +1527,7 @@ static void PlanCopilot(session::ClientSession& session, int x, int y, bool rout
     copilot_detail::syncVisibleCache(session);
 
     copilot_detail::Point target{x, y};
-    copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
+    copilot_detail::Point player{static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY)};
     // m_log_iw(L"[copilot] plan player=%d,%d target=%d,%d map=%d group=%d floor=%d scene=%d state=%d\n", player.x, player.y, target.x, target.y, session.WorldScene().map.mapId, session.WorldScene().map.cachePathKey, session.WorldScene().map.floor, session.WorldScene().sceneType, session.WorldScene().sceneState);
     if (player.x == target.x && player.y == target.y) {
         // m_log_iw(L"[copilot] already arrived target=%d,%d\n", target.x, target.y);
@@ -1634,14 +1632,14 @@ void startCopilot(session::ClientSession& session, int x, int y)
     session.Lua().copilot.data->lastCellLogMs = 0;
     session.Lua().copilot.data->hasLastRequestedWaypoint = false;
     copilot_detail::clearCopilotRoute(session);
-    m_log_iw(L"[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY), session.WorldScene().sceneType, session.WorldScene().sceneState);
+    m_log_iw(L"[copilot] start target=%d,%d player=%d,%d scene=%d state=%d\n", x, y, static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY), session.WorldScene().sceneType, session.WorldScene().sceneState);
     PlanCopilot(session, x, y, true);
 }
 
 void stopCopilot(session::ClientSession& session)
 {
     if (session.Lua().copilot.data->copilotEnabled) {
-        m_log_iw(L"[copilot] stop target=%d,%d player=%d,%d\n", session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
+        m_log_iw(L"[copilot] stop target=%d,%d player=%d,%d\n", session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY));
     }
     session.Lua().copilot.data->copilotEnabled = false;
     copilot_detail::resetPlanCache(session);
@@ -1675,7 +1673,7 @@ void CopilotProc(session::ClientSession& session)
     }
     if (session.WorldScene().map.mapId != static_cast<std::uint32_t>(session.Lua().copilot.data->copilotMapId) || session.WorldScene().map.floor != session.Lua().copilot.data->copilotMapFloor) {
         m_log_iw(L"[copilot] stop map changed expected=%d,%d actual=%d,%d target=%d,%d player=%d,%d\n", session.Lua().copilot.data->copilotMapId,
-            session.Lua().copilot.data->copilotMapFloor, session.WorldScene().map.mapId, session.WorldScene().map.floor, session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY));
+            session.Lua().copilot.data->copilotMapFloor, session.WorldScene().map.mapId, session.WorldScene().map.floor, session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y, static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY));
         stopCopilot(session);
         return;
     }
@@ -1683,7 +1681,7 @@ void CopilotProc(session::ClientSession& session)
         return;
     }
 
-    copilot_detail::Point player{static_cast<std::int32_t>(cg::world::gPlayerX), static_cast<std::int32_t>(cg::world::gPlayerY)};
+    copilot_detail::Point player{static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX), static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY)};
     if (player.x == session.Lua().copilot.data->copilotTarget.x && player.y == session.Lua().copilot.data->copilotTarget.y) {
         m_log_iw(L"[copilot] arrived target=%d,%d\n", session.Lua().copilot.data->copilotTarget.x, session.Lua().copilot.data->copilotTarget.y);
         stopCopilot(session);
@@ -1693,7 +1691,7 @@ void CopilotProc(session::ClientSession& session)
         copilot_detail::resetMoveProgress(session);
     }
     if (session.Lua().copilot.data->hasExpectedAutoTarget) {
-        copilot_detail::Point clientTarget{static_cast<std::int32_t>(copilot_detail::gAutoTargetX), static_cast<std::int32_t>(copilot_detail::gAutoTargetY)};
+        copilot_detail::Point clientTarget{static_cast<std::int32_t>(session.WorldScene().map.crypt->moveTargetX), static_cast<std::int32_t>(session.WorldScene().map.crypt->moveTargetY)};
         if (!copilot_detail::samePoint(clientTarget, session.Lua().copilot.data->expectedAutoTarget)) {
             m_log_iw(L"[copilot] stop external target expected=%d,%d actual=%d,%d player=%d,%d\n", session.Lua().copilot.data->expectedAutoTarget.x,
                 session.Lua().copilot.data->expectedAutoTarget.y, clientTarget.x, clientTarget.y, player.x, player.y);

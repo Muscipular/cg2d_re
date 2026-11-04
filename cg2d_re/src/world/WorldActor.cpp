@@ -672,8 +672,8 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     static_cast<void>(SendCurrentPlayerMovementPath_50C8D0(session, x, y, text));
     session.WorldScene().lastExplicitFacingRequestTick = platform::ReadTickCount64();
 }
@@ -690,13 +690,13 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         cg::yobi::YobiAction* const action = ReadPetMapAction(session, index);
         const bool isPlayer = ReadPetMapObjectIndex(session, index) == playerIndex;
         if (isPlayer) {
-            const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
+            const double targetX = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerSnapshotX) * 64.0;
             const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
-            const double targetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
+            const double targetY = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerSnapshotY) * 64.0;
             const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -794,16 +794,16 @@ void MovePlayerOneStep_46B1B0(
             payload->attachedActor2C, previousX, previousY, speed, rate));
     }
 
-    gPlayerSnapshotX = static_cast<std::int32_t>(x);
-    gPlayerSnapshotY = static_cast<std::int32_t>(y);
+    session.WorldScene().map.crypt->playerSnapshotX = static_cast<std::int32_t>(x);
+    session.WorldScene().map.crypt->playerSnapshotY = static_cast<std::int32_t>(y);
 
     const std::int32_t pixelX =
-        (gPlayerSnapshotX * 64);
+        (session.WorldScene().map.crypt->playerSnapshotX * 64);
     const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        (gPlayerSnapshotY * 64);
+        (session.WorldScene().map.crypt->playerSnapshotY * 64);
     const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     const platform::detail::MapMoveDifference difference {
         differenceX,
@@ -984,13 +984,13 @@ void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
     if (session.WorldScene().player->action == nullptr) {
         return;
     }
-    const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
-    const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
+    const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerY);
+    const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().map.crypt->playerX);
     const std::int32_t blocked = IsMapCellBlocked_469810(session, x, y);
     cg::yobi::YobiAction* action = session.WorldScene().player->action;
     if (blocked != 0) {
-        gPlayerX = action->mapX1E0;
-        gPlayerY = action->mapY1F0;
+        session.WorldScene().map.crypt->playerX = action->mapX1E0;
+        session.WorldScene().map.crypt->playerY = action->mapY1F0;
     }
 
     const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
@@ -999,18 +999,18 @@ void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
     const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
     action = session.WorldScene().player->action;
-    action->mapX1E0 = gPlayerX;
+    action->mapX1E0 = session.WorldScene().map.crypt->playerX;
     action = session.WorldScene().player->action;
-    action->mapY1F0 = gPlayerY;
+    action->mapY1F0 = session.WorldScene().map.crypt->playerY;
     action = session.WorldScene().player->action;
     action->movementStepXBits_27C = session.WorldScene().map.movementStepXBits;
     const std::uint32_t movementY = session.WorldScene().map.movementStepYBits;
     action = session.WorldScene().player->action;
     action->movementStepYBits_280 = movementY;
     action = session.WorldScene().player->action;
-    action->mapX200 = gPlayerSnapshotX;
+    action->mapX200 = session.WorldScene().map.crypt->playerSnapshotX;
     action = session.WorldScene().player->action;
-    action->mapY210 = gPlayerSnapshotY;
+    action->mapY210 = session.WorldScene().map.crypt->playerSnapshotY;
 }
 
 } // namespace cg::world

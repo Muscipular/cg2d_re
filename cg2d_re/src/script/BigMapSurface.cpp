@@ -189,7 +189,7 @@ struct BigMapSurface::State {
     void SyncVisible(session::ClientSession& session) {
         const int spanX = session.WorldScene().map.spanX, spanY = session.WorldScene().map.spanY;
         if (spanX <= 0 || spanY <= 0 || static_cast<std::size_t>(spanX) * spanY > session.WorldScene().map.data.tiles.size()) return;
-        const int playerX = static_cast<int>(world::gPlayerX), playerY = static_cast<int>(world::gPlayerY);
+        const int playerX = static_cast<int>(session.WorldScene().map.crypt->playerX), playerY = static_cast<int>(session.WorldScene().map.crypt->playerY);
         for (int sy = 0; sy < spanY; ++sy) {
             const int gy = session.WorldScene().map.yStart + sy;
             if (gy < 0 || gy >= height || std::abs(gy - playerY) > 25) continue;

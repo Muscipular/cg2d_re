@@ -311,7 +311,7 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
     sourceRectangle[2] = GetCpuSurfaceWidth();
     sourceRectangle[3] = GetCpuSurfaceHeight();
 
-    const std::int32_t gate = world::ReadRippleGateOnce();
+    const std::int32_t gate = world::ReadRippleGateOnce(session);
     if (gate != 0) {
         session.WorldScene().map.rippleStrengthBits = 0;
         return gate;

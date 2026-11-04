@@ -535,8 +535,8 @@ struct BigMapWindowState final {
         CloseCustomEditor();
         editingCustomSlot = slot;
         const auto& entry = customPoints[slot];
-        const int x = adding ? (targetX >= 0 ? targetX : static_cast<int>(world::gPlayerX)) : entry.record.x;
-        const int y = adding ? (targetX >= 0 ? targetY : static_cast<int>(world::gPlayerY)) : entry.record.y;
+        const int x = adding ? (targetX >= 0 ? targetX : static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerX)) : entry.record.x;
+        const int y = adding ? (targetX >= 0 ? targetY : static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerY)) : entry.record.y;
         const std::array<std::wstring, 3> values{
             adding ? std::format(L"自定坐标{}", slot + 1) : entry.display.name,
             std::to_wstring(x), std::to_wstring(y)};
@@ -803,7 +803,7 @@ struct BigMapWindowState final {
         auto* const indexedElement2 = window.FindElementById(NativeElementKey(TextCurrentCoordinate));
         if (indexedElement2) {
             indexedElement2->data.text->text =
-                std::format(L"当前：{}  {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
+                std::format(L"当前：{}  {}", static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerX), static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerY));
         }
         auto* const indexedElement3 = window.FindElementById(NativeElementKey(TextTargetCoordinate));
         if (indexedElement3) {
@@ -906,8 +906,8 @@ struct BigMapWindowState final {
             LoadCustomPoints();
         }
         if (followPlayer) {
-            map.mapX = static_cast<int>(world::gPlayerX);
-            map.mapY = static_cast<int>(world::gPlayerY);
+            map.mapX = static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerX);
+            map.mapY = static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerY);
         }
         mapReady = map.PrepareMap(*window.ownerSession);
         if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
@@ -1347,7 +1347,7 @@ struct BigMapWindowState final {
         const UIClipRect clip{static_cast<short>(window.x), static_cast<short>(window.y),
             static_cast<short>(window.x + window.width), static_cast<short>(window.y + window.height)};
         const auto mapClip = Viewport();
-        const int px = static_cast<int>(world::gPlayerX), py = static_cast<int>(world::gPlayerY);
+        const int px = static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerX), py = static_cast<int>(window.ownerSession->WorldScene().map.crypt->playerY);
         DrawElements(clip);
         DrawCustomControls(clip);
         // 同层逆序绘制：底色晚于文字入队。70%不透明度对应Alpha 179。

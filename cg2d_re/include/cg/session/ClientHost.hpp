@@ -76,16 +76,8 @@ public:
         return sessions_.back();
     }
 
-    [[nodiscard]] bool SelectSession(const std::uint64_t id) noexcept
-    {
-        for (auto it = sessions_.begin(); it != sessions_.end(); ++it) {
-            if (it->id == id) {
-                current_ = it;
-                return true;
-            }
-        }
-        return false;
-    }
+    // 取消切出会话的未提交IME输入，目标原生关联成功后才发布当前身份。
+    [[nodiscard]] bool SelectSession(std::uint64_t id) noexcept;
 
     // 仅移除已保存、断线且完成会话资源清理的对象；当前项优先切向下一项。
     [[nodiscard]] bool RemoveSession(const std::uint64_t id) noexcept

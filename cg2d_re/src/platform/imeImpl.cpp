@@ -55,10 +55,39 @@ ImeRuntimeState::~ImeRuntimeState()
     std::free(candidateList);
 }
 
+static bool CancelSessionIme(session::ClientSession& session) noexcept
+{
+    auto& ime = session.UiFrame().ime;
+    const HIMC context = reinterpret_cast<HIMC>(ime.context);
+    if (context == nullptr) return false;
+    const bool hasComposition = !ime.composition.empty()
+        || ImmGetCompositionStringW(context, GCS_COMPSTR, nullptr, 0) > 0;
+    if (hasComposition
+        && ImmNotifyIME(context, NI_COMPOSITIONSTR, CPS_CANCEL, 0) == FALSE) {
+        return false;
+    }
+    // 取消可能同步派发关闭通知；重读所属候选指针，不重复释放旧快照。
+    if (ime.candidateList != nullptr
+        && ImmNotifyIME(context, NI_CLOSECANDIDATE, 0, 0) == FALSE) {
+        return false;
+    }
+    ime.composition.clear();
+    ime.attributes.clear();
+    ime.cursorPosition = 0;
+    ime.state73EFF0 = 0;
+    std::free(ime.candidateList);
+    ime.candidateList = nullptr;
+    return true;
+}
+
 bool AssociateSessionIme(session::ClientSession& session) noexcept
 {
     const HIMC context = reinterpret_cast<HIMC>(session.UiFrame().ime.context);
     if (context == nullptr) return false;
+    if (ReadWindowImeContext() == context) return true;
+    if (auto* const previousSession = FindWindowImeSession()) {
+        if (!CancelSessionIme(*previousSession)) return false;
+    }
     const HIMC previous = ImmAssociateContext(reinterpret_cast<HWND>(gLegacyWindow), context);
     if (ReadWindowImeContext() != context) return false;
     if (!gWindowDefaultImeContextCaptured) {

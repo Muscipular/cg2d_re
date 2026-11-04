@@ -17,6 +17,7 @@
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "../platform/imeImpl.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 #include "NetworkDispatchDependencies.hpp"
 
@@ -1380,6 +1381,18 @@ namespace cg::session {
 
 static ClientHost gClientHost;
 ClientHost& GetClientHost() noexcept { return gClientHost; }
+
+bool ClientHost::SelectSession(const std::uint64_t id) noexcept
+{
+    for (auto it = sessions_.begin(); it != sessions_.end(); ++it) {
+        if (it->id != id) continue;
+        if (it == current_) return true;
+        if (!platform::AssociateSessionIme(it->session)) return false;
+        current_ = it;
+        return true;
+    }
+    return false;
+}
 
 std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
 {

@@ -14,7 +14,8 @@ int InitializeIme_458FD0(session::ClientSession& session);
 // 原 sub_459040@[0x459040,0x459081)：恢复旧 context 并释放候选表。
 void ShutdownIme_459040(session::ClientSession& session);
 
-// 宿主切换显式关联目标上下文；通知按窗口实际句柄匹配稳定会话，不回退当前项。
+// 切换先取消原实际会话的未提交组合/候选，再关联目标；失败不发布新的当前项。
+// 通知按窗口实际句柄匹配稳定会话，不回退菜单当前项。
 [[nodiscard]] bool AssociateSessionIme(session::ClientSession& session) noexcept;
 [[nodiscard]] session::ClientSession* FindWindowImeSession() noexcept;
 

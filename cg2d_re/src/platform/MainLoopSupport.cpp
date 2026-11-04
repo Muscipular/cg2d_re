@@ -132,7 +132,7 @@ std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 }
 
 // 原 sub_423640@[0x423640,0x4237D5)：更新偏移/幅度后，将共享 Temp 裁剪回拷 Back。
-void ApplyScreenShake_423640(session::ClientSession& session)
+void ApplyScreenShake_423640(session::ClientSession& session, const bool submitPixels)
 {
     std::uint32_t offsetYBits;
     if (session.Yobi().gateMode == 1
@@ -175,6 +175,9 @@ void ApplyScreenShake_423640(session::ClientSession& session)
         }
     }
 
+    if (!submitPixels) {
+        return;
+    }
     const std::int32_t offsetX = static_cast<std::int16_t>(offsetXBits);
     const std::int32_t offsetY = static_cast<std::int16_t>(offsetYBits);
     std::int32_t destinationX = offsetX;

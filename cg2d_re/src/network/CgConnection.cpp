@@ -1420,9 +1420,6 @@ std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
 
 namespace cg::network {
 
-// 旧单会话入口暂借宿主首会话；全部业务显式迁移前不得创建第二会话。
-CgConnection& GetGameConnection() noexcept { return session::GetClientHost().FirstSession().Connection(); }
-
 CgConnection::SessionScope::SessionScope(CgConnection& owner) noexcept
     : owner_(owner), previousBound_(owner.impl_->contextBound), previousId_(owner.impl_->contextId)
 {

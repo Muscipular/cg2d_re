@@ -322,7 +322,4 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
-// 未迁移业务的首会话兼容入口；新增会话不得通过它查找连接。
-CgConnection& GetGameConnection() noexcept;
-
 } // namespace cg::network

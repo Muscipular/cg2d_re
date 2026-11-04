@@ -11,7 +11,7 @@
 
 namespace cg::session {
 
-// 进程级宿主；当前仅调度首会话，其他 owner 闭合后才接入新增/关闭业务。
+// 进程级宿主；主循环串行调度已初始化项，集合及当前项只能在帧边界改变。
 class ClientHost final {
 public:
     struct MenuEntry {

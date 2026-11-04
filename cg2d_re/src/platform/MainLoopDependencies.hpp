@@ -38,8 +38,8 @@ void KeepAlive_457AB0(network::CgConnection& connection);
 int UpdateAudioAndSkipMciClose_52CD30(session::ClientSession& session, std::int32_t value);
 // 原函数：0x00507140。
 void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session);
-// 原函数：0x00423640。
-void ApplyScreenShake_423640(session::ClientSession& session);
+// 原函数：0x00423640；后台仅推进偏移/幅度，不回拷共享像素。
+void ApplyScreenShake_423640(session::ClientSession& session, bool submitPixels = true);
 // 原函数：0x004589D0。
 std::uint64_t ReadSystemSeconds_4589D0();
 

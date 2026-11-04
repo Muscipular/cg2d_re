@@ -431,19 +431,7 @@ void ResumePlayerAfterObservation_51BEF0(session::ClientSession& session) noexce
     session.WorldScene().player->flags18C &= 0xFF7FFFFFu;
 }
 
-std::uint32_t gWorldProjectionSourceA = 0; // 原全局：0x009EE908。
-std::uint32_t gWorldProjectionSourceB = 0; // 原全局：0x009EE90C。
-std::uint32_t gWorldProjectionSourceC = 0; // 原全局：0x009EE904。
-std::uint32_t gWorldProjectionSourceD = 0; // 原全局：0x009EE8F4。
-std::uint32_t gWorldProjectionSnapshotA = 0; // 原全局：0x00AF10C4。
-std::uint32_t gWorldProjectionSnapshotB = 0; // 原全局：0x00AF10CC。
-std::uint32_t gWorldProjectionSnapshotC = 0; // 原全局：0x00AF10D0。
-std::uint32_t gWorldProjectionSnapshotD = 0; // 原全局：0x00AF10D4。
 
-volatile std::uint32_t gWorldCurrentXBits = 0; // 原 0x9DAD4C。
-volatile std::uint32_t gWorldCurrentYBits = 0; // 原 0x9DAD50。
-volatile std::uint32_t gWorldProjectionReferenceXBits = 0; // 原 0xC751A8。
-volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
@@ -487,7 +475,7 @@ std::int32_t IsMapDriftEffectAllowed_4493C0(session::ClientSession& session) noe
 }
 
 // 原函数：0x0046CE30。
-float* ProjectWorldToScreen_46CE30(
+float* ProjectWorldToScreen_46CE30(session::ClientSession& session,
     const float worldX,
     const float worldY,
     float* const outX,
@@ -495,17 +483,17 @@ float* ProjectWorldToScreen_46CE30(
 {
     return platform::Cg2dProjectWorldToScreenX87(
         worldX, worldY, outX, outY,
-        &gWorldProjectionReferenceXBits, &gWorldProjectionReferenceYBits);
+        &session.WorldScene().map.projectionReferenceXBits, &session.WorldScene().map.projectionReferenceYBits);
 }
 
 // 原函数：0x0046CE80。
-float* ProjectScreenToWorld_46CE80(
+float* ProjectScreenToWorld_46CE80(session::ClientSession& session,
     const float screenX, const float screenY,
     float* const outX, float* const outY) noexcept
 {
     return platform::Cg2dProjectScreenToWorldX87(
         screenX, screenY, outX, outY,
-        &gWorldProjectionReferenceXBits, &gWorldProjectionReferenceYBits);
+        &session.WorldScene().map.projectionReferenceXBits, &session.WorldScene().map.projectionReferenceYBits);
 }
 
 // 原函数：0x0051C770。
@@ -533,16 +521,16 @@ std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t s
 }
 
 // 原函数：0x00468FF0。
-std::uint32_t CopyWorldProjectionState_468FF0()
+std::uint32_t CopyWorldProjectionState_468FF0(session::ClientSession& session)
 {
-    const std::uint32_t a = gWorldProjectionSourceA;
-    const std::uint32_t b = gWorldProjectionSourceB;
-    const std::uint32_t c = gWorldProjectionSourceC;
-    gWorldProjectionSnapshotA = a;
-    const std::uint32_t d = gWorldProjectionSourceD;
-    gWorldProjectionSnapshotB = b;
-    gWorldProjectionSnapshotC = c;
-    gWorldProjectionSnapshotD = d;
+    const std::uint32_t a = session.WorldScene().map.projectionSourceA;
+    const std::uint32_t b = session.WorldScene().map.projectionSourceB;
+    const std::uint32_t c = session.WorldScene().map.projectionSourceC;
+    session.WorldScene().map.projectionSnapshotA = a;
+    const std::uint32_t d = session.WorldScene().map.projectionSourceD;
+    session.WorldScene().map.projectionSnapshotB = b;
+    session.WorldScene().map.projectionSnapshotC = c;
+    session.WorldScene().map.projectionSnapshotD = d;
     return d;
 }
 
@@ -1503,7 +1491,7 @@ std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(session::ClientSes
 {
     float projectedX;
     float projectedY;
-    ProjectWorldToScreen_46CE30(0.0F, 0.0F, &projectedX, &projectedY);
+    ProjectWorldToScreen_46CE30(session, 0.0F, 0.0F, &projectedX, &projectedY);
     const std::int32_t currentX = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(static_cast<std::int64_t>(
             projectedX + 0.5)));
@@ -2831,7 +2819,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(session::ClientSession& sessio
     static_cast<void>(StorePlayerMapCoordinateSum_46CEE0(session));
     const double currentX =
         static_cast<std::int32_t>(gPlayerX);
-    gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
+    session.WorldScene().map.worldXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
         static_cast<std::int32_t>(gPlayerY);
@@ -2846,7 +2834,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(session::ClientSession& sessio
     gPlayerSnapshotX.mask = snapshotXMask;
     const std::uint32_t snapshotYMask = gPlayerY.mask;
     gPlayerSnapshotY.readCount = snapshotYCount;
-    gWorldCurrentYBits = std::bit_cast<std::uint32_t>(
+    session.WorldScene().map.worldYBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(scaledY));
     gPlayerSnapshotY.encoded = snapshotYEncoded;
     gPlayerSnapshotY.mask = snapshotYMask;
@@ -2863,10 +2851,10 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(session::ClientSession& sessio
 
     gValueC27FE8 = std::int32_t{-1};
 
-    const std::uint32_t xBits = gWorldCurrentXBits;
-    const std::uint32_t finalYBits = gWorldCurrentYBits;
-    gWorldProjectionReferenceXBits = xBits;
-    gWorldProjectionReferenceYBits = finalYBits;
+    const std::uint32_t xBits = session.WorldScene().map.worldXBits;
+    const std::uint32_t finalYBits = session.WorldScene().map.worldYBits;
+    session.WorldScene().map.projectionReferenceXBits = xBits;
+    session.WorldScene().map.projectionReferenceYBits = finalYBits;
     return finalYBits;
 }
 
@@ -4146,11 +4134,11 @@ std::int32_t __cdecl LoadAndDrawMapTiles_469030(session::ClientSession& session)
     const std::int32_t rawX = (xStart + yEnd) * 64 - 64;
     const std::int32_t adjustedX = rawX - (rawX < 0 ? -1 : 0);
     const std::int32_t projectionX =
-        std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
+        std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceC);
     std::int32_t baseX = (adjustedX >> 1) + projectionX;
     const std::int32_t yTriple = 3 * (yEnd - xStart - 1);
     const std::int32_t projectionY =
-        std::bit_cast<std::int32_t>(gWorldProjectionSourceD);
+        std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceD);
     const std::int32_t rawY = yTriple * 16;
     std::int32_t result = rawY - (rawY < 0 ? -1 : 0);
     std::int32_t drawY = (result >> 1) + projectionY;
@@ -4663,14 +4651,14 @@ std::int32_t __cdecl ResetMapProjectionState_468F30(session::ClientSession& sess
 {
     session.WorldScene().map.projectionOffsetX = 0;
     session.WorldScene().map.projectionOffsetY = 0;
-    gWorldProjectionSourceA = 0;
-    gWorldProjectionSourceB = 0;
-    gWorldProjectionSnapshotA = 0;
-    gWorldProjectionSnapshotB = 0;
-    gWorldProjectionSourceC = 0;
-    gWorldProjectionSourceD = 0;
-    gWorldProjectionSnapshotC = 0;
-    gWorldProjectionSnapshotD = 0;
+    session.WorldScene().map.projectionSourceA = 0;
+    session.WorldScene().map.projectionSourceB = 0;
+    session.WorldScene().map.projectionSnapshotA = 0;
+    session.WorldScene().map.projectionSnapshotB = 0;
+    session.WorldScene().map.projectionSourceC = 0;
+    session.WorldScene().map.projectionSourceD = 0;
+    session.WorldScene().map.projectionSnapshotC = 0;
+    session.WorldScene().map.projectionSnapshotD = 0;
     return 0;
 }
 
@@ -4679,17 +4667,17 @@ std::int64_t __cdecl InitializeMapProjectionOrigin_468F70(session::ClientSession
 {
     float x;
     float y;
-    ProjectWorldToScreen_46CE30(0.0F, 0.0F, &x, &y);
+    ProjectWorldToScreen_46CE30(session, 0.0F, 0.0F, &x, &y);
     const std::int64_t projectedX = static_cast<std::int64_t>(
         x + 0.5);
     const double roundedY = y + 0.5;
-    gWorldProjectionSourceA = static_cast<std::uint32_t>(projectedX);
+    session.WorldScene().map.projectionSourceA = static_cast<std::uint32_t>(projectedX);
     const std::int64_t projectedY = static_cast<std::int64_t>(roundedY);
-    gWorldProjectionSourceC = static_cast<std::uint32_t>(projectedX);
-    gWorldProjectionSnapshotA = static_cast<std::uint32_t>(projectedX);
-    gWorldProjectionSourceB = static_cast<std::uint32_t>(projectedY);
-    gWorldProjectionSourceD = static_cast<std::uint32_t>(projectedY);
-    gWorldProjectionSnapshotB = static_cast<std::uint32_t>(projectedY);
+    session.WorldScene().map.projectionSourceC = static_cast<std::uint32_t>(projectedX);
+    session.WorldScene().map.projectionSnapshotA = static_cast<std::uint32_t>(projectedX);
+    session.WorldScene().map.projectionSourceB = static_cast<std::uint32_t>(projectedY);
+    session.WorldScene().map.projectionSourceD = static_cast<std::uint32_t>(projectedY);
+    session.WorldScene().map.projectionSnapshotB = static_cast<std::uint32_t>(projectedY);
     session.WorldScene().map.projectionOffsetX = 0;
     session.WorldScene().map.projectionOffsetY = 0;
     return projectedY;
@@ -5169,7 +5157,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     float projectedX;
     float projectedY;
     static_cast<void>(
-        ProjectScreenToWorld_46CE80(mouseX, mouseY, &projectedX, &projectedY));
+        ProjectScreenToWorld_46CE80(session, mouseX, mouseY, &projectedX, &projectedY));
     const std::int32_t pixelX = static_cast<std::int32_t>(
         static_cast<std::int64_t>(projectedX + 0.5));
     const double biasedY = projectedY + 0.5;
@@ -5185,7 +5173,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     gPlayerMoveTargetX = targetX;
     const float gridY = static_cast<float>(snappedY);
     const float gridX = static_cast<float>(targetX * 64);
-    ProjectWorldToScreen_46CE30(gridX, gridY, &projectedX, &projectedY);
+    ProjectWorldToScreen_46CE30(session, gridX, gridY, &projectedX, &projectedY);
     gMapTargetLeftClick_C8A7A0 = 0;
     gMapTargetLeftHeld_C8A7A4 = 0;
     gMapTargetInteractionClick_C8A7A8 = 0;
@@ -5500,11 +5488,11 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
             return static_cast<std::uint16_t>(pending);
         }
         const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
-        const std::uint32_t worldXBits = gWorldCurrentXBits;
+        const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
             const double targetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
-            const std::uint32_t worldYBits = gWorldCurrentYBits;
+            const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
                 if (session.WorldScene().movement.pathRebuildPending != 0 && session.WorldScene().movement.pendingDirectionCount == 0) {
@@ -5573,10 +5561,10 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
     AdvancePlayerWorldMovement_46A700(session);
     AdvancePlayerLeaderFollowers_46A940(session);
     const std::uint16_t result = UpdatePlayerMapWindow_468200(session);
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
-    gWorldProjectionReferenceXBits = worldXBits;
-    gWorldProjectionReferenceYBits = worldYBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
+    session.WorldScene().map.projectionReferenceXBits = worldXBits;
+    session.WorldScene().map.projectionReferenceYBits = worldYBits;
     return result;
 }
 
@@ -5590,12 +5578,12 @@ void SetPlayerMovementTarget_46A410(
 
     const std::int32_t pixelX =
         (gPlayerSnapshotX * 64);
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
         (gPlayerSnapshotY * 64);
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     const platform::detail::MapMoveDifference difference {
         differenceX,
         static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),
@@ -5648,12 +5636,12 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
 
     const float targetX = static_cast<float>(static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0);
     const double scaledTargetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(session.WorldScene().map.partyCatchUpRateBits);
     const float rawStepX = std::bit_cast<float>(session.WorldScene().map.movementStepXBits);
     const double scaledX = static_cast<double>(rateX) * rawStepX;
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
     const float stepX = static_cast<float>(scaledX);
     const float rateY = std::bit_cast<float>(session.WorldScene().map.partyCatchUpRateBits);
     const float rawStepY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
@@ -5665,24 +5653,24 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
     const double squaredX = static_cast<double>(stepX) * stepX;
     const double squaredStep = squaredY + squaredX;
     if (!(squaredStep >= distance)) {
-        const std::uint32_t currentXBits = gWorldCurrentXBits;
-        gWorldCurrentXBits = std::bit_cast<std::uint32_t>(static_cast<float>(
+        const std::uint32_t currentXBits = session.WorldScene().map.worldXBits;
+        session.WorldScene().map.worldXBits = std::bit_cast<std::uint32_t>(static_cast<float>(
             static_cast<double>(std::bit_cast<float>(currentXBits)) + stepX));
-        const std::uint32_t currentYBits = gWorldCurrentYBits;
-        gWorldCurrentYBits = std::bit_cast<std::uint32_t>(static_cast<float>(
+        const std::uint32_t currentYBits = session.WorldScene().map.worldYBits;
+        session.WorldScene().map.worldYBits = std::bit_cast<std::uint32_t>(static_cast<float>(
             static_cast<double>(std::bit_cast<float>(currentYBits)) + stepY));
     } else {
         // 原先计算X格值，但先发布世界坐标/移动槽/C8222E，再截断并构造临时量。
         const double gridX = targetX * 0.015625;
-        gWorldCurrentXBits = std::bit_cast<std::uint32_t>(targetX);
-        gWorldCurrentYBits = std::bit_cast<std::uint32_t>(targetY);
+        session.WorldScene().map.worldXBits = std::bit_cast<std::uint32_t>(targetX);
+        session.WorldScene().map.worldYBits = std::bit_cast<std::uint32_t>(targetY);
         session.WorldScene().map.movementStepXBits = 0;
         session.WorldScene().map.movementStepYBits = 0;
         session.WorldScene().movement.reachedTarget = 1;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
         gPlayerX = static_cast<std::int32_t>(x);
 
-        const std::uint32_t currentYBits = gWorldCurrentYBits;
+        const std::uint32_t currentYBits = session.WorldScene().map.worldYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
             std::bit_cast<float>(currentYBits) * 0.015625));
         gPlayerY = static_cast<std::int32_t>(y);

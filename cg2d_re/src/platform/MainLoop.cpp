@@ -221,7 +221,7 @@ int MainLoop(session::ClientSession& session)
         }
         UpdateFrameDiagnostics(session);
         render::DrawAllQueued_520DD0(session);
-        world::CopyWorldProjectionState_468FF0();
+        world::CopyWorldProjectionState_468FF0(session);
         render::Flip_44C560();
 
         auto tick = getTickCount();
@@ -239,7 +239,7 @@ int MainLoop(session::ClientSession& session)
         gCatchUpCount = 1;
         gFrameCount = frame + 1;
         gLastRenderDt = deadline;
-        render::BackupValues_5208F0();
+        render::BackupValues_5208F0(session);
     }
 }
 

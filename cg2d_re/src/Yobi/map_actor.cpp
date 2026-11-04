@@ -303,7 +303,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
     constexpr std::array<std::int16_t, 8> angles {45, 0, 315, 270, 225, 180, 135, 90};
     float projectedX;
     float projectedY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &projectedX, &projectedY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &projectedX, &projectedY);
     std::int32_t screenX = static_cast<std::int32_t>(
         static_cast<std::int64_t>(projectedX + 0.5));
     std::int32_t screenY = static_cast<std::int32_t>(
@@ -535,7 +535,7 @@ std::int32_t UpdateMapActorTransitionPhase_43E490(YobiAction* const action)
     const std::int32_t index = payload->index;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -602,7 +602,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -870,7 +870,7 @@ YobiAction* CreateMapActorAction_441DB0(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(session, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(

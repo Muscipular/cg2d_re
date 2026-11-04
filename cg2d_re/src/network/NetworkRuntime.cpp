@@ -192,12 +192,12 @@ std::uint8_t* EncodeProtocolBase62_517730(
 }
 
 // 原 [0x50E6C0,0x50E6D8)：只转发后三个 W32 参数，透传空间音频生产者返回。
-std::int32_t __cdecl HandleSpatialSoundSourceReply_50E6C0(cg::network::CgConnection&,
+std::int32_t __cdecl HandleSpatialSoundSourceReply_50E6C0(cg::network::CgConnection& connection,
     const std::int32_t index,
     const std::int32_t sourceX,
     const std::int32_t sourceY)
 {
-    return audio::UpdateNearestSpatialSoundSource_52CDE0(index, sourceX, sourceY);
+    return audio::UpdateNearestSpatialSoundSource_52CDE0(connection.Owner(), index, sourceX, sourceY);
 }
 
 // 原 [0x50CF60,0x50CF6A)：直接发布完整第二参数。

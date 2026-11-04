@@ -150,7 +150,7 @@ YobiAction* CreateDepartingObservationGroup_43F330(
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*source->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -193,7 +193,7 @@ YobiAction* CreateArrivingObservationGroup_43FEB0(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*source->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -429,7 +429,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         const float worldX = parent->worldX;
         float screenX;
         float screenY;
-        world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+        world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
         parentX = static_cast<std::int32_t>(
             static_cast<std::int64_t>(screenX + 0.5));
         parentY = static_cast<std::int32_t>(
@@ -571,7 +571,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
     constexpr std::array<std::int16_t, 8> angles {45, 0, 315, 270, 225, 180, 135, 90};
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     std::int32_t x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     std::int32_t y = static_cast<std::int32_t>(
@@ -679,7 +679,7 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     std::int32_t x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     std::int32_t y = static_cast<std::int32_t>(
@@ -1096,7 +1096,7 @@ YobiAction* CreateRegisteredMapGraphicAction_46DE50(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(session, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -1111,7 +1111,7 @@ void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* const action)
     const float sceneX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(sceneX, sceneY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, sceneX, sceneY, &screenX, &screenY);
     const auto x = static_cast<std::int64_t>(screenX + 0.5);
     const double y = screenY + 0.5;
     action->x = static_cast<std::int32_t>(x);

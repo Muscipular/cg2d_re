@@ -150,7 +150,7 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -203,7 +203,7 @@ static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const a
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -380,7 +380,7 @@ static void DrawMovingTransition(
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -416,7 +416,7 @@ static void DrawTransitionOrbit(
             static_cast<double>(offsetX) + action->worldX);
         float screenX;
         float screenY;
-        world::ProjectWorldToScreen_46CE30(
+        world::ProjectWorldToScreen_46CE30(*action->ownerSession,
             projectedX, projectedY, &screenX, &screenY);
         action->x = static_cast<std::int32_t>(
             static_cast<std::int64_t>(screenX + 0.5));
@@ -490,7 +490,7 @@ static std::int32_t UpdateTransitionTrail(
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -809,7 +809,7 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -877,7 +877,7 @@ YobiAction* CreateMapTransitionAction_448040(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(session, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     const auto y = static_cast<std::int32_t>(

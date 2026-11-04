@@ -95,7 +95,7 @@ static void UpdateOneShotMapAnimation_4441A0(YobiAction* const action)
     const float worldX = action->worldX;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -153,7 +153,7 @@ YobiAction* CreateOneShotMapAnimation_444260(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*source->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -204,7 +204,7 @@ YobiAction* CreateMapAttachmentAction_444000(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*parent->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
@@ -885,7 +885,7 @@ YobiAction* NewYobiGearPet_441130(
     action->worldY = worldY;
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*source->ownerSession, worldX, worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(

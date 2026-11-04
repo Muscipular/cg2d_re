@@ -154,17 +154,17 @@ std::int32_t WindowProfile_CheckDistance(session::ClientSession& session, const 
     auto& npcDialog = session.WorldScene().npcDialog;
     const double playerX = static_cast<std::int32_t>(world::gPlayerX) * 64.0;
     if (playerX != std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentXBits))) {
+            static_cast<std::uint32_t>(session.WorldScene().map.worldXBits))) {
         return 0;
     }
     const double playerY = static_cast<std::int32_t>(world::gPlayerY) * 64.0;
     if (playerY != std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
+            static_cast<std::uint32_t>(session.WorldScene().map.worldYBits))) {
         return 0;
     }
     double distanceX = static_cast<double>(npcDialog.originX * 64)
         - std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentXBits));
+            static_cast<std::uint32_t>(session.WorldScene().map.worldXBits));
     if (distanceX < 0.0) {
         distanceX = -distanceX;
     }
@@ -173,7 +173,7 @@ std::int32_t WindowProfile_CheckDistance(session::ClientSession& session, const 
     }
     double distanceY = static_cast<double>(npcDialog.originY * 64)
         - std::bit_cast<float>(
-            static_cast<std::uint32_t>(world::gWorldCurrentYBits));
+            static_cast<std::uint32_t>(session.WorldScene().map.worldYBits));
     if (distanceY < 0.0) {
         distanceY = -distanceY;
     }

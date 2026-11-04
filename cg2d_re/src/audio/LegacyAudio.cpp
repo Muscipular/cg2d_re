@@ -8,6 +8,7 @@
 #include "../platform/LegacyAudioMath.hpp"
 
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/SdlAudioBackend.hpp"
@@ -609,7 +610,7 @@ SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0()
 }
 
 // 原 [0x52CDE0,0x52CE97)；在同一空间音频表发布更近的屏幕坐标与距离。
-std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(
+std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(session::ClientSession& session,
     const std::int32_t index,
     const std::int32_t sourceX,
     const std::int32_t sourceY)
@@ -619,7 +620,7 @@ std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(
     platform::Cg2dScaleSpatialSourceX87(sourceX, sourceY, &worldX, &worldY);
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(session, worldX, worldY, &screenX, &screenY);
     return platform::Cg2dPublishSpatialProjectionX87(
         gSpatialRecords103D1C0.data(), index, &screenX, &screenY);
 }

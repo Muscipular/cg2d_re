@@ -691,13 +691,13 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         const bool isPlayer = ReadPetMapObjectIndex(session, index) == playerIndex;
         if (isPlayer) {
             const double targetX = static_cast<std::int32_t>(gPlayerSnapshotX) * 64.0;
-            const std::uint32_t worldXBits = gWorldCurrentXBits;
+            const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
-            const std::uint32_t worldYBits = gWorldCurrentYBits;
+            const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
                 || std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270) <= 0) {
@@ -768,10 +768,10 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         }
     }
     static_cast<void>(UpdatePlayerMapWindow_468200(session));
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
-    gWorldProjectionReferenceXBits = worldXBits;
-    gWorldProjectionReferenceYBits = worldYBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
+    session.WorldScene().map.projectionReferenceXBits = worldXBits;
+    session.WorldScene().map.projectionReferenceYBits = worldYBits;
     return worldXBits;
 }
 
@@ -799,12 +799,12 @@ void MovePlayerOneStep_46B1B0(
 
     const std::int32_t pixelX =
         (gPlayerSnapshotX * 64);
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
         (gPlayerSnapshotY * 64);
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     const platform::detail::MapMoveDifference difference {
         differenceX,
         static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),
@@ -993,10 +993,10 @@ void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
         gPlayerY = action->mapY1F0;
     }
 
-    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldXBits = session.WorldScene().map.worldXBits;
     action->worldX = std::bit_cast<float>(worldXBits);
     action = session.WorldScene().player->action;
-    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const std::uint32_t worldYBits = session.WorldScene().map.worldYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
     action = session.WorldScene().player->action;
     action->mapX1E0 = gPlayerX;

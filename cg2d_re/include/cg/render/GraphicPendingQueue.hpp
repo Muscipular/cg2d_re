@@ -150,17 +150,6 @@ extern std::int32_t gGraphicPaletteUploadCount;
 // 原 58B7E0，映像初值 -1；仅当整次绘制没有刷新上传时承接 628FDC。
 extern std::int32_t gLastUnrefreshedPaletteFrameVersion;
 
-// 原波纹后缓冲状态；共享槽保留W32位型，正常S32运算在消费者中完成。
-extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
-
-// 原 flt_1020EF0@0x1020EF0；浮点相位的唯一零初始化存储。
-extern float gRipplePhase_1020EF0;
-
-extern volatile std::uint32_t gRipplePreviousWorldXBits; // 原 0x1020EF4，F32。
-extern volatile std::uint32_t gRipplePreviousWorldYBits; // 原 0x1020EF8，F32。
-extern volatile std::uint32_t gRippleStrengthBits; // 原 0x1020EFC。
-extern volatile std::int32_t gRippleMapFloorCache; // 原 0x1020F00，S32。
-
 // 原 0x58B6E0 的 64 项有符号正弦近似表。
 extern const std::array<std::int32_t, 64> gRippleSineTable;
 
@@ -169,10 +158,10 @@ void DrawMatchingGraphicHover_507090(std::int32_t value4);
 
 // 原 sub_5208F0@[0x5208F0,0x520907)：原始 F32 位模式严格按
 // R current X -> R current Y -> W previous X -> W previous Y 执行。
-std::uint32_t BackupValues_5208F0();
+std::uint32_t BackupValues_5208F0(session::ClientSession& session);
 
 // 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
-void AdvanceRipplePhase_520910();
+void AdvanceRipplePhase_520910(session::ClientSession& session);
 
 // 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
 void WrapRipplePhase_520930(float* value);

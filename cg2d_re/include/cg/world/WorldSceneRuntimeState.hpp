@@ -384,7 +384,7 @@ static_assert(sizeof(WorldMovementRuntimeState::pathX) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pathY) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
-// 地图投影/移动分量、矩形请求窗口及自动地图重载门禁，由世界会话持有。
+// 地图实际数据、投影/波纹、移动分量与矩形请求窗口，由世界会话持有。
 struct WorldMapRuntimeState {
     MapDataRuntimeState data {};
     std::uint32_t mapId = 0; // 原9A86DC。
@@ -406,6 +406,24 @@ struct WorldMapRuntimeState {
     std::int32_t dayPeriodPaletteEnabled = 0; // 原73ED44。
     std::int32_t currentDayPeriod = 0; // 原73ED48。
     std::wstring name; // 原[9DAD30,9DAD4A)，宽字符串，协议仍保留24字节名称判断。
+    std::uint32_t projectionSourceA = 0; // 原9EE908。
+    std::uint32_t projectionSourceB = 0; // 原9EE90C。
+    std::uint32_t projectionSourceC = 0; // 原9EE904。
+    std::uint32_t projectionSourceD = 0; // 原9EE8F4。
+    std::uint32_t projectionSnapshotA = 0; // 原AF10C4。
+    std::uint32_t projectionSnapshotB = 0; // 原AF10CC。
+    std::uint32_t projectionSnapshotC = 0; // 原AF10D0。
+    std::uint32_t projectionSnapshotD = 0; // 原AF10D4。
+    volatile std::uint32_t worldXBits = 0; // 原9DAD4C，F32位型。
+    volatile std::uint32_t worldYBits = 0; // 原9DAD50。
+    volatile std::uint32_t projectionReferenceXBits = 0; // 原C751A8。
+    volatile std::uint32_t projectionReferenceYBits = 0; // 原C751A4。
+    volatile std::uint32_t rippleIntegerPhaseBits = 0; // 原1020EEC。
+    float ripplePhase = 0.0f; // 原1020EF0。
+    volatile std::uint32_t ripplePreviousWorldXBits = 0; // 原1020EF4。
+    volatile std::uint32_t ripplePreviousWorldYBits = 0; // 原1020EF8。
+    volatile std::uint32_t rippleStrengthBits = 0; // 原1020EFC。
+    volatile std::int32_t rippleMapFloorCache = 0; // 原1020F00。
     std::uint32_t projectionOffsetX = 0; // 原C3500C，投影差分W32位型。
     std::uint32_t projectionOffsetY = 0; // 原C75010。
     std::uint32_t playerCoordinateSum = 0; // 原AF10C0。

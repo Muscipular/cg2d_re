@@ -15,22 +15,6 @@ void ClearMapName_9DAD30(session::ClientSession& session) noexcept; // 世界重
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
 void ResumePlayerAfterObservation_51BEF0(session::ClientSession& session) noexcept;
 
-// 原世界等距投影状态的当前值与帧末快照；八槽均为独立 uint32_t，映像初值 0。
-extern std::uint32_t gWorldProjectionSourceA;   // 原 0x9EE908，R32。
-extern std::uint32_t gWorldProjectionSourceB;   // 原 0x9EE90C，R32。
-extern std::uint32_t gWorldProjectionSourceC;   // 原 0x9EE904，R32。
-extern std::uint32_t gWorldProjectionSourceD;   // 原 0x9EE8F4，R32。
-extern std::uint32_t gWorldProjectionSnapshotA; // 原 0xAF10C4，W32。
-extern std::uint32_t gWorldProjectionSnapshotB; // 原 0xAF10CC，W32。
-extern std::uint32_t gWorldProjectionSnapshotC; // 原 0xAF10D0，W32。
-extern std::uint32_t gWorldProjectionSnapshotD; // 原 0xAF10D4，W32。
-
-// 原波纹路径的世界状态；浮点坐标以 F32 位模式保存，映像初值均为 0。
-extern volatile std::uint32_t gWorldCurrentXBits;          // 原 0x9DAD4C，F32。
-extern volatile std::uint32_t gWorldCurrentYBits;          // 原 0x9DAD50，F32。
-extern volatile std::uint32_t gWorldProjectionReferenceXBits; // 原 0xC751A8，F32。
-extern volatile std::uint32_t gWorldProjectionReferenceYBits; // 原 0xC751A4，F32。
-
 std::int32_t ReadRippleGateOnce();
 
 // 原51C410：仅校验五槽索引，不检查宠物used。
@@ -44,13 +28,13 @@ std::int32_t IsMapFloorAllowed_448240(session::ClientSession& session) noexcept;
 std::int32_t IsMapDriftEffectAllowed_4493C0(session::ClientSession& session) noexcept;
 
 // 原 sub_46CE30@0x46CE30；X/Y 各写四字节，返回借用的 outX，不检查输出指针。
-float* ProjectWorldToScreen_46CE30(
+float* ProjectWorldToScreen_46CE30(session::ClientSession& session,
     float worldX,
     float worldY,
     float* outX,
     float* outY) noexcept;
 // 原46CE80：反投影，X写入后才读取Y参考位槽，返回原outX。
-float* ProjectScreenToWorld_46CE80(
+float* ProjectScreenToWorld_46CE80(session::ClientSession& session,
     float screenX, float screenY, float* outX, float* outY) noexcept;
 
 // 原 sub_51C770@0x51C770；先清当前场景状态，再写当前场景类型，返回 sceneType。
@@ -63,7 +47,7 @@ std::int32_t SetCurrentSceneTypeAndState(session::ClientSession& session, std::i
 std::int32_t SetPendingSceneType(session::ClientSession& session, std::int32_t sceneType);
 
 // 原 sub_468FF0@0x468FF0；按原指令顺序把世界投影当前值复制到帧末快照，返回 D。
-std::uint32_t CopyWorldProjectionState_468FF0();
+std::uint32_t CopyWorldProjectionState_468FF0(session::ClientSession& session);
 
 // 原 46FB20；一次 RAND 旋转写 100 项，返回 100，不清消费游标。
 std::int32_t InitializeRotationTable_46FB20(session::ClientSession& session);

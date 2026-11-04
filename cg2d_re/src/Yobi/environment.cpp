@@ -186,11 +186,11 @@ static std::int32_t AdvanceSceneEffectTableFrame_449570(YobiAction* const action
 // 原[4496C0,4496FE)：共享波纹对屏幕Y的补偿，返回除法修正位。
 static std::uint32_t ApplyRippleOffsetToSceneEffect_4496C0(YobiAction* const action)
 {
-    const std::uint32_t phase = render::gRippleIntegerPhaseBits;
+    const std::uint32_t phase = action->ownerSession->WorldScene().map.rippleIntegerPhaseBits;
     const std::int32_t y = action->y;
     const std::uint32_t index = (static_cast<std::uint32_t>(y >> 3) + phase) & 0x3Fu;
     const std::int32_t sine = render::gRippleSineTable[index];
-    const std::uint32_t strengthBits = render::gRippleStrengthBits;
+    const std::uint32_t strengthBits = action->ownerSession->WorldScene().map.rippleStrengthBits;
     const std::int32_t product = sine * std::bit_cast<std::int32_t>(strengthBits);
     action->y = y - product / 100;
     return product < 0 ? 1u : 0u;
@@ -271,7 +271,7 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
     }
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, action->worldX, action->worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(screenX) + action->origin_x_offset40 + 0.5));
     action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -324,7 +324,7 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
     }
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, action->worldX, action->worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(screenX) + action->origin_x_offset40 + 0.5));
     action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -510,7 +510,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
     }
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         action->origin_x_offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -746,7 +746,7 @@ static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
     static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, SceneEffectFrameGroup_Drift));
     float screenX;
     float screenY;
-    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    world::ProjectWorldToScreen_46CE30(*action->ownerSession, action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         action->origin_x_offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -861,7 +861,7 @@ void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
         return;
     }
     detail::EnsureTimedMapBackgroundEffect_448290(session);
-    render::AdvanceRipplePhase_520910();
+    render::AdvanceRipplePhase_520910(session);
     if (world::IsMapDriftEffectAllowed_4493C0(session) == 0) {
         return;
     }

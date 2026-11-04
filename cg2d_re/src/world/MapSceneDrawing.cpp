@@ -281,10 +281,10 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
     static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
     const std::int32_t xStart = session.WorldScene().map.xStart;
     const std::int32_t yEnd = session.WorldScene().map.yEnd;
-    const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
+    const auto projectionX = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceC);
     std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
     const std::int32_t rawY = 48 * (yEnd - xStart - 1);
-    const auto projectionY = std::bit_cast<std::int32_t>(gWorldProjectionSourceD);
+    const auto projectionY = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionSourceD);
     std::int32_t drawY = rawY / 2 + projectionY;
     std::int32_t firstRow = session.WorldScene().map.spanY - 1;
     std::int32_t firstColumn = 0;

@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <cstddef>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::audio {
 
 // LBG01：文件音乐只借旧设备就绪状态、音乐设置及普通BGM输出抑制。
@@ -68,7 +70,7 @@ std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept;
 // 原函数：0x0052CD40。
 SpatialAudioRecord* __cdecl ResetSpatialSoundSources_52CD40(); // 原 [0x52CD40,0x52CD5C)，重置 50 项并返回一过尾指针。
 // 原函数：0x0052CDE0。
-std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(
+std::int32_t __cdecl UpdateNearestSpatialSoundSource_52CDE0(session::ClientSession& session,
     std::int32_t index, std::int32_t sourceX, std::int32_t sourceY); // 原 [0x52CDE0,0x52CE97)。
 // 原 0x52C9E0；50 项请求生产，复用唯一音效定义表。
 std::int32_t __cdecl AccumulateSpatialSoundRequest_52C9E0(

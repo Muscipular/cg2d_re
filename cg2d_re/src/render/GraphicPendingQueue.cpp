@@ -44,23 +44,23 @@ static int CompareGraphicCache3_5222A0(const void* const left, const void* const
 
 // 原波纹坐标差 helper；读取顺序和每个 F32 落点均属于调用语义。
 // 原函数：0x005219C0。
-static void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
+static void CalculateRippleScreenDelta(session::ClientSession& session, float* const outX, float* const outY) noexcept
 {
-    const std::uint32_t previousYBits = gRipplePreviousWorldYBits;
-    const std::uint32_t previousXBits = gRipplePreviousWorldXBits;
+    const std::uint32_t previousYBits = session.WorldScene().map.ripplePreviousWorldYBits;
+    const std::uint32_t previousXBits = session.WorldScene().map.ripplePreviousWorldXBits;
     float previousScreenX;
     float previousScreenY;
-    world::ProjectWorldToScreen_46CE30(
+    world::ProjectWorldToScreen_46CE30(session,
         std::bit_cast<float>(previousXBits),
         std::bit_cast<float>(previousYBits),
         &previousScreenX,
         &previousScreenY);
 
-    const std::uint32_t currentYBits = world::gWorldCurrentYBits;
-    const std::uint32_t currentXBits = world::gWorldCurrentXBits;
+    const std::uint32_t currentYBits = session.WorldScene().map.worldYBits;
+    const std::uint32_t currentXBits = session.WorldScene().map.worldXBits;
     float currentScreenX;
     float currentScreenY;
-    world::ProjectWorldToScreen_46CE30(
+    world::ProjectWorldToScreen_46CE30(session,
         std::bit_cast<float>(currentXBits),
         std::bit_cast<float>(currentYBits),
         &currentScreenX,
@@ -110,12 +110,6 @@ std::uint8_t gSpecialGraphicPending = 0; // 原全局：0x01020EDC。
 std::int32_t gGraphicDirty = 0; // 原全局：0x01020EE8。
 std::uint32_t gRenderQueueMode103CF10 = 0; // 原全局：0x0103CF10。
 std::int32_t gGraphicPaletteUploadCount = 0; // 原全局：0x01020ECC。
-volatile std::uint32_t gRippleIntegerPhaseBits = 0; // 原 0x1020EEC。
-float gRipplePhase_1020EF0 = 0.0f; // 原全局：0x01020EF0。
-volatile std::uint32_t gRipplePreviousWorldXBits = 0; // 原 0x1020EF4。
-volatile std::uint32_t gRipplePreviousWorldYBits = 0; // 原 0x1020EF8。
-volatile std::uint32_t gRippleStrengthBits = 0; // 原 0x1020EFC。
-volatile std::int32_t gRippleMapFloorCache = 0; // 原 0x1020F00。
 
 const std::array<std::int32_t, 64> gRippleSineTable { // 原全局：0x0058B6E0。
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 11, 12,
@@ -191,19 +185,19 @@ std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const grap
 }
 
 // 原函数：0x005208F0。
-std::uint32_t BackupValues_5208F0()
+std::uint32_t BackupValues_5208F0(session::ClientSession& session)
 {
-    const std::uint32_t currentXBits = world::gWorldCurrentXBits;
-    const std::uint32_t currentYBits = world::gWorldCurrentYBits;
-    gRipplePreviousWorldXBits = currentXBits;
-    gRipplePreviousWorldYBits = currentYBits;
+    const std::uint32_t currentXBits = session.WorldScene().map.worldXBits;
+    const std::uint32_t currentYBits = session.WorldScene().map.worldYBits;
+    session.WorldScene().map.ripplePreviousWorldXBits = currentXBits;
+    session.WorldScene().map.ripplePreviousWorldYBits = currentYBits;
     return currentXBits;
 }
 
 // 原函数：0x00520910。
-void AdvanceRipplePhase_520910()
+void AdvanceRipplePhase_520910(session::ClientSession& session)
 {
-    gRipplePhase_1020EF0 += 0.25f;
+    session.WorldScene().map.ripplePhase += 0.25f;
 }
 
 // 原函数：0x00520930。
@@ -319,48 +313,48 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
 
     const std::int32_t gate = world::ReadRippleGateOnce();
     if (gate != 0) {
-        gRippleStrengthBits = 0;
+        session.WorldScene().map.rippleStrengthBits = 0;
         return gate;
     }
 
     if (world::IsMapFloorAllowed_448240(session) == 0) {
-        gRippleStrengthBits = 0;
+        session.WorldScene().map.rippleStrengthBits = 0;
         return 0;
     }
 
     const std::int32_t mapFloor = session.WorldScene().map.floor;
-    const std::int32_t cachedMapFloor = gRippleMapFloorCache;
+    const std::int32_t cachedMapFloor = session.WorldScene().map.rippleMapFloorCache;
     if (mapFloor != cachedMapFloor) {
-        gRippleMapFloorCache = mapFloor;
-        gRippleStrengthBits = 0;
+        session.WorldScene().map.rippleMapFloorCache = mapFloor;
+        session.WorldScene().map.rippleStrengthBits = 0;
     }
 
     static_cast<void>(CopyBackToTemp());
 
     float xDelta;
     float yDelta;
-    CalculateRippleScreenDelta(&xDelta, &yDelta);
+    CalculateRippleScreenDelta(session, &xDelta, &yDelta);
     static_cast<void>(xDelta);
 
-    const float phase = gRipplePhase_1020EF0;
-    gRipplePhase_1020EF0 = static_cast<float>(
+    const float phase = session.WorldScene().map.ripplePhase;
+    session.WorldScene().map.ripplePhase = static_cast<float>(
         static_cast<double>(phase) - yDelta);
-    WrapRipplePhase_520930(&gRipplePhase_1020EF0);
+    WrapRipplePhase_520930(&session.WorldScene().map.ripplePhase);
     const std::int32_t integerPhase =
-        static_cast<std::int32_t>(gRipplePhase_1020EF0);
+        static_cast<std::int32_t>(session.WorldScene().map.ripplePhase);
     std::int32_t strip = 0;
     sourceRectangle[2] = GetCpuSurfaceWidth();
-    gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);
+    session.WorldScene().map.rippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);
     sourceRectangle[0] = 0;
     std::int32_t destinationY = 0;
 
     do {
-        const std::uint32_t phaseBits = gRippleIntegerPhaseBits;
+        const std::uint32_t phaseBits = session.WorldScene().map.rippleIntegerPhaseBits;
         const std::int32_t phaseValue = std::bit_cast<std::int32_t>(phaseBits);
         const std::int32_t tableIndex = (phaseValue + strip) & 63;
         const std::int32_t tableValue =
             gRippleSineTable[static_cast<std::size_t>(tableIndex)];
-        const std::uint32_t strengthBits = gRippleStrengthBits;
+        const std::uint32_t strengthBits = session.WorldScene().map.rippleStrengthBits;
         const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);
         const std::int32_t product = tableValue * strength;
         const std::int32_t offset = product / 100;
@@ -377,11 +371,11 @@ std::int32_t ApplyScreenRipple_521870(session::ClientSession& session)
         ++strip;
     } while (destinationY < GetCpuSurfaceHeight());
 
-    const std::uint32_t strengthBits = gRippleStrengthBits;
+    const std::uint32_t strengthBits = session.WorldScene().map.rippleStrengthBits;
     const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);
     if (strength < 100) {
         const std::int32_t updatedStrength = strength + 2;
-        gRippleStrengthBits = std::bit_cast<std::uint32_t>(updatedStrength);
+        session.WorldScene().map.rippleStrengthBits = std::bit_cast<std::uint32_t>(updatedStrength);
         return updatedStrength;
     }
     return strength;

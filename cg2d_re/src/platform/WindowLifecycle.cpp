@@ -3,6 +3,7 @@
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "WindowProcedureState.hpp"
 #include "../world/BattleState.hpp"
 
 #include <Windows.h>
@@ -81,7 +82,12 @@ int PumpWindowMessages()
         if (message.message == WM_QUIT) {
             return 0;
         }
-        TranslateMessage(&message);
+        if (message.message != WM_KEYDOWN
+            || message.hwnd != reinterpret_cast<HWND>(gLegacyWindow)
+            || RouteSessionKeyDown(static_cast<std::uint32_t>(message.wParam),
+                static_cast<std::uint32_t>(message.lParam))) {
+            TranslateMessage(&message);
+        }
         DispatchMessageW(&message);
     }
     return 1;

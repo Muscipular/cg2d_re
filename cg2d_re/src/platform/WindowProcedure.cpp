@@ -20,6 +20,7 @@
 
 #include <imm.h>
 
+#include <array>
 #include <bit>
 #include <cstdlib>
 #include <string>
@@ -29,6 +30,30 @@ namespace cg::platform {
 std::uint32_t gCurrentClientWidth = 0; // 原全局：0x009A6F2C。
 std::uint32_t gCurrentClientHeight = 0; // 原全局：0x009A6F30。
 std::uint32_t gWindowResizePhase = 0; // 原全局：0x009A7F68。
+
+// 唯一物理输入路由；稳定ID不拥有会话，关闭后的抬起不能写入新当前项。
+static std::array<std::uint64_t, LegacyKeyStateCount> gKeyPressOwners {};
+static std::array<std::uint64_t, 2> gMousePressOwners {}; // 左、右真实按下归属。
+
+bool RouteSessionKeyDown(const std::uint32_t key, const std::uint32_t keyMessageBits) noexcept
+{
+    const auto currentId = session::GetClientHost().CurrentId();
+    auto& owner = gKeyPressOwners[key];
+    if ((keyMessageBits & 0x40000000u) == 0 || owner == 0) {
+        owner = currentId;
+    }
+    return currentId != 0 && owner == currentId;
+}
+
+static session::ClientSession* ConsumePhysicalPressOwner(
+    std::uint64_t& owner, const bool useCurrentWhenUnbound) noexcept
+{
+    const std::uint64_t id = owner;
+    owner = 0;
+    auto& host = session::GetClientHost();
+    return id != 0 ? host.FindSession(id)
+        : useCurrentWhenUnbound ? host.CurrentSession() : nullptr;
+}
 
 // 原函数：0x00459760。
 int ClearKeyFlags_459760(session::ClientSession& session) noexcept
@@ -161,6 +186,17 @@ static MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinate
     return MouseCoordinates {mappedX, mappedY};
 }
 
+static MouseCoordinates MapNonClientMouseCoordinates(HWND window, const std::uint32_t packedCoordinates)
+{
+    POINT point {
+        static_cast<std::int16_t>(static_cast<std::uint16_t>(packedCoordinates)),
+        static_cast<std::int16_t>(static_cast<std::uint16_t>(packedCoordinates >> 16))
+    };
+    static_cast<void>(ScreenToClient(window, &point));
+    return MapMouseCoordinates(static_cast<std::uint16_t>(point.x)
+        | (static_cast<std::uint32_t>(static_cast<std::uint16_t>(point.y)) << 16));
+}
+
 // 原 WIN_PROC@[0x466DC0,0x467904)。消息载荷先截取原 x86 低 32 位，
 // 默认分支仍把本机原生参数原样交还 DefWindowProcW。
 LRESULT CALLBACK WindowProcedure(
@@ -274,8 +310,6 @@ LRESULT CALLBACK WindowProcedure(
     case WM_NCMOUSEMOVE: {
         if (inputSession == nullptr) return 0;
         const std::uint32_t oldSuppression = inputSession->UiFrame().mouse.state->drawingSuppression;
-        inputSession->UiFrame().mouse.state->heldButtons = 0;
-        inputSession->UiFrame().mouse.state->edgeButtons = 0;
         if (oldSuppression == 0u) {
             ShowCursor(TRUE);
             inputSession->UiFrame().mouse.state->drawingSuppression = 1;
@@ -285,6 +319,7 @@ LRESULT CALLBACK WindowProcedure(
 
     case WM_KEYDOWN:
         if (inputSession == nullptr) return 0;
+        if (!RouteSessionKeyDown(wParam32, lParam32)) return 0;
         if ((wParam32 == 'V' && (::GetKeyState(VK_CONTROL) & 0x8000) != 0)
             || (wParam32 == VK_INSERT && (::GetKeyState(VK_SHIFT) & 0x8000) != 0)) {
             if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
@@ -298,11 +333,13 @@ LRESULT CALLBACK WindowProcedure(
         }
         return 0;
 
-    case WM_KEYUP:
-        if (inputSession == nullptr) return 0;
+    case WM_KEYUP: {
+        auto* const target = ConsumePhysicalPressOwner(gKeyPressOwners[wParam32], true);
+        if (target == nullptr) return 0;
         RebuildRendererIfGraphicDirty();
-        UpdateKeyUpState(*inputSession, wParam32);
+        UpdateKeyUpState(*target, wParam32);
         return 0;
+    }
 
     case WM_PASTE:
         if (auto* const currentSession = session::GetClientHost().CurrentSession()) {
@@ -318,12 +355,23 @@ LRESULT CALLBACK WindowProcedure(
         RebuildRendererIfGraphicDirty();
         if (wParam32 == VK_F10) {
             if (inputSession == nullptr) return 0;
+            if (!RouteSessionKeyDown(wParam32, lParam32)) return 0;
             // 原 4671C3..4671D4 仅在按位更新完成后写一次键状态。
             std::uint8_t pressed = static_cast<std::uint8_t>(inputSession->UiFrame().keyStates[VK_F10] | 2u);
             if ((pressed & 8u) == 0) {
                 pressed = static_cast<std::uint8_t>(pressed | 0x0Cu);
             }
             inputSession->UiFrame().keyStates[VK_F10] = static_cast<std::uint8_t>(pressed | 0x10u);
+            return 0;
+        }
+        return DefWindowProcW(window, message, wParam, lParam);
+
+    case WM_SYSKEYUP:
+        if (wParam32 == VK_F10) {
+            if (auto* const target = ConsumePhysicalPressOwner(gKeyPressOwners[wParam32], true)) {
+                RebuildRendererIfGraphicDirty();
+                UpdateKeyUpState(*target, wParam32);
+            }
             return 0;
         }
         return DefWindowProcW(window, message, wParam, lParam);
@@ -398,15 +446,17 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
+        gMousePressOwners[0] = session::GetClientHost().CurrentId();
         UpdateLegacyMouseLeftDown_506900(*inputSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_LBUTTONUP: {
-        if (inputSession == nullptr) return 0;
+        auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[0], true);
+        if (target == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseLeftUp_5069E0(*inputSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseLeftUp_5069E0(*target, coordinates.x, coordinates.y));
         return 0;
     }
 
@@ -416,6 +466,7 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
+        gMousePressOwners[0] = session::GetClientHost().CurrentId();
         static_cast<void>(
             UpdateLegacyMouseLeftDoubleClick_506A90(*inputSession, coordinates.x, coordinates.y));
         return 0;
@@ -427,15 +478,17 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
+        gMousePressOwners[1] = session::GetClientHost().CurrentId();
         UpdateLegacyMouseRightDown_506B50(*inputSession, coordinates.x, coordinates.y);
         return 0;
     }
 
     case WM_RBUTTONUP: {
-        if (inputSession == nullptr) return 0;
+        auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[1], true);
+        if (target == nullptr) return 0;
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         static_cast<void>(
-            UpdateLegacyMouseRightUp_506C40(*inputSession, coordinates.x, coordinates.y));
+            UpdateLegacyMouseRightUp_506C40(*target, coordinates.x, coordinates.y));
         return 0;
     }
 
@@ -445,10 +498,25 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
+        gMousePressOwners[1] = session::GetClientHost().CurrentId();
         static_cast<void>(
             UpdateLegacyMouseRightDoubleClick_506CF0(*inputSession, coordinates.x, coordinates.y));
         return 0;
     }
+
+    case WM_NCLBUTTONUP:
+        if (auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[0], false)) {
+            const MouseCoordinates coordinates = MapNonClientMouseCoordinates(window, lParam32);
+            static_cast<void>(UpdateLegacyMouseLeftUp_5069E0(*target, coordinates.x, coordinates.y));
+        }
+        return DefWindowProcW(window, message, wParam, lParam);
+
+    case WM_NCRBUTTONUP:
+        if (auto* const target = ConsumePhysicalPressOwner(gMousePressOwners[1], false)) {
+            const MouseCoordinates coordinates = MapNonClientMouseCoordinates(window, lParam32);
+            static_cast<void>(UpdateLegacyMouseRightUp_506C40(*target, coordinates.x, coordinates.y));
+        }
+        return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_MBUTTONDOWN:
         return 0;

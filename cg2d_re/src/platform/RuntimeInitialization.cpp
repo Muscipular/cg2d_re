@@ -212,7 +212,8 @@ static const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup {
 
 // 原CRT 5530A4；浏览宠物拥有者接管构析，不与玩家宠物共享。
 // 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。
-static const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
+static const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup {
+    cg::session::GetClientHost().FirstSession()};
 
 // 原CRT5530F8，原0x00506340／0x00506350／0x00506370：同一中央位置直接定义。
 // 原0x00506460／0x00506530／0x00506380：X→Y→八坐标构造，退出成员逆序。

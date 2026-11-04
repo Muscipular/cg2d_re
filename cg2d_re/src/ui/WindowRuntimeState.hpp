@@ -624,7 +624,6 @@ extern WindowPrototype& gWindowPrototype54E330; // 原全局：0x0054E330。
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session);
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
 WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
-extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。

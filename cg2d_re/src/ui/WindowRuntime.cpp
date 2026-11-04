@@ -225,8 +225,6 @@ WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session)
     return session.UiFrame().native.settings;
 }
 
-std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
-
 // IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
@@ -4830,9 +4828,9 @@ void WindowNumber_InitializeSpacing()
     gNumberAdvancesD67AC4[3] = fourth + 7;
 }
 
-std::uint8_t WindowRuntime_ReadUiGate() noexcept
+std::uint8_t WindowRuntime_ReadUiGate(session::ClientSession& session) noexcept
 {
-    return detail::gOwnStallOpenForBusiness_D67BE0;
+    return session.UiFrame().native.stall.openForBusiness;
 }
 
 std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept

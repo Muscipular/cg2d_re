@@ -139,14 +139,12 @@ struct StallBrowseData {
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
 
-// 指向原启动入口创建的唯一私有对象；不持有或复制宠物数据。
-static StallBrowseData* gStallBrowseData = nullptr;
+} // namespace detail
 
-// 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
-struct StallOffer {
-    std::int32_t slot;
-    std::int32_t value;
-};
+StallWindowRuntimeState::StallWindowRuntimeState() = default;
+StallWindowRuntimeState::~StallWindowRuntimeState() = default;
+
+namespace detail {
 
 // 回调与内部函数前置声明。
 
@@ -175,7 +173,7 @@ static void WindowStall_Release(WindowInstance&); // 67/68共用释放，条件�
 static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
 
 // 原函数：0x004D27C0。
-static std::int32_t WindowStall_AddListing(std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
+static std::int32_t WindowStall_AddListing(session::ClientSession& session, std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
 
 // 原函数：0x004CD4F0。
 static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
@@ -217,7 +215,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
 static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
 
 // 原函数：0x004CE8A0。
-static network::SendResult WindowStall_RequestClose(); // 收摊请求，透传发送结果。
+static network::SendResult WindowStall_RequestClose(session::ClientSession& session); // 收摊请求，透传发送结果。
 
 // 原函数：0x004CED50。
 static WindowInstance* WindowStall_ShowPurchaseConfirmation(WindowInstance* callbackWindow); // 显示购买确认，返回入口窗口。
@@ -235,7 +233,7 @@ static WindowElement* WindowStall_EditItemPrice(WindowInstance* callbackWindow);
 static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
 
 // 原函数：0x004CFD70。
-static std::int32_t WindowStall_RemoveListing(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
+static std::int32_t WindowStall_RemoveListing(session::ClientSession& session); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
 
 // 原函数：0x004D2260。
 static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
@@ -258,7 +256,7 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
     std::int32_t petIndex, std::int32_t attribute, std::int32_t x, std::int32_t y); // 候选属性条，透传末绘制返回。
 
 // 原函数：0x004D0990。
-static std::int32_t WindowStall_DrawPetSkills(
+static std::int32_t WindowStall_DrawPetSkills(session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t petIndex, std::int32_t skillPosition); // 浏览宠物技能，使用独立浏览记录。
 
 // 原函数：0x004D0A80。
@@ -271,56 +269,7 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, Ele
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 原全局：0x00C8A978。 摆摊结果提示，4D0230消费同一文本。
-static std::wstring gStallMessageC8A978 {}; // 原全局：0x00C8A978。
-
-// 原全局：0x00D67BE4。 原strncpy16及D67BF4终止字节。
-static std::wstring gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
-
-// 原全局：0x00D67C31。 请求与回复共用等待标记。
-static std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
-
-static std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
-
-static std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
-
-// 原全局：0x0057B440。 原可变金额串，止于下一数字原型57B450。
-static std::wstring gStallMoneyText57B440 {L"01234567"}; // 原全局：0x0057B440。
-
 static_assert(!std::is_trivially_destructible_v<StallBrowseData>);
-
-static std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
-
-static std::int32_t gStallItemCountD67BCC = 0; // 原全局：0x00D67BCC。
-
-static std::int32_t gStallPetPageD67BD0 = 0; // 原全局：0x00D67BD0。
-
-static std::int32_t gStallPetCountD67BD4 = 0; // 原全局：0x00D67BD4。
-
-static std::int32_t gStallModeD67BDC = 0; // 原全局：0x00D67BDC。
-
-static std::int32_t gStallItemSelection581124 = -1; // 原全局：0x00581124。
-
-static std::int32_t gStallPetSelection581128 = -1; // 原全局：0x00581128。
-
-static std::uint8_t gStallOwn58111C = 1; // 原全局：0x0058111C。
-
-static std::int32_t gStallHover581120 = -1; // 原全局：0x00581120。
-
-static std::int32_t gStallDescriptionPageD67C3C = 0; // 原全局：0x00D67C3C。
-
-static std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8。
-
-static std::wstring gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
-
-
-
-
-static std::int32_t gStallPriceD67C40 = 0; // 原全局：0x00D67C40。
-
-static std::int32_t gStallButtonStateD67C44 = 0; // 原全局：0x00D67C44。
-
-static std::int32_t gStallInventoryHover5817FC = -1; // 原全局：0x005817FC。
 
 static constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{ // 原常量参考：0x0054EEE0。
     {98891, 98886, 98890},
@@ -344,14 +293,6 @@ static constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButton
 static_assert(sizeof(StallOffer) == 8);
 
 static_assert(offsetof(StallOffer, value) == 4);
-
-static std::array<StallOffer, 20> gStallItemOffersD671D8 {}; // 原全局：0x00D671D8。
-
-static std::array<StallOffer, 5> gStallPetOffersCC3E98 {}; // 原全局：0x00CC3E98。
-
-static std::array<std::uint8_t, 20> gStallItemUsedCC31AC {}; // 原全局：0x00CC31AC。
-
-static std::array<std::uint8_t, 5> gStallPetUsedCF400C {}; // 原全局：0x00CF400C。
 
 static WindowGraphicData gWindowGraphic57B288 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B288。
 
@@ -398,7 +339,7 @@ static WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
     L"请输入店铺描述",
 };
 
-static WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
+static WindowNumberData gWindowNumber57B450 {nullptr, 0, 3, 1, 0}; // 原全局：0x0057B450。
 
 static std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B458。
 
@@ -520,32 +461,32 @@ static std::int32_t WindowStall_ButtonPreviousListing(WindowInstance& callbackWi
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        if (gStallModeD67BDC == 1) {
-            if (gStallPetPageD67BD0 > 0) {
-                --gStallPetPageD67BD0;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.petPage > 0) {
+                --callbackWindow.ownerSession->UiFrame().native.stall.petPage;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
-            const std::int32_t page = gStallPetPageD67BD0;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
             auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, page));
             }
         } else {
-            if (gStallItemPageD67BC8 > 0) {
-                --gStallItemPageD67BC8;
+            if (callbackWindow.ownerSession->UiFrame().native.stall.itemPage > 0) {
+                --callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
-            const std::int32_t page = gStallItemPageD67BC8;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gStallItemCountD67BCC - 10;
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
             auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, page));
@@ -572,35 +513,35 @@ static std::int32_t WindowStall_ButtonNextListing(WindowInstance& callbackWindow
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        if (gStallModeD67BDC == 1) {
-            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
-            const std::int32_t page = gStallPetPageD67BD0;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             if (page < maximum) {
-                gStallPetPageD67BD0 = page + 1;
+                callbackWindow.ownerSession->UiFrame().native.stall.petPage = page + 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
-            const std::int32_t current = gStallPetPageD67BD0;
-            const std::int32_t limit = gStallPetCountD67BD4 - 3;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+            const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
+            const std::int32_t limit = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(
                     indexedElement, limit, current));
             }
         } else {
-            const std::int32_t maximum = gStallItemCountD67BCC - 10;
-            const std::int32_t page = gStallItemPageD67BC8;
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             if (page < maximum) {
-                gStallItemPageD67BC8 = page + 1;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemPage = page + 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
-            const std::int32_t current = gStallItemPageD67BC8;
-            const std::int32_t limit = gStallItemCountD67BCC - 10;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+            const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
+            const std::int32_t limit = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(
@@ -625,24 +566,24 @@ static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, c
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const bool own = gStallOwn58111C != 0;
-        const std::int32_t mode = gStallModeD67BDC;
+        const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
-            const std::int32_t page = gStallPetPageD67BD0;
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
-                gStallPetPageD67BD0 = WindowScroll_ApplyWheel(
+                callbackWindow.ownerSession->UiFrame().native.stall.petPage = WindowScroll_ApplyWheel(
                     indexedElement, page, maximum, wheel);
             }
         } else {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-            const std::int32_t maximum = gStallItemCountD67BCC - 10;
-            const std::int32_t page = gStallItemPageD67BC8;
+            const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
             auto* const indexedElement = currentWindow->FindElementById(NativeElementKey((own ? 38 : 33)));
             if (indexedElement) {
-                gStallItemPageD67BC8 = WindowScroll_ApplyWheel(
+                callbackWindow.ownerSession->UiFrame().native.stall.itemPage = WindowScroll_ApplyWheel(
                     indexedElement, page, maximum, wheel);
             }
         }
@@ -659,16 +600,16 @@ static std::int32_t WindowStall_ButtonPreviousPet(WindowInstance& callbackWindow
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        if (gStallModeD67BDC == 1) {
-            if (gStallPetCandidatePageD67BD8 > 0) {
-                --gStallPetCandidatePageD67BD8;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage > 0) {
+                --callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             auto* elementsWindow = currentWindow;
-            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
             auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey((own ? 42 : 37)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, 1, page));
@@ -695,16 +636,16 @@ static std::int32_t WindowStall_ButtonNextPet(WindowInstance& callbackWindow, co
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        if (gStallModeD67BDC == 1) {
-            if (gStallPetCandidatePageD67BD8 < 1) {
-                ++gStallPetCandidatePageD67BD8;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage < 1) {
+                ++callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const bool own = gStallOwn58111C != 0;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
             auto* elementsWindow = currentWindow;
-            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
             auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey((own ? 42 : 37)));
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, 1, page));
@@ -728,15 +669,15 @@ static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWind
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const bool own = gStallOwn58111C != 0;
-        const std::int32_t mode = gStallModeD67BDC;
+        const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
         if (mode == 1) {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             WindowInstance* const window = currentWindow;
-            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage;
             auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 42 : 37)));
             if (indexedElement) {
-                gStallPetCandidatePageD67BD8 =
+                callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage =
                     WindowScroll_ApplyWheel(indexedElement, page, 1, wheel);
             }
         }
@@ -751,7 +692,7 @@ static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, cons
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    const bool ownAtEntry = gStallOwn58111C != 0;
+    const bool ownAtEntry = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t category = index;
@@ -767,7 +708,7 @@ static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, cons
         category = 1;
     }
     std::int32_t consumed = 0;
-    if (category == gStallModeD67BDC) {
+    if (category == callbackWindow.ownerSession->UiFrame().native.stall.mode) {
         if (graphic) graphic->imageNo = kStallTabImages54EF40[category][0];
     } else {
         if ((state & MouseFlag_Hover) != 0) {
@@ -777,21 +718,21 @@ static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, cons
             if (graphic) graphic->imageNo = kStallTabImages54EF40[category][1];
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const bool own = gStallOwn58111C != 0;
-            gStallModeD67BDC = category;
-            gStallItemSelection581124 = -1;
+            const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.mode = category;
+            callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
             if (category == 1) {
-                const std::int32_t page = gStallPetPageD67BD0;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
                 WindowInstance* const window = currentWindow;
-                const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+                const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3;
                 auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 38 : 33)));
                 if (indexedElement) {
                     static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, page));
                 }
             } else {
-                const std::int32_t page = gStallItemPageD67BC8;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
                 WindowInstance* const window = currentWindow;
-                const std::int32_t maximum = gStallItemCountD67BCC - 10;
+                const std::int32_t maximum = callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10;
                 auto* const indexedElement = window->FindElementById(NativeElementKey((own ? 38 : 33)));
                 if (indexedElement) {
                     static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, page));
@@ -800,8 +741,8 @@ static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, cons
             consumed = 1;
         }
     }
-    const bool own = gStallOwn58111C != 0;
-    const std::int32_t visible = gStallModeD67BDC == 1 ? 1 : 0;
+    const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+    const std::int32_t visible = callbackWindow.ownerSession->UiFrame().native.stall.mode == 1 ? 1 : 0;
     if (own) {
         constexpr std::array<std::int32_t, 7> slots {41, 42, 43, 44, 11, 45, 46};
         for (const std::int32_t slot : slots) {
@@ -817,36 +758,36 @@ static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x004D27C0。
-static std::int32_t WindowStall_AddListing(const std::int32_t value)
+static std::int32_t WindowStall_AddListing(session::ClientSession& session, const std::int32_t value)
 {
-    const std::int32_t mode = gStallModeD67BDC;
+    const std::int32_t mode = session.UiFrame().native.stall.mode;
     if (mode == 0) {
-        const std::int32_t count = gStallItemCountD67BCC;
-        const std::int32_t slot = gStallItemSelection581124;
-        gStallItemSelection581124 = -1;
-        gStallItemOffersD671D8[count].slot = slot;
-        gStallItemOffersD671D8[count].value = value;
-        gStallItemUsedCC31AC[slot] = 1;
-        gStallItemCountD67BCC = count + 1;
+        const std::int32_t count = session.UiFrame().native.stall.itemCount;
+        const std::int32_t slot = session.UiFrame().native.stall.itemSelection;
+        session.UiFrame().native.stall.itemSelection = -1;
+        session.UiFrame().native.stall.itemOffers[count].slot = slot;
+        session.UiFrame().native.stall.itemOffers[count].value = value;
+        session.UiFrame().native.stall.itemUsed[slot] = 1;
+        session.UiFrame().native.stall.itemCount = count + 1;
         return count + 1;
     }
     if (mode == 1) {
-        const std::int32_t count = gStallPetCountD67BD4;
-        const std::int32_t slot = gStallPetSelection581128;
-        gStallPetSelection581128 = -1;
-        gStallPetOffersCC3E98[count].slot = slot;
-        gStallPetOffersCC3E98[count].value = value;
-        gStallPetUsedCF400C[slot] = 1;
-        gStallPetCountD67BD4 = count + 1;
+        const std::int32_t count = session.UiFrame().native.stall.petCount;
+        const std::int32_t slot = session.UiFrame().native.stall.petSelection;
+        session.UiFrame().native.stall.petSelection = -1;
+        session.UiFrame().native.stall.petOffers[count].slot = slot;
+        session.UiFrame().native.stall.petOffers[count].value = value;
+        session.UiFrame().native.stall.petUsed[slot] = 1;
+        session.UiFrame().native.stall.petCount = count + 1;
         return count + 1;
     }
     return mode - 1;
 }
 
 // 原函数：0x004CE8A0。
-static network::SendResult WindowStall_RequestClose()
+static network::SendResult WindowStall_RequestClose(session::ClientSession& session)
 {
-    return cg::network::GetGameConnection().CloseStallRequest();
+    return session.Connection().CloseStallRequest();
 }
 
 // 原函数：0x004CED50。
@@ -865,7 +806,7 @@ static WindowElement* WindowStall_EditItemPrice(WindowInstance* callbackWindow)
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    gStallPriceD67C40 = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.price = 0;
     static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.stallPricePrototype, 0, -100, 0));
     input::SetContext_44B330(*currentWindow->ownerSession, &inputs.stallPrice);
     WindowInstance* const window = currentWindow;
@@ -893,7 +834,7 @@ static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, const std::
             return;
         }
     }
-    gStallPriceD67C40 = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.price = 0;
     static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.stallPricePrototype, 0, -100, 0));
     input::SetContext_44B330(*currentWindow->ownerSession, &inputs.stallPrice);
     WindowInstance* const window = currentWindow;
@@ -906,42 +847,42 @@ static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, const std::
 }
 
 // 原函数：0x004CFD70。
-static std::int32_t WindowStall_RemoveListing()
+static std::int32_t WindowStall_RemoveListing(session::ClientSession& session)
 {
-    const std::int32_t mode = gStallModeD67BDC;
+    const std::int32_t mode = session.UiFrame().native.stall.mode;
     if (mode == 1) {
-        const std::int32_t index = gStallPetSelection581128 - 5;
-        const std::int32_t count = gStallPetCountD67BD4 - 1;
-        StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
-        gStallPetUsedCF400C[offer->slot] = 0;
-        gStallPetCountD67BD4 = count;
+        const std::int32_t index = session.UiFrame().native.stall.petSelection - 5;
+        const std::int32_t count = session.UiFrame().native.stall.petCount - 1;
+        StallOffer* const offer = session.UiFrame().native.stall.petOffers.data() + index;
+        session.UiFrame().native.stall.petUsed[offer->slot] = 0;
+        session.UiFrame().native.stall.petCount = count;
         if (count > 0 && index < count) {
             std::memmove(offer, offer + 1,
                 static_cast<std::size_t>(count - index) * sizeof(StallOffer));
         }
-        const std::int32_t page = gStallPetPageD67BD0;
-        gStallPetSelection581128 = -1;
+        const std::int32_t page = session.UiFrame().native.stall.petPage;
+        session.UiFrame().native.stall.petSelection = -1;
         const std::int32_t remaining = count - page;
         if (remaining < 3 && page > 0) {
-            gStallPetPageD67BD0 = page - 1;
+            session.UiFrame().native.stall.petPage = page - 1;
         }
         return remaining;
     }
     if (mode == 0) {
-        const std::int32_t index = gStallItemSelection581124 - 20;
-        const std::int32_t count = gStallItemCountD67BCC - 1;
-        StallOffer* const offer = gStallItemOffersD671D8.data() + index;
-        gStallItemUsedCC31AC[offer->slot] = 0;
-        gStallItemCountD67BCC = count;
+        const std::int32_t index = session.UiFrame().native.stall.itemSelection - 20;
+        const std::int32_t count = session.UiFrame().native.stall.itemCount - 1;
+        StallOffer* const offer = session.UiFrame().native.stall.itemOffers.data() + index;
+        session.UiFrame().native.stall.itemUsed[offer->slot] = 0;
+        session.UiFrame().native.stall.itemCount = count;
         if (count > 0 && index < count) {
             std::memmove(offer, offer + 1,
                 static_cast<std::size_t>(count - index) * sizeof(StallOffer));
         }
-        const std::int32_t page = gStallItemPageD67BC8;
-        gStallItemSelection581124 = -1;
+        const std::int32_t page = session.UiFrame().native.stall.itemPage;
+        session.UiFrame().native.stall.itemSelection = -1;
         const std::int32_t remaining = count - page;
         if (remaining < 10 && page > 0) {
-            gStallItemPageD67BC8 = page - 1;
+            session.UiFrame().native.stall.itemPage = page - 1;
         }
         return remaining;
     }
@@ -959,56 +900,56 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     bool disabled = false;
     std::int32_t imageGroup = state;
-    if (gStallOwn58111C != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
         switch (static_cast<WindowStallElementId>(elementId)) {
         case WindowStallElementId::HandleButtons:
             imageGroup = 0;
-            if ((gStallItemCountD67BCC <= 0 && gStallPetCountD67BD4 <= 0)
-                || gStallPendingD67C31 != 0) {
+            if ((callbackWindow.ownerSession->UiFrame().native.stall.itemCount <= 0 && callbackWindow.ownerSession->UiFrame().native.stall.petCount <= 0)
+                || callbackWindow.ownerSession->UiFrame().native.stall.pending != 0) {
                 disabled = true;
             } else if ((state & MouseFlag_LDownEvent) != 0) {
-                const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
-                gStallPendingD67C31 = 1;
-                gOwnStallOpenForBusiness_D67BE0 = gate == 0 ? 1 : 0;
-                gStallItemSelection581124 = -1;
-                gStallPetSelection581128 = -1;
+                const std::uint8_t gate = callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness;
+                callbackWindow.ownerSession->UiFrame().native.stall.pending = 1;
+                callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness = gate == 0 ? 1 : 0;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
+                callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
                 static_cast<void>(WindowStall_SubmitListings(&callbackWindow));
             }
             break;
         case WindowStallElementId::HandleButtons_32:
             imageGroup = 1;
-            if (gStallPendingD67C31 != 0) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.pending != 0) {
                 disabled = true;
             } else if ((state & MouseFlag_LDownEvent) != 0) {
-                gStallPendingD67C31 = 1;
-                gStallItemSelection581124 = -1;
-                gStallPetSelection581128 = -1;
-                static_cast<void>(WindowStall_RequestClose());
+                callbackWindow.ownerSession->UiFrame().native.stall.pending = 1;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
+                callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
+                static_cast<void>(WindowStall_RequestClose(*callbackWindow.ownerSession));
             }
             break;
         case WindowStallElementId::HandleButtons_33: {
             imageGroup = 3;
-            const std::int32_t mode = gStallModeD67BDC;
+            const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
             if (mode == 0) {
-                const std::int32_t selected = gStallItemSelection581124;
+                const std::int32_t selected = callbackWindow.ownerSession->UiFrame().native.stall.itemSelection;
                 if (selected < 20 || selected >= 40) {
                     disabled = true;
                 } else if ((state & MouseFlag_LDownEvent) != 0) {
-                    static_cast<void>(WindowStall_RemoveListing());
+                    static_cast<void>(WindowStall_RemoveListing(*callbackWindow.ownerSession));
                 }
             } else if (mode == 1) {
-                const std::int32_t selected = gStallPetSelection581128;
+                const std::int32_t selected = callbackWindow.ownerSession->UiFrame().native.stall.petSelection;
                 if (selected < 5 || selected >= 10) {
                     disabled = true;
                 } else if ((state & MouseFlag_LDownEvent) != 0) {
-                    static_cast<void>(WindowStall_RemoveListing());
+                    static_cast<void>(WindowStall_RemoveListing(*callbackWindow.ownerSession));
                 }
             }
             break;
         }
         case WindowStallElementId::HandleButtons_34:
             imageGroup = 4;
-            if (gOwnStallOpenForBusiness_D67BE0 != 0) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0) {
                 disabled = true;
             } else if ((state & MouseFlag_LDownEvent) != 0) {
                 window->state |= 0x8000u;
@@ -1017,19 +958,19 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
             break;
         case WindowStallElementId::HandleButtons_35: {
             imageGroup = 5;
-            const std::int32_t mode = gStallModeD67BDC;
+            const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
             if (mode == 0) {
-                const std::int32_t selected = gStallItemSelection581124;
+                const std::int32_t selected = callbackWindow.ownerSession->UiFrame().native.stall.itemSelection;
                 if (selected < 0 || selected >= 20) {
                     disabled = true;
-                } else if (gStallItemUsedCC31AC[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
+                } else if (callbackWindow.ownerSession->UiFrame().native.stall.itemUsed[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
                     static_cast<void>(WindowStall_EditItemPrice(&callbackWindow));
                 }
             } else if (mode == 1) {
-                const std::int32_t selected = gStallPetSelection581128;
+                const std::int32_t selected = callbackWindow.ownerSession->UiFrame().native.stall.petSelection;
                 if (selected < 0 || selected >= 5) {
                     disabled = true;
-                } else if (gStallPetUsedCF400C[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
+                } else if (callbackWindow.ownerSession->UiFrame().native.stall.petUsed[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
                     WindowStall_EditPetPrice(&callbackWindow, selected);
                 }
             }
@@ -1040,15 +981,15 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
         }
     } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_29)) {
         imageGroup = 2;
-        if (gStallPendingD67C31 != 0) {
+        if (callbackWindow.ownerSession->UiFrame().native.stall.pending != 0) {
             disabled = true;
         } else {
-            const std::int32_t itemCount = gStallItemCountD67BCC;
-            const std::int32_t mode = gStallModeD67BDC;
+            const std::int32_t itemCount = callbackWindow.ownerSession->UiFrame().native.stall.itemCount;
+            const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.mode;
             if (itemCount <= 0 && mode == 0) {
                 disabled = true;
             } else {
-                const std::int32_t petCount = gStallPetCountD67BD4;
+                const std::int32_t petCount = callbackWindow.ownerSession->UiFrame().native.stall.petCount;
                 if (petCount <= 0 && mode == 1) {
                     disabled = true;
                 } else if ((state & MouseFlag_LDownEvent) != 0) {
@@ -1058,7 +999,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
         }
     } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_30)) {
         imageGroup = 4;
-        if (gStallPendingD67C31 != 0) {
+        if (callbackWindow.ownerSession->UiFrame().native.stall.pending != 0) {
             disabled = true;
         } else if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
@@ -1067,7 +1008,7 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
     }
     if (disabled) {
         if (graphic) graphic->imageNo = kStallButtonImages54EEE0[imageGroup][1];
-        gStallButtonStateD67C44 = state;
+        callbackWindow.ownerSession->UiFrame().native.stall.buttonState = state;
         return 0;
     }
     std::int32_t consumed = 0;
@@ -1086,10 +1027,10 @@ static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, co
         if (context == &inputs.stallName || context == &inputs.stallDescription) {
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
         }
-        gStallButtonStateD67C44 = state;
+        callbackWindow.ownerSession->UiFrame().native.stall.buttonState = state;
         return 1;
     }
-    gStallButtonStateD67C44 = state;
+    callbackWindow.ownerSession->UiFrame().native.stall.buttonState = state;
     return consumed;
 }
 
@@ -1103,11 +1044,11 @@ static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
     std::wstring name = L"无名店铺";
     std::wstring description = L"老板没什么可介绍的";
     std::wstring offers;
-    std::int32_t count = gStallItemCountD67BCC;
+    std::int32_t count = callbackWindow->ownerSession->UiFrame().native.stall.itemCount;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
         if (count > 0) {
-            const StallOffer* offer = gStallItemOffersD671D8.data();
+            const StallOffer* offer = callbackWindow->ownerSession->UiFrame().native.stall.itemOffers.data();
             while (offer->slot != slot) {
                 ++index;
                 ++offer;
@@ -1116,20 +1057,20 @@ static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
                 }
             }
             if (index < count) {
-                cg::text::FormatTo(buffer, L"{}|", gStallItemOffersD671D8[index].value);
+                cg::text::FormatTo(buffer, L"{}|", callbackWindow->ownerSession->UiFrame().native.stall.itemOffers[index].value);
                 offers += buffer;
-                count = gStallItemCountD67BCC;
+                count = callbackWindow->ownerSession->UiFrame().native.stall.itemCount;
             }
         }
         if (index == count) {
             offers += L"0|";
         }
     }
-    count = gStallPetCountD67BD4;
+    count = callbackWindow->ownerSession->UiFrame().native.stall.petCount;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         std::int32_t index = 0;
         if (count > 0) {
-            const StallOffer* offer = gStallPetOffersCC3E98.data();
+            const StallOffer* offer = callbackWindow->ownerSession->UiFrame().native.stall.petOffers.data();
             while (offer->slot != slot) {
                 ++index;
                 ++offer;
@@ -1138,9 +1079,9 @@ static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
                 }
             }
             if (index < count) {
-                cg::text::FormatTo(buffer, L"{}|", gStallPetOffersCC3E98[index].value);
+                cg::text::FormatTo(buffer, L"{}|", callbackWindow->ownerSession->UiFrame().native.stall.petOffers[index].value);
                 offers += buffer;
-                count = gStallPetCountD67BD4;
+                count = callbackWindow->ownerSession->UiFrame().native.stall.petCount;
             }
         }
         if (index == count) {
@@ -1148,27 +1089,27 @@ static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
         }
     }
     offers = input::EscapeTextAndNotify(offers, 275);
-    if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
+    if (!callbackWindow->ownerSession->UiFrame().native.stall.name.empty()) { name = callbackWindow->ownerSession->UiFrame().native.stall.name; }
     name = input::EscapeTextAndNotify(name, 275);
     // 原发布字段最多32/112字节；截断仅作用于此次协议字段。
     const auto nameBytes = cg::text::ToGbk(name);
     name = cg::text::FromGbkWide(nameBytes.substr(0, 32));
-    if (!gStallDescriptionD67BF8.empty()) { description = gStallDescriptionD67BF8; }
+    if (!callbackWindow->ownerSession->UiFrame().native.stall.description.empty()) { description = callbackWindow->ownerSession->UiFrame().native.stall.description; }
     description = input::EscapeTextAndNotify(description, 275);
     const auto descriptionBytes = cg::text::ToGbk(description);
     description = cg::text::FromGbkWide(descriptionBytes.substr(0, 112));
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    static_cast<void>(cg::network::GetGameConnection().PublishStallRequest(name, description, offers));
+    const auto networkSession = callbackWindow->ownerSession->Connection().CaptureSession();
+    static_cast<void>(callbackWindow->ownerSession->Connection().PublishStallRequest(name, description, offers));
     if (!inputs.stallNamePrototype.input.context->empty()) {
         login::detail::GetCurrentSavedStallNameFF4D18() = name;
     }
     if (!inputs.stallDescriptionPrototype.input.context->empty()) {
         login::detail::GetCurrentSavedStallDescriptionFF4D28() = description;
     }
-    gStallMessageC8A978 = L"摆摊请求中";
+    callbackWindow->ownerSession->UiFrame().native.stall.message = L"摆摊请求中";
     WindowInstance* const window = currentWindow;
-    gStallMessageModeD67C34 = 0;
-    gStallMessageValueD67C38 = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.messageMode = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.messageValue = 0;
     if (auto* const drawTooltipOverlayElement = window->FindElementById(WindowStallElementId::DrawTooltipOverlay); drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 1;
     return 0;
 }
@@ -1178,7 +1119,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t mode = gStallMessageModeD67C34;
+    const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.stall.messageMode;
     if (mode != 0 && mode != 1) {
         return state & MouseFlag_Hover;
     }
@@ -1186,12 +1127,12 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const std::int32_t width = cg::render::TextMeasure(gStallMessageC8A978, 0);
+    const std::int32_t width = cg::render::TextMeasure(callbackWindow.ownerSession->UiFrame().native.stall.message, 0);
     WindowInstance* window = currentWindow;
     const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
     const auto textX = static_cast<std::int16_t>(window->x + (window->width - width) / 2);
     static_cast<void>(render::DrawText_456780(
-        textX, textY, 4, 0, 0, gStallMessageC8A978, 0, 0));
+        textX, textY, 4, 0, 0, callbackWindow.ownerSession->UiFrame().native.stall.message, 0, 0));
     if (mode == 1) {
         window = currentWindow;
         const std::int32_t centerY = window->height / 2 + window->y;
@@ -1217,12 +1158,12 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
 }
 
 // 原函数：0x004D0990。
-static std::int32_t WindowStall_DrawPetSkills(
+static std::int32_t WindowStall_DrawPetSkills(session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = gStallBrowseData->pets[petIndex];
+    const auto& pet = session.UiFrame().native.stall.browse->pets[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1254,7 +1195,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     if (shortIndex < 0 || shortIndex > 5) {
         return byteIndex;
     }
-    const auto& pet = gStallBrowseData->pets[shortIndex];
+    const auto& pet = session.UiFrame().native.stall.browse->pets[shortIndex];
     if (pet.used == 0) {
         return shortIndex;
     }
@@ -1312,7 +1253,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     }
     const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(session, &pet);
     for (std::int32_t row = 0; row < 10; ++row) {
-        static_cast<void>(WindowStall_DrawPetSkills(shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
+        static_cast<void>(WindowStall_DrawPetSkills(session, shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
     }
     static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
         skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
@@ -1325,18 +1266,18 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gStallModeD67BDC != 1) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 1) {
         return 0;
     }
-    const bool own = gStallOwn58111C != 0;
+    const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
     const std::int32_t row = index - (own ? 23 : 21);
-    const std::int32_t position = gStallPetPageD67BD0 + row;
-    if (position >= gStallPetCountD67BD4) {
+    const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.stall.petPage + row;
+    if (position >= callbackWindow.ownerSession->UiFrame().native.stall.petCount) {
         return 0;
     }
     world::PetRuntimeRecord* const pet = own
-        ? &(*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetOffersCC3E98[position].slot]
-        : &gStallBrowseData->pets[position];
+        ? &(*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petOffers[position].slot]
+        : &callbackWindow.ownerSession->UiFrame().native.stall.browse->pets[position];
     if (pet->used == 0) {
         return 0;
     }
@@ -1386,7 +1327,7 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
     cg::text::FormatTo(buffer, L"{:3}", pet->lvFlag6C);
     drawText(91, 129);
     std::int32_t consumed = 0;
-    if (gOwnStallOpenForBusiness_D67BE0 != 0 && gStallOwn58111C != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0 && callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
         const std::uint32_t color = 0x80808080u;
@@ -1417,18 +1358,18 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gStallPetSelection581128 = gStallPetPageD67BD0 + row + 5;
+            callbackWindow.ownerSession->UiFrame().native.stall.petSelection = callbackWindow.ownerSession->UiFrame().native.stall.petPage + row + 5;
         }
-        const bool currentOwn = gStallOwn58111C != 0;
+        const bool currentOwn = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         if ((state & MouseFlag_LDblClickEvent) != 0) {
             if (currentOwn) {
-                static_cast<void>(WindowStall_RemoveListing());
+                static_cast<void>(WindowStall_RemoveListing(*callbackWindow.ownerSession));
             } else {
                 static_cast<void>(WindowStall_ShowPurchaseConfirmation(&callbackWindow));
             }
         }
-        const std::int32_t current = gStallPetPageD67BD0 + row;
-        if (current == gStallPetSelection581128 - 5) {
+        const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.petPage + row;
+        if (current == callbackWindow.ownerSession->UiFrame().native.stall.petSelection - 5) {
             WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
@@ -1442,14 +1383,14 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
             }
         }
     }
-    const bool priceOwn = gStallOwn58111C != 0;
+    const bool priceOwn = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
     std::int32_t price;
     if (priceOwn) {
-        cg::text::FormatTo(buffer, L"{}", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
-        price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
+        cg::text::FormatTo(buffer, L"{}", callbackWindow.ownerSession->UiFrame().native.stall.petOffers[callbackWindow.ownerSession->UiFrame().native.stall.petPage + row].value);
+        price = callbackWindow.ownerSession->UiFrame().native.stall.petOffers[callbackWindow.ownerSession->UiFrame().native.stall.petPage + row].value;
     } else {
-        cg::text::FormatTo(buffer, L"{}", gStallBrowseData->petValuesD2D464[gStallPetPageD67BD0 + row]);
-        price = gStallBrowseData->petValuesD2D464[gStallPetPageD67BD0 + row];
+        cg::text::FormatTo(buffer, L"{}", callbackWindow.ownerSession->UiFrame().native.stall.browse->petValuesD2D464[callbackWindow.ownerSession->UiFrame().native.stall.petPage + row]);
+        price = callbackWindow.ownerSession->UiFrame().native.stall.browse->petValuesD2D464[callbackWindow.ownerSession->UiFrame().native.stall.petPage + row];
     }
     std::int8_t priceColor = 0;
     if (price >= 10000) {
@@ -1474,10 +1415,10 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
         const std::int32_t x = windowX + 510 > 640 ? windowX - 230 : windowX + 280;
         if (priceOwn) {
             const auto petIndex = static_cast<std::uint8_t>(
-                gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].slot);
+                callbackWindow.ownerSession->UiFrame().native.stall.petOffers[callbackWindow.ownerSession->UiFrame().native.stall.petPage + row].slot);
             static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, y, petIndex));
         } else {
-            const auto petIndex = static_cast<std::uint8_t>(gStallPetPageD67BD0 + row);
+            const auto petIndex = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().native.stall.petPage + row);
             static_cast<void>(WindowStall_DrawPetDetails(*callbackWindow.ownerSession, x, y, petIndex));
         }
     }
@@ -1521,14 +1462,14 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gStallModeD67BDC != 1) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 1) {
         return 0;
     }
-    const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
-    const auto* const initialPet = &(*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row];
+    const std::int32_t row = index - (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 ? 26 : 24);
+    const auto* const initialPet = &(*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row];
     if (initialPet->used == 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gStallPetSelection581128 = -1;
+            callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
         }
         return 0;
     }
@@ -1541,18 +1482,18 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
     };
     cg::text::FormatTo(buffer, L"{}", initialPet->name6AC.data());
     drawText(298, 132);
-    cg::text::FormatTo(buffer, L"{:3}", (*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].value08);
+    cg::text::FormatTo(buffer, L"{:3}", (*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[1]);
-    const std::int32_t hp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[0]);
+    const std::int32_t maxHp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].values0C[1]);
+    const std::int32_t hp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].values0C[0]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[3]);
-    const std::int32_t fp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[2]);
+    const std::int32_t maxFp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].values0C[3]);
+    const std::int32_t fp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].values0C[2]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
-        (*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].value04);
+        (*callbackWindow.ownerSession->WorldScene().petRecords)[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row].value04);
     if (tribe >= 0 && tribe < 20) {
         cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
@@ -1566,17 +1507,17 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y + barPositions[attribute][1] + 50 * row + 127;
         const std::int32_t x = window->x + barPositions[attribute][0] + 292;
-        const std::int32_t petIndex = gStallPetCandidatePageD67BD8 + row;
+        const std::int32_t petIndex = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row;
         static_cast<void>(WindowStall_DrawCandidateAttributes(*callbackWindow.ownerSession, petIndex, attribute, x, y));
     }
     std::int32_t consumed = 0;
-    if (gOwnStallOpenForBusiness_D67BE0 == 0) {
-        const bool own = gStallOwn58111C != 0;
-        const std::int32_t position = gStallPetCandidatePageD67BD8 + row;
-        bool offered = gStallPetUsedCF400C[position] != 0;
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0) {
+        const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
+        const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row;
+        bool offered = callbackWindow.ownerSession->UiFrame().native.stall.petUsed[position] != 0;
         if (own && (state & MouseFlag_LDownEvent) != 0 && offered) {
-            gStallPetSelection581128 = -1;
-            offered = gStallPetUsedCF400C[position] != 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
+            offered = callbackWindow.ownerSession->UiFrame().native.stall.petUsed[position] != 0;
         }
         if (!offered && own) {
             if ((state & MouseFlag_Hover) != 0) {
@@ -1594,14 +1535,14 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
                 consumed = 1;
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
-                gStallPetSelection581128 = gStallPetCandidatePageD67BD8 + row;
+                callbackWindow.ownerSession->UiFrame().native.stall.petSelection = callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row;
             }
             if ((state & MouseFlag_LDblClickEvent) != 0) {
-                WindowStall_EditPetPrice(&callbackWindow, gStallPetSelection581128);
+                WindowStall_EditPetPrice(&callbackWindow, callbackWindow.ownerSession->UiFrame().native.stall.petSelection);
             }
         }
-        if ((offered || own) && gStallOwn58111C != 0
-            && gStallPetCandidatePageD67BD8 + row == gStallPetSelection581128) {
+        if ((offered || own) && callbackWindow.ownerSession->UiFrame().native.stall.own != 0
+            && callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row == callbackWindow.ownerSession->UiFrame().native.stall.petSelection) {
             WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
@@ -1622,10 +1563,10 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
         if (x < 0) {
             x += window->width;
         }
-        const auto petIndex = static_cast<std::uint8_t>(gStallPetCandidatePageD67BD8 + row);
+        const auto petIndex = static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row);
         static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, y, petIndex));
     }
-    if (gStallOwn58111C != 0 && gStallPetUsedCF400C[gStallPetCandidatePageD67BD8 + row] != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 && callbackWindow.ownerSession->UiFrame().native.stall.petUsed[callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage + row] != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
@@ -1647,46 +1588,46 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gOwnStallOpenForBusiness_D67BE0 != 0) {
-        const std::int32_t petCount = gStallPetCountD67BD4;
-        const std::int32_t itemCount = gStallItemCountD67BCC;
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0) {
+        const std::int32_t petCount = callbackWindow.ownerSession->UiFrame().native.stall.petCount;
+        const std::int32_t itemCount = callbackWindow.ownerSession->UiFrame().native.stall.itemCount;
         if (petCount + itemCount <= 0) {
             static_cast<void>(WindowStallBrowse_RequestClose(*callbackWindow.ownerSession));
             static_cast<void>(WindowOwnStall_RequestClose(*callbackWindow.ownerSession));
         }
     }
-    if (gStallModeD67BDC != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 0) {
         return 0;
     }
-    const bool own = gStallOwn58111C != 0;
+    const bool own = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
     const std::int32_t row = index - (own ? 12 : 10);
-    const std::int32_t position = gStallItemPageD67BC8 + row;
-    if (position >= gStallItemCountD67BCC) {
+    const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.stall.itemPage + row;
+    if (position >= callbackWindow.ownerSession->UiFrame().native.stall.itemCount) {
         return 0;
     }
     world::PlayerItemRecord* item;
     if (own) {
-        const std::int32_t slot = gStallItemOffersD671D8[position].slot;
+        const std::int32_t slot = callbackWindow.ownerSession->UiFrame().native.stall.itemOffers[position].slot;
         item = &callbackWindow.ownerSession->WorldScene().playerItems[slot + 8];
         if (item->used == 0) {
             return 0;
         }
         if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-            gStallHover581120 = slot + 8;
+            callbackWindow.ownerSession->UiFrame().native.stall.hover = slot + 8;
         }
     } else {
-        item = &gStallBrowseData->items[position];
+        item = &callbackWindow.ownerSession->UiFrame().native.stall.browse->items[position];
         if (item->used == 0) {
             return 0;
         }
         if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-            gStallHover581120 = position + 200;
+            callbackWindow.ownerSession->UiFrame().native.stall.hover = position + 200;
         }
     }
     if ((state & MouseFlag_RDownEvent) != 0) {
-        ++gStallDescriptionPageD67C3C;
-        if (gStallDescriptionPageD67C3C >= item->pages) {
-            gStallDescriptionPageD67C3C = 0;
+        ++callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage >= item->pages) {
+            callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
         }
     }
     std::wstring buffer;
@@ -1703,7 +1644,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
         }
     }
     std::int32_t consumed = 0;
-    if (gOwnStallOpenForBusiness_D67BE0 != 0 && gStallOwn58111C != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0 && callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
         WindowInstance* const window = currentWindow;
         render::GraphicDescriptor16 descriptor {};
@@ -1734,18 +1675,18 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gStallItemSelection581124 = gStallItemPageD67BC8 + row + 20;
+            callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = callbackWindow.ownerSession->UiFrame().native.stall.itemPage + row + 20;
         }
-        const bool currentOwn = gStallOwn58111C != 0;
+        const bool currentOwn = callbackWindow.ownerSession->UiFrame().native.stall.own != 0;
         if ((state & MouseFlag_LDblClickEvent) != 0) {
             if (currentOwn) {
-                static_cast<void>(WindowStall_RemoveListing());
+                static_cast<void>(WindowStall_RemoveListing(*callbackWindow.ownerSession));
             } else {
                 static_cast<void>(WindowStall_ShowPurchaseConfirmation(&callbackWindow));
             }
         }
-        const std::int32_t current = gStallItemPageD67BC8 + row;
-        if (current == gStallItemSelection581124 - 20) {
+        const std::int32_t current = callbackWindow.ownerSession->UiFrame().native.stall.itemPage + row;
+        if (current == callbackWindow.ownerSession->UiFrame().native.stall.itemSelection - 20) {
             WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
@@ -1760,10 +1701,10 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
         }
     }
     std::int32_t price;
-    if (gStallOwn58111C != 0) {
-        price = gStallItemOffersD671D8[gStallItemPageD67BC8 + row].value;
+    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
+        price = callbackWindow.ownerSession->UiFrame().native.stall.itemOffers[callbackWindow.ownerSession->UiFrame().native.stall.itemPage + row].value;
     } else {
-        price = gStallBrowseData->itemValuesD13E74[gStallItemPageD67BC8 + row];
+        price = callbackWindow.ownerSession->UiFrame().native.stall.browse->itemValuesD13E74[callbackWindow.ownerSession->UiFrame().native.stall.itemPage + row];
     }
     cg::text::FormatTo(buffer, L"{}", price);
     std::int8_t priceColor = 0;
@@ -1820,7 +1761,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gStallModeD67BDC != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 0) {
         return 0;
     }
     std::int32_t hovered = -1;
@@ -1840,7 +1781,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
             const std::uint32_t color = 0xFFFFFFFFu;
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-            if (gStallOwn58111C != 0 && gStallItemUsedCC31AC[slot] != 0) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 && callbackWindow.ownerSession->UiFrame().native.stall.itemUsed[slot] != 0) {
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                     static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
@@ -1849,26 +1790,26 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
             if (hovered < 0 && (state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
                 && cg::ui::HitTestMouseRect_5049A0(x, y, x + 48, y + 48, -1) != 0) {
                 hovered = slot;
-                if (gStallInventoryHover5817FC != slot) {
-                    gStallDescriptionPageD67C3C = 0;
+                if (callbackWindow.ownerSession->UiFrame().native.stall.inventoryHover != slot) {
+                    callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
                 }
-                const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
-                gStallInventoryHover5817FC = slot;
+                const std::uint8_t gate = callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness;
+                callbackWindow.ownerSession->UiFrame().native.stall.inventoryHover = slot;
                 if (gate == 0) {
-                    if (gStallOwn58111C != 0 && (state & MouseFlag_LDownEvent) != 0
-                        && (gStallItemUsedCC31AC[slot] != 0 || (item->flags & 0x60u) != 0)) {
-                        gStallItemSelection581124 = -1;
+                    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 && (state & MouseFlag_LDownEvent) != 0
+                        && (callbackWindow.ownerSession->UiFrame().native.stall.itemUsed[slot] != 0 || (item->flags & 0x60u) != 0)) {
+                        callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
                     }
-                    if (gStallItemUsedCC31AC[slot] == 0 && (item->flags & 0x60u) == 0) {
+                    if (callbackWindow.ownerSession->UiFrame().native.stall.itemUsed[slot] == 0 && (item->flags & 0x60u) == 0) {
                         if ((state & MouseFlag_Hover) != 0) {
                             cg::render::DrawGraphicHover(
                                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                         }
-                        if (gStallOwn58111C != 0) {
+                        if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
                             if ((state & MouseFlag_LDownEvent) != 0) {
-                                gStallItemSelection581124 = slot;
+                                callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = slot;
                             }
                             if ((state & MouseFlag_LDblClickEvent) != 0) {
                                 static_cast<void>(WindowStall_EditItemPrice(&callbackWindow));
@@ -1877,16 +1818,16 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
                     }
                 }
                 if ((state & MouseFlag_RDownEvent) != 0) {
-                    const std::int32_t page = gStallDescriptionPageD67C3C + 1;
+                    const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage + 1;
                     const std::int32_t pages = item->pages;
-                    gStallDescriptionPageD67C3C = page;
+                    callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = page;
                     if (page >= pages) {
-                        gStallDescriptionPageD67C3C = 0;
+                        callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
                     }
                 }
-                gStallHover581120 = slot + 8;
+                callbackWindow.ownerSession->UiFrame().native.stall.hover = slot + 8;
             }
-            if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && slot == gStallItemSelection581124) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 && callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0 && slot == callbackWindow.ownerSession->UiFrame().native.stall.itemSelection) {
                 cg::render::DrawGraphicHover(
                     static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
                     static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
@@ -1899,7 +1840,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
                     static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
                     3, 1, 1, buffer, 0, 0));
             }
-            if (gStallOwn58111C != 0 && (item->flags & 0x60u) != 0) {
+            if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0 && (item->flags & 0x60u) != 0) {
                 static_cast<void>(cg::render::DrawGraphic(x + 24, y + 24, 223, 23040, 0, &descriptor));
             }
             static_cast<void>(cg::render::DrawGraphic(x + 24, y + 24, 223, item->imageNo, 0, &descriptor));
@@ -1929,14 +1870,14 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
         for (std::int32_t digit = 0; digit < 10; ++digit) {
             if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
                 || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
-                gStallPriceD67C40 = digit + 10 * gStallPriceD67C40;
+                callbackWindow.ownerSession->UiFrame().native.stall.price = digit + 10 * callbackWindow.ownerSession->UiFrame().native.stall.price;
             }
-            if (gStallPriceD67C40 > 9999999) {
-                gStallPriceD67C40 = 9999999;
+            if (callbackWindow.ownerSession->UiFrame().native.stall.price > 9999999) {
+                callbackWindow.ownerSession->UiFrame().native.stall.price = 9999999;
             }
         }
         if (platform::ReadKeyFlag4_4597A0(8) != 0) {
-            gStallPriceD67C40 /= 10;
+            callbackWindow.ownerSession->UiFrame().native.stall.price /= 10;
         }
     }
     constexpr std::array<std::array<std::int32_t, 2>, 10> positions {{
@@ -1970,10 +1911,10 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
         std::int32_t imageState = 0;
         if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 21, top + 19, -1) != 0) {
             if (clicked) {
-                gStallPriceD67C40 = digit + 10 * gStallPriceD67C40;
+                callbackWindow.ownerSession->UiFrame().native.stall.price = digit + 10 * callbackWindow.ownerSession->UiFrame().native.stall.price;
             }
-            if (gStallPriceD67C40 > 9999999) {
-                gStallPriceD67C40 = 9999999;
+            if (callbackWindow.ownerSession->UiFrame().native.stall.price > 9999999) {
+                callbackWindow.ownerSession->UiFrame().native.stall.price = 9999999;
             }
             imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
         }
@@ -1985,7 +1926,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     std::int32_t imageState = 0;
     if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 64, x + 118, y + 83, -1) != 0) {
         if (clicked) {
-            gStallPriceD67C40 /= 10;
+            callbackWindow.ownerSession->UiFrame().native.stall.price /= 10;
         }
         imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
@@ -1996,7 +1937,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
     imageState = 0;
     if (cg::ui::HitTestMouseRect_5049A0(x + 93, y + 104, x + 118, y + 123, -1) != 0) {
         if (clicked) {
-            gStallPriceD67C40 = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.price = 0;
         }
         imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
@@ -2005,10 +1946,10 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
             x + 103, y + 114, 227, gNumericKeyImages54F030[12][imageState], 0, &descriptor));
     }
     imageState = 1;
-    if (gStallPriceD67C40 != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.price != 0) {
         if (cg::ui::HitTestMouseRect_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
             if (clicked) {
-                static_cast<void>(WindowStall_AddListing(gStallPriceD67C40));
+                static_cast<void>(WindowStall_AddListing(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().native.stall.price));
                 if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallPrice) {
                     WindowChat_RestoreInput(*callbackWindow.ownerSession);
                 }
@@ -2024,7 +1965,7 @@ static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow,
             x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
     }
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{}", gStallPriceD67C40);
+    cg::text::FormatTo(buffer, L"{}", callbackWindow.ownerSession->UiFrame().native.stall.price);
     WindowNumber_Draw(x + 105, y + 29, buffer, 3, 0, 1, 227);
     static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
     return state & MouseFlag_Hover;
@@ -2038,7 +1979,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     WindowInstance* const window = currentWindow;
     std::int32_t y = window->y + 183;
     std::int32_t x = window->x + 274;
-    const bool petLayout = gStallModeD67BDC != 0;
+    const bool petLayout = callbackWindow.ownerSession->UiFrame().native.stall.mode != 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2092,16 +2033,16 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
     }
     std::wstring buffer;
     std::wstring details;
-    if (gStallModeD67BDC == 0) {
-        auto* const item = gStallBrowseData->items.data() + (gStallItemSelection581124 - 20);
+    if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 0) {
+        auto* const item = callbackWindow.ownerSession->UiFrame().native.stall.browse->items.data() + (callbackWindow.ownerSession->UiFrame().native.stall.itemSelection - 20);
         if (cg::ui::HitTestMouseRect_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
             if ((state & MouseFlag_Hover) != 0) {
-                gStallHover581120 = gStallItemSelection581124 + 180;
+                callbackWindow.ownerSession->UiFrame().native.stall.hover = callbackWindow.ownerSession->UiFrame().native.stall.itemSelection + 180;
             }
             if ((state & MouseFlag_RDownEvent) != 0) {
-                ++gStallDescriptionPageD67C3C;
-                if (gStallDescriptionPageD67C3C >= item->pages) {
-                    gStallDescriptionPageD67C3C = 0;
+                ++callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage;
+                if (callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage >= item->pages) {
+                    callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
                 }
             }
         }
@@ -2126,7 +2067,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, nameLine, 0, 0));
         static_cast<void>(cg::render::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        cg::text::FormatTo(buffer, L"{}", gStallBrowseData->itemValuesD13E74[gStallItemSelection581124 - 20]);
+        cg::text::FormatTo(buffer, L"{}", callbackWindow.ownerSession->UiFrame().native.stall.browse->itemValuesD13E74[callbackWindow.ownerSession->UiFrame().native.stall.itemSelection - 20]);
         WindowNumber_Draw(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
@@ -2148,7 +2089,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
             static_cast<void>(render::DrawGraphic3_520970(
                 x + 257, y + 9, 227, 243000, 0, 1, 0, &descriptor));
         }
-        auto* const pet = gStallBrowseData->pets.data() + (gStallPetSelection581128 - 5);
+        auto* const pet = callbackWindow.ownerSession->UiFrame().native.stall.browse->pets.data() + (callbackWindow.ownerSession->UiFrame().native.stall.petSelection - 5);
         const auto drawPetText = [&](const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
@@ -2185,7 +2126,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
         drawPetText(232, 114);
         cg::text::FormatTo(details, L"{:3}", pet->lvFlag6C);
         drawPetText(89, 132);
-        cg::text::FormatTo(details, L"{}", gStallBrowseData->petValuesD2D464[gStallPetSelection581128 - 5]);
+        cg::text::FormatTo(details, L"{}", callbackWindow.ownerSession->UiFrame().native.stall.browse->petValuesD2D464[callbackWindow.ownerSession->UiFrame().native.stall.petSelection - 5]);
         WindowNumber_Draw(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
@@ -2199,57 +2140,61 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     if (value == -1) {
+        // 数字原型只保留样式；两窗口各自借所属会话的同一金额文本。
+        if (auto* const element = activeWindow->FindElementById(WindowStallElementId::Element4); element && element->data.number) {
+            element->data.number->text = &callbackWindow.ownerSession->UiFrame().native.stall.moneyText;
+        }
         WindowInstance* const initial = activeWindow;
         const std::int32_t id = initial->id;
-        gStallItemPageD67BC8 = 0;
+        callbackWindow.ownerSession->UiFrame().native.stall.itemPage = 0;
         if (id == 67) {
-            gStallItemCountD67BCC = 0;
-            gStallPetPageD67BD0 = 0;
-            gStallPetCountD67BD4 = 0;
-            gStallPetCandidatePageD67BD8 = 0;
-            gStallModeD67BDC = 0;
-            gStallOwn58111C = 1;
+            callbackWindow.ownerSession->UiFrame().native.stall.itemCount = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petPage = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petCount = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.mode = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.own = 1;
         } else {
-            gStallPetPageD67BD0 = 0;
-            gStallPetCandidatePageD67BD8 = 0;
-            gStallModeD67BDC = 0;
-            gStallOwn58111C = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petPage = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.mode = 0;
+            callbackWindow.ownerSession->UiFrame().native.stall.own = 0;
         }
-        gStallHover581120 = -1;
-        gStallItemSelection581124 = -1;
-        gStallPetSelection581128 = -1;
-        std::memset(gStallItemUsedCC31AC.data(), 0, 4);
-        std::memset(gStallItemUsedCC31AC.data() + 4, 0, 4);
-        std::memset(gStallPetUsedCF400C.data(), 0, 4);
-        std::memset(gStallItemUsedCC31AC.data() + 8, 0, 4);
-        gOwnStallOpenForBusiness_D67BE0 = 0;
-        std::memset(gStallItemUsedCC31AC.data() + 12, 0, 4);
-        gStallDescriptionPageD67C3C = 0;
-        gStallNameD67BE4.clear();
-        gStallDescriptionD67BF8.clear();
-        std::memset(gStallItemUsedCC31AC.data() + 16, 0, 4);
-        gStallPetUsedCF400C[4] = 0;
+        callbackWindow.ownerSession->UiFrame().native.stall.hover = -1;
+        callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
+        callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.itemUsed.data(), 0, 4);
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.itemUsed.data() + 4, 0, 4);
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.petUsed.data(), 0, 4);
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.itemUsed.data() + 8, 0, 4);
+        callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness = 0;
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.itemUsed.data() + 12, 0, 4);
+        callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage = 0;
+        callbackWindow.ownerSession->UiFrame().native.stall.name.clear();
+        callbackWindow.ownerSession->UiFrame().native.stall.description.clear();
+        std::memset(callbackWindow.ownerSession->UiFrame().native.stall.itemUsed.data() + 16, 0, 4);
+        callbackWindow.ownerSession->UiFrame().native.stall.petUsed[4] = 0;
         if (auto* const drawTooltipOverlayElement = initial->FindElementById(WindowStallElementId::DrawTooltipOverlay); drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
         if (auto* const handlePriceInputElement = activeWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
     }
     std::wstring lineText;
-    if (gStallOwn58111C != 0) {
-        const bool showScroll = gStallModeD67BDC == 1
-            ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
+    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
+        const bool showScroll = callbackWindow.ownerSession->UiFrame().native.stall.mode == 1
+            ? callbackWindow.ownerSession->UiFrame().native.stall.petCount > 3 : callbackWindow.ownerSession->UiFrame().native.stall.itemCount > 10;
         if (auto* const element38 = activeWindow->FindElementById(WindowStallElementId::Element38); element38) element38->visible = showScroll ? 1 : 0;
         auto* elementsWindow = activeWindow;
         auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowStallElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
             if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
-                if (gStallModeD67BDC == 1) {
+                if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
                     auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowStallElementId::HandleVerticalScroll);
                     if (handleVerticalScrollElement2) {
-                        gStallPetPageD67BD0 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gStallPetCountD67BD4 - 3);
+                        callbackWindow.ownerSession->UiFrame().native.stall.petPage = WindowScroll_ReadPosition(handleVerticalScrollElement2, callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3);
                     }
                 } else {
                     auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowStallElementId::HandleVerticalScroll);
                     if (handleVerticalScrollElement2) {
-                        gStallItemPageD67BC8 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gStallItemCountD67BCC - 10);
+                        callbackWindow.ownerSession->UiFrame().native.stall.itemPage = WindowScroll_ReadPosition(handleVerticalScrollElement2, callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10);
                     }
                 }
             }
@@ -2258,25 +2203,25 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
         auto* const handleVerticalScroll_43Element = elementsWindow->FindElementById(WindowStallElementId::HandleVerticalScroll_43);
         if (handleVerticalScroll_43Element) {
             if ((handleVerticalScroll_43Element->data.mouse->flags & 1u) != 0
-                && gStallModeD67BDC == 1) {
+                && callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
                 auto* const handleVerticalScroll_43Element2 = elementsWindow->FindElementById(WindowStallElementId::HandleVerticalScroll_43);
                 if (handleVerticalScroll_43Element2) {
-                    gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(handleVerticalScroll_43Element2, 1);
+                    callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage = WindowScroll_ReadPosition(handleVerticalScroll_43Element2, 1);
                 }
             }
         }
         if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 1);
         if (auto* const element8 = activeWindow->FindElementById(WindowStallElementId::Element8); element8) element8->visible = 0;
         if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallDescription
-            && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
+            && callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0 && callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
             WindowInstance* const window = activeWindow;
             static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallDescriptionPrototype, window->x, window->y, 1));
             char fieldBytes[57]{};
             cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.stallDescriptionPrototype.input.context));
-            gStallDescriptionD67BF8 = input::ContextText(*inputs.stallDescriptionPrototype.input.context);
-        } else if (!gStallDescriptionD67BF8.empty()) {
+            callbackWindow.ownerSession->UiFrame().native.stall.description = input::ContextText(*inputs.stallDescriptionPrototype.input.context);
+        } else if (!callbackWindow.ownerSession->UiFrame().native.stall.description.empty()) {
             for (std::int32_t line = 0; line < 3; ++line) {
-                static_cast<void>(input::ExtractTextLine(lineText, gStallDescriptionD67BF8, line, 28));
+                static_cast<void>(input::ExtractTextLine(lineText, callbackWindow.ownerSession->UiFrame().native.stall.description, line, 28));
                 WindowInstance* const window = activeWindow;
                 auto* currentWindow = window;
                 auto* const editDescriptionElement = currentWindow->FindElementById(WindowStallElementId::EditDescription);
@@ -2294,18 +2239,18 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
         } else {
             const auto& source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
             WindowInstance* const window = activeWindow;
-            gStallDescriptionD67BF8 = source;
+            callbackWindow.ownerSession->UiFrame().native.stall.description = source;
             if (auto* const element82 = window->FindElementById(WindowStallElementId::Element8); element82) element82->visible = 1;
         }
         if (auto* const element6 = activeWindow->FindElementById(WindowStallElementId::Element6); element6) element6->visible = 0;
         if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallName
-            && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
+            && callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0 && callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
             WindowInstance* const window = activeWindow;
             static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallNamePrototype, window->x, window->y, 1));
             char fieldBytes[17]{};
             cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*inputs.stallNamePrototype.input.context));
-            gStallNameD67BE4 = input::ContextText(*inputs.stallNamePrototype.input.context);
-        } else if (!gStallNameD67BE4.empty()) {
+            callbackWindow.ownerSession->UiFrame().native.stall.name = input::ContextText(*inputs.stallNamePrototype.input.context);
+        } else if (!callbackWindow.ownerSession->UiFrame().native.stall.name.empty()) {
             WindowInstance* const window = activeWindow;
             auto* currentWindow = window;
             auto* const editNameElement = currentWindow->FindElementById(WindowStallElementId::EditName);
@@ -2317,17 +2262,17 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                     const std::int16_t x = std::bit_cast<std::int16_t>(
                         static_cast<std::uint16_t>(editNameElement2->x + window->x));
                     static_cast<void>(render::DrawText_456780(x, y, 3, 4,
-                        std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), gStallNameD67BE4, 0, 0));
+                        std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), callbackWindow.ownerSession->UiFrame().native.stall.name, 0, 0));
                 }
             }
         } else {
             const auto& source = login::detail::GetCurrentSavedStallNameFF4D18();
             WindowInstance* const window = activeWindow;
-            gStallNameD67BE4 = source;
+            callbackWindow.ownerSession->UiFrame().native.stall.name = source;
             if (auto* const element62 = window->FindElementById(WindowStallElementId::Element6); element62) element62->visible = 1;
         }
-        const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
-        gStallHover581120 = -1;
+        const std::uint8_t gate = callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness;
+        callbackWindow.ownerSession->UiFrame().native.stall.hover = -1;
         if (gate != 0) {
             if (auto* const handleButtonsElement = activeWindow->FindElementById(WindowStallElementId::HandleButtons); handleButtonsElement) handleButtonsElement->visible = 0;
             if (auto* const handleButtons_32Element = activeWindow->FindElementById(WindowStallElementId::HandleButtons_32); handleButtons_32Element) handleButtons_32Element->visible = 1;
@@ -2336,22 +2281,22 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
             if (auto* const handleButtons_32Element = activeWindow->FindElementById(WindowStallElementId::HandleButtons_32); handleButtons_32Element) handleButtons_32Element->visible = 0;
         }
     } else {
-        const bool showScroll = gStallModeD67BDC == 1
-            ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
+        const bool showScroll = callbackWindow.ownerSession->UiFrame().native.stall.mode == 1
+            ? callbackWindow.ownerSession->UiFrame().native.stall.petCount > 3 : callbackWindow.ownerSession->UiFrame().native.stall.itemCount > 10;
         if (auto* const handleButtons_33Element = activeWindow->FindElementById(WindowStallElementId::HandleButtons_33); handleButtons_33Element) handleButtons_33Element->visible = showScroll ? 1 : 0;
         auto* elementsWindow = activeWindow;
         auto* const handleButtons_34Element = elementsWindow->FindElementById(WindowStallElementId::HandleButtons_34);
         if (handleButtons_34Element) {
             if ((handleButtons_34Element->data.mouse->flags & 1u) != 0) {
-                if (gStallModeD67BDC == 1) {
+                if (callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
                     auto* const handleButtons_34Element2 = elementsWindow->FindElementById(WindowStallElementId::HandleButtons_34);
                     if (handleButtons_34Element2) {
-                        gStallPetPageD67BD0 = WindowScroll_ReadPosition(handleButtons_34Element2, gStallPetCountD67BD4 - 3);
+                        callbackWindow.ownerSession->UiFrame().native.stall.petPage = WindowScroll_ReadPosition(handleButtons_34Element2, callbackWindow.ownerSession->UiFrame().native.stall.petCount - 3);
                     }
                 } else {
                     auto* const handleButtons_34Element2 = elementsWindow->FindElementById(WindowStallElementId::HandleButtons_34);
                     if (handleButtons_34Element2) {
-                        gStallItemPageD67BC8 = WindowScroll_ReadPosition(handleButtons_34Element2, gStallItemCountD67BCC - 10);
+                        callbackWindow.ownerSession->UiFrame().native.stall.itemPage = WindowScroll_ReadPosition(handleButtons_34Element2, callbackWindow.ownerSession->UiFrame().native.stall.itemCount - 10);
                     }
                 }
             }
@@ -2360,17 +2305,17 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
         auto* const element38 = elementsWindow->FindElementById(WindowStallElementId::Element38);
         if (element38) {
             if ((element38->data.mouse->flags & 1u) != 0
-                && gStallModeD67BDC == 1) {
+                && callbackWindow.ownerSession->UiFrame().native.stall.mode == 1) {
                 auto* const element382 = elementsWindow->FindElementById(WindowStallElementId::Element38);
                 if (element382) {
-                    gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(element382, 1);
+                    callbackWindow.ownerSession->UiFrame().native.stall.petCandidatePage = WindowScroll_ReadPosition(element382, 1);
                 }
             }
         }
-        if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = gStallBrowseData->sellerName00;
-        if (auto* const element6 = activeWindow->FindElementById(WindowStallElementId::Element6); element6) element6->data.text->text = gStallBrowseData->stallName11;
+        if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = callbackWindow.ownerSession->UiFrame().native.stall.browse->sellerName00;
+        if (auto* const element6 = activeWindow->FindElementById(WindowStallElementId::Element6); element6) element6->data.text->text = callbackWindow.ownerSession->UiFrame().native.stall.browse->stallName11;
         for (std::int32_t line = 0; line < 3; ++line) {
-            static_cast<void>(input::ExtractTextLine(lineText, gStallBrowseData->description22, line, 28));
+            static_cast<void>(input::ExtractTextLine(lineText, callbackWindow.ownerSession->UiFrame().native.stall.browse->description22, line, 28));
             WindowInstance* const window = activeWindow;
             auto* currentWindow = window;
             auto* const editNameElement = currentWindow->FindElementById(WindowStallElementId::EditName);
@@ -2385,9 +2330,9 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 }
             }
         }
-        gStallHover581120 = -1;
+        callbackWindow.ownerSession->UiFrame().native.stall.hover = -1;
     }
-    cg::text::FormatTo(gStallMoneyText57B440, L"{}", callbackWindow.ownerSession->WorldScene().player->valueFC);
+    cg::text::FormatTo(callbackWindow.ownerSession->UiFrame().native.stall.moneyText, L"{}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     return 1;
 }
 
@@ -2398,7 +2343,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0 || callbackWindow.ownerSession->UiFrame().native.stall.own == 0) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
@@ -2409,7 +2354,7 @@ static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, 
         auto* const editDescriptionElement = window->FindElementById(WindowStallElementId::EditDescription);
         if (editDescriptionElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editDescriptionElement->data.input) {
-                inputs.stallDescriptionPrototype.text = gStallDescriptionD67BF8;
+                inputs.stallDescriptionPrototype.text = callbackWindow.ownerSession->UiFrame().native.stall.description;
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallDescriptionPrototype, x, y, 0));
@@ -2438,7 +2383,7 @@ static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const E
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0 || callbackWindow.ownerSession->UiFrame().native.stall.own == 0) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
@@ -2449,7 +2394,7 @@ static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const E
         auto* const editNameElement = window->FindElementById(WindowStallElementId::EditName);
         if (editNameElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editNameElement->data.input) {
-                inputs.stallNamePrototype.text = gStallNameD67BE4;
+                inputs.stallNamePrototype.text = callbackWindow.ownerSession->UiFrame().native.stall.name;
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.stallNamePrototype, x, y, 0));
@@ -2476,7 +2421,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gStallOwn58111C != 0) {
+    if (callbackWindow.ownerSession->UiFrame().native.stall.own != 0) {
         {
             auto* const element10 = currentWindow->FindElementById(WindowStallElementId::Element10);
             if (element10) {
@@ -2507,47 +2452,47 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
                 cg::yobi::SetYobiActionField2B8(target, value);
             }
         }
-        if (gStallModeD67BDC != 1) {
-            const std::int32_t hover = gStallHover581120;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 1) {
+            const std::int32_t hover = callbackWindow.ownerSession->UiFrame().native.stall.hover;
             if (hover >= 0) {
-                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, gStallDescriptionPageD67C3C));
+                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage));
             }
         }
-        std::int32_t itemCount = gStallItemCountD67BCC;
+        std::int32_t itemCount = callbackWindow.ownerSession->UiFrame().native.stall.itemCount;
         for (std::int32_t index = itemCount - 1; index >= 0; --index) {
-            StallOffer* const offer = gStallItemOffersD671D8.data() + index;
+            StallOffer* const offer = callbackWindow.ownerSession->UiFrame().native.stall.itemOffers.data() + index;
             const std::int32_t slot = offer->slot;
             if (callbackWindow.ownerSession->WorldScene().playerItems[slot + 8].used == 0) {
                 --itemCount;
-                gStallItemUsedCC31AC[slot] = 0;
-                gStallItemCountD67BCC = itemCount;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemUsed[slot] = 0;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemCount = itemCount;
                 if (itemCount > 0 && index < itemCount) {
                     std::memmove(offer, offer + 1,
                         static_cast<std::size_t>(itemCount - index) * sizeof(StallOffer));
                 }
-                const std::int32_t page = gStallItemPageD67BC8;
-                gStallItemSelection581124 = -1;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.itemPage;
+                callbackWindow.ownerSession->UiFrame().native.stall.itemSelection = -1;
                 if (itemCount - page < 10 && page > 0) {
-                    gStallItemPageD67BC8 = page - 1;
+                    callbackWindow.ownerSession->UiFrame().native.stall.itemPage = page - 1;
                 }
             }
         }
-        std::int32_t petCount = gStallPetCountD67BD4;
+        std::int32_t petCount = callbackWindow.ownerSession->UiFrame().native.stall.petCount;
         for (std::int32_t index = petCount - 1; index >= 0; --index) {
-            StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
+            StallOffer* const offer = callbackWindow.ownerSession->UiFrame().native.stall.petOffers.data() + index;
             const std::int32_t slot = offer->slot;
             if ((*callbackWindow.ownerSession->WorldScene().petRecords)[slot].used == 0) {
                 --petCount;
-                gStallPetUsedCF400C[slot] = 0;
-                gStallPetCountD67BD4 = petCount;
+                callbackWindow.ownerSession->UiFrame().native.stall.petUsed[slot] = 0;
+                callbackWindow.ownerSession->UiFrame().native.stall.petCount = petCount;
                 if (petCount > 0 && index < petCount) {
                     std::memmove(offer, offer + 1,
                         static_cast<std::size_t>(petCount - index) * sizeof(StallOffer));
                 }
-                const std::int32_t page = gStallPetPageD67BD0;
-                gStallPetSelection581128 = -1;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.petPage;
+                callbackWindow.ownerSession->UiFrame().native.stall.petSelection = -1;
                 if (petCount - page < 3 && page > 0) {
-                    gStallPetPageD67BD0 = page - 1;
+                    callbackWindow.ownerSession->UiFrame().native.stall.petPage = page - 1;
                 }
             }
         }
@@ -2556,7 +2501,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element8 = currentWindow->FindElementById(WindowStallElementId::Element8);
             if (element8) {
                 auto* const data = element8->data.animation;
-                const std::int32_t value = gStallBrowseData->imageNo60;
+                const std::int32_t value = callbackWindow.ownerSession->UiFrame().native.stall.browse->imageNo60;
                 cg::yobi::SetYobiActionField2A8(data->action, value);
             }
         }
@@ -2564,7 +2509,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element8 = currentWindow->FindElementById(WindowStallElementId::Element8);
             if (element8) {
                 auto* const data = element8->data.animation;
-                const std::int32_t value = gStallBrowseData->action64;
+                const std::int32_t value = callbackWindow.ownerSession->UiFrame().native.stall.browse->action64;
                 cg::yobi::SetYobiActionField2B0(data->action, value);
             }
         }
@@ -2572,21 +2517,21 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element8 = currentWindow->FindElementById(WindowStallElementId::Element8);
             if (element8) {
                 auto* const data = element8->data.animation;
-                const std::int32_t value = gStallBrowseData->direction68;
+                const std::int32_t value = callbackWindow.ownerSession->UiFrame().native.stall.browse->direction68;
                 cg::yobi::SetYobiActionField2B8(data->action, value);
             }
         }
-        if (gStallModeD67BDC != 1) {
-            const std::int32_t hover = gStallHover581120;
+        if (callbackWindow.ownerSession->UiFrame().native.stall.mode != 1) {
+            const std::int32_t hover = callbackWindow.ownerSession->UiFrame().native.stall.hover;
             if (hover >= 0 && hover < 200) {
-                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, gStallDescriptionPageD67C3C));
+                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage));
             } else if (hover >= 200) {
-                const auto& item = gStallBrowseData->items[hover - 200];
+                const auto& item = callbackWindow.ownerSession->UiFrame().native.stall.browse->items[hover - 200];
                 const std::uint16_t flags = item.flags;
                 const std::wstring title = item.name;
                 const std::int8_t color = (flags & 0x100u) != 0
                     ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
-                const std::int32_t page = gStallDescriptionPageD67C3C;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.stall.descriptionPage;
                 const std::wstring* const lines = item.description.data() + page * 8;
                 WindowInstance* const window = currentWindow;
                 const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -2608,8 +2553,8 @@ static void WindowStall_OpenBrowse(
     const char* const stallName, const char* const description,
     const char* const itemPayload, const char* const petPayload)
 {
-    gStallItemCountD67BCC = 0;
-    gStallPetCountD67BD4 = 0;
+    session.UiFrame().native.stall.itemCount = 0;
+    session.UiFrame().native.stall.petCount = 0;
     cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(session, target);
     if (status != 0 || action == nullptr) {
         switch (status) {
@@ -2630,7 +2575,7 @@ static void WindowStall_OpenBrowse(
         return;
     }
 
-    auto& browse = *gStallBrowseData;
+    auto& browse = *session.UiFrame().native.stall.browse;
     browse.sellerName00.clear();
     browse.stallName11.clear();
     browse.description22.clear();
@@ -2647,14 +2592,14 @@ static void WindowStall_OpenBrowse(
     }
     browse.petValuesD2D464.fill(0);
     browse.petValuesD2D478.fill(0);
-    gStallBrowseData->sellerName00 = cg::text::FromGbkWide(
+    session.UiFrame().native.stall.browse->sellerName00 = cg::text::FromGbkWide(
         cg::text::ToGbk(cg::yobi::GetYobiName(action)).substr(0, 16));
-    gStallBrowseData->target5C = target;
-    gStallBrowseData->imageNo60 = cg::yobi::GetYobiActionField2A8(action);
-    gStallBrowseData->action64 = cg::yobi::GetYobiActionField2B0(action);
-    gStallBrowseData->direction68 = cg::yobi::GetYobiActionField2B8(action);
-    gStallBrowseData->stallName11 = cg::text::FromGbkWide(std::string_view(stallName, std::min(std::strlen(stallName), std::size_t{16})));
-    gStallBrowseData->description22 = cg::text::FromGbkWide(std::string_view(description, std::min(std::strlen(description), std::size_t{56})));
+    session.UiFrame().native.stall.browse->target5C = target;
+    session.UiFrame().native.stall.browse->imageNo60 = cg::yobi::GetYobiActionField2A8(action);
+    session.UiFrame().native.stall.browse->action64 = cg::yobi::GetYobiActionField2B0(action);
+    session.UiFrame().native.stall.browse->direction68 = cg::yobi::GetYobiActionField2B8(action);
+    session.UiFrame().native.stall.browse->stallName11 = cg::text::FromGbkWide(std::string_view(stallName, std::min(std::strlen(stallName), std::size_t{16})));
+    session.UiFrame().native.stall.browse->description22 = cg::text::FromGbkWide(std::string_view(description, std::min(std::strlen(description), std::size_t{56})));
 
     char itemName[256];
     char itemDescription[768];
@@ -2662,12 +2607,12 @@ static void WindowStall_OpenBrowse(
     const std::int32_t itemCount = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', 1);
     std::int32_t itemField = 4;
     for (std::int32_t index = 0; index < itemCount; ++index, itemField += 15) {
-        auto& item = gStallBrowseData->items[gStallItemCountD67BCC];
-        ++gStallItemCountD67BCC;
+        auto& item = session.UiFrame().native.stall.browse->items[session.UiFrame().native.stall.itemCount];
+        ++session.UiFrame().native.stall.itemCount;
         item = {};
-        gStallBrowseData->itemValuesD13E74[index] =
+        session.UiFrame().native.stall.browse->itemValuesD13E74[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 2);
-        gStallBrowseData->itemValuesD13EC4[index] =
+        session.UiFrame().native.stall.browse->itemValuesD13EC4[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 1);
         network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField, 255, itemName);
         input::UnescapeLegacyTextAndNotify_52D2F0(itemName);
@@ -2710,11 +2655,11 @@ static void WindowStall_OpenBrowse(
     const std::int32_t petCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', 1);
     std::int32_t field = 2;
     for (std::int32_t index = 0; index < petCount; ++index) {
-        auto& pet = gStallBrowseData->pets[gStallPetCountD67BD4];
-        ++gStallPetCountD67BD4;
-        gStallBrowseData->petValuesD2D464[index] =
+        auto& pet = session.UiFrame().native.stall.browse->pets[session.UiFrame().native.stall.petCount];
+        ++session.UiFrame().native.stall.petCount;
+        session.UiFrame().native.stall.browse->petValuesD2D464[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        gStallBrowseData->petValuesD2D478[index] =
+        session.UiFrame().native.stall.browse->petValuesD2D478[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         ++field; // 原每条相对字段4不解析。
         pet.used = 1;
@@ -2830,26 +2775,26 @@ static std::int32_t WindowStall_RequestPurchase(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t mode = gStallModeD67BDC;
+    const std::int32_t mode = callbackWindow->ownerSession->UiFrame().native.stall.mode;
     std::int32_t value;
     if (mode == 0) {
-        value = gStallBrowseData->itemValuesD13E74[gStallItemSelection581124];
+        value = callbackWindow->ownerSession->UiFrame().native.stall.browse->itemValuesD13E74[callbackWindow->ownerSession->UiFrame().native.stall.itemSelection];
     } else if (mode == 1) {
-        value = gStallBrowseData->petValuesD2D464[gStallPetSelection581128];
+        value = callbackWindow->ownerSession->UiFrame().native.stall.browse->petValuesD2D464[callbackWindow->ownerSession->UiFrame().native.stall.petSelection];
     } else {
         return mode - 1;
     }
     if (value < 0) {
         return value;
     }
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    gStallPendingD67C31 = 1;
-    static_cast<void>(cg::network::GetGameConnection().PurchaseStallOffer(value));
+    const auto networkSession = callbackWindow->ownerSession->Connection().CaptureSession();
+    callbackWindow->ownerSession->UiFrame().native.stall.pending = 1;
+    static_cast<void>(callbackWindow->ownerSession->Connection().PurchaseStallOffer(value));
     constexpr wchar_t message[] = L"购买请求中";
     const auto length = static_cast<std::int32_t>(std::size(message));
-    gStallMessageModeD67C34 = 0;
-    gStallMessageValueD67C38 = 0;
-    gStallMessageC8A978 = message;
+    callbackWindow->ownerSession->UiFrame().native.stall.messageMode = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.messageValue = 0;
+    callbackWindow->ownerSession->UiFrame().native.stall.message = message;
     if (auto* const drawTooltipOverlayElement = currentWindow->FindElementById(WindowStallElementId::DrawTooltipOverlay); drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 1;
     return length;
 }
@@ -2869,7 +2814,7 @@ static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, cons
         if (hovered) {
             uiFrame.hoverText = L"关闭这个视窗。";
         }
-        if ((state & MouseFlag_LDownEvent) != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallPendingD67C31 == 0) {
+        if ((state & MouseFlag_LDownEvent) != 0 && callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness == 0 && callbackWindow.ownerSession->UiFrame().native.stall.pending == 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
@@ -2878,7 +2823,7 @@ static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, cons
         if (hovered) {
             graphic->imageNo = 243002;
         }
-        if ((state & MouseFlag_LHoldPhysical) != 0 || gOwnStallOpenForBusiness_D67BE0 != 0 || gStallPendingD67C31 != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0 || callbackWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0 || callbackWindow.ownerSession->UiFrame().native.stall.pending != 0) {
             graphic->imageNo = 243001;
         }
         return consumed;
@@ -2889,7 +2834,7 @@ static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x004CDE00。
 static void WindowStall_Release(WindowInstance& releasedWindow)
 {
-    if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 != 0) {
+    if (releasedWindow.ownerSession->UiFrame().native.stall.own != 0 && releasedWindow.ownerSession->UiFrame().native.stall.openForBusiness != 0) {
         static_cast<void>(releasedWindow.ownerSession->Connection().CloseStallRequest());
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -2914,42 +2859,42 @@ static void WindowStall_ReceiveOpenResult(session::ClientSession& session, const
             message = L"摆摊失败";
             break;
         }
-        gStallMessageC8A978 = message;
+        session.UiFrame().native.stall.message = message;
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
         world::ClearPlayerActionFlags(session, 0x1000u);
-        gStallMessageModeD67C34 = 1;
-        gStallMessageValueD67C38 = 0;
+        session.UiFrame().native.stall.messageMode = 1;
+        session.UiFrame().native.stall.messageValue = 0;
         if (window != nullptr) {
             if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 1;
         }
-        gOwnStallOpenForBusiness_D67BE0 = 0;
-        gStallPendingD67C31 = 0;
+        session.UiFrame().native.stall.openForBusiness = 0;
+        session.UiFrame().native.stall.pending = 0;
         return;
     }
     std::wstring name = L"无名店铺";
     world::SetPlayerActionFlags(session, 0x1000u);
-    if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
+    if (!session.UiFrame().native.stall.name.empty()) { name = session.UiFrame().native.stall.name; }
     WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
     session.WorldScene().player->text15BB8 = name;
     if (window != nullptr) {
         if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
     }
-    gStallPendingD67C31 = 0;
+    session.UiFrame().native.stall.pending = 0;
 }
 
 // 原函数：0x004CE8B0。
 static void WindowStall_ReceiveCloseResult(session::ClientSession& session, const std::int32_t result)
 {
     if (result != 0) {
-        gStallMessageC8A978 = L"收摊失败";
+        session.UiFrame().native.stall.message = L"收摊失败";
     }
     world::ClearPlayerActionFlags(session, 0x1000u);
-    gStallPendingD67C31 = 0;
-    gOwnStallOpenForBusiness_D67BE0 = 0;
+    session.UiFrame().native.stall.pending = 0;
+    session.UiFrame().native.stall.openForBusiness = 0;
     WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
     if (result != 0) {
-        gStallMessageModeD67C34 = 1;
-        gStallMessageValueD67C38 = 0;
+        session.UiFrame().native.stall.messageMode = 1;
+        session.UiFrame().native.stall.messageValue = 0;
         if (window != nullptr) {
             if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 1;
         }
@@ -2962,55 +2907,55 @@ static void WindowStall_ReceiveCloseResult(session::ClientSession& session, cons
 static void WindowStall_ReceivePurchaseResult(session::ClientSession& session, const std::int32_t result)
 {
     if (result == 0) {
-        const std::int32_t mode = gStallModeD67BDC;
+        const std::int32_t mode = session.UiFrame().native.stall.mode;
         if (mode == 1) {
-            const std::int32_t index = gStallPetSelection581128 - 5;
-            const std::int32_t count = gStallPetCountD67BD4 - 1;
-            gStallPetCountD67BD4 = count;
+            const std::int32_t index = session.UiFrame().native.stall.petSelection - 5;
+            const std::int32_t count = session.UiFrame().native.stall.petCount - 1;
+            session.UiFrame().native.stall.petCount = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                auto* const pets = gStallBrowseData->pets.data();
+                auto* const pets = session.UiFrame().native.stall.browse->pets.data();
                 std::move(pets + index + 1, pets + index + 1 + remaining, pets + index);
-                std::memmove(gStallBrowseData->petValuesD2D464.data() + index,
-                    gStallBrowseData->petValuesD2D464.data() + index + 1,
+                std::memmove(session.UiFrame().native.stall.browse->petValuesD2D464.data() + index,
+                    session.UiFrame().native.stall.browse->petValuesD2D464.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(gStallBrowseData->petValuesD2D478.data() + index,
-                    gStallBrowseData->petValuesD2D478.data() + index + 1,
+                std::memmove(session.UiFrame().native.stall.browse->petValuesD2D478.data() + index,
+                    session.UiFrame().native.stall.browse->petValuesD2D478.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
-            const std::int32_t page = gStallPetPageD67BD0;
-            gStallPetSelection581128 = -1;
+            const std::int32_t page = session.UiFrame().native.stall.petPage;
+            session.UiFrame().native.stall.petSelection = -1;
             if (count - page < 3 && page > 0) {
-                gStallPetPageD67BD0 = page - 1;
+                session.UiFrame().native.stall.petPage = page - 1;
             }
         } else if (mode == 0) {
-            const std::int32_t count = gStallItemCountD67BCC - 1;
-            const std::int32_t index = gStallItemSelection581124 - 20;
-            gStallItemCountD67BCC = count;
+            const std::int32_t count = session.UiFrame().native.stall.itemCount - 1;
+            const std::int32_t index = session.UiFrame().native.stall.itemSelection - 20;
+            session.UiFrame().native.stall.itemCount = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                auto* const items = gStallBrowseData->items.data();
+                auto* const items = session.UiFrame().native.stall.browse->items.data();
                 for (std::size_t position = 0; position < remaining; ++position) {
                     items[index + position] = items[index + position + 1];
                 }
-                std::memmove(gStallBrowseData->itemValuesD13E74.data() + index,
-                    gStallBrowseData->itemValuesD13E74.data() + index + 1,
+                std::memmove(session.UiFrame().native.stall.browse->itemValuesD13E74.data() + index,
+                    session.UiFrame().native.stall.browse->itemValuesD13E74.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(gStallBrowseData->itemValuesD13EC4.data() + index,
-                    gStallBrowseData->itemValuesD13EC4.data() + index + 1,
+                std::memmove(session.UiFrame().native.stall.browse->itemValuesD13EC4.data() + index,
+                    session.UiFrame().native.stall.browse->itemValuesD13EC4.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
-            const std::int32_t page = gStallItemPageD67BC8;
-            gStallItemSelection581124 = -1;
+            const std::int32_t page = session.UiFrame().native.stall.itemPage;
+            session.UiFrame().native.stall.itemSelection = -1;
             if (count - page < 10 && page > 0) {
-                gStallItemPageD67BC8 = page - 1;
+                session.UiFrame().native.stall.itemPage = page - 1;
             }
         }
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_StallBrowse].window;
         if (window != nullptr) {
             if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
         }
-        gStallPendingD67C31 = 0;
+        session.UiFrame().native.stall.pending = 0;
         return;
     }
     constexpr const wchar_t* messages[] {
@@ -3029,14 +2974,14 @@ static void WindowStall_ReceivePurchaseResult(session::ClientSession& session, c
     };
     const wchar_t* const message = result >= 1 && result <= 12
         ? messages[result - 1] : L"购买失败";
-    gStallMessageC8A978 = message;
+    session.UiFrame().native.stall.message = message;
     WindowInstance* const window = WindowRuntime_States(session)[WindowId_StallBrowse].window;
-    gStallMessageModeD67C34 = 1;
-    gStallMessageValueD67C38 = 0;
+    session.UiFrame().native.stall.messageMode = 1;
+    session.UiFrame().native.stall.messageValue = 0;
     if (window != nullptr) {
         if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 1;
     }
-    gStallPendingD67C31 = 0;
+    session.UiFrame().native.stall.pending = 0;
 }
 
 } // namespace detail
@@ -3069,17 +3014,19 @@ void WindowStall_ReceivePurchaseReply(cg::network::CgConnection& connection, con
     detail::WindowStall_ReceivePurchaseResult(connection.Owner(), result);
 }
 
-// 原函数：0x004CD240；LCI01启动拥有者替代CRT构造／退出登记。
-StallBrowsePetValuesStartup::StallBrowsePetValuesStartup()
+// 原函数：0x004CD240；中央原位置初始化，实际寿命归会话。
+StallBrowsePetValuesStartup::StallBrowsePetValuesStartup(session::ClientSession& session)
 {
-    WindowStall_ConstructBrowsePetValues();
+    WindowStall_ConstructBrowsePetValues(session);
 }
 
-void WindowStall_ConstructBrowsePetValues()
+void WindowStall_ConstructBrowsePetValues(session::ClientSession& session)
 {
     // 原0x004CD360／0x004CD2D0：独立浏览区五项各六成员构造，退出自动逆序析构。
-    static detail::StallBrowseData storage{};
-    detail::gStallBrowseData = &storage;
+    auto& browse = session.UiFrame().native.stall.browse;
+    if (!browse) {
+        browse = std::make_unique<detail::StallBrowseData>();
+    }
 }
 
 // 原函数：0x004CD3E0。

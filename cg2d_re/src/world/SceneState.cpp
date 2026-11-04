@@ -5358,7 +5358,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
     if ((ReadPlayerActionFlagsByte(session) & 0x80u) != 0) {
         return static_cast<std::uint8_t>(pendingIsZero);
     }
-    if (session.WorldScene().movement.targetInteractionClick != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+    if (session.WorldScene().movement.targetInteractionClick != 0 && ui::WindowRuntime_ReadUiGate(session) == 0) {
         const std::int32_t targetY = session.WorldScene().movement.cursorTargetY;
         const std::int32_t targetX = session.WorldScene().movement.cursorTargetX;
         const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(session, targetX, targetY, 8, 0x1000);
@@ -5377,7 +5377,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
         }
     }
     if ((session.WorldScene().partyActive == 0 || (ReadPlayerFlags18A(session) & 0x100u) != 0)
-        && session.WorldScene().movement.movementAndFacingBlocked == 0 && session.WorldScene().movement.inputBlocked == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
+        && session.WorldScene().movement.movementAndFacingBlocked == 0 && session.WorldScene().movement.inputBlocked == 0 && ui::WindowRuntime_ReadUiGate(session) == 0) {
         const bool forceContinuousMove = session.WorldScene().movement.leftHoldDurationMs >= 500u;
         if (forceContinuousMove) {
             session.WorldScene().movement.continuousMovementActive = 1;

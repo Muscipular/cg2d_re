@@ -521,6 +521,14 @@ struct MiniMailComposeState {
     std::wstring text104; // 原成员偏移：+0x104。
 };
 
+// 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
+struct StallOffer {
+    std::int32_t slot;
+    std::int32_t value;
+};
+
+struct StallBrowseData;
+
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
 
 struct LoginWindowRuntimeSlots {
@@ -1336,6 +1344,44 @@ struct BigMapWindowRuntimeState {
     std::unique_ptr<detail::BigMapWindowState> state;
 };
 
+// 自身/浏览窗口共用所属会话的实际摆摊现场；浏览五宠物在原中央位置构造。
+struct StallWindowRuntimeState {
+    StallWindowRuntimeState();
+    ~StallWindowRuntimeState();
+    StallWindowRuntimeState(const StallWindowRuntimeState&) = delete;
+    StallWindowRuntimeState& operator=(const StallWindowRuntimeState&) = delete;
+    StallWindowRuntimeState(StallWindowRuntimeState&&) = delete;
+    StallWindowRuntimeState& operator=(StallWindowRuntimeState&&) = delete;
+
+    std::unique_ptr<detail::StallBrowseData> browse;
+    std::wstring message {}; // 原C8A978。
+    std::wstring name {}; // 原D67BE4。
+    std::uint8_t pending = 0; // 原D67C31。
+    std::int32_t messageMode = 0; // 原D67C34。
+    std::int32_t messageValue = 0; // 原D67C38。
+    std::wstring moneyText {L"01234567"}; // 原57B440，两窗口数字控件借同一稳定字符串。
+    std::int32_t itemPage = 0; // 原D67BC8。
+    std::int32_t itemCount = 0; // 原D67BCC。
+    std::int32_t petPage = 0; // 原D67BD0。
+    std::int32_t petCount = 0; // 原D67BD4。
+    std::int32_t mode = 0; // 原D67BDC。
+    std::int32_t itemSelection = -1; // 原581124。
+    std::int32_t petSelection = -1; // 原581128。
+    std::uint8_t own = 1; // 原58111C。
+    std::int32_t hover = -1; // 原581120。
+    std::int32_t descriptionPage = 0; // 原D67C3C。
+    std::int32_t petCandidatePage = 0; // 原D67BD8。
+    std::wstring description {}; // 原D67BF8。
+    std::int32_t price = 0; // 原D67C40。
+    std::int32_t buttonState = 0; // 原D67C44。
+    std::int32_t inventoryHover = -1; // 原5817FC。
+    std::array<detail::StallOffer, 20> itemOffers {}; // 原D671D8。
+    std::array<detail::StallOffer, 5> petOffers {}; // 原CC3E98。
+    std::array<std::uint8_t, 20> itemUsed {}; // 原CC31AC。
+    std::array<std::uint8_t, 5> petUsed {}; // 原CF400C。
+    std::uint8_t openForBusiness = 0; // 原D67BE0，世界交互和摆摊窗口共用。
+};
+
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
@@ -1373,6 +1419,7 @@ struct NativeWindowRuntimeState {
     InventoryWindowRuntimeState inventory {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
+    StallWindowRuntimeState stall {};
     std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。
     std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};

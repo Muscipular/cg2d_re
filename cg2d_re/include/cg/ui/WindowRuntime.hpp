@@ -169,7 +169,7 @@ WindowInstance* WindowStallBrowse_RequestClose(session::ClientSession& session);
 WindowInstance* WindowOwnStall_RequestClose(session::ClientSession& session); // 原窗口67，同上；不直接关闭或清表。
 // 原函数：0x004AFF00。
 std::int32_t WindowGuildDetails_RequestClose(session::ClientSession& session); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
-std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。
+std::uint8_t WindowRuntime_ReadUiGate(session::ClientSession& session) noexcept; // 所属会话UI门禁W8，world只读。
 std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept; // 技能回复与观察进入共用的UI标志。
 // 原数据：0x00584DA4。
 std::int32_t WindowItemDrag_ReadIndex(session::ClientSession& session) noexcept; // 原S32拖动编号，初值-1。
@@ -225,11 +225,11 @@ public:
 class StallBrowsePetValuesStartup final {
 public:
     // 原函数：0x004CD240；只接管同组原始载荷的启动寿命。
-    StallBrowsePetValuesStartup();
+    explicit StallBrowsePetValuesStartup(session::ClientSession& session);
     StallBrowsePetValuesStartup(const StallBrowsePetValuesStartup&) = delete;
     StallBrowsePetValuesStartup& operator=(const StallBrowsePetValuesStartup&) = delete;
 };
-void WindowStall_ConstructBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
+void WindowStall_ConstructBrowsePetValues(session::ClientSession& session); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
 // WDP01：完整分发与字段取样合同，见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
 void WindowRuntime_DrawCurrent(WindowInstance& window); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。

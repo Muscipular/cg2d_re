@@ -2343,12 +2343,12 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"学习『{}』" /* 原常量参考：0x00588344。 */, choice.skills[choice.selected].name.c_str());
     std::int32_t width = cg::render::TextMeasure(buffer, 0);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"让『{}』" /* 原常量参考：0x00588338。 */, choice.petOptions[choice.petChoice].name.c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
     width = cg::render::TextMeasure(L"让『1234567890123456』" /* 原常量参考：0x00588320。 */, 0);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = choice.techniqueSlots[choice.replacement];
     if (slot.used != 0) {
@@ -2357,20 +2357,20 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
         buffer = L"使用『空栏位』的位置" /* 原常量参考：0x005882F4。 */;
     }
     width = cg::render::TextMeasure(buffer, 0);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         static_cast<std::int16_t>(320 - width / 2), 178, 4, 0, 0, buffer, 0, 0));
     width = cg::render::TextMeasure(learnSuffix5882E8, 0);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
     cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, callbackWindow.ownerSession->WorldScene().player->valueFC);
-    static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 245, 230, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"购入金额 {:7}金币" /* 原常量参考：0x005882C0。 */, choice.skills[choice.selected].price);
-    static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));
-    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, L"这样可以吗？" /* 原常量参考：0x005882B0。 */, 0, 0));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 245, 250, 4, 0, 0, buffer, 0, 0));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 252, 282, 4, 0, 0, L"这样可以吗？" /* 原常量参考：0x005882B0。 */, 0, 0));
     cg::yobi::DrawNineGrid_49BE00(
         245300, 160, 110, 320, 240, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 

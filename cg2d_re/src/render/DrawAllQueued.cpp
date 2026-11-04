@@ -417,7 +417,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                 FillDirtyArea_520AD0(graphic);
                 break;
             case 4:
-                RenderTextToSurface_456D70(graphic->reference.textToken);
+                RenderTextToSurface_456D70(session, graphic->reference.textToken);
                 break;
             case 5: {
                 const std::int32_t y = graphic->y;

@@ -374,11 +374,11 @@ static std::int32_t WindowItem_DrawDescriptionLines(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
             5, 12, titleColor, title, 0, 0));
@@ -399,7 +399,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
         ++lines;
     }
     if (footer != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
             5, 12, footerColor, footer, 0, 0));
@@ -972,8 +972,8 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             }
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
         if (item.used == 0) {
@@ -997,7 +997,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -1364,8 +1364,8 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
                 223, callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex, 0);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 0, 0, 3, 1, 0, L"", 0, 0));
     const std::int8_t mode = std::bit_cast<std::int8_t>(inventory.selectionMode);
     if (mode != 1 && mode != 2) {
         return consumed;
@@ -1396,7 +1396,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));

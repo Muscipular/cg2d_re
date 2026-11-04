@@ -873,10 +873,10 @@ static std::int32_t WindowTrade_DrawPetRow(
     std::memcpy(&used, record, sizeof(used));
     if (used != 0) {
         constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
-        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, textLayer, 8, color, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
             textLayer, 8, color, record->name, 0, 0));
@@ -884,7 +884,7 @@ static std::int32_t WindowTrade_DrawPetRow(
         const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                     const std::int32_t dx, const std::int32_t dy) {
             cg::text::FormatTo(buffer, format, value);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, color, buffer, 0, 0));
@@ -893,7 +893,7 @@ static std::int32_t WindowTrade_DrawPetRow(
         std::int16_t tribe;
         std::memcpy(&tribe, &record->tribe, sizeof(tribe));
         if (tribe >= 0 && tribe < 20) {
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
                 textLayer, 8, color, gTribeNames57CB54[tribe], 0, 0));
@@ -1223,8 +1223,8 @@ static void WindowTrade_HandleOwnInventory(
         }
         trade.valueD2EA20 = 0;
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 3));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 3, 1, 0, L"", 0, 0));
     dimmed = *descriptor;
     reinterpret_cast<unsigned char*>(&dimmed.color)[3] >>= 1;
@@ -1257,7 +1257,7 @@ static void WindowTrade_HandleOwnInventory(
         const std::int32_t count = item.count;
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
                 3, 1, 1, buffer, 0, 0));
@@ -1705,8 +1705,8 @@ static void WindowTrade_HandleSelectedItem(
             static_cast<void>(WindowTrade_RemoveItem(session, position));
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 3));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = WindowTrade_ReadSelectedItem(session, position);
@@ -1728,7 +1728,7 @@ static void WindowTrade_HandleSelectedItem(
         const std::int32_t count = item.count;
         if (count > 0) {
             cg::text::FormatTo(buffer, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
                 3, 1, 1, buffer, 0, 0));
@@ -2045,8 +2045,8 @@ static void WindowTrade_HandleRemoteItem(
             }
             trade.valueD2EA20 = 2;
         }
-        static_cast<void>(render::ClearTextQueueTail_456D50(3));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 3));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, 3, 1, 0, L"", 0, 0));
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const auto* const record = &trade.items[slot];
@@ -2071,7 +2071,7 @@ static void WindowTrade_HandleRemoteItem(
             std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(session,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -2180,10 +2180,10 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const wchar_t* const text = storage.pets[index].techniques[skill].name.data();
     if (*text != '\0') {
-        static_cast<void>(render::ClearTextQueueTail_456D50(5));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, 5, 1, 0, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
             5, 12, 0, text, 0, 0));
@@ -2198,15 +2198,16 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
 
 // 银行／交易第三页复用技能行底图；名称已转换为UTF-16，不显示物品属性。
 static void WindowTrade_DrawPetEquipmentRow(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::wstring_view name)
 {
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = render::GraphicMixFlag_OriginalPalette;
     if (!name.empty()) {
-        static_cast<void>(render::ClearTextQueueTail_456D50(5));
-        static_cast<void>(render::DrawText_456780(0, 0, 5, 1, 0, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+        static_cast<void>(render::DrawText_456780(session, 0, 0, 5, 1, 0, L"", 0, 0));
+        static_cast<void>(render::DrawText_456780(session,
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
             5, 12, 0, name, 0, 0));
     }
@@ -2215,6 +2216,7 @@ static void WindowTrade_DrawPetEquipmentRow(
 
 // 银行／交易两页技能及一页装备的页脚，绘制在十行列表下方。
 static void WindowTrade_DrawPetPageHint(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
     constexpr std::array<std::wstring_view, 3> hints {
@@ -2222,7 +2224,7 @@ static void WindowTrade_DrawPetPageHint(
         L"2/3页 PageUp上页 PageDown装备",
         L"装备3/3页 按PageUp键看上一页",
     };
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         static_cast<std::int16_t>(x + 10), static_cast<std::int16_t>(y + 303),
         5, 12, 0, hints[page], 0, 0));
 }
@@ -2246,12 +2248,12 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     const wchar_t* const title = record->speciesName.c_str();
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),
             5, 12, 0, title, 0, 0));
@@ -2263,7 +2265,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         std::int32_t value;
         std::memcpy(&value, &record->baseStats[row], sizeof(value));
         cg::text::FormatTo(buffer, L"{:10}", value);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
             5, 12, 0, buffer, 0, 0));
@@ -2274,7 +2276,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         std::int32_t weight;
         std::memcpy(&weight, &record->weight, sizeof(weight));
         cg::text::FormatTo(buffer, L"{:3} / {:3}", weight, maximumWeight);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             31, 5, 12, 0, buffer, 0, 0));
     }
@@ -2320,14 +2322,14 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         if (page == 2) {
             const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
                 ? record->equipmentNames[row] : std::wstring{};
-            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+            WindowTrade_DrawPetEquipmentRow(session, shortX + 10, shortY + 141 + row * 16, name);
         } else {
             static_cast<void>(WindowTrade_DrawRemotePetSkillRow(
                 session,
                 shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
         }
     }
-    WindowTrade_DrawPetPageHint(shortX, shortY, page);
+    WindowTrade_DrawPetPageHint(session, shortX, shortY, page);
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
@@ -2348,10 +2350,10 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     const wchar_t* const text =
         trade.pets[index + shortSide * 5].techniques[skill].name.data();
     if (*text != '\0') {
-        static_cast<void>(render::ClearTextQueueTail_456D50(5));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, 5, 1, 0, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
             5, 12, 0, text, 0, 0));
@@ -2387,12 +2389,12 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     const wchar_t* const title = record->speciesName.c_str();
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),
             5, 12, 0, title, 0, 0));
@@ -2404,7 +2406,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         std::int32_t value;
         std::memcpy(&value, &record->baseStats[row], sizeof(value));
         cg::text::FormatTo(buffer, L"{:10}", value);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
             5, 12, 0, buffer, 0, 0));
@@ -2451,13 +2453,13 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         if (page == 2) {
             const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
                 ? record->equipmentNames[row] : std::wstring{};
-            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+            WindowTrade_DrawPetEquipmentRow(session, shortX + 10, shortY + 141 + row * 16, name);
         } else {
             static_cast<void>(WindowTrade_DrawSelectedPetSkillRow(session,
                 shortX + 10, shortY + 141 + row * 16, side, shortIndex, page * 10 + row));
         }
     }
-    WindowTrade_DrawPetPageHint(shortX, shortY, page);
+    WindowTrade_DrawPetPageHint(session, shortX, shortY, page);
     return render::DrawGraphic3_520970(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
@@ -2477,10 +2479,10 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const wchar_t* const text = pet.techniquesD8[skillIndex].name.data();
     if (*text != '\0') {
-        static_cast<void>(render::ClearTextQueueTail_456D50(5));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, 5, 1, 0, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
             5, 12, 0, text, 0, 0));
@@ -2510,12 +2512,12 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     const wchar_t* const title = pet.name6AC.data();
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),
             5, 12, 0, title, 0, 0));
@@ -2526,7 +2528,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t value = pet.values70[5 + row];
         cg::text::FormatTo(buffer, L"{:10}", value);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
             5, 12, 0, buffer, 0, 0));
@@ -2535,7 +2537,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     if (maximumWeight > 0) {
         const std::int32_t weight = pet.values6D8[1];
         cg::text::FormatTo(buffer, L"{:3} / {:3}", weight, maximumWeight);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),
             5, 12, 0, buffer, 0, 0));
@@ -2579,16 +2581,16 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
         if (page == 2) {
             const std::wstring_view name = row < static_cast<std::int32_t>(pet.items6E4.size())
                 && pet.items6E4[row].used != 0 ? std::wstring_view{pet.items6E4[row].name} : std::wstring_view{};
-            WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
+            WindowTrade_DrawPetEquipmentRow(session, shortX + 10, shortY + 141 + row * 16, name);
         } else {
             static_cast<void>(WindowTrade_DrawOwnPetSkillRow(session,
                 shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
         }
     }
     if (showEquipmentPage) {
-        WindowTrade_DrawPetPageHint(shortX, shortY, page);
+        WindowTrade_DrawPetPageHint(session, shortX, shortY, page);
     } else {
-        static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
+        static_cast<void>(render::DrawText_456780(session, static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
             page == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
     }
     return render::DrawGraphic3_520970(

@@ -74,7 +74,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     textBuffer = L"无法删除家族负责人。" /* 原地址：0x55CDEC */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 76),
         2,
@@ -86,7 +86,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     textBuffer = L"若要解散家族，" /* 原地址：0x55CDDC */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 44),
         2,
@@ -98,7 +98,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     textBuffer = L"请在退出此家族之后，" /* 原地址：0x55CDC4 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 20),
         2,
@@ -110,7 +110,7 @@ std::int32_t ProcessCharacterModal_462090(
 
     textBuffer = L"再进行删除。" /* 原地址：0x55CDB4 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y + 4),
         2,

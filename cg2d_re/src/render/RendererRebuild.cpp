@@ -39,8 +39,8 @@ void RebuildRenderer_466B80(session::ClientSession& session)
     const std::int32_t sceneType = session.WorldScene().sceneType;
     if (sceneType == 10) {
         platform::gPendingGraphicCount = 0;
-        platform::gPendingGraphicCount2 = 0;
-        static_cast<void>(ResetGraphicCache_456D30());
+        session.TextQueue().count = 0;
+        static_cast<void>(ResetGraphicCache_456D30(session));
         static_cast<void>(world::ResetMapDrawCacheCounts_46BD40());
         world::DrawMapScene_46CF60(session, 0);
         static_cast<void>(cg::render::DrawBattleBackgroundScaled(
@@ -52,8 +52,8 @@ void RebuildRenderer_466B80(session::ClientSession& session)
         static_cast<void>(CopyBackToTemp());
         gRenderQueueMode103CF10 = previousQueueMode;
         platform::gPendingGraphicCount = 0;
-        platform::gPendingGraphicCount2 = 0;
-        static_cast<void>(ResetGraphicCache_456D30());
+        session.TextQueue().count = 0;
+        static_cast<void>(ResetGraphicCache_456D30(session));
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
     } else if (sceneType == 9) {
         static_cast<void>(world::CaptureMapTilesForTransition_51D640(session));

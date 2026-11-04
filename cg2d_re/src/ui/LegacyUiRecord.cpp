@@ -15,9 +15,10 @@
 
 namespace cg::ui {
 
-LegacyUiLayoutScope::LegacyUiLayoutScope()
-    : graphicStart_(platform::gPendingGraphicCount),
-      textStart_(platform::gPendingGraphicCount2)
+LegacyUiLayoutScope::LegacyUiLayoutScope(session::ClientSession& session)
+    : session_(session),
+      graphicStart_(platform::gPendingGraphicCount),
+      textStart_(session.TextQueue().count)
 {
     offsetX_ = (platform::gWindowWidth - 640) / 2;
     offsetY_ = (platform::gWindowHeight - 480) / 2;
@@ -53,8 +54,8 @@ LegacyUiLayoutScope::~LegacyUiLayoutScope()
             break;
         }
     }
-    for (std::uint32_t index = textStart_; index < platform::gPendingGraphicCount2; ++index) {
-        auto& record = render::gTextPendingRecords[index];
+    for (std::uint32_t index = textStart_; index < session_.TextQueue().count; ++index) {
+        auto& record = session_.TextQueue().records[index];
         record.x = static_cast<std::int16_t>(record.x + offsetX_);
         record.y = static_cast<std::int16_t>(record.y + offsetY_);
     }

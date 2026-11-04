@@ -263,8 +263,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
@@ -298,7 +298,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -459,8 +459,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring buffer;
@@ -488,7 +488,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));

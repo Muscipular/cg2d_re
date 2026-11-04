@@ -279,7 +279,7 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
         const std::int32_t x = sceneUi.serverConnectionLayout.x;
         const std::int32_t textX = horizontalWidth / 2 + x;
-        cg::render::DrawText_456780(
+        cg::render::DrawText_456780(connection.Owner(),
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,
@@ -396,7 +396,7 @@ std::int32_t UpdateLoginProgress(network::CgConnection& connection)
         const std::int32_t columnCount = sceneUi.loginProgressLayout.columnCount;
         const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
         const std::int32_t x = sceneUi.loginProgressLayout.x;
-        cg::render::DrawText3_456560(
+        cg::render::DrawText3_456560(connection.Owner(),
             static_cast<std::int16_t>(horizontalWidth / 2 + x),
             static_cast<std::int16_t>(textY),
             2,

@@ -33,12 +33,12 @@ void WindowElement_DrawText(const WindowElement& element, int x, int y, const UI
     // 队列复制裁剪区域，最终绘制字形及阴影纹理时裁剪，不再丢整字或整行。
     if (box) {
         // Lua文本框独立占据本元素的绘制顺序，不能追加到前方控件的文字链穿过背景。
-        render::ClearTextQueueTail_456D50(3);
-        render::DrawColoredText(drawX, drawY, 3, font, color, data.text, 0,
+        render::ClearTextQueueTail_456D50(*element.owner->ownerSession, 3);
+        render::DrawColoredText(*element.owner->ownerSession, drawX, drawY, 3, font, color, data.text, 0,
             std::bit_cast<std::int8_t>(std::uint8_t{0xF9}), clipping ? &bounds : nullptr);
-        render::ClearTextQueueTail_456D50(3);
+        render::ClearTextQueueTail_456D50(*element.owner->ownerSession, 3);
     } else {
-        render::DrawText2_456670(drawX, drawY, 3, font, color, data.text, 0, clipping ? &bounds : nullptr);
+        render::DrawText2_456670(*element.owner->ownerSession, drawX, drawY, 3, font, color, data.text, 0, clipping ? &bounds : nullptr);
     }
 }
 }

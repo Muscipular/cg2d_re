@@ -71,13 +71,13 @@ inline void RendererDrawInputText(session::ClientSession& session, InputContext*
 inline int FontMeasure(std::wstring_view value, int font) {
     return render::TextMeasure(value, font);
 }
-inline void RendererBreakWindowTextBatch() { render::gGraphicCache4Queue[FONT_LAYER_WINDOW] = 0; }
+inline void RendererBreakWindowTextBatch(session::ClientSession& session) { session.TextQueue().tails[FONT_LAYER_WINDOW] = 0; }
 inline int RendererDrawRect(std::int16_t x, std::int16_t y, std::int16_t w, std::int16_t h, std::uint8_t layer, COLORREF color) {
     return render::DrawRectangle(x, y, w, h, layer, color);
 }
 inline void YobiMarkDeath(YobiAction* action) { if (action) action->deathFlag = 1; }
-inline void InfoRenderText(std::int16_t x, std::int16_t y, std::uint8_t layer, char font, std::uint8_t color, std::wstring_view value, char hover, char frame) {
-    render::DrawColoredText(x, y, layer, font, color, value, hover, frame);
+inline void InfoRenderText(session::ClientSession& session, std::int16_t x, std::int16_t y, std::uint8_t layer, char font, std::uint8_t color, std::wstring_view value, char hover, char frame) {
+    render::DrawColoredText(session, x, y, layer, font, color, value, hover, frame);
 }
 
 } // namespace cg::ui::component_detail

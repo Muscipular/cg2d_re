@@ -84,7 +84,7 @@ std::int32_t UpdateCharacterListProgress_45DD60(network::CgConnection& connectio
             columns * kColumnWidth - textWidth;
         const std::int32_t x = progress.x;
         const std::int32_t textX = horizontalWidth / 2 + x;
-        cg::render::DrawText3_456560(
+        cg::render::DrawText3_456560(connection.Owner(),
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,

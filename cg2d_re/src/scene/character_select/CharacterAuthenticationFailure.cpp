@@ -84,7 +84,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0(network::CgConnection& connectio
     const std::int32_t textXOrigin = failure.x;
     const std::int32_t textY = textYOrigin + 20;
     const std::int32_t textX = textXOrigin + 140;
-    cg::render::DrawText3_456560(
+    cg::render::DrawText3_456560(connection.Owner(),
         static_cast<std::int16_t>(textX),
         static_cast<std::int16_t>(textY),
         2,

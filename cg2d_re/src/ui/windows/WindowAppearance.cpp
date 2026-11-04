@@ -225,7 +225,7 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const 
         245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),
         static_cast<std::int16_t>(window->width), static_cast<std::int16_t>(window->height),
         223, -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 

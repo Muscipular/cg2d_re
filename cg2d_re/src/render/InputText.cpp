@@ -17,7 +17,7 @@ namespace cg::render {
 // 原函数：0x004568A0。
 void DrawInputText_4568A0(session::ClientSession& session, input::InputContext* const context)
 {
-    const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
+    const std::uint32_t initialCountBits = session.TextQueue().count;
     if (std::bit_cast<std::int32_t>(initialCountBits) >= MAX_QUEUE_SIZE) {
         return;
     }
@@ -42,12 +42,12 @@ void DrawInputText_4568A0(session::ClientSession& session, input::InputContext* 
             const std::int8_t renderMode = static_cast<std::int8_t>(context->renderMode);
             const std::int32_t y = context->textY;
             const std::int32_t x = context->textX;
-            static_cast<void>(DrawText2_456670(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + yOffset), renderMode,
+            static_cast<void>(DrawText2_456670(session, static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + yOffset), renderMode,
                 static_cast<std::int8_t>(fontType), static_cast<std::int8_t>(color), displayed.c_str(), 0));
             yOffset = yOffset + context->lineHeight;
         }
     } else {
-        TextPendingRecord& entry = gTextPendingRecords[static_cast<std::size_t>(initialCountBits)];
+        TextPendingRecord& entry = session.TextQueue().records[static_cast<std::size_t>(initialCountBits)];
         entry.x = static_cast<std::int16_t>(context->textX);
         entry.y = static_cast<std::int16_t>(context->textY);
         entry.renderMode = static_cast<std::uint8_t>(context->renderMode);
@@ -72,18 +72,18 @@ void DrawInputText_4568A0(session::ClientSession& session, input::InputContext* 
         entry.nextToken = 0;
         // 原456BED/456C0B/456C2F分别读取完整W32模式，不能共用入口快照。
         const std::size_t modeIndex = static_cast<std::size_t>(context->renderMode);
-        const std::uint32_t tailToken = gGraphicCache4Queue[modeIndex];
+        const std::uint32_t tailToken = session.TextQueue().tails[modeIndex];
         const std::uint32_t currentToken = initialCountBits + 1U;
         if (tailToken == 0) {
-            gGraphicCache4Queue[modeIndex] = currentToken;
+            session.TextQueue().tails[modeIndex] = currentToken;
             const std::size_t layerModeIndex = static_cast<std::size_t>(context->renderMode);
-            static_cast<void>(QueueText_521A30(currentToken, gTextFontLayerRecords[layerModeIndex].layer));
+            static_cast<void>(QueueText_521A30(session, currentToken, gTextFontLayerRecords[layerModeIndex].layer));
         } else {
-            gTextPendingRecords[static_cast<std::size_t>(tailToken - 1U)].nextToken = currentToken;
+            session.TextQueue().records[static_cast<std::size_t>(tailToken - 1U)].nextToken = currentToken;
             const std::size_t tailModeIndex = static_cast<std::size_t>(context->renderMode);
-            gGraphicCache4Queue[tailModeIndex] = platform::gPendingGraphicCount2 + 1U;
+            session.TextQueue().tails[tailModeIndex] = session.TextQueue().count + 1U;
         }
-        ++platform::gPendingGraphicCount2;
+        ++session.TextQueue().count;
     }
     if (session.UiFrame().inputState.currentContext != context) {
         return;

@@ -511,7 +511,7 @@ void RenderChara_521F20(session::ClientSession& session)
         const std::int8_t nameColor = action->nameColor;
         const std::int32_t nameY = action->nameY;
         const std::int32_t nameX = action->nameX;
-        static_cast<void>(render::DrawText2_456670(
+        static_cast<void>(render::DrawText2_456670(session,
             static_cast<std::int16_t>(nameX),
             static_cast<std::int16_t>(nameY),
             nameLayer,

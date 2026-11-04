@@ -418,7 +418,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     for (std::int32_t row = 0; row < dialog.message.lineCount; ++row) {
         const std::wstring& text = dialog.message.lines[row].text;
         if (!text.empty()) {
-            static_cast<void>(render::DrawColoredText(
+            static_cast<void>(render::DrawColoredText(*callbackWindow.ownerSession,
                 static_cast<std::int16_t>(window->x + 24),
                 static_cast<std::int16_t>(window->y + row * dialog.message.lineHeight + 20),
                 3, 0, 0, text, 0, static_cast<std::int8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
@@ -441,7 +441,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
             if (row == selected) {
                 render::DrawInputText_4568A0(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().inputState.currentContext);
             } else {
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     static_cast<std::int16_t>(inputX),
                     static_cast<std::int16_t>(window->y + dialog.message.inputY[row]),
                     3, 0, 0, dialog.message.inputTexts[row], 0,
@@ -490,7 +490,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 
@@ -1141,7 +1141,7 @@ static std::int32_t WindowDialog_DrawHealing(
     for (std::int32_t index = 0; index < 7; ++index) {
         if (dialog.healing[index].level != 0) {
             cg::text::FormatTo(buffer, L"{:7} G", dialog.healing[index].cost);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
                 3, 0, 0, buffer, 0, static_cast<std::int8_t>(session.UiFrame().hoverFramePaletteIndex)));
@@ -1154,7 +1154,7 @@ static std::int32_t WindowDialog_DrawHealing(
         }
     }
     cg::text::FormatTo(buffer, L"               所持金 {:7} 金币", session.WorldScene().player->valueFC);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),
         3, 0, 0, buffer, 0, static_cast<std::int8_t>(session.UiFrame().hoverFramePaletteIndex)));

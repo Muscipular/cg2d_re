@@ -11,7 +11,7 @@ namespace cg::ui {
 // LUR01：仅由登录／服务器／角色选择入口持有，退出时平移该场景新增的绘制记录。
 class LegacyUiLayoutScope {
 public:
-    LegacyUiLayoutScope();
+    explicit LegacyUiLayoutScope(session::ClientSession& session);
     ~LegacyUiLayoutScope();
     LegacyUiLayoutScope(const LegacyUiLayoutScope&) = delete;
     LegacyUiLayoutScope& operator=(const LegacyUiLayoutScope&) = delete;
@@ -21,6 +21,7 @@ public:
     static std::int32_t GetOffsetY() noexcept { return offsetY_; }
 
 private:
+    session::ClientSession& session_; // 退出作用域时仍借同一会话文字队列。
     std::uint16_t graphicStart_; // 本场景首条图形记录。
     std::uint32_t textStart_; // 本场景首条独立文本记录。
     inline static std::int32_t offsetX_ = 0;

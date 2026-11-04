@@ -215,14 +215,14 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
     }
 
     std::int32_t textIndex = 0;
-    std::int32_t textCount = std::bit_cast<std::int32_t>(gPendingGraphicCount2);
+    std::int32_t textCount = std::bit_cast<std::int32_t>(session.TextQueue().count);
     while (textIndex < textCount) {
-        const render::TextPendingRecord& text = render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
+        const render::TextPendingRecord& text = session.TextQueue().records[static_cast<std::size_t>(textIndex)];
         std::int32_t width;
         if (text.value7 != 0 && HitQueuedText(session, text, width)) {
             session.UiFrame().hoveredTextPendingIndex = textIndex;
             const render::TextPendingRecord& selected =
-                render::gTextPendingRecords[static_cast<std::size_t>(textIndex)];
+                session.TextQueue().records[static_cast<std::size_t>(textIndex)];
             const std::uint8_t type = selected.value7;
             if (type == 2 || type == 3) {
                 std::uint32_t marker;
@@ -253,7 +253,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             }
             return;
         }
-        textCount = std::bit_cast<std::int32_t>(gPendingGraphicCount2);
+        textCount = std::bit_cast<std::int32_t>(session.TextQueue().count);
         ++textIndex;
     }
 

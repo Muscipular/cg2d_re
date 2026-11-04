@@ -101,7 +101,7 @@ void UpdateBattleText_421750(YobiAction* const action)
         const std::int32_t y = panel->y + 40;
         const std::int32_t x = panel->x + 40;
         // 原421793各行坐标相同，创建时的fontType只用于测量，不改为带行距绘制。
-        static_cast<void>(render::DrawText3_456560(
+        static_cast<void>(render::DrawText3_456560(*action->ownerSession,
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, line, 0));
     }
     const std::int32_t remaining = payload->remaining10 - 1;

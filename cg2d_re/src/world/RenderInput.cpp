@@ -80,12 +80,12 @@ static void DrawCandidateEntry(
     const std::int32_t numberWidth = cg::render::TextMeasure(number, fontType);
     const std::int32_t left = (context->x + targetStart) + oldUnits;
     const std::int32_t top = context->y + height;
-    static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
+    static_cast<void>(render::DrawText2_456670(session, static_cast<std::int16_t>(left + 5), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, number, 0));
     const CANDIDATELIST* const candidateList = CurrentCandidateList(session);
     const std::wstring body = CandidateText(candidateList, pageIndex);
     const std::int32_t bodyWidth = cg::render::TextMeasure(body.c_str(), fontType);
     const std::int32_t bodyX = left + numberWidth + 10;
-    static_cast<void>(render::DrawText2_456670(static_cast<std::int16_t>(bodyX), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, body.c_str(), 0));
+    static_cast<void>(render::DrawText2_456670(session, static_cast<std::int16_t>(bodyX), static_cast<std::int16_t>(top), 4, static_cast<std::int8_t>(fontType), 0, body.c_str(), 0));
     units = oldUnits + numberWidth + bodyWidth + 15;
     const CANDIDATELIST* const selectionList = CurrentCandidateList(session);
     const bool selected = selectionList->dwSelection == selectionList->dwPageStart + pageIndex;
@@ -160,7 +160,7 @@ void RenderInput_4590E0(session::ClientSession& session)
 
         const std::int16_t descriptionY = session.UiFrame().ime.descriptionY;
         const std::int16_t descriptionX = session.UiFrame().ime.descriptionX;
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             descriptionX,
             descriptionY,
             3,
@@ -185,7 +185,7 @@ void RenderInput_4590E0(session::ClientSession& session)
         static_cast<std::uint8_t>(compositionModeByte + 1U));
     const std::int32_t compositionY = context->y;
     const std::int32_t compositionX = context->x;
-    static_cast<void>(render::DrawText2_456670(
+    static_cast<void>(render::DrawText2_456670(session,
         static_cast<std::int16_t>(compositionX), static_cast<std::int16_t>(compositionY), compositionMode,
         static_cast<std::int8_t>(compositionFontType), 0, session.UiFrame().ime.composition, 0));
 

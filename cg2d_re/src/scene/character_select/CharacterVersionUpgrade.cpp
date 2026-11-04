@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -80,7 +81,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
                 1)) {
             const std::int32_t width =
                 cg::render::TextMeasure(kUpgradeProgressText, 0);
-            cg::render::DrawText_456780(
+            cg::render::DrawText_456780(connection.Owner(),
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,
@@ -199,7 +200,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
                 1)) {
             const std::int32_t width =
                 cg::render::TextMeasure(kUpgradeProgressText, 0);
-            cg::render::DrawText_456780(
+            cg::render::DrawText_456780(connection.Owner(),
                 static_cast<std::int16_t>(320 - width / 2),
                 232,
                 2,
@@ -259,7 +260,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
         break;
     }
 
-    render::gGraphicCache4Queue[3] = 0;
+    connection.Owner().TextQueue().tails[3] = 0;
     static_cast<void>(ProcessCharacterSlot_461B30(connection, 0, 1));
     static_cast<void>(ProcessCharacterSlot_461B30(connection, 1, 1));
     return cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1);

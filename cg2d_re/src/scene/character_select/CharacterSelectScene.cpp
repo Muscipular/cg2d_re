@@ -236,7 +236,7 @@ std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connec
         const std::int32_t unscaledX = 64 * columns - static_cast<std::int32_t>(textWidth);
         const std::int32_t left = progress.x;
         const std::int32_t x = unscaledX / 2 + left;
-        cg::render::DrawText3_456560(
+        cg::render::DrawText3_456560(connection.Owner(),
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
     }
     return 0;
@@ -1088,14 +1088,14 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     render::DrawInputText_4568A0(connection.Owner(), &draft.input9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04)));
-    render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);
+    render::DrawText_456780(connection.Owner(), 518, 185, 0, 13, color, buffer, 0, 0);
     for (std::size_t row = 0; row < attributes.size(); ++row) {
         cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(*attributes[row])));
-        render::DrawText_456780(
+        render::DrawText_456780(connection.Owner(),
             479, static_cast<std::int16_t>(199 + 14 * row), 0, 13, color, buffer, 0, 0);
     }
     cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingElementPoints9A50C8)));
-    render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
+    render::DrawText_456780(connection.Owner(), 518, 293, 0, 13, color, buffer, 0, 0);
     cg::render::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
     cg::render::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
     return result;
@@ -1286,9 +1286,9 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
         }
     }
 
-    cg::render::DrawText_456780(304, 96, 2, 0, 4, L"提示", 0, 0);
+    cg::render::DrawText_456780(connection.Owner(), 304, 96, 2, 0, 4, L"提示", 0, 0);
     for (std::size_t index = 0; index < lines.size(); ++index) {
-        cg::render::DrawText_456780(
+        cg::render::DrawText_456780(connection.Owner(),
             56, static_cast<std::int16_t>(128 + index * 24),
             2, 0, 0, lines[index], 0, 0);
     }
@@ -1493,8 +1493,8 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                         L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
                         0);
                 if (cg::yobi::IsYobiActionReady(sceneUi.deleteConfirmationAction, 1)) {
-                    cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
-                    cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
+                    cg::render::DrawText3_456560(connection.Owner(), 166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
+                    cg::render::DrawText3_456560(connection.Owner(), 166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                     if (result == 1) {
                         if ((platform::ReadSessionKeyState(connection.Owner(), 17) & 2u) != 0) {
                             connection.Owner().WorldScene().sceneState = 14;

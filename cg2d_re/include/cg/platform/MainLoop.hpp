@@ -10,7 +10,6 @@ extern std::uint8_t& gRendererMode;         // 原 0x62A640，参数模块四字
 extern std::uint8_t gSupportedRenderMode;   // 原 0x628FEA，不能与请求模式合并。
 extern std::int32_t gRendererLost;          // 原 0x62B064，恢复门槛。
 extern std::uint16_t gPendingGraphicCount;  // 原 0x1020EB8，仅清零 16 位。
-extern std::uint32_t gPendingGraphicCount2; // 原 0x73ECB8。
 
 extern double gLastRenderDt;       // 原 0x73ECC8，共享帧截止，不是上一帧耗时。
 extern double gFrameThreshold;     // 原 0x5590E8，可写，不能合并为下面的增量。

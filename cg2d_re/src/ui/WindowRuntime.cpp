@@ -893,12 +893,12 @@ static std::int32_t WindowPet_DrawTooltip(
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
     world::PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[index];
     if (pet.used != 0) {
-        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, textLayer, 12, 0, L"", 0, 0));
         const auto drawText = [&](const std::wstring_view text, const std::int32_t dx,
                                   const std::int32_t dy) {
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originX + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originY + dy)),
                 textLayer, 12, 0, text, 0, 0));
@@ -1384,7 +1384,7 @@ std::int32_t WindowItem_SplitTooltipLines(
         const wchar_t next = text[delimiter + 1];
         if (next == L'$') { ++length; }
         const std::wstring_view prefix = text.substr(0, length);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
             renderMode, static_cast<std::int8_t>(render::ResolveFontId(fontType)),
@@ -1396,7 +1396,7 @@ std::int32_t WindowItem_SplitTooltipLines(
             if (digit >= 0 && digit <= 9) { interaction.tooltipColor = digit; color = static_cast<std::int8_t>(digit); }
         }
     }
-    return render::DrawText_456780(
+    return render::DrawText_456780(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
         renderMode, static_cast<std::int8_t>(render::ResolveFontId(fontType)),
@@ -1418,11 +1418,11 @@ static std::int32_t WindowItem_DrawTooltipLines(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
             5, 12, titleColor, title, 0, 0));
@@ -1443,7 +1443,7 @@ static std::int32_t WindowItem_DrawTooltipLines(
         lineY += 13;
     }
     if (footer != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
             5, 12, footerColor, footer, 0, 0));
@@ -2392,7 +2392,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
             y = elementY + windowY + offsetY;
             x = elementX + windowX + offsetX;
         }
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(*currentWindow->ownerSession,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 5, 12,
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(textColor)), text, 0, 0));
@@ -3534,7 +3534,7 @@ std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, cons
     cg::yobi::DrawNineGrid_49BE00(
         0x3BE3E, x, y, width, height, 0xDF, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    render::ClearTextQueueTail_456D50(3);
+    render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3);
     return 1;
 }
 
@@ -3593,7 +3593,7 @@ std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, const 
     cg::yobi::DrawNineGrid_49BE00(
         245300, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 
@@ -5148,9 +5148,9 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
                 }
             } else if (data != nullptr && data->ownedInput != nullptr) {
                 // Lua输入沿原生正文/光标坐标计算，但独立入队并使用控件实际宽度。
-                render::ClearTextQueueTail_456D50(3);
+                render::ClearTextQueueTail_456D50(*window.ownerSession, 3);
                 render::DrawInputText_4568A0(*window.ownerSession, data->context);
-                render::ClearTextQueueTail_456D50(3);
+                render::ClearTextQueueTail_456D50(*window.ownerSession, 3);
             } else if (data != nullptr) {
                 WindowChat_DrawFixedWidthInput(*window.ownerSession, data->context);
             }
@@ -5191,7 +5191,7 @@ void WindowRuntime_DrawCurrent(WindowInstance& target)
         if (element->parentId) continue;
         WindowRuntime_DrawElement(*window, element->elementId, window->x, window->y, nullptr);
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*target.ownerSession, 3));
     world::DrawChatRangeOverlay_476680(*target.ownerSession);
 }
 

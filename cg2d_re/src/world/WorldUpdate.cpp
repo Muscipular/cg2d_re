@@ -57,7 +57,7 @@ void Update(session::ClientSession& session)
     session.WorldScene().map.surfaceCacheEnabled = 0;
     switch (sceneType) {
     case 1: {
-        const ui::LegacyUiLayoutScope layout;
+        const ui::LegacyUiLayoutScope layout(session);
         session.WorldScene().frameBackgroundMode = 0;
         input::ProcessKeyInput_4596D0(session);
         const std::int32_t capability = render::gPaletteCapability;
@@ -85,7 +85,7 @@ void Update(session::ClientSession& session)
         return;
     }
     case 2: {
-        const ui::LegacyUiLayoutScope layout;
+        const ui::LegacyUiLayoutScope layout(session);
         session.WorldScene().frameBackgroundMode = 0;
         login::ProcessScene_45FEA0(session);
         cg::yobi::YobiUpdateAll_404C50(session);
@@ -93,7 +93,7 @@ void Update(session::ClientSession& session)
         return;
     }
     case 3: {
-        const ui::LegacyUiLayoutScope layout;
+        const ui::LegacyUiLayoutScope layout(session);
         session.WorldScene().frameBackgroundMode = 0;
         character_select::ProcessScene_460FF0(session.Connection());
         cg::yobi::YobiUpdateAll_404C50(session);
@@ -279,7 +279,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     const std::int32_t firstTextY = firstWindowY + row - 4;
     const std::int32_t firstWindowX = dialog.x;
     const std::int32_t firstTextX = firstWindowX + firstWidthDelta / 2;
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         static_cast<std::int16_t>(firstTextX),
         static_cast<std::int16_t>(firstTextY),
         2, 2, 0, dialog.text, 0, 0));
@@ -311,7 +311,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
     const std::int32_t secondTextY = secondWindowY + 2 * row - 4;
     const std::int32_t secondWindowX = dialog.x;
     const std::int32_t secondTextX = secondWindowX + secondWidthDelta / 2;
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         static_cast<std::int16_t>(secondTextX),
         static_cast<std::int16_t>(secondTextY),
         2, 0, 0, secondText, 0, 0));
@@ -336,7 +336,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
         const std::int32_t thirdWindowX = dialog.x;
         thirdTextX = thirdWindowX + thirdWidthDelta / 2;
     }
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         static_cast<std::int16_t>(thirdTextX),
         static_cast<std::int16_t>(thirdTextY),
         2, 0, 0, thirdText, 0, 0));

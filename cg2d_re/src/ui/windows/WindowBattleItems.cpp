@@ -409,7 +409,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 }
                 if (item.count > 0) {
                     cg::text::FormatTo(countText, L"{:3}", item.count);
-                    static_cast<void>(render::DrawText_456780(
+                    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                         static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
                         3, 1, 1, countText, 0, 0));
                 }
@@ -683,8 +683,8 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 223, hoverColor, 0);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = items[position + 8];
@@ -734,7 +734,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             }
             if (item.count > 0) {
                 cg::text::FormatTo(countText, L"{:3}", item.count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
                     3, 1, 1, countText, 0, 0));
             }

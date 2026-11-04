@@ -444,7 +444,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
             const WindowInstance* const textWindow = currentWindow;
             const auto textY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->y + 232));
             const auto textX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->x + 174));
-            static_cast<void>(render::DrawText_456780(textX, textY, 3, 1, 1, buffer, 0, 0));
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, textX, textY, 3, 1, 1, buffer, 0, 0));
         }
     }
     const WindowInstance* const window = currentWindow;

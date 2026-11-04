@@ -40,8 +40,8 @@ std::int32_t InitLoading_457B10(network::CgConnection& connection)
             return 0;
         }
         gPendingGraphicCount = 0;
-        gPendingGraphicCount2 = 0;
-        static_cast<void>(render::ResetGraphicCache_456D30());
+        connection.Owner().TextQueue().count = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30(connection.Owner()));
         if ((static_cast<std::uint8_t>(platform::ReadSessionMouseEdgeButtons(connection.Owner())) & 3u) != 0
             || (ReadSessionKeyState(connection.Owner(), 13) & 2u) != 0
             || (ReadSessionKeyState(connection.Owner(), 32) & 2u) != 0

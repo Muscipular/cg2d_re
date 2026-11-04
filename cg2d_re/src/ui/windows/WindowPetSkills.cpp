@@ -383,12 +383,12 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip(session::ClientSessi
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, L"", 0, 0));
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session, 0, 0, 5, 12, 0, L"", 0, 0));
     const auto namePet = std::bit_cast<std::int16_t>(
         session.WorldScene().petPairs[business.selectedPetCC3E5C].index);
     const std::int32_t nameTechnique = business.petTechniqueD2D66C;
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 5)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
         5, 12, 0, (*session.WorldScene().petRecords)[namePet].techniquesD8[nameTechnique].name,
@@ -399,7 +399,7 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip(session::ClientSessi
     const std::int32_t fp = (*session.WorldScene().petRecords)[costPet].techniquesD8[costTechnique].fp;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", fp);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 187)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
         5, 12, 0, buffer, 0, 0));

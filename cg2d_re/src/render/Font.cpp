@@ -1,4 +1,5 @@
 #include "cg/render/Font.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/core/m_log.hpp"
 
@@ -73,9 +74,9 @@ static HFONT CreateLegacyFont(
         DEFAULT_QUALITY, 0x11, face);
 }
 
-static const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
+static const TextPendingRecord* FindTextPendingRecord(session::ClientSession& session, const std::uint32_t token)
 {
-    return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
+    return token == 0 ? nullptr : &session.TextQueue().records[token - 1];
 }
 
 // FC02：原字体表仍在font.yml；0号兜底恢复迁移前布局与字形度量。
@@ -407,15 +408,15 @@ std::int32_t ReleaseFont_456530()
 }
 
 // 原函数：0x00456D70。R06：按链顺序与每条文字的纹理批次提交缓存字形。
-void RenderTextToSurface_456D70(const std::uint32_t headToken)
+void RenderTextToSurface_456D70(session::ClientSession& session, const std::uint32_t headToken)
 {
     if (gFontGlyphCache == nullptr) { gFontGlyphCache = std::make_unique<FontGlyphCache>(); }
     struct GlyphDraw {
         const FontGlyphCache::Glyph* glyph;
         std::int32_t x;
     };
-    for (const TextPendingRecord* record = FindTextPendingRecord(headToken);
-         record != nullptr; record = FindTextPendingRecord(record->nextToken)) {
+    for (const TextPendingRecord* record = FindTextPendingRecord(session, headToken);
+         record != nullptr; record = FindTextPendingRecord(session, record->nextToken)) {
         std::int32_t x = record->x;
         const std::uint32_t color = kTextColors[record->color & 0x7FU];
         const bool shadow = (record->color & 0x80U) == 0 && record->color != 127;

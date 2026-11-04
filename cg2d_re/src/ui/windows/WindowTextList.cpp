@@ -412,11 +412,11 @@ static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWind
         }
     }
     static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
-    static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 185, 185, 4, 0, 0, textList.modalText, 0, static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
     cg::yobi::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 

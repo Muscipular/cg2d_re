@@ -200,7 +200,7 @@ std::int32_t UpdateCapability4Modal_464450(network::CgConnection& connection, co
         const std::int32_t textX = AddW32(
             modal.x,
             textHorizontalOffset);
-        cg::render::DrawText_456780(
+        cg::render::DrawText_456780(connection.Owner(),
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),
             2,

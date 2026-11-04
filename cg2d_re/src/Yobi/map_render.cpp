@@ -570,7 +570,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     std::memcpy(&actionX, &action->x, sizeof(actionX));
                     const auto x = static_cast<std::int16_t>(
                         static_cast<std::int32_t>(actionX) - width / 2);
-                    cg::render::DrawText_456780(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
+                    cg::render::DrawText_456780(*action->ownerSession, x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                     y -= render::GetFontMetrics(payload->font28).doubleHeight;
                 }
                 const std::int32_t halfWidth = width / 2;
@@ -584,7 +584,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 const std::int32_t drawY = y + 4;
                 const auto x = static_cast<std::int16_t>(
                     static_cast<std::int32_t>(actionX) - halfWidth);
-                cg::render::DrawText_456780(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
+                cg::render::DrawText_456780(*action->ownerSession, x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                 const std::int32_t borderActionX = action->x;
                 DrawNineGrid_49BE00(
                     0x3BE84, static_cast<std::int16_t>(borderActionX - halfWidth - 5),
@@ -638,7 +638,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = cg::render::TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
-            cg::render::DrawText_456780(x, y, 0, 1, color, buffer, 0, 0);
+            cg::render::DrawText_456780(*action->ownerSession, x, y, 0, 1, color, buffer, 0, 0);
         }
     }
 

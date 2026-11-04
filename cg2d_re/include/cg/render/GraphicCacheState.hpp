@@ -3,14 +3,14 @@
 #include <array>
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
-// 原 [0x62ECA0,0x62ECB8) 的六个连续 W32 槽；0 为空，文本尾令牌 i+1 指向第 i 项。
-extern std::array<std::uint32_t, 6> gGraphicCache4Queue; // 原全局：0x0062ECA0。
 // 原函数：0x00456D50。
-std::int32_t ClearTextQueueTail_456D50(std::int8_t mode); // 仅清指定层尾令牌，返回符号扩展mode。
+std::int32_t ClearTextQueueTail_456D50(session::ClientSession& session, std::int8_t mode); // 仅清指定层尾令牌，返回符号扩展mode。
 
 // 原456D30：重置图形缓存。
-std::uint32_t ResetGraphicCache_456D30();
+std::uint32_t ResetGraphicCache_456D30(session::ClientSession& session);
 
 } // namespace cg::render

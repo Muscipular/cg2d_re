@@ -1131,7 +1131,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindo
     WindowInstance* window = currentWindow;
     const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
     const auto textX = static_cast<std::int16_t>(window->x + (window->width - width) / 2);
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         textX, textY, 4, 0, 0, callbackWindow.ownerSession->UiFrame().native.stall.message, 0, 0));
     if (mode == 1) {
         window = currentWindow;
@@ -1171,10 +1171,10 @@ static std::int32_t WindowStall_DrawPetSkills(session::ClientSession& session,
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const wchar_t* const text = pet.techniquesD8[skillIndex].name.data();
     if (*text != '\0') {
-        static_cast<void>(render::ClearTextQueueTail_456D50(5));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+        static_cast<void>(render::DrawText_456780(session,
             0, 0, 5, 1, 0, L"", 0, 0));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
             5, 12, 0, text, 0, 0));
     }
@@ -1202,12 +1202,12 @@ static std::int32_t WindowStall_DrawPetDetails(
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, 5));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, 5, 1, 0, L"", 0, 0));
     const wchar_t* const title = pet.name6AC.data();
     if (title != nullptr) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             static_cast<std::int16_t>(x + 60), static_cast<std::int16_t>(y + 11),
             5, 12, 0, title, 0, 0));
     }
@@ -1215,7 +1215,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         cg::text::FormatTo(buffer, L"{:10}", pet.values70[5 + row]);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             static_cast<std::int16_t>(x + 144), static_cast<std::int16_t>(shortY + 23 + row * 15),
             5, 12, 0, buffer, 0, 0));
     }
@@ -1255,7 +1255,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     for (std::int32_t row = 0; row < 10; ++row) {
         static_cast<void>(WindowStall_DrawPetSkills(session, shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
     }
-    static_cast<void>(render::DrawText_456780(static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
+    static_cast<void>(render::DrawText_456780(session, static_cast<std::int16_t>(shortX + 10), static_cast<std::int16_t>(shortY + 303), 5, 12, 0,
         skillPage == 0 ? L"第1/2页 按PageDown键看下一页" : L"第2/2页 按PageUp键看上一页", 0, 0));
     return render::DrawGraphic3_520970(shortX, shortY, 230, 244373, 0, 1, 0, &descriptor);
 }
@@ -1287,14 +1287,14 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
         WindowInstance* const window = currentWindow;
         const auto x = static_cast<std::int16_t>(window->x + 77);
         const auto y = static_cast<std::int16_t>(window->y + 91 * row + 58);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     }
     const auto drawText = [&](const std::int32_t dx, const std::int32_t dy) {
         WindowInstance* const window = currentWindow;
         const auto y = static_cast<std::int16_t>(window->y + 91 * row + dy);
         const auto x = static_cast<std::int16_t>(window->x + dx);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
     cg::text::FormatTo(buffer, L"{:4}", static_cast<std::int32_t>(pet->values0C[1]));
@@ -1478,7 +1478,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
         WindowInstance* const window = currentWindow;
         const auto y = static_cast<std::int16_t>(window->y + row * 50 + dy);
         const auto x = static_cast<std::int16_t>(window->x + dx);
-        static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
+        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 12, 0, buffer, 0, 0));
     };
     cg::text::FormatTo(buffer, L"{}", initialPet->name6AC.data());
     drawText(298, 132);
@@ -1640,7 +1640,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
             const WindowElement& element = (*elementPtr);
             const auto y = static_cast<std::int16_t>(window->y + element.y + 5 + line * 14);
             const auto x = static_cast<std::int16_t>(window->x + element.x + 52);
-            static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, nameLine, 0, 0));
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 8, 0, nameLine, 0, 0));
         }
     }
     std::int32_t consumed = 0;
@@ -1737,7 +1737,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
             const WindowElement& element = (*elementPtr);
             const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
             const auto x = static_cast<std::int16_t>(window->x + element.x + 21);
-            static_cast<void>(render::DrawText_456780(x, y, 3, 1, 1, countBuffer, 0, 0));
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 1, 1, countBuffer, 0, 0));
         }
     }
     WindowInstance* const window = currentWindow;
@@ -1836,7 +1836,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
             const std::int32_t count = item->count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
                     3, 1, 1, buffer, 0, 0));
             }
@@ -2059,11 +2059,11 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
         }
         std::wstring nameLine;
         static_cast<void>(input::ExtractTextLine(nameLine, item->name, 0, 10));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 58),
             4, 8, 0, nameLine, 0, 0));
         static_cast<void>(input::ExtractTextLine(nameLine, item->name, 1, 10));
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, nameLine, 0, 0));
         static_cast<void>(cg::render::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
@@ -2072,7 +2072,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
         const std::int32_t count = item->count;
         if (count > 0) {
             cg::text::FormatTo(details, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                 static_cast<std::int16_t>(x + 43), static_cast<std::int16_t>(y + 90),
                 4, 1, 1, details, 0, 0));
         }
@@ -2091,7 +2091,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callb
         }
         auto* const pet = callbackWindow.ownerSession->UiFrame().native.stall.browse->pets.data() + (callbackWindow.ownerSession->UiFrame().native.stall.petSelection - 5);
         const auto drawPetText = [&](const std::int32_t dx, const std::int32_t dy) {
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
                 4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
         };
@@ -2232,7 +2232,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                     if (editDescriptionElement2) {
                         const std::int16_t x = std::bit_cast<std::int16_t>(
                             static_cast<std::uint16_t>(editDescriptionElement2->x + window->x));
-                        static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
+                        static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 8, 0, lineText, 0, 0));
                     }
                 }
             }
@@ -2261,7 +2261,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 if (editNameElement2) {
                     const std::int16_t x = std::bit_cast<std::int16_t>(
                         static_cast<std::uint16_t>(editNameElement2->x + window->x));
-                    static_cast<void>(render::DrawText_456780(x, y, 3, 4,
+                    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 4,
                         std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), callbackWindow.ownerSession->UiFrame().native.stall.name, 0, 0));
                 }
             }
@@ -2326,7 +2326,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 if (editNameElement2) {
                     const std::int16_t x = std::bit_cast<std::int16_t>(
                         static_cast<std::uint16_t>(editNameElement2->x + window->x));
-                    static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
+                    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, x, y, 3, 8, 0, lineText, 0, 0));
                 }
             }
         }

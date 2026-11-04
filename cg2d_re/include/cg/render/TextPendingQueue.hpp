@@ -43,12 +43,20 @@ struct TextFontLayerRecord {
 static_assert(sizeof(TextFontLayerRecord) == 0x04);
 static_assert(offsetof(TextFontLayerRecord, layer) == 0x00);
 
-extern std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords; // 原全局：0x0062ECB8。
+// 原文字记录、六条链尾及完整W32计数；图形记录只借本会话的一基令牌。
+struct TextQueueRuntimeState final {
+    std::array<TextPendingRecord, MAX_QUEUE_SIZE> records {}; // 原62ECB8。
+    std::array<std::uint32_t, 6> tails {}; // 原62ECA0；0为空，i+1指第i项。
+    std::uint32_t count = 0; // 原73ECB8。
+
+    static_assert(sizeof(tails) == 0x18);
+};
+
 extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords; // 原全局：0x00558F50。
 
 // 原 456D70：R06按文本链顺序绘制缓存字形及阴影，headToken为一基令牌。
 // 使用Font的同一字体度量与唯一CPU Back，不改变队列令牌和文本所有权。
-void RenderTextToSurface_456D70(std::uint32_t headToken);
+void RenderTextToSurface_456D70(session::ClientSession& session, std::uint32_t headToken);
 
 // 与DrawColoredText共用色码分段，度量实际可见文字；供Lua文本框水平对齐。
 std::int32_t MeasureColoredText(std::wstring_view text, std::int8_t fontType);
@@ -56,6 +64,7 @@ std::int32_t MeasureColoredText(std::wstring_view text, std::int8_t fontType);
 // R06：仅显式调用方解析美元颜色标记和转义，分段沿原DrawText队列提交。
 // 可选裁剪矩形按值复制到每个分段，调用者无需延长矩形寿命。
 void DrawColoredText(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::uint8_t renderMode,
     std::int8_t fontType, std::int8_t color, std::wstring_view text,
     std::int8_t value7, std::int8_t marker,
@@ -69,10 +78,11 @@ std::int32_t FindClickedTextIndex_45D7A0(
     std::int32_t count);
 
 // Renderer::QueueText@[0x521A30,0x521A98)。headToken 为文本记录的一基令牌。
-std::int32_t QueueText_521A30(std::uint32_t headToken, std::uint8_t layer);
+std::int32_t QueueText_521A30(session::ClientSession& session, std::uint32_t headToken, std::uint8_t layer);
 
 // Renderer::DrawText3@[0x456560,0x456668)。
 std::int32_t DrawText3_456560(
+    session::ClientSession& session,
     std::int16_t x,
     std::int16_t y,
     std::int8_t renderMode,
@@ -82,6 +92,7 @@ std::int32_t DrawText3_456560(
 
 // Renderer::DrawText2@[0x456670,0x45677B)。
 std::int32_t DrawText2_456670(
+    session::ClientSession& session,
     std::int16_t x,
     std::int16_t y,
     std::int8_t renderMode,
@@ -93,6 +104,7 @@ std::int32_t DrawText2_456670(
 
 // Renderer::DrawText@[0x456780,0x456891)。
 std::int32_t DrawText_456780(
+    session::ClientSession& session,
     std::int16_t x,
     std::int16_t y,
     std::uint8_t renderMode,

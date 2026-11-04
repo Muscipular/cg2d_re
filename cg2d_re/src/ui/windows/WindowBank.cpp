@@ -275,12 +275,12 @@ void WindowBank_DrawOwnPetTooltip(
         return;
     }
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
-    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, textLayer, 13, 0, L"", 0, 0));
     const wchar_t* const name =
         !pet.name6BD.empty() ? pet.name6BD.data() : pet.name6AC.data();
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, name, 0, 0));
@@ -288,7 +288,7 @@ void WindowBank_DrawOwnPetTooltip(
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
         cg::text::FormatTo(buffer, format, value);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
@@ -296,7 +296,7 @@ void WindowBank_DrawOwnPetTooltip(
     drawNumber(pet.value08, L"{:3}", 35, 22);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
     if (tribe >= 0 && tribe < 20) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
@@ -326,10 +326,10 @@ void WindowBank_DrawStoredPetTooltip(
         return;
     }
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
-    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(session, textLayer));
+    static_cast<void>(render::DrawText_456780(session,
         0, 0, textLayer, 13, color, L"", 0, 0));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(session,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, record->name, 0, 0));
@@ -337,7 +337,7 @@ void WindowBank_DrawStoredPetTooltip(
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
         cg::text::FormatTo(buffer, format, value);
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
@@ -346,7 +346,7 @@ void WindowBank_DrawStoredPetTooltip(
     std::int16_t tribe;
     std::memcpy(&tribe, &record->tribe, sizeof(tribe));
     if (tribe >= 0 && tribe < 20) {
-        static_cast<void>(render::DrawText_456780(
+        static_cast<void>(render::DrawText_456780(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
@@ -969,8 +969,8 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             }
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring buffer;
@@ -1000,7 +1000,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
             const std::int32_t count = item.count;
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));
@@ -1183,8 +1183,8 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring buffer;
@@ -1212,7 +1212,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
             std::memcpy(&count, &record->count, sizeof(count));
             if (count > 0) {
                 cg::text::FormatTo(buffer, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
                     3, 1, 1, buffer, 0, 0));

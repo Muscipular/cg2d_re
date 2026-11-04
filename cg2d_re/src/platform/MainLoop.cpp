@@ -33,7 +33,6 @@ namespace cg::platform {
 std::uint8_t gSupportedRenderMode = 0; // 原全局：0x00628FEA。
 std::int32_t gRendererLost = 0; // 原全局：0x0062B064。
 std::uint16_t gPendingGraphicCount = 0; // 原全局：0x01020EB8。
-std::uint32_t gPendingGraphicCount2 = 0; // 原全局：0x0073ECB8。
 
 double gLastRenderDt = 0; // 原全局：0x0073ECC8。
 double gFrameThreshold = 1000.0 / 60.0; // 原全局：0x005590E8。
@@ -81,9 +80,9 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
     if (IsClientDiagnosticsEnabled()) {
         std::wstring message;
         text::FormatTo(message, L"FPS: {:.2f} {} ms", fps, interval);
-        static_cast<void>(render::DrawText2_456670(200, 3, 3, 1, 5, message, 0));
+        static_cast<void>(render::DrawText2_456670(session, 200, 3, 3, 1, 5, message, 0));
         text::FormatTo(message, L"M: {} S: {}", session.WorldScene().sceneType, session.WorldScene().sceneState);
-        static_cast<void>(render::DrawText2_456670(200, 20, 3, 1, 5, message, 0));
+        static_cast<void>(render::DrawText2_456670(session, 200, 20, 3, 1, 5, message, 0));
     }
 #endif
     VM_LIGHT_END
@@ -93,9 +92,9 @@ static void UpdateFrameDiagnostics(session::ClientSession& session)
 void ShowModeChange_458A40(session::ClientSession& session)
 {
     gPendingGraphicCount = 0;
-    gPendingGraphicCount2 = 0;
-    render::ResetGraphicCache_456D30();
-    static_cast<void>(render::DrawText2_456670(
+    session.TextQueue().count = 0;
+    render::ResetGraphicCache_456D30(session);
+    static_cast<void>(render::DrawText2_456670(session,
         250, 223, 3, 0, 0, L"正在改变描绘模式。", 0));
     cg::yobi::DrawNineGrid_49BE00(
         245310, 196, 180, 256, 96, 223, -1,
@@ -107,8 +106,8 @@ void ShowModeChange_458A40(session::ClientSession& session)
     render::DrawAllQueued_520DD0(session);
     render::gRenderQueueMode103CF10 = 1;
     gPendingGraphicCount = 0;
-    gPendingGraphicCount2 = 0;
-    render::ResetGraphicCache_456D30();
+    session.TextQueue().count = 0;
+    render::ResetGraphicCache_456D30(session);
     render::Flip_44C560();
 }
 
@@ -145,8 +144,8 @@ int MainLoop(session::ClientSession& session)
         KeepAlive_457AB0(connection);
         world::UpdateGameTime(session, &session.WorldScene().gameTime.value);
         gPendingGraphicCount = 0;
-        gPendingGraphicCount2 = 0;
-        render::ResetGraphicCache_456D30();
+        session.TextQueue().count = 0;
+        render::ResetGraphicCache_456D30(session);
         if (connection.Active()) {
             const auto disconnect = connection.DisconnectState();
             if (disconnect == 1) {

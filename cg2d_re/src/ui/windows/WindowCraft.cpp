@@ -2322,8 +2322,8 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
             craft.materialHoveredItem = hovered + 8;
         }
     }
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession, 0, 0, 3, 1, 0, L"", 0, 0));
     descriptor.color = color;
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -2348,7 +2348,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
             const std::int32_t count = item->count;
             if (count > 0) {
                 cg::text::FormatTo(countText, L"{:3}", count);
-                static_cast<void>(render::DrawText_456780(
+                static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                     static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
                     3, 1, 1, countText, 0, 0));
             }
@@ -2477,16 +2477,16 @@ static std::int32_t WindowCraft_DrawInputNotice(
         }
     }
     static_cast<void>(cg::render::DrawGraphic(320, 277, 226, imageNo, 0, &descriptor));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         145, 185, 4, 0, 0, first, 0,
         static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
-    static_cast<void>(render::DrawText_456780(
+    static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
         145, 205, 4, 0, 0, second, 0,
         static_cast<std::uint8_t>(callbackWindow.ownerSession->UiFrame().hoverFramePaletteIndex)));
     cg::yobi::DrawNineGrid_49BE00(
         0x3BE34, 115, 155, 410, 150, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 
@@ -3233,7 +3233,7 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::
             const WindowElement* const element = element12;
             const auto y = static_cast<std::int16_t>(element->y + window->y);
             const auto x = static_cast<std::int16_t>(element->x + window->x);
-            static_cast<void>(render::DrawText_456780(
+            static_cast<void>(render::DrawText_456780(*callbackWindow.ownerSession,
                 x, y, 3, 12, 127, inputs.engraving.text, 0, 0));
         }
     }

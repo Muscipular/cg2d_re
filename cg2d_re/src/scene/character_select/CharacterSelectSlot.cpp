@@ -105,7 +105,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             -1);
 
         const wchar_t* const name = record.name.data();
-        cg::render::DrawText_456780(
+        cg::render::DrawText_456780(connection.Owner(),
             static_cast<std::int16_t>(coordinates[0].x),
             static_cast<std::int16_t>(coordinates[0].y),
             0,
@@ -117,7 +117,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         std::wstring buffer;
         cg::text::FormatTo(buffer, L"{:4}", record.value12);
-        render::DrawText2_456670(
+        render::DrawText2_456670(connection.Owner(),
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
             0,
@@ -131,7 +131,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             value14 = 9999;
         }
         cg::text::FormatTo(buffer, L"{:4}", value14);
-        render::DrawText2_456670(
+        render::DrawText2_456670(connection.Owner(),
             static_cast<std::int16_t>(coordinates[2].x),
             static_cast<std::int16_t>(coordinates[2].y),
             0,
@@ -142,7 +142,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         const wchar_t* const text54 = record.jobText.data();
         cg::text::FormatTo(buffer, L"{}", text54);
-        render::DrawText2_456670(
+        render::DrawText2_456670(connection.Owner(),
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),
             0,
@@ -167,7 +167,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         style = mode + 1;
     }
 
-    cg::render::DrawText3_456560(30, 450, 0, 4,
+    cg::render::DrawText3_456560(connection.Owner(), 30, 450, 0, 4,
         connection.CharacterSelectUi().loginNotice, 0);
 
     if (connection.PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(connection, slot) != 0) {

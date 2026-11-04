@@ -107,7 +107,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         nullptr);
 
     const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(left + (width - textWidth) / 2),
         static_cast<std::int16_t>(top + 24),
         2,
@@ -214,7 +214,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     textBuffer = L"＊＊＊ 警  告 ＊＊＊" /* 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 76),
         2,
@@ -226,7 +226,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     textBuffer = L"所选择的人物一经删除" /* 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 44),
         2,
@@ -238,7 +238,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     textBuffer = L"将无法恢复" /* 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y - 20),
         2,
@@ -250,7 +250,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     textBuffer = L"确定要删除吗？" /* 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。 */;
     textWidth = cg::render::TextMeasure(textBuffer, 0);
-    cg::render::DrawText_456780(
+    cg::render::DrawText_456780(connection.Owner(),
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
         static_cast<std::int16_t>(y + 4),
         2,

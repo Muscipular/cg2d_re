@@ -109,7 +109,7 @@ std::int32_t DrawCharacterModalButton_503A20(
     const wchar_t* const text = uiRecord->text;
     const std::int16_t textY = static_cast<std::int16_t>(uiRecord->textY);
     const std::int16_t textX = static_cast<std::int16_t>(uiRecord->textX);
-    return cg::render::DrawText_456780(
+    return cg::render::DrawText_456780(session,
         textX,
         textY,
         renderMode,

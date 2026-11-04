@@ -88,12 +88,12 @@ int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, 
 
 
 // 与字体测宽共用UTF-16步进；裁剪仅保留完整字符，不拆开代理对。
-void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
+void RendererDrawTextClipped(session::ClientSession& session, int x, int y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
     if (msg.empty()) {
         return;
     }
     if (!clipRect) {
-        InfoRenderText(static_cast<int16_t>(x), static_cast<int16_t>(y), layer, fontType, colorType, msg, hoverMode, hoverFrame);
+        InfoRenderText(session, static_cast<int16_t>(x), static_cast<int16_t>(y), layer, fontType, colorType, msg, hoverMode, hoverFrame);
         return;
     }
 
@@ -127,7 +127,7 @@ void RendererDrawTextClipped(int x, int y, unsigned __int8 layer, char fontType,
     }
 
     if (!clippedText.empty()) {
-        InfoRenderText(static_cast<int16_t>(drawX), static_cast<int16_t>(y), layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
+        InfoRenderText(session, static_cast<int16_t>(drawX), static_cast<int16_t>(y), layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
     }
 }
 

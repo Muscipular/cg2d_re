@@ -215,7 +215,7 @@ static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, const 
     cg::yobi::DrawNineGrid_49BE00(
         245300, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::ClearTextQueueTail_456D50(*callbackWindow.ownerSession, 3));
     return 1;
 }
 

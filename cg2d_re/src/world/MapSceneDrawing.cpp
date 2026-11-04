@@ -205,8 +205,8 @@ void DrawMapSceneWithMarkers_469020(session::ClientSession& session)
 void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 {
     platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
+    session.TextQueue().count = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30(session));
     static_cast<void>(ResetMapDrawCacheCounts_46BD40());
     DrawMapScene_46CF60(session, 0);
     const std::int32_t imageNo = session.WorldScene().battle.backgroundImage;
@@ -218,8 +218,8 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
     platform::gPendingGraphicCount = 0;
-    platform::gPendingGraphicCount2 = 0;
-    static_cast<void>(render::ResetGraphicCache_456D30());
+    session.TextQueue().count = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30(session));
     session.WorldScene().battle.backgroundSnapshot = session.WorldScene().battle.backgroundImage;
 }
 

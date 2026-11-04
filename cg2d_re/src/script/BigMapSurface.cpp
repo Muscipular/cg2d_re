@@ -97,7 +97,7 @@ struct BigMapSurface::State {
     Sprite MakeSprite(session::ClientSession& session, std::size_t cell, bool object) const {
         Sprite sprite;
         const int raw = object ? objects[cell] : ground[cell];
-        const int number = mode == 1 ? raw : world::ResolveMapGraphicNumber_46CF00(session, raw);
+        const int number = mode == 1 ? raw : world::ResolveMapGraphicNumber_46CF00(raw);
         if (number <= 999) return sprite; // 标记/音效不是静态地图图形。
         const int gx = static_cast<int>(cell % width), gy = static_cast<int>(cell / width);
         sprite.x = kMapOriginX + 32 * (gx + gy);

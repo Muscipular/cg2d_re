@@ -469,10 +469,9 @@ static int takeRandomTarget(session::ClientSession& session, int attacker, B_TAR
         return -1;
     }
     if (list.size() > 1) {
-        auto& rnd = session.Lua().autoBattleTargetRandom;
-        if (!rnd) rnd.emplace(std::random_device().operator()() ^ _getpid());
-        std::shuffle(list.begin(), list.end(), *rnd);
-        std::shuffle(list.begin(), list.end(), *rnd);
+        static std::minstd_rand rnd(std::random_device().operator()() ^ _getpid());
+        std::shuffle(list.begin(), list.end(), rnd);
+        std::shuffle(list.begin(), list.end(), rnd);
     }
     for (auto id: list) {
         m_log_iw(L"enemy %d %ls\n", id, session.WorldScene().battle.entries[id]->nameC4.c_str());

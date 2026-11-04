@@ -70,13 +70,6 @@ struct InputRuntimeState {
     std::int32_t lineOverflowRollbackMode = 0; // 原0x626C20。
     std::int32_t insertRejected = 0; // 原0x626C28。
     InputContext contextCC46E0 {}; // 原0xCC46E0，回车分派独立身份。
-    InputContext contextD2DFD0 {}; // 原0xD2DFD0，旧22宠物改名，不含相邻计时槽。
-    InputContext contextD2E2E0 {}; // 原0xD2E2E0，旧人物称号，独立于原生窗口9。
-    InputContext contextCB01F8 {}; // 原0xCB01F8，旧物品名称，原CB0320/24为其字段别名。
-    InputContext contextCF47E0 {}; // 原0xCF47E0，旧53输入，保留虚拟零初值。
-    InputContext context1050B80 {}; // 原0x1050B80，旧公会宠物邮件输入。
-    InputContext context1051348 {}; // 原0x1051348，旧公会普通邮件输入。
-    InputContext contexts1050F18[3] {}; // 原0x1050F18，旧资料三项输入，不含原末界外状态。
 };
 
 // UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。

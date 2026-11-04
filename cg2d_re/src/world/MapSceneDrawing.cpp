@@ -137,7 +137,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
     const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
     const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
 {
-    const std::int32_t tile = ResolveMapGraphicNumber_46CF00(session, session.WorldScene().map.data.tiles[index]);
+    const std::int32_t tile = ResolveMapGraphicNumber_46CF00(session.WorldScene().map.data.tiles[index]);
     if (tile > 999) {
         if (screenX >= -32 && screenX < platform::gWindowWidth + 32 && screenY >= -24 && screenY < platform::gWindowHeight + 24) {
             const std::uint8_t layer =
@@ -153,7 +153,7 @@ static void DrawNormalMapCell(session::ClientSession& session,
         }
     }
 
-    const std::int32_t object = ResolveMapGraphicNumber_46CF00(session, session.WorldScene().map.data.objects[index]);
+    const std::int32_t object = ResolveMapGraphicNumber_46CF00(session.WorldScene().map.data.objects[index]);
     if (object > 999) {
         std::int32_t imageNo;
         static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
@@ -368,7 +368,7 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
                 session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.hits.data(),
                 session.WorldScene().map.data.walkability.data()));
         } else {
-            static_cast<void>(detail::BuildGraphicMapWalkability_4693F0(session,
+            static_cast<void>(detail::BuildGraphicMapWalkability_4693F0(
                 walkXStart, walkYStart, walkXEnd, walkYEnd,
                 session.WorldScene().map.data.tiles.data(), session.WorldScene().map.data.objects.data(), session.WorldScene().map.data.hits.data(),
                 session.WorldScene().map.data.walkability.data()));

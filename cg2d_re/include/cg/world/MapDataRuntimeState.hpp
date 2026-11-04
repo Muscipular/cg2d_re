@@ -64,7 +64,7 @@ static_assert(offsetof(CutData9FB948, count0A) == 0x0A);
 static_assert(offsetof(CutData9FB948, records) == 0x0C);
 static_assert(sizeof(CutData9FB948) == 1000012);
 
-// 原55DA94三组可写S32尺寸，供46C840及绘制共同读取。
+// 原55DA94尺寸值记录；三组固定值由SceneState实现共享，选择索引仍归会话。
 struct AutoMapWindowSize {
     std::int32_t width;
     std::int32_t height;
@@ -81,9 +81,7 @@ struct MapDataRuntimeState {
     std::array<std::uint16_t, kMapBufferCells> walkability {}; // 原9DEF68。
     detail::CutData9FB948 cut {}; // 原9FB948。
     AutRecordAF10D8 aut[159201] {}; // 原AF10D8。
-    std::int32_t graphicNumbers[65536] {}; // 原C35010，尾地址投影Y偏移槽仍独立。
     std::int16_t autoMapWindowIndex = 1; // 原55DA90。
-    detail::AutoMapWindowSize autoMapWindowSizes[3] {{107, 107}, {54, 54}, {27, 27}}; // 原55DA94。
     std::uint32_t autoMapColors[kAutoMapWindowCells] {}; // 原9CF6EC。
     std::uint8_t autoMapIndices[kAutoMapWindowCells] {}; // 原9DAD7C。
 };
@@ -92,7 +90,6 @@ static_assert(sizeof(MapDataRuntimeState::objects) == 5202);
 static_assert(sizeof(MapDataRuntimeState::hits) == 5202);
 static_assert(sizeof(MapDataRuntimeState::walkability) == 5202);
 static_assert(sizeof(MapDataRuntimeState::aut) == 477603);
-static_assert(sizeof(MapDataRuntimeState::graphicNumbers) == 0x40000);
 static_assert(sizeof(MapDataRuntimeState::autoMapColors) == 46656);
 static_assert(sizeof(MapDataRuntimeState::autoMapIndices) == 11664);
 

@@ -82,7 +82,7 @@ std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, std::int
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
 void __cdecl DrawMapScene_46CF60(session::ClientSession& session, std::int32_t value);
 // 原函数：0x0046CF00。
-std::int32_t __cdecl ResolveMapGraphicNumber_46CF00(session::ClientSession& session, std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
+std::int32_t __cdecl ResolveMapGraphicNumber_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
 // 原函数：0x0046F8F0。
 void __cdecl NormalizeAngleDegrees_46F8F0(float* value);      // WDG01：非拥有 F32 指针，比较/更新分别取样，重复归一到 [0,360)。
 // 原函数：0x0046F930。
@@ -232,7 +232,7 @@ std::int32_t LoadAutoMapWindow_46C840(session::ClientSession& session, std::int3
 // 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。
 void DrawMapSceneWithMarkers_469020(session::ClientSession& session);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
-std::int32_t __cdecl BuildGraphicMapWalkability_4693F0(session::ClientSession& session,
+std::int32_t __cdecl BuildGraphicMapWalkability_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
     const std::uint16_t* tile, const std::uint16_t* obj,
     const std::uint16_t* hit, std::uint16_t* walk);
@@ -248,7 +248,7 @@ std::int32_t __cdecl ResetMapProjectionState_468F30(session::ClientSession& sess
 // 原函数：0x00468F70。
 std::int64_t __cdecl InitializeMapProjectionOrigin_468F70(session::ClientSession& session);         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。
 // 原函数：0x0046CF20。
-std::int32_t* __cdecl InitializeMapGraphicNumberTable_46CF20(session::ClientSession& session);        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
+std::int32_t* __cdecl InitializeMapGraphicNumberTable_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
 // 原函数：0x0046B580。
 std::int64_t __cdecl GetMapDirectionBetweenPoints_46B580(
     std::int32_t first, std::int32_t second,

@@ -65,8 +65,8 @@ static void MapExPlotDiamond(std::vector<uint32_t>& pixels, int width, int heigh
     MapExPlotPixel(pixels, width, height, x, y - 1, color);
 }
 
-static int MapExDecodeMapNo(session::ClientSession& session, unsigned short raw) {
-    return world::ResolveMapGraphicNumber_46CF00(session, raw);
+static int MapExDecodeMapNo(unsigned short raw) {
+    return world::ResolveMapGraphicNumber_46CF00(raw);
 }
 
 static uint8_t MapExColorIndexFromMapNo(int mapNo) {
@@ -79,12 +79,12 @@ static uint8_t MapExColorIndexFromMapNo(int mapNo) {
     return resource::gAutoMapColors927F48[mapNo];
 }
 
-static uint8_t MapExColorIndexFromRaw(session::ClientSession& session, unsigned short raw) {
-    return MapExColorIndexFromMapNo(MapExDecodeMapNo(session, raw));
+static uint8_t MapExColorIndexFromRaw(unsigned short raw) {
+    return MapExColorIndexFromMapNo(MapExDecodeMapNo(raw));
 }
 
-static uint8_t MapExNewMapColorIndexFromRaw(session::ClientSession& session, unsigned short raw) {
-    int mapNo = MapExDecodeMapNo(session, raw);
+static uint8_t MapExNewMapColorIndexFromRaw(unsigned short raw) {
+    int mapNo = MapExDecodeMapNo(raw);
     if (mapNo >= MAP_EX_NEW_MAP_NO_MIN && mapNo <= MAP_EX_NEW_MAP_NO_MAX) {
         return resource::gAutoMapColors927F48[mapNo - 200000];
     }
@@ -563,8 +563,8 @@ void WindowMapExData::BuildMapTile(session::ClientSession& session, MapExTile& t
                 continue;
             }
             size_t regionIndex = MapExIndex(regionW, gridX - minMapX, gridY - minMapY);
-            colorIndexes[regionIndex] = MapExColorIndexFromRaw(session, tileRaw);
-            newMapColorIndexes[regionIndex] = MapExNewMapColorIndexFromRaw(session, tileRaw);
+            colorIndexes[regionIndex] = MapExColorIndexFromRaw(tileRaw);
+            newMapColorIndexes[regionIndex] = MapExNewMapColorIndexFromRaw(tileRaw);
         }
     }
 
@@ -581,7 +581,7 @@ void WindowMapExData::BuildMapTile(session::ClientSession& session, MapExTile& t
                 continue;
             }
 
-            int mapNo = MapExDecodeMapNo(session, objRaw);
+            int mapNo = MapExDecodeMapNo(objRaw);
             if (mapNo <= 0 || mapNo >= static_cast<int>(sizeof(resource::gAutoMapColors927F48))) {
                 continue;
             }

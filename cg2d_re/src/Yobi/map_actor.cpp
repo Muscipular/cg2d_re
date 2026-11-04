@@ -640,10 +640,10 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
     if (useSharedRate) {
-        if (std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78) >= 1.2F) {
+        if (std::bit_cast<float>(action->ownerSession->WorldScene().map.partyCatchUpRateBits) >= 1.2F) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
-        if (std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78) >= 1.6F) {
+        if (std::bit_cast<float>(action->ownerSession->WorldScene().map.partyCatchUpRateBits) >= 1.6F) {
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, flipStatic));
         }
     } else {
@@ -1225,7 +1225,7 @@ void ResetMapFollowerFromPath(
             std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t y = leader->pathY248[index];
         const std::int32_t x = leader->pathX220[index];
-        static_cast<void>(world::SetPlayerMapCoordinates_519EC0(x, y));
+        static_cast<void>(world::SetPlayerMapCoordinates_519EC0(session, x, y));
     } else {
         slot->pathCountOrDrawOrder_270 = 0;
         YobiAction* const follower = slot;
@@ -1588,13 +1588,13 @@ void StepPartyMemberMovement_4428F0(YobiAction* const action)
         }
         action->movementActive_272 = 0;
     } else {
-        const float rateX = std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78);
+        const float rateX = std::bit_cast<float>(action->ownerSession->WorldScene().map.partyCatchUpRateBits);
         const float rawStepX = std::bit_cast<float>(action->movementStepXBits_27C);
         const double scaledX = static_cast<double>(rateX) * rawStepX;
         const float worldY = action->worldY;
         const float worldX = action->worldX;
         const float stepX = static_cast<float>(scaledX);
-        const float rateY = std::bit_cast<float>(world::gPartyCatchUpRateBits_9DAD78);
+        const float rateY = std::bit_cast<float>(action->ownerSession->WorldScene().map.partyCatchUpRateBits);
         const float rawStepY = std::bit_cast<float>(action->movementStepYBits_280);
         const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
         const double distance = world::GetSquaredWorldDistance_46FB80(

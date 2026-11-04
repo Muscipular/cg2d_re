@@ -54,7 +54,7 @@ void Update(session::ClientSession& session)
     }
 
     const std::int32_t sceneType = session.WorldScene().sceneType;
-    gMapSurfaceCacheEnabled_C82204 = 0;
+    session.WorldScene().map.surfaceCacheEnabled = 0;
     switch (sceneType) {
     case 1: {
         const ui::LegacyUiLayoutScope layout;

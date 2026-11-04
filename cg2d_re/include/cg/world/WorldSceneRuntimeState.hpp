@@ -383,8 +383,35 @@ static_assert(sizeof(WorldMovementRuntimeState::pathX) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pathY) == 0xC8);
 static_assert(sizeof(WorldMovementRuntimeState::pendingDirections) == 4);
 
+// 地图投影/移动分量、矩形请求窗口及自动地图重载门禁，由世界会话持有。
+struct WorldMapRuntimeState {
+    std::uint32_t projectionOffsetX = 0; // 原C3500C，投影差分W32位型。
+    std::uint32_t projectionOffsetY = 0; // 原C75010。
+    std::uint32_t playerCoordinateSum = 0; // 原AF10C0。
+    std::uint32_t movementStepXBits = 0; // 原9EE8FC，F32位型。
+    std::uint32_t movementStepYBits = 0; // 原9EE900。
+    std::uint32_t partyCatchUpRateBits = 0; // 原9DAD78，F32位型。
+    std::array<std::int16_t, 2> windowEndY {}; // 原9A86C4，矩形请求窗口。
+    std::array<std::int16_t, 2> windowStartY {}; // 原9A86C8。
+    std::array<std::int16_t, 2> windowEndX {}; // 原9A86CC。
+    std::array<std::int16_t, 2> windowStartX {}; // 原9A86D0。
+    std::uint32_t waitingForRectangleData = 0; // 原9EE8B8。
+    std::uint16_t requestedRectangleDirection = 0; // 原9EE8A4。
+    std::int32_t rectangleRequestPlayerX = 0; // 原9A7F7C。
+    std::int32_t rectangleRequestPlayerY = 0; // 原9A7F80。
+    std::uint16_t missingRectangleCount = 0; // 原9DAD56。
+    std::uint8_t surfaceCacheEnabled = 0; // 原C82204。
+    std::uint32_t autoMapWindowDirty = 1; // 原55DA88。
+    std::uint32_t framesSinceWindowReload = 10000; // 原55DA8C。
+};
+static_assert(sizeof(WorldMapRuntimeState::windowEndY) == 4);
+static_assert(sizeof(WorldMapRuntimeState::windowStartY) == 4);
+static_assert(sizeof(WorldMapRuntimeState::windowEndX) == 4);
+static_assert(sizeof(WorldMapRuntimeState::windowStartX) == 4);
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    WorldMapRuntimeState map {};
     MapEffectRuntimeState mapEffects {};
     WorldMovementRuntimeState movement {};
     std::int32_t sceneType = 0; // 原FF0D40，平台与世界共用的唯一当前类型。

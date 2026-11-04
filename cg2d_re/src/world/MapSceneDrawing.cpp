@@ -20,8 +20,6 @@
 
 namespace cg::world::detail {
 
-// 原已加载 55DA8C=10000，只有 46CF60 读取/递增/清零。
-static std::uint32_t gFramesSinceMapWindowReload_55DA8C = 10000;
 
 // 原 46D179：tile 与静态 obj 的描述符写序不同，不统一重建描述符。
 static void DrawCutTile(
@@ -234,10 +232,10 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t mode = gMapResourceMode_9DAD68;
-    const std::uint32_t previousCount = detail::gFramesSinceMapWindowReload_55DA8C;
+    const std::uint32_t previousCount = session.WorldScene().map.framesSinceWindowReload;
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
-    detail::gFramesSinceMapWindowReload_55DA8C = previousCount + 1u;
+    session.WorldScene().map.framesSinceWindowReload = previousCount + 1u;
     if ((gPlayerX != gLastMapDrawPlayerX_9EE8D0)
         || (gPlayerY != gLastMapDrawPlayerY_9EE8E0)
         || session.WorldScene().movement.mapWindowReloadPending != 0) {
@@ -267,20 +265,20 @@ void __cdecl DrawMapScene_46CF60(session::ClientSession& session, const std::int
                 gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
                 gMapWalkabilityArray.data()));
         }
-        if (detail::gWaitingForMapRectangleData_9EE8B8 != 0) {
-            const auto direction = std::bit_cast<std::int16_t>(detail::gRequestedMapRectangleDirection_9EE8A4);
-            if (detail::FindMissingMapRectanglesAhead_469870(direction) == 0) {
-                detail::gWaitingForMapRectangleData_9EE8B8 = 0;
-                detail::gAutoMapWindowDirty_55DA88 = 1;
+        if (session.WorldScene().map.waitingForRectangleData != 0) {
+            const auto direction = std::bit_cast<std::int16_t>(session.WorldScene().map.requestedRectangleDirection);
+            if (detail::FindMissingMapRectanglesAhead_469870(session, direction) == 0) {
+                session.WorldScene().map.waitingForRectangleData = 0;
+                session.WorldScene().map.autoMapWindowDirty = 1;
             }
         } else {
-            detail::gAutoMapWindowDirty_55DA88 = 1;
+            session.WorldScene().map.autoMapWindowDirty = 1;
         }
-        detail::gFramesSinceMapWindowReload_55DA8C = 0;
+        session.WorldScene().map.framesSinceWindowReload = 0;
         session.WorldScene().movement.mapWindowReloadPending = 0;
     }
 
-    static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
+    static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
     const std::int32_t xStart = gMapXStart;
     const std::int32_t yEnd = detail::gMapYEnd;
     const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);

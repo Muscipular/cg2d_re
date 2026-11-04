@@ -653,11 +653,11 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
     if (action == nullptr) {
         return;
     }
-    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
+    const float movementX = std::bit_cast<float>(session.WorldScene().map.movementStepXBits);
     if (movementX < 0.0F || movementX > 0.0F) {
         return;
     }
-    const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
+    const float movementY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
     if (movementY < 0.0F || movementY > 0.0F
         || gPlayerMovementAndFacingBlocked_62B5AA != 0 || session.WorldScene().movement.inputBlocked != 0
         || action->direction == direction) {
@@ -716,15 +716,15 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
                 continue;
             }
             if (position == 0) {
-                gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
+                session.WorldScene().map.partyCatchUpRateBits = 0x3F800000u;
                 const std::int16_t count =
                     std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270);
                 if (count > 5) {
-                    gPartyCatchUpRateBits_9DAD78 = 0x40000000u;
+                    session.WorldScene().map.partyCatchUpRateBits = 0x40000000u;
                 } else if (count >= 4) {
-                    gPartyCatchUpRateBits_9DAD78 = 0x3FCCCCCDu;
+                    session.WorldScene().map.partyCatchUpRateBits = 0x3FCCCCCDu;
                 } else if (count >= 2) {
-                    gPartyCatchUpRateBits_9DAD78 = 0x3F99999Au;
+                    session.WorldScene().map.partyCatchUpRateBits = 0x3F99999Au;
                 }
             }
         }
@@ -811,9 +811,9 @@ void MovePlayerOneStep_46B1B0(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
+    session.WorldScene().map.movementStepXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(direction.unroundedX * rate * 4.0F));
-    gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
+    session.WorldScene().map.movementStepYBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(static_cast<double>(direction.y) * rate * 4.0F));
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
         || direction.y < 0.0F || direction.y > 0.0F) {
@@ -1003,8 +1003,8 @@ void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
     action = session.WorldScene().player->action;
     action->mapY1F0 = gPlayerY;
     action = session.WorldScene().player->action;
-    action->movementStepXBits_27C = detail::gPlayerMovementStepXBits_9EE8FC;
-    const std::uint32_t movementY = detail::gPlayerMovementStepYBits_9EE900;
+    action->movementStepXBits_27C = session.WorldScene().map.movementStepXBits;
+    const std::uint32_t movementY = session.WorldScene().map.movementStepYBits;
     action = session.WorldScene().player->action;
     action->movementStepYBits_280 = movementY;
     action = session.WorldScene().player->action;

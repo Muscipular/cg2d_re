@@ -9,7 +9,6 @@ namespace cg::session { class ClientSession; }
 namespace cg::world {
 
 // World::Update@0x51C430 直接访问的剩余原全局；地址以外的业务含义仍未确认。
-extern std::uint8_t gMapSurfaceCacheEnabled_C82204;              // 原 0xC82204，W8。
 const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
 void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
 

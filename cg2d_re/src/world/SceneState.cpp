@@ -417,7 +417,6 @@ static_assert(sizeof(gAngleTable55DF10) == 2880);
 static_assert(sizeof(gAngleTable55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
-std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 
 const std::wstring& GetMapName_9DAD30() noexcept
 {
@@ -2059,8 +2058,6 @@ const std::array<std::int32_t, 22> gBattlePointIndices5536FC { // 原全局：0x
 
 
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 的独立 W32 槽。
-std::uint32_t gMapProjectionOffsetX_C3500C = 0; // 原全局：0x00C3500C。
-std::uint32_t gMapProjectionOffsetY_C75010 = 0; // 原全局：0x00C75010。
 
 namespace detail {
 
@@ -2096,33 +2093,11 @@ namespace detail {
  // 原全局：0x009FB918。
  // 原全局：0x00AF0FE8。
  // 原全局：0x00C821D8。
-std::uint32_t gPlayerMapCoordinateSum_AF10C0 = 0; // 原全局：0x00AF10C0。
-std::uint32_t gPlayerMovementStepXBits_9EE8FC = 0; // 原全局：0x009EE8FC。
-std::uint32_t gPlayerMovementStepYBits_9EE900 = 0; // 原全局：0x009EE900。
-
-} // namespace detail
-std::uint32_t gPartyCatchUpRateBits_9DAD78 = 0; // 原全局：0x009DAD78。
-
-
-namespace detail {
-std::array<std::int16_t, 2> gMapWindowEndY9A86C4 {}; // 原全局：0x009A86C4。
-std::array<std::int16_t, 2> gMapWindowStartY9A86C8 {}; // 原全局：0x009A86C8。
-std::array<std::int16_t, 2> gMapWindowEndX9A86CC {}; // 原全局：0x009A86CC。
-std::array<std::int16_t, 2> gMapWindowStartX9A86D0 {}; // 原全局：0x009A86D0。
-static_assert(sizeof(gMapWindowEndY9A86C4) == 4);
-static_assert(sizeof(gMapWindowStartY9A86C8) == 4);
-static_assert(sizeof(gMapWindowEndX9A86CC) == 4);
-static_assert(sizeof(gMapWindowStartX9A86D0) == 4);
 
 } // namespace detail
 
-namespace detail {
-std::uint32_t gWaitingForMapRectangleData_9EE8B8 = 0; // 原全局：0x009EE8B8。
-std::uint16_t gRequestedMapRectangleDirection_9EE8A4 = 0; // 原全局：0x009EE8A4。
-std::int32_t gMapRectangleRequestPlayerX_9A7F7C = 0; // 原全局：0x009A7F7C。
-std::int32_t gMapRectangleRequestPlayerY_9A7F80 = 0; // 原全局：0x009A7F80。
 
-} // namespace detail
+
 
 
 namespace detail {
@@ -2149,10 +2124,6 @@ std::int32_t gDayPeriodPaletteEnabled_73ED44 = 0; // 原全局：0x0073ED44。
 } // namespace detail
 std::int32_t gCurrentDayPeriod_73ED48 = 0; // 原全局：0x0073ED48。
 
-namespace detail {
-std::uint16_t gMissingMapRectangleCount_9DAD56 = 0; // 原全局：0x009DAD56。
-
-} // namespace detail
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
@@ -2329,7 +2300,7 @@ std::int32_t __cdecl WriteMapCacheRectangle_4688A0(
 }
 
 // 原 [0x469870,0x469C87)：四段定点 hit 探测，最多发布两项裁剪窗口。
-std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
+std::int32_t FindMissingMapRectanglesAhead_469870(session::ClientSession& session, const std::int32_t direction)
 {
     if (gMapSpanX < 51 || gMapSpanY < 51) {
         return 0;
@@ -2351,7 +2322,7 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
             (gPlayerY + 11));
     }
 
-    gMissingMapRectangleCount_9DAD56 = 0;
+    session.WorldScene().map.missingRectangleCount = 0;
     std::int32_t found = 0;
     if (direction == 6 || direction == 7 || direction == 5) {
         const std::int32_t x =
@@ -2364,18 +2335,18 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
                 && y >= 0 && y < std::bit_cast<std::int32_t>(gMapHeight_C821D4)
                 && gMapHitArray[static_cast<std::size_t>(
                     span * (step + 9) + 19)] == 0) {
-                const std::size_t index = gMissingMapRectangleCount_9DAD56;
-                gMapWindowEndX9A86CC[index] = static_cast<std::int16_t>(x + 1);
-                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
-                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
-                gMapWindowEndY9A86C4[index] =
+                const std::size_t index = session.WorldScene().map.missingRectangleCount;
+                session.WorldScene().map.windowEndX[index] = static_cast<std::int16_t>(x + 1);
+                session.WorldScene().map.windowStartX[index] = static_cast<std::int16_t>(x - 1);
+                session.WorldScene().map.windowStartY[index] = static_cast<std::int16_t>(y - 1);
+                session.WorldScene().map.windowEndY[index] =
                     static_cast<std::int16_t>(y - step + 23);
                 static_cast<void>(ClipMapRectangleToBounds_468290(
-                    &gMapWindowStartX9A86D0[index],
-                    &gMapWindowStartY9A86C8[index],
-                    &gMapWindowEndX9A86CC[index],
-                    &gMapWindowEndY9A86C4[index]));
-                ++gMissingMapRectangleCount_9DAD56;
+                    &session.WorldScene().map.windowStartX[index],
+                    &session.WorldScene().map.windowStartY[index],
+                    &session.WorldScene().map.windowEndX[index],
+                    &session.WorldScene().map.windowEndY[index]));
+                ++session.WorldScene().map.missingRectangleCount;
                 found = 1;
                 break;
             }
@@ -2394,24 +2365,24 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
                 && y >= 0 && y < std::bit_cast<std::int32_t>(gMapHeight_C821D4)
                 && gMapHitArray[static_cast<std::size_t>(
                     9 * span + 19 + step)] == 0) {
-                const std::size_t index = gMissingMapRectangleCount_9DAD56;
-                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
-                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
-                gMapWindowEndX9A86CC[index] =
+                const std::size_t index = session.WorldScene().map.missingRectangleCount;
+                session.WorldScene().map.windowStartY[index] = static_cast<std::int16_t>(y - 1);
+                session.WorldScene().map.windowStartX[index] = static_cast<std::int16_t>(x - 1);
+                session.WorldScene().map.windowEndX[index] =
                     static_cast<std::int16_t>(x - step + 23);
-                gMapWindowEndY9A86C4[index] = static_cast<std::int16_t>(y + 1);
+                session.WorldScene().map.windowEndY[index] = static_cast<std::int16_t>(y + 1);
                 static_cast<void>(ClipMapRectangleToBounds_468290(
-                    &gMapWindowStartX9A86D0[index],
-                    &gMapWindowStartY9A86C8[index],
-                    &gMapWindowEndX9A86CC[index],
-                    &gMapWindowEndY9A86C4[index]));
-                ++gMissingMapRectangleCount_9DAD56;
+                    &session.WorldScene().map.windowStartX[index],
+                    &session.WorldScene().map.windowStartY[index],
+                    &session.WorldScene().map.windowEndX[index],
+                    &session.WorldScene().map.windowEndY[index]));
+                ++session.WorldScene().map.missingRectangleCount;
                 found = 1;
                 break;
             }
         }
     }
-    if (std::bit_cast<std::int16_t>(gMissingMapRectangleCount_9DAD56) >= 2) {
+    if (std::bit_cast<std::int16_t>(session.WorldScene().map.missingRectangleCount) >= 2) {
         return found;
     }
 
@@ -2427,24 +2398,24 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
                 && y >= 0 && y < std::bit_cast<std::int32_t>(gMapHeight_C821D4)
                 && gMapHitArray[static_cast<std::size_t>(
                     span * (step + 9) + 41)] == 0) {
-                const std::size_t index = gMissingMapRectangleCount_9DAD56;
-                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
-                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x);
-                gMapWindowEndX9A86CC[index] = static_cast<std::int16_t>(x + 2);
-                gMapWindowEndY9A86C4[index] =
+                const std::size_t index = session.WorldScene().map.missingRectangleCount;
+                session.WorldScene().map.windowStartY[index] = static_cast<std::int16_t>(y - 1);
+                session.WorldScene().map.windowStartX[index] = static_cast<std::int16_t>(x);
+                session.WorldScene().map.windowEndX[index] = static_cast<std::int16_t>(x + 2);
+                session.WorldScene().map.windowEndY[index] =
                     static_cast<std::int16_t>(y - step + 23);
                 static_cast<void>(ClipMapRectangleToBounds_468290(
-                    &gMapWindowStartX9A86D0[index],
-                    &gMapWindowStartY9A86C8[index],
-                    &gMapWindowEndX9A86CC[index],
-                    &gMapWindowEndY9A86C4[index]));
-                ++gMissingMapRectangleCount_9DAD56;
+                    &session.WorldScene().map.windowStartX[index],
+                    &session.WorldScene().map.windowStartY[index],
+                    &session.WorldScene().map.windowEndX[index],
+                    &session.WorldScene().map.windowEndY[index]));
+                ++session.WorldScene().map.missingRectangleCount;
                 found = 1;
                 break;
             }
         }
     }
-    if (std::bit_cast<std::int16_t>(gMissingMapRectangleCount_9DAD56) >= 2) {
+    if (std::bit_cast<std::int16_t>(session.WorldScene().map.missingRectangleCount) >= 2) {
         return found;
     }
 
@@ -2460,18 +2431,18 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
                 && y >= 0 && y < std::bit_cast<std::int32_t>(gMapHeight_C821D4)
                 && gMapHitArray[static_cast<std::size_t>(
                     31 * span + 19 + step)] == 0) {
-                const std::size_t index = gMissingMapRectangleCount_9DAD56;
-                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y);
-                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
-                gMapWindowEndX9A86CC[index] =
+                const std::size_t index = session.WorldScene().map.missingRectangleCount;
+                session.WorldScene().map.windowStartY[index] = static_cast<std::int16_t>(y);
+                session.WorldScene().map.windowStartX[index] = static_cast<std::int16_t>(x - 1);
+                session.WorldScene().map.windowEndX[index] =
                     static_cast<std::int16_t>(x - step + 23);
-                gMapWindowEndY9A86C4[index] = static_cast<std::int16_t>(y + 2);
+                session.WorldScene().map.windowEndY[index] = static_cast<std::int16_t>(y + 2);
                 static_cast<void>(ClipMapRectangleToBounds_468290(
-                    &gMapWindowStartX9A86D0[index],
-                    &gMapWindowStartY9A86C8[index],
-                    &gMapWindowEndX9A86CC[index],
-                    &gMapWindowEndY9A86C4[index]));
-                ++gMissingMapRectangleCount_9DAD56;
+                    &session.WorldScene().map.windowStartX[index],
+                    &session.WorldScene().map.windowStartY[index],
+                    &session.WorldScene().map.windowEndX[index],
+                    &session.WorldScene().map.windowEndY[index]));
+                ++session.WorldScene().map.missingRectangleCount;
                 return 1;
             }
         }
@@ -2484,17 +2455,17 @@ std::uint32_t RequestMissingMapRectanglesAhead_46AF30(session::ClientSession& se
 {
     const std::int32_t direction =
         std::bit_cast<std::int16_t>(session.WorldScene().movement.pendingDirections[0]);
-    if (FindMissingMapRectanglesAhead_469870(direction) == 0) {
+    if (FindMissingMapRectanglesAhead_469870(session, direction) == 0) {
         return 0;
     }
 
     std::int32_t index = 0;
-    while (index < std::bit_cast<std::int16_t>(gMissingMapRectangleCount_9DAD56)) {
+    while (index < std::bit_cast<std::int16_t>(session.WorldScene().map.missingRectangleCount)) {
         const std::size_t position = static_cast<std::size_t>(index);
-        const std::int32_t endY = gMapWindowEndY9A86C4[position];
-        const std::int32_t endX = gMapWindowEndX9A86CC[position];
-        const std::int32_t startY = gMapWindowStartY9A86C8[position];
-        const std::int32_t startX = gMapWindowStartX9A86D0[position];
+        const std::int32_t endY = session.WorldScene().map.windowEndY[position];
+        const std::int32_t endX = session.WorldScene().map.windowEndX[position];
+        const std::int32_t startY = session.WorldScene().map.windowStartY[position];
+        const std::int32_t startX = session.WorldScene().map.windowStartX[position];
         const std::int32_t floor = gMapFloor;
         const std::int32_t mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
         const auto networkSession = session.Connection().CaptureSession();
@@ -2502,10 +2473,10 @@ std::uint32_t RequestMissingMapRectanglesAhead_46AF30(session::ClientSession& se
         ++index;
     }
 
-    gWaitingForMapRectangleData_9EE8B8 = 1;
-    gRequestedMapRectangleDirection_9EE8A4 = static_cast<std::uint16_t>(direction);
-    gMapRectangleRequestPlayerX_9A7F7C = static_cast<std::int32_t>(gPlayerX);
-    gMapRectangleRequestPlayerY_9A7F80 = static_cast<std::int32_t>(gPlayerY);
+    session.WorldScene().map.waitingForRectangleData = 1;
+    session.WorldScene().map.requestedRectangleDirection = static_cast<std::uint16_t>(direction);
+    session.WorldScene().map.rectangleRequestPlayerX = static_cast<std::int32_t>(gPlayerX);
+    session.WorldScene().map.rectangleRequestPlayerY = static_cast<std::int32_t>(gPlayerY);
     const std::uint64_t tick = platform::ReadTickCount64();
     session.WorldScene().mapRectangleRequestStartTick = tick;
     return static_cast<std::uint32_t>(tick);
@@ -2595,11 +2566,10 @@ AutRecordAF10D8 gAutDataAF10D8[159201] {}; // 原全局：0x00AF10D8。
 namespace detail {
 static_assert(sizeof(gAutDataAF10D8) == 477603);
 
-// 原 [0xC35010, 0xC75010)；尾地址的 gMapProjectionOffsetY_C75010 是独立标量。
+// 原 [0xC35010, 0xC75010)；尾地址的投影Y偏移槽是独立标量。
 std::int32_t gValuesC35010[65536] {}; // 原全局：0x00C35010。
 static_assert(sizeof(gValuesC35010) == 0x40000);
 
-std::uint32_t gAutoMapWindowDirty_55DA88 = 1; // 原全局：0x0055DA88。
 
 // 原 55DA90/55DA94：保留可写索引及三组 S32 尺寸，不冻结为当前 54x54。
 static std::int16_t gAutoMapWindowIndex55DA90 = 1; // 原全局：0x0055DA90。
@@ -2912,17 +2882,17 @@ std::int32_t __cdecl GetPlayerMapCoordinateSum_46CEC0()
 }
 
 // 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
-std::int32_t __cdecl StorePlayerMapCoordinateSum_46CEE0()
+std::int32_t __cdecl StorePlayerMapCoordinateSum_46CEE0(session::ClientSession& session)
 {
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t result =
         (gPlayerX + static_cast<std::int32_t>(y));
-    gPlayerMapCoordinateSum_AF10C0 = std::bit_cast<std::uint32_t>(result);
+    session.WorldScene().map.playerCoordinateSum = std::bit_cast<std::uint32_t>(result);
     return result;
 }
 
 // 原 [0x468330,0x468511)：保留六次临时构造/析构及快照与 F32 写入交错。
-std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const std::int32_t y)
+std::uint32_t __cdecl SetPlayerMapPosition_468330(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
     static_cast<void>(GetPlayerMapCoordinateSum_46CEC0());
 
@@ -2930,7 +2900,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const st
 
     gPlayerY = static_cast<std::int32_t>(y);
 
-    static_cast<void>(StorePlayerMapCoordinateSum_46CEE0());
+    static_cast<void>(StorePlayerMapCoordinateSum_46CEE0(session));
     const double currentX =
         static_cast<std::int32_t>(gPlayerX);
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
@@ -2953,9 +2923,9 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const st
     gPlayerSnapshotY.encoded = snapshotYEncoded;
     gPlayerSnapshotY.mask = snapshotYMask;
 
-    gPlayerMovementStepXBits_9EE8FC = 0;
-    gPlayerMovementStepYBits_9EE900 = 0;
-    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
+    session.WorldScene().map.movementStepXBits = 0;
+    session.WorldScene().map.movementStepYBits = 0;
+    session.WorldScene().map.partyCatchUpRateBits = 0x3F800000u;
 
     gLastMapDrawPlayerX_9EE8D0 = std::int32_t{-1};
 
@@ -2976,7 +2946,7 @@ std::uint32_t __cdecl SetPlayerMapPosition_468330(const std::int32_t x, const st
 std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
 {
     SetWorldMapMetadata_4682E0(session, 0, 0, 0, 0, 0, 0, 0, 0);
-    static_cast<void>(SetPlayerMapPosition_468330(0, 0));
+    static_cast<void>(SetPlayerMapPosition_468330(session, 0, 0));
 
     std::optional<platform::LegacyCryptInt> first;
     first.emplace(static_cast<std::int32_t>(0));
@@ -3007,7 +2977,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     session.WorldScene().movement.pathCount = 0;
     session.WorldScene().movement.pendingDirectionCount = 0;
     session.WorldScene().movement.pathRebuildPending = 0;
-    gWaitingForMapRectangleData_9EE8B8 = 0;
+    session.WorldScene().map.waitingForRectangleData = 0;
     session.WorldScene().movement.continuousMovementActive = 0;
 
     gValueC821E8 = std::int32_t{0};
@@ -3032,7 +3002,7 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     session.WorldScene().pendingDirectionalTransitionSequence = 0xFFFFu;
     session.WorldScene().movement.finalFacingDirection = 0xFFFFu;
 
-    static_cast<void>(ResetMapProjectionState_468F30());
+    static_cast<void>(ResetMapProjectionState_468F30(session));
     session.WorldScene().movement.mapWindowReloadPending = 0;
     return InitializeMapGraphicNumberTable_46CF20();
 }
@@ -3613,7 +3583,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 3: {
         session.WorldScene().frameBackgroundMode = 0;
-        gMapSurfaceCacheEnabled_C82204 = 0;
+        session.WorldScene().map.surfaceCacheEnabled = 0;
         ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapActorDrawKeys_4468F0(session);
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680(session));
@@ -4761,10 +4731,10 @@ std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0(session::ClientSessi
 }
 
 // 原 [0x468F30, 0x468F6F)；保持十二次 W32 写入的指令顺序。
-std::int32_t __cdecl ResetMapProjectionState_468F30()
+std::int32_t __cdecl ResetMapProjectionState_468F30(session::ClientSession& session)
 {
-    gMapProjectionOffsetX_C3500C = 0;
-    gMapProjectionOffsetY_C75010 = 0;
+    session.WorldScene().map.projectionOffsetX = 0;
+    session.WorldScene().map.projectionOffsetY = 0;
     gWorldProjectionSourceA = 0;
     gWorldProjectionSourceB = 0;
     gWorldProjectionSnapshotA = 0;
@@ -4777,7 +4747,7 @@ std::int32_t __cdecl ResetMapProjectionState_468F30()
 }
 
 // 原 [0x468F70,0x468FE4)；F32 局部投影、加 0.5 后截断，依次发布 X/Y 及两槽。
-std::int64_t __cdecl InitializeMapProjectionOrigin_468F70()
+std::int64_t __cdecl InitializeMapProjectionOrigin_468F70(session::ClientSession& session)
 {
     float x;
     float y;
@@ -4792,8 +4762,8 @@ std::int64_t __cdecl InitializeMapProjectionOrigin_468F70()
     gWorldProjectionSourceB = static_cast<std::uint32_t>(projectedY);
     gWorldProjectionSourceD = static_cast<std::uint32_t>(projectedY);
     gWorldProjectionSnapshotB = static_cast<std::uint32_t>(projectedY);
-    gMapProjectionOffsetX_C3500C = 0;
-    gMapProjectionOffsetY_C75010 = 0;
+    session.WorldScene().map.projectionOffsetX = 0;
+    session.WorldScene().map.projectionOffsetY = 0;
     return projectedY;
 }
 
@@ -5165,7 +5135,7 @@ void PropagatePartyFollowerPath_46AFE0(session::ClientSession& session, const st
             session.WorldScene().petMapSlots[static_cast<std::size_t>(index)].action)) {
         return;
     }
-    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
+    session.WorldScene().map.partyCatchUpRateBits = 0x3F800000u;
     for (std::int32_t i = index; i < 5; ++i) {
         auto& slot = session.WorldScene().petMapSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
@@ -5468,11 +5438,11 @@ void TurnPlayerTowardCursorTarget_46B370(session::ClientSession& session)
     if (session.WorldScene().player->action == nullptr) {
         return;
     }
-    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
+    const float movementX = std::bit_cast<float>(session.WorldScene().map.movementStepXBits);
     if (movementX < 0.0F || movementX > 0.0F) {
         return;
     }
-    const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
+    const float movementY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
     if (movementY < 0.0F || movementY > 0.0F
         || gPlayerMovementAndFacingBlocked_62B5AA != 0 || session.WorldScene().movement.inputBlocked != 0) {
         return;
@@ -5590,8 +5560,8 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
 // 原函数：0x00469FC0。
 std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
 {
-    const std::uint32_t stopped = gWaitingForMapRectangleData_9EE8B8;
-    gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
+    const std::uint32_t stopped = session.WorldScene().map.waitingForRectangleData;
+    session.WorldScene().map.partyCatchUpRateBits = 0x3F800000u;
     if (stopped != 0) {
         return static_cast<std::uint16_t>(stopped);
     }
@@ -5667,7 +5637,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
         }
     }
     AdvanceFollowersBehindPlayerLeader_46A5F0(session);
-    const std::uint32_t stoppedAfterFollow = gWaitingForMapRectangleData_9EE8B8;
+    const std::uint32_t stoppedAfterFollow = session.WorldScene().map.waitingForRectangleData;
     session.WorldScene().movement.reachedTarget = 0;
     if (stoppedAfterFollow != 0) {
         return static_cast<std::uint16_t>(stoppedAfterFollow);
@@ -5707,14 +5677,14 @@ void SetPlayerMovementTarget_46A410(
     if (session.WorldScene().player->action != nullptr) {
         const double rate = speed;
         const float percent = 0.01F;
-        gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
+        session.WorldScene().map.movementStepXBits = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.unroundedX * 4.0F * percent));
-        gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
+        session.WorldScene().map.movementStepYBits = std::bit_cast<std::uint32_t>(
             static_cast<float>(rate * direction.y * 4.0F * percent));
     } else {
-        gPlayerMovementStepXBits_9EE8FC = std::bit_cast<std::uint32_t>(
+        session.WorldScene().map.movementStepXBits = std::bit_cast<std::uint32_t>(
             static_cast<float>(direction.unroundedX * 4.0F));
-        gPlayerMovementStepYBits_9EE900 = std::bit_cast<std::uint32_t>(
+        session.WorldScene().map.movementStepYBits = std::bit_cast<std::uint32_t>(
             static_cast<float>(direction.y * 4.0));
     }
     if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
@@ -5731,10 +5701,10 @@ void SetPlayerMovementTarget_46A410(
 void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
 {
     static_cast<void>(GetPlayerMapCoordinateSum_46CEC0());
-    const float movementX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
+    const float movementX = std::bit_cast<float>(session.WorldScene().map.movementStepXBits);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
-        const float movementY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
+        const float movementY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
         idle = !(movementY < 0.0F || movementY > 0.0F);
     }
     if (idle) {
@@ -5743,7 +5713,7 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
             static_cast<void>(ClearPlayerMovementActive_51A660(session));
         }
         session.WorldScene().mapEffects.scene.value55DE98 = 0xFFFFu;
-        static_cast<void>(StorePlayerMapCoordinateSum_46CEE0());
+        static_cast<void>(StorePlayerMapCoordinateSum_46CEE0(session));
         SynchronizePlayerMapActionPosition_519EE0(session);
         return;
     }
@@ -5752,13 +5722,13 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
     const double scaledTargetY = static_cast<std::int32_t>(gPlayerSnapshotY) * 64.0;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
-    const float rateX = std::bit_cast<float>(gPartyCatchUpRateBits_9DAD78);
-    const float rawStepX = std::bit_cast<float>(gPlayerMovementStepXBits_9EE8FC);
+    const float rateX = std::bit_cast<float>(session.WorldScene().map.partyCatchUpRateBits);
+    const float rawStepX = std::bit_cast<float>(session.WorldScene().map.movementStepXBits);
     const double scaledX = static_cast<double>(rateX) * rawStepX;
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float stepX = static_cast<float>(scaledX);
-    const float rateY = std::bit_cast<float>(gPartyCatchUpRateBits_9DAD78);
-    const float rawStepY = std::bit_cast<float>(gPlayerMovementStepYBits_9EE900);
+    const float rateY = std::bit_cast<float>(session.WorldScene().map.partyCatchUpRateBits);
+    const float rawStepY = std::bit_cast<float>(session.WorldScene().map.movementStepYBits);
     const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
     const double distance = GetSquaredWorldDistance_46FB80(
         std::bit_cast<float>(worldXBits), std::bit_cast<float>(worldYBits),
@@ -5778,8 +5748,8 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
         const double gridX = targetX * 0.015625;
         gWorldCurrentXBits = std::bit_cast<std::uint32_t>(targetX);
         gWorldCurrentYBits = std::bit_cast<std::uint32_t>(targetY);
-        gPlayerMovementStepXBits_9EE8FC = 0;
-        gPlayerMovementStepYBits_9EE900 = 0;
+        session.WorldScene().map.movementStepXBits = 0;
+        session.WorldScene().map.movementStepYBits = 0;
         session.WorldScene().movement.reachedTarget = 1;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
         gPlayerX = static_cast<std::int32_t>(x);
@@ -5813,7 +5783,7 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
         session.WorldScene().mapEffects.scene.value55DE98 =
             cg::yobi::ReadYobiDirectionLow16(action);
     }
-    static_cast<void>(StorePlayerMapCoordinateSum_46CEE0());
+    static_cast<void>(StorePlayerMapCoordinateSum_46CEE0(session));
     SynchronizePlayerMapActionPosition_519EE0(session);
 }
 
@@ -5915,7 +5885,7 @@ void CreateOrUpdatePlayerMapActor_519CD0(
     session.WorldScene().player->direction = direction;
     if (oldAction != nullptr) {
         SetPlayerMapAppearance_519E50(session, imageNo, direction);
-        static_cast<void>(SetPlayerMapCoordinates_519EC0(x, y));
+        static_cast<void>(SetPlayerMapCoordinates_519EC0(session, x, y));
         SynchronizePlayerMapActionPosition_519EE0(session);
         return;
     }
@@ -5999,7 +5969,7 @@ void ApplyPlayerActionCommand_51A840(
         SetPlayerAnimationState_51A060(session, characterAction == 30 ? 1 : 0);
         return;
     case 40: case 41: case 42: case 44:
-        static_cast<void>(SetPlayerMapCoordinates_519EC0(x, y));
+        static_cast<void>(SetPlayerMapCoordinates_519EC0(session, x, y));
         static_cast<void>(SetPlayerFacingDirection_51A040(session, direction));
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0(session));
         if (characterAction == 41) {
@@ -6059,7 +6029,7 @@ void ApplyPlayerActionCommand_51A840(
         return;
     case 51:
         if (IsMapCellBlocked_469810(x, y) == 0) {
-            static_cast<void>(SetPlayerMapCoordinates_519EC0(x, y));
+            static_cast<void>(SetPlayerMapCoordinates_519EC0(session, x, y));
         }
         SynchronizePlayerMapActionPosition_519EE0(session);
         static_cast<void>(SetPlayerFacingDirection_51A040(session, direction));
@@ -9680,24 +9650,24 @@ std::wstring FormatMapDataPath_468520(
 }
 
 // 原函数：0x0046C760。
-std::int32_t DrawCurrentAutoMap_46C760(const std::int32_t x, const std::int32_t y)
+std::int32_t DrawCurrentAutoMap_46C760(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
     if (gMapResourceMode_9DAD68 == 1) {
-        detail::gAutoMapWindowDirty_55DA88 = 1;
+        session.WorldScene().map.autoMapWindowDirty = 1;
         const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(detail::LoadAutoMapWindow_46C840(gMapFloor, playerX, playerY));
         const std::int32_t index = detail::gAutoMapWindowIndex55DA90;
-        detail::gAutoMapWindowDirty_55DA88 = 0;
+        session.WorldScene().map.autoMapWindowDirty = 0;
         const std::int32_t height = detail::gAutoMapWindowSizes55DA94[index].height;
         const std::int32_t width = detail::gAutoMapWindowSizes55DA94[index].width;
         return render::DrawColorAutoMap_44FEB0(x, y, detail::gAutoMapColorWindow9CF6EC, width, height);
     }
-    if (detail::gAutoMapWindowDirty_55DA88 != 0) {
+    if (session.WorldScene().map.autoMapWindowDirty != 0) {
         const std::int32_t playerY = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t playerX = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(detail::LoadAutoMapWindow_46C840(gMapFloor, playerX, playerY));
-        detail::gAutoMapWindowDirty_55DA88 = 0;
+        session.WorldScene().map.autoMapWindowDirty = 0;
     }
     const std::int32_t index = detail::gAutoMapWindowIndex55DA90;
     const std::int32_t height = detail::gAutoMapWindowSizes55DA94[index].height;
@@ -9712,7 +9682,7 @@ std::int32_t __cdecl RestorePlayerMovementSnapshot_4681B0(session::ClientSession
         static_cast<std::int32_t>(gPlayerSnapshotY);
     const std::int32_t x =
         static_cast<std::int32_t>(gPlayerSnapshotX);
-    static_cast<void>(detail::SetPlayerMapPosition_468330(x, y));
+    static_cast<void>(detail::SetPlayerMapPosition_468330(session, x, y));
     static_cast<void>(detail::UpdatePlayerMapWindow_468200());
     session.WorldScene().movement.pathCount = 0;
     session.WorldScene().movement.pendingDirectionCount = 0;
@@ -9747,7 +9717,7 @@ void HandlePlayerPositionReply_5093C0(cg::network::CgConnection& connection, con
     const std::int32_t direction)
 {
     static_cast<void>(detail::UpdatePlayerMapWindow_468200());
-    static_cast<void>(SetPlayerMapCoordinates_519EC0(x, y));
+    static_cast<void>(SetPlayerMapCoordinates_519EC0(connection.Owner(), x, y));
     SynchronizePlayerMapActionPosition_519EE0(connection.Owner());
     static_cast<void>(detail::SetPlayerFacingDirection_51A040(connection.Owner(), direction));
 }
@@ -10066,7 +10036,7 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
 
     static_cast<void>(detail::WriteMapCacheRectangle_4688A0(
         mapId, floor, xStart, yStart, xEnd, yEnd, tile, obj, hit));
-    if ((detail::gWaitingForMapRectangleData_9EE8B8 != 0 || connection.Owner().WorldScene().mapRectangleRequestPending != 0)
+    if ((connection.Owner().WorldScene().map.waitingForRectangleData != 0 || connection.Owner().WorldScene().mapRectangleRequestPending != 0)
         && gMapFloor == floor) {
         detail::InvalidateMapDrawPosition_4691D0();
         connection.Owner().WorldScene().mapRectangleRequestPending = 0;
@@ -10124,14 +10094,14 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
         static_cast<std::uint32_t>(a4), static_cast<std::uint32_t>(a5),
         static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
         static_cast<std::uint32_t>(a10), a12);
-    static_cast<void>(detail::SetPlayerMapPosition_468330(a6, a7));
+    static_cast<void>(detail::SetPlayerMapPosition_468330(connection.Owner(), a6, a7));
     detail::ClearWorldObjectsAndActions_4464D0(connection.Owner());
 
     const std::uint32_t mask = gValue9FB918.mask;
     const std::uint32_t encoded = gValue9FB918.encoded;
     const std::uint8_t readCount = gValue9FB918.readCount;
     gValueC821E8.mask = mask;
-    detail::gWaitingForMapRectangleData_9EE8B8 = 0;
+    connection.Owner().WorldScene().map.waitingForRectangleData = 0;
     gValueC821E8.encoded = encoded;
     gValueC821E8.readCount = readCount;
 
@@ -10182,18 +10152,18 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connec
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
 std::uint32_t CaptureMapTilesForTransition_51D640(session::ClientSession& session)
 {
-    static_cast<void>(detail::InitializeMapProjectionOrigin_468F70());
+    static_cast<void>(detail::InitializeMapProjectionOrigin_468F70(session));
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(detail::LoadAndDrawMapTiles_469030());
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
-    const std::uint8_t previousC82204 = gMapSurfaceCacheEnabled_C82204;
-    gMapSurfaceCacheEnabled_C82204 = 0;
+    const std::uint8_t previousC82204 = session.WorldScene().map.surfaceCacheEnabled;
+    session.WorldScene().map.surfaceCacheEnabled = 0;
     render::gRenderQueueMode103CF10 = 0;
     render::DrawAllQueued_520DD0(session);
-    gMapSurfaceCacheEnabled_C82204 = previousC82204;
+    session.WorldScene().map.surfaceCacheEnabled = previousC82204;
     static_cast<void>(render::CopyBackToTemp());
     render::gRenderQueueMode103CF10 = 1;
     platform::gPendingGraphicCount = 0;
@@ -10729,9 +10699,9 @@ void RequestPlayerEmote_4FA8E0(session::ClientSession& session, const std::int32
 }
 
 // 原函数：0x00519EC0。
-std::uint32_t SetPlayerMapCoordinates_519EC0(const std::int32_t x, const std::int32_t y)
+std::uint32_t SetPlayerMapCoordinates_519EC0(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
-    return detail::SetPlayerMapPosition_468330(x, y);
+    return detail::SetPlayerMapPosition_468330(session, x, y);
 }
 
 // 原函数：0x0051C0D0。

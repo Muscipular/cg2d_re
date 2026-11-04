@@ -422,12 +422,12 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
             case 5: {
                 const std::int32_t y = graphic->y;
                 const std::int32_t x = graphic->x;
-                static_cast<void>(world::DrawCurrentAutoMap_46C760(x, y));
+                static_cast<void>(world::DrawCurrentAutoMap_46C760(session, x, y));
                 break;
             }
             case 6:
-                if (world::gMapSurfaceCacheEnabled_C82204 != 0) {
-                    const auto offsetX = std::bit_cast<std::int32_t>(world::gMapProjectionOffsetX_C3500C);
+                if (session.WorldScene().map.surfaceCacheEnabled != 0) {
+                    const auto offsetX = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionOffsetX);
                     std::int32_t destinationX = 0;
                     std::int32_t destinationY = 0;
                     TextureRectangle rectangle {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
@@ -437,7 +437,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                     } else if (offsetX < 0) {
                         rectangle[0] = -offsetX;
                     }
-                    const auto offsetY = std::bit_cast<std::int32_t>(world::gMapProjectionOffsetY_C75010);
+                    const auto offsetY = std::bit_cast<std::int32_t>(session.WorldScene().map.projectionOffsetY);
                     if (offsetY > 0) {
                         rectangle[3] = GetCpuSurfaceHeight() - offsetY;
                         destinationY = offsetY;
@@ -448,7 +448,7 @@ void DrawAllQueued_520DD0(session::ClientSession& session)
                 }
                 break;
             case 7:
-                if (world::gMapSurfaceCacheEnabled_C82204 != 0) {
+                if (session.WorldScene().map.surfaceCacheEnabled != 0) {
                     static_cast<void>(CopyBackToTemp());
                 }
                 break;

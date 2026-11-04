@@ -95,7 +95,8 @@ static std::wstring& ReadStoredInputValue(std::wstring& output, const std::wstri
 }
 
 // 原0x005203B0/0x00520410：两项完整编码后再按原顺序发布，失败不改存档。
-bool SaveInputValues(const std::wstring_view first, const std::wstring_view second)
+bool SaveInputValues(
+    session::ClientSession& session, const std::wstring_view first, const std::wstring_view second)
 {
     std::array<char, kStoredInputValueSize> firstStored;
     std::array<char, kStoredInputValueSize> secondStored;
@@ -106,8 +107,8 @@ bool SaveInputValues(const std::wstring_view first, const std::wstring_view seco
         m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
-    detail::GetCurrentSavedInputValueFF494F() = first;
-    detail::GetCurrentSavedInputValueFF4982() = second;
+    detail::GetCurrentSavedInputValueFF494F(session) = first;
+    detail::GetCurrentSavedInputValueFF4982(session) = second;
     return true;
 }
 
@@ -124,38 +125,38 @@ bool SaveCapability4InputSlot(network::CgConnection& connection)
         m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
-    detail::Sub_533570(input::ContextText(sceneUi.context9A4D20), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedPassword_5335B0(input::ContextText(sceneUi.context9A5960), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedAccount_533640(input::ContextText(sceneUi.context9A5678), detail::gSelectedSavedSlot105C394);
+    detail::Sub_533570(connection.Owner(), input::ContextText(sceneUi.context9A4D20), connection.Owner().SavedLogin().selectedSlot);
+    detail::WriteSavedPassword_5335B0(connection.Owner(), input::ContextText(sceneUi.context9A5960), connection.Owner().SavedLogin().selectedSlot);
+    detail::WriteSavedAccount_533640(connection.Owner(), input::ContextText(sceneUi.context9A5678), connection.Owner().SavedLogin().selectedSlot);
     return true;
 }
 
 // 原函数：0x005203B0。
-const wchar_t* WriteInputValueFF494F_5203B0(const wchar_t* const source)
+const wchar_t* WriteInputValueFF494F_5203B0(session::ClientSession& session, const wchar_t* const source)
 {
     return WriteStoredInputValue(
         source,
-        detail::GetCurrentSavedInputValueFF494F());
+        detail::GetCurrentSavedInputValueFF494F(session));
 }
 
 // 原函数：0x005203E0。
-std::wstring& ReadInputValueFF494F_5203E0(std::wstring& output)
+std::wstring& ReadInputValueFF494F_5203E0(session::ClientSession& session, std::wstring& output)
 {
-    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF494F());
+    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF494F(session));
 }
 
 // 原函数：0x00520410。
-const wchar_t* WriteInputValueFF4982_520410(const wchar_t* const source)
+const wchar_t* WriteInputValueFF4982_520410(session::ClientSession& session, const wchar_t* const source)
 {
     return WriteStoredInputValue(
         source,
-        detail::GetCurrentSavedInputValueFF4982());
+        detail::GetCurrentSavedInputValueFF4982(session));
 }
 
 // 原函数：0x00520440。
-std::wstring& ReadInputValueFF4982_520440(std::wstring& output)
+std::wstring& ReadInputValueFF4982_520440(session::ClientSession& session, std::wstring& output)
 {
-    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF4982());
+    return ReadStoredInputValue(output, detail::GetCurrentSavedInputValueFF4982(session));
 }
 
 // 原函数：0x005036F0。
@@ -316,7 +317,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5960.clearText();
         sceneUi.context9A5960.totalByteLength = 0;
         sceneUi.context9A5960.caretByteOffset = 0;
-        ReadInputValueFF494F_5203E0(firstInitialText);
+        ReadInputValueFF494F_5203E0(connection.Owner(), firstInitialText);
         input::InitializeContext_449CF0(
             connection.Owner(),
             &sceneUi.context9A5960,
@@ -337,7 +338,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5678.clearText();
         sceneUi.context9A5678.totalByteLength = 0;
         sceneUi.context9A5678.caretByteOffset = 0;
-        ReadInputValueFF4982_520440(secondInitialText);
+        ReadInputValueFF4982_520440(connection.Owner(), secondInitialText);
         input::InitializeContext_449CF0(
             connection.Owner(),
             &sceneUi.context9A5678,
@@ -357,7 +358,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5960.clearText();
         sceneUi.context9A5960.totalByteLength = 0;
         sceneUi.context9A5960.caretByteOffset = 0;
-        ReadInputValueFF494F_5203E0(firstInitialText);
+        ReadInputValueFF494F_5203E0(connection.Owner(), firstInitialText);
         input::InitializeContext_449CF0(
             connection.Owner(),
             &sceneUi.context9A5960,
@@ -378,7 +379,7 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
         sceneUi.context9A5678.clearText();
         sceneUi.context9A5678.totalByteLength = 0;
         sceneUi.context9A5678.caretByteOffset = 0;
-        ReadInputValueFF4982_520440(secondInitialText);
+        ReadInputValueFF4982_520440(connection.Owner(), secondInitialText);
         input::InitializeContext_449CF0(
             connection.Owner(),
             &sceneUi.context9A5678,
@@ -415,7 +416,7 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
     sceneUi.context9A5960.clearText();
     sceneUi.context9A5960.totalByteLength = 0;
     sceneUi.context9A5960.caretByteOffset = 0;
-    ReadInputValueFF4982_520440(firstInitialText);
+    ReadInputValueFF4982_520440(connection.Owner(), firstInitialText);
     input::InitializeContext_449CF0(
         connection.Owner(),
         &sceneUi.context9A5960,
@@ -436,7 +437,7 @@ void InitializeCapabilityInput_45F970(network::CgConnection& connection)
     sceneUi.context9A5678.clearText();
     sceneUi.context9A5678.totalByteLength = 0;
     sceneUi.context9A5678.caretByteOffset = 0;
-    ReadInputValueFF494F_5203E0(secondInitialText);
+    ReadInputValueFF494F_5203E0(connection.Owner(), secondInitialText);
     input::InitializeContext_449CF0(
         connection.Owner(),
         &sceneUi.context9A5678,
@@ -467,13 +468,13 @@ void InitializeCapability4Input_465320(network::CgConnection& connection)
         resource::ProbePaletteCapability_45C970();
 
     const std::int32_t firstSelectedSlot =
-        detail::gSelectedSavedSlot105C394;
+        connection.Owner().SavedLogin().selectedSlot;
     sceneUi.context9A5678X = 187;
     sceneUi.context9A5678Y = 358;
     sceneUi.context9A5678.clearText();
     sceneUi.context9A5678.totalByteLength = 0;
     sceneUi.context9A5678.caretByteOffset = 0;
-    detail::ReadSavedAccount_533680(initialText, firstSelectedSlot);
+    detail::ReadSavedAccount_533680(connection.Owner(), initialText, firstSelectedSlot);
     const std::int32_t firstY = sceneUi.context9A5678Y;
     const std::int32_t firstX = sceneUi.context9A5678X;
     input::InitializeContext_449CF0(
@@ -491,13 +492,13 @@ void InitializeCapability4Input_465320(network::CgConnection& connection)
         0);
 
     const std::int32_t secondSelectedSlot =
-        detail::gSelectedSavedSlot105C394;
+        connection.Owner().SavedLogin().selectedSlot;
     sceneUi.context9A5960X = 187;
     sceneUi.context9A5960Y = 389;
     sceneUi.context9A5960.clearText();
     sceneUi.context9A5960.totalByteLength = 0;
     sceneUi.context9A5960.caretByteOffset = 0;
-    detail::ReadSavedPassword_5335F0(initialText, secondSelectedSlot);
+    detail::ReadSavedPassword_5335F0(connection.Owner(), initialText, secondSelectedSlot);
     const std::int32_t secondY = sceneUi.context9A5960Y;
     const std::int32_t secondX = sceneUi.context9A5960X;
     input::InitializeContext_449CF0(
@@ -529,8 +530,8 @@ void SaveAndSwitchCapability4InputSlot_465740(
         return;
     }
 
-    detail::SaveCredentialRecordsWithoutPasswords_533730();
-    detail::gSelectedSavedSlot105C394 = newSlot;
+    detail::SaveCredentialRecordsWithoutPasswords_533730(connection.Owner());
+    connection.Owner().SavedLogin().selectedSlot = newSlot;
     InitializeCapability4Input_465320(connection);
 }
 
@@ -538,7 +539,7 @@ void SaveAndSwitchCapability4InputSlot_465740(
 std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& connection)
 {
     std::int32_t visibleCount =
-        detail::gVisibleSavedSlotCount105C364;
+        connection.Owner().SavedLogin().visibleSlotCount;
     std::int32_t hoveredSlot = -1;
     std::int32_t slotIndex = 0;
     if (visibleCount <= 0) {
@@ -563,7 +564,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
             }
         }
 
-        visibleCount = detail::gVisibleSavedSlotCount105C364;
+        visibleCount = connection.Owner().SavedLogin().visibleSlotCount;
         slotIndex = slotIndex + 1;
     } while (slotIndex < visibleCount);
 
@@ -574,7 +575,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
     slotIndex = 0;
     do {
         const std::int32_t selectedSlot =
-            detail::gSelectedSavedSlot105C394;
+            connection.Owner().SavedLogin().selectedSlot;
         std::int32_t digitBase = 245540;
         std::int32_t frameImageNo = 246678;
         std::uint8_t frameLayer = 206;
@@ -617,7 +618,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430(network::CgConnection& c
             frameLayer,
             frameImageNo);
 
-        visibleCount = detail::gVisibleSavedSlotCount105C364;
+        visibleCount = connection.Owner().SavedLogin().visibleSlotCount;
         slotIndex = slotIndex + 1;
     } while (slotIndex < visibleCount);
 

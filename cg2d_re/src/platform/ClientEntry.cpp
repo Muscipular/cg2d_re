@@ -359,8 +359,8 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         CaptureDesktopColor();
         ParseClientVersion();
         CreateSaveDirectories();
-        cg::login::detail::InitializeSavedState_533300();
         auto& session = cg::session::GetClientHost().FirstSession();
+        cg::login::detail::InitializeSavedState_533300(session);
         ParseCommandOptions(session.Connection());
         const ClientDiagnosticsConsole diagnosticsConsole(gCommandLine);
         if (cg::resource::BuildResourcePaths() != 0) {

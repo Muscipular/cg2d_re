@@ -15,8 +15,6 @@ extern std::wstring gCommandLineStorage;    // 原 0x9A6F48，ReadSetupIni 的�
 extern std::wstring gDataPath;               // 原 0x55CF84，静态初值 data。
 extern std::int32_t gMonitorKeyboard;     // 原 0x9A6EC8。
 extern std::uint8_t gRequestedRenderMode; // 原 0x628FE0。
-// 原 0xFF4E28，W8；PE virtual-zero 初值；loader 入口清零，InitializeClient 读取。
-extern std::uint8_t gSavedStateLoadErrorCode_FF4E28;
 
 extern std::uintptr_t gInstance;       // 原 0x9A6F38，HINSTANCE 的原生承载。
 extern std::uintptr_t gCursorHandles[11]; // 原 0x9A6EF8 起，11 个原生光标引用。

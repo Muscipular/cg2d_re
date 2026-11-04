@@ -305,7 +305,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
                 const std::int32_t unusedSelected = connection.LoginRequests().selectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
-                cg::login::detail::SaveCurrentLoginRecord_520200();
+                cg::login::detail::SaveCurrentLoginRecord_520200(connection.Owner());
                 input::SetContext_44B330(connection.Owner(), nullptr);
                 sceneState = connection.Owner().WorldScene().sceneState;
             } else if (gate == 2) {
@@ -1522,7 +1522,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     const std::int16_t unusedSelected = connection.LoginRequests().selectedCharacterIndex;
                     static_cast<void>(unusedSelected);
                     cg::core::NullSub_509080();
-                    cg::login::detail::SaveCurrentLoginRecord_520200();
+                    cg::login::detail::SaveCurrentLoginRecord_520200(connection.Owner());
                     if (sceneUi.pendingCharacterCount > 0) {
                         --sceneUi.pendingCharacterCount;
                     }

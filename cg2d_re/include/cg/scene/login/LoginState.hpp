@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include <string>
 
 namespace cg::network {
@@ -8,6 +9,23 @@ class CgConnection;
 }
 
 namespace cg::login {
+
+namespace detail { struct SavedStateStorage; }
+
+// 登录草稿、当前记录与槽映射由会话独占；磁盘格式仍留在存档实现。
+struct SavedLoginRuntimeState {
+    SavedLoginRuntimeState();
+    ~SavedLoginRuntimeState();
+    SavedLoginRuntimeState(const SavedLoginRuntimeState&) = delete;
+    SavedLoginRuntimeState& operator=(const SavedLoginRuntimeState&) = delete;
+    SavedLoginRuntimeState(SavedLoginRuntimeState&&) = delete;
+    SavedLoginRuntimeState& operator=(SavedLoginRuntimeState&&) = delete;
+
+    std::unique_ptr<detail::SavedStateStorage> data;
+    std::int32_t selectedSlot = 0; // 原105C394，登录控件的可写选择。
+    std::int32_t visibleSlotCount = 0; // 原105C364，所属登录入口重建。
+    std::uint8_t loadErrorCode = 0; // 原FF4E28，载入入口清零、初始化读取。
+};
 
 // 原 sub_45D980@0x45D980；依次清零两个 16 位存储并返回 0。
 std::int32_t ResetValues_45D980(network::CgConnection& connection);

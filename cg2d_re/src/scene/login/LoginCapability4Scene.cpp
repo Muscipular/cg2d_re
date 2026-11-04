@@ -137,7 +137,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     case 2:
         sceneUi.capability4FrameCounter = 0;
-        static_cast<void>(cg::login::detail::InitializeSavedState_533300());
+        static_cast<void>(cg::login::detail::InitializeSavedState_533300(connection.Owner()));
         login::InitializeCapability4Input_465320(connection);
         connection.Owner().WorldScene().sceneState = 3;
         return DrawCapability4Base();
@@ -154,7 +154,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             if (!login::SaveCapability4InputSlot(connection)) {
                 return DrawCapability4Base();
             }
-            login::detail::SaveCredentialRecordsWithoutPasswords_533730();
+            login::detail::SaveCredentialRecordsWithoutPasswords_533730(connection.Owner());
             static_cast<void>(login::detail::PlaySe(53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));
             connection.Owner().WorldScene().sceneState = 4;
@@ -169,14 +169,15 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
             connection.Owner().WorldScene().sceneState = 5;
         } else if (result == -2) {
             const std::int32_t selected =
-                login::detail::gSelectedSavedSlot105C394;
+                connection.Owner().SavedLogin().selectedSlot;
             if (selected == 0) {
                 connection.Owner().WorldScene().sceneState = 5;
             } else {
                 const std::int32_t newPhysical =
-                    login::detail::ReadNewSavedPhysicalSlot105C368();
+                    login::detail::ReadNewSavedPhysicalSlot105C368(connection.Owner());
                 const std::int32_t mappedPhysical =
                     login::detail::ReadMappedSavedPhysicalSlot105C36C(
+                        connection.Owner(),
                         selected);
                 connection.Owner().WorldScene().sceneState =
                     newPhysical == mappedPhysical ? 5 : 7;
@@ -187,7 +188,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     case 4: {
         const std::uint32_t previousShow = platform::gNativeCursorEnabled_D67AE4;
-        static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0());
+        static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0(connection.Owner()));
         login::detail::RestoreCapability4CurrentSavedRecord(connection.Owner());
         const std::uint32_t currentShow = platform::gNativeCursorEnabled_D67AE4;
         if (currentShow != previousShow) {
@@ -234,10 +235,10 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
 
     case 9: {
         const std::int32_t selected =
-            login::detail::gSelectedSavedSlot105C394;
+            connection.Owner().SavedLogin().selectedSlot;
         const std::int32_t physicalSlot =
-            login::detail::ReadMappedSavedPhysicalSlot105C36C(selected);
-        static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(physicalSlot));
+            login::detail::ReadMappedSavedPhysicalSlot105C36C(connection.Owner(), selected);
+        static_cast<void>(login::detail::DeleteSavedAccountFiles_533860(connection.Owner(), physicalSlot));
         login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         const std::int32_t result = DrawCapability4Base();

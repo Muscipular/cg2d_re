@@ -35,6 +35,12 @@ struct SavedPath final {
     std::wstring text; // 原成员偏移：+0x00。
 };
 
+// 原复位入口只反复发布同一组目录名；各会话共用不可变路径。
+static const std::array<SavedPath, 10> kSavedPaths {{
+    {L"data\\0"}, {L"data\\1"}, {L"data\\2"}, {L"data\\3"}, {L"data\\4"},
+    {L"data\\5"}, {L"data\\6"}, {L"data\\7"}, {L"data\\8"}, {L"data\\9"},
+}};
+
 // 旧save.dat的0x510字节磁盘格式。未解释区域按原字节保留。
 struct SavedDiskRecord final {
     std::int32_t version;
@@ -101,14 +107,13 @@ static std::wstring DecodeSavedText(const std::array<char, N>& bytes)
 }
 
 struct SavedStateStorage final {
-    SavedPath paths[10]; // 原成员偏移：+0x00。
     SavedPhysicalRecord records[10]; // 原成员偏移：+0xA00。
     std::int32_t active[10]; // 原成员偏移：+0x3CA0。
     std::int32_t mappingCount; // 原成员偏移：+0x3CC8。
-    std::int32_t visibleCount; // 原成员偏移：+0x3CCC。
     std::int32_t newPhysical; // 原成员偏移：+0x3CD0。
     std::int32_t logicalToPhysical[10]; // 原成员偏移：+0x3CD4。
-    std::int32_t selected; // 原成员偏移：+0x3CFC。
+    SavedPhysicalRecord current {}; // 原FF4918，完整当前运行记录。
+    std::int32_t autoLoginCachedPhysicalSlot = -1; // ALM02，仅标记所属记录中的内存凭据。
 };
 
 static SavedDiskRecord EncodeSavedRecord(const SavedPhysicalRecord& record, const bool savePassword = true)
@@ -197,14 +202,6 @@ static SavedPhysicalRecord MakeDefaultSavedRecord()
     return record;
 }
 
-// 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
-static SavedStateStorage gSavedState {}; // 原全局：0x01058698。
-
-// 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
-static SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
-
-// ALM02：只标记自动参数已写入的物理账号槽，凭据仍由上述两个既有记录持有。
-static std::int32_t gAutoLoginCachedPhysicalSlot = -1;
 static_assert(LoginInputValueCapacity == 0x33);
 
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
@@ -353,14 +350,16 @@ std::int32_t DecodeLegacyBytes_52D460(
 
 // 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
 static std::int32_t LoadSavedPhysicalRecord_532ED0(
+    session::ClientSession& session,
     const std::int32_t physicalSlot)
 {
-    cg::platform::gSavedStateLoadErrorCode_FF4E28 = 0;
+    auto& saved = *session.SavedLogin().data;
+    session.SavedLogin().loadErrorCode = 0;
 
     std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t decodedBytes;
-    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
+    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
 
     std::FILE* const file =
         _wfopen(path.c_str(), L"rb+");
@@ -378,18 +377,18 @@ static std::int32_t LoadSavedPhysicalRecord_532ED0(
 
     std::fclose(file);
     if (bytesRead <= 1 || bytesRead > sizeof(SavedDiskRecord) + 1) { return 0; }
-    auto disk = EncodeSavedRecord(gSavedState.records[physicalSlot]);
+    auto disk = EncodeSavedRecord(saved.records[physicalSlot]);
     (void)cg::login::detail::DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
         0,
         reinterpret_cast<std::uint8_t*>(&disk),
         &decodedBytes);
-    DecodeSavedRecord(gSavedState.records[physicalSlot], disk, static_cast<std::size_t>(decodedBytes));
+    DecodeSavedRecord(saved.records[physicalSlot], disk, static_cast<std::size_t>(decodedBytes));
     if (decodedBytes != 0x510) {
         return 0;
     }
-    return gSavedState.records[physicalSlot].version == 0x7002
+    return saved.records[physicalSlot].version == 0x7002
         ? 1
         : 0;
 }
@@ -431,24 +430,25 @@ static std::int32_t WriteDefaultSavedFile_532FC0(
 }
 
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。
-static void InitializeSavedPhysicalRecord_5331A0(const std::int32_t physicalSlot)
+static void InitializeSavedPhysicalRecord_5331A0(
+    session::ClientSession& session, const std::int32_t physicalSlot)
 {
-    gSavedState.records[physicalSlot] = MakeDefaultSavedRecord();
+    session.SavedLogin().data->records[physicalSlot] = MakeDefaultSavedRecord();
 }
 
 // 原 sub_533360@[0x533360,0x5333CF)：复位保存状态。
-static std::int32_t ResetSavedState_533360()
+static std::int32_t ResetSavedState_533360(session::ClientSession& session)
 {
-    gSavedState.newPhysical = -1;
-    gSavedState.visibleCount = 0;
-    gSavedState.selected = 0;
-    gSavedState.mappingCount = 0;
+    auto& saved = *session.SavedLogin().data;
+    saved.newPhysical = -1;
+    session.SavedLogin().visibleSlotCount = 0;
+    session.SavedLogin().selectedSlot = 0;
+    saved.mappingCount = 0;
 
     for (std::int32_t index = 0; index < 10; ++index) {
-        gSavedState.paths[index].text = std::format(L"data\\{}", index);
-        gSavedState.active[index] = 0;
-        gSavedState.logicalToPhysical[index] = -1;
-        gSavedState.records[0] = {};
+        saved.active[index] = 0;
+        saved.logicalToPhysical[index] = -1;
+        saved.records[0] = {};
     }
     return 0;
 }
@@ -458,7 +458,7 @@ static std::int32_t ProbeSavedStateLocation_5333D0()
 {
     std::wstring path;
     for (std::int32_t index = 0; index < 10; ++index) {
-        path = std::format(L"{}\\save.dat", gSavedState.paths[index].text);
+        path = std::format(L"{}\\save.dat", kSavedPaths[index].text);
         std::FILE* const file =
             _wfopen(path.c_str(), L"rb+");
         if (file != nullptr) {
@@ -478,10 +478,10 @@ static std::int32_t ProbeSavedStateLocation_5333D0()
 
 // 原 sub_5338F0@[0x5338F0,0x53390C)：查找首个未占用物理槽。
 static std::int32_t
-FindFreeSavedPhysicalSlot_5338F0() noexcept
+FindFreeSavedPhysicalSlot_5338F0(session::ClientSession& session) noexcept
 {
     for (std::int32_t index = 0; index < 10; ++index) {
-        if (gSavedState.active[index] == 0) {
+        if (session.SavedLogin().data->active[index] == 0) {
             return index;
         }
     }
@@ -489,52 +489,53 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 }
 
 // 原 sub_533470@[0x533470,0x533528)：重建逻辑槽到物理槽映射。
-static std::int32_t RebuildSavedSlotMap_533470()
+static std::int32_t RebuildSavedSlotMap_533470(session::ClientSession& session)
 {
+    auto& saved = *session.SavedLogin().data;
     for (std::int32_t physicalSlot = 0;
          physicalSlot < 10;
          ++physicalSlot) {
-        if (LoadSavedPhysicalRecord_532ED0(physicalSlot) != 0) {
-            const std::int32_t mappingIndex = gSavedState.mappingCount;
-            gSavedState.logicalToPhysical[mappingIndex] = physicalSlot;
-            gSavedState.active[physicalSlot] = 1;
+        if (LoadSavedPhysicalRecord_532ED0(session, physicalSlot) != 0) {
+            const std::int32_t mappingIndex = saved.mappingCount;
+            saved.logicalToPhysical[mappingIndex] = physicalSlot;
+            saved.active[physicalSlot] = 1;
 
             const std::int32_t currentMappingCount =
-                gSavedState.mappingCount;
+                saved.mappingCount;
             const std::int32_t currentVisibleCount =
-                gSavedState.visibleCount;
+                session.SavedLogin().visibleSlotCount;
             const std::int32_t nextMappingCount = currentMappingCount + 1;
             const std::int32_t nextVisibleCount = currentVisibleCount + 1;
-            gSavedState.mappingCount = nextMappingCount;
-            gSavedState.visibleCount = nextVisibleCount;
+            saved.mappingCount = nextMappingCount;
+            session.SavedLogin().visibleSlotCount = nextVisibleCount;
         } else {
-            gSavedState.active[physicalSlot] = 0;
+            saved.active[physicalSlot] = 0;
         }
     }
 
-    const bool skipAllocation = gSavedState.mappingCount > 10;
+    const bool skipAllocation = saved.mappingCount > 10;
     if (!skipAllocation) {
         const std::int32_t freePhysicalSlot =
-            FindFreeSavedPhysicalSlot_5338F0();
+            FindFreeSavedPhysicalSlot_5338F0(session);
         if (freePhysicalSlot != -1) {
-            const std::int32_t mappingIndex = gSavedState.mappingCount;
-            gSavedState.logicalToPhysical[mappingIndex] = freePhysicalSlot;
-            gSavedState.active[freePhysicalSlot] = 1;
-            (void)InitializeSavedPhysicalRecord_5331A0(freePhysicalSlot);
+            const std::int32_t mappingIndex = saved.mappingCount;
+            saved.logicalToPhysical[mappingIndex] = freePhysicalSlot;
+            saved.active[freePhysicalSlot] = 1;
+            (void)InitializeSavedPhysicalRecord_5331A0(session, freePhysicalSlot);
 
             const std::int32_t currentMappingCount =
-                gSavedState.mappingCount;
+                saved.mappingCount;
             const std::int32_t currentVisibleCount =
-                gSavedState.visibleCount;
+                session.SavedLogin().visibleSlotCount;
             const std::int32_t nextMappingCount = currentMappingCount + 1;
             const std::int32_t nextVisibleCount = currentVisibleCount + 1;
-            gSavedState.newPhysical = freePhysicalSlot;
-            gSavedState.mappingCount = nextMappingCount;
-            gSavedState.visibleCount = nextVisibleCount;
+            saved.newPhysical = freePhysicalSlot;
+            saved.mappingCount = nextMappingCount;
+            session.SavedLogin().visibleSlotCount = nextVisibleCount;
         }
     }
 
-    const std::int32_t finalMappingCount = gSavedState.mappingCount;
+    const std::int32_t finalMappingCount = saved.mappingCount;
     return finalMappingCount > 0 ? 1 : 0;
 }
 
@@ -556,31 +557,34 @@ static std::int32_t MigrateLegacySavedFiles_533530()
 }
 
 // 原 sub_5336D0@[0x5336D0,0x5336F5)：载入当前选中物理记录。
-static std::int32_t LoadSelectedPhysicalRecord_5336D0()
+static std::int32_t LoadSelectedPhysicalRecord_5336D0(session::ClientSession& session)
 {
-    const std::int32_t selected = gSavedState.selected;
+    auto& saved = *session.SavedLogin().data;
+    const std::int32_t selected = session.SavedLogin().selectedSlot;
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
     if (selected < 0 || selected >= 10) { return -1; }
-    gCurrentSavedRecord = gSavedState.records[selected];
+    saved.current = saved.records[selected];
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
 // 原 sub_533700@[0x533700,0x533725)：把当前记录写回选中物理记录。
-static std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
+static std::int32_t StoreCurrentRecordToSelectedPhysical_533700(session::ClientSession& session)
 {
-    const std::int32_t selected = gSavedState.selected;
+    auto& saved = *session.SavedLogin().data;
+    const std::int32_t selected = session.SavedLogin().selectedSlot;
     const std::uint32_t resultBits =
         std::bit_cast<std::uint32_t>(selected) * 9U;
     if (selected < 0 || selected >= 10) { return -1; }
-    gSavedState.records[selected] = gCurrentSavedRecord;
+    saved.records[selected] = saved.current;
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
 // 原 sub_520200@[0x520200,0x5202DE)：持久化当前保存记录。
-static std::int32_t PersistCurrentSavedRecord_520200()
+static std::int32_t PersistCurrentSavedRecord_520200(session::ClientSession& session)
 {
-    auto localRecord = EncodeSavedRecord(gCurrentSavedRecord, false);
+    auto& saved = *session.SavedLogin().data;
+    auto localRecord = EncodeSavedRecord(saved.current, false);
     std::wstring path;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
@@ -596,12 +600,12 @@ static std::int32_t PersistCurrentSavedRecord_520200()
         &encodedBytes,
         0xA20);
 
-    const std::int32_t selected = gSavedState.selected;
+    const std::int32_t selected = session.SavedLogin().selectedSlot;
     if (selected < 0 || selected >= 10) { return 0; }
     const std::int32_t physicalSlot =
-        gSavedState.logicalToPhysical[selected];
+        saved.logicalToPhysical[selected];
     if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
-    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
+    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
 
     std::FILE* const file =
         _wfopen(path.c_str(), L"wb+");
@@ -617,27 +621,29 @@ static std::int32_t PersistCurrentSavedRecord_520200()
         result = 0;
     }
     std::fclose(file);
-    (void)StoreCurrentRecordToSelectedPhysical_533700();
+    (void)StoreCurrentRecordToSelectedPhysical_533700(session);
     return result;
 }
 
 // 原 sub_533860@[0x533860,0x5338E1)：删除一组物理槽保存文件。
 static std::int32_t DeleteSavedFiles_533860(
+    session::ClientSession& session,
     const std::int32_t physicalSlot)
 {
+    auto& saved = *session.SavedLogin().data;
     if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
-    if (gAutoLoginCachedPhysicalSlot == physicalSlot) {
-        gAutoLoginCachedPhysicalSlot = -1;
+    if (saved.autoLoginCachedPhysicalSlot == physicalSlot) {
+        saved.autoLoginCachedPhysicalSlot = -1;
     }
     std::wstring path;
 
-    path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
+    path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
     (void)::DeleteFileW(path.c_str());
 
-    path = std::format(L"{}\\mail.dat", gSavedState.paths[physicalSlot].text);
+    path = std::format(L"{}\\mail.dat", kSavedPaths[physicalSlot].text);
     (void)::DeleteFileW(path.c_str());
 
-    path = std::format(L"{}\\guildmail.dat", gSavedState.paths[physicalSlot].text);
+    path = std::format(L"{}\\guildmail.dat", kSavedPaths[physicalSlot].text);
     return static_cast<std::int32_t>(::DeleteFileW(path.c_str()));
 }
 
@@ -708,9 +714,9 @@ static std::uint32_t RestoreSavedByteState_520700(
 }
 
 // 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
-static std::uint8_t RestoreCurrentSavedValue_520730()
+static std::uint8_t RestoreCurrentSavedValue_520730(session::ClientSession& session)
 {
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const std::uint8_t value = current.value315;
     if (value != 0) {
         cg::platform::gValue553438 = static_cast<std::int32_t>(value);
@@ -725,45 +731,46 @@ std::int32_t RestoreCurrentSavedState_5201B0(session::ClientSession& session)
         return 0;
     }
 
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     (void)RestoreAudioSettings_5204C0(current);
     (void)RestoreSavedScalarSettings_5205E0(current);
     (void)RestoreSavedInputContexts_520690(session, current);
     (void)RestoreSavedByteState_520700(current);
-    (void)RestoreCurrentSavedValue_520730();
+    (void)RestoreCurrentSavedValue_520730(session);
     return 1;
 }
 
 // 原函数：0x00533300。
-std::int32_t InitializeSavedState_533300()
+std::int32_t InitializeSavedState_533300(session::ClientSession& session)
 {
+    auto& saved = *session.SavedLogin().data;
     // 返回入口会重读磁盘；仅保留自动登录槽的两个内存字段，不将密码写入存档。
-    const std::int32_t cachedPhysicalSlot = gAutoLoginCachedPhysicalSlot;
+    const std::int32_t cachedPhysicalSlot = saved.autoLoginCachedPhysicalSlot;
     std::array<std::wstring, 2> cachedCredentials;
     if (cachedPhysicalSlot != -1) {
-        cachedCredentials[0] = gSavedState.records[cachedPhysicalSlot].inputs04[1];
-        cachedCredentials[1] = gSavedState.records[cachedPhysicalSlot].inputs04[2];
+        cachedCredentials[0] = saved.records[cachedPhysicalSlot].inputs04[1];
+        cachedCredentials[1] = saved.records[cachedPhysicalSlot].inputs04[2];
     }
-    (void)ResetSavedState_533360();
+    (void)ResetSavedState_533360(session);
     const std::int32_t location = ProbeSavedStateLocation_5333D0();
     if (location == 0) {
-        (void)RebuildSavedSlotMap_533470();
+        (void)RebuildSavedSlotMap_533470(session);
     } else if (location == 1) {
         (void)MigrateLegacySavedFiles_533530();
-        (void)RebuildSavedSlotMap_533470();
+        (void)RebuildSavedSlotMap_533470(session);
     } else if (location == 2) {
         (void)WriteDefaultSavedFile_532FC0(L"data\\0\\save.dat");
-        (void)RebuildSavedSlotMap_533470();
+        (void)RebuildSavedSlotMap_533470(session);
     }
 
     if (cachedPhysicalSlot != -1) {
-        gSavedState.records[cachedPhysicalSlot].inputs04[1] = cachedCredentials[0];
-        gSavedState.records[cachedPhysicalSlot].inputs04[2] = cachedCredentials[1];
+        saved.records[cachedPhysicalSlot].inputs04[1] = cachedCredentials[0];
+        saved.records[cachedPhysicalSlot].inputs04[2] = cachedCredentials[1];
     }
     const std::int32_t physicalSlot =
-        gSavedState.logicalToPhysical[0];
+        saved.logicalToPhysical[0];
     if (physicalSlot < 0 || physicalSlot >= 10) { return 0; }
-    gCurrentSavedRecord = gSavedState.records[physicalSlot];
+    saved.current = saved.records[physicalSlot];
     return 1;
 }
 
@@ -773,7 +780,7 @@ std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& sess
     auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const volatile std::int32_t& color =
         inputs.chat.color;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
@@ -796,7 +803,7 @@ std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& sess
     auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const std::int32_t color = current.display30A[0 + selected];
     const std::int32_t first = current.display30A[2 + selected];
     inputs.chat.color = color;
@@ -812,7 +819,7 @@ std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& sess
 std::int32_t CaptureCharacterBgmTarget_520750(session::ClientSession& session, const std::int32_t selected)
 {
     if (selected < 0 || selected >= 2) { return -1; }
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const std::uint16_t target =
         static_cast<std::uint16_t>(session.Audio().bgmTarget);
     current.bgm316[selected] = target;
@@ -823,7 +830,7 @@ std::int32_t CaptureCharacterBgmTarget_520750(session::ClientSession& session, c
 std::int32_t RestoreCharacterBgmTarget_520770(session::ClientSession& session, const std::int32_t selected)
 {
     if (selected < 0 || selected >= 2) { return -1; }
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     std::uint16_t target;
     target = current.bgm316[selected];
     session.Audio().bgmTarget = target;
@@ -831,9 +838,9 @@ std::int32_t RestoreCharacterBgmTarget_520770(session::ClientSession& session, c
 }
 
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
-std::int32_t CaptureAudioPreferences_520470()
+std::int32_t CaptureAudioPreferences_520470(session::ClientSession& session)
 {
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const std::uint8_t stereo =
         static_cast<std::uint8_t>(cg::platform::gUseStereo);
     const std::uint8_t effect =
@@ -862,9 +869,9 @@ std::int32_t CaptureAudioPreferences_520470()
 }
 
 // 原 sub_520590@[0x520590,0x5205D5)：将六项标量低字节写入当前记录。
-std::uint8_t CaptureClientPreferenceBytes_520590()
+std::uint8_t CaptureClientPreferenceBytes_520590(session::ClientSession& session)
 {
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     const std::uint8_t show =
         static_cast<std::uint8_t>(cg::platform::gNativeCursorEnabled_D67AE4);
     const std::uint8_t value73ECBC =
@@ -900,26 +907,26 @@ std::uint32_t CapturePresetChatTexts_520640(session::ClientSession& session)
         }
         result = static_cast<std::uint32_t>(bytes + 1);
     }
-    gCurrentSavedRecord.presetsB2 = std::move(texts);
+    session.SavedLogin().data->current.presetsB2 = std::move(texts);
     return result;
 }
 
 // 原 sub_5206F0@[0x5206F0,0x5206FB)：保存单字节状态并返回 AL。
-std::uint8_t CaptureContactSortMode_5206F0()
+std::uint8_t CaptureContactSortMode_5206F0(session::ClientSession& session)
 {
     const std::uint8_t value =
         static_cast<std::uint8_t>(cg::platform::gContactSortMode_D67CD0);
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     current.sort313 = value;
     return value;
 }
 
 // 原 sub_520720@[0x520720,0x52072B)：保存 +0x315 的低字节并返回 AL。
-std::uint8_t Sub_520720()
+std::uint8_t Sub_520720(session::ClientSession& session)
 {
     const std::uint8_t value =
         static_cast<std::uint8_t>(cg::platform::gValue553438);
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     current.value315 = value;
     return value;
 }
@@ -929,8 +936,8 @@ std::int32_t SaveCurrentClientPreferences_520160(network::CgConnection& connecti
 try {
     const volatile std::int16_t& selectedCharacter =
         connection.LoginRequests().selectedCharacterIndex;
-    static_cast<void>(CaptureAudioPreferences_520470());
-    static_cast<void>(CaptureClientPreferenceBytes_520590());
+    static_cast<void>(CaptureAudioPreferences_520470(connection.Owner()));
+    static_cast<void>(CaptureClientPreferenceBytes_520590(connection.Owner()));
 
     const std::int32_t ignoredSelected = selectedCharacter;
     static_cast<void>(ignoredSelected);
@@ -939,12 +946,12 @@ try {
     const std::int32_t selectedForDisplay = selectedCharacter;
     static_cast<void>(CaptureCharacterDisplaySettings_520510(connection.Owner(), selectedForDisplay));
     static_cast<void>(CapturePresetChatTexts_520640(connection.Owner()));
-    static_cast<void>(CaptureContactSortMode_5206F0());
+    static_cast<void>(CaptureContactSortMode_5206F0(connection.Owner()));
 
     const std::int32_t selectedForAudio = selectedCharacter;
     static_cast<void>(CaptureCharacterBgmTarget_520750(connection.Owner(), selectedForAudio));
-    static_cast<void>(Sub_520720());
-    return SaveCurrentLoginRecord_520200();
+    static_cast<void>(Sub_520720(connection.Owner()));
+    return SaveCurrentLoginRecord_520200(connection.Owner());
 }
 catch (const cg::text::GbkStorageError&) {
     m_log_iw(L"快捷文字无法按GBK保存，或已超出存档容量。");
@@ -952,148 +959,154 @@ catch (const cg::text::GbkStorageError&) {
 }
 
 // 原函数：0x00520200。
-std::int32_t SaveCurrentLoginRecord_520200()
+std::int32_t SaveCurrentLoginRecord_520200(session::ClientSession& session)
 {
-    return PersistCurrentSavedRecord_520200();
+    return PersistCurrentSavedRecord_520200(session);
 }
 
-std::int32_t ReadNewSavedPhysicalSlot105C368()
+std::int32_t ReadNewSavedPhysicalSlot105C368(session::ClientSession& session)
 {
-    return gSavedState.newPhysical;
+    return session.SavedLogin().data->newPhysical;
 }
 
 std::int32_t ReadMappedSavedPhysicalSlot105C36C(
+    session::ClientSession& session,
     const std::int32_t index)
 {
     if (index < 0 || index >= 10) { return -1; }
-    return gSavedState.logicalToPhysical[index];
+    return session.SavedLogin().data->logicalToPhysical[index];
 }
 
-const wchar_t* ReadSelectedSavedDirectory()
+const wchar_t* ReadSelectedSavedDirectory(session::ClientSession& session)
 {
-    const std::int32_t selected = gSavedState.selected;
+    const std::int32_t selected = session.SavedLogin().selectedSlot;
     if (selected < 0 || selected >= 10) { return L""; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[selected];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[selected];
     if (physicalSlot < 0 || physicalSlot >= 10) { return L""; }
-    return gSavedState.paths[physicalSlot].text.c_str();
+    return kSavedPaths[physicalSlot].text.c_str();
 }
 
 // 原函数：0x005336D0。
-std::int32_t LoadSelectedLoginRecord_5336D0()
+std::int32_t LoadSelectedLoginRecord_5336D0(session::ClientSession& session)
 {
-    return LoadSelectedPhysicalRecord_5336D0();
+    return LoadSelectedPhysicalRecord_5336D0(session);
 }
 
 // 原函数：0x00533860。
-std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot)
+std::int32_t DeleteSavedAccountFiles_533860(
+    session::ClientSession& session, const std::int32_t physicalSlot)
 {
-    return DeleteSavedFiles_533860(physicalSlot);
+    return DeleteSavedFiles_533860(session, physicalSlot);
 }
 
 void RestoreCapability4CurrentSavedRecord(session::ClientSession& session)
 {
-    auto& current = gCurrentSavedRecord;
+    auto& current = session.SavedLogin().data->current;
     (void)RestoreAudioSettings_5204C0(current);
     (void)RestoreSavedScalarSettings_5205E0(current);
     (void)RestoreSavedInputContexts_520690(session, current);
     (void)RestoreSavedByteState_520700(current);
 }
 
-void CacheAutoLoginInputValues(const std::wstring_view account, const std::wstring_view password)
+void CacheAutoLoginInputValues(
+    session::ClientSession& session, const std::wstring_view account, const std::wstring_view password)
 {
-    const std::int32_t selected = gSavedState.selected;
+    const std::int32_t selected = session.SavedLogin().selectedSlot;
     if (selected < 0 || selected >= 10) { return; }
-    WriteSavedPassword_5335B0(password, selected);
-    WriteSavedAccount_533640(account, selected);
-    GetCurrentSavedInputValueFF494F() = password;
-    GetCurrentSavedInputValueFF4982() = account;
-    gAutoLoginCachedPhysicalSlot = gSavedState.logicalToPhysical[selected];
+    WriteSavedPassword_5335B0(session, password, selected);
+    WriteSavedAccount_533640(session, account, selected);
+    GetCurrentSavedInputValueFF494F(session) = password;
+    GetCurrentSavedInputValueFF4982(session) = account;
+    session.SavedLogin().data->autoLoginCachedPhysicalSlot = session.SavedLogin().data->logicalToPhysical[selected];
 }
 
-std::wstring& GetCurrentSavedInputValueFF494F()
+std::wstring& GetCurrentSavedInputValueFF494F(session::ClientSession& session)
 {
-    return gCurrentSavedRecord.inputs04[1];
+    return session.SavedLogin().data->current.inputs04[1];
 }
 
-std::wstring& GetCurrentSavedInputValueFF4982()
+std::wstring& GetCurrentSavedInputValueFF4982(session::ClientSession& session)
 {
-    return gCurrentSavedRecord.inputs04[2];
+    return session.SavedLogin().data->current.inputs04[2];
 }
 
-std::wstring& GetCurrentSavedStallNameFF4D18()
+std::wstring& GetCurrentSavedStallNameFF4D18(session::ClientSession& session)
 {
-    return gCurrentSavedRecord.stallName400;
+    return session.SavedLogin().data->current.stallName400;
 }
 
-std::wstring& GetCurrentSavedStallDescriptionFF4D28()
+std::wstring& GetCurrentSavedStallDescriptionFF4D28(session::ClientSession& session)
 {
-    return gCurrentSavedRecord.stallDescription410;
+    return session.SavedLogin().data->current.stallDescription410;
 }
-
-std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected; // 原全局：0x0105C394。
-std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount; // 原全局：0x0105C364。
 
 // 原函数：0x00533570。
-void Sub_533570(const std::wstring_view source, const std::int32_t logicalSlot)
+void Sub_533570(
+    session::ClientSession& session, const std::wstring_view source, const std::int32_t logicalSlot)
 {
     if (logicalSlot < 0 || logicalSlot >= 10) { return; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[logicalSlot];
     if (physicalSlot < 0 || physicalSlot >= 10) { return; }
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    gSavedState.records[physicalSlot].inputs04[0] = source;
+    session.SavedLogin().data->records[physicalSlot].inputs04[0] = source;
 }
 
 // 原函数：0x005335B0。
-void WriteSavedPassword_5335B0(const std::wstring_view source, const std::int32_t logicalSlot)
+void WriteSavedPassword_5335B0(
+    session::ClientSession& session, const std::wstring_view source, const std::int32_t logicalSlot)
 {
     if (logicalSlot < 0 || logicalSlot >= 10) { return; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[logicalSlot];
     if (physicalSlot < 0 || physicalSlot >= 10) { return; }
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    gSavedState.records[physicalSlot].inputs04[1] = source;
+    session.SavedLogin().data->records[physicalSlot].inputs04[1] = source;
 }
 
 // 原函数：0x00533640。
-void WriteSavedAccount_533640(const std::wstring_view source, const std::int32_t logicalSlot)
+void WriteSavedAccount_533640(
+    session::ClientSession& session, const std::wstring_view source, const std::int32_t logicalSlot)
 {
     if (logicalSlot < 0 || logicalSlot >= 10) { return; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[logicalSlot];
     if (physicalSlot < 0 || physicalSlot >= 10) { return; }
     if (cg::text::ToGbk(source).size() >= 51) {
         throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
     }
-    gSavedState.records[physicalSlot].inputs04[2] = source;
+    session.SavedLogin().data->records[physicalSlot].inputs04[2] = source;
 }
 
 // 原函数：0x005335F0。
-std::wstring& ReadSavedPassword_5335F0(std::wstring& output, const std::int32_t logicalSlot)
+std::wstring& ReadSavedPassword_5335F0(
+    session::ClientSession& session, std::wstring& output, const std::int32_t logicalSlot)
 {
     output.clear();
     if (logicalSlot < 0 || logicalSlot >= 10) { return output; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[logicalSlot];
     if (physicalSlot < 0 || physicalSlot >= 10) { return output; }
-    output = gSavedState.records[physicalSlot].inputs04[1];
+    output = session.SavedLogin().data->records[physicalSlot].inputs04[1];
     return output;
 }
 
 // 原函数：0x00533680。
-std::wstring& ReadSavedAccount_533680(std::wstring& output, const std::int32_t logicalSlot)
+std::wstring& ReadSavedAccount_533680(
+    session::ClientSession& session, std::wstring& output, const std::int32_t logicalSlot)
 {
     output.clear();
     if (logicalSlot < 0 || logicalSlot >= 10) { return output; }
-    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[logicalSlot];
+    const std::int32_t physicalSlot = session.SavedLogin().data->logicalToPhysical[logicalSlot];
     if (physicalSlot < 0 || physicalSlot >= 10) { return output; }
-    output = gSavedState.records[physicalSlot].inputs04[2];
+    output = session.SavedLogin().data->records[physicalSlot].inputs04[2];
     return output;
 }
 
 // 原函数：0x00533730。
-void SaveCredentialRecordsWithoutPasswords_533730()
+void SaveCredentialRecordsWithoutPasswords_533730(session::ClientSession& session)
 {
+    auto& saved = *session.SavedLogin().data;
     SavedDiskRecord localRecord;
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
@@ -1102,11 +1115,11 @@ void SaveCredentialRecordsWithoutPasswords_533730()
     for (std::int32_t physicalSlot = 0;
          physicalSlot < 10;
          ++physicalSlot) {
-        if (gSavedState.active[physicalSlot] != 1) {
+        if (saved.active[physicalSlot] != 1) {
             continue;
         }
 
-        const auto& record = gSavedState.records[physicalSlot];
+        const auto& record = saved.records[physicalSlot];
         if (record.inputs04[2].empty() || record.inputs04[1].empty()) { continue; }
         localRecord = EncodeSavedRecord(record, false);
         auto* const localBytes = reinterpret_cast<std::uint8_t*>(&localRecord);
@@ -1118,7 +1131,7 @@ void SaveCredentialRecordsWithoutPasswords_533730()
             encoded,
             &encodedBytes,
             0xA20);
-        path = std::format(L"{}\\save.dat", gSavedState.paths[physicalSlot].text);
+        path = std::format(L"{}\\save.dat", kSavedPaths[physicalSlot].text);
 
         std::FILE* const file =
             _wfopen(path.c_str(), L"wb+");
@@ -1142,3 +1155,12 @@ void SaveCredentialRecordsWithoutPasswords_533730()
 }
 
 } // namespace cg::login::detail
+
+namespace cg::login {
+
+SavedLoginRuntimeState::SavedLoginRuntimeState()
+    : data(std::make_unique<detail::SavedStateStorage>()) {}
+
+SavedLoginRuntimeState::~SavedLoginRuntimeState() = default;
+
+} // namespace cg::login

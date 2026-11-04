@@ -117,11 +117,12 @@ static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connec
     if (result == 1) {
         cg::core::NullSub_509080();
         if (!cg::login::SaveInputValues(
+                connection.Owner(),
                 cg::input::ContextText(sceneUi.context9A5678),
                 cg::input::ContextText(sceneUi.context9A5960))) {
             return DrawCapability3CommonTail(connection);
         }
-        static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200());
+        static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200(connection.Owner()));
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
         static_cast<void>(cg::render::SelectPalette(30, 30));
         connection.Owner().WorldScene().sceneState = 10;
@@ -136,7 +137,7 @@ static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connec
         connection.Owner().WorldScene().sceneState = 8;
         sceneUi.capability3Intro.message9A50E8 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
         sceneUi.context9A5960.clearText();
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(sceneUi.context9A5960).c_str()));
+        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(connection.Owner(), cg::input::ContextText(sceneUi.context9A5960).c_str()));
     }
     return DrawCapability3CommonTail(connection);
 }

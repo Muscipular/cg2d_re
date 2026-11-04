@@ -7,7 +7,6 @@ std::wstring gCommandLineStorage; // 原全局：0x009A6F48。
 std::wstring gDataPath = L"data"; // 原全局：0x0055CF84。
 std::int32_t gMonitorKeyboard = 0; // 原全局：0x009A6EC8。
 std::uint8_t gRequestedRenderMode = 0; // 原全局：0x00628FE0。
-std::uint8_t gSavedStateLoadErrorCode_FF4E28 = 0; // 原全局：0x00FF4E28。
 
 std::uintptr_t gInstance = 0; // 原全局：0x009A6F38。
 std::uintptr_t gCursorHandles[11] {}; // 原全局：0x009A6EF8。

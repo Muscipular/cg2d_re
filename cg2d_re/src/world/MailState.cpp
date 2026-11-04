@@ -1394,7 +1394,7 @@ std::int32_t SavePlayerProfilesFile_534770(session::ClientSession& session)
     std::array<ProfileDiskRecord, 2> disk{};
     for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(session.WorldScene().mail.data->profiles[i]); }
     const auto path = std::format(L"{}\\profile.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     std::FILE* const stream = _wfopen(path.c_str(), L"wb+");
     if (stream == nullptr) {
         return 0;
@@ -1410,7 +1410,7 @@ std::int32_t LoadPlayerProfilesFile_5347F0(session::ClientSession& session)
     std::array<ProfileDiskRecord, 2> disk{};
     for (std::size_t i = 0; i < disk.size(); ++i) { disk[i] = EncodeProfile(session.WorldScene().mail.data->profiles[i]); }
     const auto path = std::format(L"{}\\profile.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     std::FILE* const stream = _wfopen(path.c_str(), L"rb+");
     if (stream == nullptr) {
         return 0;
@@ -1431,7 +1431,7 @@ std::int32_t LoadPlayerProfilesFile_5347F0(session::ClientSession& session)
 std::int32_t LoadContactAndGuildMailFiles_518CB0(session::ClientSession& session)
 {
     const auto mailPath = std::format(L"{}\\mail.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     std::FILE* stream = _wfopen(mailPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveContactMailFile_519300(session);
@@ -1449,7 +1449,7 @@ std::int32_t LoadContactAndGuildMailFiles_518CB0(session::ClientSession& session
     }
 
     const auto guildPath = std::format(L"{}\\guildmail.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     stream = _wfopen(guildPath.c_str(), L"rb");
     if (stream == nullptr) {
         return SaveGuildMailFile_519550(session);
@@ -1470,7 +1470,7 @@ std::int32_t LoadContactAndGuildMailFiles_518CB0(session::ClientSession& session
 std::int32_t SaveContactMailFile_519300(session::ClientSession& session)
 {
     const auto path = std::format(L"{}\\mail.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     std::vector<MailDiskMessage> disk(session.WorldScene().mail.data->messages.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
         disk[i] = EncodeMailMessage(session.WorldScene().mail.data->messages[i]);
@@ -1487,7 +1487,7 @@ std::int32_t SaveContactMailFile_519300(session::ClientSession& session)
 std::int32_t SaveGuildMailFile_519550(session::ClientSession& session)
 {
     const auto path = std::format(L"{}\\guildmail.dat",
-        login::detail::ReadSelectedSavedDirectory());
+        login::detail::ReadSelectedSavedDirectory(session));
     std::vector<GuildMailDiskEntry> disk(session.WorldScene().mail.data->guildMessages.size());
     for (std::size_t i = 0; i < disk.size(); ++i) {
         disk[i] = EncodeGuildMailEntry(session.WorldScene().mail.data->guildMessages[i]);

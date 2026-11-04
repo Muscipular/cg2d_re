@@ -70,10 +70,10 @@ void ProcessModeScene_45C5A0(network::CgConnection& connection)
     const std::int32_t result = ProcessLoginInput_45CA20(connection, inputMode);
     if (result == 1) {
         cg::core::NullSub_509080();
-        if (!SaveInputValues(input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {
+        if (!SaveInputValues(connection.Owner(), input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {
             return;
         }
-        static_cast<void>(detail::SaveCurrentLoginRecord_520200());
+        static_cast<void>(detail::SaveCurrentLoginRecord_520200(connection.Owner()));
         static_cast<void>(detail::PlaySe(53, 320, 240));
         if (render::gPaletteCapability >= 1) {
             static_cast<void>(render::SelectPalette(19, 30));

@@ -502,7 +502,7 @@ std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session)
                 const std::int32_t selectedValue = selected;
                 session.Audio().bgmStage = 1;
                 static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(session, selectedValue));
-                result = login::detail::SaveCurrentLoginRecord_520200();
+                result = login::detail::SaveCurrentLoginRecord_520200(session);
             }
         }
         session.Audio().bgmRequest = 0;

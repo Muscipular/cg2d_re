@@ -142,7 +142,7 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
     if (serverIndex >= 0 && !account.empty() && !password.empty()
         && text::ToGbk(account).size() < login::LoginInputValueCapacity
         && text::ToGbk(password).size() < login::LoginInputValueCapacity) {
-        login::detail::CacheAutoLoginInputValues(account, password);
+        login::detail::CacheAutoLoginInputValues(connection.Owner(), account, password);
         connection.Owner().WorldScene().sceneState = 2;
         connection.Owner().WorldScene().sceneType = 2;
         auto& request = connection.LoginRequests();

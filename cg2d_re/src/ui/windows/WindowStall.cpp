@@ -1101,10 +1101,10 @@ static std::int32_t WindowStall_SubmitListings(WindowInstance* callbackWindow)
     const auto networkSession = callbackWindow->ownerSession->Connection().CaptureSession();
     static_cast<void>(callbackWindow->ownerSession->Connection().PublishStallRequest(name, description, offers));
     if (!inputs.stallNamePrototype.input.context->empty()) {
-        login::detail::GetCurrentSavedStallNameFF4D18() = name;
+        login::detail::GetCurrentSavedStallNameFF4D18(*callbackWindow->ownerSession) = name;
     }
     if (!inputs.stallDescriptionPrototype.input.context->empty()) {
-        login::detail::GetCurrentSavedStallDescriptionFF4D28() = description;
+        login::detail::GetCurrentSavedStallDescriptionFF4D28(*callbackWindow->ownerSession) = description;
     }
     callbackWindow->ownerSession->UiFrame().native.stall.message = L"摆摊请求中";
     WindowInstance* const window = currentWindow;
@@ -2237,7 +2237,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 }
             }
         } else {
-            const auto& source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
+            const auto& source = login::detail::GetCurrentSavedStallDescriptionFF4D28(*callbackWindow.ownerSession);
             WindowInstance* const window = activeWindow;
             callbackWindow.ownerSession->UiFrame().native.stall.description = source;
             if (auto* const element82 = window->FindElementById(WindowStallElementId::Element8); element82) element82->visible = 1;
@@ -2266,7 +2266,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 }
             }
         } else {
-            const auto& source = login::detail::GetCurrentSavedStallNameFF4D18();
+            const auto& source = login::detail::GetCurrentSavedStallNameFF4D18(*callbackWindow.ownerSession);
             WindowInstance* const window = activeWindow;
             callbackWindow.ownerSession->UiFrame().native.stall.name = source;
             if (auto* const element62 = window->FindElementById(WindowStallElementId::Element6); element62) element62->visible = 1;

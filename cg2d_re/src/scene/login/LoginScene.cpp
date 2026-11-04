@@ -402,8 +402,8 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
                             request.serverHighlight = slot;
                             detail::PlaySe(53, 320, 240);
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
-                            ReadInputValueFF494F_5203E0(request.password);
-                            ReadInputValueFF4982_520440(request.account);
+                            ReadInputValueFF494F_5203E0(session, request.password);
+                            ReadInputValueFF4982_520440(session, request.account);
                             IncrementSceneState(session);
                             break;
                         }

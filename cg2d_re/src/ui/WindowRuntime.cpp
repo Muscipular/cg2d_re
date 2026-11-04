@@ -134,7 +134,7 @@ static std::int32_t WindowRuntime_CompactAndReorder(session::ClientSession& sess
 static void WindowRuntime_AdvanceMousePhase(session::ClientSession& session); // 每轮窗口处理前的鼠标阶段推进。
 
 // 原函数：0x00503CD0。
-static std::int32_t WindowRuntime_IncrementNameMode(); // 名称模式S16递增，保存标量后持久化。
+static std::int32_t WindowRuntime_IncrementNameMode(session::ClientSession& session); // 名称模式S16递增，保存标量后持久化。
 
 // 原函数：0x004C9240。
 static std::int32_t WindowRuntime_ResetSettings(session::ClientSession& session); // 原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。
@@ -2555,7 +2555,7 @@ std::int32_t WindowRuntime_CycleNameMode()
 }
 
 // 原函数：0x00503CD0。
-static std::int32_t WindowRuntime_IncrementNameMode()
+static std::int32_t WindowRuntime_IncrementNameMode(session::ClientSession& session)
 {
     const auto mode = static_cast<std::int16_t>(platform::gActorOverheadTextMode_5F974C + 1);
     const bool pastLastMode = mode >= 7;
@@ -2563,8 +2563,8 @@ static std::int32_t WindowRuntime_IncrementNameMode()
     if (pastLastMode) {
         platform::gActorOverheadTextMode_5F974C = 0;
     }
-    static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
-    return login::detail::SaveCurrentLoginRecord_520200();
+    static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590(session));
+    return login::detail::SaveCurrentLoginRecord_520200(session);
 }
 
 // CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
@@ -3220,7 +3220,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         return;
     }
     if ((platform::ReadSessionKeyState(session, 0x7A) & 4u) != 0) {
-        static_cast<void>(WindowRuntime_IncrementNameMode());
+        static_cast<void>(WindowRuntime_IncrementNameMode(session));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
     if ((platform::ReadSessionKeyState(session, 0x7B) & 4u) != 0) {

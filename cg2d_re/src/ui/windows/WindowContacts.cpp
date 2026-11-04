@@ -875,7 +875,7 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     WindowContacts_ClampScroll(&callbackWindow);
-    login::detail::SaveCurrentLoginRecord_520200();
+    login::detail::SaveCurrentLoginRecord_520200(*callbackWindow.ownerSession);
     return 1;
 }
 
@@ -967,7 +967,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
             business.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
             WindowContacts_ClampScroll(&callbackWindow);
         }
-        login::detail::SaveCurrentLoginRecord_520200();
+        login::detail::SaveCurrentLoginRecord_520200(*callbackWindow.ownerSession);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }

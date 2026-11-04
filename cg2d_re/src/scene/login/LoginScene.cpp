@@ -352,7 +352,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
             world::SetPendingSceneType(session, 1);
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
-            cg::audio::BeginBgmFadeOut_52B990();
+            cg::audio::BeginBgmFadeOut_52B990(session);
         } else if (const auto selectedControl = SelectedCategoryControl();
             (cg::ui::QueryUiControlInputState_45F100(session, &selectedControl) & 1) != 0) {
             request.selectedLoginServerGroup = -1;

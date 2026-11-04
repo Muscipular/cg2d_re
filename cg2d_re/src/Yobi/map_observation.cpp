@@ -1219,7 +1219,7 @@ std::int32_t ReadMapObservationDirection(session::ClientSession& session) noexce
 std::int32_t BeginObservationTravelScene_440FE0(session::ClientSession& session)
 {
     static_cast<void>(detail::CreateObservationTravelFromSnapshot_440B70(session));
-    static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
+    static_cast<void>(cg::audio::BeginBgmFadeOut_52B990(session));
     return 0x25;
 }
 

@@ -48,6 +48,7 @@ public:
         return current_ == sessions_.end() ? 0 : current_->id;
     }
     [[nodiscard]] std::size_t SessionCount() const noexcept { return sessions_.size(); }
+    [[nodiscard]] std::list<SessionEntry>& Sessions() noexcept { return sessions_; }
     [[nodiscard]] const std::list<SessionEntry>& Sessions() const noexcept { return sessions_; }
     [[nodiscard]] std::vector<MenuEntry> MenuEntries();
     [[nodiscard]] ClientSession* FindSession(const std::uint64_t id) noexcept
@@ -76,7 +77,7 @@ public:
         return sessions_.back();
     }
 
-    // 取消切出会话IME，原生关联成功后发布身份并同步文件音乐输出。
+    // 取消切出会话IME，原生关联成功后发布身份并同步普通/文件音乐输出。
     [[nodiscard]] bool SelectSession(std::uint64_t id) noexcept;
 
     // 仅移除已保存、断线且完成会话资源清理的对象；当前项优先切向下一项。

@@ -3501,7 +3501,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResumePlayerAfterObservation_51BEF0(session);
         platform::RequestRender_457010(session);
         static_cast<void>(audio::PlaySe_52C450(201, 320));
-        worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8();
+        worldScene.worldBgmResumeIndex = audio::ReadBgmRecordIndex58D4F8(session);
         audio::ResetBgmPlayback_52B940(session);
         ++session.WorldScene().sceneState;
         return;
@@ -3892,7 +3892,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::ClearBattleAppendEffects_43BED0(session);
         battleScene.sceneIndex = 22;
         session.WorldScene().battle.allEntries.fill(nullptr);
-        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
+        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990(session));
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         const std::uint16_t firstEffect = readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -3936,7 +3936,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0(session));
         battleScene.sceneIndex = 22;
         session.WorldScene().battle.allEntries.fill(nullptr);
-        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
+        static_cast<void>(cg::audio::BeginBgmFadeOut_52B990(session));
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         const std::uint16_t firstEffect = readBattleEffectWord(session.WorldScene().mapEffects.scene.valueC8A768, 0);
         const bool firstEffectPresent = firstEffect != 0;
@@ -6178,7 +6178,7 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
     } else if (phase == 0) {
         CaptureSceneAndSelectEvenVariant_51D750(session);
         session.WorldScene().frameBackgroundMode = 2;
-        cg::audio::BeginBgmFadeOut_52B990();
+        cg::audio::BeginBgmFadeOut_52B990(session);
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = logout.transitionPhase + 1;
         session.WorldScene().transitionResetPending = 1;

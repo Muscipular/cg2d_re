@@ -1,6 +1,9 @@
 #pragma once
 
+#include "cg/platform/SdlAudioBackend.hpp"
+
 #include <array>
+#include <atomic>
 #include <cstdint>
 #include <cstddef>
 
@@ -11,7 +14,7 @@ namespace cg::audio {
 // LBG01：文件音乐只借旧设备就绪状态、音乐设置及普通BGM输出抑制。
 [[nodiscard]] bool IsFileBgmAudioAvailable() noexcept;
 [[nodiscard]] float GetFileBgmGain() noexcept;
-[[nodiscard]] bool SetSceneBgmSuppressed(bool suppressed) noexcept;
+[[nodiscard]] bool SetSceneBgmSuppressed(session::ClientSession& session, bool suppressed) noexcept;
 
 // 原103D1C0的50项记录；52CD40只写+04/+00，后三个S32保留。
 struct SpatialAudioRecord final {
@@ -53,14 +56,25 @@ static_assert(offsetof(SoundRequestRecord, targetPanIndex) == 0x1C);
 static_assert(offsetof(SoundRequestRecord, appliedPanIndex) == 0x20);
 static_assert(sizeof(SoundRequestRecord) == 0x24);
 
-// 会话实际音频请求；设备、通道、样本及进程设置不在此复制。
+// 会话实际请求与BGM播放；设备、音效通道/缓存及进程设置不在此复制。
 struct AudioRuntimeState final {
     std::array<SpatialAudioRecord, 50> spatialSources {}; // 原103D1C0。
     std::array<SoundRequestRecord, 50> soundRequests {}; // 原104C9B8。
     std::int32_t bgmTarget = 0; // 原1050818；切曲与角色保存共用目标。
     std::int32_t bgmRequest = 0; // 原1050810；地图生产、音频帧消费。
     std::int32_t bgmStage = 0; // 原1050814；请求处理阶段，清理入口也写入。
+    std::int32_t bgmRecordIndex = -1; // 原58D4F8，真实播放号，不是目标号。
+    std::int32_t bgmFadeOutActive = 0; // 原105080C。
+    std::int32_t bgmFadeVolumeIndex = 0; // 原103CFB0。
+    std::uint32_t bgmActive = 0; // 原1050808。
+    std::uint32_t bgmMode = 0; // 原1050820。
+    std::atomic<std::uint8_t> bgmStopNotice {0}; // 原105081C，仅所属停止线程发布。
+    std::atomic<std::uint32_t> bgmReady {0}; // 原105083C，所属预填握手。
+    std::uint32_t bgmLoopStart = 0; // 原103CFB8，字节位置。
+    std::uint32_t bgmLoopEnd = 0; // 原103DEA4，先发布PCM字节数，后发布smpl端点。
     std::uint64_t foregroundFileBgm = 0; // 所属会话的replace/takeover实际播放编号；0为无。
+    bool sceneBgmRestorePending = false; // 文件音乐释放抑制失败时重试。
+    platform::SdlAudioBackend::BgmPlayback bgmPlayback; // 先析构停止线程，再释放上方两原子量。
 
     static_assert(sizeof(spatialSources) == 0x3E8);
     static_assert(sizeof(soundRequests) == 0x708);
@@ -97,7 +111,10 @@ std::int32_t SelectBgmTarget_52C9C0(session::ClientSession& session, std::int32_
 // 原函数：0x0052C910。
 std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session); // 原四阶段跳表，完整透传各分支返回。
 // 原函数：0x0052C3D0。
-std::int32_t ApplyBgmVolume_52C3D0(); // 原 [52C3D0,52C449)，沿原门槛和音量表应用实际SDL BGM音量。
+std::int32_t ApplyBgmVolume_52C3D0(session::ClientSession& session); // 同步共享音量到各BGM，返回发起会话原结果。
+
+// 宿主发布当前项后静音切出流，再恢复当前流；失败释放对应实际播放。
+void SelectBgmOutput() noexcept;
 
 // 原 [0x52CCE0,0x52CD25)：标志为 1 时返回 1，否则停止、关闭并只覆写返回低 AL。
 std::uint32_t StopAndCloseMciDevice_52CCE0() noexcept;
@@ -120,9 +137,9 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
 // 原函数：0x0052CD60。
 void __cdecl SubmitSpatialSoundSources_52CD60(session::ClientSession& session); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。
 // 原函数：0x0052B990。
-std::uint32_t BeginBgmFadeOut_52B990() noexcept;
+std::uint32_t BeginBgmFadeOut_52B990(session::ClientSession& session) noexcept;
 // 原函数：0x0052B940。
 void ResetBgmPlayback_52B940(session::ClientSession& session); // 原资源清理入口，普通场景复用既有实现。
-std::int32_t ReadBgmRecordIndex58D4F8() noexcept; // 只读真实当前BGM号，不替代目标1050818。
+std::int32_t ReadBgmRecordIndex58D4F8(session::ClientSession& session) noexcept; // 只读所属真实BGM号，不替代目标1050818。
 
 } // namespace cg::audio

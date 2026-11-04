@@ -58,65 +58,10 @@ struct SdlAudioBackend::Impl {
     std::array<CachedSample, kPcmCacheCapacity> sampleCache;
     std::uint64_t sampleUseSequence = 0;
     std::array<Channel, kChannelCount> channels {};
-    Sample bgmSample {};
-    Channel bgm {};
-    SDL_Semaphore* bgmStopRequest = nullptr;
-    SDL_Thread* bgmWorker = nullptr;
-    std::atomic<std::uint8_t>* bgmStopNotice = nullptr;
-    std::atomic<std::uint32_t>* bgmReady = nullptr;
-    std::atomic<bool> bgmAbort {false};
-    bool bgmBound = false;
-    float bgmGain {1.0f}; // 原音量/淡出的目标增益，独立于文件音乐的前台抑制。
-    bool bgmSuppressed = false;
     Sample fixedMusicSample;
     Channel fixedMusic;
     bool fixedMusicPrepared = false;
     LegacyWavesReverb fixedMusicReverb; // 唯一固定效果线程owner，流退出回调后Close。
-
-    static int SDLCALL RunBgmStopWorker(void* const userdata)
-    {
-        auto& self = *static_cast<Impl*>(userdata);
-        if (SDL_LockAudioStream(self.bgm.stream)) {
-            Channel& channel = self.bgm;
-            channel.loop = true;
-            channel.playing = true;
-            constexpr int kFrameBytes = 2 * sizeof(float);
-            const int initialFrames = (std::min)(
-                channel.sample->mixSpec.freq,
-                (std::numeric_limits<int>::max)() / kFrameBytes);
-            FeedChannel(&channel, channel.stream, initialFrames * kFrameBytes, 0);
-            self.bgmReady->store(1, std::memory_order_release);
-            if (channel.feedFailed) {
-                SDL_SignalSemaphore(self.bgmStopRequest);
-            }
-            static_cast<void>(SDL_UnlockAudioStream(channel.stream));
-        } else {
-            self.bgmReady->store(2, std::memory_order_release);
-        }
-        SDL_WaitSemaphore(self.bgmStopRequest);
-        if (self.bgmAbort.load(std::memory_order_acquire)) {
-            return 0;
-        }
-        if (!SDL_LockAudioStream(self.bgm.stream)) {
-            return 0;
-        }
-        if (!self.bgmAbort.load(std::memory_order_acquire)) {
-            self.bgmStopNotice->store(1, std::memory_order_release);
-        }
-        static_cast<void>(SDL_UnlockAudioStream(self.bgm.stream));
-        return 0;
-    }
-
-    void StopBgmWorker()
-    {
-        if (bgmWorker != nullptr) {
-            bgmAbort.store(true, std::memory_order_release);
-            SDL_SignalSemaphore(bgmStopRequest);
-            SDL_WaitThread(std::exchange(bgmWorker, nullptr), nullptr);
-        }
-        bgmStopNotice = nullptr;
-        bgmReady = nullptr;
-    }
 
     static void FreeSample(Sample& sample)
     {
@@ -349,13 +294,6 @@ struct SdlAudioBackend::Impl {
         if (fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(fixedMusic.stream, nullptr)); }
         fixedMusicReverb.Close();
         FreeSample(fixedMusicSample);
-        StopBgmWorker();
-        if (bgm.stream != nullptr) {
-            SDL_DestroyAudioStream(std::exchange(bgm.stream, nullptr));
-        }
-        if (bgmStopRequest != nullptr) {
-            SDL_DestroySemaphore(std::exchange(bgmStopRequest, nullptr));
-        }
         for (Channel& channel : channels) {
             if (channel.stream != nullptr) {
                 SDL_DestroyAudioStream(std::exchange(channel.stream, nullptr));
@@ -367,7 +305,6 @@ struct SdlAudioBackend::Impl {
         for (CachedSample& entry : sampleCache) {
             FreeSample(entry.sample);
         }
-        FreeSample(bgmSample);
         if (device != 0) {
             SDL_CloseAudioDevice(device);
         }
@@ -376,6 +313,89 @@ struct SdlAudioBackend::Impl {
         }
     }
 };
+
+struct SdlAudioBackend::BgmPlayback::Impl {
+    using Sample = SdlAudioBackend::Impl::Sample;
+    using Channel = SdlAudioBackend::Impl::Channel;
+
+    Sample bgmSample {};
+    Channel bgm {};
+    SDL_Semaphore* bgmStopRequest = nullptr;
+    SDL_Thread* bgmWorker = nullptr;
+    std::atomic<std::uint8_t>* bgmStopNotice = nullptr;
+    std::atomic<std::uint32_t>* bgmReady = nullptr;
+    std::atomic<bool> bgmAbort {false};
+    bool bgmBound = false;
+    float bgmGain {1.0f}; // 原音量/淡出的目标增益，独立于文件音乐的前台抑制。
+    bool bgmSuppressed = false;
+    bool bgmOutputEnabled = false; // 新播放在明确选择输出前保持静音。
+
+    static int SDLCALL RunBgmStopWorker(void* const userdata)
+    {
+        auto& self = *static_cast<Impl*>(userdata);
+        if (SDL_LockAudioStream(self.bgm.stream)) {
+            Channel& channel = self.bgm;
+            channel.loop = true;
+            channel.playing = true;
+            constexpr int kFrameBytes = 2 * sizeof(float);
+            const int initialFrames = (std::min)(
+                channel.sample->mixSpec.freq,
+                (std::numeric_limits<int>::max)() / kFrameBytes);
+            SdlAudioBackend::Impl::FeedChannel(&channel, channel.stream, initialFrames * kFrameBytes, 0);
+            self.bgmReady->store(1, std::memory_order_release);
+            if (channel.feedFailed) {
+                SDL_SignalSemaphore(self.bgmStopRequest);
+            }
+            static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+        } else {
+            self.bgmReady->store(2, std::memory_order_release);
+        }
+        SDL_WaitSemaphore(self.bgmStopRequest);
+        if (self.bgmAbort.load(std::memory_order_acquire)) {
+            return 0;
+        }
+        if (!SDL_LockAudioStream(self.bgm.stream)) {
+            return 0;
+        }
+        if (!self.bgmAbort.load(std::memory_order_acquire)) {
+            self.bgmStopNotice->store(1, std::memory_order_release);
+        }
+        static_cast<void>(SDL_UnlockAudioStream(self.bgm.stream));
+        return 0;
+    }
+
+    void StopBgmWorker()
+    {
+        if (bgmWorker != nullptr) {
+            bgmAbort.store(true, std::memory_order_release);
+            SDL_SignalSemaphore(bgmStopRequest);
+            SDL_WaitThread(std::exchange(bgmWorker, nullptr), nullptr);
+        }
+        bgmStopNotice = nullptr;
+        bgmReady = nullptr;
+    }
+
+    void Release() noexcept
+    {
+        StopBgmWorker();
+        if (bgm.stream != nullptr) {
+            SDL_DestroyAudioStream(bgm.stream);
+        }
+        if (bgmStopRequest != nullptr) {
+            SDL_DestroySemaphore(std::exchange(bgmStopRequest, nullptr));
+        }
+        bgm = {};
+        bgmBound = false;
+        SdlAudioBackend::Impl::FreeSample(bgmSample);
+    }
+
+    ~Impl() { Release(); }
+};
+
+SdlAudioBackend::BgmPlayback::BgmPlayback()
+    : impl_(std::make_unique<Impl>()) {}
+
+SdlAudioBackend::BgmPlayback::~BgmPlayback() = default;
 
 SdlAudioBackend::SdlAudioBackend() noexcept = default;
 
@@ -564,11 +584,13 @@ bool SdlAudioBackend::PlayChannel(
 }
 
 bool SdlAudioBackend::LoadBgmWav(
+    BgmPlayback& playback,
     const wchar_t* const path,
     const std::size_t startFrame,
     const std::size_t endFrame) noexcept
 {
-    if (impl_ == nullptr || path == nullptr || impl_->bgmWorker != nullptr) {
+    auto& state = *playback.impl_;
+    if (impl_ == nullptr || path == nullptr || state.bgmWorker != nullptr) {
         return false;
     }
     Impl::Sample pending {};
@@ -586,109 +608,124 @@ bool SdlAudioBackend::LoadBgmWav(
         Impl::FreeSample(pending);
         return false;
     }
-    if (!SDL_SetAudioStreamGain(stream, impl_->bgmSuppressed ? 0.0f : 1.0f)
+    if (!SDL_SetAudioStreamGain(stream, !state.bgmOutputEnabled || state.bgmSuppressed ? 0.0f : 1.0f)
         || !SDL_SetAudioStreamGetCallback(
-            stream, &Impl::FeedChannel, &impl_->bgm)) {
+            stream, &Impl::FeedChannel, &state.bgm)) {
         SDL_DestroyAudioStream(stream);
         Impl::FreeSample(pending);
         return false;
     }
 
-    ReleaseBgm();
-    impl_->bgmGain = 1.0f;
-    impl_->bgmSample = pending;
-    Impl::Channel& channel = impl_->bgm;
+    ReleaseBgm(playback);
+    state.bgmGain = 1.0f;
+    state.bgmSample = pending;
+    Impl::Channel& channel = state.bgm;
     channel.stream = stream;
-    channel.sample = &impl_->bgmSample;
+    channel.sample = &state.bgmSample;
     channel.loopStart = startFrame;
     channel.loopEnd = end;
     return true;
 }
 
-bool SdlAudioBackend::SetBgmLoopEnd(const std::size_t endFrame) noexcept
+bool SdlAudioBackend::SetBgmLoopEnd(BgmPlayback& playback, const std::size_t endFrame) noexcept
 {
-    if (!HasBgm() || !SDL_LockAudioStream(impl_->bgm.stream)) {
+    auto& state = *playback.impl_;
+    if (!HasBgm(playback) || !SDL_LockAudioStream(state.bgm.stream)) {
         return false;
     }
     // 原创建入口先按完整PCM预填；调用父在ready后才发布当前循环终点。
-    impl_->bgm.loopEnd = endFrame;
-    static_cast<void>(SDL_UnlockAudioStream(impl_->bgm.stream));
+    state.bgm.loopEnd = endFrame;
+    static_cast<void>(SDL_UnlockAudioStream(state.bgm.stream));
     return true;
 }
 
-std::uint32_t SdlAudioBackend::ReadBgmDataLength() const noexcept
+std::uint32_t SdlAudioBackend::ReadBgmDataLength(const BgmPlayback& playback) const noexcept
 {
-    return HasBgm() ? impl_->bgmSample.length : 0;
+    return HasBgm(playback) ? playback.impl_->bgmSample.length : 0;
 }
 
-bool SdlAudioBackend::HasBgm() const noexcept
+bool SdlAudioBackend::HasBgm(const BgmPlayback& playback) const noexcept
 {
-    return impl_ != nullptr && impl_->bgm.stream != nullptr;
+    return impl_ != nullptr && playback.impl_->bgm.stream != nullptr;
 }
 
 bool SdlAudioBackend::SetBgmVolume(
-    const std::int32_t hundredthDb) noexcept
+    BgmPlayback& playback, const std::int32_t hundredthDb) noexcept
 {
-    if (!HasBgm() || hundredthDb < -10000 || hundredthDb > 0) {
+    auto& state = *playback.impl_;
+    if (!HasBgm(playback) || hundredthDb < -10000 || hundredthDb > 0) {
         return false;
     }
     // 流式首段已在设置音量前预填；不将旧音量烘焙进PCM或重复衰减。
     const auto gain = static_cast<float>(std::pow(10.0, hundredthDb / 2000.0));
-    if (!SDL_SetAudioStreamGain(impl_->bgm.stream, impl_->bgmSuppressed ? 0.0f : gain)) return false;
-    impl_->bgmGain = gain;
+    if (!SDL_SetAudioStreamGain(state.bgm.stream, !state.bgmOutputEnabled || state.bgmSuppressed ? 0.0f : gain)) return false;
+    state.bgmGain = gain;
     return true;
 }
 
-bool SdlAudioBackend::SetBgmSuppressed(const bool suppressed) noexcept
+bool SdlAudioBackend::SetBgmSuppressed(BgmPlayback& playback, const bool suppressed) noexcept
 {
     if (!impl_) return !suppressed;
-    if (HasBgm() && !SDL_SetAudioStreamGain(impl_->bgm.stream, suppressed ? 0.0f : impl_->bgmGain))
+    auto& state = *playback.impl_;
+    if (HasBgm(playback) && !SDL_SetAudioStreamGain(state.bgm.stream,
+            !state.bgmOutputEnabled || suppressed ? 0.0f : state.bgmGain))
         return false;
-    impl_->bgmSuppressed = suppressed;
+    state.bgmSuppressed = suppressed;
     return true;
 }
 
-bool SdlAudioBackend::SetBgmFrequency(const std::uint32_t hz) noexcept
+bool SdlAudioBackend::SetBgmOutputEnabled(BgmPlayback& playback, const bool enabled) noexcept
 {
-    if (!HasBgm()) {
+    auto& state = *playback.impl_;
+    if (HasBgm(playback) && !SDL_SetAudioStreamGain(state.bgm.stream,
+            !enabled || state.bgmSuppressed ? 0.0f : state.bgmGain))
+        return false;
+    state.bgmOutputEnabled = enabled;
+    return true;
+}
+
+bool SdlAudioBackend::SetBgmFrequency(BgmPlayback& playback, const std::uint32_t hz) noexcept
+{
+    if (!HasBgm(playback)) {
         return false;
     }
-    const Impl::Channel& channel = impl_->bgm;
+    const Impl::Channel& channel = playback.impl_->bgm;
     const float ratio = static_cast<float>(hz)
         / static_cast<float>(channel.sample->mixSpec.freq);
     return SDL_SetAudioStreamFrequencyRatio(channel.stream, ratio);
 }
 
-bool SdlAudioBackend::PlayBgm(const bool loop) noexcept
+bool SdlAudioBackend::PlayBgm(BgmPlayback& playback, const bool loop) noexcept
 {
-    if (!HasBgm()) {
+    auto& state = *playback.impl_;
+    if (!HasBgm(playback)) {
         return false;
     }
-    Impl::Channel& channel = impl_->bgm;
+    Impl::Channel& channel = state.bgm;
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }
-    if (impl_->bgmWorker == nullptr) {
+    if (state.bgmWorker == nullptr) {
         channel.cursor = 0;
     }
     channel.loop = loop;
     channel.playing = true;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
-    if (!impl_->bgmBound) {
+    if (!state.bgmBound) {
         if (!SDL_BindAudioStream(impl_->device, channel.stream)) {
             return false;
         }
-        impl_->bgmBound = true;
+        state.bgmBound = true;
     }
     return SDL_ResumeAudioDevice(impl_->device);
 }
 
-bool SdlAudioBackend::StopBgm() noexcept
+bool SdlAudioBackend::StopBgm(BgmPlayback& playback) noexcept
 {
-    if (!HasBgm()) {
+    if (!HasBgm(playback)) {
         return false;
     }
-    Impl::Channel& channel = impl_->bgm;
+    Impl::Channel& channel = playback.impl_->bgm;
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }
@@ -699,13 +736,13 @@ bool SdlAudioBackend::StopBgm() noexcept
 }
 
 bool SdlAudioBackend::StartBgmStopWorker(
-    std::atomic<std::uint8_t>& notice,
+    BgmPlayback& playback, std::atomic<std::uint8_t>& notice,
     std::atomic<std::uint32_t>& ready) noexcept
 {
-    if (!HasBgm() || impl_->bgmWorker != nullptr) {
+    auto& state = *playback.impl_;
+    if (!HasBgm(playback) || state.bgmWorker != nullptr) {
         return false;
     }
-    Impl& state = *impl_;
     state.bgmStopRequest = SDL_CreateSemaphore(0);
     if (state.bgmStopRequest == nullptr) {
         return false;
@@ -716,7 +753,7 @@ bool SdlAudioBackend::StartBgmStopWorker(
     ready.store(0, std::memory_order_release);
     state.bgm.failureSignal = state.bgmStopRequest;
     state.bgmWorker =
-        SDL_CreateThread(&Impl::RunBgmStopWorker, "cg2d-bgm-stop", &state);
+        SDL_CreateThread(&BgmPlayback::Impl::RunBgmStopWorker, "cg2d-bgm-stop", &state);
     if (state.bgmWorker == nullptr) {
         state.bgmStopNotice = nullptr;
         state.bgmReady = nullptr;
@@ -727,31 +764,18 @@ bool SdlAudioBackend::StartBgmStopWorker(
     return true;
 }
 
-bool SdlAudioBackend::RequestBgmStop() noexcept
+bool SdlAudioBackend::RequestBgmStop(BgmPlayback& playback) noexcept
 {
-    if (!HasBgm() || impl_->bgmWorker == nullptr) {
+    if (!HasBgm(playback) || playback.impl_->bgmWorker == nullptr) {
         return false;
     }
-    SDL_SignalSemaphore(impl_->bgmStopRequest);
+    SDL_SignalSemaphore(playback.impl_->bgmStopRequest);
     return true;
 }
 
-void SdlAudioBackend::ReleaseBgm() noexcept
+void SdlAudioBackend::ReleaseBgm(BgmPlayback& playback) noexcept
 {
-    if (impl_ == nullptr) {
-        return;
-    }
-    Impl::Channel& channel = impl_->bgm;
-    impl_->StopBgmWorker();
-    if (channel.stream != nullptr) {
-        SDL_DestroyAudioStream(channel.stream);
-    }
-    if (impl_->bgmStopRequest != nullptr) {
-        SDL_DestroySemaphore(std::exchange(impl_->bgmStopRequest, nullptr));
-    }
-    channel = {};
-    impl_->bgmBound = false;
-    Impl::FreeSample(impl_->bgmSample);
+    playback.impl_->Release();
 }
 
 void SdlAudioBackend::Close() noexcept

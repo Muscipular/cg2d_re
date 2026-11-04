@@ -27,7 +27,7 @@ void StopFileBgm(session::ClientSession& session, FileBgmHandle handle) noexcept
 [[nodiscard]] FileBgmState GetFileBgmState(session::ClientSession& session, FileBgmHandle handle) noexcept;
 void ForgetFileBgm(session::ClientSession& session, FileBgmHandle handle) noexcept; // Lua GC：只清所属身份。
 void UpdateFileBgm() noexcept; // 进程音频帧轮询实际track，后台增益保持零。
-void SelectFileBgmOutput() noexcept; // 宿主发布当前项后，先静音后台再恢复当前输出。
+void SelectFileBgmOutput() noexcept; // 宿主发布当前项后，先静音切出文件/普通BGM，再恢复当前输出。
 void OnSceneBgmPlayback(session::ClientSession& session) noexcept;
 void ShutdownFileBgm(session::ClientSession& session) noexcept; // Lua关闭只释放所属记录。
 void ShutdownAllFileBgm() noexcept; // 进程音频退出时统一关闭设备。

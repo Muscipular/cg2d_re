@@ -926,7 +926,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             platform::gMusicVolume = volume - 1;
-            static_cast<void>(audio::ApplyBgmVolume_52C3D0());
+            static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
@@ -968,7 +968,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             platform::gMusicVolume = volume + 1;
-            static_cast<void>(audio::ApplyBgmVolume_52C3D0());
+            static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
@@ -1010,7 +1010,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             platform::gEffectVolume = volume - 1;
-            static_cast<void>(audio::ApplyBgmVolume_52C3D0());
+            static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
@@ -1052,7 +1052,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             platform::gEffectVolume = volume + 1;
-            static_cast<void>(audio::ApplyBgmVolume_52C3D0());
+            static_cast<void>(audio::ApplyBgmVolume_52C3D0(*callbackWindow.ownerSession));
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;

@@ -976,7 +976,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             submission.element2F633F4 = element2;
             submission.element3DE0B04 = element3;
             connection.Owner().WorldScene().initialDuelPoints = 0;
-            cg::audio::BeginBgmFadeOut_52B990();
+            cg::audio::BeginBgmFadeOut_52B990(connection.Owner());
             SaveCharacterCreationDraftSnapshot_4642C0(connection);
         } else if (answer == 2) {
             draft.attributePhase9A5AFC = 1;
@@ -1235,7 +1235,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     world::SetCurrentSceneType(connection.Owner(), 5);
     login::detail::PlaySe(59, 320, 240);
     connection.CharacterSelectUi().characterEntryState = 0;
-    cg::audio::BeginBgmFadeOut_52B990();
+    cg::audio::BeginBgmFadeOut_52B990(connection.Owner());
     cg::yobi::YobiClearUp_404D30(connection.Owner());
     ClearPreviewActions(connection);
 }

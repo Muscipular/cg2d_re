@@ -9,6 +9,8 @@
 
 #include "cg/network/CgConnection.hpp"
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
+#include "cg/core/m_log.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/SdlAudioBackend.hpp"
@@ -44,13 +46,7 @@ struct LegacyAudioRecord final {
 
 static constexpr std::uint32_t kRecordCount = 128;
 
-static std::int32_t gRecordIndex = -1;
 static std::array<LegacyAudioRecord, kRecordCount> gRecords {};
-static std::int32_t gBgmFadeOutActive_105080C = 0;
-static std::int32_t gBgmFadeVolumeIndex_103CFB0 = 0;
-static std::uint32_t gBgmActive1050808 = 0; // 原全局：0x01050808。 原播放状态 W32；52BE60 置位，52B940 清理。
-static std::uint32_t gBgmMode1050820 = 0; // 原全局：0x01050820。 原 BGM 流式模式 W32；52B8E0 消费。
-static std::atomic<std::uint8_t> gBgmStopNotice105081C {0}; // 原全局：0x0105081C。
 
 // 内置预转换音乐的RCDATA标识，与platform/FixedMusic.rc.in一致。
 static constexpr int kFixedMusicResourceId = 1001;
@@ -205,9 +201,6 @@ static std::array<std::uint32_t, 36> gBgmFrequencies58D468 {{ // 原全局：0x0
 static std::int32_t gNextSeChannel105082C = 0; // 原全局：0x0105082C。
 static std::int32_t gLastSeNo58D4FC = -1; // 原全局：0x0058D4FC。
 static std::int32_t gSampleCount104DFCC = 0; // 原全局：0x0104DFCC。
-static std::atomic<std::uint32_t> gBgmReady105083C {0}; // 原全局：0x0105083C。
-static std::uint32_t gBgmLoopStart103CFB8 = 0; // 原全局：0x0103CFB8。
-static std::uint32_t gBgmLoopEnd103DEA4 = 0; // 原全局：0x0103DEA4。
 static platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
@@ -216,23 +209,40 @@ static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
 static_assert(sizeof(gPitchFrequencies58D3D4) == 73 * sizeof(std::uint32_t));
 static_assert(sizeof(gBgmFrequencies58D468) == 0x90);
 
+// 新增输出选择失败只释放对应真实流；停止线程退出后才清其握手量。
+static bool SetSessionBgmOutput(session::ClientSession& session, const bool enabled) noexcept
+{
+    auto& state = session.Audio();
+    if (gSdlAudioBackend.SetBgmOutputEnabled(state.bgmPlayback, enabled)) return true;
+    m_log_iw(L"[BGM] 输出切换失败，停止对应场景音乐\n");
+    gSdlAudioBackend.ReleaseBgm(state.bgmPlayback);
+    state.bgmMode = 0;
+    state.bgmActive = 0;
+    state.bgmFadeOutActive = 0;
+    state.bgmStage = 0;
+    state.bgmRecordIndex = -1;
+    state.bgmStopNotice.store(0, std::memory_order_release);
+    state.bgmReady.store(0, std::memory_order_release);
+    return false;
+}
+
 // 原52C160的SDL创建适配：首段按完整PCM预填；smpl终点由52BE60在ready后发布。
 static std::int32_t LoadStreamingBgm_52C160(
-    const wchar_t* const path, const std::uint32_t startFrame)
+    session::ClientSession& session, const wchar_t* const path, const std::uint32_t startFrame)
 {
-    if (!gSdlAudioBackend.LoadBgmWav(path, startFrame, 0)) {
+    if (!gSdlAudioBackend.LoadBgmWav(session.Audio().bgmPlayback, path, startFrame, 0)) {
         return 0;
     }
-    gBgmLoopEnd103DEA4 = gSdlAudioBackend.ReadBgmDataLength();
+    session.Audio().bgmLoopEnd = gSdlAudioBackend.ReadBgmDataLength(session.Audio().bgmPlayback);
     if (!gSdlAudioBackend.StartBgmStopWorker(
-            gBgmStopNotice105081C, gBgmReady105083C)) {
+            session.Audio().bgmPlayback, session.Audio().bgmStopNotice, session.Audio().bgmReady)) {
         return 0;
     }
     std::uint32_t ready;
-    while ((ready = gBgmReady105083C.load(std::memory_order_acquire)) == 0) {
+    while ((ready = session.Audio().bgmReady.load(std::memory_order_acquire)) == 0) {
     }
     if (ready != 1) {
-        gSdlAudioBackend.ReleaseBgm();
+        gSdlAudioBackend.ReleaseBgm(session.Audio().bgmPlayback);
         return 0;
     }
     return 1;
@@ -246,33 +256,33 @@ std::uint32_t gMciCloseResult = 0; // 原全局：0x010507FC。
 // 原函数：0x0052B9E0。
 SpatialAudioRecord* __cdecl InitializeSoundRuntimeState_52B9E0(session::ClientSession& session); // 进程启动时初始化通道、首会话请求与运行表。
 // 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
-void StopAndReleaseStreamingBgm_52B8E0()
+void StopAndReleaseStreamingBgm_52B8E0(session::ClientSession& session)
 {
-    if (gBgmMode1050820 == 0 || !gSdlAudioBackend.HasBgm()) {
+    if (session.Audio().bgmMode == 0 || !gSdlAudioBackend.HasBgm(session.Audio().bgmPlayback)) {
         return;
     }
 
-    static_cast<void>(gSdlAudioBackend.StopBgm());
-    if (!gSdlAudioBackend.RequestBgmStop()) {
+    static_cast<void>(gSdlAudioBackend.StopBgm(session.Audio().bgmPlayback));
+    if (!gSdlAudioBackend.RequestBgmStop(session.Audio().bgmPlayback)) {
         return;
     }
-    while (gBgmStopNotice105081C.load(std::memory_order_acquire) != 1) {
+    while (session.Audio().bgmStopNotice.load(std::memory_order_acquire) != 1) {
     }
-    gBgmMode1050820 = 0;
-    gBgmStopNotice105081C.store(0, std::memory_order_release);
-    gSdlAudioBackend.ReleaseBgm();
+    session.Audio().bgmMode = 0;
+    session.Audio().bgmStopNotice.store(0, std::memory_order_release);
+    gSdlAudioBackend.ReleaseBgm(session.Audio().bgmPlayback);
 }
 
 // 原 [0x52B940,0x52B98E)：两路资源清理后依次清淡出、播放和所属请求阶段。
 void ResetBgmPlayback_52B940(session::ClientSession& session)
 {
-    if (gBgmMode1050820 != 0) {
-        StopAndReleaseStreamingBgm_52B8E0();
-    } else if (gSdlAudioBackend.HasBgm()) {
-        gSdlAudioBackend.ReleaseBgm();
+    if (session.Audio().bgmMode != 0) {
+        StopAndReleaseStreamingBgm_52B8E0(session);
+    } else if (gSdlAudioBackend.HasBgm(session.Audio().bgmPlayback)) {
+        gSdlAudioBackend.ReleaseBgm(session.Audio().bgmPlayback);
     }
-    gBgmFadeOutActive_105080C = 0;
-    gBgmActive1050808 = 0;
+    session.Audio().bgmFadeOutActive = 0;
+    session.Audio().bgmActive = 0;
     session.Audio().bgmStage = 0;
 }
 
@@ -284,9 +294,12 @@ void ShutdownAudio_52B630()
         return;
     }
 
-    StopAndReleaseStreamingBgm_52B8E0();
-    if (gSdlAudioBackend.HasBgm()) {
-        gSdlAudioBackend.ReleaseBgm();
+    for (auto& entry : cg::session::GetClientHost().Sessions()) {
+        auto& session = entry.session;
+        StopAndReleaseStreamingBgm_52B8E0(session);
+        if (gSdlAudioBackend.HasBgm(session.Audio().bgmPlayback)) {
+            gSdlAudioBackend.ReleaseBgm(session.Audio().bgmPlayback);
+        }
     }
     for (std::size_t index = 0; index < platform::SdlAudioBackend::kChannelCount;
          ++index) {
@@ -493,7 +506,7 @@ std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session)
         const std::int32_t request = session.Audio().bgmRequest;
         std::int32_t result = request;
         if (request != 0) {
-            const std::int32_t current = gRecordIndex;
+            const std::int32_t current = session.Audio().bgmRecordIndex;
             const std::int32_t target = session.Audio().bgmTarget;
             result = current;
             if (current != target) {
@@ -509,12 +522,12 @@ std::int32_t UpdateBgmRequest_52C910(session::ClientSession& session)
         return result;
     }
     case 1: {
-        const std::uint32_t result = BeginBgmFadeOut_52B990();
+        const std::uint32_t result = BeginBgmFadeOut_52B990(session);
         ++session.Audio().bgmStage;
         return std::bit_cast<std::int32_t>(result);
     }
     case 2: {
-        const std::int32_t flag = gBgmFadeOutActive_105080C;
+        const std::int32_t flag = session.Audio().bgmFadeOutActive;
         if (flag == 0) {
             session.Audio().bgmStage = 3;
         }
@@ -916,22 +929,22 @@ void UpdateAudioPlayback_52CCA0(session::ClientSession& session)
     static_cast<void>(ProcessSpatialSoundRequests_52CB50(session));
     static_cast<void>(UpdateBgmRequest_52C910(session));
 
-    if (gBgmActive1050808 == 0) {
-        gBgmFadeOutActive_105080C = 0;
+    if (session.Audio().bgmActive == 0) {
+        session.Audio().bgmFadeOutActive = 0;
         return;
     }
-    if (gBgmFadeOutActive_105080C == 0) {
+    if (session.Audio().bgmFadeOutActive == 0) {
         return;
     }
-    if (gBgmFadeVolumeIndex_103CFB0 != 0 && gSdlAudioBackend.HasBgm()) {
-        --gBgmFadeVolumeIndex_103CFB0;
+    if (session.Audio().bgmFadeVolumeIndex != 0 && gSdlAudioBackend.HasBgm(session.Audio().bgmPlayback)) {
+        --session.Audio().bgmFadeVolumeIndex;
         static_cast<void>(gSdlAudioBackend.SetBgmVolume(
-            gSoundVolValue10505D0[static_cast<std::size_t>(gBgmFadeVolumeIndex_103CFB0)]));
+            session.Audio().bgmPlayback, gSoundVolValue10505D0[static_cast<std::size_t>(session.Audio().bgmFadeVolumeIndex)]));
         return;
     }
 
     ResetBgmPlayback_52B940(session);
-    gRecordIndex = -1;
+    session.Audio().bgmRecordIndex = -1;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。
@@ -956,46 +969,46 @@ void __cdecl SubmitSpatialSoundSources_52CD60(session::ClientSession& session)
     }
 }
 
-std::int32_t ReadBgmRecordIndex58D4F8() noexcept
+std::int32_t ReadBgmRecordIndex58D4F8(session::ClientSession& session) noexcept
 {
-    return gRecordIndex;
+    return session.Audio().bgmRecordIndex;
 }
 
 // 原函数：0x0052B990。
-std::uint32_t BeginBgmFadeOut_52B990() noexcept
+std::uint32_t BeginBgmFadeOut_52B990(session::ClientSession& session) noexcept
 {
-    const std::int32_t index = gRecordIndex;
+    const std::int32_t index = session.Audio().bgmRecordIndex;
     if (index < 0 || static_cast<std::uint32_t>(index) >= kRecordCount) {
         return std::bit_cast<std::uint32_t>(index);
     }
 
-    gBgmFadeOutActive_105080C = 1;
+    session.Audio().bgmFadeOutActive = 1;
     const std::int32_t value00 = gRecords[static_cast<std::size_t>(index)].value40;
     const std::int32_t musicVolume = cg::platform::gMusicVolume;
     const std::uint32_t productBits =
         std::bit_cast<std::uint32_t>(value00)
         * std::bit_cast<std::uint32_t>(musicVolume);
     const std::int32_t product = std::bit_cast<std::int32_t>(productBits);
-    gBgmFadeVolumeIndex_103CFB0 = product / 15;
+    session.Audio().bgmFadeVolumeIndex = product / 15;
     return productBits >> 31;
 }
 
 // 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
 std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t bgmId)
 {
-    if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gBgmFadeOutActive_105080C == 0) {
+    if (std::bit_cast<std::uint32_t>(session.Audio().bgmRecordIndex) == bgmId && session.Audio().bgmFadeOutActive == 0) {
         return 1;
     }
-    gBgmFadeOutActive_105080C = 0;
+    session.Audio().bgmFadeOutActive = 0;
     if (audio::gAudioDisabled_10507D4 != 0) {
         return -1;
     }
-    if (gRecordIndex != -1) {
-        audio::StopAndReleaseStreamingBgm_52B8E0();
+    if (session.Audio().bgmRecordIndex != -1) {
+        audio::StopAndReleaseStreamingBgm_52B8E0(session);
     }
     if (bgmId == 0xFFFFFFFEu) {
         OnSceneBgmPlayback(session);
-        gRecordIndex = -2;
+        session.Audio().bgmRecordIndex = -2;
         return -1;
     }
     if (bgmId >= 128 || platform::gEnableMusic == 0) {
@@ -1009,9 +1022,13 @@ std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t
     if (!audio::ReadPcmWaveDataLength(record.path.c_str(), dataLength)) {
         return 0;
     }
+    if (!SetSessionBgmOutput(session,
+            cg::session::GetClientHost().CurrentSession() == &session)) {
+        return 0;
+    }
     const std::wstring path = record.path;
     if (record.value44 == 2) {
-        gBgmMode1050820 = 1;
+        session.Audio().bgmMode = 1;
         std::FILE* const file = ::_wfopen(record.path.c_str(), L"rb");
         if (file == nullptr) {
             return 0;
@@ -1032,15 +1049,15 @@ std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t
             endFrame |= static_cast<std::uint32_t>(std::fgetc(file)) << shift;
         }
         std::fclose(file);
-        audio::gBgmLoopStart103CFB8 = blockAlign * startFrame;
-        if (audio::LoadStreamingBgm_52C160(path.c_str(), startFrame) == 0) {
+        session.Audio().bgmLoopStart = blockAlign * startFrame;
+        if (audio::LoadStreamingBgm_52C160(session, path.c_str(), startFrame) == 0) {
             return 0;
         }
-        audio::gBgmLoopEnd103DEA4 = blockAlign * endFrame;
-        static_cast<void>(audio::gSdlAudioBackend.SetBgmLoopEnd(endFrame));
+        session.Audio().bgmLoopEnd = blockAlign * endFrame;
+        static_cast<void>(audio::gSdlAudioBackend.SetBgmLoopEnd(session.Audio().bgmPlayback, endFrame));
     } else {
-        gBgmMode1050820 = 0;
-        if (!audio::gSdlAudioBackend.LoadBgmWav(path.c_str(), 0, 0)) {
+        session.Audio().bgmMode = 0;
+        if (!audio::gSdlAudioBackend.LoadBgmWav(session.Audio().bgmPlayback, path.c_str(), 0, 0)) {
             return 0;
         }
     }
@@ -1049,36 +1066,48 @@ std::int32_t LoadAndPlayBGM(session::ClientSession& session, const std::uint32_t
         platform::ReadBgmFrequencySelectionByte(
             static_cast<std::uint8_t>(bgmId));
     static_cast<void>(audio::gSdlAudioBackend.SetBgmFrequency(
+        session.Audio().bgmPlayback,
         audio::gBgmFrequencies58D468[
             static_cast<std::size_t>(frequencyIndex)]));
     const std::int32_t volumeIndex =
         (platform::gMusicVolume * record.value40) / 15;
     static_cast<void>(audio::gSdlAudioBackend.SetBgmVolume(
-        audio::gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
-    static_cast<void>(audio::gSdlAudioBackend.PlayBgm(record.value44 != 0));
-    gRecordIndex = static_cast<std::int32_t>(bgmId);
+        session.Audio().bgmPlayback, audio::gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
+    static_cast<void>(audio::gSdlAudioBackend.PlayBgm(session.Audio().bgmPlayback, record.value44 != 0));
+    session.Audio().bgmRecordIndex = static_cast<std::int32_t>(bgmId);
     platform::gLastRenderDt =
         static_cast<double>(platform::ReadTickCount64());
-    gBgmActive1050808 = 1;
+    session.Audio().bgmActive = 1;
     return 1;
 }
 
 // 原52C3D0：先失败标志/当前号/enable，再原0..15钳制；实际缓冲不存在透传level。
-std::int32_t ApplyBgmVolume_52C3D0()
+static std::int32_t ApplySessionBgmVolume(session::ClientSession& session)
 {
-    UpdateFileBgm();
     std::int32_t result = std::bit_cast<std::int32_t>(gAudioDisabled_10507D4);
-    if (result == 0 && gRecordIndex != -1) {
+    if (result == 0 && session.Audio().bgmRecordIndex != -1) {
         result = platform::gEnableMusic;
         if (result != 0) {
             result = platform::gMusicVolume;
             if (result > 15) { result = 15; platform::gMusicVolume = result; }
             else if (result < 0) { result = 0; platform::gMusicVolume = result; }
-            if (gSdlAudioBackend.HasBgm()) {
-                const auto index = result * gRecords[static_cast<std::size_t>(gRecordIndex)].value40 / 15;
-                return gSdlAudioBackend.SetBgmVolume(gSoundVolValue10505D0[static_cast<std::size_t>(index)])
+            if (gSdlAudioBackend.HasBgm(session.Audio().bgmPlayback)) {
+                const auto index = result * gRecords[static_cast<std::size_t>(session.Audio().bgmRecordIndex)].value40 / 15;
+                return gSdlAudioBackend.SetBgmVolume(session.Audio().bgmPlayback, gSoundVolValue10505D0[static_cast<std::size_t>(index)])
                     ? 0 : std::bit_cast<std::int32_t>(0x80004005u);
             }
+        }
+    }
+    return result;
+}
+
+std::int32_t ApplyBgmVolume_52C3D0(session::ClientSession& session)
+{
+    UpdateFileBgm();
+    const std::int32_t result = ApplySessionBgmVolume(session);
+    for (auto& entry : cg::session::GetClientHost().Sessions()) {
+        if (&entry.session != &session) {
+            static_cast<void>(ApplySessionBgmVolume(entry.session));
         }
     }
     return result;
@@ -1198,9 +1227,22 @@ float GetFileBgmGain() noexcept
     return static_cast<float>(std::pow(10.0, db / 2000.0));
 }
 
-bool SetSceneBgmSuppressed(const bool suppressed) noexcept
+void SelectBgmOutput() noexcept
 {
-    return gSdlAudioBackend.SetBgmSuppressed(suppressed);
+    auto& host = cg::session::GetClientHost();
+    auto* const current = host.CurrentSession();
+    for (auto& entry : host.Sessions()) {
+        if (&entry.session != current) static_cast<void>(SetSessionBgmOutput(entry.session, false));
+    }
+    if (current != nullptr) static_cast<void>(SetSessionBgmOutput(*current, true));
+}
+
+bool SetSceneBgmSuppressed(session::ClientSession& session, const bool suppressed) noexcept
+{
+    // 后台文件音乐结束时也会恢复所属抑制；必须先确认其实际流静音。
+    if (cg::session::GetClientHost().CurrentSession() != &session
+        && !SetSessionBgmOutput(session, false)) return false;
+    return gSdlAudioBackend.SetBgmSuppressed(session.Audio().bgmPlayback, suppressed);
 }
 
 } // namespace cg::audio

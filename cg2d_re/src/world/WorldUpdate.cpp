@@ -138,7 +138,7 @@ void Update(session::ClientSession& session)
         session.WorldScene().observationTravelTransitionCount = 0;
         ClearMapName_9DAD30(session);
         SetCurrentSceneType(session, 6);
-        cg::audio::BeginBgmFadeOut_52B990();
+        cg::audio::BeginBgmFadeOut_52B990(session);
         inventory.slotUseCounts.fill(0);
         return;
     case 6:
@@ -168,7 +168,7 @@ void Update(session::ClientSession& session)
             session.WorldScene().transitionResetPending = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750(session);
             session.WorldScene().frameBackgroundMode = 2;
-            cg::audio::BeginBgmFadeOut_52B990();
+            cg::audio::BeginBgmFadeOut_52B990(session);
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
             ++session.WorldScene().sceneState;

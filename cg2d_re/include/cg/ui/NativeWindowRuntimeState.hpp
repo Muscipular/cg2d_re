@@ -514,6 +514,13 @@ struct GuildWindowDraft {
     std::wstring secondText634; // 原成员偏移：+0x634。
 };
 
+// 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
+struct MiniMailComposeState {
+    std::int32_t target;
+    std::wstring name;
+    std::wstring text104; // 原成员偏移：+0x104。
+};
+
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
 
 struct LoginWindowRuntimeSlots {
@@ -529,6 +536,10 @@ struct LoginWindowRuntimeSlots {
     GuildWindowDraft guildDraftCF4018 {}; // 原CF4018，公会编辑与提交共用实际草稿。
     std::int32_t guildPageD67B78 = 0; // 原D67B78。
     std::int32_t guildEditing57F03C = -1; // 原57F03C，九输入共用的草稿编号。
+    std::int32_t profileCategory1085DA0 = 0; // 原1085DA0，资料分类开窗来源。
+    std::int32_t profileScrollCA0444 = 0; // 原CA0444。
+    std::wstring profileSearchKeyword1075988; // 原1075988。
+    MiniMailComposeState miniMailCompose105F508 {}; // 原105F508，查看资料与迷你发信共用。
     std::int32_t mailGroupScrollD67B88; // 原全局：0x00D67B88。
     std::int32_t mailGroupSortCategoryCB0600; // 原全局：0x00CB0600。
     std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原全局：0x00CC2E6C。 原排序索引，末地址CC318C，不与技能HP区重叠。

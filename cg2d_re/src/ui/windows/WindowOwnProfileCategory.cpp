@@ -63,8 +63,6 @@ static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWind
 // 控件载荷、窗口状态、组件表与原型。
 
 // 原全局：0x00CA0444。 窗口59六入口共用的S32页码。
-static std::int32_t gProfileScrollCA0444 = 0; // 原全局：0x00CA0444。
-
 static WindowGraphicData gWindowGraphic577170 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577170。
 
 static WindowGraphicData gWindowGraphic577188 {0x3BB00, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577188。
@@ -136,7 +134,7 @@ static void WindowOwnProfileCategory_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    const std::int32_t mode = gProfileCategory1085DA0;
+    const std::int32_t mode = callbackWindow->ownerSession->UiFrame().native.business.profileCategory1085DA0;
     std::int32_t image;
     switch (mode) {
     case 0: image = 0x3C386; break;
@@ -146,7 +144,7 @@ static void WindowOwnProfileCategory_Refresh(WindowInstance* callbackWindow)
     }
     if (auto* const element6 = currentWindow->FindElementById(WindowOwnProfileCategoryElementId::Element6); element6) element6->data.graphic->imageNo = image;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const std::int32_t page = gProfileScrollCA0444;
+        const std::int32_t page = callbackWindow->ownerSession->UiFrame().native.business.profileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(*callbackWindow->ownerSession, mode, page + row);
         const wchar_t* const source =
             record.used != 0 ? record.text0C.data() : L"";
@@ -165,7 +163,7 @@ static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWind
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        gProfileScrollCA0444 = 0;
+        callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = 0;
     }
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfile].window == nullptr) {
         currentWindow->state |= 0x8000u;
@@ -183,7 +181,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        switch (gProfileCategory1085DA0) {
+        switch (callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0) {
         case 0: uiFrame.hoverText = L"设定贩卖的目录" /* 原常量参考：0x005884F4。 */; break;
         case 1: uiFrame.hoverText = L"设定购买的目录" /* 原常量参考：0x00588504。 */; break;
         case 2: uiFrame.hoverText = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
@@ -195,9 +193,9 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
 
-    const std::int32_t selectedMode = gProfileCategory1085DA0;
+    const std::int32_t selectedMode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
     if (selectedMode >= 0 && selectedMode <= 2) {
-        const std::int32_t page = gProfileScrollCA0444;
+        const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
         const std::int32_t selected =
             callbackWindow.ownerSession->WorldScene().mail.data->currentProfile.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
@@ -208,9 +206,9 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
         return consumed;
     }
 
-    const std::int32_t mode = gProfileCategory1085DA0;
+    const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
     if (mode >= 0 && mode <= 2) {
-        const std::int32_t page = gProfileScrollCA0444;
+        const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(*callbackWindow.ownerSession, mode, page + index - 19);
         if (record.used == 0) {
             return 1;
@@ -249,17 +247,17 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
         if ((state & MouseFlag_LRepeatDown) == 0) {
             return consumed;
         }
-        const std::int32_t page = gProfileScrollCA0444 - 1;
-        gProfileScrollCA0444 = page;
+        const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 - 1;
+        callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
         if (page < 0) {
-            gProfileScrollCA0444 = 0;
+            callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = 0;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        const std::int32_t mode = gProfileCategory1085DA0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
-            const std::int32_t position = gProfileScrollCA0444;
+            const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
             WindowInstance* window;
             std::int32_t count;
             if (mode == 2) {
@@ -290,20 +288,20 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
         if ((state & MouseFlag_LRepeatDown) == 0) {
             return consumed;
         }
-        const std::int32_t mode = gProfileCategory1085DA0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                 : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
-            const std::int32_t page = gProfileScrollCA0444 + 1;
-            gProfileScrollCA0444 = page;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 + 1;
+            callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
             if (page <= count - 11) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
-                gProfileScrollCA0444 = count > 10 ? count - 10 : 0;
+                callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = count > 10 ? count - 10 : 0;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            const std::int32_t position = gProfileScrollCA0444;
+            const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
             const std::int32_t currentCount = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                 : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
@@ -318,13 +316,13 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
     case WindowOwnProfileCategoryElementId::HandleScrollButtons_7:
         setImage((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556);
         if ((state & MouseFlag_LDownEvent) != 0) {
-            std::int32_t page = gProfileScrollCA0444 - 10;
-            gProfileScrollCA0444 = page;
+            std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 - 10;
+            callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
             if (page < 0) {
                 page = 0;
-                gProfileScrollCA0444 = page;
+                callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
             }
-            const std::int32_t mode = gProfileCategory1085DA0;
+            const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
             if (mode >= 0 && mode <= 2) {
                 const std::int32_t count = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
@@ -345,18 +343,18 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(WindowInstance&
     case WindowOwnProfileCategoryElementId::HandleScrollButtons_8:
         setImage((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559);
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t mode = gProfileCategory1085DA0;
+            const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
             if (mode >= 0 && mode <= 2) {
                 const std::int32_t count = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                     : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
-                const std::int32_t page = gProfileScrollCA0444 + 10;
-                gProfileScrollCA0444 = page;
+                const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 + 10;
+                callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = page;
                 if (page > count - 11) {
-                    gProfileScrollCA0444 = count > 10 ? count - 10 : 0;
+                    callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = count > 10 ? count - 10 : 0;
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-                const std::int32_t position = gProfileScrollCA0444;
+                const std::int32_t position = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
                 const std::int32_t currentCount = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                     : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
@@ -385,7 +383,7 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(WindowInstance& callback
     if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (result == 1) {
-        const std::int32_t mode = gProfileCategory1085DA0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
@@ -393,7 +391,7 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(WindowInstance& callback
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
             if (dragScrollElement) {
-                gProfileScrollCA0444 = WindowScroll_ReadPosition(dragScrollElement, count - 10);
+                callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = WindowScroll_ReadPosition(dragScrollElement, count - 10);
             }
         }
     }
@@ -406,17 +404,17 @@ static std::int32_t WindowOwnProfileCategory_Scroll(WindowInstance& callbackWind
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t mode = gProfileCategory1085DA0;
+        const std::int32_t mode = callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C(*callbackWindow.ownerSession)
                 : world::detail::ReadCategoryCount105FA18(*callbackWindow.ownerSession);
-            const std::int32_t page = gProfileScrollCA0444;
+            const std::int32_t page = callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444;
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
             if (dragScrollElement) {
-                gProfileScrollCA0444 = WindowScroll_ApplyWheel(dragScrollElement, page, count - 10, wheel);
+                callbackWindow.ownerSession->UiFrame().native.business.profileScrollCA0444 = WindowScroll_ApplyWheel(dragScrollElement, page, count - 10, wheel);
             }
         }
     }

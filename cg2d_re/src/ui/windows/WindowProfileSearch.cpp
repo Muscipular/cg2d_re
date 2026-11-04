@@ -274,7 +274,7 @@ static std::uint32_t WindowProfileSearch_DrawKeyword(WindowInstance* callbackWin
             &inputs.profileSearchPrototype, window->x, window->y, 1));
         const std::wstring& text = input::ContextText(*inputs.profileSearchPrototype.input.context);
         const auto length = static_cast<std::uint32_t>(text.size() + 1);
-        gProfileSearchKeyword1075988 = text;
+        callbackWindow->ownerSession->UiFrame().native.business.profileSearchKeyword1075988 = text;
         return length;
     }
     if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 1;
@@ -282,8 +282,8 @@ static std::uint32_t WindowProfileSearch_DrawKeyword(WindowInstance* callbackWin
     if (element72) {
         std::wstring& text = element72->data.text->text;
         const auto length = static_cast<std::uint32_t>(
-            gProfileSearchKeyword1075988.size() + 1);
-        text = gProfileSearchKeyword1075988;
+            callbackWindow->ownerSession->UiFrame().native.business.profileSearchKeyword1075988.size() + 1);
+        text = callbackWindow->ownerSession->UiFrame().native.business.profileSearchKeyword1075988;
         return length;
     }
     return 0;
@@ -331,7 +331,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
         auto* const editKeywordElement = window->FindElementById(WindowProfileSearchElementId::EditKeyword);
         if (editKeywordElement) {
             if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editKeywordElement->data.input) {
-                inputs.profileSearchPrototype.text = gProfileSearchKeyword1075988;
+                inputs.profileSearchPrototype.text = callbackWindow.ownerSession->UiFrame().native.business.profileSearchKeyword1075988;
                 static_cast<void>(WindowInput_ActivateElement(
                     *callbackWindow.ownerSession,
                     &inputs.profileSearchPrototype, window->x, window->y, 0));
@@ -387,7 +387,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
             return consumed;
         }
     }
-    const std::wstring keyword = input::EscapeText(gProfileSearchKeyword1075988, 256);
+    const std::wstring keyword = input::EscapeText(callbackWindow.ownerSession->UiFrame().native.business.profileSearchKeyword1075988, 256);
     const auto& search = callbackWindow.ownerSession->WorldScene().mail.data->profileSearch;
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;

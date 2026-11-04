@@ -227,8 +227,6 @@ WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session)
 
 std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
 
-std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
-
 // IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
 
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
@@ -285,10 +283,6 @@ static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 1
 const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
 
 const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
-
-std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
-
-MiniMailComposeState gMiniMailCompose105F508 {}; // 原全局：0x0105F508。
 
 static_assert(offsetof(WindowSavedRecord, x) == 0);
 

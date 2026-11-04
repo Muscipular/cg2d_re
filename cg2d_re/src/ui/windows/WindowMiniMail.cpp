@@ -98,7 +98,7 @@ static void WindowMiniMail_Refresh(WindowInstance* callbackWindow)
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = gMiniMailCompose105F508.name;
+    if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = callbackWindow->ownerSession->UiFrame().native.business.miniMailCompose105F508.name;
     WindowInstance* const window = currentWindow;
     static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.miniMailPrototype, window->x, window->y, 2));
     std::int32_t divisor = 1;
@@ -124,7 +124,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode =
-            gMiniMailCompose105F508.target == callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection ? 1 : 0;
+            callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.target == callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection ? 1 : 0;
         WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.miniMailPrototype, window->x, window->y, mode));
         input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.miniMail);
@@ -137,7 +137,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
             handleInputElement2->data.input->context =
                 &inputs.miniMail;
         }
-        const std::int32_t target = gMiniMailCompose105F508.target;
+        const std::int32_t target = callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.target;
         inputs.miniMailPrototype.text.clear();
         callbackWindow.ownerSession->WorldScene().mail.data->miniMailSelection = target;
     }
@@ -220,16 +220,16 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
         cg::text::StoreGbk(fileBytes, sizeof(fileBytes), text);
         storedText = text;
     }
-    const std::wstring escapedName = input::EscapeText(gMiniMailCompose105F508.name, 256);
+    const std::wstring escapedName = input::EscapeText(callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.name, 256);
     const std::wstring escapedText = input::EscapeText(text, 1024);
-    const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
+    const std::wstring combined = std::to_wstring(callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
     const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerY);
     const std::int32_t x = static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().map.crypt->playerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 8, packet));
-    const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(*callbackWindow.ownerSession, gMiniMailCompose105F508.target);
+    const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(*callbackWindow.ownerSession, callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.target);
     if (contact != -1) {
         __time64_t time;
         time = ::_time64(nullptr);

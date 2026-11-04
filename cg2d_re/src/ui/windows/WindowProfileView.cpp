@@ -238,9 +238,9 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
         const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
         if (money >= world::detail::ReadCategoryValue105FA20(*callbackWindow.ownerSession)) {
             const auto& profile = callbackWindow.ownerSession->WorldScene().mail.data->viewedProfile;
-            gMiniMailCompose105F508.target = profile.value00;
-            gMiniMailCompose105F508.name = profile.text08;
-            gMiniMailCompose105F508.text104.clear();
+            callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.target = profile.value00;
+            callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.name = profile.text08;
+            callbackWindow.ownerSession->UiFrame().native.business.miniMailCompose105F508.text104.clear();
             static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_MiniMail));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {

@@ -113,13 +113,6 @@ inline constexpr wchar_t kWindow12NoFp5864F0[] = L"魔力不足。"; // 原常�
 
 inline constexpr wchar_t kWindow13Text5868EC[] = L"关闭此视窗"; // 原常量参考：0x005868EC。
 
-// 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
-struct MiniMailComposeState {
-    std::int32_t target;
-    std::wstring name;
-    std::wstring text104; // 原成员偏移：+0x104。
-};
-
 inline constexpr wchar_t kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
     L"使用迷你邮件发信需要花费魔币{}G";
 
@@ -170,10 +163,6 @@ inline constexpr wchar_t kPetSelectHint586D2C[] = L"切换页数。"; // 原常�
 
 inline constexpr wchar_t kPetRenameHint586D38[] = L"变更宠物名字。"; // 原常量参考：0x00586D38。
 
-
-extern std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
-
-extern MiniMailComposeState gMiniMailCompose105F508; // 原全局：0x0105F508。
 
 // 原函数：0x004A6D00。
 std::int32_t WindowRuntime_MatchesRuntimePrefix(

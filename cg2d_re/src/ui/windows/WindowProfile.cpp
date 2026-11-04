@@ -105,12 +105,12 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerTitles].window != nullptr) {
                 WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].flags |= 0x8000u;
             }
-            gProfileCategory1085DA0 = category;
+            callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0 = category;
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnProfileCategory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             consumed = 1;
         }
-        if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
+        if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].window != nullptr && callbackWindow.ownerSession->UiFrame().native.business.profileCategory1085DA0 == category) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243034;
         }
         return consumed;

@@ -82,9 +82,9 @@ void InitializeBattleEffects(session::ClientSession& session)
             if (!parent) continue;
             const YAML::Node section = parent[names[index]];
             if (!section) continue;
-            const YAML::Node effects = section["effects"];
-            if (!effects || !effects.IsSequence()) continue;
-            for (const auto& effect : effects) {
+            const YAML::Node effectNodes = section["effects"];
+            if (!effectNodes || !effectNodes.IsSequence()) continue;
+            for (const auto& effect : effectNodes) {
                 const bool graphic = index == 7 || index == 8;
                 const auto skillId = effect["skillId"].as<std::int32_t>();
                 const auto techId = effect["techId"].as<std::int32_t>();

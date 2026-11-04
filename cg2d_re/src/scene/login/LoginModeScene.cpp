@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "LoginSavedState.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include <string>

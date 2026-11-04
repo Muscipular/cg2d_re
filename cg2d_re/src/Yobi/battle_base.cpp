@@ -1,4 +1,5 @@
 #include "battle_base.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "battle_skill_effect.hpp"
 #include "base.hpp"
 #include "../platform/MainLoopDependencies.hpp"

@@ -661,11 +661,16 @@ void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData*
     second->text = contents.substr(prefix);
 }
 
-// WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
+// WSB01：原33C0/C3只返0，不读取窗口或会话；事件适配与地图逻辑共用本体。
 // 原函数：0x004B0F10。
-std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
+std::int32_t WindowElement_ReturnZero(const ElementId, const std::int32_t) noexcept
 {
     return 0;
+}
+
+std::int32_t WindowElement_NoOp(WindowInstance&, const ElementId elementId, const std::int32_t events)
+{
+    return WindowElement_ReturnZero(elementId, events);
 }
 
 // WCL01：原4A4210完整两条只返回1；窗口release适配/存档共用，实际资源回收由FreeWindow执行。

@@ -2060,10 +2060,10 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 const auto selectItem = [&] {
                     auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
-                    const auto fail = [] {
+                    const auto fail = [&callbackWindow] {
                         static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     };
-                    const auto firstFreeSlot = [] {
+                    const auto firstFreeSlot = [&craft] {
                         std::int32_t slot = 0;
                         while (slot < 6 && craft.selectedSlots[slot] >= 0) {
                             ++slot;
@@ -2970,7 +2970,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     std::wstring buffer;
     const std::wstring& requestText = buffer;
     std::wstring temporary;
-    const auto expired = [] {
+    const auto expired = [&craft] {
         const std::uint64_t tick = platform::ReadTickCount64();
         return craft.deadline <= tick;
     };

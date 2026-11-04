@@ -4,6 +4,7 @@
 #include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "../Yobi/base.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 #include "PlayerState.hpp"

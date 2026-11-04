@@ -36,6 +36,7 @@
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "../Yobi/base.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/GraphicDxCache.hpp"
@@ -4432,7 +4433,7 @@ std::int32_t __cdecl DetectPendingPathEvents_46AA00(session::ClientSession& sess
             break;
         }
         // 原4B0F10不读参数；直接使用UI同一零返回入口。
-        if (ui::detail::WindowElement_NoOp(ui::NativeElementKey(0), 0) != 0) {
+        if (ui::detail::WindowElement_ReturnZero(ui::NativeElementKey(0), 0) != 0) {
             result = 1;
             const std::int32_t nextStep = step + 1;
             session.WorldScene().movement.pendingEventActive = 1;

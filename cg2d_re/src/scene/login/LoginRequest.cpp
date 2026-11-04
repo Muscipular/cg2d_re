@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/text/Encoding.hpp"

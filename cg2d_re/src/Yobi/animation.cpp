@@ -1,4 +1,5 @@
 #include "animation.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "map_actor.hpp"
 #include "base.hpp"
 #include "../resource/AnimationRuntimeState.hpp"

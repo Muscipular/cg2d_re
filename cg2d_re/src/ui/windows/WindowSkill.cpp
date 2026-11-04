@@ -2424,7 +2424,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         current->techniques3C[technique].value7C * current->fpReduce / 100;
                     return (callbackWindow.ownerSession->WorldScene().player->fp < cost);
                 };
-                const auto fail = [] {
+                const auto fail = [&callbackWindow] {
                     static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                 };
                 switch (record->canRebirth) {

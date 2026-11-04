@@ -1213,11 +1213,11 @@ std::int32_t CgConnection::Impl::Initialize()
             connection.GameplaySettings().chatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
                 ParseProtocolInteger_517190(arguments[1]));
         });
-        RegisterReceive("INVCF", [](CgConnection&, const char*, char** const arguments) {
+        RegisterReceive("INVCF", [](CgConnection& connection, const char*, char** const arguments) {
             const std::int32_t bagPages = ParseProtocolInteger_517190(arguments[1]);
             const std::int32_t bankPages = ParseProtocolInteger_517190(arguments[2]);
             const std::int32_t bagPage = ParseProtocolInteger_517190(arguments[3]);
-            ui::WindowRuntime_SetInventoryPages(owner.Owner(), bagPages, bankPages, bagPage);
+            ui::WindowRuntime_SetInventoryPages(connection.Owner(), bagPages, bankPages, bagPage);
         });
         this->gameplayHandlersRegistered = true;
     }

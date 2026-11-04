@@ -1,4 +1,5 @@
 #include "base.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"

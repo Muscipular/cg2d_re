@@ -755,6 +755,7 @@ void WindowTrade_SwapDisplayItems(session::ClientSession& session, std::int32_t 
 // 原函数：0x0048BA60。
 void WindowItemDrag_RemapHover(session::ClientSession& session, std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 // 原函数：0x004B0F10。
+std::int32_t WindowElement_ReturnZero(ElementId elementId, std::int32_t events) noexcept; // 无状态零返回本体，供地图逻辑共用。
 std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, ElementId elementId, std::int32_t events); // WSB01：原完整零返回事件回调。
 // 原函数：0x004A4210。
 std::int32_t WindowRuntime_ReturnOne(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。

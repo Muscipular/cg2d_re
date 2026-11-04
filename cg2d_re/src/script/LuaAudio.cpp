@@ -1,5 +1,6 @@
 #include "LuaInternal.hpp"
 #include "cg/audio/FileBgm.hpp"
+#include "cg/network/CgConnection.hpp"
 
 #include <new>
 

@@ -1,4 +1,5 @@
 #include "map_transition.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "base.hpp"
 #include "map_render.hpp"
 #include "cg/platform/MainLoop.hpp"

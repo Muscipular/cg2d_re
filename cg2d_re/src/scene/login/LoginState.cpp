@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include <string>

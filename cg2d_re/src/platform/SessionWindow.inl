@@ -489,7 +489,7 @@ static void OpenMenu(HWND window)
     WNDCLASSW type {};
     type.lpfnWndProc = MenuProcedure;
     type.hInstance = reinterpret_cast<HINSTANCE>(gInstance);
-    type.hCursor = LoadCursorW(nullptr, IDC_ARROW);
+    type.hCursor = LoadCursorA(nullptr, IDC_ARROW);
     type.lpszClassName = kPopupClass;
     WNDCLASSW existing {};
     if (!GetClassInfoW(type.hInstance, kPopupClass, &existing) && RegisterClassW(&type) == 0) {
@@ -744,7 +744,7 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
     case WM_SETCURSOR:
         if (gPopup != nullptr || gDragging || gPressed != Button::None) {
             SetSystemCursorVisible(true);
-            SetCursor(LoadCursorW(nullptr, IDC_ARROW));
+            SetCursor(LoadCursorA(nullptr, IDC_ARROW));
             result = TRUE;
             return true;
         }

@@ -660,7 +660,7 @@ static void OpenMenu(HWND window)
     MONITORINFO monitor {};
     monitor.cbSize = sizeof(monitor);
     if (!GetMonitorInfoW(MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST), &monitor)) return;
-    const LONG width = std::min<LONG>(Scale(320, layout.dpi), monitor.rcWork.right - monitor.rcWork.left);
+    const LONG width = std::min<LONG>(Scale(224, layout.dpi), monitor.rcWork.right - monitor.rcWork.left);
     const int maximumHeight = monitor.rcWork.bottom - monitor.rcWork.top - Scale(8, layout.dpi);
     gVisibleRows = std::min(gEntries.size(),
         static_cast<std::size_t>(std::max(1, (maximumHeight - AddHeight() - 3) / RowHeight())));

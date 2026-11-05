@@ -30,6 +30,7 @@ struct ConnectionSnapshot {
 class CgTransport final {
 public:
     static constexpr std::size_t kQueueCapacity = 0x4000;
+    static constexpr std::size_t kReceiveQueueCapacity = 0x10000;
     CgTransport() noexcept;
     ~CgTransport();
     CgTransport(const CgTransport&) = delete;

@@ -49,7 +49,8 @@ struct CgTransport::Impl {
     bool stopping = false, cancelled = false, ioEnabled = false;
     std::optional<Request> pending; // 只保留最新一次连接请求，不建立无界任务队列。
     ConnectionSnapshot status;
-    std::array<std::uint8_t, kQueueCapacity> sendBytes {}, receiveBytes {};
+    std::array<std::uint8_t, kQueueCapacity> sendBytes {};
+    std::array<std::uint8_t, kReceiveQueueCapacity> receiveBytes {};
     std::size_t sendLength = 0, receiveLength = 0;
 
     ~Impl()
@@ -170,7 +171,7 @@ struct CgTransport::Impl {
         for (;;) {
             if (Cancelled(request.id)) return;
             // 每轮最多消费初始容量；每次系统调用前重查取消/代次/门禁。
-            for (std::size_t budget = kQueueCapacity; budget != 0;) {
+            for (std::size_t budget = kReceiveQueueCapacity; budget != 0;) {
                 std::lock_guard lock(mutex);
                 if (stopping || cancelled || status.id != request.id) return;
                 if (!ioEnabled || receiveLength == receiveBytes.size()) break;

@@ -77,21 +77,21 @@ namespace cg::network {
 
 // N02：参考块输出、整帧输出与解压正文累积容量。
 static constexpr std::int32_t kLz4BlockSize = 0x4000;
-static constexpr std::size_t kLz4FrameDecodedCapacity = 0x8100;
+static constexpr std::size_t kLz4FrameDecodedCapacity = 0x10000;
 static constexpr std::size_t kDecodedQueueCapacity = 0x80000;
 static constexpr std::uint8_t kLz4FrameMarker = 0xEF;
 static constexpr std::size_t kWorkspaceSlotCount = 18;
-static constexpr std::size_t kReceiveQueueOffset = 0xC004;
-static constexpr std::size_t kQueueCapacity = 0x4000;
+static constexpr std::size_t kDispatchOffset = 0x4000;
+static constexpr std::size_t kDispatchSize = 0x10000;
+static constexpr std::size_t kReceiveQueueOffset = kDispatchOffset + kDispatchSize + 4;
+static constexpr std::size_t kQueueCapacity = 0x10000;
 static constexpr std::size_t kSendLengthOffset = kReceiveQueueOffset + kQueueCapacity;
 static constexpr std::size_t kQueueStorageSize = kSendLengthOffset + sizeof(std::int32_t);
-static constexpr std::size_t kDispatchOffset = 0x4000;
-static constexpr std::size_t kDispatchSize = 0x8000;
-static_assert(kReceiveQueueOffset == 0xD9B2BC - 0xD8F2B8);
-static_assert(kSendLengthOffset == 0xD9F2BC - 0xD8F2B8);
-static_assert(kQueueStorageSize == 0x10008);
 static_assert(kDispatchOffset == 0xD932B8 - 0xD8F2B8);
 static_assert(kDispatchOffset + kDispatchSize + 4 == kReceiveQueueOffset);
+static_assert(kReceiveQueueOffset == 0x14004);
+static_assert(kSendLengthOffset == 0x24004);
+static_assert(kQueueStorageSize == 0x24008);
 
 using SendProtocolObserver = void (*)(
     std::uint32_t direction,
@@ -132,7 +132,7 @@ struct CgConnection::Impl {
     std::uint8_t integerFormatScratch[64] {}; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots = nullptr; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active = 0;   // 原 0xD9F2C8，网络运行期活动门禁。
-    // 保留原[0xD8F2B8,0xD9F2C0)布局供主线程分发/接收；待发字节由后端独占。
+    // 派发区保留原起点，扩容后的接收区和尾槽顺移；待发字节由后端独占。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes {}; // 原全局：0x00D8F2B8。
     std::int32_t receiveLengthD69790 = 0; // 原 0xD69790，独立于连续队列。
     std::uint8_t flagsD9F2C0 = 0; // 原全局：0x00D9F2C0。

@@ -747,7 +747,7 @@ static void WindowCrystalExchangeShop_Submit(WindowInstance& callbackWindow, con
             }
         }
     }
-    escaped = input::EscapeTextAndNotify(text, 255);
+    escaped = input::EscapeTextAndNotify(text, 1024);
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =

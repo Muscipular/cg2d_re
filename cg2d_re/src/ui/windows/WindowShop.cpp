@@ -1765,7 +1765,7 @@ static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t
             ++count;
         }
     }
-    escaped = input::EscapeTextAndNotify(text, mode == 3 ? 256 : 255);
+    escaped = input::EscapeTextAndNotify(text, 1024);
     const std::int32_t target = npcDialog.target;
     const std::int32_t request = npcDialog.request;
     const std::int32_t y =

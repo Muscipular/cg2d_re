@@ -78,7 +78,7 @@ int ResetKeyState_459780(session::ClientSession& session) noexcept
 
 bool IsSessionInputTarget(const session::ClientSession& session) noexcept
 {
-    return session::GetClientHost().CurrentSession() == &session && IsSessionWindowInputAvailable();
+    return session::GetClientHost().CurrentSession() == &session;
 }
 
 std::uint8_t ReadSessionKeyState(session::ClientSession& session, const std::int32_t key) noexcept

@@ -19,7 +19,7 @@ public:
         std::wstring label;
         bool selected;
         bool disconnected;
-        std::wstring details; // 菜单打开时的等级和HP/FP百分比快照，不用于窗口标题。
+        std::wstring details; // 标题Tab悬停时的等级和HP/FP快照，不用于系统窗口标题。
     };
 
     struct SessionEntry {

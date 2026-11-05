@@ -14,10 +14,8 @@
 
 #include <Windows.h>
 #include <dwmapi.h>
-#include <imm.h>
 
 #include <algorithm>
-#include <array>
 #include <cstring>
 #include <deque>
 #include <iterator>
@@ -103,9 +101,8 @@ int PumpWindowMessages()
         }
         if (message.message != WM_KEYDOWN
             || message.hwnd != reinterpret_cast<HWND>(gLegacyWindow)
-            || (CanTranslateSessionWindowKey(static_cast<UINT>(message.wParam))
-                && RouteSessionKeyDown(static_cast<std::uint32_t>(message.wParam),
-                    static_cast<std::uint32_t>(message.lParam)))) {
+            || RouteSessionKeyDown(static_cast<std::uint32_t>(message.wParam),
+                static_cast<std::uint32_t>(message.lParam))) {
             TranslateMessage(&message);
         }
         DispatchMessageW(&message);
@@ -121,31 +118,32 @@ struct Command {
     std::uint64_t id = 0;
     bool operator==(const Command&) const = default;
 };
-enum class Button { None, Sessions, Minimize, Close };
+enum class Button { None, Session, CloseSession, New, Previous, Next, Minimize, Close };
+struct FrameTarget {
+    Button button = Button::None;
+    std::uint64_t id = 0;
+    bool operator==(const FrameTarget&) const = default;
+};
 
-static HWND gPopup = nullptr;
+static HWND gTooltip = nullptr;
 static HFONT gFont = nullptr;
 static UINT gFontDpi = 0;
 static bool gReady = false;
 static bool gCaptionActive = true;
-static Button gHovered = Button::None;
-static Button gPressed = Button::None;
+static FrameTarget gHovered;
+static FrameTarget gPressed;
 static bool gDragging = false;
 static POINT gDragStart {};
 static RECT gDragWindow {};
-static std::array<bool, 256> gMenuKeys {};
 static UINT gConsumedMouseUps = 0;
 static std::deque<Command> gCommands;
 static std::vector<session::ClientHost::MenuEntry> gEntries;
 static std::wstring gTitle = L"CG2D RE";
-static std::size_t gFirstRow = 0;
-static std::size_t gVisibleRows = 0;
-static Command gMenuHover;
-static Command gMenuPressed;
-static int gWheelRemainder = 0;
-static bool gScrolling = false;
-static int gScrollGrab = 0;
-static constexpr wchar_t kPopupClass[] = L"CG2D_RE_SessionMenu";
+static std::size_t gFirstTab = 0;
+static std::uint64_t gCurrentTab = 0;
+static bool gEntriesDirty = true;
+static std::wstring gTooltipText;
+static constexpr wchar_t kTooltipClass[] = L"CG2D_RE_SessionTabTip";
 
 static UINT WindowDpi(HWND window) noexcept
 {
@@ -162,12 +160,18 @@ struct FrameLayout {
     RECT window;
     RECT title;
     RECT icon;
-    RECT text;
-    RECT sessions;
+    RECT tabs;
+    RECT add;
+    RECT previous;
+    RECT next;
     RECT minimize;
     RECT close;
     UINT dpi;
     int border;
+    LONG tabWidth;
+    std::size_t first;
+    std::size_t count;
+    std::size_t capacity;
 };
 
 static FrameLayout Layout(HWND window) noexcept
@@ -184,15 +188,57 @@ static FrameLayout Layout(HWND window) noexcept
     value.close = {width - value.border - buttonWidth, top, width - value.border, top + height};
     value.minimize = value.close;
     OffsetRect(&value.minimize, -buttonWidth, 0);
-    value.sessions = {value.minimize.left - Scale(98, value.dpi), top,
-        value.minimize.left, top + height};
+    const int toolWidth = Scale(28, value.dpi);
+    value.next = {value.minimize.left - toolWidth, top, value.minimize.left, top + height};
+    value.previous = value.next;
+    OffsetRect(&value.previous, -toolWidth, 0);
     const int iconSize = Scale(18, value.dpi);
     const int iconTop = top + (height - iconSize) / 2;
     value.icon = {value.border + Scale(10, value.dpi), iconTop,
         value.border + Scale(10, value.dpi) + iconSize, iconTop + iconSize};
-    value.text = {value.icon.right + Scale(8, value.dpi), top,
-        std::max(value.icon.right, value.sessions.left - Scale(8, value.dpi)), top + height};
+    const LONG left = value.icon.right + Scale(8, value.dpi);
+    const LONG available = std::max<LONG>(1, value.previous.left - Scale(24 + 28, value.dpi) - left);
+    value.tabWidth = std::min<LONG>(Scale(160, value.dpi), available);
+    value.capacity = std::max<std::size_t>(1, available / value.tabWidth);
+    value.first = (gFirstTab / value.capacity) * value.capacity;
+    if (!gEntries.empty() && value.first >= gEntries.size()) {
+        value.first = ((gEntries.size() - 1) / value.capacity) * value.capacity;
+    }
+    value.count = gEntries.empty() ? 0 : std::min(value.capacity, gEntries.size() - value.first);
+    value.tabs = {left, top, left + static_cast<LONG>(value.count) * value.tabWidth, top + height};
+    value.add = {value.tabs.right, top, value.tabs.right + toolWidth, top + height};
     return value;
+}
+
+static RECT TabRect(const FrameLayout& layout, const std::size_t index) noexcept
+{
+    const LONG left = layout.tabs.left + static_cast<LONG>(index) * layout.tabWidth;
+    return {left, layout.tabs.top, left + layout.tabWidth, layout.tabs.bottom};
+}
+
+static RECT TabCloseRect(const FrameLayout& layout, const RECT& tab) noexcept
+{
+    return {tab.right - Scale(24, layout.dpi), tab.top, tab.right, tab.bottom};
+}
+
+static const RECT& ButtonRect(const FrameLayout& layout, const Button button) noexcept
+{
+    switch (button) {
+    case Button::New: return layout.add;
+    case Button::Previous: return layout.previous;
+    case Button::Next: return layout.next;
+    case Button::Minimize: return layout.minimize;
+    default: return layout.close;
+    }
+}
+
+static bool ButtonEnabled(const FrameLayout& layout, const Button button) noexcept
+{
+    if (button == Button::Close || button == Button::Minimize) return true;
+    if (!gReady) return false;
+    if (button == Button::Previous) return layout.first != 0;
+    if (button == Button::Next) return layout.first + layout.count < gEntries.size();
+    return true;
 }
 
 static void UpdateRectangularRegion(HWND window) noexcept
@@ -251,24 +297,36 @@ static void Symbol(HDC dc, const RECT& rectangle, const Button button, const COL
     const int x = (rectangle.left + rectangle.right) / 2;
     const int y = (rectangle.top + rectangle.bottom) / 2;
     const int radius = std::max(3, Scale(5, dpi));
-    if (button == Button::Close) {
+    if (button == Button::Close || button == Button::CloseSession) {
         Line(dc, x - radius, y - radius, x + radius + 1, y + radius + 1);
         Line(dc, x - radius, y + radius, x + radius + 1, y - radius - 1);
     } else if (button == Button::Minimize) {
         Line(dc, x - radius, y + 2, x + radius + 1, y + 2);
-    } else if (button == Button::Sessions) {
-        Line(dc, x - radius, y - 2, x, y + radius - 2);
-        Line(dc, x, y + radius - 2, x + radius + 1, y - 3);
+    } else if (button == Button::New) {
+        Line(dc, x - radius, y, x + radius + 1, y);
+        Line(dc, x, y - radius, x, y + radius + 1);
+    } else if (button == Button::Previous || button == Button::Next) {
+        const int direction = button == Button::Previous ? -1 : 1;
+        Line(dc, x - direction * radius / 2, y - radius, x + direction * radius / 2, y);
+        Line(dc, x + direction * radius / 2, y, x - direction * radius / 2, y + radius + 1);
     }
     SelectObject(dc, previous);
 }
 
-static Button HitButton(const FrameLayout& layout, const POINT point) noexcept
+static FrameTarget HitButton(const FrameLayout& layout, const POINT point) noexcept
 {
-    if (PtInRect(&layout.close, point)) return Button::Close;
-    if (PtInRect(&layout.minimize, point)) return Button::Minimize;
-    if (gReady && PtInRect(&layout.sessions, point)) return Button::Sessions;
-    return Button::None;
+    for (const auto button : {Button::Close, Button::Minimize, Button::Next, Button::Previous, Button::New}) {
+        if (PtInRect(&ButtonRect(layout, button), point)) return {button, 0};
+    }
+    for (std::size_t index = 0; index < layout.count; ++index) {
+        const RECT tab = TabRect(layout, index);
+        if (PtInRect(&tab, point)) {
+            const RECT close = TabCloseRect(layout, tab);
+            return {PtInRect(&close, point) ? Button::CloseSession : Button::Session,
+                gEntries[layout.first + index].id};
+        }
+    }
+    return {};
 }
 
 static POINT ScreenPoint(const LPARAM coordinates) noexcept
@@ -316,30 +374,41 @@ static void PaintFrame(HWND window)
     Fill(dc, RECT {0, 0, width, height}, border);
     Fill(dc, layout.title, RGB(27, 29, 32));
     const COLORREF textColor = gCaptionActive ? RGB(240, 242, 244) : RGB(159, 164, 170);
-    for (const auto button : {Button::Sessions, Button::Minimize, Button::Close}) {
-        const RECT& rect = button == Button::Sessions ? layout.sessions
-            : button == Button::Minimize ? layout.minimize : layout.close;
-        if (gHovered == button || gPressed == button) {
+    SelectObject(dc, Font(layout.dpi));
+    SetBkMode(dc, TRANSPARENT);
+    for (std::size_t index = 0; index < layout.count; ++index) {
+        const auto& entry = gEntries[layout.first + index];
+        const RECT tab = TabRect(layout, index);
+        const RECT close = TabCloseRect(layout, tab);
+        if (entry.selected || gHovered.id == entry.id || gPressed.id == entry.id) {
+            Fill(dc, tab, entry.selected ? RGB(47, 51, 55) : RGB(37, 40, 44));
+        }
+        Fill(dc, RECT {tab.right - 1, tab.top + Scale(7, layout.dpi), tab.right,
+            tab.bottom - Scale(7, layout.dpi)}, RGB(74, 78, 82));
+        if (entry.selected) {
+            Fill(dc, RECT {tab.left, tab.bottom - Scale(2, layout.dpi), tab.right, tab.bottom},
+                RGB(62, 190, 143));
+        }
+        const FrameTarget closeTarget {Button::CloseSession, entry.id};
+        if (gHovered == closeTarget || gPressed == closeTarget) Fill(dc, close, RGB(160, 45, 53));
+        Symbol(dc, close, Button::CloseSession, textColor, layout.dpi);
+        RECT label {tab.left + Scale(10, layout.dpi), tab.top, close.left - Scale(4, layout.dpi), tab.bottom};
+        SetTextColor(dc, entry.disconnected ? RGB(229, 180, 93) : textColor);
+        const std::wstring name = entry.label + (entry.disconnected ? L" [断线]" : L"");
+        DrawTextW(dc, name.c_str(), static_cast<int>(name.size()), &label,
+            DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
+    }
+    for (const auto button : {Button::New, Button::Previous, Button::Next, Button::Minimize, Button::Close}) {
+        const RECT& rect = ButtonRect(layout, button);
+        const FrameTarget targetButton {button, 0};
+        const bool enabled = ButtonEnabled(layout, button);
+        if (enabled && (gHovered == targetButton || gPressed == targetButton)) {
             Fill(dc, rect, button == Button::Close ? RGB(190, 48, 59) : RGB(56, 61, 66));
         }
-        RECT symbol = rect;
-        if (button == Button::Sessions) symbol.right = symbol.left + Scale(32, layout.dpi);
-        Symbol(dc, symbol, button, button == Button::Sessions && !gReady ? RGB(94, 99, 104) : textColor, layout.dpi);
+        Symbol(dc, rect, button, enabled ? textColor : RGB(94, 99, 104), layout.dpi);
     }
     DrawIconEx(dc, layout.icon.left, layout.icon.top, gWindowClass.hIcon,
         layout.icon.right - layout.icon.left, layout.icon.bottom - layout.icon.top, 0, nullptr, DI_NORMAL);
-    SelectObject(dc, Font(layout.dpi));
-    SetBkMode(dc, TRANSPARENT);
-    SetTextColor(dc, gReady ? textColor : RGB(94, 99, 104));
-    RECT menuText = layout.sessions;
-    menuText.left += Scale(32, layout.dpi);
-    menuText.right -= Scale(12, layout.dpi);
-    DrawTextW(dc, L"多开菜单", -1, &menuText,
-        DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
-    SetTextColor(dc, textColor);
-    RECT text = layout.text;
-    DrawTextW(dc, gTitle.c_str(), static_cast<int>(gTitle.size()), &text,
-        DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
     // 透明DX11窗口仍按像素Alpha合成；普通GDI绘制后显式发布不透明的非客户区。
     if (GdiFlush()) {
         auto* const pixels = static_cast<std::uint32_t*>(bits);
@@ -364,22 +433,6 @@ static void PaintFrame(HWND window)
     ReleaseDC(window, target);
 }
 
-static int AddHeight() noexcept { return Scale(36, WindowDpi(reinterpret_cast<HWND>(gLegacyWindow))); }
-static int RowHeight() noexcept { return Scale(32, WindowDpi(reinterpret_cast<HWND>(gLegacyWindow))); }
-
-static void CloseMenu() noexcept
-{
-    const HWND popup = gPopup;
-    gPopup = nullptr;
-    gMenuHover = {};
-    gMenuPressed = {};
-    gScrolling = false;
-    if (popup != nullptr) {
-        if (GetCapture() == popup) ReleaseCapture();
-        DestroyWindow(popup);
-    }
-}
-
 static void Queue(const Command command)
 {
     try {
@@ -389,318 +442,121 @@ static void Queue(const Command command)
     }
 }
 
-static RECT MenuContent(HWND popup) noexcept
+static void HideTooltip() noexcept
 {
-    RECT rectangle {};
-    GetClientRect(popup, &rectangle);
-    if (gEntries.size() > gVisibleRows) {
-        rectangle.right -= Scale(14, WindowDpi(reinterpret_cast<HWND>(gLegacyWindow)));
-    }
-    return rectangle;
+    if (gTooltip != nullptr) ShowWindow(gTooltip, SW_HIDE);
 }
 
-static RECT ScrollThumb(HWND popup) noexcept
+static LRESULT CALLBACK TooltipProcedure(HWND window, const UINT message, const WPARAM wParam, const LPARAM lParam)
 {
-    RECT client {};
-    GetClientRect(popup, &client);
-    const RECT content = MenuContent(popup);
-    const int top = AddHeight() + 1;
-    const int height = client.bottom - top;
-    if (gEntries.size() <= gVisibleRows) return {};
-    const LONG thumbHeight = std::min<LONG>(height, std::max<LONG>(Scale(18,
-        WindowDpi(reinterpret_cast<HWND>(gLegacyWindow))),
-        static_cast<LONG>(static_cast<std::size_t>(height) * gVisibleRows / gEntries.size())));
-    const LONG y = top + static_cast<LONG>(
-        static_cast<std::size_t>(height - thumbHeight) * gFirstRow / (gEntries.size() - gVisibleRows));
-    return {content.right + 2, y, client.right - 2, y + thumbHeight};
-}
-
-static Command MenuHit(HWND popup, const POINT point) noexcept
-{
-    RECT bounds {};
-    GetClientRect(popup, &bounds);
-    if (!PtInRect(&bounds, point)) return {};
-    if (point.y < AddHeight()) return {CommandKind::New, 0};
-    const RECT client = MenuContent(popup);
-    if (point.x >= client.right) return {};
-    const auto row = gFirstRow + static_cast<std::size_t>((point.y - AddHeight() - 1) / RowHeight());
-    if (row >= gEntries.size() || point.y == AddHeight()) return {};
-    return {point.x >= client.right - RowHeight() ? CommandKind::Close : CommandKind::Select, gEntries[row].id};
-}
-
-static void UpdateScroll(HWND popup)
-{
-    const std::size_t maximum = gEntries.size() > gVisibleRows ? gEntries.size() - gVisibleRows : 0;
-    gFirstRow = std::min(gFirstRow, maximum);
-    InvalidateRect(popup, nullptr, FALSE);
-}
-
-static void Scroll(HWND popup, const int amount)
-{
-    if (amount < 0) {
-        const auto distance = static_cast<std::size_t>(-amount);
-        gFirstRow = distance > gFirstRow ? 0 : gFirstRow - distance;
-    } else {
-        gFirstRow += static_cast<std::size_t>(amount);
-    }
-    gMenuHover = {};
-    UpdateScroll(popup);
-}
-
-static void PaintMenu(HWND popup)
-{
-    PAINTSTRUCT paint {};
-    HDC dc = BeginPaint(popup, &paint);
-    RECT client {};
-    GetClientRect(popup, &client);
-    Fill(dc, client, RGB(248, 249, 250));
-    const RECT content = MenuContent(popup);
-    const UINT dpi = WindowDpi(reinterpret_cast<HWND>(gLegacyWindow));
-    const HGDIOBJ previousFont = SelectObject(dc, Font(dpi));
-    const HGDIOBJ previousPen = SelectObject(dc, GetStockObject(DC_PEN));
-    SetBkMode(dc, TRANSPARENT);
-    RECT add {0, 0, client.right, AddHeight()};
-    if (gMenuHover.kind == CommandKind::New) Fill(dc, add, RGB(230, 234, 238));
-    const int iconX = Scale(16, dpi);
-    const int addY = AddHeight() / 2;
-    SetDCPenColor(dc, RGB(30, 128, 86));
-    Line(dc, iconX - Scale(4, dpi), addY, iconX + Scale(5, dpi), addY);
-    Line(dc, iconX, addY - Scale(4, dpi), iconX, addY + Scale(5, dpi));
-    RECT addText {Scale(34, dpi), 0, client.right, AddHeight()};
-    SetTextColor(dc, RGB(28, 36, 42));
-    DrawTextW(dc, L"新增", -1, &addText, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
-    Fill(dc, RECT {0, AddHeight(), client.right, AddHeight() + 1}, RGB(214, 219, 224));
-    for (std::size_t row = 0; row < gVisibleRows && gFirstRow + row < gEntries.size(); ++row) {
-        const auto& entry = gEntries[gFirstRow + row];
-        const LONG top = AddHeight() + 1 + static_cast<LONG>(row) * RowHeight();
-        RECT rectangle {0, top, content.right, top + RowHeight()};
-        if (entry.selected) Fill(dc, rectangle, RGB(222, 243, 233));
-        if (gMenuHover.id == entry.id && gMenuHover.kind != CommandKind::None) {
-            Fill(dc, rectangle, RGB(230, 234, 238));
-        }
-        if (entry.selected) {
-            const int y = (rectangle.top + rectangle.bottom) / 2;
-            SetDCPenColor(dc, RGB(30, 128, 86));
-            Line(dc, iconX - Scale(5, dpi), y, iconX - Scale(1, dpi), y + Scale(4, dpi));
-            Line(dc, iconX - Scale(1, dpi), y + Scale(4, dpi), iconX + Scale(6, dpi), y - Scale(4, dpi));
-        }
-        RECT close {content.right - RowHeight(), top, content.right, rectangle.bottom};
-        if (gMenuHover.id == entry.id && gMenuHover.kind == CommandKind::Close) {
-            Fill(dc, close, RGB(249, 217, 220));
-        }
-        Symbol(dc, close, Button::Close, RGB(104, 111, 119), dpi);
-        RECT label {Scale(34, dpi), top, close.left - Scale(8, dpi), rectangle.bottom};
-        if (entry.disconnected) {
-            RECT state = label;
-            state.left = std::max(state.left, state.right - Scale(40, dpi));
-            SetTextColor(dc, RGB(171, 111, 29));
-            DrawTextW(dc, L"断线", -1, &state, DT_SINGLELINE | DT_VCENTER | DT_RIGHT | DT_NOPREFIX);
-            label.right = state.left - Scale(6, dpi);
-        }
+    if (message == WM_NCHITTEST) return HTTRANSPARENT;
+    if (message == WM_MOUSEACTIVATE) return MA_NOACTIVATE;
+    if (message == WM_ERASEBKGND) return 1;
+    if (message == WM_NCDESTROY && gTooltip == window) gTooltip = nullptr;
+    if (message == WM_PAINT) {
+        PAINTSTRUCT paint {};
+        HDC dc = BeginPaint(window, &paint);
+        RECT rectangle {};
+        GetClientRect(window, &rectangle);
+        Fill(dc, rectangle, RGB(74, 78, 82));
+        InflateRect(&rectangle, -1, -1);
+        Fill(dc, rectangle, RGB(248, 249, 250));
+        const UINT dpi = WindowDpi(reinterpret_cast<HWND>(gLegacyWindow));
+        InflateRect(&rectangle, -Scale(8, dpi), -Scale(5, dpi));
+        const HGDIOBJ font = SelectObject(dc, Font(dpi));
+        SetBkMode(dc, TRANSPARENT);
         SetTextColor(dc, RGB(28, 36, 42));
-        if (!entry.details.empty()) {
-            SIZE nameSize {};
-            SIZE detailsSize {};
-            if (GetTextExtentPoint32W(dc, entry.label.c_str(), static_cast<int>(entry.label.size()), &nameSize)
-                && GetTextExtentPoint32W(dc, entry.details.c_str(), static_cast<int>(entry.details.size()), &detailsSize)) {
-                RECT details = label;
-                details.left = std::max(label.left, std::min(label.left + nameSize.cx, label.right - detailsSize.cx));
-                label.right = details.left;
-                DrawTextW(dc, entry.details.c_str(), static_cast<int>(entry.details.size()), &details,
-                    DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
-            }
-        }
-        DrawTextW(dc, entry.label.c_str(), static_cast<int>(entry.label.size()), &label,
-            DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
+        DrawTextW(dc, gTooltipText.c_str(), static_cast<int>(gTooltipText.size()), &rectangle,
+            DT_WORDBREAK | DT_NOPREFIX);
+        SelectObject(dc, font);
+        EndPaint(window, &paint);
+        return 0;
     }
-    if (content.right != client.right) {
-        Fill(dc, RECT {content.right, AddHeight() + 1, client.right, client.bottom}, RGB(235, 238, 241));
-        Fill(dc, ScrollThumb(popup), gScrolling ? RGB(112, 121, 130) : RGB(163, 171, 179));
-    }
-    SelectObject(dc, previousPen);
-    SelectObject(dc, previousFont);
-    EndPaint(popup, &paint);
+    return DefWindowProcW(window, message, wParam, lParam);
 }
 
-static void MenuKey(const UINT key)
+static void ShowTooltip(HWND window, const POINT point)
 {
-    if (key == VK_ESCAPE) {
-        CloseMenu();
+    std::wstring text;
+    for (const auto& entry : gEntries) {
+        if (entry.id == gHovered.id) {
+            text = gHovered.button == Button::CloseSession ? L"关闭会话：" : L"";
+            text += entry.label + entry.details + (entry.disconnected ? L" [断线]" : L"");
+            break;
+        }
+    }
+    if (gHovered.button == Button::New) text = L"新增会话";
+    else if (gHovered.button == Button::Previous) text = L"上一页";
+    else if (gHovered.button == Button::Next) text = L"下一页";
+    else if (gHovered.button == Button::Minimize) text = L"最小化";
+    else if (gHovered.button == Button::Close) text = L"退出程序";
+    if (text.empty()) {
+        HideTooltip();
         return;
     }
-    if (key == VK_RETURN && gMenuHover.kind != CommandKind::None) {
-        Queue(gMenuHover);
-        CloseMenu();
-        return;
-    }
-    std::size_t index = 0;
-    for (std::size_t i = 0; i < gEntries.size(); ++i) {
-        if (gEntries[i].id == gMenuHover.id) index = i + 1;
-    }
-    if (key == VK_DOWN) index = std::min(index + 1, gEntries.size());
-    else if (key == VK_UP) index = index > 0 ? index - 1 : 0;
-    else if (key == VK_HOME) index = 0;
-    else if (key == VK_END) index = gEntries.size();
-    else return;
-    gMenuHover = index == 0 ? Command {CommandKind::New, 0}
-        : Command {CommandKind::Select, gEntries[index - 1].id};
-    if (index != 0) {
-        if (index - 1 < gFirstRow) gFirstRow = index - 1;
-        else if (index > gFirstRow + gVisibleRows) gFirstRow = index - gVisibleRows;
-    }
-    UpdateScroll(gPopup);
-}
-
-static LRESULT CALLBACK MenuProcedure(HWND popup, const UINT message, const WPARAM wParam, const LPARAM lParam)
-{
-    switch (message) {
-    case WM_MOUSEACTIVATE: return MA_NOACTIVATE;
-    case WM_ERASEBKGND: return 1;
-    case WM_PAINT: PaintMenu(popup); return 0;
-    case WM_MOUSEMOVE: {
-        SetSystemCursorVisible(true);
-        if (gScrolling) {
-            if (gScrollGrab < 0) return 0;
-            RECT client {};
-            GetClientRect(popup, &client);
-            const RECT thumb = ScrollThumb(popup);
-            const int travel = client.bottom - AddHeight() - 1 - (thumb.bottom - thumb.top);
-            if (travel > 0) {
-                const LONG y = std::clamp<LONG>(ScreenPoint(lParam).y - gScrollGrab - AddHeight() - 1, 0, travel);
-                gFirstRow = static_cast<std::size_t>(y) * (gEntries.size() - gVisibleRows)
-                    / static_cast<std::size_t>(travel);
-                UpdateScroll(popup);
-            }
-            return 0;
-        }
-        const Command hover = MenuHit(popup, ScreenPoint(lParam));
-        if (!(hover == gMenuHover)) {
-            gMenuHover = hover;
-            InvalidateRect(popup, nullptr, FALSE);
-        }
-        TRACKMOUSEEVENT track {sizeof(track), TME_LEAVE, popup, 0};
-        TrackMouseEvent(&track);
-        return 0;
-    }
-    case WM_MOUSELEAVE:
-        gMenuHover = {};
-        InvalidateRect(popup, nullptr, FALSE);
-        return 0;
-    case WM_LBUTTONDOWN: {
-        const POINT point = ScreenPoint(lParam);
-        const RECT content = MenuContent(popup);
-        if (gEntries.size() > gVisibleRows && point.x >= content.right && point.y > AddHeight()) {
-            const RECT thumb = ScrollThumb(popup);
-            gScrolling = true;
-            SetCapture(popup);
-            if (PtInRect(&thumb, point)) {
-                gScrollGrab = point.y - thumb.top;
-                InvalidateRect(popup, nullptr, FALSE);
-            } else {
-                gScrollGrab = -1;
-                Scroll(popup, point.y < thumb.top ? -static_cast<int>(gVisibleRows) : static_cast<int>(gVisibleRows));
-            }
-            return 0;
-        }
-        gMenuPressed = MenuHit(popup, ScreenPoint(lParam));
-        if (gMenuPressed.kind != CommandKind::None) SetCapture(popup);
-        return 0;
-    }
-    case WM_LBUTTONUP: {
-        const bool scrolling = gScrolling;
-        gScrolling = false;
-        const Command pressed = gMenuPressed;
-        const Command released = MenuHit(popup, ScreenPoint(lParam));
-        gMenuPressed = {};
-        if (GetCapture() == popup) ReleaseCapture();
-        POINT point = ScreenPoint(lParam);
-        ClientToScreen(popup, &point);
-        RouteSessionMouseRelease(true, PackPoint(point));
-        if (scrolling) {
-            InvalidateRect(popup, nullptr, FALSE);
-        } else if (pressed.kind != CommandKind::None && pressed == released) {
-            Queue(pressed);
-            CloseMenu();
-        } else if (released.kind == CommandKind::None) {
-            CloseMenu();
-        }
-        return 0;
-    }
-    case WM_RBUTTONUP: {
-        POINT point = ScreenPoint(lParam);
-        ClientToScreen(popup, &point);
-        RouteSessionMouseRelease(false, PackPoint(point));
-        CloseMenu();
-        return 0;
-    }
-    case WM_CAPTURECHANGED:
-        if (gMenuPressed.kind != CommandKind::None || gScrolling) {
-            gConsumedMouseUps |= 1u;
-            CloseMenu();
-        }
-        return 0;
-    case WM_MOUSEWHEEL:
-        gWheelRemainder += static_cast<SHORT>(HIWORD(wParam));
-        if (const int steps = gWheelRemainder / WHEEL_DELTA; steps != 0) {
-            gWheelRemainder %= WHEEL_DELTA;
-            Scroll(popup, -steps * 3);
-        }
-        return 0;
-    case WM_NCDESTROY:
-        if (gPopup == popup) gPopup = nullptr;
-        break;
-    default: break;
-    }
-    return DefWindowProcW(popup, message, wParam, lParam);
-}
-
-static void OpenMenu(HWND window)
-{
-    if (gPopup != nullptr) {
-        CloseMenu();
-        return;
-    }
-    if (!gReady) return;
-    gEntries = session::GetClientHost().MenuEntries();
-    WNDCLASSW type {};
-    type.lpfnWndProc = MenuProcedure;
-    type.hInstance = reinterpret_cast<HINSTANCE>(gInstance);
-    type.hCursor = LoadCursorA(nullptr, IDC_ARROW);
-    type.lpszClassName = kPopupClass;
-    WNDCLASSW existing {};
-    if (!GetClassInfoW(type.hInstance, kPopupClass, &existing) && RegisterClassW(&type) == 0) {
-        ShowWideMessage(L"无法建立会话菜单。", L"确认", MB_OK | MB_ICONERROR);
-        return;
-    }
-    const FrameLayout layout = Layout(window);
     MONITORINFO monitor {};
     monitor.cbSize = sizeof(monitor);
     if (!GetMonitorInfoW(MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST), &monitor)) return;
-    const LONG width = std::min<LONG>(Scale(320, layout.dpi), monitor.rcWork.right - monitor.rcWork.left);
-    const int maximumHeight = monitor.rcWork.bottom - monitor.rcWork.top - Scale(8, layout.dpi);
-    gVisibleRows = std::min(gEntries.size(),
-        static_cast<std::size_t>(std::max(1, (maximumHeight - AddHeight() - 3) / RowHeight())));
-    const int height = AddHeight() + 3 + static_cast<int>(gVisibleRows) * RowHeight();
-    const LONG x = std::clamp(layout.window.left + layout.sessions.right - width,
-        monitor.rcWork.left, monitor.rcWork.right - width);
-    LONG y = layout.window.top + layout.title.bottom;
-    if (y + height > monitor.rcWork.bottom) y = std::max(monitor.rcWork.top, layout.window.top - height);
-    for (std::size_t i = 0; i < gEntries.size(); ++i) {
-        if (gEntries[i].selected) {
-            gMenuHover = {CommandKind::Select, gEntries[i].id};
-            if (i < gFirstRow) gFirstRow = i;
-            else if (i >= gFirstRow + gVisibleRows) gFirstRow = i - gVisibleRows + 1;
+    const UINT dpi = WindowDpi(window);
+    HDC dc = GetWindowDC(window);
+    if (dc == nullptr) return;
+    const HGDIOBJ font = SelectObject(dc, Font(dpi));
+    RECT rectangle {0, 0, std::min<LONG>(Scale(420, dpi),
+        monitor.rcWork.right - monitor.rcWork.left - Scale(20, dpi)), 0};
+    DrawTextW(dc, text.c_str(), static_cast<int>(text.size()), &rectangle, DT_CALCRECT | DT_WORDBREAK | DT_NOPREFIX);
+    SelectObject(dc, font);
+    ReleaseDC(window, dc);
+    if (gTooltip == nullptr) {
+        WNDCLASSW type {};
+        type.lpfnWndProc = TooltipProcedure;
+        type.hInstance = reinterpret_cast<HINSTANCE>(gInstance);
+        type.lpszClassName = kTooltipClass;
+        WNDCLASSW existing {};
+        if (!GetClassInfoW(type.hInstance, kTooltipClass, &existing) && RegisterClassW(&type) == 0) return;
+        gTooltip = CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, kTooltipClass, L"",
+            WS_POPUP, 0, 0, 0, 0, window, nullptr, type.hInstance, nullptr);
+        if (gTooltip == nullptr) return;
+    }
+    gTooltipText = std::move(text);
+    const LONG width = rectangle.right - rectangle.left + Scale(16, dpi) + 2;
+    const LONG height = rectangle.bottom - rectangle.top + Scale(10, dpi) + 2;
+    const LONG x = std::clamp(point.x, monitor.rcWork.left, monitor.rcWork.right - width);
+    const FrameLayout layout = Layout(window);
+    const LONG y = std::clamp(layout.window.top + layout.title.bottom + Scale(4, dpi), monitor.rcWork.top,
+        std::max(monitor.rcWork.top, monitor.rcWork.bottom - height));
+    SetWindowPos(gTooltip, HWND_TOP, x, y, width, height, SWP_NOACTIVATE | SWP_SHOWWINDOW);
+    InvalidateRect(gTooltip, nullptr, FALSE);
+}
+
+static void RefreshCaptionEntries(HWND window, const bool revealCurrent)
+{
+    HideTooltip();
+    auto& host = session::GetClientHost();
+    gEntries = host.MenuEntries();
+    gCurrentTab = host.CurrentId();
+    gEntriesDirty = false;
+    const FrameLayout layout = Layout(window);
+    gFirstTab = layout.first;
+    if (revealCurrent) {
+        for (std::size_t index = 0; index < gEntries.size(); ++index) {
+            if (gEntries[index].selected && (index < layout.first || index >= layout.first + layout.count)) {
+                gFirstTab = (index / layout.capacity) * layout.capacity;
+                break;
+            }
         }
     }
-    gPopup = CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, kPopupClass, L"",
-        WS_POPUP | WS_BORDER, x, y, width, height, window, nullptr, type.hInstance, nullptr);
-    if (gPopup == nullptr) {
-        ShowWideMessage(L"无法打开会话菜单。", L"确认", MB_OK | MB_ICONERROR);
-        return;
-    }
-    UpdateScroll(gPopup);
-    SetSystemCursorVisible(true);
-    ShowWindow(gPopup, SW_SHOWNOACTIVATE);
+    PaintFrame(window);
+}
+
+static void ChangeTabPage(HWND window, const bool forward)
+{
+    RefreshCaptionEntries(window, false);
+    const FrameLayout layout = Layout(window);
+    if (forward && ButtonEnabled(layout, Button::Next)) gFirstTab = layout.first + layout.capacity;
+    else if (!forward && ButtonEnabled(layout, Button::Previous))
+        gFirstTab = layout.first - std::min(layout.first, layout.capacity);
+    gHovered = {};
+    PaintFrame(window);
 }
 
 } // namespace session_window_detail
@@ -712,21 +568,6 @@ void AdjustSessionWindowRect(RECT& rectangle, const UINT dpi) noexcept
     rectangle.right += border;
     rectangle.top -= border + session_window_detail::Scale(32, dpi);
     rectangle.bottom += border;
-}
-
-bool CanTranslateSessionWindowKey(const UINT key) noexcept
-{
-    if (!IsSessionWindowInputAvailable()) return false;
-    // 必须在TranslateMessage前取原键码，才能匹配菜单消费后仍按住的真实按键。
-    const UINT physicalKey = key == VK_PROCESSKEY
-        ? ImmGetVirtualKey(reinterpret_cast<HWND>(gLegacyWindow)) : key;
-    return !session_window_detail::gMenuKeys[physicalKey];
-}
-
-bool IsSessionWindowInputAvailable() noexcept
-{
-    using namespace session_window_detail;
-    return gPopup == nullptr && gPressed == Button::None && !gDragging;
 }
 
 bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wParam, const LPARAM lParam, LRESULT& result)
@@ -784,10 +625,10 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
         POINT point = ScreenPoint(lParam);
         point.x -= layout.window.left;
         point.y -= layout.window.top;
-        const Button button = HitButton(layout, point);
-        if (button == Button::Close) result = HTCLOSE;
-        else if (button == Button::Minimize) result = HTMINBUTTON;
-        else if (button == Button::Sessions) result = HTMENU;
+        const FrameTarget target = HitButton(layout, point);
+        if (target.button == Button::Close) result = HTCLOSE;
+        else if (target.button == Button::Minimize) result = HTMINBUTTON;
+        else if (target.button != Button::None) result = HTMENU;
         else if (PtInRect(&layout.icon, point)) result = HTSYSMENU;
         else if (PtInRect(&layout.title, point)) result = HTCAPTION;
         else {
@@ -807,31 +648,39 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
         return true;
     }
     case WM_DPICHANGED: {
-        CloseMenu();
+        HideTooltip();
         RECT rectangle {0, 0, gWindowWidth, gWindowHeight};
         AdjustSessionWindowRect(rectangle, LOWORD(wParam));
         const auto& suggested = *reinterpret_cast<const RECT*>(lParam);
         SetWindowPos(window, nullptr, suggested.left, suggested.top,
             rectangle.right - rectangle.left, rectangle.bottom - rectangle.top,
             SWP_NOACTIVATE | SWP_NOZORDER | SWP_FRAMECHANGED);
-        PaintFrame(window);
+        RefreshCaptionEntries(window, true);
         return true;
     }
     case WM_ACTIVATE:
-        if (LOWORD(wParam) == WA_INACTIVE) CloseMenu();
+        if (LOWORD(wParam) == WA_INACTIVE) {
+            HideTooltip();
+            gHovered = {};
+        }
         return false;
     case WM_SYSCOMMAND:
         if ((wParam & 0xFFF0u) == SC_MAXIMIZE || (wParam & 0xFFF0u) == SC_SIZE) return true;
-        CloseMenu();
+        HideTooltip();
         return false;
     case WM_NCMOUSEMOVE: {
         const FrameLayout layout = Layout(window);
         POINT point = ScreenPoint(lParam);
         point.x -= layout.window.left;
         point.y -= layout.window.top;
-        const Button hovered = HitButton(layout, point);
+        FrameTarget hovered = HitButton(layout, point);
         if (hovered != gHovered) {
+            if (hovered.button == Button::Session || hovered.button == Button::CloseSession) {
+                RefreshCaptionEntries(window, false);
+                hovered = HitButton(Layout(window), point);
+            }
             gHovered = hovered;
+            if (gPressed.button == Button::None && !gDragging) ShowTooltip(window, ScreenPoint(lParam));
             PaintFrame(window);
         }
         TRACKMOUSEEVENT track {sizeof(track), TME_LEAVE | TME_NONCLIENT, window, 0};
@@ -839,7 +688,8 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
         return false;
     }
     case WM_NCMOUSELEAVE:
-        gHovered = Button::None;
+        HideTooltip();
+        gHovered = {};
         PaintFrame(window);
         return true;
     case WM_NCLBUTTONDBLCLK:
@@ -849,19 +699,20 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
         }
         [[fallthrough]];
     case WM_NCLBUTTONDOWN: {
-        if (gPopup != nullptr) {
-            CloseMenu();
-            gConsumedMouseUps |= 1u;
-            return true;
-        }
+        HideTooltip();
         const FrameLayout layout = Layout(window);
         POINT point = ScreenPoint(lParam);
         gDragStart = point;
         point.x -= layout.window.left;
         point.y -= layout.window.top;
         gPressed = HitButton(layout, point);
-        if (gPressed != Button::None || wParam == HTCAPTION) {
-            gDragging = gPressed == Button::None;
+        if (gPressed.button != Button::None && !ButtonEnabled(layout, gPressed.button)) {
+            gPressed = {};
+            gConsumedMouseUps |= 1u;
+            return true;
+        }
+        if (gPressed.button != Button::None || wParam == HTCAPTION) {
+            gDragging = gPressed.button == Button::None;
             gDragWindow = layout.window;
             SetCapture(window);
             SetSystemCursorVisible(true);
@@ -871,7 +722,7 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
         return false;
     }
     case WM_MOUSEMOVE:
-        if (gDragging || gPressed != Button::None) {
+        if (gDragging || gPressed.button != Button::None) {
             POINT point {};
             GetCursorPos(&point);
             if (gDragging) {
@@ -887,13 +738,13 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
             }
             return true;
         }
-        return gPopup != nullptr;
+        return false;
     case WM_LBUTTONUP:
     case WM_NCLBUTTONUP:
-        if (gDragging || gPressed != Button::None || (gConsumedMouseUps & 1u) != 0) {
-            const Button pressed = gPressed;
+        if (gDragging || gPressed.button != Button::None || (gConsumedMouseUps & 1u) != 0) {
+            const FrameTarget pressed = gPressed;
             const bool dragging = gDragging;
-            gPressed = Button::None;
+            gPressed = {};
             gDragging = false;
             gConsumedMouseUps &= ~1u;
             if (GetCapture() == window) ReleaseCapture();
@@ -903,9 +754,18 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
             const FrameLayout layout = Layout(window);
             point.x -= layout.window.left;
             point.y -= layout.window.top;
-            if (!dragging && pressed != Button::None && pressed == HitButton(layout, point)) {
-                if (pressed == Button::Sessions) OpenMenu(window);
-                else PostMessageW(window, WM_SYSCOMMAND, pressed == Button::Close ? SC_CLOSE : SC_MINIMIZE, 0);
+            if (!dragging && pressed.button != Button::None && pressed == HitButton(layout, point)
+                && ButtonEnabled(layout, pressed.button)) {
+                switch (pressed.button) {
+                case Button::Session: Queue({CommandKind::Select, pressed.id}); break;
+                case Button::CloseSession: Queue({CommandKind::Close, pressed.id}); break;
+                case Button::New: Queue({CommandKind::New, 0}); break;
+                case Button::Previous: ChangeTabPage(window, false); break;
+                case Button::Next: ChangeTabPage(window, true); break;
+                case Button::Close: PostMessageW(window, WM_SYSCOMMAND, SC_CLOSE, 0); break;
+                case Button::Minimize: PostMessageW(window, WM_SYSCOMMAND, SC_MINIMIZE, 0); break;
+                default: break;
+                }
             }
             PaintFrame(window);
             return true;
@@ -926,65 +786,31 @@ bool HandleSessionWindowMessage(HWND window, const UINT message, const WPARAM wP
     case WM_LBUTTONDBLCLK:
     case WM_RBUTTONDBLCLK: {
         const UINT button = message == WM_LBUTTONDOWN || message == WM_LBUTTONDBLCLK ? 1u : 2u;
-        if (gPopup != nullptr) {
-            CloseMenu();
-            gConsumedMouseUps |= button;
-            return true;
-        }
+        HideTooltip();
         gConsumedMouseUps &= ~button;
         return false;
     }
     case WM_CAPTURECHANGED:
-        if (gPressed != Button::None || gDragging) gConsumedMouseUps |= 1u;
-        gPressed = Button::None;
+        if (gPressed.button != Button::None || gDragging) gConsumedMouseUps |= 1u;
+        gPressed = {};
         gDragging = false;
         PaintFrame(window);
         return false;
     case WM_SETCURSOR:
-        if (gPopup != nullptr || gDragging || gPressed != Button::None) {
+        if (gDragging || gPressed.button != Button::None) {
             SetSystemCursorVisible(true);
             SetCursor(LoadCursorA(nullptr, IDC_ARROW));
             result = TRUE;
             return true;
         }
         return false;
-    case WM_MOUSEWHEEL:
-        if (gPopup != nullptr) {
-            SendMessageW(gPopup, message, wParam, lParam);
-            return true;
-        }
-        return false;
-    case WM_SYSKEYDOWN:
-        if (wParam != VK_F10) return false;
-        [[fallthrough]];
-    case WM_KEYDOWN: {
-        const UINT key = wParam == VK_PROCESSKEY ? ImmGetVirtualKey(window) : static_cast<UINT>(wParam);
-        // VK_PROCESSKEY不是实际按键，不能留下等待真实KEYUP清除的永久门禁。
-        if (key == 0 || key == VK_PROCESSKEY) return !IsSessionWindowInputAvailable();
-        if (gMenuKeys[key]) {
-            if (gPopup != nullptr) MenuKey(key);
-            return true;
-        }
-        if (!IsSessionWindowInputAvailable()) {
-            gMenuKeys[key] = true;
-            if (gPopup != nullptr) MenuKey(key);
-            return true;
-        }
-        return false;
+    case WM_MOUSEWHEEL: {
+        const FrameLayout layout = Layout(window);
+        POINT point = ScreenPoint(lParam);
+        point.x -= layout.window.left;
+        point.y -= layout.window.top;
+        return PtInRect(&layout.title, point) != FALSE;
     }
-    case WM_SYSKEYUP:
-        if (wParam != VK_F10) return false;
-        [[fallthrough]];
-    case WM_KEYUP:
-        if (gMenuKeys[wParam]) {
-            gMenuKeys[wParam] = false;
-            RouteSessionKeyRelease(static_cast<UINT>(wParam), false);
-            return true;
-        }
-        return false;
-    case WM_CHAR:
-    case WM_PASTE:
-        return !IsSessionWindowInputAvailable();
     case WM_NCDESTROY:
         ShutdownSessionWindow();
         return false;
@@ -997,6 +823,7 @@ bool ProcessSessionWindowCommands()
 {
     using namespace session_window_detail;
     auto& host = session::GetClientHost();
+    const bool hadCommands = !gCommands.empty();
     while (!gCommands.empty()) {
         const Command command = gCommands.front();
         gCommands.pop_front();
@@ -1025,6 +852,7 @@ bool ProcessSessionWindowCommands()
             if (host.SessionCount() == 0) return false;
         }
     }
+    if (hadCommands) gEntriesDirty = true;
     return true;
 }
 
@@ -1042,9 +870,13 @@ void RefreshSessionWindow()
         title += L" // 开启者，你今天爆揍一顿小吸兽了吗？";
     }
     const HWND window = reinterpret_cast<HWND>(gLegacyWindow);
-    if (title != gTitle) {
+    const bool titleChanged = title != gTitle;
+    if (titleChanged) {
         gTitle = title;
         SetWindowTextW(window, title.c_str());
+    }
+    if (gEntriesDirty || titleChanged || gCurrentTab != host.CurrentId() || gEntries.size() != host.SessionCount()) {
+        RefreshCaptionEntries(window, gCurrentTab != host.CurrentId());
     }
     UpdateSystemCursorLocation(IsPointerInGameClient());
     VM_LIGHT_END
@@ -1054,15 +886,23 @@ void ShutdownSessionWindow() noexcept
 {
     using namespace session_window_detail;
     gReady = false;
-    CloseMenu();
-    if (gDragging || gPressed != Button::None) {
+    HideTooltip();
+    if (gTooltip != nullptr) {
+        DestroyWindow(gTooltip);
+        gTooltip = nullptr;
+    }
+    if (gDragging || gPressed.button != Button::None) {
         gDragging = false;
-        gPressed = Button::None;
+        gPressed = {};
         if (GetCapture() == reinterpret_cast<HWND>(gLegacyWindow)) ReleaseCapture();
     }
     gCommands.clear();
     gEntries.clear();
-    gMenuKeys.fill(false);
+    gHovered = {};
+    gFirstTab = 0;
+    gCurrentTab = 0;
+    gEntriesDirty = true;
+    gTooltipText.clear();
     gConsumedMouseUps = 0;
     if (gFont != nullptr) {
         DeleteObject(gFont);

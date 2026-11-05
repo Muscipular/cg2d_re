@@ -200,8 +200,8 @@ static FrameLayout Layout(HWND window) noexcept
         value.border + Scale(10, value.dpi) + iconSize, iconTop + iconSize};
     const LONG left = value.icon.right + Scale(8, value.dpi);
     const LONG available = std::max<LONG>(1, value.previous.left - Scale(24 + 28, value.dpi) - left);
-    value.tabWidth = std::min<LONG>(Scale(128, value.dpi), available);
-    value.capacity = std::max<std::size_t>(1, available / value.tabWidth);
+    value.capacity = std::min<std::size_t>(5, available);
+    value.tabWidth = available / static_cast<LONG>(value.capacity);
     value.first = (gFirstTab / value.capacity) * value.capacity;
     if (!gEntries.empty() && value.first >= gEntries.size()) {
         value.first = ((gEntries.size() - 1) / value.capacity) * value.capacity;

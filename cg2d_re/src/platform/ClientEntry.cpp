@@ -128,6 +128,25 @@ static LaunchResult PrepareLaunchCommandLine(const wchar_t* const arguments, con
         return SetEvent(handoff.ready) ? LaunchResult::RunClient : LaunchResult::Failed;
     }
 
+    // 仅显式调试参数直启；凭据或其他参数正文中的同名子串不绕过交接。
+    for (std::size_t cursor = 0; cursor < command.size();) {
+        const auto begin = command.find_first_not_of(L" \t", cursor);
+        if (begin == command.npos) break;
+        cursor = begin;
+        bool quoted = false;
+        while (cursor < command.size()) {
+            const wchar_t character = command[cursor];
+            if (character == L'"') quoted = !quoted;
+            else if (!quoted && (character == L' ' || character == L'\t')) break;
+            ++cursor;
+        }
+        const auto option = command.substr(begin, cursor - begin);
+        if (option == L"--debug" || option == L"\"--debug\"") {
+            gCommandLine.assign(arguments);
+            return LaunchResult::RunClient;
+        }
+    }
+
     const std::size_t length = std::wcslen(arguments);
     if (length >= kLaunchArgumentCapacity) return LaunchResult::Failed;
     std::wstring executable(MAX_PATH, L'\0');

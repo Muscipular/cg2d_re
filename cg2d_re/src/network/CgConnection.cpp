@@ -1441,7 +1441,7 @@ std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
             }
             const auto hpPercent = maxHp > 0 ? static_cast<std::int64_t>(hp) * 100 / maxHp : 0;
             const auto fpPercent = maxFp > 0 ? static_cast<std::int64_t>(fp) * 100 / maxFp : 0;
-            details = std::format(L" Lv.{} HP:{}% FP:{}%", player.level, hpPercent, fpPercent);
+            details = std::format(L" Lv{}/{}%/{}%", player.level, hpPercent, fpPercent);
         }
         entries.push_back({entry.id, SessionLabel(entry), entry.id == CurrentId(),
             entry.session.Disconnected(), std::move(details)});

@@ -9,6 +9,7 @@
 #include "MainLoopDependencies.hpp"
 #include "ClientShutdown.hpp"
 #include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/session/ClientHost.hpp"
 #include "../world/BattleState.hpp"
 
@@ -141,6 +142,7 @@ static std::vector<session::ClientHost::MenuEntry> gEntries;
 static std::wstring gTitle = L"CG2D RE";
 static std::size_t gFirstTab = 0;
 static std::uint64_t gCurrentTab = 0;
+static std::uint64_t gEntriesRefreshTick = 0; // 会话显示快照的毫秒刷新基线。
 static bool gEntriesDirty = true;
 static std::wstring gTooltipText;
 static constexpr wchar_t kTooltipClass[] = L"CG2D_RE_SessionTabTip";
@@ -198,7 +200,7 @@ static FrameLayout Layout(HWND window) noexcept
         value.border + Scale(10, value.dpi) + iconSize, iconTop + iconSize};
     const LONG left = value.icon.right + Scale(8, value.dpi);
     const LONG available = std::max<LONG>(1, value.previous.left - Scale(24 + 28, value.dpi) - left);
-    value.tabWidth = std::min<LONG>(Scale(160, value.dpi), available);
+    value.tabWidth = std::min<LONG>(Scale(128, value.dpi), available);
     value.capacity = std::max<std::size_t>(1, available / value.tabWidth);
     value.first = (gFirstTab / value.capacity) * value.capacity;
     if (!gEntries.empty() && value.first >= gEntries.size()) {
@@ -394,7 +396,7 @@ static void PaintFrame(HWND window)
         Symbol(dc, close, Button::CloseSession, textColor, layout.dpi);
         RECT label {tab.left + Scale(10, layout.dpi), tab.top, close.left - Scale(4, layout.dpi), tab.bottom};
         SetTextColor(dc, entry.disconnected ? RGB(229, 180, 93) : textColor);
-        const std::wstring name = entry.label + (entry.disconnected ? L" [断线]" : L"");
+        const std::wstring name = entry.label + (entry.disconnected ? L" [断线]" : L"") + entry.details;
         DrawTextW(dc, name.c_str(), static_cast<int>(name.size()), &label,
             DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
     }
@@ -528,12 +530,16 @@ static void ShowTooltip(HWND window, const POINT point)
     InvalidateRect(gTooltip, nullptr, FALSE);
 }
 
-static void RefreshCaptionEntries(HWND window, const bool revealCurrent)
+static void RefreshCaptionEntries(HWND window, const bool revealCurrent, const bool preserveTooltip = false)
 {
-    HideTooltip();
+    RECT tooltip {};
+    const bool tooltipVisible = preserveTooltip && gTooltip != nullptr && IsWindowVisible(gTooltip)
+        && GetWindowRect(gTooltip, &tooltip);
+    if (!tooltipVisible) HideTooltip();
     auto& host = session::GetClientHost();
     gEntries = host.MenuEntries();
     gCurrentTab = host.CurrentId();
+    gEntriesRefreshTick = ReadTickCount64();
     gEntriesDirty = false;
     const FrameLayout layout = Layout(window);
     gFirstTab = layout.first;
@@ -546,6 +552,7 @@ static void RefreshCaptionEntries(HWND window, const bool revealCurrent)
         }
     }
     PaintFrame(window);
+    if (tooltipVisible) ShowTooltip(window, POINT {tooltip.left, tooltip.top});
 }
 
 static void ChangeTabPage(HWND window, const bool forward)
@@ -875,8 +882,10 @@ void RefreshSessionWindow()
         gTitle = title;
         SetWindowTextW(window, title.c_str());
     }
-    if (gEntriesDirty || titleChanged || gCurrentTab != host.CurrentId() || gEntries.size() != host.SessionCount()) {
-        RefreshCaptionEntries(window, gCurrentTab != host.CurrentId());
+    const bool entriesChanged = gEntriesDirty || titleChanged || gCurrentTab != host.CurrentId()
+        || gEntries.size() != host.SessionCount();
+    if (entriesChanged || ReadTickCount64() - gEntriesRefreshTick >= 1000) {
+        RefreshCaptionEntries(window, gCurrentTab != host.CurrentId(), !entriesChanged);
     }
     UpdateSystemCursorLocation(IsPointerInGameClient());
     VM_LIGHT_END
@@ -901,6 +910,7 @@ void ShutdownSessionWindow() noexcept
     gHovered = {};
     gFirstTab = 0;
     gCurrentTab = 0;
+    gEntriesRefreshTick = 0;
     gEntriesDirty = true;
     gTooltipText.clear();
     gConsumedMouseUps = 0;

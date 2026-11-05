@@ -23,9 +23,8 @@ void InitializePaletteDbfState_522690();
 // 原0x927EF4；BLM01扩为32槽，由初始化拥有、读取借用、退出关闭。
 extern std::FILE* gGraphicFiles[BinLoaderMaxGroups];
 
-// 新端选定读取承载范围为原 0x833CB0..0x927EF0，解压承载范围为 0x73F138..0x833378。
-// 两段彼此独立，不证明原数组声明或跨界行为；读盘复用前者，实际解码写入才修改后者。
-inline constexpr std::size_t GraphicScratchCapacity = 1'000'000;
+// 两块进程共享暂存区各4 MiB；读盘及解码写入前分别检查实际容量。
+inline constexpr std::size_t GraphicScratchCapacity = 4 * 1024 * 1024;
 extern std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity]; // 原全局：0x00833CB0。
 extern std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity]; // 原全局：0x0073F138。
 
@@ -77,7 +76,7 @@ void GetIndependentPaletteColors32(
 
 // 原 0x45A900：按全局图形号 seek/read，再调用 ReadGraphicData；可省略 paletteLength。
 // 调用者须先建立元信息和文件表；实际查文件表时 fileIndex 必须在 0..8。
-// 读取成功后 destination 指针槽必须可写，记录长度/解压结果须落在相应存储内。
+// 读取成功后 destination 指针槽必须可写；记录长度或解码输出超限时弹窗后以-2立即退出进程。
 // 源格式的有效性、可访问范围及输出参数约定同 GraphicDecode.hpp，不补原端没有的短读恢复。
 int ReadGraphicDataByIndex(
     std::int32_t index,

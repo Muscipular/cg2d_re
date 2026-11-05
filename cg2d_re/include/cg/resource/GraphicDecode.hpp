@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 
 namespace cg::resource {
@@ -21,19 +22,22 @@ bool IsPngGraphicData(const std::uint8_t* source) noexcept;
 // 不额外要求这些对象两两不重叠；保留原取样、字节读写和输出发布顺序。
 // 调用期间不被并发修改；不以新增互斥条件缩小原正常合同。
 // 必须按实际命令提供足够内存：压缩命令可跨过 header.length，也可写出超过
-// width * height 的数据；本函数没有源长度、目标容量检查或失败回滚。
+// width * height 的数据；本函数没有源长度检查或失败回滚。
+// destinationCapacity为目标区字节容量，oversize在入口清零；输出需求超限时置位并返回nullptr。
+// PNG复制、RD声明尺寸/调色板及压缩命令实际输出均在写入前检查，失败可能保留已写入的前缀。
 //
 // widthOut、heightOut 保留原 32 位位模式；paletteLengthOut 先于解码写入。
 // 解码成功后依次写 lengthOut、widthOut、heightOut。压缩 lengthOut 为
 // width * height，无压缩为 width * height + *paletteLengthOut，保留原 W32 数值宽度。
-// 地址采用原生非拥有指针；不新增溢出、越界、补零、钳制或故障处理，
-// 不宣故障行为或原 x86 描述符/调用 ABI 二进制兼容。
+// 容量计算使用U64，原正常输出仍保留W32；不补零或钳制，不宣原x86调用ABI二进制兼容。
 std::uint8_t* ReadGraphicData(
     std::uint8_t const* source,
     std::uint8_t* const* destination,
     std::uint32_t* widthOut,
     std::uint32_t* heightOut,
     std::uint32_t* lengthOut,
-    std::uint32_t* paletteLengthOut) noexcept;
+    std::uint32_t* paletteLengthOut,
+    std::size_t destinationCapacity,
+    bool& oversize) noexcept;
 
 } // namespace cg::resource

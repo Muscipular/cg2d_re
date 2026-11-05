@@ -684,6 +684,12 @@ void GetIndependentPaletteColors32(
     tonedColors = record->tonedColors;
 }
 
+[[noreturn]] static void ExitGraphicBufferOversize()
+{
+    ::MessageBoxW(nullptr, L"Graphic decode buffer oversize", L"确认", MB_OK | MB_ICONERROR);
+    std::_Exit(-2);
+}
+
 // 原函数：0x0045A900。
 int ReadGraphicDataByIndex(
     std::int32_t index,
@@ -709,6 +715,9 @@ int ReadGraphicDataByIndex(
     ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(info.offset)), SEEK_SET);
     std::FILE* const readFile = gGraphicFiles[fileIndex];
     const std::uint32_t sourceLength = info.length;
+    if (sourceLength > sizeof(gGraphicReadBuffer)) {
+        ExitGraphicBufferOversize();
+    }
     if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, static_cast<std::uint32_t>(sourceLength), 1, readFile)) != 1) {
         return 0;
     }
@@ -721,8 +730,14 @@ int ReadGraphicDataByIndex(
         paletteLength = &ignoredPaletteLength;
     }
 
-    return ReadGraphicData(
-        gGraphicReadBuffer, destination, width, height, &length, paletteLength) != nullptr ? 1 : 0;
+    bool oversize = false;
+    const bool decoded = ReadGraphicData(
+        gGraphicReadBuffer, destination, width, height, &length, paletteLength,
+        sizeof(gGraphicDecodeBuffer), oversize) != nullptr;
+    if (oversize) {
+        ExitGraphicBufferOversize();
+    }
+    return decoded ? 1 : 0;
 }
 
 // 原函数：0x00451D80。

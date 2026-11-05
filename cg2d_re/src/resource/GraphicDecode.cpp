@@ -19,7 +19,10 @@ std::uint8_t* ReadGraphicData(
     std::uint32_t* widthOut,
     std::uint32_t* heightOut,
     std::uint32_t* lengthOut,
-    std::uint32_t* paletteLengthOut) noexcept {
+    std::uint32_t* paletteLengthOut,
+    const std::size_t destinationCapacity,
+    bool& oversize) noexcept {
+    oversize = false;
     enum : std::uint8_t {
         Compressed = 0x01,
         ExtendedHeader = 0x02,
@@ -46,6 +49,10 @@ std::uint8_t* ReadGraphicData(
     if (IsPngGraphicData(source)) {
         const auto index = std::bit_cast<std::int32_t>(*lengthOut);
         const auto& info = gGraphicInfo[index];
+        if (info.length > destinationCapacity) {
+            oversize = true;
+            return nullptr;
+        }
         *paletteLengthOut = 0;
         *widthOut = static_cast<std::uint32_t>(info.w);
         *heightOut = static_cast<std::uint32_t>(info.h);
@@ -74,6 +81,12 @@ std::uint8_t* ReadGraphicData(
             length = width * height;
             *paletteLengthOut = 0;
         }
+        const std::uint64_t required =
+            static_cast<std::uint64_t>(width) * height + *paletteLengthOut;
+        if (required > destinationCapacity) {
+            oversize = true;
+            return nullptr;
+        }
 
         // 0x52D62F..0x52D63E：不读取 header.length，按低 32 位长度正向复制。
         std::uint32_t copied = 0;
@@ -101,6 +114,12 @@ std::uint8_t* ReadGraphicData(
     } else {
         *paletteLengthOut = 0;
     }
+    const std::uint64_t required =
+        static_cast<std::uint64_t>(width) * height + *paletteLengthOut;
+    if (required > destinationCapacity) {
+        oversize = true;
+        return nullptr;
+    }
 
     // 只在命令之间比较源边界；不按像素数停止，不检查命令内部的剩余字节。
     while (cursor < sourceEnd) {
@@ -125,6 +144,10 @@ std::uint8_t* ReadGraphicData(
                 ++cursor;
             }
 
+            if (count > destinationCapacity - static_cast<std::size_t>(output - target)) {
+                oversize = true;
+                return nullptr;
+            }
             // 0x52D707/0x52D712 的 stosd/stosb 等价字节写入，不引入未对齐存储。
             for (std::uint32_t written = 0; written < count; ++written) {
                 *output = value;
@@ -140,6 +163,10 @@ std::uint8_t* ReadGraphicData(
 
             // 0x52D73E..0x52D743：保留原检查，虽按上述解码 count 最大仅为 0xFFF。
             if (count >= 0xFFFFFu) {
+                return nullptr;
+            }
+            if (count > destinationCapacity - static_cast<std::size_t>(output - target)) {
+                oversize = true;
                 return nullptr;
             }
             while (count != 0) {

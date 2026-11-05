@@ -15,6 +15,7 @@
 #include "StartupNative.hpp"
 
 #include "cg/text/Encoding.hpp"
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdlib>
@@ -23,6 +24,7 @@
 #include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <string>
 #include <string_view>
+#include <limits>
 
 #include "cg/core/vm.h"
 
@@ -63,66 +65,108 @@ std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStor
 static_assert(sizeof(int) == 4);
 static_assert(std::endian::native == std::endian::little);
 
-// A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
-__declspec(noinline)
-static bool ParseCommandArgumentValue(
-    const wchar_t* commandLine, const wchar_t* key, std::wstring& outValue)
+struct AutoLoginArgument {
+    std::uint64_t group;
+    std::size_t field; // uu/pw/sv/cv分别对应0/1/2/3。
+    std::size_t begin;
+    std::size_t end;
+    std::wstring_view value; // 借用本次扫描的命令行；消费移动正文后不得继续使用。
+};
+
+// NSM01：只识别独立登录参数；其他参数的引号正文不会被扫描成新会话。
+static bool NextAutoLoginArgument(
+    const std::wstring_view commandLine, std::size_t& cursor, AutoLoginArgument& argument) noexcept
 {
-    if (commandLine == nullptr || key == nullptr) {
-        return false;
-    }
-
-    const wchar_t* p = std::wcsstr(commandLine, key);
-    if (p == nullptr) {
-        return false;
-    }
-    p += std::wcslen(key);
-
-    while (*p == ' ' || *p == '\t') {
-        ++p;
-    }
-    if (*p == '\0') {
-        return false;
-    }
-
-    const wchar_t* start = p;
-    const wchar_t* end = nullptr;
-    if (*p == '"') {
-        start = p + 1;
-        end = std::wcschr(start, '"');
-        if (end == nullptr) {
-            end = start + std::wcslen(start);
+    static constexpr std::array<std::wstring_view, 4> keys {L"/uu", L"/pw", L"/sv", L"/cv"};
+    while (cursor < commandLine.size()) {
+        const auto begin = commandLine.find_first_not_of(L" \t", cursor);
+        if (begin == commandLine.npos) break;
+        std::size_t field = 0;
+        while (field < keys.size() && !commandLine.substr(begin).starts_with(keys[field])) ++field;
+        std::size_t position = begin + 3;
+        std::uint64_t group = 0;
+        bool valid = field < keys.size();
+        if (valid) {
+            while (position < commandLine.size() && commandLine[position] >= L'0' && commandLine[position] <= L'9') {
+                const auto digit = static_cast<std::uint64_t>(commandLine[position] - L'0');
+                if (group > (std::numeric_limits<std::uint64_t>::max() - digit) / 10) {
+                    valid = false;
+                } else if (valid) {
+                    group = group * 10 + digit;
+                }
+                ++position;
+            }
+            valid = valid && position < commandLine.size() && commandLine[position] == L':';
         }
-    } else {
-        end = start;
-        while (*end != '\0' && *end != ' ' && *end != '\t') {
-            ++end;
+        if (valid) {
+            std::size_t valueBegin = position + 1;
+            while (valueBegin < commandLine.size()
+                && (commandLine[valueBegin] == L' ' || commandLine[valueBegin] == L'\t')) ++valueBegin;
+            if (valueBegin > position + 1 && valueBegin < commandLine.size() && commandLine[valueBegin] == L'/') {
+                // 缺值不吞掉下一项，尤其不能将其他编号组作为当前组的正文消费。
+                cursor = position + 1;
+                argument = {group, field, begin, cursor, {}};
+                return true;
+            }
+            const bool quoted = valueBegin < commandLine.size() && commandLine[valueBegin] == L'"';
+            if (quoted) ++valueBegin;
+            auto valueEnd = quoted ? commandLine.find(L'"', valueBegin)
+                : commandLine.find_first_of(L" \t", valueBegin);
+            if (valueEnd == commandLine.npos) valueEnd = commandLine.size();
+            cursor = valueEnd + (quoted && valueEnd < commandLine.size() ? 1 : 0);
+            argument = {group, field, begin, cursor, commandLine.substr(valueBegin, valueEnd - valueBegin)};
+            return true;
+        }
+        bool quoted = false;
+        cursor = begin;
+        while (cursor < commandLine.size()) {
+            const wchar_t character = commandLine[cursor];
+            if (!quoted && (character == L' ' || character == L'\t')) break;
+            if (character == L'"') quoted = !quoted;
+            ++cursor;
         }
     }
-
-    if (end <= start) {
-        return false;
-    }
-    outValue.assign(start, static_cast<std::size_t>(end - start));
-    return !outValue.empty();
+    cursor = commandLine.size();
+    return false;
 }
 
-// A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
-__declspec(noinline)
-static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const wchar_t* commandLine)
+bool FindNextAutoLoginSessionIndex(std::uint64_t& groupIndex) noexcept
 {
-    std::wstring account;
-    std::wstring password;
-    std::wstring serverText;
-    std::wstring characterSlotText;
+    bool found = false;
+    std::size_t cursor = 0;
+    AutoLoginArgument argument {};
+    while (NextAutoLoginArgument(gCommandLine, cursor, argument)) {
+        if (argument.group != 0 && (!found || argument.group < groupIndex)) {
+            groupIndex = argument.group;
+            found = true;
+        }
+    }
+    return found;
+}
+
+// NSM01：各组独立沿A08发布；处理后即消费，不等待登录结果或向其他会话继承。
+__declspec(noinline)
+void ConsumeAutoLoginCommandLine(network::CgConnection& connection, const std::uint64_t groupIndex)
+{
+    std::array<std::wstring, 4> values;
+    std::array<bool, 4> present {};
+    std::size_t cursor = 0;
+    AutoLoginArgument argument {};
+    while (NextAutoLoginArgument(gCommandLine, cursor, argument)) {
+        if (argument.group == groupIndex && !present[argument.field]) {
+            values[argument.field].assign(argument.value);
+            present[argument.field] = true;
+        }
+    }
+    const auto& account = values[0];
+    const auto& password = values[1];
+    const auto& serverText = values[2];
+    const auto& characterSlotText = values[3];
     std::int32_t serverIndex = -1;
     auto& request = connection.LoginRequests();
     VM_LIGHT_START
 
-    if (ParseCommandArgumentValue(commandLine, L"/uu:", account)
-        && ParseCommandArgumentValue(commandLine, L"/pw:", password)
-        && ParseCommandArgumentValue(commandLine, L"/sv:", serverText)
-        && ParseCommandArgumentValue(commandLine, L"/cv:", characterSlotText)) {
+    if (!account.empty() && !password.empty() && !serverText.empty() && !characterSlotText.empty()) {
         wchar_t* endPtr = nullptr;
         long value = std::wcstol(serverText.c_str(), &endPtr, 10);
         serverIndex = (endPtr != nullptr && *endPtr == '\0')
@@ -147,6 +191,21 @@ static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const w
         request.selectedServerIndex = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(serverIndex));
         request.autoLoginPending = true;
+    }
+    for (auto& value : values) {
+        SecureZeroMemory(value.data(), value.size() * sizeof(wchar_t));
+    }
+    cursor = 0;
+    while (NextAutoLoginArgument(gCommandLine, cursor, argument)) {
+        if (argument.group != groupIndex) continue;
+        const std::size_t removed = argument.end - argument.begin;
+        const std::size_t remaining = gCommandLine.size() - removed;
+        // 先在原有效区内移动并清尾，再缩短string，避免向size外写入或留下旧密码尾部。
+        std::char_traits<wchar_t>::move(gCommandLine.data() + argument.begin,
+            gCommandLine.data() + argument.end, gCommandLine.size() - argument.end);
+        SecureZeroMemory(gCommandLine.data() + remaining, removed * sizeof(wchar_t));
+        gCommandLine.resize(remaining);
+        cursor = argument.begin;
     }
     VM_LIGHT_END
 }
@@ -231,7 +290,7 @@ int ParseCommandOptions(network::CgConnection& connection)
     }
     connection.Owner().WorldScene().sceneType = 1;
     const int result = ParseIpOptions_507C80(gCommandLine.c_str());
-    ApplyAutoLoginCommandLine(connection, ::GetCommandLineW());
+    ConsumeAutoLoginCommandLine(connection, 0);
     VM_LIGHT_END
     return result;
 }

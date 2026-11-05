@@ -18,6 +18,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <cwchar>
 #include <deque>
 #include <iterator>
 #include <string>
@@ -42,21 +43,21 @@ int InitializeWindow(session::ClientSession& session)
     // R02：首次 WndInit 前解析原进程参数；重建窗口复用已经发布的布局。
     static bool layoutInitialized = false;
     if (!layoutInitialized) {
-        const char* const commandLine = GetCommandLineA();
+        const wchar_t* const commandLine = gCommandLine.c_str();
         int width = 0;
         int height = 0;
-        const char* option = std::strstr(commandLine, "/width:");
+        const wchar_t* option = std::wcsstr(commandLine, L"/width:");
         if (option == nullptr) {
-            option = std::strstr(commandLine, "/w:");
+            option = std::wcsstr(commandLine, L"/w:");
         }
-        if (option != nullptr && std::sscanf(std::strchr(option, ':') + 1, "%d", &width) == 1) {
+        if (option != nullptr && std::swscanf(std::wcschr(option, L':') + 1, L"%d", &width) == 1) {
             gWindowWidth = width;
         }
-        option = std::strstr(commandLine, "/height:");
+        option = std::wcsstr(commandLine, L"/height:");
         if (option == nullptr) {
-            option = std::strstr(commandLine, "/h:");
+            option = std::wcsstr(commandLine, L"/h:");
         }
-        if (option != nullptr && std::sscanf(std::strchr(option, ':') + 1, "%d", &height) == 1) {
+        if (option != nullptr && std::swscanf(std::wcschr(option, L':') + 1, L"%d", &height) == 1) {
             gWindowHeight = height;
         }
         ui::InitializeWindowLayout(session);

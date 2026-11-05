@@ -16,6 +16,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/platform/CommandOptions.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -243,6 +244,12 @@ int MainLoop(session::ClientSession& initialSession)
         return 0;
     }
     host.Sessions().front().initialized = true;
+    std::uint64_t startupGroup = 0;
+    while (FindNextAutoLoginSessionIndex(startupGroup)) {
+        const auto createdId = CreateClientSession();
+        if (createdId == 0) break; // 既有新增入口已报告失败；未交付的参数不消费、不自动重试。
+        ConsumeAutoLoginCommandLine(host.FindSession(createdId)->Connection(), startupGroup);
+    }
     RefreshSessionWindow();
 
     for (;;) {

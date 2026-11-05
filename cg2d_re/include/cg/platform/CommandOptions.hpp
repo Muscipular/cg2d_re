@@ -43,6 +43,11 @@ extern int ParseIpOptions_507C80(const wchar_t* commandLine);
 // A08：选人入口在状态11且角色存在时调用；仅目标槽成功消费一次标记。
 bool ConsumeAutoLoginCharacterSlot(network::CgConnection& connection, std::uint32_t slot) noexcept;
 
+// NSM01：只查找尚未消费的非0编号组；不创建会话、不修改参数。
+bool FindNextAutoLoginSessionIndex(std::uint64_t& groupIndex) noexcept;
+// 向指定会话发布该组参数并从gCommandLine消费；0同时接受无编号别名，不跨组继承。
+void ConsumeAutoLoginCommandLine(network::CgConnection& connection, std::uint64_t groupIndex);
+
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 
 } // namespace cg::platform

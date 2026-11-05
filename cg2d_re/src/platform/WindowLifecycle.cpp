@@ -140,7 +140,7 @@ static RECT gDragWindow {};
 static UINT gConsumedMouseUps = 0;
 static std::deque<Command> gCommands;
 static std::vector<session::ClientHost::MenuEntry> gEntries;
-static std::wstring gTitle = L"CG2D RE";
+static std::wstring gTitle; // 不以字面量静态填充SSO缓冲区，避免VM自动字符串处理将对象地址当作文本重定向。
 static std::size_t gFirstTab = 0;
 static std::uint64_t gCurrentTab = 0;
 static std::uint64_t gEntriesRefreshTick = 0; // 会话显示快照的毫秒刷新基线。

@@ -146,7 +146,9 @@ void PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port
         {
             // 保留原固定校验值及注释；单路失败不提前退出。
             VM_HARD_START
-            const bool approved = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
+            auto sIn = std::string(address);
+            sIn += "_re.cg.qoq.im";
+            const bool approved = !address.empty() && sha256ToString(sIn)
                 == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
             VM_HARD_END
             return approved;

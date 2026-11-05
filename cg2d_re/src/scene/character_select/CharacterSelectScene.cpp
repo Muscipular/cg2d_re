@@ -1259,7 +1259,7 @@ static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
         L"本程序所涉及的所有版权均归官方所有，未经官方正式授权，",
         L"任何单位或个人不得将本程序用于商业盈利活动。",
         L"若您因误信非官方渠道信息，为使用本程序支付了相关费用，",
-        L"请您及时与收费方沟通并申请退款，",
+        L"请您及时与收费方沟通并申请退款，     ",
         L"由此产生的一切纠纷与本程序提供方无关。",
     }};
     std::array<detail::CharacterModalUiRecord, 2> buttons {{

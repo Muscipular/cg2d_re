@@ -612,7 +612,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
     shop.itemCount = 0;
     shop.items.fill({});
     std::int32_t field = 6;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
@@ -770,7 +770,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
     shop.items.fill({});
     shop.itemCount = 0;
     std::int32_t field = 8;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
             break;
         }
@@ -1083,7 +1083,7 @@ static void WindowShop_RefreshBuyAmount(WindowInstance& callbackWindow)
     if (!currentWindow) return;
     std::int32_t total = 0;
     shop.total = 0;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         const auto* const record = &shop.items[index];
         if (record->used != 0) {
             std::int32_t selected;
@@ -1111,7 +1111,7 @@ static void WindowShop_CountBuySlots(WindowInstance& callbackWindow)
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     std::int32_t total = 0;
     shop.quantity = 0;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         const auto* const record = &shop.items[index];
         if (record->used != 0) {
             std::int32_t divisor;
@@ -1401,7 +1401,7 @@ static void WindowShop_RefreshExchangeAmount(WindowInstance& callbackWindow)
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     std::int32_t total = 0;
     shop.total = 0;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         const auto* const record = &shop.items[index];
         if (record->used != 0) {
             std::int32_t selected;
@@ -1421,7 +1421,7 @@ static void WindowShop_CountExchangeItems(WindowInstance& callbackWindow)
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     std::int32_t total = 0;
     shop.quantity = 0;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         const auto* const record = &shop.items[index];
         if (record->used != 0) {
             std::int32_t selected;
@@ -1735,7 +1735,9 @@ static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t
     } else {
         text.clear();
         std::int32_t count = 0;
-        for (std::int32_t index = 0; index < 20; ++index) {
+        const std::int32_t itemLimit = mode == 0 || mode == 2
+            ? kShopCatalogCapacity : static_cast<std::int32_t>(shop.selectedSlots.size());
+        for (std::int32_t index = 0; index < itemLimit; ++index) {
             const auto* const record = &shop.items[index];
             if (record->used == 0) {
                 continue;
@@ -1817,10 +1819,22 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                     static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
                     break;
                 }
+            } else {
+                std::int32_t selectedKinds = 0;
+                for (const WindowShopItem& item : shop.items) {
+                    if (item.used != 0 && item.selected != 0) {
+                        ++selectedKinds;
+                    }
+                }
+                if (selectedKinds > static_cast<std::int32_t>(shop.confirmationItems.size())) {
+                    shop.message = -3;
+                    static_cast<void>(audio::PlaySe_52C450(*callbackWindow.ownerSession, 55, 320));
+                    break;
+                }
             }
             shop.confirmationCallback = &WindowShop_Submit;
             std::int32_t count = 0;
-            for (std::int32_t item = 0; item < 20; ++item) {
+            for (std::int32_t item = 0; item < kShopCatalogCapacity; ++item) {
                 const auto* const record = &shop.items[item];
                 if (record->used == 0) {
                     continue;
@@ -2636,7 +2650,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
                 }
             }
             std::int32_t available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
-            for (std::int32_t item = 0; item < 20; ++item) {
+            for (std::int32_t item = 0; item < kShopCatalogCapacity; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &shop.items[item].count, sizeof(count));
                 available -= count;
@@ -2674,7 +2688,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             }
             available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             std::int32_t occupied = 0;
-            for (std::int32_t item = 0; item < 20; ++item) {
+            for (std::int32_t item = 0; item < kShopCatalogCapacity; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &shop.items[item].count, sizeof(count));
                 occupied += count;
@@ -2904,7 +2918,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                 }
             }
             std::int32_t available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
-            for (std::int32_t item = 0; item < 20; ++item) {
+            for (std::int32_t item = 0; item < kShopCatalogCapacity; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &shop.items[item].count, sizeof(count));
                 available -= count;

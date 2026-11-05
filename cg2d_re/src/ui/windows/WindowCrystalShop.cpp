@@ -740,7 +740,7 @@ static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::
     std::wstring escaped;
     text.clear();
     std::int32_t count = 0;
-    for (std::int32_t index = 0; index < 20; ++index) {
+    for (std::int32_t index = 0; index < kShopCatalogCapacity; ++index) {
         const WindowCrystalItem& item = crystal.items[index];
         if (item.used != 0) {
             const std::int32_t quantity = item.selectedCount;

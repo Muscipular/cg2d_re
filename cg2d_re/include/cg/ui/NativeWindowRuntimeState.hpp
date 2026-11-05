@@ -203,6 +203,9 @@ struct Window47RuntimeSlots {
     std::wstring textCC426C; // 原全局：0x00CC426C。
 };
 
+// 商品清单扩容到60；背包映射与单次确认仍保留原20槽。
+inline constexpr std::int32_t kShopCatalogCapacity = 60;
+
 // 原CF4FE0的20条商店商品；4B6E00／4B70D0等生产，现代与旧买卖面板共享。
 struct WindowShopItem {
     char used; // 原成员偏移：+0x00；按原字节判非零。
@@ -832,7 +835,7 @@ struct ItemTransferRuntimeState {
 
 // 普通商店及相关窗口共用槽；控件仅借本会话的稳定成员，不拆原跨窗别名。
 struct ShopWindowRuntimeState {
-    std::array<detail::WindowShopItem, 20> items {}; // 原0xCF4FE0。
+    std::array<detail::WindowShopItem, detail::kShopCatalogCapacity> items {}; // 原0xCF4FE0。
     std::int32_t replyItemCount = 0; // 原0xCF4B58。
     std::int32_t dialogType = 0; // 原0xCC3EC8。
     std::int32_t selectionMask = 0; // 原0xCF467C。
@@ -875,7 +878,7 @@ static_assert(sizeof(ShopWindowRuntimeState::selectedSlots) == 20);
 
 // 窗口69的商品及确认层，不与同会话窗口70的独立状态混用。
 struct CrystalShopWindowRuntimeState {
-    std::array<detail::WindowCrystalItem, 20> items {}; // 原0xCB2230。
+    std::array<detail::WindowCrystalItem, detail::kShopCatalogCapacity> items {}; // 原0xCB2230。
     std::int32_t initialized = 0; // 原0xD67B98。
     std::uint8_t flag = 0; // 原0xD2EA5B。
     std::int32_t imageNo = 0; // 原0xCB01F0。
@@ -904,7 +907,7 @@ struct CrystalShopWindowRuntimeState {
 
 // 窗口70保留额外第十协议字段及独立的数量、分页与确认区。
 struct CrystalExchangeShopWindowRuntimeState {
-    std::array<detail::WindowCrystalItem, 20> items {}; // 原0xD30428。
+    std::array<detail::WindowCrystalItem, detail::kShopCatalogCapacity> items {}; // 原0xD30428。
     std::int32_t initialized = 0; // 原0xD67BA4。
     std::uint8_t flag = 0; // 原0xD673D8。
     std::int32_t imageNo = 0; // 原0xD2E43C。

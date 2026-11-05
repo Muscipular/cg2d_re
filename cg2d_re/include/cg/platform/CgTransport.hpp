@@ -29,7 +29,7 @@ struct ConnectionSnapshot {
 // 单工作线程拥有游戏Socket和连接DNS请求；主线程API只借短锁访问有界队列。
 class CgTransport final {
 public:
-    static constexpr std::size_t kQueueCapacity = 0x4000;
+    static constexpr std::size_t kQueueCapacity = 0x10000;
     static constexpr std::size_t kReceiveQueueCapacity = 0x10000;
     CgTransport() noexcept;
     ~CgTransport();

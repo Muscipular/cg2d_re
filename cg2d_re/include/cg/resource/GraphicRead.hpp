@@ -79,7 +79,7 @@ void GetIndependentPaletteColors32(
 // 读取成功后 destination 指针槽必须可写；记录长度或解码输出超限时弹窗后以-2立即退出进程。
 // 源格式的有效性、可访问范围及输出参数约定同 GraphicDecode.hpp，不补原端没有的短读恢复。
 int ReadGraphicDataByIndex(
-    std::int32_t index,
+    const std::int32_t index,
     std::uint8_t** destination,
     std::uint32_t* width,
     std::uint32_t* height,

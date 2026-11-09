@@ -684,15 +684,9 @@ void GetIndependentPaletteColors32(
     tonedColors = record->tonedColors;
 }
 
-[[noreturn]] static void ExitGraphicBufferOversize()
-{
-    ::MessageBoxW(nullptr, L"Graphic decode buffer oversize", L"确认", MB_OK | MB_ICONERROR);
-    std::_Exit(-2);
-}
-
 // 原函数：0x0045A900。
 int ReadGraphicDataByIndex(
-    std::int32_t index,
+    const std::int32_t index,
     std::uint8_t** destination,
     std::uint32_t* width,
     std::uint32_t* height,
@@ -712,19 +706,21 @@ int ReadGraphicDataByIndex(
     }
 
     // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
-    ::_fseeki64(file, static_cast<std::int64_t>(static_cast<std::uint32_t>(info.offset)), SEEK_SET);
+    ::_fseeki64(file, static_cast<std::uint32_t>(info.offset), SEEK_SET);
     std::FILE* const readFile = gGraphicFiles[fileIndex];
     const std::uint32_t sourceLength = info.length;
     if (sourceLength > sizeof(gGraphicReadBuffer)) {
-        ExitGraphicBufferOversize();
+        auto sw = std::format(L"Graphic decode buffer oversize 0 {} {} {}", fileIndex, info.seqNo, info.mapNo);
+        MessageBoxW(nullptr, sw.c_str(), L"确认", MB_OK | MB_ICONERROR);
+        std::_Exit(-2);
     }
-    if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, static_cast<std::uint32_t>(sourceLength), 1, readFile)) != 1) {
+    if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, sourceLength, 1, readFile)) != 1) {
         return 0;
     }
 
     const bool hasPaletteLength = paletteLength != nullptr;
     *destination = gGraphicDecodeBuffer;
-    std::uint32_t length = static_cast<std::uint32_t>(index); // R04：PNG分支借用图号。
+    std::uint32_t length = index; // R04：PNG分支借用图号。
     std::uint32_t ignoredPaletteLength;
     if (!hasPaletteLength) {
         paletteLength = &ignoredPaletteLength;
@@ -735,7 +731,9 @@ int ReadGraphicDataByIndex(
         gGraphicReadBuffer, destination, width, height, &length, paletteLength,
         sizeof(gGraphicDecodeBuffer), oversize) != nullptr;
     if (oversize) {
-        ExitGraphicBufferOversize();
+        auto sw = std::format(L"Graphic decode buffer oversize 0 {} {} {}", fileIndex, info.seqNo, info.mapNo);
+        MessageBoxW(nullptr, sw.c_str(), L"确认", MB_OK | MB_ICONERROR);
+        std::_Exit(-3);
     }
     return decoded ? 1 : 0;
 }

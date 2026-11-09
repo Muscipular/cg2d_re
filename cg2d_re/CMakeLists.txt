@@ -10,6 +10,7 @@ enable_language(C RC)
 
 option(TAOMOLI "启用 TAOMOLI 编译分支" OFF)
 option(TMD "在非Debug配置中启用Themida保护标记" OFF)
+option(CG2D_RANDOMIZE_FUNCTION_ORDER "每次客户端链接时随机排列可排序函数" OFF)
 
 # VG01：vTag由构建者指定；版本头在配置与每次构建时更新，仅内容变化时改写。
 set(vTag "" CACHE STRING "显示版本后缀，例如beta；留空表示无后缀")
@@ -393,6 +394,55 @@ set_target_properties(cg2d_re_client cg2d_re_lz4 yaml-cpp
 # 保留链接映射及EXE导出符号，仅停止生成额外的导入库／导出描述文件。
 target_link_options(cg2d_re_client PRIVATE /NOIMPLIB /NOEXP
     "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re.map")
+
+if(CG2D_RANDOMIZE_FUNCTION_ORDER)
+    find_package(Python3 3.8 REQUIRED COMPONENTS Interpreter)
+    if(CMAKE_GENERATOR MATCHES "^Visual Studio")
+        set(cg2d_re_object_args
+            --object-dir "${CMAKE_CURRENT_BINARY_DIR}/cg2d_re_client.dir/$<CONFIG>")
+    elseif(CMAKE_GENERATOR STREQUAL "Ninja" OR
+            CMAKE_GENERATOR STREQUAL "Ninja Multi-Config")
+        if(NOT IS_ABSOLUTE "${CMAKE_MAKE_PROGRAM}")
+            message(FATAL_ERROR "无法确定Ninja的绝对路径。")
+        endif()
+        if(CMAKE_GENERATOR STREQUAL "Ninja Multi-Config")
+            set(cg2d_re_ninja_file "build-$<CONFIG>.ninja")
+        else()
+            set(cg2d_re_ninja_file "build.ninja")
+        endif()
+        set(cg2d_re_object_args
+            --ninja "${CMAKE_MAKE_PROGRAM}"
+            --ninja-build-file "${cg2d_re_ninja_file}"
+            --binary-dir "${CMAKE_CURRENT_BINARY_DIR}"
+            --target-file "$<TARGET_FILE:cg2d_re_client>")
+    else()
+        message(FATAL_ERROR "函数顺序随机化仅支持Visual Studio或Ninja生成器。")
+    endif()
+    if(NOT IS_ABSOLUTE "${CMAKE_LINKER}")
+        message(FATAL_ERROR "无法确定当前MSVC链接器的绝对路径。")
+    endif()
+    get_filename_component(cg2d_re_linker_dir "${CMAKE_LINKER}" DIRECTORY)
+    set(cg2d_re_dumpbin "${cg2d_re_linker_dir}/dumpbin.exe")
+    if(NOT EXISTS "${cg2d_re_dumpbin}")
+        message(FATAL_ERROR "当前MSVC工具链缺少dumpbin.exe：${cg2d_re_dumpbin}")
+    endif()
+    set(cg2d_re_order_file
+        "${CMAKE_CURRENT_BINARY_DIR}/cg2d_re_client.$<CONFIG>.order")
+    target_compile_options(cg2d_re_client PRIVATE
+        "$<$<COMPILE_LANGUAGE:CXX>:/Gy>")
+    set_property(TARGET cg2d_re_client PROPERTY MSVC_DEBUG_INFORMATION_FORMAT
+        "$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>")
+    target_link_options(cg2d_re_client PRIVATE /INCREMENTAL:NO /WX:4037,4075
+        "/ORDER:@${cg2d_re_order_file}")
+    add_custom_command(TARGET cg2d_re_client PRE_LINK
+        COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/platform/GenerateFunctionOrder.py"
+            ${cg2d_re_object_args}
+            --order-file "${cg2d_re_order_file}"
+            --dumpbin "${cg2d_re_dumpbin}"
+        BYPRODUCTS "${cg2d_re_order_file}"
+        VERBATIM)
+endif()
 
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。
 add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL

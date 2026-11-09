@@ -872,7 +872,7 @@ void RefreshSessionWindow()
     auto& host = session::GetClientHost();
     std::wstring title = L"CG2D RE\0\0\0\0\0\0\0\0";
     if (const auto* current = host.CurrentSession()) {
-        title += L" - ";
+        title += L" - \0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
         title += host.CurrentLabel();
         if (current->Disconnected()) title += L" [断线]\0\0\0\0\0\0\0\0";
         title += L" // 开启者，你今天爆揍一顿小吸兽了吗？\0\0\0\0\0\0\0\0";

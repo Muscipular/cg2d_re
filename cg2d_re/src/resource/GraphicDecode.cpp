@@ -60,13 +60,16 @@ std::uint8_t* ReadGraphicData(
         std::memcpy(target, source, info.length);
         return target;
     }
-    if (source[0] != 0x52 || source[1] != 0x44) {
+    if (source[0] != 0x52 || source[1] != 0x44) { // 'RD'
         return nullptr;
     }
 
     const std::uint8_t flags = source[2];
-    const std::uint32_t width = readUint32Le(source + 0x04);
-    const std::uint32_t height = readUint32Le(source + 0x08);
+    auto width = static_cast<int32_t>(readUint32Le(source + 0x04));
+    auto height = static_cast<int32_t>(readUint32Le(source + 0x08));
+
+    if (width < 0) width = 0;
+    if (height < 0) height = 0;
 
     if ((flags & Compressed) == 0) {
         const std::uint8_t* cursor = source + 0x10;

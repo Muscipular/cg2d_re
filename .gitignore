@@ -15,3 +15,6 @@ CMakeUserPresets.json
 
 third_party/sdl/
 third_party/yaml-cpp/
+
+tmp/
+.tmp/
